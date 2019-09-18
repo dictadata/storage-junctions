@@ -1,11 +1,11 @@
 {
   "name": "@dicta-io/storage-junctions",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A node.js framework for distributed data storage and access.",
   "author": "Drew O. Letcher",
   "license": "MIT",
   "main": "index.js",
-  "repository": "github:@dicta.io/storage-junctions",
+  "repository": "github:dicta.io/storage-junctions",
   "scripts": {
     "test": "set NODE_ENV=development&& node --inspect test/lib/testjunction.js",
     "lint": "eslint lib/**/*.js",
