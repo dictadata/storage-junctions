@@ -27,7 +27,7 @@ async function test() {
     var j2 = storage.create("json|./test/output/|testoutput.json|*", {filename: './test/output/testoutput.json'});
 
     //console.log(">>> get source encoding (codify)");
-    var reader1 = j1.getReadStream({codify: true, max_lines: 1000});
+    var reader1 = j1.getReadStream({codify: true, max_read: 1000});
     var transform1 = j1.getTransform(transformOptions);
     let codify1 = j1.getCodifyTransform();
 

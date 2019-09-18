@@ -20,7 +20,7 @@ async function test() {
     //let encoding = await j1.getEncoding();
 
     console.log(">>> create streams");
-    var reader = j1.getReadStream({codify: true, max_lines: 1000});
+    var reader = j1.getReadStream({codify: true, max_read: 1000});
     var codify = j1.getCodifyTransform();
 
     console.log(">>> start pipe");
