@@ -13,7 +13,7 @@ async function test() {
 
   try {
     console.log(">>> create csv junction");
-    var j1 = storage.create("csv|./test/data/|testfile.csv|*", {filename: './test/data/testfile.csv'});
+    var j1 = storage.create("csv|./test/data/|testfile.csv|*" /*, {filename: './test/data/testfile.csv'} */);
 
     // the normal way is to ask the junction to do it
     //console.log(">>> codify");

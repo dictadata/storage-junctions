@@ -13,8 +13,8 @@ async function test() {
 
   try {
     console.log(">>> create junctions");
-    var j1 = storage.create("csv|./test/data/|testfile.csv|*", {filename: './test/data/testfile.csv'});
-    var j2 = storage.create("csv|./test/output/|testoutput.csv|*", {filename: './test/output/testoutput.csv'});
+    var j1 = storage.create("csv|./test/data/|testfile.csv|*" /*, {filename: './test/data/testfile.csv'} */);
+    var j2 = storage.create("csv|./test/output/|testoutput.csv|*" /*, {filename: './test/output/testoutput.csv'} */);
 
     console.log(">>> get source encoding (codify)");
     let encoding = await j1.getEncoding();
