@@ -45,6 +45,13 @@
         "name": "testelasticsearch",
         "program": "${workspaceFolder}/test/lib/testelasticsearch.js",
         "outputCapture": "std"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "testrest",
+        "program": "${workspaceFolder}/test/lib/testrest.js",
+        "outputCapture": "std"
       }
     ]
 }
