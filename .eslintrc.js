@@ -20,7 +20,7 @@ module.exports = {
     'arrow-parens': ["warn", "as-needed"],
     'generator-star-spacing': 1,
     'quotes': "off",
-    'indent': ['warn', 2, { "MemberExpression": "off" }],
+    'indent': ['warn', 2, { "MemberExpression": "off", "SwitchCase": 1 }],
     'semi': ['warn', 'always'],
     'func-call-spacing': 0,
     'curly': "off",
