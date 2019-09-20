@@ -4,11 +4,11 @@ const storage = require("../../index");
 const stream = require('stream');
 const util = require('util');
 
+const pipeline = util.promisify(stream.pipeline);
+
 console.log(">>> Test: rest");
 
 async function test() {
-
-  const pipeline = util.promisify(stream.pipeline);
 
   try {
     console.log(">>> create junctions");
