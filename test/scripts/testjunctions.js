@@ -7,15 +7,17 @@ const util = require('util');
 
 const pipeline = util.promisify(stream.pipeline);
 
-console.log("<<< Test: echojunction");
+console.log("=== Tests: EchoJunction");
 
-async function test() {
+async function testStream() {
+  console.log("=== testStream");
+
   try {
     console.log(">>> adding EchoJunction");
     storage.use("echo", EchoJunction);
 
     console.log(">>> create junction");
-    var junction = storage.create("echo|local|test|*");
+    var junction = storage.activate("echo|local|test|*");
 
     console.log(">>> create streams");
     var reader = junction.getReadStream({});
@@ -24,6 +26,7 @@ async function test() {
     console.log(">>> start pipe");
     await pipeline(reader,writer);
 
+    await junction.relax();
     console.log(">>> completed");
   }
   catch (err) {
@@ -32,4 +35,8 @@ async function test() {
 
 }
 
-test();
+async function tests() {
+  await testStream();
+}
+
+tests();

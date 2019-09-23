@@ -1,110 +1,29 @@
 "use strict";
 
-const storage = require("../../index");
-const stream = require('stream');
-const util = require('util');
+const recall = require('./_recall');
+const transfer = require('./_transfer');
 
-const pipeline = util.promisify(stream.pipeline);
+console.log("=== Test: mysql");
 
-console.log("<<< Test: mysql");
+async function tests() {
 
-async function test_recall() {
-  console.log("--- TEST RECALL");
+  console.log("=== test recall");
+  await recall({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    key: 1
+  });
 
-  try {
-    console.log(">>> create junction");
-    var junction = storage.create("mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*");
+  console.log("=== test reader");
+  await transfer({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    dst_smt: "csv|./test/output/|mysql_output.csv|*"
+  });
 
-    //console.log(">>> create streams");
-    //var reader = junction.getReadStream({});
-    //var writer = junction.getWriteStream({});
-
-    //console.log(">>> start pipe");
-    //await pipeline(reader,writer);
-
-    let results = await junction.recall({key: 1});
-    console.log(results);
-
-    console.log(">>> completed");
-  }
-  catch (err) {
-    console.error('!!! Pipeline failed', err.message);
-  }
-
+  console.log("=== test writer");
+  await transfer({
+    src_smt: "csv|./test/data/|testfile.csv|*",
+    dst_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|=Foo"
+  });
 }
 
-async function test_reader() {
-  console.log("--- TEST READER");
-
-  try {
-    console.log(">>> create junction");
-    var j1 = storage.create("mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*");
-    var j2 = storage.create("csv|./test/output/|mysql_output.csv|*");
-
-    console.log(">>> get source encoding");
-    let encoding = await j1.getEncoding();
-
-    console.log(">>> encoding results:");
-    console.log(encoding);
-    //console.log(JSON.stringify(encoding.fields));
-
-    console.log(">>> put destination encoding");
-    await j2.putEncoding(encoding);
-
-    console.log(">>> create streams");
-    var reader = j1.getReadStream();
-    var writer = j2.getWriteStream();
-
-    console.log(">>> start pipe");
-    await pipeline(reader, writer);
-
-    console.log(">>> completed");
-  }
-  catch (err) {
-    console.error('!!! Pipeline failed', err.message);
-  }
-
-}
-
-async function test_writer() {
-  console.log("--- TEST WRITER");
-
-  try {
-    console.log(">>> create junction");
-    var j1 = storage.create("csv|./test/data/|testfile.csv|*");
-    var j2 = storage.create("mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*");
-
-    console.log(">>> get source encoding");
-    let encoding = await j1.getEncoding();
-
-    console.log(">>> encoding results:");
-    console.log(encoding);
-    //console.log(JSON.stringify(encoding.fields));
-
-    console.log(">>> put destination encoding");
-    await j2.putEncoding(encoding);
-
-    console.log(">>> create streams");
-    var reader = j1.getReadStream();
-    var writer = j2.getWriteStream();
-
-    console.log(">>> start pipe");
-    await pipeline(reader, writer);
-
-    console.log(">>> completed");
-  }
-  catch (err) {
-    console.error('!!! Pipeline failed', err.message);
-  }
-
-}
-
-async function test_all() {
-
-  await test_recall();
-  await test_reader();
-  await test_writer();
-
-}
-
-test_all();
+tests();

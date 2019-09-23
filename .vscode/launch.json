@@ -50,15 +50,15 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "testrest",
-        "program": "${workspaceFolder}/test/scripts/testrest.js",
+        "name": "testmysql",
+        "program": "${workspaceFolder}/test/scripts/testmysql.js",
         "outputCapture": "std"
       },
       {
         "type": "node",
         "request": "launch",
-        "name": "testmysql",
-        "program": "${workspaceFolder}/test/scripts/testmysql.js",
+        "name": "testrest",
+        "program": "${workspaceFolder}/test/scripts/testrest.js",
         "outputCapture": "std"
       }
     ]

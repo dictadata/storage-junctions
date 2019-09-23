@@ -1,43 +1,32 @@
+/**
+ * test/elasticsearch
+ */
 "use strict";
 
-const storage = require("../../index");
-const stream = require('stream');
-const util = require('util');
-//const CsvJunction = require("../lib/csv");
+const transfer = require('./_transfer');
 
-console.log(">>> Test: elasticsearch");
+console.log("=== Tests: elasticsearch");
 
-async function test() {
+async function tests() {
 
-  const pipeline = util.promisify(stream.pipeline);
+  console.log("=== csv => elasticsearch");
+  await transfer({
+    src_smt: "csv|./test/data/|testfile.csv|*",
+    dst_smt: "elasticsearch|http://localhost:9200|test_input|*"
+  });
 
-  try {
-    console.log(">>> create junctions");
-    var j1 = storage.create("elasticsearch|http://10.0.18.7:9200|api_accounts|*");
-    var j2 = storage.create("elasticsearch|http://10.0.18.7:9200|api_testoutput|*");
+  console.log("=== elasticsearch => elasticsearch");
+  await transfer({
+    src_smt: "elasticsearch|http://localhost:9200|test_input|*",
+    dst_smt: "elasticsearch|http://localhost:9200|test_output|*"
+  });
 
-    console.log(">>> get source encoding (codify)");
-    let encoding = await j1.getEncoding();
+  console.log("=== elasticsearch => csv");
+  await transfer({
+    src_smt: "elasticsearch|http://localhost:9200|test_output|*",
+    dst_smt: "csv|./test/output/|elastic_output.csv|*"
+  });
 
-    console.log(">>> encoding results:");
-    console.log(encoding);
-    //console.log(JSON.stringify(encoding.fields));
-
-    console.log(">>> put destination encoding");
-    await j2.putEncoding(encoding);
-
-    console.log(">>> create streams");
-    var reader = j1.getReadStream();
-    var writer = j2.getWriteStream();
-
-    console.log(">>> start pipe");
-    await pipeline(reader, writer);
-
-    console.log(">>> completed");
-  }
-  catch (err) {
-    console.error('!!! pipeline failed', err.message);
-  }
 }
 
-test();
+tests();
