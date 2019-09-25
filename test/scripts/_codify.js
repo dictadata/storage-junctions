@@ -21,8 +21,8 @@ module.exports = async function (options) {
     let encoding1 = await j1.getEncoding();
     //console.log(JSON.stringify(encoding1, null, "  "));
 
-    console.log(">>> save encoding to output/encoding2.json");
-    fs.writeFileSync('./test/output/encoding1.json', JSON.stringify(encoding1), "utf8");
+    console.log(">>> save encoding to output/codify_encoding1.json");
+    fs.writeFileSync('./test/output/codify_encoding1.json', JSON.stringify(encoding1), "utf8");
 
     // *** stream some data to the codifier
     console.log(">>> create streams");
@@ -35,8 +35,8 @@ module.exports = async function (options) {
     let encoding2 = await codify.getEncoding();
     //console.log(JSON.stringify(encoding2, null, "  "));
 
-    console.log(">>> save encoding to output/encoding2.json");
-    fs.writeFileSync('./test/output/encoding2.json', JSON.stringify(encoding2), "utf8");
+    console.log(">>> save encoding to output/codify_encoding2.json");
+    fs.writeFileSync('./test/output/codify_encoding2.json', JSON.stringify(encoding2), "utf8");
 
     await j1.relax();
     console.log(">>> completed");

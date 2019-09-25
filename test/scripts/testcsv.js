@@ -10,7 +10,7 @@ console.log("=== Test: csv");
 async function tests() {
   await transfer({
     src_smt: "csv|./test/data/|testfile.csv|*",
-    dst_smt: "csv|./test/output/|testoutput.csv|*"
+    dst_smt: "csv|./test/output/|csv_output.csv|*"
   });
 }
 

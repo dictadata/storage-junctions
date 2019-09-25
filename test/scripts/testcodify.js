@@ -1,3 +1,6 @@
+/**
+ * test/codify
+ */
 "use strict";
 
 const codify = require('./_codify');
