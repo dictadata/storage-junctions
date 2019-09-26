@@ -13,7 +13,7 @@ console.log("=== Tests: elasticsearch");
 async function tests() {
 
   console.log("=== elasticsearch store");
-  let id = await store({
+  let uid = await store({
     src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
     construct: {
       Foo: 'twenty',
@@ -24,14 +24,14 @@ async function tests() {
 
   console.log("=== elasticsearch recall");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|" + id
+    src_smt: "elasticsearch|http://localhost:9200|test_input|" + uid
   });
 
   console.log("=== elasticsearch recall");
   await recall({
     src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
     options: {
-      id: id
+      uid: uid
     }
   });
 

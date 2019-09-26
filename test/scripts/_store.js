@@ -11,13 +11,13 @@ module.exports = async function (options) {
     console.log(">>> create junction");
     var junction = storage.activate(options.src_smt);
 
-    let id = await junction.store(options.construct, options.options);
-    console.log(id);
+    let uid = await junction.store(options.construct, options.options);
+    console.log(uid);
 
     await junction.release();
     console.log(">>> completed");
 
-    return id;
+    return uid;
   }
   catch (err) {
     console.error('!!! Pipeline failed', err.message);

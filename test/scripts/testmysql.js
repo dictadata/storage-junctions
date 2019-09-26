@@ -13,21 +13,39 @@ console.log("=== Test: mysql");
 async function tests() {
 
   console.log("=== mysql store");
-  await store({
+  let uid = await store({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|=Foo",
-    construct: {}
+    construct: {
+      Foo: 'twenty',
+      Bar: 123,
+      Biz: 99.9
+    }
   });
 
   console.log("=== mysql recall");
   await recall({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|=Foo",
-    key: 1
+    options: {
+      Foo: 'twenty'
+    }
+  });
+
+  console.log("=== mysql recall");
+  await recall({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    options: {
+      Foo: 'twenty'
+    }
   });
 
   console.log("=== mysql retrieve");
   await retrieve({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
-    pattern: { filter: {} }
+    pattern: {
+      filter: {
+        "Foo": 'twenty'
+      }
+    }
   });
 
 
