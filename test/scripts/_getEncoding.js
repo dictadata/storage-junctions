@@ -1,9 +1,10 @@
 /**
- * test/recall
+ * test/getEncoding
  */
 "use strict";
 
 const storage = require("../../index");
+const fs = require('fs');
 
 module.exports = async function (options) {
 
@@ -11,8 +12,11 @@ module.exports = async function (options) {
   var junction = storage.activate(options.src_smt);
 
   try {
-    let results = await junction.recall(options.options);
-    console.log(results);
+    let encoding = await junction.getEncoding();
+    if (encoding)
+      console.log(JSON.stringify(encoding));
+    else
+      console.log("Could not get storage schema!");
 
     console.log(">>> completed");
   }

@@ -38,7 +38,7 @@ module.exports = async function (options) {
     console.log(">>> completed");
   }
   catch (err) {
-    console.error('!!! pipeline failed', err.message);
+    console.error('!!! request failed', err.message);
   }
   finally {
     await j1.relax();

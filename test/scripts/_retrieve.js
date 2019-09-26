@@ -17,7 +17,7 @@ module.exports = async function (options) {
     console.log(">>> completed");
   }
   catch (err) {
-    console.error('!!! Pipeline failed', err.message);
+    console.error('!!! request failed', err.message);
   }
   finally {
     await junction.relax();

@@ -21,7 +21,7 @@ module.exports = async function (options) {
     if (err.statusCode < 500)
       console.log(err.message);
     else
-      console.error('!!! Pipeline failed', err.message);
+      console.error('!!! request failed', err.message);
   }
   finally {
     await junction.relax();

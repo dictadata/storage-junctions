@@ -33,7 +33,7 @@ async function testStream() {
     console.log(">>> completed");
   }
   catch (err) {
-    console.error('!!! Pipeline failed', err);
+    console.error('!!! request failed', err);
   }
 
 }
