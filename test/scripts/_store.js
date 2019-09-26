@@ -18,7 +18,10 @@ module.exports = async function (options) {
     return uid;
   }
   catch (err) {
-    console.error('!!! Pipeline failed', err.message);
+    if (err.statusCode < 500)
+      console.log(err.message);
+    else
+      console.error('!!! Pipeline failed', err.message);
   }
   finally {
     await junction.relax();

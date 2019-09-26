@@ -30,7 +30,9 @@ module.exports = async function (options) {
     //console.log(JSON.stringify(engram.fields));
 
     //console.log(">>> put destination encoding");
-    await j2.putEncoding(encoding);
+    let result_encoding = await j2.putEncoding(encoding);
+    if (!result_encoding)
+      console.log("could not create storage schema, maybe it already exists");
 
     console.log(">>> create streams");
     var reader = j1.getReadStream();

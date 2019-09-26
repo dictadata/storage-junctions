@@ -14,7 +14,9 @@ module.exports = async function (options) {
   try {
     let encoding = JSON.parse(fs.readFileSync("./test/data/testencoding.json", "utf8"));
 
-    await junction.putEncoding(encoding);
+    let result_encoding = await junction.putEncoding(encoding);
+    if (!result_encoding)
+      console.log("could not create storage schema, maybe it already exists");
 
     console.log(">>> completed");
   }
