@@ -11,10 +11,10 @@ module.exports = async function (options) {
     console.log(">>> create junction");
     var junction = storage.activate(options.src_smt);
 
-    let results = await junction.retrieve(options.pattern);
+    let results = await junction.retrieve(options.pattern, options.options);
     console.log(results);
 
-    await junction.relax();
+    await junction.release();
     console.log(">>> completed");
   }
   catch (err) {

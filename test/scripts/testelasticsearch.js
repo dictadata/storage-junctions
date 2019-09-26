@@ -13,23 +13,37 @@ console.log("=== Tests: elasticsearch");
 async function tests() {
 
   console.log("=== elasticsearch store");
-  await store({
+  let id = await store({
     src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
-    construct: {}
+    construct: {
+      Foo: 'twenty',
+      Bar: 123,
+      Biz: 99.9
+    }
+  });
+
+  console.log("=== elasticsearch recall");
+  await recall({
+    src_smt: "elasticsearch|http://localhost:9200|test_input|" + id
   });
 
   console.log("=== elasticsearch recall");
   await recall({
     src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
-    key: 1
+    options: {
+      id: id
+    }
   });
 
   console.log("=== elasticsearch retrieve");
   await retrieve({
     src_smt: "elasticsearch|http://localhost:9200|test_input|*",
-    pattern: { filter: {} }
+    pattern: {
+      filter: {
+        "Foo": 'twenty'
+      }
+    }
   });
-
 
   console.log("=== csv => elasticsearch");
   await transfer({

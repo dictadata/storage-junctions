@@ -11,10 +11,10 @@ module.exports = async function (options) {
     console.log(">>> create junction");
     var junction = storage.activate(options.src_smt);
 
-    let results = await junction.recall({ key: options.key });
+    let results = await junction.recall(options.options);
     console.log(results);
 
-    await junction.relax();
+    await junction.release();
     console.log(">>> completed");
   }
   catch (err) {

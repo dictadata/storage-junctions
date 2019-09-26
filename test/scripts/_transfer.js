@@ -33,8 +33,8 @@ module.exports = async function (options) {
     console.log(">>> start pipe");
     await pipeline(reader, writer);
 
-    await j1.relax();
-    await j2.relax();
+    await j1.release();
+    await j2.release();
     console.log(">>> completed");
   }
   catch (err) {

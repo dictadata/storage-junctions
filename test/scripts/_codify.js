@@ -38,7 +38,7 @@ module.exports = async function (options) {
     console.log(">>> save encoding to output/codify_encoding2.json");
     fs.writeFileSync('./test/output/codify_encoding2.json', JSON.stringify(encoding2), "utf8");
 
-    await j1.relax();
+    await j1.release();
     console.log(">>> completed");
   }
   catch (err) {
