@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const putEncoding = require('./_putEncoding');
 const store = require('./_store');
 const recall = require('./_recall');
 const retrieve = require('./_retrieve');
@@ -12,13 +13,18 @@ console.log("=== Tests: elasticsearch");
 
 async function tests() {
 
+  console.log("=== elasticsearch putEncoding");
+  await putEncoding({
+    src_smt: "elasticsearch|http://localhost:9200|test_input|*"
+  });
+
   console.log("=== elasticsearch store");
   let uid = await store({
     src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
     construct: {
       Foo: 'twenty',
-      Bar: 123,
-      Biz: 99.9
+      Bar: 'Jackson',
+      Baz: 20
     }
   });
 

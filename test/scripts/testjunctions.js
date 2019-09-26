@@ -29,7 +29,7 @@ async function testStream() {
     console.log(">>> start pipe");
     await pipeline(reader,writer);
 
-    await junction.release();
+    await junction.relax();
     console.log(">>> completed");
   }
   catch (err) {

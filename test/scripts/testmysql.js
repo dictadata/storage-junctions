@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const putEncoding = require('./_putEncoding');
 const store = require('./_store');
 const recall = require('./_recall');
 const retrieve = require('./_retrieve');
@@ -12,13 +13,18 @@ console.log("=== Test: mysql");
 
 async function tests() {
 
+  console.log("=== elasticsearch putEncoding");
+  await putEncoding({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*"
+  });
+
   console.log("=== mysql store");
-  let uid = await store({
+  await store({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|=Foo",
     construct: {
       Foo: 'twenty',
-      Bar: 123,
-      Biz: 99.9
+      Bar: 'Jackson',
+      Baz: 20
     }
   });
 

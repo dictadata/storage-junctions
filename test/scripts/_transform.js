@@ -11,11 +11,11 @@ const pipeline = util.promisify(stream.pipeline);
 
 module.exports = async function (options) {
 
-  try {
-    console.log(">>> create junctions");
-    var j1 = storage.activate(options.src_smt, options.src_options);
-    var j2 = storage.activate(options.dst_smt, options.dst_options);
+  console.log(">>> create junctions");
+  var j1 = storage.activate(options.src_smt, options.src_options);
+  var j2 = storage.activate(options.dst_smt, options.dst_options);
 
+  try {
     //console.log(">>> get source encoding (codify)");
     var reader1 = j1.getReadStream({ codify: true, max_read: 1000 });
     var transform1 = j1.getTransform(options.transforms);
@@ -27,7 +27,7 @@ module.exports = async function (options) {
 
     //console.log(">>> encoding results");
     //console.log(encoding);
-    //console.log(JSON.stringify(engram.encoding.fields));
+    //console.log(JSON.stringify(engram.fields));
 
     //console.log(">>> put destination encoding");
     await j2.putEncoding(encoding);
@@ -40,11 +40,14 @@ module.exports = async function (options) {
     console.log(">>> start pipe");
     await pipeline(reader, transform, writer);
 
-    await j1.dull();
-    await j2.dull();
     console.log(">>> completed");
   }
   catch (err) {
     console.error('!!! pipeline failed', err);
   }
+  finally {
+    await j1.relax();
+    await j2.relax();
+  }
+
 };

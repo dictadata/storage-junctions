@@ -1,9 +1,10 @@
 /**
- * test/store
+ * test/putEncoding
  */
 "use strict";
 
 const storage = require("../../index");
+const fs = require('fs');
 
 module.exports = async function (options) {
 
@@ -11,11 +12,11 @@ module.exports = async function (options) {
   var junction = storage.activate(options.src_smt);
 
   try {
-    let uid = await junction.store(options.construct, options.options);
-    console.log(uid);
+    let encoding = JSON.parse(fs.readFileSync("./test/data/testencoding.json", "utf8"));
+
+    await junction.putEncoding(encoding);
 
     console.log(">>> completed");
-    return uid;
   }
   catch (err) {
     console.error('!!! Pipeline failed', err.message);

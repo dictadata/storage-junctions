@@ -12,10 +12,10 @@ const pipeline = util.promisify(stream.pipeline);
 
 module.exports = async function (options) {
 
-  try {
-    console.log(">>> create junction");
-    var j1 = storage.activate(options.src_smt);
+  console.log(">>> create junction");
+  var j1 = storage.activate(options.src_smt);
 
+  try {
     // *** the normal way is to ask the junction to do it
     console.log(">>> getEncoding");
     let encoding1 = await j1.getEncoding();
@@ -38,10 +38,13 @@ module.exports = async function (options) {
     console.log(">>> save encoding to output/codify_encoding2.json");
     fs.writeFileSync('./test/output/codify_encoding2.json', JSON.stringify(encoding2), "utf8");
 
-    await j1.release();
     console.log(">>> completed");
   }
   catch (err) {
     console.error('!!! pipeline failed', err.message);
   }
+  finally {
+    await j1.relax();
+  }
+
 };
