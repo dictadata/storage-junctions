@@ -9,7 +9,6 @@ exports = module.exports = cortex;
 
 // other storage classes
 exports.Engram = require("./lib/engram");
-exports.Encoding = require("./lib/encoding");
 exports.Field = require("./lib/field");
 exports.Types = require("./lib/types");
 

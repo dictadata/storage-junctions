@@ -27,7 +27,7 @@ module.exports = async function (options) {
 
     //console.log(">>> encoding results");
     //console.log(encoding);
-    //console.log(JSON.stringify(encoding.fields));
+    //console.log(JSON.stringify(engram.encoding.fields));
 
     //console.log(">>> put destination encoding");
     await j2.putEncoding(encoding);
