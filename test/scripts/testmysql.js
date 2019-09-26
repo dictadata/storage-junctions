@@ -8,6 +8,7 @@ const store = require('./_store');
 const recall = require('./_recall');
 const retrieve = require('./_retrieve');
 const transfer = require('./_transfer');
+const dull = require('./_dull');
 
 console.log("=== Test: mysql");
 
@@ -51,6 +52,14 @@ async function tests() {
       filter: {
         "Foo": 'twenty'
       }
+    }
+  });
+
+  console.log("=== mysql dull");
+  await dull({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    options: {
+      Foo: 'twenty'
     }
   });
 

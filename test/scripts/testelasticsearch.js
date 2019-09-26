@@ -8,6 +8,7 @@ const store = require('./_store');
 const recall = require('./_recall');
 const retrieve = require('./_retrieve');
 const transfer = require('./_transfer');
+const dull = require('./_dull');
 
 console.log("=== Tests: elasticsearch");
 
@@ -48,6 +49,14 @@ async function tests() {
       filter: {
         "Foo": 'twenty'
       }
+    }
+  });
+
+  console.log("=== elasticsearch dull");
+  await dull({
+    src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
+    options: {
+      uid: uid
     }
   });
 
