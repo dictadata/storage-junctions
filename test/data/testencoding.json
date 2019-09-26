@@ -10,7 +10,7 @@
       "type": "keyword",
       "size": 0,
       "default": null,
-      "isNullable": true,
+      "isNullable": false,
       "isKey": true,
       "label": "Foo"
     },
