@@ -11,7 +11,7 @@ module.exports = async function (options) {
   var junction = storage.activate(options.src_smt);
 
   try {
-    let results = await junction.retrieve(options.pattern, options.options);
+    let results = await junction.retrieve(options.options);
     console.log(results);
 
     console.log(">>> completed");

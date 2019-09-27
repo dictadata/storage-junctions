@@ -13,8 +13,13 @@ module.exports = async function (options) {
 
   try {
     let encoding = await junction.getEncoding();
-    if (encoding)
-      console.log(JSON.stringify(encoding));
+    if (encoding) {
+      //console.log(JSON.stringify(encoding));
+      if (options.OutputFile) {
+        fs.writeFileSync(options.OutputFile, JSON.stringify(encoding,null,"  "));
+        console.log(options.OutputFile);
+      }
+    }
     else
       console.log("Could not get storage schema!");
 

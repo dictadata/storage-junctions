@@ -12,6 +12,8 @@ exports.Engram = require("./lib/engram");
 exports.Field = require("./lib/field");
 exports.Types = require("./lib/types");
 
+exports.StorageError = require("./lib/storage_error");
+
 // standard junctions
 var CsvJunction = require("./lib/csv");
 cortex.use('csv',CsvJunction);

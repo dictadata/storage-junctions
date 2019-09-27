@@ -48,9 +48,11 @@ async function tests() {
   console.log("=== mysql retrieve");
   await retrieve({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
-    pattern: {
-      filter: {
-        "Foo": 'twenty'
+    options: {
+      pattern: {
+        filter: {
+          "Foo": 'twenty'
+        }
       }
     }
   });
