@@ -63,17 +63,16 @@ async function tests() {
     }
   });
 
-
-  console.log("=== mysql reader");
-  await transfer({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
-    dst_smt: "csv|./test/output/|mysql_output.csv|*"
-  });
-
   console.log("=== mysql writer");
   await transfer({
     src_smt: "csv|./test/data/|testfile.csv|*",
     dst_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*"
+  });
+
+  console.log("=== mysql reader");
+  await transfer({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*",
+    dst_smt: "csv|./test/output/|mysql_output.csv|*"
   });
 }
 

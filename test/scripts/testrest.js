@@ -9,20 +9,26 @@ console.log("=== Test: rest");
 
 async function tests() {
 
+  console.log("Weather Service forecase");
   transfer({
-    src_smt: "rest|https://iportal.panerabread.com/apis/franchise/PANSI001/reporting/foodusage|/period/8|=cafeNumber",
+    src_smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
     src_options: {
-      //baseUrl: 'https://iportal.panerabread.com/apis/franchise/PANSI001/reporting/foodusage',
-      auth: {
-        username: 'api_user_remediumslbofiowa',
-        password: '3c7da24b-5c69-4cf4-b551-eef47cf1c247'
+      headers: {
+        "Accept": "application/ld+json",
+        "User-Agent": "@dicta.io/storage-node contact:drew@dicta.io"
       },
-      //url: '/period/8',
+      auth: {
+        //username: this._options.auth.username,
+        //password: this._options.auth.password
+      },
       params: {
-        cafeNumber: '203201'
-      }
+        // querystring parameters
+      },
+      dataEncoding: "",  // constructs array contains objects i.e. with property names
+      //dataEncoding: "somearray",  // name of property for field names
+      dataConstructs: "periods"  // name of property for constructs array
     },
-    dst_smt: "csv|./test/output/|rest_output.csv|*"
+    dst_smt: "csv|./test/output/|forecast_output.csv|*"
   });
 
 }
