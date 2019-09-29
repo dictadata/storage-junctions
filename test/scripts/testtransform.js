@@ -8,6 +8,7 @@ const transform = require('./_transform');
 console.log("=== Test: transform");
 
 async function tests() {
+  console.log('./test/data/testfile.json');
 
   await transform({
     src_smt: "json|./test/data/|testfile.json|*",
@@ -37,6 +38,7 @@ async function tests() {
     }
   });
 
+  console.log('./test/output/transform_output.json');
 }
 
 tests();
