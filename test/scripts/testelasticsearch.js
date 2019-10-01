@@ -17,19 +17,19 @@ async function tests() {
 
   console.log("=== elasticsearch getEncoding");
   await getEncoding({
-    src_smt: "elasticsearch|http://localhost:9200|api_accounts|!userid",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|!userid",
     OutputFile: './test/output/accounts_encoding.json'
   });
 
 
   console.log("=== elasticsearch putEncoding");
   await putEncoding({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|!Foo"
+    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo"
   });
 
   console.log("=== elasticsearch store");
   let uid = await store({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|!Foo",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
@@ -39,12 +39,12 @@ async function tests() {
 
   console.log("=== elasticsearch recall uid");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|" + uid
+    src_smt: "elasticsearch|http://localhost:9200|test_index|" + uid
   });
 
   console.log("=== elasticsearch recall !");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|!",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|!",
     options: {
       key: uid
     }
@@ -52,7 +52,7 @@ async function tests() {
 
   console.log("=== elasticsearch recall !Foo");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|!Foo",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
     options: {
       Foo: uid
     }
@@ -60,7 +60,7 @@ async function tests() {
 
   console.log("=== elasticsearch recall =Foo");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|=Foo",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|=Foo",
     options: {
       Foo: uid
     }
@@ -68,7 +68,7 @@ async function tests() {
 
   console.log("=== elasticsearch retrieve");
   await retrieve({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|*",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|*",
     options: {
       pattern: {
         filter: {
@@ -80,7 +80,7 @@ async function tests() {
 
   console.log("=== elasticsearch dull");
   await dull({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|!Foo",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
     options: {
       Foo: 'twenty'
     }
@@ -89,12 +89,12 @@ async function tests() {
   console.log("=== csv => elasticsearch");
   await transfer({
     src_smt: "csv|./test/data/|testfile.csv|*",
-    dst_smt: "elasticsearch|http://localhost:9200|test_input|*"
+    dst_smt: "elasticsearch|http://localhost:9200|test_index|*"
   });
 
   console.log("=== elasticsearch => elasticsearch");
   await transfer({
-    src_smt: "elasticsearch|http://localhost:9200|test_input|*",
+    src_smt: "elasticsearch|http://localhost:9200|test_index|*",
     dst_smt: "elasticsearch|http://localhost:9200|test_output|*"
   });
 

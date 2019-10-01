@@ -21,7 +21,7 @@ module.exports = async function (options) {
       }
     }
     else
-      console.log("Could not get storage schema!");
+      console.log("storage schema does not exist!");
 
     console.log(">>> completed");
   }

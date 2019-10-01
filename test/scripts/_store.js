@@ -11,11 +11,11 @@ module.exports = async function (options) {
   var junction = storage.activate(options.src_smt);
 
   try {
-    let uid = await junction.store(options.construct, options.options);
-    console.log(uid);
+    let results = await junction.store(options.construct, options.options);
+    console.log(results);
 
     console.log(">>> completed");
-    return uid;
+    return results.key ? results.key : null;
   }
   catch (err) {
     if (err.statusCode < 500)

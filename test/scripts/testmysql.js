@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const getEncoding = require('./_getEncoding');
 const putEncoding = require('./_putEncoding');
 const store = require('./_store');
 const recall = require('./_recall');
@@ -14,14 +15,19 @@ console.log("=== Test: mysql");
 
 async function tests() {
 
+  console.log("=== elasticsearch getEncoding");
+  await getEncoding({
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
+  });
+
   console.log("=== elasticsearch putEncoding");
   await putEncoding({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*"
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
   });
 
   console.log("=== mysql store");
   await store({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|=Foo",
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
@@ -31,7 +37,7 @@ async function tests() {
 
   console.log("=== mysql recall");
   await recall({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|=Foo",
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
     options: {
       Foo: 'twenty'
     }
@@ -39,7 +45,7 @@ async function tests() {
 
   console.log("=== mysql recall");
   await recall({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
     options: {
       Foo: 'twenty'
     }
@@ -47,7 +53,7 @@ async function tests() {
 
   console.log("=== mysql retrieve");
   await retrieve({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
     options: {
       pattern: {
         filter: {
@@ -59,7 +65,7 @@ async function tests() {
 
   console.log("=== mysql dull");
   await dull({
-    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_table|*",
+    src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
     options: {
       Foo: 'twenty'
     }

@@ -14,8 +14,14 @@ async function tests() {
     src_smt: "csv|./test/data/|testfile.csv|*",
     dst_smt: "csv|./test/output/|csv_output.csv|*"
   });
-
   console.log('./test/output/csv_output.csv');
+
+  await transfer({
+    src_smt: "csv|./test/data/|testfile.csv|*",
+    dst_smt: "json|./test/output/|foo_output.json|*"
+  });
+  console.log('./test/output/json_output.json');
+
 }
 
 tests();
