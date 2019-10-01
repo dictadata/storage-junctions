@@ -5,7 +5,7 @@
   "author": "Drew O. Letcher",
   "license": "MIT",
   "main": "index.js",
-  "repository": "github:dicta.io/storage-junctions",
+  "repository": "github:dicta-io/storage-junctions",
   "scripts": {
     "test": "set NODE_ENV=development&& node --inspect test/lib/testjunction.js",
     "lint": "eslint lib/**/*.js",
