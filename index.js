@@ -39,6 +39,11 @@ var MySQLJunction = require("./lib/mysql");
 cortex.use('mysql',MySQLJunction);
 exports.MySQLJunction = MySQLJunction;
 
+var PostgreSQLJunction = require("./lib/postgresql");
+cortex.use('postgresql',PostgreSQLJunction);
+cortex.use('postgres',PostgreSQLJunction);
+exports.PostgreSQLJunction = PostgreSQLJunction;
+
 var RestJunction = require("./lib/rest");
 cortex.use('rest',RestJunction);
 exports.RestJunction = RestJunction;
