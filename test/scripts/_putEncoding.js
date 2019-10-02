@@ -10,7 +10,7 @@ const fs = require('fs');
 module.exports = async function (options) {
 
   logger.info(">>> create junction");
-  var junction = storage.activate(options.src_smt);
+  var junction = storage.activate(options.source.smt);
 
   try {
     let encoding = JSON.parse(fs.readFileSync("./test/data/testencoding.json", "utf8"));

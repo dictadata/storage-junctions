@@ -13,8 +13,8 @@ const pipeline = util.promisify(stream.pipeline);
 module.exports = async function (options) {
 
   logger.info(">>> create junctions");
-  var j1 = storage.activate(options.src_smt, options.src_options);
-  var j2 = storage.activate(options.dst_smt, options.dst_options);
+  var j1 = storage.activate(options.source.smt, options.source.options);
+  var j2 = storage.activate(options.destination.smt, options.destination.options);
 
   try {
     logger.info(">>> get source encoding (codify)");

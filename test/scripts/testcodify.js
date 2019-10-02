@@ -10,7 +10,10 @@ logger.info("=== tests: Codify");
 
 async function tests() {
   await codify({
-    src_smt: "csv|./test/data/|testfile.csv|*"
+    source: { 
+      smt: "csv|./test/data/|testfile.csv|*",
+      options: {}
+    }
   });
 }
 

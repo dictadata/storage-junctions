@@ -18,19 +18,23 @@ async function tests() {
 
   logger.info("=== elasticsearch getEncoding");
   await getEncoding({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|!userid",
-    OutputFile: './test/output/accounts_encoding.json'
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|!userid"
+    },
+   OutputFile: './test/output/accounts_encoding.json'
   });
-
 
   logger.info("=== elasticsearch putEncoding");
   await putEncoding({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo"
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|!Foo" }
   });
 
   logger.info("=== elasticsearch store");
   let uid = await store({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|!Foo"
+    },
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
@@ -40,40 +44,69 @@ async function tests() {
 
   logger.info("=== elasticsearch recall uid");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|" + uid
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|" + uid }
   });
 
   logger.info("=== elasticsearch recall !");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|!",
-    options: {
-      key: uid
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|!",
+      options: {
+        key: uid
+      }
     }
   });
 
   logger.info("=== elasticsearch recall !Foo");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
-    options: {
-      Foo: uid
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
+      options: {
+        Foo: uid
+      }
     }
   });
 
   logger.info("=== elasticsearch recall =Foo");
   await recall({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|=Foo",
-    options: {
-      Foo: uid
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|=Foo",
+      options: {
+        Foo: uid
+      }
     }
   });
 
   logger.info("=== elasticsearch retrieve");
   await retrieve({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|*",
-    options: {
-      pattern: {
-        filter: {
-          "Foo": 'twenty'
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|*",
+      options: {
+        pattern: {
+          filter: {
+            "Foo": 'twenty'
+          }
+        }
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch retrieve with pattern");
+  await retrieve({
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|*",
+      options: {
+        pattern: {
+          filter: {
+            "Foo": "first",
+            "Baz": { "gte": 0, "lte": 1000 }
+          },
+          cues: {
+            count: 3,
+            order: { "Dt Test": "asc" },
+            fields: ["Foo", "Baz"]
+          }
         }
       }
     }
@@ -81,28 +114,42 @@ async function tests() {
 
   logger.info("=== elasticsearch dull");
   await dull({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
-    options: {
-      Foo: 'twenty'
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
+      options: {
+        Foo: 'twenty'
+      }
     }
   });
 
   logger.info("=== csv => elasticsearch");
   await transfer({
-    src_smt: "csv|./test/data/|testfile.csv|*",
-    dst_smt: "elasticsearch|http://localhost:9200|test_index|*"
+    source: { 
+      smt: "csv|./test/data/|testfile.csv|*"
+    },
+    destination: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|*"
+    }
   });
 
   logger.info("=== elasticsearch => elasticsearch");
   await transfer({
-    src_smt: "elasticsearch|http://localhost:9200|test_index|*",
-    dst_smt: "elasticsearch|http://localhost:9200|test_output|*"
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_index|*"
+    },
+    destination: { 
+      smt: "elasticsearch|http://localhost:9200|test_output|*"
+    }
   });
 
   logger.info("=== elasticsearch => csv");
   await transfer({
-    src_smt: "elasticsearch|http://localhost:9200|test_output|*",
-    dst_smt: "csv|./test/output/|elastic_output.csv|*"
+    source: { 
+      smt: "elasticsearch|http://localhost:9200|test_output|*"
+    },
+    destination: { 
+      smt: "csv|./test/output/|elastic_output.csv|*"
+    }
   });
 
 }

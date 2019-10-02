@@ -9,12 +9,12 @@ const logger = require('../../lib/logger');
 module.exports = async function (options) {
 
   logger.info(">>> create junction");
-  logger.verbose(options.src_smt);
-  logger.verbose(JSON.stringify(options.options));
-  var junction = storage.activate(options.src_smt);
+  logger.verbose(options.source.smt);
+  logger.verbose(JSON.stringify(options.source.options));
+  var junction = storage.activate(options.source.smt);
 
   try {
-    let results = await junction.store(options.construct, options.options);
+    let results = await junction.store(options.construct, options.source.options);
     logger.verbose(JSON.stringify(results));
 
     logger.info(">>> completed");

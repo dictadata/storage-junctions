@@ -12,8 +12,12 @@ async function tests() {
   logger.verbose('./test/data/testfile.json');
 
   await transfer({
-    src_smt: "json|./test/data/|testfile.json|*",
-    dst_smt: "json|./test/output/|json_output.json|*"
+    source: { 
+      smt: "json|./test/data/|testfile.json|*" 
+    },
+    destination: { 
+      smt: "json|./test/output/|json_output.json|*" 
+    }
   });
 
   logger.verbose('./test/output/json_output.json');
