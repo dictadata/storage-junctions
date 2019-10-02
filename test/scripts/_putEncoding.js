@@ -4,11 +4,12 @@
 "use strict";
 
 const storage = require("../../index");
+const logger = require('../../lib/logger');
 const fs = require('fs');
 
 module.exports = async function (options) {
 
-  console.log(">>> create junction");
+  logger.info(">>> create junction");
   var junction = storage.activate(options.src_smt);
 
   try {
@@ -16,12 +17,12 @@ module.exports = async function (options) {
 
     let result_encoding = await junction.putEncoding(encoding);
     if (!result_encoding)
-      console.log("could not create storage schema, maybe it already exists");
+      logger.warn("could not create storage schema, maybe it already exists");
 
-    console.log(">>> completed");
+    logger.info(">>> completed");
   }
   catch (err) {
-    console.error('!!! request failed', err.message);
+    logger.error('!!! request failed: ' + err.message);
   }
   finally {
     await junction.relax();

@@ -4,41 +4,41 @@
 "use strict";
 
 const storage = require("../../index");
-const util = require('util');
+const logger = require('../../lib/logger');
 const stream = require('stream');
+const util = require('util');
 
 const pipeline = util.promisify(stream.pipeline);
 
 module.exports = async function (options) {
 
-  console.log(">>> create junctions");
+  logger.info(">>> create junctions");
   var j1 = storage.activate(options.src_smt, options.src_options);
   var j2 = storage.activate(options.dst_smt, options.dst_options);
 
   try {
-    console.log(">>> get source encoding (codify)");
+    logger.info(">>> get source encoding (codify)");
     let encoding = await j1.getEncoding();
 
-    //console.log(">>> encoding results:");
-    //console.log(encoding);
-    //console.log(JSON.stringify(engram.fields));
+    logger.debug(">>> encoding results:");
+    logger.debug(JSON.stringify(encoding));
 
-    console.log(">>> put destination encoding");
+    logger.info(">>> put destination encoding");
     let result_encoding = await j2.putEncoding(encoding);
     if (!result_encoding)
-      console.log("could not create storage schema, maybe it already exists");
+      logger.warn("could not create storage schema, maybe it already exists");
 
-    console.log(">>> create streams");
+    logger.info(">>> create streams");
     var reader = j1.getReadStream();
     var writer = j2.getWriteStream();
 
-    console.log(">>> start pipe");
+    logger.info(">>> start pipe");
     await pipeline(reader, writer);
 
-    console.log(">>> completed");
+    logger.info(">>> completed");
   }
   catch (err) {
-    console.error('!!! request failed', err.message);
+    logger.error('!!! request failed: ' + err.message);
   }
   finally {
     await j1.relax();

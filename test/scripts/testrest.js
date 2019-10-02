@@ -4,12 +4,14 @@
 "use strict";
 
 const transfer = require('./_transfer');
+const logger = require('../../lib/logger');
 
-console.log("=== Test: rest");
+
+logger.info("=== Test: rest");
 
 async function tests() {
 
-  console.log("Weather Service forecase");
+  logger.verbose("Weather Service forecast");
   transfer({
     src_smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
     src_options: {

@@ -4,8 +4,9 @@
 "use strict";
 
 const codify = require('./_codify');
+const logger = require('../../lib/logger');
 
-console.log("=== tests: Codify");
+logger.info("=== tests: Codify");
 
 async function tests() {
   await codify({

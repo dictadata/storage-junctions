@@ -4,29 +4,30 @@
 "use strict";
 
 const storage = require("../../index");
+const logger = require('../../lib/logger');
 const fs = require('fs');
 
 module.exports = async function (options) {
 
-  console.log(">>> create junction");
+  logger.info(">>> create junction");
   var junction = storage.activate(options.src_smt);
 
   try {
     let encoding = await junction.getEncoding();
     if (encoding) {
-      //console.log(JSON.stringify(encoding));
+      logger.debug(JSON.stringify(encoding));
       if (options.OutputFile) {
         fs.writeFileSync(options.OutputFile, JSON.stringify(encoding,null,"  "));
-        console.log(options.OutputFile);
+        logger.verbose(options.OutputFile);
       }
     }
     else
-      console.log("storage schema does not exist!");
+      logger.warn("storage schema does not exist!");
 
-    console.log(">>> completed");
+    logger.info(">>> completed");
   }
   catch (err) {
-    console.error('!!! request failed', err.message);
+    logger.error('!!! request failed: ' + err.message);
   }
   finally {
     await junction.relax();

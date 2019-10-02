@@ -10,22 +10,23 @@ const recall = require('./_recall');
 const retrieve = require('./_retrieve');
 const transfer = require('./_transfer');
 const dull = require('./_dull');
+const logger = require('../../lib/logger');
 
-console.log("=== Test: mysql");
+logger.info("=== Test: mysql");
 
 async function tests() {
 
-  console.log("=== elasticsearch getEncoding");
+  logger.info("=== elasticsearch getEncoding");
   await getEncoding({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
   });
 
-  console.log("=== elasticsearch putEncoding");
+  logger.info("=== elasticsearch putEncoding");
   await putEncoding({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
   });
 
-  console.log("=== mysql store");
+  logger.info("=== mysql store");
   await store({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
     construct: {
@@ -35,7 +36,7 @@ async function tests() {
     }
   });
 
-  console.log("=== mysql recall");
+  logger.info("=== mysql recall");
   await recall({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
     options: {
@@ -43,7 +44,7 @@ async function tests() {
     }
   });
 
-  console.log("=== mysql recall");
+  logger.info("=== mysql recall");
   await recall({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
     options: {
@@ -51,7 +52,7 @@ async function tests() {
     }
   });
 
-  console.log("=== mysql retrieve");
+  logger.info("=== mysql retrieve");
   await retrieve({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
     options: {
@@ -63,7 +64,7 @@ async function tests() {
     }
   });
 
-  console.log("=== mysql dull");
+  logger.info("=== mysql dull");
   await dull({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
     options: {
@@ -71,13 +72,13 @@ async function tests() {
     }
   });
 
-  console.log("=== mysql writer");
+  logger.info("=== mysql writer");
   await transfer({
     src_smt: "csv|./test/data/|testfile.csv|*",
     dst_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*"
   });
 
-  console.log("=== mysql reader");
+  logger.info("=== mysql reader");
   await transfer({
     src_smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*",
     dst_smt: "csv|./test/output/|mysql_output.csv|*"

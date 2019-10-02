@@ -1,65 +1,88 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testjunction",
-        "program": "${workspaceFolder}/test/scripts/testjunctions.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testcodify",
-        "program": "${workspaceFolder}/test/scripts/testcodify.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testcsv",
-        "program": "${workspaceFolder}/test/scripts/testcsv.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testjson",
-        "program": "${workspaceFolder}/test/scripts/testjson.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testtransform",
-        "program": "${workspaceFolder}/test/scripts/testtransform.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testelasticsearch",
-        "program": "${workspaceFolder}/test/scripts/testelasticsearch.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testmysql",
-        "program": "${workspaceFolder}/test/scripts/testmysql.js",
-        "outputCapture": "std"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "testrest",
-        "program": "${workspaceFolder}/test/scripts/testrest.js",
-        "outputCapture": "std"
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testjunction",
+      "program": "${workspaceFolder}/test/scripts/testjunctions.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
       }
-    ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testcodify",
+      "program": "${workspaceFolder}/test/scripts/testcodify.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testcsv",
+      "program": "${workspaceFolder}/test/scripts/testcsv.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testjson",
+      "program": "${workspaceFolder}/test/scripts/testjson.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testtransform",
+      "program": "${workspaceFolder}/test/scripts/testtransform.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testelasticsearch",
+      "program": "${workspaceFolder}/test/scripts/testelasticsearch.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testmysql",
+      "program": "${workspaceFolder}/test/scripts/testmysql.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testrest",
+      "program": "${workspaceFolder}/test/scripts/testrest.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    }
+  ]
 }

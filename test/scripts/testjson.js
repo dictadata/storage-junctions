@@ -4,18 +4,19 @@
 "use strict";
 
 const transfer = require('./_transfer');
+const logger = require('../../lib/logger');
 
-console.log("=== Test: json");
+logger.info("=== Test: json");
 
 async function tests() {
-  console.log('./test/data/testfile.json');
+  logger.verbose('./test/data/testfile.json');
 
   await transfer({
     src_smt: "json|./test/data/|testfile.json|*",
     dst_smt: "json|./test/output/|json_output.json|*"
   });
 
-  console.log('./test/output/json_output.json');
+  logger.verbose('./test/output/json_output.json');
 }
 
 tests();

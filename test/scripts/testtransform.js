@@ -4,11 +4,12 @@
 "use strict";
 
 const transform = require('./_transform');
+const logger = require('../../lib/logger');
 
-console.log("=== Test: transform");
+logger.info("=== Test: transform");
 
 async function tests() {
-  console.log('./test/data/testfile.json');
+  logger.verbose('./test/data/testfile.json');
 
   await transform({
     src_smt: "json|./test/data/|testfile.json|*",
@@ -38,7 +39,7 @@ async function tests() {
     }
   });
 
-  console.log('./test/output/transform_output.json');
+  logger.verbose('./test/output/transform_output.json');
 }
 
 tests();

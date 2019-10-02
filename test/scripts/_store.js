@@ -4,24 +4,25 @@
 "use strict";
 
 const storage = require("../../index");
+const logger = require('../../lib/logger');
 
 module.exports = async function (options) {
 
-  console.log(">>> create junction");
+  logger.info(">>> create junction");
   var junction = storage.activate(options.src_smt);
 
   try {
     let results = await junction.store(options.construct, options.options);
-    console.log(results);
+    logger.info(results);
 
-    console.log(">>> completed");
+    logger.info(">>> completed");
     return results.key ? results.key : null;
   }
   catch (err) {
     if (err.statusCode < 500)
-      console.log(err.message);
+      logger.warn(err.message);
     else
-      console.error('!!! request failed', err.message);
+      logger.error('!!! request failed: ' + err.message);
   }
   finally {
     await junction.relax();
