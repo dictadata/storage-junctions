@@ -16,21 +16,23 @@ logger.info("=== Test: mysql");
 
 async function tests() {
 
-  logger.info("=== elasticsearch getEncoding");
-  await getEncoding({
-    source: { 
+  logger.info("=== elasticsearch putEncoding");
+  await putEncoding({
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*" }
   });
 
-  logger.info("=== elasticsearch putEncoding");
-  await putEncoding({
-    source: { 
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*" }
+  logger.info("=== elasticsearch getEncoding");
+  await getEncoding({
+    source: {
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
+    },
+    OutputFile: './test/output/mysql_foo_encoding.json'
   });
 
   logger.info("=== mysql store");
   await store({
-    source: { 
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
       construct: {
         Foo: 'twenty',
@@ -42,7 +44,7 @@ async function tests() {
 
   logger.info("=== mysql recall");
   await recall({
-    source: { 
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
       options: {
         Foo: 'twenty'
@@ -52,7 +54,7 @@ async function tests() {
 
   logger.info("=== mysql recall");
   await recall({
-    source: { 
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
       options: {
         Foo: 'twenty'
@@ -62,7 +64,7 @@ async function tests() {
 
   logger.info("=== mysql retrieve");
   await retrieve({
-    source: { 
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
       options: {
         pattern: {
@@ -76,7 +78,7 @@ async function tests() {
 
   logger.info("=== mysql retrieve with pattern");
   await retrieve({
-    source: { 
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
       options: {
         pattern: {
@@ -96,7 +98,7 @@ async function tests() {
 
   logger.info("=== mysql dull");
   await dull({
-    source: { 
+    source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
       options: {
         Foo: 'twenty'
@@ -106,20 +108,20 @@ async function tests() {
 
   logger.info("=== mysql writer");
   await transfer({
-    source: { 
+    source: {
       smt: "csv|./test/data/|testfile.csv|*"
     },
-    destination: { 
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*"
+    destination: {
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_transfer|*"
     }
   });
 
   logger.info("=== mysql reader");
   await transfer({
-    source: { 
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_writer|*"
+    source: {
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_transfer|*"
     },
-    destination: { 
+    destination: {
       smt: "csv|./test/output/|mysql_output.csv|*"
     }
   });

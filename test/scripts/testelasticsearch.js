@@ -16,24 +16,24 @@ logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  logger.info("=== elasticsearch getEncoding");
-  await getEncoding({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|!userid"
-    },
-   OutputFile: './test/output/accounts_encoding.json'
-  });
-
   logger.info("=== elasticsearch putEncoding");
   await putEncoding({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|!Foo" }
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo" }
+  });
+
+  logger.info("=== elasticsearch getEncoding");
+  await getEncoding({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!userid"
+    },
+    OutputFile: './test/output/elasticsearch_foo_encoding.json'
   });
 
   logger.info("=== elasticsearch store");
   let uid = await store({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|!Foo"
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo"
     },
     construct: {
       Foo: 'twenty',
@@ -44,14 +44,14 @@ async function tests() {
 
   logger.info("=== elasticsearch recall uid");
   await recall({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|" + uid }
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|" + uid }
   });
 
   logger.info("=== elasticsearch recall !");
   await recall({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|!",
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!",
       options: {
         key: uid
       }
@@ -60,8 +60,8 @@ async function tests() {
 
   logger.info("=== elasticsearch recall !Foo");
   await recall({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo",
       options: {
         Foo: uid
       }
@@ -70,8 +70,8 @@ async function tests() {
 
   logger.info("=== elasticsearch recall =Foo");
   await recall({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|=Foo",
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|=Foo",
       options: {
         Foo: uid
       }
@@ -80,8 +80,8 @@ async function tests() {
 
   logger.info("=== elasticsearch retrieve");
   await retrieve({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|*",
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
       options: {
         pattern: {
           filter: {
@@ -94,8 +94,8 @@ async function tests() {
 
   logger.info("=== elasticsearch retrieve with pattern");
   await retrieve({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|*",
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
       options: {
         pattern: {
           filter: {
@@ -114,8 +114,8 @@ async function tests() {
 
   logger.info("=== elasticsearch dull");
   await dull({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|!Foo",
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo",
       options: {
         Foo: 'twenty'
       }
@@ -124,30 +124,30 @@ async function tests() {
 
   logger.info("=== csv => elasticsearch");
   await transfer({
-    source: { 
+    source: {
       smt: "csv|./test/data/|testfile.csv|*"
     },
-    destination: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|*"
+    destination: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*"
     }
   });
 
   logger.info("=== elasticsearch => elasticsearch");
   await transfer({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_index|*"
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*"
     },
-    destination: { 
-      smt: "elasticsearch|http://localhost:9200|test_output|*"
+    destination: {
+      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
     }
   });
 
   logger.info("=== elasticsearch => csv");
   await transfer({
-    source: { 
-      smt: "elasticsearch|http://localhost:9200|test_output|*"
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
     },
-    destination: { 
+    destination: {
       smt: "csv|./test/output/|elastic_output.csv|*"
     }
   });

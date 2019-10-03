@@ -13,7 +13,7 @@ module.exports = async function (options) {
   var junction = storage.activate(options.source.smt);
 
   try {
-    let encoding = JSON.parse(fs.readFileSync("./test/data/testencoding.json", "utf8"));
+    let encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding.json", "utf8"));
 
     let result_encoding = await junction.putEncoding(encoding);
     if (!result_encoding)

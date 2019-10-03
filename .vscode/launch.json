@@ -17,6 +17,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "testcodify",
+      "program": "${workspaceFolder}/test/scripts/testcodify.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "testcsv",
       "program": "${workspaceFolder}/test/scripts/testcsv.js",
       "outputCapture": "std",
@@ -29,26 +39,6 @@
       "request": "launch",
       "name": "testjson",
       "program": "${workspaceFolder}/test/scripts/testjson.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "testcodify",
-      "program": "${workspaceFolder}/test/scripts/testcodify.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "testtransform",
-      "program": "${workspaceFolder}/test/scripts/testtransform.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -79,6 +69,16 @@
       "request": "launch",
       "name": "testrest",
       "program": "${workspaceFolder}/test/scripts/testrest.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "testtransform",
+      "program": "${workspaceFolder}/test/scripts/testtransform.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"

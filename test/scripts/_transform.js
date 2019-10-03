@@ -4,6 +4,8 @@
 "use strict";
 
 const storage = require("../../index");
+const Field = storage.Field;
+const Types = storage.Types;
 const logger = require('../../lib/logger');
 const stream = require('stream');
 const util = require('util');
@@ -19,6 +21,10 @@ module.exports = async function (options) {
   try {
     logger.debug(">>> get source encoding (codify)");
     let encoding = await j1.getEncoding();
+
+    for (let [name,value] of Object.entries(options.transforms.inject)) {
+      encoding.add(new Field({name: name, type: Types.storageType(value)}));
+    }
 
     logger.debug(">>> encoding results");
     logger.debug(JSON.stringify(encoding.fields));
