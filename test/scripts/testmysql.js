@@ -16,13 +16,13 @@ logger.info("=== Test: mysql");
 
 async function tests() {
 
-  logger.info("=== elasticsearch putEncoding");
+  logger.info("=== mysql putEncoding");
   await putEncoding({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*" }
   });
 
-  logger.info("=== elasticsearch getEncoding");
+  logger.info("=== mysql getEncoding");
   await getEncoding({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"

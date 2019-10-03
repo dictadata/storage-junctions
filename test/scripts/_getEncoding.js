@@ -14,15 +14,16 @@ module.exports = async function (options) {
 
   try {
     let encoding = await junction.getEncoding();
-    if (encoding) {
-      logger.debug(JSON.stringify(encoding));
+    if (typeof encoding === 'object') {
+      logger.verbose(JSON.stringify(encoding));
+
       if (options.OutputFile) {
         fs.writeFileSync(options.OutputFile, JSON.stringify(encoding,null,"  "));
         logger.verbose(options.OutputFile);
       }
     }
     else
-      logger.warn("storage schema does not exist!");
+      logger.warn("storage schema was: " + encoding);
 
     logger.info(">>> completed");
   }
