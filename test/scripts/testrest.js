@@ -61,7 +61,7 @@ async function testTransfer() {
       }
     },
     destination: {
-      smt: "csv|./test/output/|forecast_output.csv|*",
+      smt: "csv|./test/output/|forecast_output2.csv|*",
       options: {}
     }
   });

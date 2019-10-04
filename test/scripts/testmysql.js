@@ -43,6 +43,19 @@ async function tests() {
     }
   });
 
+  logger.info("=== mysql store");
+  await store({
+    source: {
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
+    },
+    construct: {
+      Foo: 'twenty',
+      Bar: 'Jackson',
+      Baz: 30,
+      enabled: false
+    }
+  });
+
   logger.info("=== mysql recall");
   await recall({
     source: {
