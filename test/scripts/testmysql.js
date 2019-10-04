@@ -16,12 +16,6 @@ logger.info("=== Test: mysql");
 
 async function tests() {
 
-  logger.info("=== mysql putEncoding");
-  await putEncoding({
-    source: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*" }
-  });
-
   logger.info("=== mysql getEncoding");
   await getEncoding({
     source: {
@@ -30,15 +24,22 @@ async function tests() {
     OutputFile: './test/output/mysql_foo_encoding.json'
   });
 
+  logger.info("=== mysql putEncoding");
+  await putEncoding({
+    source: {
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
+    }
+  });
+
   logger.info("=== mysql store");
   await store({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
-      construct: {
-        Foo: 'twenty',
-        Bar: 'Jackson',
-        Baz: 20
-      }
+    },
+    construct: {
+      Foo: 'twenty',
+      Bar: 'Jackson',
+      Baz: 20
     }
   });
 

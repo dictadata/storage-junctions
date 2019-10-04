@@ -16,18 +16,19 @@ logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  logger.info("=== elasticsearch putEncoding");
-  await putEncoding({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo" }
-  });
-
   logger.info("=== elasticsearch getEncoding");
   await getEncoding({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|!userid"
     },
     OutputFile: './test/output/elasticsearch_foo_encoding.json'
+  });
+
+  logger.info("=== elasticsearch putEncoding");
+  await putEncoding({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo"
+    }
   });
 
   logger.info("=== elasticsearch store");

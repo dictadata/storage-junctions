@@ -17,7 +17,7 @@ module.exports = async function (options) {
 
     let newencoding = await junction.putEncoding(encoding);
     if (typeof newencoding === 'object')
-      logger.verbose(newencoding);
+      logger.verbose(JSON.stringify(newencoding));
     else
       logger.warn("could not create storage schema: " + newencoding);
 
