@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== elasticsearch getEncoding");
   await getEncoding({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|!userid"
+      smt: "elasticsearch|http://localhost:9200|test_schema|*"
     },
     OutputFile: './test/output/elasticsearch_foo_encoding.json'
   });
