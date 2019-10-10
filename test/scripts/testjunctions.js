@@ -20,7 +20,14 @@ async function testStream() {
   storage.use("echo", EchoJunction);
 
   logger.info(">>> create junction");
-  var junction = storage.activate("echo|local|test|*");
+  var junction = storage.activate({
+    smt: {
+      model:"echo",
+      locus: "somewhere",
+      schema: "container",
+      key: "*"
+    }
+  });
 
   logger.info(">>> create streams");
   var reader = junction.getReadStream({});
