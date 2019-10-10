@@ -92,7 +92,7 @@ async function testDBTransform() {
 async function weatherTransform(options) {
 
   let engram = new Engram(options.destination.smt);
-  logger.info("transfer REST to " + engram.model);
+  logger.info("transfer REST to " + engram.smt.model);
 
   await transform({
     source: {
