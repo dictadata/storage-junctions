@@ -9,6 +9,50 @@ const logger = require('../../lib/logger');
 
 logger.info("=== Test: transform");
 
+async function testEtlTransform() {
+  logger.info("<<< transfer/transform json to elasticsearch");
+  logger.verbose('./test/data/testfile.json');
+
+  await transform({
+    "source": {
+      "smt": "json|./test/data/|input.json|*",
+      "options": {}
+    },
+    "destination": {
+      "smt": "elasticsearch|http://localhost:9200|etl-2|=Foo",
+      "options": {}
+    },
+    "transforms": {
+      "inject": {
+        "Fie": "where's fum?"
+      },
+      "match": {
+        "Bar": {
+          "op": "eq",
+          "value": "row"
+        }
+      },
+      "drop": {
+        "Baz": {
+          "op": "eq",
+          "value": 5678
+        }
+      },
+      "mapping": {
+        "Foo": "foo",
+        "Bar": "bar",
+        "Baz": "baz",
+        "Fobe": "fobe",
+        "Dt Test": "dt_test",
+        "enabled": "enabled",
+        "subObj1.state": "state",
+        "subObj2.subsub.izze": "izze"
+      }
+    }
+  });
+
+}
+
 async function testFileTransform() {
 
   logger.info("<<< transfer json to csv");
@@ -102,8 +146,11 @@ async function weatherTransform(options) {
           "Accept": "application/ld+json",
           "User-Agent": "@dicta.io/storage-node contact:drew@dicta.io"
         },
-        dataEncoding: "",  // data array contains objects i.e. with property names
-        dataConstructs: "periods"  // data array property name
+        extract: {
+          encoding: "",  // name of property containing an array of field headers
+          // empty denotes data array contains json objects
+          data: "periods"  // name of property for data array (objects or values)
+        }
       }
     },
     "destination": {
@@ -120,6 +167,7 @@ async function weatherTransform(options) {
 }
 
 async function tests() {
+  await testEtlTransform();
   await testFileTransform();
   await testDBTransform();
   await weatherTransform({ destination: { smt: "elasticsearch|http://localhost:9200|test_weather|=Foo"}});

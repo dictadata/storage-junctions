@@ -28,9 +28,11 @@ async function testRetrieve() {
         params: {
           // querystring parameters
         },
-        dataEncoding: "",  // constructs array contains objects i.e. with property names
-        //dataEncoding: "somearray",  // name of property for field names
-        dataConstructs: "periods"  // name of property for constructs array
+        extract: {
+          encoding: "",  // name of property containing an array of field headers
+                         // empty denotes data array contains json objects
+          data: "periods"  // name of property for data array (objects or values)
+        }
       }
     }
   });
@@ -55,9 +57,11 @@ async function testTransfer() {
         params: {
           // querystring parameters
         },
-        dataEncoding: "",  // constructs array contains objects i.e. with property names
-        //dataEncoding: "somearray",  // name of property for field names
-        dataConstructs: "periods"  // name of property for constructs array
+        extract: {
+          encoding: "",  // name of property containing an array of field headers
+          // empty denotes data array contains json objects
+          data: "periods"  // name of property for data array (objects or values)
+        }
       }
     },
     destination: {
