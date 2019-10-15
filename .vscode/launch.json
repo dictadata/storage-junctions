@@ -81,7 +81,7 @@
       "program": "${workspaceFolder}/test/scripts/testconsolidate.js",
       "outputCapture": "std",
       "env": {
-        "LOG_LEVEL": "debug"
+        "LOG_LEVEL": "verbose"
       }
     },
     {
