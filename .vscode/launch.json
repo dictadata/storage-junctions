@@ -77,8 +77,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "testretrieve",
-      "program": "${workspaceFolder}/test/scripts/testretrieve.js",
+      "name": "testconsolidate",
+      "program": "${workspaceFolder}/test/scripts/testconsolidate.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "debug"

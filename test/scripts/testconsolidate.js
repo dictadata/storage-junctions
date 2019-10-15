@@ -85,24 +85,6 @@ async function tests() {
     }
   });
 
-  logger.info("=== elasticsearch consolidate w/ groupby");
-  await retrieve({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|api_docs|*",
-      options: {
-        "pattern": {
-          "match": {
-            "context": "keyword1"
-          },
-          "cues": {
-            "fields": ["docid", "compilation", "title"],
-            "order": { "compilation": "asc" }
-          }
-        }
-      }
-    }
-  });
-
 }
 
 tests();
