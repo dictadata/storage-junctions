@@ -100,7 +100,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
       options: {
         pattern: {
-          filter: {
+          match: {
             "Foo": 'twenty'
           }
         }
@@ -114,7 +114,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
       options: {
         pattern: {
-          filter: {
+          match: {
             "Foo": "first",
             "Baz": { "gte": 0, "lte": 1000 }
           },

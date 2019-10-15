@@ -82,7 +82,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
       options: {
         pattern: {
-          filter: {
+          match: {
             "Foo": 'twenty'
           }
         }
@@ -96,7 +96,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
       options: {
         pattern: {
-          filter: {
+          match: {
             "Foo": "first",
             "Baz": { "gte": 0, "lte": 1000 }
           },
