@@ -1,7 +1,7 @@
 {
-  "model": "any",
-  "locus": "somewhere",
-  "schema": "test",
+  "model": "*",
+  "locus": "*",
+  "schema": "test_schema",
   "key": "*",
   "fields": {
     "Foo": {
@@ -15,7 +15,7 @@
     },
     "Bar": {
       "name": "Bar",
-      "type": "text",
+      "type": "keyword",
       "size": 0,
       "default": null,
       "isNullable": true,

@@ -1,0 +1,108 @@
+/**
+ * test/elasticsearch
+ */
+"use strict";
+
+const retrieve = require('./_retrieve');
+const logger = require('../../lib/logger');
+
+logger.info("=== Tests: retreive");
+
+async function tests() {
+
+  logger.info("=== elasticsearch retrieve");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      options: {
+        pattern: {
+          match: {
+            "Foo": 'twenty'
+          }
+        }
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch retrieve with pattern");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      options: {
+        pattern: {
+          match: {
+            "Bar": "row",
+            "Baz": { "gte": 0, "lte": 1000 }
+          },
+          cues: {
+            count: 3,
+            order: { "Dt Test": "asc" },
+            fields: ["Foo", "Baz"]
+          }
+        }
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch consolidate");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      options: {
+        pattern: {
+          match: {
+            "Bar": "row",
+            "Baz": { "gte": 0, "lte": 1000 }
+          },
+          consolidate: {
+            "baz_sum": { "sum": "Baz" }
+          }
+        }
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch consolidate w/ groupby");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      options: {
+        pattern: {
+          match: {
+            "Baz": { "gte": 0, "lte": 1000 }
+          },
+          consolidate: {
+            "Bar": {
+              "baz_sum": { "sum": "Baz" }
+            }
+          },
+          "cues": {
+            "order": { "baz_sum": "desc" },
+            "count": 5
+          }
+        }
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch consolidate w/ groupby");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|api_docs|*",
+      options: {
+        "pattern": {
+          "match": {
+            "context": "keyword1"
+          },
+          "cues": {
+            "fields": ["docid", "compilation", "title"],
+            "order": { "compilation": "asc" }
+          }
+        }
+      }
+    }
+  });
+
+}
+
+tests();

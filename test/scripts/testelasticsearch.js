@@ -16,13 +16,10 @@ logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  logger.info("=== csv => elasticsearch");
-  await transfer({
+  logger.info("=== elasticsearch putEncoding");
+  await putEncoding({
     source: {
-      smt: "csv|./test/data/|testfile.csv|*"
-    },
-    destination: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*"
+      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo"
     }
   });
 
@@ -34,10 +31,13 @@ async function tests() {
     OutputFile: './test/output/elasticsearch_foo_encoding.json'
   });
 
-  logger.info("=== elasticsearch putEncoding");
-  await putEncoding({
+  logger.info("=== csv => elasticsearch");
+  await transfer({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo"
+      smt: "csv|./test/data/|testfile.csv|*"
+    },
+    destination: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*"
     }
   });
 

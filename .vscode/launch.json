@@ -77,6 +77,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "testretrieve",
+      "program": "${workspaceFolder}/test/scripts/testretrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "debug"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "testtransform",
       "program": "${workspaceFolder}/test/scripts/testtransform.js",
       "outputCapture": "std",
