@@ -3,43 +3,15 @@
  */
 "use strict";
 
-const getEncoding = require('./_getEncoding');
-const putEncoding = require('./_putEncoding');
 const store = require('./_store');
 const recall = require('./_recall');
 const retrieve = require('./_retrieve');
-const transfer = require('./_transfer');
 const dull = require('./_dull');
 const logger = require('../../lib/logger');
 
 logger.info("=== Tests: elasticsearch");
 
 async function tests() {
-
-  logger.info("=== elasticsearch putEncoding");
-  await putEncoding({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|!Foo"
-    }
-  });
-
-  logger.info("=== elasticsearch getEncoding");
-  await getEncoding({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*"
-    },
-    OutputFile: './test/output/elasticsearch_foo_encoding.json'
-  });
-
-  logger.info("=== csv => elasticsearch");
-  await transfer({
-    source: {
-      smt: "csv|./test/data/|testfile.csv|*"
-    },
-    destination: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*"
-    }
-  });
 
   logger.info("=== elasticsearch store");
   let uid = await store({
@@ -135,26 +107,6 @@ async function tests() {
       options: {
         Foo: 'twenty'
       }
-    }
-  });
-
-  logger.info("=== elasticsearch => elasticsearch");
-  await transfer({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*"
-    },
-    destination: {
-      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
-    }
-  });
-
-  logger.info("=== elasticsearch => csv");
-  await transfer({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
-    },
-    destination: {
-      smt: "csv|./test/output/|elastic_output.csv|*"
     }
   });
 

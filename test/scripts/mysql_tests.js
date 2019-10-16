@@ -3,33 +3,15 @@
  */
 "use strict";
 
-const getEncoding = require('./_getEncoding');
-const putEncoding = require('./_putEncoding');
 const store = require('./_store');
 const recall = require('./_recall');
 const retrieve = require('./_retrieve');
-const transfer = require('./_transfer');
 const dull = require('./_dull');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: mysql");
 
 async function tests() {
-
-  logger.info("=== mysql getEncoding");
-  await getEncoding({
-    source: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
-    },
-    OutputFile: './test/output/mysql_foo_encoding.json'
-  });
-
-  logger.info("=== mysql putEncoding");
-  await putEncoding({
-    source: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*"
-    }
-  });
 
   logger.info("=== mysql store");
   await store({
@@ -120,25 +102,6 @@ async function tests() {
     }
   });
 
-  logger.info("=== mysql writer");
-  await transfer({
-    source: {
-      smt: "csv|./test/data/|testfile.csv|*"
-    },
-    destination: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_transfer|*"
-    }
-  });
-
-  logger.info("=== mysql reader");
-  await transfer({
-    source: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_transfer|*"
-    },
-    destination: {
-      smt: "csv|./test/output/|mysql_output.csv|*"
-    }
-  });
 }
 
 tests();
