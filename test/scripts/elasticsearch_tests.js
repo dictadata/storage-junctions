@@ -80,6 +80,21 @@ async function tests() {
     }
   });
 
+  logger.info("=== elasticsearch retrieve");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      options: {
+        pattern: {
+          cues: {
+            "order": { "Foo": "asc" },
+            "count": 100
+          }
+        }
+      }
+    }
+  });
+
   logger.info("=== elasticsearch retrieve with pattern");
   await retrieve({
     source: {
