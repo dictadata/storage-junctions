@@ -1,17 +1,11 @@
-/**
- * elasticsearch/default_mappings
- */
-"use strict";
-
-module.exports = {
+{
+  "index_patterns": [
+    "prefix-*"
+  ],
+  "version": 1,
+  "order": 1,
   "settings": {
-    "index": {
-      "number_of_shards": 3,
-      "number_of_replicas": 1,
-      "mapping.total_fields.limit": 1000,
-      "mapping.depth.limit": 10,
-      "mapping.nested_fields.limit": 10
-    }
+    "index.mapping.total_fields.limit": 10000
   },
   "mappings": {
     "_meta": {
@@ -42,4 +36,4 @@ module.exports = {
       }
     }
   }
-};
+}

@@ -51,7 +51,7 @@
       "program": "${workspaceFolder}/test/scripts/elasticsearch_encoding.js",
       "outputCapture": "std",
       "env": {
-        "LOG_LEVEL": "verbose"
+        "LOG_LEVEL": "debug"
       }
     },
     {

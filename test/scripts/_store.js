@@ -18,7 +18,7 @@ module.exports = async function (options) {
     logger.verbose(JSON.stringify(results));
 
     logger.info(">>> completed");
-    return results.key ? results.key : null;
+    return results.keys ? results.keys : null;
   }
   catch (err) {
     if (err.statusCode < 500)
