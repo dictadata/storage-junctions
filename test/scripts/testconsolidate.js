@@ -55,7 +55,8 @@ async function tests() {
             "Baz": { "gte": 0, "lte": 1000 }
           },
           consolidate: {
-            "baz_sum": { "sum": "Baz" }
+            "baz_sum": { "sum": "Baz" },
+            "fobe_max": { "max": "Fobe" }
           }
         }
       }
@@ -75,6 +76,30 @@ async function tests() {
             "Bar": {
               "baz_sum": { "sum": "Baz" }
             }
+          },
+          "cues": {
+            "order": { "baz_sum": "desc" },
+            "count": 5
+          }
+        }
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch groupby with summary");
+  await retrieve({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      options: {
+        pattern: {
+          match: {
+            "Baz": { "gte": 0, "lte": 1000 }
+          },
+          consolidate: {
+            "Bar": {
+              "baz_sum": { "sum": "Baz" }
+            },
+            "baz_sum": { "sum": "Baz" }
           },
           "cues": {
             "order": { "baz_sum": "desc" },
