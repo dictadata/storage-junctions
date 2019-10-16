@@ -101,9 +101,9 @@ async function tests() {
             },
             "baz_sum": { "sum": "Baz" }
           },
-          "cues": {
+          cues: {
             "order": { "baz_sum": "desc" },
-            "count": 5
+            "count": 10
           }
         }
       }
