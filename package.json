@@ -1,6 +1,6 @@
 {
   "name": "@dicta-io/storage-junctions",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "A Node.js library for distributed data storage, access and streaming.",
   "author": "Drew O. Letcher",
   "license": "MIT",
