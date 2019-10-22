@@ -1,5 +1,5 @@
 /**
- * test/transfer
+ * test/codify
  */
 "use strict";
 
