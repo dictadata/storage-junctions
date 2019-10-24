@@ -4,19 +4,24 @@ A Node.js library for distributed data definition, storage, access, search and s
 
 A storage junction provides a simple interface to a data source such as formatted file, database or key value store.
 
-## Current Data Sources
+[TOC]
 
-| model | store | recall | retrieve | stream |
-| --- | :---: | :---: | :---: | :---: |
-| csv | no | no | no | yes |
-| json | no | no | no | yes |
-| rest | - | - | yes | yes |
-| elasticsearch | yes | yes | yes | yes |
-| mysql | yes | no | yes | yes |
-| mssql | | | |
-| postgresql | | | |
-| mongodb | | | |
-| memcache | | | |
+## Supported Storage Sources
+
+| model | encoding | store | recall | retrieve | dull | streamable | key-value | documents | tables |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| csv | yes | no | no | no | no | yes | no | no | yes |
+| json | yes | no | no | no | no | yes | no | yes | yes |
+| rest | yes | - | - | yes | - | yes | - | - | yes |
+| elasticsearch | yes | yes | yes | yes | yes | yes | yes | yes | yes |
+| mysql | yes | yes | no | yes | yes | yes | no | - | yes |
+| *mssql | | | | | | | no | - | yes |
+| *postgresql | | | | | | | no | - | yes |
+| *mongodb | | | | | | | yes | yes | yes |
+| -memcache | | | | | | | yes | no | no |
+
+&ast; In the plans for future development.
+&dash; Not planned, but will be developed as needed.
 
 ## Storage Memory Trace
 
