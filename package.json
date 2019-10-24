@@ -7,7 +7,7 @@
   "main": "index.js",
   "repository": "github:dicta-io/storage-junctions",
   "scripts": {
-    "test": "set NODE_ENV=development&& node --inspect test/lib/testjunction.js",
+    "test": "set NODE_ENV=development&& node --inspect-brk test/lib/csv_scan.js",
     "lint": "eslint lib/**/*.js",
     "lint-fix": "eslint --fix lib/**/*.js"
   },
@@ -33,6 +33,6 @@
     "eslint-plugin-promise": "^4.2.1"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   }
 }

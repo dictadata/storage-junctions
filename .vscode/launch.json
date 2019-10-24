@@ -143,6 +143,26 @@
       "env": {
         "LOG_LEVEL": "verbose"
       }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "csv scan",
+      "program": "${workspaceFolder}/test/scripts/csv_scan.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "json scan",
+      "program": "${workspaceFolder}/test/scripts/json_scan.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
     }
   ]
 }
