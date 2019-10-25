@@ -1,4 +1,4 @@
-let isoString = require('../lib/isostring');
+let isoString = require('../lib/lib/isostring');
 
 function test () {
   console.log(isoString.toDate("2019-10-01").toISOString());
