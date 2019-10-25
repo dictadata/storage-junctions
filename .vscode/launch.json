@@ -7,6 +7,12 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "AWS Check",
+      "program": "${workspaceFolder}/test/aws_cred.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "junctions",
       "program": "${workspaceFolder}/test/lib/junctions_tests.js",
       "outputCapture": "std",
@@ -163,6 +169,7 @@
       "env": {
         "LOG_LEVEL": "verbose"
       }
-    }
+    },
+
   ]
 }

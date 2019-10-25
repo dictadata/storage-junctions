@@ -10,8 +10,8 @@ A storage junction provides a simple interface to a data source such as formatte
 
 | model | encoding | store | recall | retrieve | dull | streamable | key-value | documents | tables |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| csv | yes | no | no | no | no | yes | no | no | yes |
-| json | yes | no | no | no | no | yes | no | yes | yes |
+| csv | yes | no | no | - | no | yes | no | no | yes |
+| json | yes | no | no | - | no | yes | no | yes | yes |
 | rest | yes | - | - | yes | - | yes | - | - | yes |
 | elasticsearch | yes | yes | yes | yes | yes | yes | yes | yes | yes |
 | mysql | yes | yes | no | yes | yes | yes | no | - | yes |
