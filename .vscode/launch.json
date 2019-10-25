@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "junctions",
-      "program": "${workspaceFolder}/test/scripts/junctions_tests.js",
+      "program": "${workspaceFolder}/test/lib/junctions_tests.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -18,7 +18,7 @@
       "type": "node",
       "request": "launch",
       "name": "csv codify",
-      "program": "${workspaceFolder}/test/scripts/csv_codify.js",
+      "program": "${workspaceFolder}/test/lib/csv_codify.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -28,7 +28,7 @@
       "type": "node",
       "request": "launch",
       "name": "csv transfer",
-      "program": "${workspaceFolder}/test/scripts/csv_transfer.js",
+      "program": "${workspaceFolder}/test/lib/csv_transfer.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -38,7 +38,7 @@
       "type": "node",
       "request": "launch",
       "name": "json transfer",
-      "program": "${workspaceFolder}/test/scripts/json_transfer.js",
+      "program": "${workspaceFolder}/test/lib/json_transfer.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -48,7 +48,7 @@
       "type": "node",
       "request": "launch",
       "name": "elasticsearch encoding",
-      "program": "${workspaceFolder}/test/scripts/elasticsearch_encoding.js",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_encoding.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "debug"
@@ -58,7 +58,7 @@
       "type": "node",
       "request": "launch",
       "name": "elasticsearch tests",
-      "program": "${workspaceFolder}/test/scripts/elasticsearch_tests.js",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_tests.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -68,7 +68,7 @@
       "type": "node",
       "request": "launch",
       "name": "elasticsearch consolidate",
-      "program": "${workspaceFolder}/test/scripts/elasticsearch_consolidate.js",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_consolidate.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "debug"
@@ -78,7 +78,7 @@
       "type": "node",
       "request": "launch",
       "name": "elasticsearch transfer",
-      "program": "${workspaceFolder}/test/scripts/elasticsearch_transfer.js",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_transfer.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -88,7 +88,7 @@
       "type": "node",
       "request": "launch",
       "name": "mysql encoding",
-      "program": "${workspaceFolder}/test/scripts/mysql_encoding.js",
+      "program": "${workspaceFolder}/test/lib/mysql_encoding.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -98,7 +98,7 @@
       "type": "node",
       "request": "launch",
       "name": "mysql tests",
-      "program": "${workspaceFolder}/test/scripts/mysql_tests.js",
+      "program": "${workspaceFolder}/test/lib/mysql_tests.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -108,7 +108,7 @@
       "type": "node",
       "request": "launch",
       "name": "mysql transfer",
-      "program": "${workspaceFolder}/test/scripts/mysql_transfer.js",
+      "program": "${workspaceFolder}/test/lib/mysql_transfer.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -118,7 +118,7 @@
       "type": "node",
       "request": "launch",
       "name": "REST tests",
-      "program": "${workspaceFolder}/test/scripts/rest_tests.js",
+      "program": "${workspaceFolder}/test/lib/rest_tests.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -128,7 +128,7 @@
       "type": "node",
       "request": "launch",
       "name": "REST transfer",
-      "program": "${workspaceFolder}/test/scripts/rest_transfer.js",
+      "program": "${workspaceFolder}/test/lib/rest_transfer.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -138,7 +138,7 @@
       "type": "node",
       "request": "launch",
       "name": "test transforms",
-      "program": "${workspaceFolder}/test/scripts/test_transforms.js",
+      "program": "${workspaceFolder}/test/lib/test_transforms.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -148,7 +148,7 @@
       "type": "node",
       "request": "launch",
       "name": "csv scan",
-      "program": "${workspaceFolder}/test/scripts/csv_scan.js",
+      "program": "${workspaceFolder}/test/lib/csv_scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -158,7 +158,7 @@
       "type": "node",
       "request": "launch",
       "name": "json scan",
-      "program": "${workspaceFolder}/test/scripts/json_scan.js",
+      "program": "${workspaceFolder}/test/lib/json_scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
