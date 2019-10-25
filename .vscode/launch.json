@@ -170,6 +170,16 @@
         "LOG_LEVEL": "verbose"
       }
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "s3 transfers",
+      "program": "${workspaceFolder}/test/lib/s3_transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
 
   ]
 }

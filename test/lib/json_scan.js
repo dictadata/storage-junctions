@@ -22,6 +22,21 @@ async function tests() {
       }
     }
   });
+
+  await scan({
+    source: {
+      smt: "json|S3:icbrewlab.com|*.json|*",
+      options: {
+      }
+    },
+    scan: {
+      recursive: true,
+      callback: (name) => {
+        logger.info(name);
+      }
+    }
+  });
+
 }
 
 tests();

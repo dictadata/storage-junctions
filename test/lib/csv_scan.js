@@ -22,6 +22,20 @@ async function tests() {
       }
     }
   });
+
+  await scan({
+    source: {
+      smt: "csv|S3:icbrewlab.com|*.csv|*",
+      options: {
+      }
+    },
+    scan: {
+      recursive: false,
+      callback: (name) => {
+        logger.info(name);
+      }
+    }
+  });
 }
 
 tests();
