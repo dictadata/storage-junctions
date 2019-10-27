@@ -1,4 +1,4 @@
-# @dicta-io/storage-junctions
+# @dictadata/storage-junctions
 
 A Node.js library for distributed data definition, storage, access, search and streaming.
 

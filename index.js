@@ -1,5 +1,5 @@
 /**
- * @dicta-io/storage-junctions
+ * @dictadata/storage-junctions
  */
 "use strict";
 
