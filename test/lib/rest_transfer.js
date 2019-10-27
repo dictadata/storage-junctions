@@ -18,7 +18,7 @@ async function testTransfer() {
       options: {
         headers: {
           "Accept": "application/ld+json",
-          "User-Agent": "@dicta.io/storage-node contact:drew@dicta.io"
+          "User-Agent": "@dictadata.org/storage-node contact:drew@dictadata.org"
         },
         auth: {
           //username: this._options.auth.username,
