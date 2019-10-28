@@ -177,7 +177,7 @@
       "program": "${workspaceFolder}/test/lib/s3_transfers.js",
       "outputCapture": "std",
       "env": {
-        "LOG_LEVEL": "verbose"
+        "LOG_LEVEL": "debug"
       }
     },
 
