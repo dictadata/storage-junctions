@@ -67,7 +67,7 @@
       "program": "${workspaceFolder}/test/lib/elasticsearch_tests.js",
       "outputCapture": "std",
       "env": {
-        "LOG_LEVEL": "verbose"
+        "LOG_LEVEL": "debug"
       }
     },
     {
