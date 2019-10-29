@@ -18,7 +18,7 @@ async function tests() {
     },
     scan: {
       recursive: false,
-      callback: (name) => {
+      forEach: (name) => {
         logger.info(name);
       }
     }
@@ -33,7 +33,7 @@ async function tests() {
     },
     scan: {
       recursive: true,
-      callback: (name) => {
+      forEach: (name) => {
         logger.info(name);
       }
     }
@@ -48,7 +48,7 @@ async function tests() {
     },
     scan: {
       recursive: false,
-      callback: (name) => {
+      forEach: (name) => {
         logger.info(name);
       }
     }

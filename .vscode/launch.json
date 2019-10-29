@@ -53,6 +53,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "gzip transfer",
+      "program": "${workspaceFolder}/test/lib/gzip_transfer.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "elasticsearch encoding",
       "program": "${workspaceFolder}/test/lib/elasticsearch_encoding.js",
       "outputCapture": "std",

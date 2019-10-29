@@ -10,8 +10,8 @@ const logger = require('../../lib/logger');
 logger.info("=== Test: s3");
 
 async function s3Upload() {
-
   logger.verbose("=== upload");
+
   await transfer({
     source: {
       smt: "csv|./test/data/|testfile.csv|*",
@@ -24,14 +24,38 @@ async function s3Upload() {
     }
   });
 
+  await transfer({
+    source: {
+      smt: "csv|./test/data/|testfile.csv|*",
+      options: {
+      }
+    },
+    destination: {
+      smt: "csv|S3:dictadata.org/subfolder|testfile.csv.gz|*",
+      options: {}
+    }
+  });
+
 }
 
 async function s3Download() {
-
   logger.verbose("=== download");
+
   await transfer({
     source: {
       smt: "csv|S3:dictadata.org/subfolder|testfile.csv|*",
+      options: {
+      }
+    },
+    destination: {
+      smt: "csv|./test/output/|s3_output.csv.gz|*",
+      options: {}
+    }
+  });
+
+  await transfer({
+    source: {
+      smt: "csv|S3:dictadata.org/subfolder|testfile.csv.gz|*",
       options: {
       }
     },
