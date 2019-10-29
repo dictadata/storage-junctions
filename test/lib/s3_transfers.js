@@ -46,6 +46,7 @@ async function s3Upload() {
 async function tests() {
   //await s3Download();
   await s3Upload();
+  logger.verbose("Done.");
 }
 
 tests();
