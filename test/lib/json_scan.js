@@ -9,6 +9,7 @@ const logger = require('../../lib/logger');
 logger.info("=== tests: json scan");
 
 async function tests() {
+  logger.info("=== scan local filesystem");
   await scan({
     source: {
       smt: "json|./test/data/|test*.json|*",
@@ -23,14 +24,30 @@ async function tests() {
     }
   });
 
+  logger.info("=== scan S3 bucket");
   await scan({
     source: {
-      smt: "json|S3:icbrewlab.com|*.json|*",
+      smt: "json|S3:dictadata.org|*.json|*",
       options: {
       }
     },
     scan: {
       recursive: true,
+      callback: (name) => {
+        logger.info(name);
+      }
+    }
+  });
+
+  logger.info("=== scan S3 bucket");
+  await scan({
+    source: {
+      smt: "json|S3:dictadata.org/subfolder/|*.json|*",
+      options: {
+      }
+    },
+    scan: {
+      recursive: false,
       callback: (name) => {
         logger.info(name);
       }

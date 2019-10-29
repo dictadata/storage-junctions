@@ -10,7 +10,8 @@ module.exports = async function (options) {
 
   logger.info(">>> create junction");
   logger.verbose(options.source.smt);
-  logger.verbose(JSON.stringify(options.source.options));
+  if (options.source.options)
+    logger.verbose(JSON.stringify(options.source.options));
   var junction = storage.activate(options.source.smt);
 
   try {

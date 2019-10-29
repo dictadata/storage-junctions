@@ -9,34 +9,34 @@ const logger = require('../../lib/logger');
 
 logger.info("=== Test: s3");
 
-async function s3Download() {
+async function s3Upload() {
 
-  logger.verbose("=== download");
+  logger.verbose("=== upload");
   await transfer({
     source: {
-      smt: "csv|S3:icbrewlab.com|iowa-city-brewlab_20151001-20151231-transactions.csv|*",
+      smt: "csv|./test/data/|testfile.csv|*",
       options: {
       }
     },
     destination: {
-      smt: "csv|./test/output/|iowa-city-brewlab_20151001-20151231-transactions.csv|*",
+      smt: "csv|S3:dictadata.org/subfolder|testfile.csv|*",
       options: {}
     }
   });
 
 }
 
-async function s3Upload() {
+async function s3Download() {
 
-  logger.verbose("=== upload");
+  logger.verbose("=== download");
   await transfer({
     source: {
-      smt: "csv|./test/output/|iowa-city-brewlab_20151001-20151231-transactions.csv|*",
+      smt: "csv|S3:dictadata.org/subfolder|testfile.csv|*",
       options: {
       }
     },
     destination: {
-      smt: "csv|S3:icbrewlab.com|copy-iowa-city-brewlab_20151001-20151231-transactions.csv|*",
+      smt: "csv|./test/output/|s3_output.csv|*",
       options: {}
     }
   });
@@ -44,8 +44,8 @@ async function s3Upload() {
 }
 
 async function tests() {
-  //await s3Download();
   await s3Upload();
+  await s3Download();
   logger.verbose("Done.");
 }
 
