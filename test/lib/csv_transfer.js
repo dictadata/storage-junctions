@@ -26,7 +26,7 @@ async function tests() {
       smt: "csv|./test/data/|testfile.csv|*"
     },
     destination: {
-      smt: "json|./test/output/|foo_output.json|*"
+      smt: "json|./test/output/|csv_output.json|*"
     }
   });
   logger.verbose('./test/output/json_output.json');
@@ -36,10 +36,10 @@ async function tests() {
       smt: "csv|./test/data/|testfile.csv|*"
     },
     destination: {
-      smt: "csv|./test/output/|csv_output.csv.gz|*"
+      smt: "csv|S3:dictadata.org/subfolder/|testfile.csv.gz|*"
     }
   });
-  logger.verbose('./test/output/csv_output.csv.gz');
+  logger.verbose('S3:dictadata.org/subfolder/testfile.csv.gz');
 }
 
 tests();

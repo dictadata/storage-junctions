@@ -36,6 +36,18 @@ async function s3Upload() {
     }
   });
 
+  await transfer({
+    source: {
+      smt: "json|./test/data/|testfile.json|*",
+      options: {
+      }
+    },
+    destination: {
+      smt: "json|S3:dictadata.org/subfolder|testfile.json.gz|*",
+      options: {}
+    }
+  });
+
 }
 
 async function s3Download() {

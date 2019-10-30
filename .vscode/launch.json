@@ -23,16 +23,6 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv codify",
-      "program": "${workspaceFolder}/test/lib/csv_codify.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "csv transfer",
       "program": "${workspaceFolder}/test/lib/csv_transfer.js",
       "outputCapture": "std",
@@ -43,8 +33,28 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "csv codify",
+      "program": "${workspaceFolder}/test/lib/csv_codify.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "json transfer",
       "program": "${workspaceFolder}/test/lib/json_transfer.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "json codify",
+      "program": "${workspaceFolder}/test/lib/json_codify.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"

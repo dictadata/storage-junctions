@@ -14,8 +14,8 @@ async function tests() {
       smt: "csv|./test/data/|testfile.csv|*",
       options: {}
     },
-    outputFile1: './test/output/codify_encoding_1.json',
-    outputFile2: './test/output/codify_encoding_2.json'
+    outputFile1: './test/output/csv_encoding_1.json',
+    outputFile2: './test/output/csv_encoding_2.json'
   });
 
   await codify({
@@ -23,8 +23,8 @@ async function tests() {
       smt: "csv|S3:dictadata.org/subfolder|testfile.csv.gz|*",
       options: {}
     },
-    outputFile1: './test/output/codify_encoding_g1.json',
-    outputFile2: './test/output/codify_encoding_g2.json'
+    outputFile1: './test/output/csv_encoding_g1.json',
+    outputFile2: './test/output/csv_encoding_g2.json'
   });
 
 }
