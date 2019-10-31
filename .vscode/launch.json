@@ -137,7 +137,7 @@
       "program": "${workspaceFolder}/test/lib/mysql_transfer.js",
       "outputCapture": "std",
       "env": {
-        "LOG_LEVEL": "verbose"
+        "LOG_LEVEL": "debug"
       }
     },
     {
