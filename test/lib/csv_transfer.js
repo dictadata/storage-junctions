@@ -9,8 +9,8 @@ const logger = require('../../lib/logger');
 logger.info("=== Test: csv");
 
 async function tests() {
-  logger.verbose('./test/data/testfile.csv');
 
+  logger.verbose('=== csv_output.csv');
   await transfer({
     source: {
       smt: "csv|./test/data/|testfile.csv|*"
@@ -19,8 +19,8 @@ async function tests() {
       smt: "csv|./test/output/|csv_output.csv|*"
     }
   });
-  logger.verbose('./test/output/csv_output.csv');
 
+  logger.verbose('=== csv_output.json');
   await transfer({
     source: {
       smt: "csv|./test/data/|testfile.csv|*"
@@ -29,17 +29,17 @@ async function tests() {
       smt: "json|./test/output/|csv_output.json|*"
     }
   });
-  logger.verbose('./test/output/json_output.json');
 
+  logger.verbose('=== S3: subfolder/csv_output.csv.gz');
   await transfer({
     source: {
       smt: "csv|./test/data/|testfile.csv|*"
     },
     destination: {
-      smt: "csv|S3:dictadata.org/subfolder/|testfile.csv.gz|*"
+      smt: "csv|S3:dictadata.org/subfolder/|csv_output.csv.gz|*"
     }
   });
-  logger.verbose('S3:dictadata.org/subfolder/testfile.csv.gz');
+  logger.verbose('S3:dictadata.org/subfolder/csv_output.csv.gz');
 }
 
 tests();

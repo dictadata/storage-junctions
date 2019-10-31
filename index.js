@@ -24,7 +24,11 @@ cortex.use('elasticsearch',ElasticsearchJunction);
 exports.ElasticsearchJunction = ElasticsearchJunction;
 
 var JsonJunction = require("./lib/json");
-cortex.use('json',JsonJunction);
+cortex.use('json',JsonJunction);   // defaults to json array
+cortex.use('jsons',JsonJunction);  // json stream
+cortex.use('jsonl',JsonJunction);  // json line
+cortex.use('jsona',JsonJunction);  // json array
+cortex.use('jsono',JsonJunction);  // json object
 exports.JsonJunction = JsonJunction;
 
 var MongoDBJunction = require("./lib/mongodb");
