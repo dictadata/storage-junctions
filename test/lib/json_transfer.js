@@ -20,43 +20,33 @@ async function tests() {
     }
   });
 
-  logger.verbose('=== json_o_output.json');
+  logger.verbose('=== json_output_o.json');
   await transfer({
     source: {
       smt: "json|./test/data/|testfile.json|*"
     },
     destination: {
-      smt: "jsono|./test/output/|json_o_output.json|*"
+      smt: "jsono|./test/output/|json_output_o.json|*"
     }
   });
 
-  logger.verbose('=== json_l_output.log');
+  logger.verbose('=== json_output_l.log');
   await transfer({
     source: {
       smt: "json|./test/data/|testfile.json|*"
     },
     destination: {
-      smt: "jsonl|./test/output/|json_l_output.log|*"
+      smt: "jsonl|./test/output/|json_output_l.log|*"
     }
   });
 
-  logger.verbose('=== json_s_output.txt');
+  logger.verbose('=== json_output_s.txt');
   await transfer({
     source: {
       smt: "json|./test/data/|testfile.json|*"
     },
     destination: {
-      smt: "jsons|./test/output/|json_s_output.txt|*"
-    }
-  });
-
-  logger.verbose('=== json_output.json');
-  await transfer({
-    source: {
-      smt: "json|./test/data/|testfile.json|*"
-    },
-    destination: {
-      smt: "json|./test/output/|json_output.json|*"
+      smt: "jsons|./test/output/|json_output_s.txt|*"
     }
   });
 
@@ -79,7 +69,16 @@ async function tests() {
       smt: "json|S3:dictadata.org/subfolder/|json_output.json.gz|*"
     }
   });
-  logger.verbose('S3:dictadata.org/subfolder/json_output.json.gz');
+
+  logger.verbose('=== sub/json_output.json.gz');
+  await transfer({
+    source: {
+      smt: "json|S3:dictadata.org|testfile.json|*"
+    },
+    destination: {
+      smt: "json|./test/output/subfolder/|json_output.json.gz|*"
+    }
+  });
 
 }
 
