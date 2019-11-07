@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== gzip_output.csv.gz');
   await transfer({
     source: {
-      smt: "csv|./test/data/|testfile2.csv|*"
+      smt: "csv|./test/data/|testfile.csv|*"
     },
     destination: {
       smt: "csv|./test/output/|gzip_output.csv.gz|*"

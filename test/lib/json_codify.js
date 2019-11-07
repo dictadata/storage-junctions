@@ -20,10 +20,20 @@ async function tests() {
     outputFile2: './test/output/json_encoding_2.json'
   });
 
-  logger.info("=== codify testfile.json.gz");
+  logger.info("=== codify testfile2.json");
   await codify({
     source: {
-      smt: "json|S3:dictadata.org/subfolder|testfile.json.gz|*",
+      smt: "json|./test/data/|testfile2.json|*",
+      options: {}
+    },
+    outputFile1: './test/output/json_encoding2_1.json',
+    outputFile2: './test/output/json_encoding2_2.json'
+  });
+
+  logger.info("=== codify S3 testfile.json.gz");
+  await codify({
+    source: {
+      smt: "json|S3:dictadata.org/test/data/|testfile.json.gz|*",
       options: {}
     },
     outputFile1: './test/output/json_encoding_g1.json',
@@ -33,7 +43,7 @@ async function tests() {
   logger.info("=== codify 00.log.gz");
   await codify({
     source: {
-      smt: "jsons|./test/data/|00.log.gz|*",
+      smt: "jsonl|./test/data/|00.log.gz|*",
       options: {}
     },
     outputFile1: './test/output/json_encoding_lg1.json',

@@ -11,14 +11,14 @@ logger.info("===== elasticsearch encoding ");
 
 async function tests() {
 
-  logger.info("=== elasticsearch putEncoding");
+  logger.info("=== putEncoding test_schema");
   await putEncoding({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|!Foo"
     }
   });
 
-  logger.info("=== elasticsearch getEncoding");
+  logger.info("=== getEncoding test_schema");
   await getEncoding({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*"

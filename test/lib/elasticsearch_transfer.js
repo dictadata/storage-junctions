@@ -11,12 +11,12 @@ logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  logger.info("=== dull test_transfer");
-  await dull({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
-    }
-  });
+  //logger.info("=== dull test_transfer");
+  //await dull({
+  //  source: {
+  //    smt: "elasticsearch|http://localhost:9200|test_transfer|*"
+  //  }
+  //});
 
   logger.info("=== csv => elasticsearch");
   await transfer({

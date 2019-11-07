@@ -30,16 +30,26 @@ async function tests() {
     }
   });
 
-  logger.verbose('=== S3: subfolder/csv_output.csv.gz');
+  logger.verbose('=== output/csv_output.csv.gz');
   await transfer({
     source: {
       smt: "csv|./test/data/|testfile.csv|*"
     },
     destination: {
-      smt: "csv|S3:dictadata.org/subfolder/|csv_output.csv.gz|*"
+      smt: "csv|./test/output/|csv_output.csv.gz|*"
     }
   });
-  logger.verbose('S3:dictadata.org/subfolder/csv_output.csv.gz');
+
+  logger.verbose('=== S3: output/csv_output.csv.gz');
+  await transfer({
+    source: {
+      smt: "csv|./test/data/|testfile.csv|*"
+    },
+    destination: {
+      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*"
+    }
+  });
+
 }
 
 tests();

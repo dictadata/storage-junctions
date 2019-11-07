@@ -19,7 +19,7 @@ async function s3Upload() {
       }
     },
     destination: {
-      smt: "csv|S3:dictadata.org/subfolder|testfile.csv|*",
+      smt: "csv|S3:dictadata.org/test/output/|testfile.csv|*",
       options: {}
     }
   });
@@ -31,7 +31,7 @@ async function s3Upload() {
       }
     },
     destination: {
-      smt: "csv|S3:dictadata.org/subfolder|testfile.csv.gz|*",
+      smt: "csv|S3:dictadata.org/test/output/|testfile.csv.gz|*",
       options: {}
     }
   });
@@ -43,7 +43,7 @@ async function s3Upload() {
       }
     },
     destination: {
-      smt: "json|S3:dictadata.org/subfolder|testfile.json.gz|*",
+      smt: "json|S3:dictadata.org/test/output/|testfile.json.gz|*",
       options: {}
     }
   });
@@ -55,7 +55,7 @@ async function s3Download() {
 
   await transfer({
     source: {
-      smt: "csv|S3:dictadata.org/subfolder|testfile.csv|*",
+      smt: "csv|S3:dictadata.org/test/data/|testfile.csv|*",
       options: {
       }
     },
@@ -67,7 +67,7 @@ async function s3Download() {
 
   await transfer({
     source: {
-      smt: "csv|S3:dictadata.org/subfolder|testfile.csv.gz|*",
+      smt: "csv|S3:dictadata.org/test/data/|testfile.csv.gz|*",
       options: {
       }
     },

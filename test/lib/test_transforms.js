@@ -7,7 +7,7 @@ const transform = require('./_transform');
 const Engram = require('../../lib/engram');
 const logger = require('../../lib/logger');
 
-logger.info("=== Test: transform");
+logger.info("=== Test: transforms");
 
 async function testEtlTransform() {
   logger.info("<<< transfer/transform json to elasticsearch");
@@ -15,7 +15,7 @@ async function testEtlTransform() {
 
   await transform({
     "source": {
-      "smt": "json|./test/data/|input.json|*",
+      "smt": "json|./test/data/|testfile.json|*",
       "options": {}
     },
     "destination": {
@@ -53,18 +53,18 @@ async function testEtlTransform() {
 
 }
 
-async function testFileTransform() {
+async function testFile2Transform() {
 
   logger.info("<<< transfer json to csv");
-  logger.verbose('./test/data/testfile.json');
+  logger.verbose('./test/data/testfile2.json');
 
   await transform({
     source: {
-      smt: "json|./test/data/|testfile.json|*",
+      smt: "json|./test/data/|testfile2.json|*",
       options: {}
     },
     destination: {
-      smt: "csv|./test/output/|transform_output.csv|*",
+      smt: "csv|./test/output/|transform_output2.csv|*",
       options: {}
     },
     transforms: {
@@ -168,7 +168,7 @@ async function weatherTransform(options) {
 
 async function tests() {
   await testEtlTransform();
-  await testFileTransform();
+  await testFile2Transform();
   await testDBTransform();
   await weatherTransform({ destination: { smt: "elasticsearch|http://localhost:9200|test_weather|=Foo"}});
   await weatherTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_weather|*" } });

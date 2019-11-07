@@ -20,7 +20,7 @@ async function tests() {
 
   await codify({
     source: {
-      smt: "csv|S3:dictadata.org/subfolder|testfile.csv.gz|*",
+      smt: "csv|S3:dictadata.org/test/data/|testfile.csv.gz|*",
       options: {}
     },
     outputFile1: './test/output/csv_encoding_g1.json',

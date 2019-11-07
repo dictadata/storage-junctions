@@ -24,10 +24,10 @@ async function tests() {
     }
   });
 
-  logger.info("=== scan S3 bucket");
+  logger.info("=== scan S3 bucket (recursive)");
   await scan({
     source: {
-      smt: "csv|S3:dictadata.org|*.csv|*",
+      smt: "csv|S3:dictadata.org/test/|*.csv|*",
       options: {
       }
     },
@@ -42,7 +42,7 @@ async function tests() {
   logger.info("=== scan S3 bucket");
   await scan({
     source: {
-      smt: "csv|S3:dictadata.org|*.csv|*",
+      smt: "csv|S3:dictadata.org/test/|*.csv|*",
       options: {
       }
     },
