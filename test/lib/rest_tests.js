@@ -7,7 +7,7 @@ const retrieve = require('./_retrieve');
 const logger = require('../../lib/logger');
 
 
-logger.info("=== Test: rest");
+logger.info("=== Test: rest retrieve");
 
 async function testRetrieve() {
 
@@ -29,7 +29,7 @@ async function testRetrieve() {
         },
         extract: {
           encoding: "",  // name of property containing an array of field headers
-                         // empty denotes data array contains json objects
+          // empty encoding denotes data array contains json objects
           data: "periods"  // name of property for data array (objects or values)
         }
       }

@@ -11,10 +11,11 @@ module.exports = async function (options) {
   logger.info(">>> create junction");
   logger.verbose(options.source.smt);
   logger.verbose(JSON.stringify(options.source.options));
-  var junction = storage.activate(options.source.smt);
+
+  var junction = storage.activate(options.source.smt, options.source.options);
 
   try {
-    let results = await junction.retrieve(options.source.options);
+    let results = await junction.retrieve(options.source.pattern);
     logger.verbose("result: " + results.result + " count: " + results.data.length );
     logger.verbose(JSON.stringify(results));
 

@@ -32,7 +32,7 @@ A storage memory trace (SMT) is a data source definition.  It is made up of four
 | model | The type of storage source which determines how to communicate with the storage source. |
 | locus | The location or address of the data source such as a file folder, URL or database connection string. |
 | schema | The name of the container that holds the data such as file name, database table, or bucket. |
-| key | How to address data stored in the schema. | 
+| key | How to address data stored in the schema. |
 
 An SMT can be represented as string separated by pipe | characters or as a json object. Special characters in an SMT string can be URL encoded.
 
@@ -75,7 +75,7 @@ csv|/path/to/folder/|filename.csv|*
 
 ### getTransform(transforms)
 
-### getCodifyTransform()
+### getCodifyWriter()
 
 
 ## Storage Engram Encoding

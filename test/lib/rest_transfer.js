@@ -7,7 +7,7 @@ const transfer = require('./_transfer');
 const logger = require('../../lib/logger');
 
 
-logger.info("=== Test: rest");
+logger.info("=== Test: rest transfer");
 
 async function testTransfer() {
 
@@ -35,8 +35,7 @@ async function testTransfer() {
       }
     },
     destination: {
-      smt: "csv|./test/output/|forecast_output2.csv|*",
-      options: {}
+      smt: "csv|./test/output/|forecast_output2.csv|*"
     }
   });
 

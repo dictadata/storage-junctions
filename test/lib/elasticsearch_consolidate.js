@@ -14,11 +14,9 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Foo": 'twenty'
-          }
+      pattern: {
+        match: {
+          "Foo": 'twenty'
         }
       }
     }
@@ -28,17 +26,15 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Bar": "row",
-            "Baz": { "gte": 0, "lte": 1000 }
-          },
-          cues: {
-            count: 3,
-            order: { "Dt Test": "asc" },
-            fields: ["Foo", "Baz"]
-          }
+      pattern: {
+        match: {
+          "Bar": "row",
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        cues: {
+          count: 3,
+          order: { "Dt Test": "asc" },
+          fields: ["Foo", "Baz"]
         }
       }
     }
@@ -48,16 +44,14 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Bar": "row",
-            "Baz": { "gte": 0, "lte": 1000 }
-          },
-          consolidate: {
-            "baz_sum": { "sum": "Baz" },
-            "fobe_max": { "max": "Fobe" }
-          }
+      pattern: {
+        match: {
+          "Bar": "row",
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        consolidate: {
+          "baz_sum": { "sum": "Baz" },
+          "fobe_max": { "max": "Fobe" }
         }
       }
     }
@@ -67,20 +61,18 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Baz": { "gte": 0, "lte": 1000 }
-          },
-          consolidate: {
-            "Bar": {
-              "baz_sum": { "sum": "Baz" }
-            }
-          },
-          "cues": {
-            "order": { "baz_sum": "desc" },
-            "count": 5
+      pattern: {
+        match: {
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        consolidate: {
+          "Bar": {
+            "baz_sum": { "sum": "Baz" }
           }
+        },
+        "cues": {
+          "order": { "baz_sum": "desc" },
+          "count": 5
         }
       }
     }
@@ -90,21 +82,19 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Baz": { "gte": 0, "lte": 1000 }
-          },
-          consolidate: {
-            "Dt Test": {
-              "baz_sum": { "sum": "Baz" }
-            },
+      pattern: {
+        match: {
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        consolidate: {
+          "Dt Test": {
             "baz_sum": { "sum": "Baz" }
           },
-          cues: {
-            "order": { "baz_sum": "desc" },
-            "count": 10
-          }
+          "baz_sum": { "sum": "Baz" }
+        },
+        cues: {
+          "order": { "baz_sum": "desc" },
+          "count": 10
         }
       }
     }

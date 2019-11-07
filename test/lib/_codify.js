@@ -15,7 +15,7 @@ const pipeline = util.promisify(stream.pipeline);
 module.exports = async function (options) {
 
   logger.info(">>> create junction");
-  var j1 = storage.activate(options.source.smt);
+  var j1 = storage.activate(options.source.smt, options.source.options);
 
   try {
     // *** the normal way is to ask the junction to do it
@@ -29,7 +29,7 @@ module.exports = async function (options) {
     // *** stream some data to the codifier
     logger.info(">>> create streams");
     var reader = j1.getReadStream({ codify: true, max_read: 1000 });
-    var codify = j1.getCodifyTransform();
+    var codify = j1.getCodifyWriter(options.codify || null);
 
     logger.info(">>> start pipe");
     await pipeline(reader, codify);

@@ -60,12 +60,10 @@ async function testFile2Transform() {
 
   await transform({
     source: {
-      smt: "json|./test/data/|testfile2.json|*",
-      options: {}
+      smt: "json|./test/data/|testfile2.json|*"
     },
     destination: {
-      smt: "csv|./test/output/|transform_output2.csv|*",
-      options: {}
+      smt: "csv|./test/output/|transform_output2.csv|*"
     },
     transforms: {
       inject: {

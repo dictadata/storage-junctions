@@ -35,7 +35,7 @@ async function tests() {
   await recall({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|!",
-      options: {
+      pattern: {
         key: uid
       }
     }
@@ -50,7 +50,7 @@ async function tests() {
         schema: "test_schema",
         key: "!Foo"
       },
-      options: {
+      pattern: {
         Foo: uid
       }
     }
@@ -60,7 +60,7 @@ async function tests() {
   await recall({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|=Foo",
-      options: {
+      pattern: {
         Foo: uid
       }
     }
@@ -70,11 +70,9 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Foo": 'twenty'
-          }
+      pattern: {
+        match: {
+          "Foo": 'twenty'
         }
       }
     }
@@ -84,12 +82,10 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          cues: {
-            "order": { "Foo": "asc" },
-            "count": 100
-          }
+      pattern: {
+        cues: {
+          "order": { "Foo": "asc" },
+          "count": 100
         }
       }
     }
@@ -99,17 +95,15 @@ async function tests() {
   await retrieve({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Foo": "first",
-            "Baz": { "gte": 0, "lte": 1000 }
-          },
-          cues: {
-            count: 3,
-            order: { "Dt Test": "asc" },
-            fields: ["Foo", "Baz"]
-          }
+      pattern: {
+        match: {
+          "Foo": "first",
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        cues: {
+          count: 3,
+          order: { "Dt Test": "asc" },
+          fields: ["Foo", "Baz"]
         }
       }
     }
@@ -119,7 +113,7 @@ async function tests() {
   await dull({
     source: {
       smt: "elasticsearch|http://localhost:9200|test_schema|!Foo",
-      options: {
+      pattern: {
         Foo: 'twenty'
       }
     }

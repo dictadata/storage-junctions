@@ -42,7 +42,7 @@ async function tests() {
   await recall({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
-      options: {
+      pattern: {
         Foo: 'twenty'
       }
     }
@@ -52,7 +52,7 @@ async function tests() {
   await recall({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
-      options: {
+      pattern: {
         Foo: 'twenty'
       }
     }
@@ -62,11 +62,9 @@ async function tests() {
   await retrieve({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Foo": 'twenty'
-          }
+      pattern: {
+        match: {
+          "Foo": 'twenty'
         }
       }
     }
@@ -76,17 +74,15 @@ async function tests() {
   await retrieve({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
-      options: {
-        pattern: {
-          match: {
-            "Foo": "first",
-            "Baz": { "gte": 0, "lte": 1000 }
-          },
-          cues: {
-            count: 3,
-            order: { "Dt Test": "asc" },
-            fields: ["Foo","Baz"]
-          }
+      pattern: {
+        match: {
+          "Foo": "first",
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        cues: {
+          count: 3,
+          order: { "Dt Test": "asc" },
+          fields: ["Foo","Baz"]
         }
       }
     }
@@ -96,7 +92,7 @@ async function tests() {
   await dull({
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|*",
-      options: {
+      pattern: {
         Foo: 'twenty'
       }
     }
