@@ -22,19 +22,6 @@ async function tests() {
     }
   });
 
-  logger.info("=== scan S3 bucket (recursive)");
-  await scan({
-    source: {
-      smt: "json|S3:dictadata.org/test/|*.json|*"
-    },
-    scan: {
-      recursive: true,
-      forEach: (name) => {
-        logger.info(name);
-      }
-    }
-  });
-
   logger.info("=== scan S3 bucket");
   await scan({
     source: {
@@ -42,6 +29,19 @@ async function tests() {
     },
     scan: {
       recursive: false,
+      forEach: (name) => {
+        logger.info(name);
+      }
+    }
+  });
+
+  logger.info("=== scan S3 bucket (recursive)");
+  await scan({
+    source: {
+      smt: "json|S3:dictadata.org/test/|*.json|*"
+    },
+    scan: {
+      recursive: true,
       forEach: (name) => {
         logger.info(name);
       }
