@@ -21,22 +21,22 @@ module.exports = async function (options) {
     // *** the normal way is to ask the junction to do it
     logger.info(">>> getEncoding");
     let encoding1 = await j1.getEncoding();
-    logger.debug(JSON.stringify(encoding1, null, "  "));
 
+    logger.debug(JSON.stringify(encoding1, null, "  "));
     logger.info(">>> save encoding to " + options.outputFile1);
     fs.writeFileSync(options.outputFile1, JSON.stringify(encoding1), "utf8");
 
     // *** stream some data to the codifier
     logger.info(">>> create streams");
-    var reader = j1.getReadStream({ codify: true, max_read: 1000 });
+    var reader = j1.getReadStream({max_read: (options.source.options && options.source.options.max_read) || 100 });
     var codify = j1.getCodifyWriter(options.codify || null);
 
     logger.info(">>> start pipe");
     await pipeline(reader, codify);
 
     let encoding2 = await codify.getEncoding();
-    logger.debug(JSON.stringify(encoding2, null, "  "));
 
+    logger.debug(JSON.stringify(encoding2, null, "  "));
     logger.info(">>> save encoding to " + options.outputFile2);
     fs.writeFileSync(options.outputFile2, JSON.stringify(encoding2), "utf8");
 

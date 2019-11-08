@@ -9,7 +9,7 @@ const logger = require('../../lib/logger');
 logger.info("=== tests: Codify");
 
 async function tests() {
-
+/*
   logger.info("=== codify testfile.json");
   await codify({
     source: {
@@ -36,13 +36,17 @@ async function tests() {
     outputFile1: './test/output/json_encoding_g1.json',
     outputFile2: './test/output/json_encoding_g2.json'
   });
-
-  logger.info("=== codify 00.log.gz");
+*/
+  logger.info("=== codify 01.log.gz");
   await codify({
     source: {
-      smt: "jsonl|./test/data/|00.log.gz|*"
+      smt: "jsonl|./test/data/|01.log.gz|*",
+      options: {
+        max_read: 99
+      }
     },
     codify: {
+      "notation": "dot",
       "statistics": true
     },
     outputFile1: './test/output/json_encoding_lg1.json',
