@@ -36,7 +36,7 @@ A storage memory trace (SMT) is a data source definition.  It is made up of four
 
 An SMT can be represented as string separated by pipe | characters or as a json object. Special characters in an SMT string can be URL encoded.
 
-```
+```php
 csv|/path/to/folder/|filename.csv|*
 ```
 
@@ -47,7 +47,8 @@ csv|/path/to/folder/|filename.csv|*
   "schema": "filename.csv",
   "key": "*"
 }
-````
+```
+
 ## SMT Key Formats
 
 | Format | Description | Examples |
@@ -76,7 +77,6 @@ csv|/path/to/folder/|filename.csv|*
 ### getTransform(transforms)
 
 ### getCodifyWriter()
-
 
 ## Storage Engram Encoding
 
