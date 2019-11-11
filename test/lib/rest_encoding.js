@@ -1,18 +1,18 @@
 /**
- * test/rest
+ * test/mysql
  */
 "use strict";
 
-const transfer = require('./_transfer');
+const getEncoding = require('./_getEncoding');
+const putEncoding = require('./_putEncoding');
 const logger = require('../../lib/logger');
 
+logger.info("=== Test: rest encoding");
 
-logger.info("=== Test: rest transfer");
+async function tests() {
 
-async function testTransfer() {
-
-  logger.verbose("=== Transfer Weather Service forecast");
-  await transfer({
+  logger.info("=== rest getEncoding (forecast)");
+  await getEncoding({
     source: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
@@ -30,21 +30,15 @@ async function testTransfer() {
         reader: {
           extract: {
             encoding: "",  // name of property containing an array of field headers
-            // empty denotes data array contains json objects
+            // empty encoding denotes data array contains json objects
             data: "periods"  // name of property for data array (objects or values)
           }
         }
       }
     },
-    destination: {
-      smt: "csv|./test/output/|rest_forecast_output.csv|*"
-    }
+    OutputFile: './test/output/rest_forecast_encoding.json'
   });
 
-}
-
-async function tests() {
-  await testTransfer();
 }
 
 tests();

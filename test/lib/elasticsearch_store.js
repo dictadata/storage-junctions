@@ -11,7 +11,7 @@ logger.info("=== Tests: elasticsearch");
 async function tests() {
 
   logger.info("=== elasticsearch store");
-  let uid = await store({
+  await store({
     source: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
@@ -19,6 +19,30 @@ async function tests() {
       Foo: 'twenty',
       Bar: 'Jackson',
       Baz: 20
+    }
+  });
+
+  logger.info("=== elasticsearch store");
+  await store({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
+    },
+    construct: {
+      Foo: 'twenty',
+      Bar: 'Jackson',
+      Baz: 20
+    }
+  });
+
+  logger.info("=== elasticsearch store");
+  await store({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
+    },
+    construct: {
+      Foo: 'ten',
+      Bar: 'Hamilton',
+      Baz: 10
     }
   });
 

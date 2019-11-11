@@ -15,7 +15,9 @@ async function tests() {
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
       pattern: {
-        Foo: 'twenty'
+        match: {
+          Foo: 'twenty'
+        }
       }
     }
   });
@@ -25,7 +27,9 @@ async function tests() {
     source: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
-        Foo: 'twenty'
+        match: {
+          Foo: 'ten'
+        }
       }
     }
   });

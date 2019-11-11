@@ -12,7 +12,7 @@ logger.info("=== Test: S3 transfers");
 async function s3Upload() {
   logger.verbose("=== S3 uploads");
 
-  logger.verbose('>>> S3: output/csv_output.csv');
+  logger.verbose('=== S3: output/csv_output.csv');
   await transfer({
     source: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
@@ -22,7 +22,7 @@ async function s3Upload() {
     }
   });
 
-  logger.verbose('>>> S3: output/csv_output.csv.gz');
+  logger.verbose('=== S3: output/csv_output.csv.gz');
   await transfer({
     source: {
       smt: "csv|./test/data/|foofile.csv|*"
@@ -32,7 +32,7 @@ async function s3Upload() {
     }
   });
 
-  logger.verbose('>>> S3: output/json_output.json');
+  logger.verbose('=== S3: output/json_output.json');
   await transfer({
     source: {
       smt: "json|./test/data/|foofile.json.gz|*"
@@ -42,7 +42,7 @@ async function s3Upload() {
     }
   });
 
-  logger.verbose('>>> S3: output/json_output.json.gz');
+  logger.verbose('=== S3: output/json_output.json.gz');
   await transfer({
     source: {
       smt: "json|./test/data/|foofile.json|*"
@@ -57,7 +57,7 @@ async function s3Upload() {
 async function s3Download() {
   logger.verbose("=== S3 downloads");
 
-  logger.verbose('<<< S3: output/s3_output.csv');
+  logger.verbose('=== S3: output/s3_output.csv');
   await transfer({
     source: {
       smt: "csv|S3:dictadata.org/test/data/|foofile.csv.gz|*"
@@ -67,7 +67,7 @@ async function s3Download() {
     }
   });
 
-  logger.verbose('<<< S3: output/s3_output.csv.gz');
+  logger.verbose('=== S3: output/s3_output.csv.gz');
   await transfer({
     source: {
       smt: "csv|S3:dictadata.org/test/data/|foofile.csv|*"
@@ -77,7 +77,7 @@ async function s3Download() {
     }
   });
 
-  logger.verbose('<<< S3: output/s3_output.json');
+  logger.verbose('=== S3: output/s3_output.json');
   await transfer({
     source: {
       smt: "json|S3:dictadata.org/test/data/|foofile.json.gz|*"
@@ -87,7 +87,7 @@ async function s3Download() {
     }
   });
 
-  logger.verbose('<<< S3: output/s3_output.json.gz');
+  logger.verbose('=== S3: output/s3_output.json.gz');
   await transfer({
     source: {
       smt: "json|S3:dictadata.org/test/data/|foofile.json|*"

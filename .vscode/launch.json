@@ -223,6 +223,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "REST encoding",
+      "program": "${workspaceFolder}/test/lib/rest_encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "REST retrieve",
       "program": "${workspaceFolder}/test/lib/rest_retrieve.js",
       "outputCapture": "std",

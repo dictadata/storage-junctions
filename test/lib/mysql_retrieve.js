@@ -25,7 +25,7 @@ async function tests() {
   logger.info("=== mysql retrieve with pattern");
   await retrieve({
     source: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*",
       pattern: {
         match: {
           "Foo": "first",

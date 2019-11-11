@@ -131,7 +131,7 @@ async function testDBTransform() {
 
 }
 
-async function weatherTransform(options) {
+async function forecastTransform(options) {
 
   let engram = new Engram(options.destination.smt);
   logger.info("transfer REST to " + engram.smt.model);
@@ -170,8 +170,8 @@ async function tests() {
   await testEtlTransform();
   await testFile2Transform();
   await testDBTransform();
-  await weatherTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_weather|=Foo"}});
-  await weatherTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_weather|*" } });
+  await forecastTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo"}});
+  await forecastTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
 }
 
 tests();

@@ -15,7 +15,9 @@ async function tests() {
     source: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
-        Foo: 'twenty'
+        match: {
+          Foo: 'twenty'
+        }
       }
     }
   });
