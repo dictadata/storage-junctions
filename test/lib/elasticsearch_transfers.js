@@ -11,10 +11,10 @@ logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  //logger.info("=== dull test_transfer");
+  //logger.info("=== dull foo_transfer");
   //await dull({
   //  source: {
-  //    smt: "elasticsearch|http://localhost:9200|test_transfer|*"
+  //    smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
   //  }
   //});
 
@@ -34,14 +34,14 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     destination: {
-      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
+      smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     }
   });
 
   logger.info("=== elasticsearch => csv");
   await transfer({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_transfer|*"
+      smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     },
     destination: {
       smt: "csv|./test/output/|elastic_output.csv|*",

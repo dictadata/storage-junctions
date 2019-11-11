@@ -102,7 +102,7 @@ async function testDBTransform() {
       "options": {}
     },
     "destination": {
-      "smt": "elasticsearch|http://localhost:9200|test_transform|=Foo",
+      "smt": "elasticsearch|http://localhost:9200|foo_transform|=Foo",
       "options": {}
     },
     "transforms": {
@@ -170,8 +170,8 @@ async function tests() {
   await testEtlTransform();
   await testFile2Transform();
   await testDBTransform();
-  await weatherTransform({ destination: { smt: "elasticsearch|http://localhost:9200|test_weather|=Foo"}});
-  await weatherTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_weather|*" } });
+  await weatherTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_weather|=Foo"}});
+  await weatherTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_weather|*" } });
 }
 
 tests();
