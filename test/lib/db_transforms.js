@@ -11,11 +11,11 @@ logger.info("=== Test: transforms");
 
 async function testEtlTransform() {
   logger.info("<<< transfer/transform json to elasticsearch");
-  logger.verbose('./test/data/testfile.json');
+  logger.verbose('./test/data/foofile.json');
 
   await transform({
     "source": {
-      "smt": "json|./test/data/|testfile.json|*",
+      "smt": "json|./test/data/|foofile.json|*",
       "options": {}
     },
     "destination": {
@@ -98,7 +98,7 @@ async function testDBTransform() {
   logger.info("transfer with transform mysql to elasticsearch");
   await transform({
     "source": {
-      "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_schema|=Foo",
+      "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
     "destination": {
@@ -144,10 +144,12 @@ async function weatherTransform(options) {
           "Accept": "application/ld+json",
           "User-Agent": "@dictadata.org/storage-node contact:drew@dictadata.org"
         },
-        extract: {
-          encoding: "",  // name of property containing an array of field headers
-          // empty denotes data array contains json objects
-          data: "periods"  // name of property for data array (objects or values)
+        reader: {
+          extract: {
+            encoding: "",  // name of property containing an array of field headers
+            // empty denotes data array contains json objects
+            data: "periods"  // name of property for data array (objects or values)
+          }
         }
       }
     },

@@ -27,10 +27,12 @@ async function testRetrieve() {
         params: {
           // querystring parameters
         },
-        extract: {
-          encoding: "",  // name of property containing an array of field headers
-          // empty encoding denotes data array contains json objects
-          data: "periods"  // name of property for data array (objects or values)
+        reader: {
+          extract: {
+            encoding: "",  // name of property containing an array of field headers
+            // empty encoding denotes data array contains json objects
+            data: "periods"  // name of property for data array (objects or values)
+          }
         }
       }
     }

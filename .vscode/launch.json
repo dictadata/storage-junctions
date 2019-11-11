@@ -8,13 +8,13 @@
       "type": "node",
       "request": "launch",
       "name": "AWS Check",
-      "program": "${workspaceFolder}/test/aws_cred.js"
+      "program": "${workspaceFolder}/test/lib/aws_credentials.js"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "junctions",
-      "program": "${workspaceFolder}/test/lib/junctions_tests.js",
+      "name": "echo junction",
+      "program": "${workspaceFolder}/test/lib/echo_junction.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -23,8 +23,38 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv transfer",
-      "program": "${workspaceFolder}/test/lib/csv_transfer.js",
+      "name": "csv transfers",
+      "program": "${workspaceFolder}/test/lib/csv_transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "json transfers",
+      "program": "${workspaceFolder}/test/lib/json_transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "gzip transfers",
+      "program": "${workspaceFolder}/test/lib/gzip_transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "s3 transfers",
+      "program": "${workspaceFolder}/test/lib/s3_transfers.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -43,28 +73,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json transfer",
-      "program": "${workspaceFolder}/test/lib/json_transfer.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "json codify",
       "program": "${workspaceFolder}/test/lib/json_codify.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "gzip transfer",
-      "program": "${workspaceFolder}/test/lib/gzip_transfer.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -83,8 +93,48 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch tests",
-      "program": "${workspaceFolder}/test/lib/elasticsearch_tests.js",
+      "name": "elasticsearch keystore",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_keystore.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "elasticsearch store",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_store.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "elasticsearch recall",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_recall.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "elasticsearch retrieve",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "elasticsearch dull",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_dull.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -103,8 +153,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch transfer",
-      "program": "${workspaceFolder}/test/lib/elasticsearch_transfer.js",
+      "name": "elasticsearch transfers",
+      "program": "${workspaceFolder}/test/lib/elasticsearch_transfers.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -123,8 +173,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql tests",
-      "program": "${workspaceFolder}/test/lib/mysql_tests.js",
+      "name": "mysql store",
+      "program": "${workspaceFolder}/test/lib/mysql_store.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -133,8 +183,38 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql transfer",
-      "program": "${workspaceFolder}/test/lib/mysql_transfer.js",
+      "name": "mysql recall",
+      "program": "${workspaceFolder}/test/lib/mysql_recall.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "mysql retrieve",
+      "program": "${workspaceFolder}/test/lib/mysql_retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "mysql dull",
+      "program": "${workspaceFolder}/test/lib/mysql_dull.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "mysql transfers",
+      "program": "${workspaceFolder}/test/lib/mysql_transfers.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -144,7 +224,7 @@
       "type": "node",
       "request": "launch",
       "name": "REST retrieve",
-      "program": "${workspaceFolder}/test/lib/rest_tests.js",
+      "program": "${workspaceFolder}/test/lib/rest_retrieve.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -163,8 +243,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "test transforms",
-      "program": "${workspaceFolder}/test/lib/test_transforms.js",
+      "name": "db transforms",
+      "program": "${workspaceFolder}/test/lib/db_transforms.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -173,7 +253,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv scan",
+      "name": "csv scans",
       "program": "${workspaceFolder}/test/lib/csv_scan.js",
       "outputCapture": "std",
       "env": {
@@ -183,23 +263,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json scan",
+      "name": "json scans",
       "program": "${workspaceFolder}/test/lib/json_scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
       }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "s3 transfers",
-      "program": "${workspaceFolder}/test/lib/s3_transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
+    }
 
   ]
 }

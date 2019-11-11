@@ -12,12 +12,12 @@ async function tests() {
   logger.info("=== scan local filesystem");
   await scan({
     source: {
-      smt: "csv|./test/data/|*.csv|*"
+      smt: "csv|./test/|*.csv|*"
     },
     scan: {
-      recursive: false,
+      recursive: true,
       forEach: (name) => {
-        logger.info(name);
+        logger.info("- " + name);
       }
     }
   });
@@ -25,12 +25,12 @@ async function tests() {
   logger.info("=== scan S3 bucket (recursive)");
   await scan({
     source: {
-      smt: "csv|S3:dictadata.org/test/|*.csv|*"
+      smt: "csv|S3:dictadata.org/test/output/|*.csv|*"
     },
     scan: {
-      recursive: true,
+      recursive: false,
       forEach: (name) => {
-        logger.info(name);
+        logger.info("- " + name);
       }
     }
   });
@@ -38,13 +38,10 @@ async function tests() {
   logger.info("=== scan S3 bucket");
   await scan({
     source: {
-      smt: "csv|S3:dictadata.org/test/|*.csv|*"
+      smt: "csv|S3:dictadata.org/test/|*.csv.*|*"
     },
     scan: {
-      recursive: false,
-      forEach: (name) => {
-        logger.info(name);
-      }
+      recursive: true
     }
   });
 

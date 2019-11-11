@@ -24,7 +24,7 @@ module.exports = async function (options) {
 
     logger.debug(JSON.stringify(encoding1, null, "  "));
     logger.info(">>> save encoding to " + options.outputFile1);
-    fs.writeFileSync(options.outputFile1, JSON.stringify(encoding1), "utf8");
+    fs.writeFileSync(options.outputFile1, JSON.stringify(encoding1,null,"  "), "utf8");
 
     // *** stream some data to the codifier
     logger.info(">>> create streams");
@@ -38,7 +38,7 @@ module.exports = async function (options) {
 
     logger.debug(JSON.stringify(encoding2, null, "  "));
     logger.info(">>> save encoding to " + options.outputFile2);
-    fs.writeFileSync(options.outputFile2, JSON.stringify(encoding2), "utf8");
+    fs.writeFileSync(options.outputFile2, JSON.stringify(encoding2,null,"  "), "utf8");
 
     logger.info(">>> completed");
   }

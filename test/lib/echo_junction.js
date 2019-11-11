@@ -16,7 +16,7 @@ logger.info("=== Tests: EchoJunction");
 async function testStream() {
   logger.info("=== testStream");
 
-  logger.info(">>> adding EchoJunction");
+  logger.info(">>> adding EchoJunction to storage cortex");
   storage.use("echo", EchoJunction);
 
   logger.info(">>> create junction");

@@ -1,13 +1,13 @@
 {
   "model": "*",
   "locus": "*",
-  "schema": "test_schema",
+  "schema": "foo_schema",
   "key": "*",
   "fields": {
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 0,
+      "size": 64,
       "default": null,
       "isNullable": false,
       "isKey": true,
@@ -16,7 +16,7 @@
     "Bar": {
       "name": "Bar",
       "type": "keyword",
-      "size": 0,
+      "size": 64,
       "default": null,
       "isNullable": true,
       "isKey": false,

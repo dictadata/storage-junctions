@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql writer");
   await transfer({
     source: {
-      smt: "csv|./test/data/|testfile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*"
     },
     destination: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|test_transfer|*"

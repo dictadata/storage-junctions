@@ -21,17 +21,17 @@ async function tests() {
   logger.info("=== csv => elasticsearch");
   await transfer({
     source: {
-      smt: "csv|./test/data/|testfile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*"
     },
     destination: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     }
   });
 
   logger.info("=== elasticsearch => elasticsearch");
   await transfer({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     destination: {
       smt: "elasticsearch|http://localhost:9200|test_transfer|*"

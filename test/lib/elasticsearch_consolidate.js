@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
           "Foo": 'twenty'
@@ -25,7 +25,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve with pattern");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -43,7 +43,7 @@ async function tests() {
   logger.info("=== elasticsearch consolidate");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -60,7 +60,7 @@ async function tests() {
   logger.info("=== elasticsearch consolidate w/ groupby");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -81,7 +81,7 @@ async function tests() {
   logger.info("=== elasticsearch groupby with summary");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|test_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

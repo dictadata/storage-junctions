@@ -9,14 +9,23 @@ const logger = require('../../lib/logger');
 logger.info("=== tests: Codify");
 
 async function tests() {
-/*
-  logger.info("=== codify testfile.json");
+
+  logger.info("=== codify foofile.json");
   await codify({
     source: {
-      smt: "json|./test/data/|testfile.json|*"
+      smt: "json|./test/data/|foofile.json|*"
     },
     outputFile1: './test/output/json_encoding_1.json',
     outputFile2: './test/output/json_encoding_2.json'
+  });
+
+  logger.info("=== codify foofile.json.gz");
+  await codify({
+    source: {
+      smt: "json|./test/data/|foofile.json.gz|*"
+    },
+    outputFile1: './test/output/json_encoding_g1.json',
+    outputFile2: './test/output/json_encoding_g2.json'
   });
 
   logger.info("=== codify testfile2.json");
@@ -26,31 +35,6 @@ async function tests() {
     },
     outputFile1: './test/output/json_encoding2_1.json',
     outputFile2: './test/output/json_encoding2_2.json'
-  });
-
-  logger.info("=== codify S3 testfile.json.gz");
-  await codify({
-    source: {
-      smt: "json|S3:dictadata.org/test/data/|testfile.json.gz|*"
-    },
-    outputFile1: './test/output/json_encoding_g1.json',
-    outputFile2: './test/output/json_encoding_g2.json'
-  });
-*/
-  logger.info("=== codify 01.log.gz");
-  await codify({
-    source: {
-      smt: "jsonl|./test/data/|01.log.gz|*",
-      options: {
-        max_read: 99
-      }
-    },
-    codify: {
-      "notation": "dot",
-      "statistics": true
-    },
-    outputFile1: './test/output/json_encoding_lg1.json',
-    outputFile2: './test/output/json_encoding_lg2.json'
   });
 
 }

@@ -1,38 +1,57 @@
-# @dictadata/storage-junctions
+# 1. @dictadata/storage-junctions
 
 A Node.js library for distributed data definition, storage, access, search and streaming.
 
 A storage junction provides a simple interface to a data source such as formatted file, database or key value store.
 
-[TOC]
+<!-- TOC depthfrom:2 depthto:2 -->
 
-## Supported Storage Sources
+- [Supported Storage Sources](#supported-storage-sources)
+- [Storage Memory Trace](#storage-memory-trace)
+- [SMT Key Formats](#smt-key-formats)
+- [Storage-Junctions Functions](#storage-junctions-functions)
+  - [getEncoding()](#getencoding)
+  - [putEncoding(encoding)](#putencodingencoding)
+  - [store(construct)](#storeconstruct)
+  - [recall(key)](#recallkey)
+  - [retrieve(pattern)](#retrievepattern)
+  - [getReadStream()](#getreadstream)
+  - [getWriteStream()](#getwritestream)
+  - [getTransform(transforms)](#gettransformtransforms)
+  - [getCodifyWriter()](#getcodifywriter)
+- [Storage Engram Encoding](#storage-engram-encoding)
+- [Storage Retrieval Pattern](#storage-retrieval-pattern)
+- [Storage Transforms](#storage-transforms)
 
-| model | encoding | store | recall | retrieve | dull | streamable | key-value | documents | tables |
-| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| csv | yes | no | no | - | no | yes | no | no | yes |
-| json | yes | no | no | - | no | yes | no | yes | yes |
-| rest | yes | - | - | yes | - | yes | - | - | yes |
-| elasticsearch | yes | yes | yes | yes | yes | yes | yes | yes | yes |
-| mysql | yes | yes | no | yes | yes | yes | no | - | yes |
-| *mssql | | | | | | | no | - | yes |
-| *postgresql | | | | | | | no | - | yes |
-| *mongodb | | | | | | | yes | yes | yes |
-| -memcache | | | | | | | yes | no | no |
+<!-- /TOC -->
 
-&ast; In the plans for future development.
+## 1.1. Supported Storage Sources
+
+| model         | encoding | store | recall | retrieve | dull | streamable | key-value | documents | tables |
+| ------------- | :------: | :---: | :----: | :------: | :--: | :--------: | :-------: | :-------: | :----: |
+| csv           |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    no     |  yes   |
+| json          |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
+| rest          |   yes    |   -   |   -    |   yes    |  -   |    yes     |     -     |     -     |  yes   |
+| elasticsearch |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    yes    |    yes    |  yes   |
+| mysql         |   yes    |  yes  |   no   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
+| \*mssql       |          |       |        |          |      |            |    no     |     -     |  yes   |
+| \*postgresql  |          |       |        |          |      |            |    no     |     -     |  yes   |
+| \*mongodb     |          |       |        |          |      |            |    yes    |    yes    |  yes   |
+| -memcache     |          |       |        |          |      |            |    yes    |    no     |   no   |
+
+\* In the plans for future development.
 &dash; Not planned, but will be developed as needed.
 
-## Storage Memory Trace
+## 1.2. Storage Memory Trace
 
-A storage memory trace (SMT) is a data source definition.  It is made up of four parts.
+A storage memory trace (SMT) is a data source definition. It is made up of four parts.
 
-| SMT | Description |
-| --- | --- |
-| model | The type of storage source which determines how to communicate with the storage source. |
-| locus | The location or address of the data source such as a file folder, URL or database connection string. |
-| schema | The name of the container that holds the data such as file name, database table, or bucket. |
-| key | How to address data stored in the schema. |
+| SMT    | Description                                                                                          |
+| ------ | ---------------------------------------------------------------------------------------------------- |
+| model  | The type of storage source which determines how to communicate with the storage source.              |
+| locus  | The location or address of the data source such as a file folder, URL or database connection string. |
+| schema | The name of the container that holds the data such as file name, database table, or bucket.          |
+| key    | How to address data stored in the schema.                                                            |
 
 An SMT can be represented as string separated by pipe | characters or as a json object. Special characters in an SMT string can be URL encoded.
 
@@ -49,38 +68,38 @@ csv|/path/to/folder/|filename.csv|*
 }
 ```
 
-## SMT Key Formats
+## 1.3. SMT Key Formats
 
-| Format | Description | Examples |
-| --- | --- | --- |
-| ! | Key. Keys are used to store and recall data. A single ! character denotes the data source assigns keys.  Field names following a ! will be used to compute the key. Useful for key-value or document stores | !<br /> !userid<br/> !lastname+firstname |
-| = | Primary key. Field name(s) must follow the = character.  Values must be supplied for key fields when calling store, recall and dull functions. Useful for structured data like database tables. | =userid<br/> =lastname+firstname. |
-| * | Any or All. If primary key(s) are specified in the schema encodings then this is effectively equivalent to = key format. Otherwise, * is a generic place holder primarily used when the source is only used for searching or streaming transfers. | * |
-| uid | UID. A unique ID value (key) that addresses a specific piece of data on the data source. Similar to ! as the UID is a specific key. Used as the default value if no key is passed to store, recall and dull functions. Otherwise, the storage junction will behave the same as the bare ! key format. Rarely useful except in special cases. | 1234<br /> default |
+| Format | Description                                                                                                                                                                                                                                                                                                                                  | Examples                                 |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| !      | Key. Keys are used to store and recall data. A single ! character denotes the data source assigns keys. Field names following a ! will be used to compute the key. Useful for key-value or document stores                                                                                                                                   | !<br /> !userid<br/> !lastname+firstname |
+| =      | Primary key. Field name(s) must follow the = character. Values must be supplied for key fields when calling store, recall and dull functions. Useful for structured data like database tables.                                                                                                                                               | =userid<br/> =lastname+firstname.        |
+| \*     | Any or All. If primary key(s) are specified in the schema encodings then this is effectively equivalent to = key format. Otherwise, \* is a generic place holder primarily used when the source is only used for searching or streaming transfers.                                                                                           | \*                                       |
+| uid    | UID. A unique ID value (key) that addresses a specific piece of data on the data source. Similar to ! as the UID is a specific key. Used as the default value if no key is passed to store, recall and dull functions. Otherwise, the storage junction will behave the same as the bare ! key format. Rarely useful except in special cases. | 1234<br /> default                       |
 
-## Storage-Junctions Functions
+## 1.4. Storage-Junctions Functions
 
-### getEncoding()
+### 1.4.1. getEncoding()
 
-### putEncoding(encoding)
+### 1.4.2. putEncoding(encoding)
 
-### store(construct)
+### 1.4.3. store(construct)
 
-### recall(key)
+### 1.4.4. recall(key)
 
-### retrieve(pattern)
+### 1.4.5. retrieve(pattern)
 
-### getReadStream()
+### 1.4.6. getReadStream()
 
-### getWriteStream()
+### 1.4.7. getWriteStream()
 
-### getTransform(transforms)
+### 1.4.8. getTransform(transforms)
 
-### getCodifyWriter()
+### 1.4.9. getCodifyWriter()
 
-## Storage Engram Encoding
+## 1.5. Storage Engram Encoding
 
-```json
+````json
 {
   "model": "*",
   "locus": "*",
@@ -108,9 +127,9 @@ csv|/path/to/folder/|filename.csv|*
     ...
   }
 }
-```
+````
 
-## Storage Retrieval Pattern
+## 1.6. Storage Retrieval Pattern
 
 ```json
 pattern: {
@@ -126,7 +145,7 @@ pattern: {
 }
 ```
 
-## Storage Transforms
+## 1.7. Storage Transforms
 
 ```json
 "transforms": {
