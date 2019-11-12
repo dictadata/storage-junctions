@@ -19,10 +19,6 @@ var CsvJunction = require("./lib/csv");
 cortex.use('csv', CsvJunction);
 exports.CsvJunction = CsvJunction;
 
-var ElasticsearchJunction = require("./lib/elasticsearch");
-cortex.use('elasticsearch', ElasticsearchJunction);
-exports.ElasticsearchJunction = ElasticsearchJunction;
-
 var JsonJunction = require("./lib/json");
 cortex.use('json', JsonJunction);   // defaults to json array
 cortex.use('jsons', JsonJunction);  // json stream
@@ -30,6 +26,14 @@ cortex.use('jsonl', JsonJunction);  // json line
 cortex.use('jsona', JsonJunction);  // json array
 cortex.use('jsono', JsonJunction);  // json object
 exports.JsonJunction = JsonJunction;
+
+var ParquetJunction = require("./lib/parquet");
+cortex.use('parquet', ParquetJunction);
+exports.ParquetJunction = ParquetJunction;
+
+var ElasticsearchJunction = require("./lib/elasticsearch");
+cortex.use('elasticsearch', ElasticsearchJunction);
+exports.ElasticsearchJunction = ElasticsearchJunction;
 
 var MongoDBJunction = require("./lib/mongodb");
 cortex.use('mongodb', MongoDBJunction);
