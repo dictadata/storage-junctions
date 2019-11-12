@@ -4,26 +4,7 @@ A Node.js library for distributed data definition, storage, access, search and s
 
 A storage junction provides a simple interface to a data source such as formatted file, database or key value store.
 
-<!-- TOC depthfrom:2 depthto:2 -->
-
-- [Supported Storage Sources](#supported-storage-sources)
-- [Storage Memory Trace](#storage-memory-trace)
-- [SMT Key Formats](#smt-key-formats)
-- [Storage-Junctions Functions](#storage-junctions-functions)
-  - [getEncoding()](#getencoding)
-  - [putEncoding(encoding)](#putencodingencoding)
-  - [store(construct)](#storeconstruct)
-  - [recall(key)](#recallkey)
-  - [retrieve(pattern)](#retrievepattern)
-  - [getReadStream()](#getreadstream)
-  - [getWriteStream()](#getwritestream)
-  - [getTransform(transforms)](#gettransformtransforms)
-  - [getCodifyWriter()](#getcodifywriter)
-- [Storage Engram Encoding](#storage-engram-encoding)
-- [Storage Retrieval Pattern](#storage-retrieval-pattern)
-- [Storage Transforms](#storage-transforms)
-
-<!-- /TOC -->
+<!-- TOC depthFrom:2 depthTo:2 -->autoauto- [1.1. Supported Storage Sources](#11-supported-storage-sources)auto- [1.2. Storage Memory Trace](#12-storage-memory-trace)auto- [1.3. SMT Key Formats](#13-smt-key-formats)auto- [1.4. Storage-Junctions Functions](#14-storage-junctions-functions)auto- [1.5. Storage Engram Encoding](#15-storage-engram-encoding)auto- [1.6. Storage Retrieval Pattern](#16-storage-retrieval-pattern)auto- [1.7. Storage Transforms](#17-storage-transforms)autoauto<!-- /TOC -->
 
 ## 1.1. Supported Storage Sources
 
@@ -33,7 +14,8 @@ A storage junction provides a simple interface to a data source such as formatte
 | json          |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
 | rest          |   yes    |   -   |   -    |   yes    |  -   |    yes     |     -     |     -     |  yes   |
 | elasticsearch |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    yes    |    yes    |  yes   |
-| mysql         |   yes    |  yes  |   no   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
+| mysql         |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
+| redshift      |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
 | \*mssql       |          |       |        |          |      |            |    no     |     -     |  yes   |
 | \*postgresql  |          |       |        |          |      |            |    no     |     -     |  yes   |
 | \*mongodb     |          |       |        |          |      |            |    yes    |    yes    |  yes   |
