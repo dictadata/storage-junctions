@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const getEncoding = require('./_getEncoding');
-const putEncoding = require('./_putEncoding');
-const logger = require('../../lib/logger');
+const getEncoding = require('../_getEncoding');
+const putEncoding = require('../_putEncoding');
+const logger = require('../../../lib/logger');
 
 logger.info("===== elasticsearch encoding ");
 

@@ -3,10 +3,10 @@
  */
 "use strict";
 
-const store = require('./_store');
-const recall = require('./_recall');
-const dull = require('./_dull');
-const logger = require('../../lib/logger');
+const store = require('../_store');
+const recall = require('../_recall');
+const dull = require('../_dull');
+const logger = require('../../../lib/logger');
 
 logger.info("=== Tests: elasticsearch");
 

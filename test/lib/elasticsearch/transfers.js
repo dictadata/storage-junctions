@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const transfer = require('./_transfer');
-const dull = require('./_dull');
-const logger = require('../../lib/logger');
+const transfer = require('../_transfer');
+const dull = require('../_dull');
+const logger = require('../../../lib/logger');
 
 logger.info("=== Tests: elasticsearch");
 

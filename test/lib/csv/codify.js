@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const codify = require('./_codify');
-const logger = require('../../lib/logger');
+const codify = require('../_codify');
+const logger = require('../../../lib/logger');
 
 logger.info("=== tests: Codify");
 

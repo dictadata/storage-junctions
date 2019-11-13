@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const store = require('./_store');
-const logger = require('../../lib/logger');
+const store = require('../_store');
+const logger = require('../../../lib/logger');
 
 logger.info("=== Test: mysql");
 
