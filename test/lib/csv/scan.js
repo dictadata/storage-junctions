@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const scan = require('.'../_scan'');
+const scan = require('../_scan');
 const logger = require('../../../lib/logger');
 
 logger.info("=== tests: CSV scan");
