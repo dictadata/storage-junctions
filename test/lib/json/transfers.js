@@ -4,6 +4,7 @@
 "use strict";
 
 const transfer = require('../_transfer');
+const transform = require('../_transform');
 const logger = require('../../../lib/logger');
 
 logger.info("=== Test: json transfers");
@@ -51,12 +52,24 @@ async function tests() {
   });
 
   logger.verbose('=== json_output.csv');
-  await transfer({
+  await transform({
     source: {
       smt: "json|./test/data/|foofile.json|*"
     },
     destination: {
       smt: "csv|./test/output/|json_output.csv|*"
+    },
+    transforms: {
+      mapping: {
+        "Foo": "foo",
+        "Bar": "bar",
+        "Baz": "baz",
+        "Fobe": "fobe",
+        "Dt Test": "dt_test",
+        "enabled": "enabled",
+        "subObj1.state": "state",
+        "subObj2.subsub.izze": "izze"
+      }
     }
   });
 

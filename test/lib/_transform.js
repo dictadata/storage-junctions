@@ -22,9 +22,13 @@ module.exports = async function (options) {
     logger.debug(">>> get source encoding (codify)");
     let encoding = await j1.getEncoding();
 
-    for (let [name,value] of Object.entries(options.transforms.inject)) {
-      encoding.add(new Field({name: name, type: Types.storageType(value)}));
-    }
+    // run some constructs through the transforms
+    // to get the resulting encoding
+    let rs = j1.getReadStream({ codify: true, max_read: 1000 });
+    let tr = j1.getTransform(options.transforms);
+    let cf = j1.getCodifyWriter();
+    await pipeline([rs, tr, cf]);
+    encoding = await cf.getEncoding();
 
     logger.debug(">>> encoding results");
     logger.debug(JSON.stringify(encoding.fields));
