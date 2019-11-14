@@ -10,9 +10,16 @@ exports = module.exports = cortex;
 // other storage classes
 exports.Engram = require("./lib/engram");
 exports.Field = require("./lib/field");
-exports.Types = require("./lib/types");
 
-exports.StorageError = require("./lib/storage_error");
+let Types = exports.Types = require("./lib/types");
+exports.StorageResults = Types.StorageResults;
+exports.StorageError = Types.StorageError;
+
+exports.StorageJunction = require("./lib/junction");
+exports.StorageReader = require("./lib/junction/reader");
+exports.StorageWriter = require("./lib/junction/writer");
+exports.StorageTransform = require("./lib/junction/transform");
+exports.CodifyWriter = require("./lib/junction/codify");
 
 // standard junctions
 var CsvJunction = require("./lib/csv");
@@ -46,10 +53,6 @@ exports.MSSQLJunction = MSSQLJunction;
 var MySQLJunction = require("./lib/mysql");
 cortex.use('mysql', MySQLJunction);
 exports.MySQLJunction = MySQLJunction;
-
-var RedshiftJunction = require("./lib/redshift");
-cortex.use('redshift', RedshiftJunction);
-exports.RedshiftJunction = RedshiftJunction;
 
 var PostgreSQLJunction = require("./lib/postgresql");
 cortex.use('postgresql', PostgreSQLJunction);
