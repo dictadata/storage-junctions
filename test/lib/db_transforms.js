@@ -10,8 +10,9 @@ const logger = require('../../lib/logger');
 logger.info("=== Test: transforms");
 
 async function testEtlTransform() {
-  logger.info("<<< transfer/transform json to elasticsearch");
-  logger.verbose('./test/data/foofile.json');
+  logger.info("=== transfer/transform json to elasticsearch");
+  logger.verbose('<<< ./test/data/foofile.json');
+  logger.verbose('>>> elastichsearch etl-2');
 
   await transform({
     "source": {
@@ -55,8 +56,9 @@ async function testEtlTransform() {
 
 async function testFile2Transform() {
 
-  logger.info("<<< transfer json to csv");
-  logger.verbose('./test/data/testfile2.json');
+  logger.info("=== transfer json to csv");
+  logger.verbose('<<< ./test/data/testfile2.json');
+  logger.verbose('>>> ./test/output/transform_output2.csv');
 
   await transform({
     source: {
@@ -90,12 +92,14 @@ async function testFile2Transform() {
     }
   });
 
-  logger.verbose('./test/output/transform_output.json');
 }
 
 async function testDBTransform() {
 
-  logger.info("transfer with transform mysql to elasticsearch");
+  logger.info("=== transfer with transform mysql to elasticsearch");
+  logger.verbose("<<< mysql foo_schema");
+  logger.verbose(">>> elastichsearch foo_transform");
+
   await transform({
     "source": {
       "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
@@ -134,7 +138,9 @@ async function testDBTransform() {
 async function forecastTransform(options) {
 
   let engram = new Engram(options.destination.smt);
-  logger.info("transfer REST to " + engram.smt.model);
+  logger.info("=== transfer REST to " + engram.smt.model);
+  logger.verbose("<<< weather API");
+  logger.verbose(">>> " + engram.smt.model + " " + engram.smt.schema);
 
   await transform({
     source: {
