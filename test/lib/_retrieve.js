@@ -15,7 +15,7 @@ module.exports = async function (options) {
 
   try {
     let results = await junction.retrieve(options.source.pattern);
-    logger.verbose("result: " + results.result + " count: " + results.data.length );
+    logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0) );
     logger.verbose(JSON.stringify(results));
 
     logger.info(">>> completed");

@@ -16,6 +16,18 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
     construct: {
+      Foo: 'first',
+      Bar: 'Washington',
+      Baz: 1
+    }
+  });
+
+  logger.info("=== elasticsearch store");
+  await store({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
+    },
+    construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
       Baz: 20
