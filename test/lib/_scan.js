@@ -9,6 +9,8 @@ const logger = require('../../lib/logger');
 module.exports = async function (options) {
 
   logger.info(">>> create junction");
+  logger.verbose(options.source.smt);
+  logger.verbose("options: " + JSON.stringify(options.source.pattern));
   var j1 = storage.activate(options.source.smt, options.source.options);
 
   try {

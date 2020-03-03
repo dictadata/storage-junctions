@@ -54,7 +54,7 @@ async function tests() {
       }
     }
   });
-
+/*
   logger.info("=== elasticsearch dull");
   await dull({
     source: {
@@ -64,7 +64,7 @@ async function tests() {
       }
     }
   });
-
+*/
 }
 
 tests();
