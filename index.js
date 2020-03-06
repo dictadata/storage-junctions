@@ -39,6 +39,7 @@ cortex.use('parquet', ParquetJunction);
 exports.ParquetJunction = ParquetJunction;
 
 var ElasticsearchJunction = require("./lib/elasticsearch");
+cortex.use('elastic', ElasticsearchJunction);
 cortex.use('elasticsearch', ElasticsearchJunction);
 exports.ElasticsearchJunction = ElasticsearchJunction;
 
