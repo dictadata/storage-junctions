@@ -1,13 +1,13 @@
 {
   "name": "@dictadata/storage-junctions",
-  "version": "0.6.0",
-  "description": "A Node.js library for distributed data storage, access and streaming.",
+  "version": "1.0.0",
+  "description": "Node.js library for distributed data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "license": "MIT",
   "main": "index.js",
   "repository": "github:dictadata/storage-junctions",
   "scripts": {
-    "debug": "set NODE_ENV=development&& node --inspect-brk test/lib/csv_scan.js",
+    "debug": "set NODE_ENV=development&& node --inspect-brk test/lib/<some file to test>.js",
     "lint": "eslint lib/**/*.js",
     "lint-fix": "eslint --fix lib/**/*.js"
   },

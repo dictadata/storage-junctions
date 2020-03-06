@@ -1,8 +1,10 @@
-# 1. @dictadata/storage-junctions
+### dictadata.org: Open source software for Data Engineering & Analytics
 
-A Node.js library for distributed data definition, storage, access, search and streaming.
+# 1. @dictadata/storage-junctions 1.0.0
 
-A storage junction provides a simple interface to a data source such as formatted file, database or key value store.
+Node.js library for distributed data storage access and streaming transfers.
+
+A storage junction provides a normalized, plug-in interface to a specific data source such as data file, database table, document collection, key/value store, etc.
 
 <!-- TOC depthFrom:2 depthTo:2 -->autoauto- [1.1. Supported Storage Sources](#11-supported-storage-sources)auto- [1.2. Storage Memory Trace](#12-storage-memory-trace)auto- [1.3. SMT Key Formats](#13-smt-key-formats)auto- [1.4. Storage-Junctions Functions](#14-storage-junctions-functions)auto- [1.5. Storage Engram Encoding](#15-storage-engram-encoding)auto- [1.6. Storage Retrieval Pattern](#16-storage-retrieval-pattern)auto- [1.7. Storage Transforms](#17-storage-transforms)autoauto<!-- /TOC -->
 
@@ -12,6 +14,7 @@ A storage junction provides a simple interface to a data source such as formatte
 | ------------- | :------: | :---: | :----: | :------: | :--: | :--------: | :-------: | :-------: | :----: |
 | csv           |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    no     |  yes   |
 | json          |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
+| parquet       |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
 | rest          |   yes    |   -   |   -    |   yes    |  -   |    yes     |     -     |     -     |  yes   |
 | elasticsearch |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    yes    |    yes    |  yes   |
 | mysql         |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
@@ -32,21 +35,23 @@ A storage memory trace (SMT) is a data source definition. It is made up of four 
 | ------ | ---------------------------------------------------------------------------------------------------- |
 | model  | The type of storage source which determines how to communicate with the storage source.              |
 | locus  | The location or address of the data source such as a file folder, URL or database connection string. |
-| schema | The name of the container that holds the data such as file name, database table, or bucket.          |
-| key    | How to address data stored in the schema.                                                            |
+| schema | The name of the container that holds the data such as file name, table, collection or bucket.        |
+| key    | In addition to defining a key it determines how to address data stored in the schema.                |
 
-An SMT can be represented as string separated by pipe | characters or as a json object. Special characters in an SMT string can be URL encoded.
+An SMT can be represented as string separated by pipe | characters or as a json object. Special characters in an SMT string should be URL encoded.
 
 ```php
 csv|/path/to/folder/|filename.csv|*
+mysql|connection string|talblename|=column1,column2
+elastic|node address|index|!field
 ```
 
 ```json
 {
-  "model": "csv",
-  "locus": "/path/to/folder/",
-  "schema": "filename.csv",
-  "key": "*"
+  "model": "mysql",
+  "locus": "connection string",
+  "schema": "tablename",
+  "key": "=column1,column2"
 }
 ```
 
