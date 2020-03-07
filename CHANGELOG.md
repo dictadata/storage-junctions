@@ -1,5 +1,7 @@
+- version 1.0.3
+  - ensure consisten field ordering in .csv and .json output
 - version 1.0.2
-  - return elasticsearch key(s) for list inserts 
+  - return elasticsearch key(s) for list inserts
 - version 1.0.1
   - prevent empty string as elasticsearch key
 - version 1.0.0
