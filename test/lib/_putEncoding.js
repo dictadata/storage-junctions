@@ -12,8 +12,10 @@ module.exports = async function (options) {
   logger.info(">>> create junction");
   var junction = storage.activate(options.source.smt, options.source.options);
 
+  let filename = "./test/data/" + (options.source.filename || "foo_encoding.json");
+
   try {
-    let encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding.json", "utf8"));
+    let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
 
     let newencoding = await junction.putEncoding(encoding);
     if (typeof newencoding === 'object')
