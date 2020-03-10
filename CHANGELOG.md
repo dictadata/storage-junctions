@@ -1,5 +1,8 @@
+- version 1.0.4
+  - add support for Elasticsearch object and nested datatypes
+  - updated package dependencies to @latest
 - version 1.0.3
-  - ensure consisten field ordering in .csv and .json output
+  - ensure consistent field ordering in .csv and .json output
 - version 1.0.2
   - return elasticsearch key(s) for list inserts
 - version 1.0.1
