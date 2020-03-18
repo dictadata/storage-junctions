@@ -1,6 +1,6 @@
 {
   "name": "@dictadata/storage-junctions",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Node.js library for distributed data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "license": "MIT",
@@ -12,8 +12,8 @@
     "lint-fix": "eslint --fix lib/**/*.js"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^7.6.0",
-    "aws-sdk": "^2.636.0",
+    "@elastic/elasticsearch": "^7.6.1",
+    "aws-sdk": "^2.641.0",
     "axios": "^0.19.2",
     "axios-oauth-client": "^1.2.1",
     "dot-object": "^2.1.3",

@@ -1,3 +1,5 @@
+- version 1.0.5
+  - bug fix for StorageResult returning extra array container
 - version 1.0.4
   - add support for Elasticsearch object and nested datatypes
   - updated package dependencies to @latest
@@ -9,4 +11,3 @@
   - prevent empty string as elasticsearch key
 - version 1.0.0
   - StorageResults now returns an array (list) for row or column stores (tables) and an object (dictionary map) for document and key-value stores. This allows return of data source generated keys while not polluting data objects.  Single data objects will no longer be return.
-  
