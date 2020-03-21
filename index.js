@@ -5,7 +5,7 @@
 
 var cortex = require("./lib/cortex");
 
-exports = module.exports = cortex;
+module.exports = exports = cortex;
 
 // other storage classes
 exports.Engram = require("./lib/engram");

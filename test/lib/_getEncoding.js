@@ -7,7 +7,7 @@ const storage = require("../../index");
 const logger = require('../../lib/logger');
 const fs = require('fs');
 
-module.exports = async function (options) {
+module.exports = exports = async function (options) {
 
   logger.info(">>> create junction");
   var junction = storage.activate(options.source.smt, options.source.options);

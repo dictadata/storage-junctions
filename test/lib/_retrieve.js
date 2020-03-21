@@ -6,7 +6,7 @@
 const storage = require("../../index");
 const logger = require('../../lib/logger');
 
-module.exports = async function (options) {
+module.exports = exports = async function (options) {
 
   logger.info(">>> create junction");
   logger.verbose(options.source.smt);

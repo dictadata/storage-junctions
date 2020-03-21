@@ -6,7 +6,7 @@
 const storage = require("../../index");
 const logger = require('../../lib/logger');
 
-module.exports = async function (options) {
+module.exports = exports = async function (options) {
 
   logger.info(">>> create junction");
   logger.verbose(options.source.smt);
@@ -20,7 +20,7 @@ module.exports = async function (options) {
     logger.info(">>> completed");
     if (results.data && !Array.isArray(results.data)) {
       return Object.keys(results.data)[0];
-    } 
+    }
     return null;
   }
   catch (err) {
