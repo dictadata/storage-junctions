@@ -21,8 +21,8 @@ async function testTransfer() {
           "User-Agent": "@dictadata.org/storage-node contact:drew@dictadata.org"
         },
         auth: {
-          //username: this._options.auth.username,
-          //password: this._options.auth.password
+          //username: this.options.auth.username,
+          //password: this.options.auth.password
         },
         params: {
           // querystring parameters
