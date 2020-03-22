@@ -9,6 +9,7 @@ const logger = require('../../lib/logger');
 logger.info("=== tests: CSV scan");
 
 async function tests() {
+
   logger.info("=== scan local filesystem");
   await scan({
     source: {
@@ -28,17 +29,21 @@ async function tests() {
       smt: "csv|S3:dictadata.org/test/output/|*.csv|*"
     },
     scan: {
-      recursive: false,
-      forEach: (name) => {
-        logger.info("- " + name);
-      }
+      recursive: false
     }
   });
 
   logger.info("=== scan S3 bucket");
   await scan({
     source: {
-      smt: "csv|S3:dictadata.org/test/|*.csv.*|*"
+      smt: {
+        model: "csv",
+        locus: "S3:dictadata.org/test/",
+        schema: "*.csv.*",
+        key: "*",
+        aws_profile: ""
+      },
+      options: {}
     },
     scan: {
       recursive: true
@@ -47,4 +52,8 @@ async function tests() {
 
 }
 
-tests();
+async function main() {
+  await tests();
+}
+
+main();

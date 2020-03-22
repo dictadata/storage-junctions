@@ -1,3 +1,6 @@
+- version 1.0.6
+  - minor changes related to implementing xlsx-junction
+  - other code cleanup
 - version 1.0.5
   - bug fix for StorageResult returning extra array container
 - version 1.0.4
