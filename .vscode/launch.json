@@ -263,8 +263,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv scans",
-      "program": "${workspaceFolder}/test/csv/scan.js",
+      "name": "fs scans",
+      "program": "${workspaceFolder}/test/filestorage/fs-scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -273,8 +273,18 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json scans",
-      "program": "${workspaceFolder}/test/json/scan.js",
+      "name": "s3 scans",
+      "program": "${workspaceFolder}/test/filestorage/s3-scan.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "ftp scans",
+      "program": "${workspaceFolder}/test/filestorage/ftp-scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
