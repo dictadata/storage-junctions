@@ -21,17 +21,17 @@ exports.StorageWriter = require("./lib/junction/writer");
 exports.StorageTransform = require("./lib/junction/transform");
 exports.CodifyWriter = require("./lib/junction/codify");
 
-// standard filestorage systems
+// register standard filestorage systems
 exports.fsFileStorage = require("./lib/filestorage/fs-filestorage")
-cortex.useFS('fs', exports.fsFileStorage);
+cortex.fileStorage.use('fs', exports.fsFileStorage);
 
 exports.ftpFileStorage = require("./lib/filestorage/ftp-filestorage")
-cortex.useFS('ftp', exports.ftpFileStorage);
+cortex.fileStorage.use('ftp', exports.ftpFileStorage);
 
 exports.s3FileStorage = require("./lib/filestorage/s3-filestorage")
-cortex.useFS('s3', exports.s3FileStorage);
+cortex.fileStorage.use('s3', exports.s3FileStorage);
 
-// standard junctions
+// register standard junctions
 var CsvJunction = require("./lib/csv");
 cortex.use('csv', CsvJunction);
 exports.CsvJunction = CsvJunction;
