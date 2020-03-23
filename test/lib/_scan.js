@@ -9,8 +9,8 @@ const logger = require('../../lib/logger');
 module.exports = exports = async function (options) {
 
   logger.info(">>> create junction");
-  logger.verbose("smt: " + options.source.smt);
-  logger.verbose("options: " + JSON.stringify(options.source.options));
+  logger.verbose("smt:" + options.source.smt);
+  if (options.source.options) logger.verbose("options:" + options.source.options);
 
   var j1;
   try {

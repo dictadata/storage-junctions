@@ -27,7 +27,8 @@ async function tests() {
   logger.info("=== elasticsearch recall uid");
   await recall({
     source: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|" + uid }
+      smt: "elasticsearch|http://localhost:9200|foo_schema|" + uid
+    }
   });
 
   logger.info("=== elasticsearch recall !");

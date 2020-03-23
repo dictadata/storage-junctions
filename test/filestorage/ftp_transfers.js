@@ -92,7 +92,7 @@ async function ftpDownload() {
   logger.verbose('=== ftp: output/ftp_output.csv');
   await transfer({
     source: {
-      smt: "csv|ftp:/test/data/|foofile.csv.gz|*",
+      smt: "csv|ftp:/test/data/|foofile.csv|*",
       options: {
         ftp: {
           host: 'localhost',
@@ -110,7 +110,7 @@ async function ftpDownload() {
   logger.verbose('=== ftp: output/ftp_output.csv.gz');
   await transfer({
     source: {
-      smt: "csv|ftp:/test/data/|foofile.csv|*",
+      smt: "csv|ftp:/test/data/|foofile.csv.gz|*",
       options: {
         ftp: {
           host: 'localhost',
@@ -128,7 +128,7 @@ async function ftpDownload() {
   logger.verbose('=== ftp: output/ftp_output.json');
   await transfer({
     source: {
-      smt: "json|ftp:/test/data/|foofile.json.gz|*",
+      smt: "json|ftp:/test/data/|foofile.json|*",
       options: {
         ftp: {
           host: 'localhost',
@@ -146,7 +146,7 @@ async function ftpDownload() {
   logger.verbose('=== ftp: output/ftp_output.json.gz');
   await transfer({
     source: {
-      smt: "json|ftp:/test/data/|foofile.json|*",
+      smt: "json|ftp:/test/data/|foofile.json.gz|*",
       options: {
         ftp: {
           host: 'localhost',
@@ -164,8 +164,8 @@ async function ftpDownload() {
 }
 
 async function tests() {
+  //await ftpDownload();
   await ftpUpload();
-  await ftpDownload();
   logger.verbose("Done.");
 }
 
