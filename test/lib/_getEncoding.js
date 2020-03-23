@@ -8,12 +8,12 @@ const logger = require('../../lib/logger');
 const fs = require('fs');
 
 module.exports = exports = async function (options) {
-
   logger.info(">>> create junction");
-  var junction = storage.activate(options.source.smt, options.source.options);
 
+  var j1;
   try {
-    let encoding = await junction.getEncoding();
+    j1 = await storage.activate(options.source.smt, options.source.options);
+    let encoding = await j1.getEncoding();
     if (typeof encoding === 'object') {
       logger.verbose(JSON.stringify(encoding));
 
@@ -31,7 +31,7 @@ module.exports = exports = async function (options) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    await junction.relax();
+    if (j1) await j1.relax();
   }
 
 };

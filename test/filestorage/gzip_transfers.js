@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const transfer = require('./lib/_transfer');
-const logger = require('../lib/logger');
+const transfer = require('../lib/_transfer');
+const logger = require('../../lib/logger');
 
 logger.info("=== Test: gzip transfers");
 

@@ -23,8 +23,28 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "csv codify",
+      "program": "${workspaceFolder}/test/csv/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "csv transfers",
       "program": "${workspaceFolder}/test/csv/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "json codify",
+      "program": "${workspaceFolder}/test/json/codify.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -44,7 +64,17 @@
       "type": "node",
       "request": "launch",
       "name": "gzip transfers",
-      "program": "${workspaceFolder}/test/gzip_transfers.js",
+      "program": "${workspaceFolder}/test/filestorage/gzip_transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "fs scans",
+      "program": "${workspaceFolder}/test/filestorage/fs_scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -54,7 +84,7 @@
       "type": "node",
       "request": "launch",
       "name": "s3 transfers",
-      "program": "${workspaceFolder}/test/s3_transfers.js",
+      "program": "${workspaceFolder}/test/filestorage/s3_transfers.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -63,8 +93,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv codify",
-      "program": "${workspaceFolder}/test/csv/codify.js",
+      "name": "s3 scans",
+      "program": "${workspaceFolder}/test/filestorage/s3_scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -73,8 +103,18 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json codify",
-      "program": "${workspaceFolder}/test/json/codify.js",
+      "name": "ftp transfers",
+      "program": "${workspaceFolder}/test/filestorage/ftp_transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "ftp scans",
+      "program": "${workspaceFolder}/test/filestorage/ftp_scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"
@@ -255,36 +295,6 @@
       "request": "launch",
       "name": "db transforms",
       "program": "${workspaceFolder}/test/db_transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "fs scans",
-      "program": "${workspaceFolder}/test/filestorage/fs-scan.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "s3 scans",
-      "program": "${workspaceFolder}/test/filestorage/s3-scan.js",
-      "outputCapture": "std",
-      "env": {
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "ftp scans",
-      "program": "${workspaceFolder}/test/filestorage/ftp-scan.js",
       "outputCapture": "std",
       "env": {
         "LOG_LEVEL": "verbose"

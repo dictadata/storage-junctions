@@ -11,9 +11,10 @@ module.exports = exports = async function (options) {
   logger.info(">>> create junction");
   logger.verbose("smt: " + options.source.smt);
   logger.verbose("options: " + JSON.stringify(options.source.options));
-  var j1 = storage.activate(options.source.smt, options.source.options);
 
+  var j1;
   try {
+    j1 = await storage.activate(options.source.smt, options.source.options);
     logger.info(">>> scan");
     let list = await j1.scan();
 

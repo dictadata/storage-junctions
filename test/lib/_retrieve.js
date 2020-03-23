@@ -11,10 +11,12 @@ module.exports = exports = async function (options) {
   logger.info(">>> create junction");
   logger.verbose(options.source.smt);
   logger.verbose("options: " + JSON.stringify(options.source.options));
-  var junction = storage.activate(options.source.smt, options.source.options);
 
+  var j1;
   try {
-    let results = await junction.retrieve(options.source.pattern);
+    j1 = await storage.activate(options.source.smt, options.source.options);
+
+    let results = await j1.retrieve(options.source.pattern);
     logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0) );
     logger.verbose(JSON.stringify(results));
 
@@ -24,7 +26,7 @@ module.exports = exports = async function (options) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    await junction.relax();
+    if (j1) await j1.relax();
   }
 
 };

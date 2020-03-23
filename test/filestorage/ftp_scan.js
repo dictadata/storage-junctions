@@ -41,14 +41,16 @@ async function tests() {
         key: "*"
       },
       options: {
-        host: 'localhost',
-        port: 21,
-        user: 'dicta',
-        password: 'data'
+        ftp: {
+          host: 'localhost',
+          port: 21,
+          user: 'dicta',
+          password: 'data'
+        },
+        scan: {
+          recursive: true
+        }
       }
-    },
-    scan: {
-      recursive: true
     }
   });
 

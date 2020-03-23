@@ -15,9 +15,10 @@ const pipeline = util.promisify(stream.pipeline);
 module.exports = exports = async function (options) {
 
   logger.info(">>> create junction");
-  var j1 = storage.activate(options.source.smt, options.source.options);
-
+  var j1;
   try {
+    j1 = await storage.activate(options.source.smt, options.source.options);
+
     // *** the normal way is to ask the junction to do it
     logger.info(">>> getEncoding");
     let encoding1 = await j1.getEncoding();
@@ -46,7 +47,7 @@ module.exports = exports = async function (options) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    await j1.relax();
+    if (j1) await j1.relax();
   }
 
 };

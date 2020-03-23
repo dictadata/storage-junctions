@@ -15,10 +15,12 @@ const pipeline = util.promisify(stream.pipeline);
 module.exports = exports = async function (options) {
 
   logger.info(">>> create junctions");
-  var j1 = storage.activate(options.source.smt, options.source.options);
-  var j2 = storage.activate(options.destination.smt, options.destination.options);
 
+  var j1, j2;
   try {
+    j1 = await storage.activate(options.source.smt, options.source.options);
+    j2 = await storage.activate(options.destination.smt, options.destination.options);
+
     logger.debug(">>> get source encoding (codify)");
     let encoding = await j1.getEncoding();
 
@@ -52,8 +54,8 @@ module.exports = exports = async function (options) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    await j1.relax();
-    await j2.relax();
+    if (j1) await j1.relax();
+    if (j2) await j2.relax();
   }
 
 };

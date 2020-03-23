@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== scan local filesystem (forEach)");
   await scan({
     source: {
-      smt: "csv|./csv/|*.csv|*",
+      smt: "csv|./test/output/|*.csv|*",
       options: {
         scan: {
           recursive: false,

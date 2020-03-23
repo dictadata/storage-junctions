@@ -20,7 +20,7 @@ async function testStream() {
   storage.use("echo", EchoJunction);
 
   logger.info(">>> create junction");
-  var junction = storage.activate({
+  var j1 = await storage.activate({
     smt: {
       model:"echo",
       locus: "somewhere",
@@ -30,13 +30,13 @@ async function testStream() {
   });
 
   logger.info(">>> create streams");
-  var reader = junction.getReadStream({});
-  var writer = junction.getWriteStream({});
+  var reader = j1.getReadStream();
+  var writer = j1.getWriteStream();
 
   logger.info(">>> start pipe");
   await pipeline(reader,writer);
 
-  await junction.relax();
+  if (j1) await j1.relax();
   logger.info(">>> completed");
 }
 

@@ -13,12 +13,14 @@ async function tests() {
   logger.info("=== scan local filesystem");
   await scan({
     source: {
-      smt: "csv|./test/|*.csv|*"
-    },
-    scan: {
-      recursive: true,
-      forEach: (name) => {
-        logger.info("- " + name);
+      smt: "csv|./test/|*.csv|*",
+      options: {
+        scan: {
+          recursive: true,
+          forEach: (name) => {
+            logger.info("- " + name);
+          }
+        }
       }
     }
   });
@@ -26,10 +28,12 @@ async function tests() {
   logger.info("=== scan S3 bucket (recursive)");
   await scan({
     source: {
-      smt: "csv|S3:dictadata.org/test/output/|*.csv|*"
-    },
-    scan: {
-      recursive: false
+      smt: "csv|S3:dictadata.org/test/output/|*.csv|*",
+      options: {
+        scan: {
+          recursive: false
+        }
+      }
     }
   });
 
@@ -43,7 +47,9 @@ async function tests() {
         key: "*",
         aws_profile: ""
       },
-      options: {}
+      options: {
+
+      }
     },
     scan: {
       recursive: true
