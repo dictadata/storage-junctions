@@ -123,6 +123,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "xlsx transfers",
+      "program": "${workspaceFolder}/test/xlsx/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "elasticsearch encoding",
       "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
       "outputCapture": "std",
