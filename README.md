@@ -76,13 +76,13 @@ elastic|node address|index|!field
 
 ### 1.4.5. retrieve(pattern)
 
-### 1.4.6. getReadStream()
+### 1.4.6. getReadStream(options)
 
-### 1.4.7. getWriteStream()
+### 1.4.7. getWriteStream(options)
 
-### 1.4.8. getTransform(transforms)
+### 1.4.8. getTransform(options)
 
-### 1.4.9. getCodifyWriter()
+### 1.4.9. getCodifyWriter(options)
 
 ## 1.5. Storage Engram Encoding
 
@@ -135,7 +135,7 @@ pattern: {
 ## 1.7. Storage Transforms
 
 ```json
-"transforms": {
+"transform": {
   "inject": {
     "Fie": "where's fum?"
   },

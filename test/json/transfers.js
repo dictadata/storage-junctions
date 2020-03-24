@@ -59,7 +59,7 @@ async function tests() {
     destination: {
       smt: "csv|./test/output/|json_output.csv|*"
     },
-    transforms: {
+    transform: {
       mapping: {
         "Foo": "foo",
         "Bar": "bar",

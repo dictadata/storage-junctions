@@ -23,7 +23,7 @@ async function testEtlTransform() {
       "smt": "elasticsearch|http://localhost:9200|etl-2|=Foo",
       "options": {}
     },
-    "transforms": {
+    "transform": {
       "inject": {
         "Fie": "where's fum?"
       },
@@ -67,7 +67,7 @@ async function testFile2Transform() {
     destination: {
       smt: "csv|./test/output/|transform_output2.csv|*"
     },
-    transforms: {
+    transform: {
       inject: {
         "newfield": "my new field"
       },
@@ -109,7 +109,7 @@ async function testDBTransform() {
       "smt": "elasticsearch|http://localhost:9200|foo_transform|=Foo",
       "options": {}
     },
-    "transforms": {
+    "transform": {
       "inject": {
         "Fie": "where's fum?"
       },
@@ -163,7 +163,7 @@ async function forecastTransform(options) {
       "smt": options.destination.smt,
       "options": {}
     },
-    "transforms": {
+    "transform": {
       "inject": {
         "Fie": "It's always sunny in Philadelphia?"
       }
