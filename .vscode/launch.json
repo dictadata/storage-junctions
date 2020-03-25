@@ -17,6 +17,7 @@
       "program": "${workspaceFolder}/test/echo_junction.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -27,6 +28,7 @@
       "program": "${workspaceFolder}/test/csv/codify.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -37,6 +39,7 @@
       "program": "${workspaceFolder}/test/csv/transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -47,6 +50,7 @@
       "program": "${workspaceFolder}/test/json/codify.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -57,6 +61,7 @@
       "program": "${workspaceFolder}/test/json/transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -67,6 +72,7 @@
       "program": "${workspaceFolder}/test/filestorage/gzip_transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -77,6 +83,7 @@
       "program": "${workspaceFolder}/test/filestorage/fs_scan.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -87,6 +94,7 @@
       "program": "${workspaceFolder}/test/filestorage/s3_transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -97,6 +105,7 @@
       "program": "${workspaceFolder}/test/filestorage/s3_scan.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -107,6 +116,7 @@
       "program": "${workspaceFolder}/test/filestorage/ftp_transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -117,6 +127,7 @@
       "program": "${workspaceFolder}/test/filestorage/ftp_scan.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -127,6 +138,7 @@
       "program": "${workspaceFolder}/test/xlsx/transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -137,6 +149,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -147,6 +160,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/keystore.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -157,6 +171,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/store.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -167,6 +182,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/recall.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -177,6 +193,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/retrieve.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -187,6 +204,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/dull.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -197,6 +215,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/consolidate.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -207,6 +226,7 @@
       "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -217,6 +237,7 @@
       "program": "${workspaceFolder}/test/mysql/encoding.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -227,6 +248,7 @@
       "program": "${workspaceFolder}/test/mysql/store.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -237,6 +259,7 @@
       "program": "${workspaceFolder}/test/mysql/recall.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -247,6 +270,7 @@
       "program": "${workspaceFolder}/test/mysql/retrieve.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -257,6 +281,7 @@
       "program": "${workspaceFolder}/test/mysql/dull.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -267,6 +292,7 @@
       "program": "${workspaceFolder}/test/mysql/transfers.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -277,6 +303,7 @@
       "program": "${workspaceFolder}/test/rest/encoding.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -287,6 +314,7 @@
       "program": "${workspaceFolder}/test/rest/retrieve.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -297,6 +325,7 @@
       "program": "${workspaceFolder}/test/rest/transfer.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
@@ -307,9 +336,9 @@
       "program": "${workspaceFolder}/test/db_transforms.js",
       "outputCapture": "std",
       "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     }
-
   ]
 }
