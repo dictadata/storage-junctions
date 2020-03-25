@@ -1,17 +1,17 @@
 /**
- * test/scan
+ * test/ftp_list
  */
 "use strict";
 
-const scan = require('../lib/_scan');
+const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: FTP scans");
+logger.info("=== tests: FTP list");
 
 async function tests() {
 
-  logger.info("=== scan ftp bucket (forEach)");
-  await scan({
+  logger.info("=== list ftp bucket (forEach)");
+  await list({
     source: {
       smt: "csv|ftp:/test/output/|*.csv|*",
       options: {
@@ -21,7 +21,7 @@ async function tests() {
           user: 'dicta',
           password: 'data'
         },
-        scan: {
+        list: {
           recursive: false,
           forEach: (name) => {
             logger.info("- " + name);
@@ -31,8 +31,8 @@ async function tests() {
     }
   });
 
-  logger.info("=== scan ftp bucket (recursive)");
-  await scan({
+  logger.info("=== list ftp bucket (recursive)");
+  await list({
     source: {
       smt: {
         model: "json",
@@ -47,7 +47,7 @@ async function tests() {
           user: 'dicta',
           password: 'data'
         },
-        scan: {
+        list: {
           recursive: true
         }
       }

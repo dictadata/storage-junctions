@@ -1,21 +1,21 @@
 /**
- * test/scan
+ * test/fs_list
  */
 "use strict";
 
-const scan = require('../lib/_scan');
+const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: local fs scans");
+logger.info("=== tests: local fs list");
 
 async function tests() {
 
-  logger.info("=== scan local filesystem (forEach)");
-  await scan({
+  logger.info("=== list local filesystem (forEach)");
+  await list({
     source: {
       smt: "csv|./test/output/|*.csv|*",
       options: {
-        scan: {
+        list: {
           recursive: false,
           forEach: (name) => {
             logger.info("- " + name);
@@ -25,8 +25,8 @@ async function tests() {
     }
   });
 
-  logger.info("=== scan local filesystem (recursive)");
-  await scan({
+  logger.info("=== list local filesystem (recursive)");
+  await list({
     source: {
       smt: {
         model: "json",
@@ -35,7 +35,7 @@ async function tests() {
         key: "*"
       },
       options: {
-        scan: {
+        list: {
           recursive: true
         }
       }

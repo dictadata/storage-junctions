@@ -1,21 +1,21 @@
 /**
- * test/scan
+ * test/s3_list
  */
 "use strict";
 
-const scan = require('../lib/_scan');
+const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: S3 scans");
+logger.info("=== tests: S3 list");
 
 async function tests() {
 
-  logger.info("=== scan S3 bucket (forEach)");
-  await scan({
+  logger.info("=== list S3 bucket (forEach)");
+  await list({
     source: {
       smt: "csv|S3:dictadata.org/test/output/|*.csv|*",
       options: {
-        scan: {
+        list: {
           recursive: false,
           forEach: (name) => {
             logger.info("- " + name);
@@ -25,8 +25,8 @@ async function tests() {
     }
   });
 
-  logger.info("=== scan S3 bucket (recursive)");
-  await scan({
+  logger.info("=== list S3 bucket (recursive)");
+  await list({
     source: {
       smt: {
         model: "json",
@@ -38,7 +38,7 @@ async function tests() {
         s3: {
           aws_profile: ""
         },
-        scan: {
+        list: {
           recursive: true
         }
       }

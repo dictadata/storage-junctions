@@ -1,5 +1,5 @@
 /**
- * test/scan
+ * test/list
  */
 "use strict";
 
@@ -15,8 +15,8 @@ module.exports = exports = async function (options) {
   var j1;
   try {
     j1 = await storage.activate(options.source.smt, options.source.options);
-    logger.info(">>> scan");
-    let list = await j1.scan();
+    logger.info(">>> list");
+    let list = await j1.list();
 
     logger.verbose("list: " + JSON.stringify(list, null, "  "));
 

@@ -30,7 +30,7 @@ module.exports = exports = async function (options) {
     // *** stream some data to the codifier
     logger.info(">>> create streams");
     var reader = j1.getReadStream({max_read: (options.source.options && options.source.options.max_read) || 100 });
-    var codify = j1.getCodifyWriter(options.codify || null);
+    var codify = j1.getCodifyWriter(options.codify ||{});
 
     logger.info(">>> start pipe");
     await pipeline(reader, codify);

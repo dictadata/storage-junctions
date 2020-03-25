@@ -1,21 +1,21 @@
 /**
- * test/scan
+ * test/list
  */
 "use strict";
 
-const scan = require('../lib/_scan');
+const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: CSV scan");
+logger.info("=== tests: CSV list");
 
 async function tests() {
 
-  logger.info("=== scan local filesystem");
-  await scan({
+  logger.info("=== list local filesystem");
+  await list({
     source: {
       smt: "csv|./test/|*.csv|*",
       options: {
-        scan: {
+        list: {
           recursive: true,
           forEach: (name) => {
             logger.info("- " + name);
@@ -25,20 +25,20 @@ async function tests() {
     }
   });
 
-  logger.info("=== scan S3 bucket (recursive)");
-  await scan({
+  logger.info("=== list S3 bucket (recursive)");
+  await list({
     source: {
       smt: "csv|S3:dictadata.org/test/output/|*.csv|*",
       options: {
-        scan: {
+        list: {
           recursive: false
         }
       }
     }
   });
 
-  logger.info("=== scan S3 bucket");
-  await scan({
+  logger.info("=== list S3 bucket");
+  await list({
     source: {
       smt: {
         model: "csv",
@@ -51,7 +51,7 @@ async function tests() {
 
       }
     },
-    scan: {
+    list: {
       recursive: true
     }
   });

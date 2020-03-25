@@ -79,8 +79,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "fs scans",
-      "program": "${workspaceFolder}/test/filestorage/fs_scan.js",
+      "name": "fs list",
+      "program": "${workspaceFolder}/test/filestorage/fs_list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -101,8 +101,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "s3 scans",
-      "program": "${workspaceFolder}/test/filestorage/s3_scan.js",
+      "name": "s3 list",
+      "program": "${workspaceFolder}/test/filestorage/s3_list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -123,8 +123,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "ftp scans",
-      "program": "${workspaceFolder}/test/filestorage/ftp_scan.js",
+      "name": "ftp list",
+      "program": "${workspaceFolder}/test/filestorage/ftp_list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

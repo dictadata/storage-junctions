@@ -26,8 +26,8 @@ module.exports = exports = async function (options) {
 
     // run some constructs through the transform
     // to get the resulting encoding
-    let rs = j1.getReadStream({ codify: true, max_read: 1000 });
-    let tr = j1.getFieldTransform(options.transform);
+    let rs = j1.getReadStream({ max_read: 100 });
+    let tr = j1.getFieldsTransform(options.transform);
     let cf = j1.getCodifyWriter();
     await pipeline([rs, tr, cf]);
     encoding = await cf.getEncoding();
@@ -42,7 +42,7 @@ module.exports = exports = async function (options) {
 
     logger.info(">>> create streams");
     var reader = j1.getReadStream();
-    var transform = j1.getFieldTransform(options.transform);
+    var transform = j1.getFieldsTransform(options.transform);
     var writer = j2.getWriteStream();
 
     logger.info(">>> start pipe");
