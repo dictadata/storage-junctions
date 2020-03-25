@@ -1,6 +1,11 @@
-- version 1.0.6
-  - minor changes related to implementing xlsx-junction
+- version 1.1.0
+  - implemented new xlsx-junction for Excel files
+  - implemented ftp-filestorage plugin
+  - refactored FileStorage subsystem to a plugin framework
   - other code cleanup
+  - Breaking changes:
+  - StorageJunction.activate() is now asynchronous and returns a promise
+  - removed '_' prefix from properties of StorageJunction, StorageReader, StorageWriter base classes unless it truly is a private member
 - version 1.0.5
   - bug fix for StorageResult returning extra array container
 - version 1.0.4

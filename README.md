@@ -1,20 +1,19 @@
 ### dictadata.org: Open source software for Data Engineering & Analytics
 
-# 1. @dictadata/storage-junctions 1.0.0
+# @dictadata/storage-junctions 1.1.0
 
 Node.js library for distributed data storage access and streaming transfers.
 
 A storage junction provides a normalized, plug-in interface to a specific data source such as data file, database table, document collection, key/value store, etc.
 
-<!-- TOC depthFrom:2 depthTo:2 -->autoauto- [1.1. Supported Storage Sources](#11-supported-storage-sources)auto- [1.2. Storage Memory Trace](#12-storage-memory-trace)auto- [1.3. SMT Key Formats](#13-smt-key-formats)auto- [1.4. Storage-Junctions Functions](#14-storage-junctions-functions)auto- [1.5. Storage Engram Encoding](#15-storage-engram-encoding)auto- [1.6. Storage Retrieval Pattern](#16-storage-retrieval-pattern)auto- [1.7. Storage Transforms](#17-storage-transforms)autoauto<!-- /TOC -->
-
-## 1.1. Supported Storage Sources
+## Supported Storage Sources
 
 | model         | encoding | store | recall | retrieve | dull | streamable | key-value | documents | tables |
 | ------------- | :------: | :---: | :----: | :------: | :--: | :--------: | :-------: | :-------: | :----: |
 | csv           |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    no     |  yes   |
 | json          |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
 | parquet       |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
+| xlsx (Excel)  |   yes    |   -   |   -    |    -     |  -   |    yes     |    no     |    no     |  yes   |
 | rest          |   yes    |   -   |   -    |   yes    |  -   |    yes     |     -     |     -     |  yes   |
 | elasticsearch |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    yes    |    yes    |  yes   |
 | mysql         |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
@@ -27,7 +26,23 @@ A storage junction provides a normalized, plug-in interface to a specific data s
 \* In the plans for future development.
 &dash; Not planned, but will be developed as needed.
 
-## 1.2. Storage Memory Trace
+## Supported File Storage Systems
+
+File Storage systems provide read and write streams to objects (files) on local and cloud storage systems.
+GZip compression is handled seemlessly based on filename extension .gz.
+
+| model         |  list | read  | write | scan  |
+| ------------- | :---: | :---: | :---: | :---: |
+| local         |  yes  |  yes  |  yes  |  yes  |
+| FTP           |  yes  |  yes  |  yes  |  yes  |
+| AWS S3        |  yes  |  yes  |  yes  |  yes  |
+| \*Azure ADLS  |   -   |   -   |   -   |   -   |
+| \*Google CS   |   -   |   -   |   -   |   -   |
+
+\* Not currently in plans for development.
+&dash; Not planned, but will be developed as needed.
+
+## Storage Memory Trace
 
 A storage memory trace (SMT) is a data source definition. It is made up of four parts.
 
@@ -55,7 +70,7 @@ elastic|node address|index|!field
 }
 ```
 
-## 1.3. SMT Key Formats
+## SMT Key Formats
 
 | Format | Description                                                                                                                                                                                                                                                                                                                                  | Examples                                 |
 | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
@@ -64,27 +79,27 @@ elastic|node address|index|!field
 | \*     | Any or All. If primary key(s) are specified in the schema encodings then this is effectively equivalent to = key format. Otherwise, \* is a generic place holder primarily used when the source is only used for searching or streaming transfers.                                                                                           | \*                                       |
 | uid    | UID. A unique ID value (key) that addresses a specific piece of data on the data source. Similar to ! as the UID is a specific key. Used as the default value if no key is passed to store, recall and dull functions. Otherwise, the storage junction will behave the same as the bare ! key format. Rarely useful except in special cases. | 1234<br /> default                       |
 
-## 1.4. Storage-Junctions Functions
+## Storage-Junctions Functions
 
-### 1.4.1. getEncoding()
+### getEncoding()
 
-### 1.4.2. putEncoding(encoding)
+### putEncoding(encoding)
 
-### 1.4.3. store(construct)
+### store(construct)
 
-### 1.4.4. recall(key)
+### recall(key)
 
-### 1.4.5. retrieve(pattern)
+### retrieve(pattern)
 
-### 1.4.6. getReadStream(options)
+### getReadStream(options)
 
-### 1.4.7. getWriteStream(options)
+### getWriteStream(options)
 
-### 1.4.8. getTransform(options)
+### getFieldTransform(options)
 
-### 1.4.9. getCodifyWriter(options)
+### getCodifyWriter(options)
 
-## 1.5. Storage Engram Encoding
+## Storage Engram Encoding
 
 ````json
 {
@@ -116,7 +131,7 @@ elastic|node address|index|!field
 }
 ````
 
-## 1.6. Storage Retrieval Pattern
+## Storage Retrieval Pattern
 
 ```json
 pattern: {
@@ -132,7 +147,7 @@ pattern: {
 }
 ```
 
-## 1.7. Storage Transforms
+## Storage Transforms
 
 ```json
 "transform": {
