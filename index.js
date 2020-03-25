@@ -18,8 +18,8 @@ exports.StorageError = Types.StorageError;
 exports.StorageJunction = require("./lib/junction");
 exports.StorageReader = require("./lib/junction/reader");
 exports.StorageWriter = require("./lib/junction/writer");
-exports.StorageTransform = require("./lib/junction/transform");
 exports.CodifyWriter = require("./lib/junction/codify");
+exports.FieldsTransform = require("./lib/transforms/fields");
 
 // register standard filestorage systems
 exports.fsFileStorage = require("./lib/filestorage/fs-filestorage")
