@@ -3,91 +3,55 @@
  */
 "use strict";
 
-const transform = require('./lib/_transform');
+const transfer = require('./lib/_transfer');
 const Engram = require('../lib/engram');
 const logger = require('../lib/logger');
 
-logger.info("=== Test: transforms");
+logger.info("=== Test: transform");
 
 async function testEtlTransform() {
   logger.info("=== transfer/transform json to elasticsearch");
   logger.verbose('<<< ./test/data/foofile.json');
-  logger.verbose('>>> elastichsearch etl-2');
+  logger.verbose('>>> elasticsearch foo_transform_1');
 
-  await transform({
+  await transfer({
     "source": {
       "smt": "json|./test/data/|foofile.json|*",
       "options": {}
     },
     "destination": {
-      "smt": "elasticsearch|http://localhost:9200|etl-2|=Foo",
+      "smt": "elasticsearch|http://localhost:9200|foo_transform_1|=Foo",
       "options": {}
     },
-    "transform": {
-      "inject": {
-        "Fie": "where's fum?"
-      },
-      "match": {
-        "Bar": {
-          "op": "eq",
-          "value": "row"
+    "transforms": {
+      "filter": {
+        "match": {
+          "Bar": {
+            "op": "eq",
+            "value": "row"
+          }
+        },
+        "drop": {
+          "Baz": {
+            "op": "eq",
+            "value": 5678
+          }
         }
       },
-      "drop": {
-        "Baz": {
-          "op": "eq",
-          "value": 5678
+      "fields": {
+        "inject": {
+          "Fie": "where's fum?"
+        },
+        "mapping": {
+          "Foo": "foo",
+          "Bar": "bar",
+          "Baz": "baz",
+          "Fobe": "fobe",
+          "Dt Test": "dt_test",
+          "enabled": "enabled",
+          "subObj1.state": "state",
+          "subObj2.subsub.izze": "izze"
         }
-      },
-      "mapping": {
-        "Foo": "foo",
-        "Bar": "bar",
-        "Baz": "baz",
-        "Fobe": "fobe",
-        "Dt Test": "dt_test",
-        "enabled": "enabled",
-        "subObj1.state": "state",
-        "subObj2.subsub.izze": "izze"
-      }
-    }
-  });
-
-}
-
-async function testFile2Transform() {
-
-  logger.info("=== transfer json to csv");
-  logger.verbose('<<< ./test/data/testfile2.json');
-  logger.verbose('>>> ./test/output/transform_output2.csv');
-
-  await transform({
-    source: {
-      smt: "json|./test/data/|testfile2.json|*"
-    },
-    destination: {
-      smt: "csv|./test/output/|transform_output2.csv|*"
-    },
-    transform: {
-      inject: {
-        "newfield": "my new field"
-      },
-      match: {
-        "completed": {
-          op: 'eq',
-          value: false
-        }
-      },
-      drop: {
-        "id": {
-          "op": 'eq',
-          value: 5678
-        }
-      },
-      mapping: {
-        "id": "id",
-        "content": "content",
-        "completed": "completed",
-        "assignee.name": "name"
       }
     }
   });
@@ -96,39 +60,43 @@ async function testFile2Transform() {
 
 async function testDBTransform() {
 
-  logger.info("=== transfer with transform mysql to elasticsearch");
+  logger.info("=== transfer/transform mysql to elasticsearch");
   logger.verbose("<<< mysql foo_schema");
-  logger.verbose(">>> elastichsearch foo_transform");
+  logger.verbose(">>> elasticsearch foo_transform_2");
 
-  await transform({
+  await transfer({
     "source": {
       "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
     "destination": {
-      "smt": "elasticsearch|http://localhost:9200|foo_transform|=Foo",
+      "smt": "elasticsearch|http://localhost:9200|foo_transform_2|=Foo",
       "options": {}
     },
-    "transform": {
-      "inject": {
-        "Fie": "where's fum?"
-      },
-      "match": {
-        "Bar": {
-          "op": "eq",
-          "value": "row"
+    "transforms": {
+      "filter": {
+        "match": {
+          "Bar": {
+            "op": "eq",
+            "value": "row"
+          }
+        },
+        "drop": {
+          "Baz": {
+            "op": "eq",
+            "value": 5678
+          }
         }
       },
-      "drop": {
-        "Baz": {
-          "op": "eq",
-          "value": 5678
+      "fields": {
+        "inject": {
+          "Fie": "where's fum?"
+        },
+        "mapping": {
+          "Foo": "Foo",
+          "Bar": "Bar",
+          "Baz": "Bazzy"
         }
-      },
-      "mapping": {
-        "Foo": "Foo",
-        "Bar": "Bar",
-        "Baz": "Bazzy"
       }
     }
   });
@@ -142,7 +110,7 @@ async function forecastTransform(options) {
   logger.verbose("<<< weather API");
   logger.verbose(">>> " + engram.smt.model + " " + engram.smt.schema);
 
-  await transform({
+  await transfer({
     source: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
@@ -163,9 +131,11 @@ async function forecastTransform(options) {
       "smt": options.destination.smt,
       "options": {}
     },
-    "transform": {
-      "inject": {
-        "Fie": "It's always sunny in Philadelphia?"
+    "transforms": {
+      "fields": {
+        "inject": {
+          "Fie": "It's always sunny in Philadelphia?"
+        }
       }
     }
   });
@@ -174,9 +144,8 @@ async function forecastTransform(options) {
 
 async function tests() {
   await testEtlTransform();
-  await testFile2Transform();
   await testDBTransform();
-  await forecastTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo"}});
+  await forecastTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
   await forecastTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
 }
 

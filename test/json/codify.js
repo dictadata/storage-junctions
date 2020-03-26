@@ -28,15 +28,6 @@ async function tests() {
     outputFile2: './test/output/json_encoding_g2.json'
   });
 
-  logger.info("=== codify testfile2.json");
-  await codify({
-    source: {
-      smt: "json|./test/data/|testfile2.json|*"
-    },
-    outputFile1: './test/output/json_encoding2_1.json',
-    outputFile2: './test/output/json_encoding2_2.json'
-  });
-
 }
 
 tests();

@@ -18,18 +18,27 @@ exports.StorageError = Types.StorageError;
 exports.StorageJunction = require("./lib/junction");
 exports.StorageReader = require("./lib/junction/reader");
 exports.StorageWriter = require("./lib/junction/writer");
-exports.CodifyWriter = require("./lib/junction/codify");
-exports.FieldsTransform = require("./lib/transforms/fields");
+exports.CodifyWriter = require("./lib/junction/codifyWriter");
+
+// register tranforms
+exports.FieldsTransform = require("./lib/transform/fields");
+cortex.Transforms.use('fields', exports.FieldsTransform);
+
+exports.FilterTransform = require("./lib/transform/filter");
+cortex.Transforms.use('filter', exports.FilterTransform);
+
+exports.ConsolidateTransform = require("./lib/transform/consolidate");
+cortex.Transforms.use('consolidate', exports.ConsolidateTransform);
 
 // register standard filestorage systems
 exports.fsFileStorage = require("./lib/filestorage/fs-filestorage")
-cortex.fileStorage.use('fs', exports.fsFileStorage);
+cortex.FileStorage.use('fs', exports.fsFileStorage);
 
 exports.ftpFileStorage = require("./lib/filestorage/ftp-filestorage")
-cortex.fileStorage.use('ftp', exports.ftpFileStorage);
+cortex.FileStorage.use('ftp', exports.ftpFileStorage);
 
 exports.s3FileStorage = require("./lib/filestorage/s3-filestorage")
-cortex.fileStorage.use('s3', exports.s3FileStorage);
+cortex.FileStorage.use('s3', exports.s3FileStorage);
 
 // register standard junctions
 var CsvJunction = require("./lib/csv");
