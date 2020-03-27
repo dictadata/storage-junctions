@@ -39,6 +39,40 @@ async function tests() {
     }
   });
 
+  logger.verbose('=== json_transform2.csv');
+  await transfer({
+    source: {
+      smt: "json|./test/data/|foofile.json|*"
+    },
+    destination: {
+      smt: "csv|./test/output/|json_transform2.csv|*"
+    },
+    transforms: {
+      "filter": {
+        "match": {
+          "Bar": "row"
+        },
+        "drop": {
+          "Baz": 456
+        }
+      },
+      "fields": {
+        "inject_before": {
+          "Fie": "where's fum?"
+        },
+        "mapping": {
+          "Foo": "foo",
+          "Bar": "bar",
+          "Baz": "baz",
+          "Fobe": "fobe",
+          "enabled": "enabled",
+          "subObj1.state": "state",
+          "subObj2.subsub.izze": "izze"
+        }
+      }
+    }
+  });
+
 }
 
 tests();

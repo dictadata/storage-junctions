@@ -47,7 +47,7 @@ module.exports = exports = async function (config) {
 
     logger.info(">>> create pipeline");
     let pipe2 = [];
-    pipe2.push(j1.getReadStream({ max_read: 100 }));
+    pipe2.push(j1.getReadStream());
     for (let [tfType,tfOptions] of Object.entries(transforms))
       pipe2.push(j1.getTransform(tfType, tfOptions));
     pipe2.push(j2.getWriteStream());
