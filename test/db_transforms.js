@@ -39,7 +39,7 @@ async function testEtlTransform() {
         }
       },
       "fields": {
-        "inject": {
+        "inject_before": {
           "Fie": "where's fum?"
         },
         "mapping": {
@@ -89,7 +89,7 @@ async function testDBTransform() {
         }
       },
       "fields": {
-        "inject": {
+        "inject_before": {
           "Fie": "where's fum?"
         },
         "mapping": {
@@ -133,7 +133,7 @@ async function forecastTransform(options) {
     },
     "transforms": {
       "fields": {
-        "inject": {
+        "inject_after": {
           "Fie": "It's always sunny in Philadelphia?"
         }
       }

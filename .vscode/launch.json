@@ -46,6 +46,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "csv transform",
+      "program": "${workspaceFolder}/test/csv/transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "json codify",
       "program": "${workspaceFolder}/test/json/codify.js",
       "outputCapture": "std",
@@ -68,7 +79,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json transforms",
+      "name": "json transform",
       "program": "${workspaceFolder}/test/json/transforms.js",
       "outputCapture": "std",
       "env": {

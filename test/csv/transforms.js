@@ -10,13 +10,13 @@ logger.info("=== Test: json transforms");
 
 async function tests() {
 
-  logger.verbose('=== json_transform.csv');
+  logger.verbose('=== csv_transform.json');
   await transfer({
     source: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "csv|./test/data/|foofile.csv|*"
     },
     destination: {
-      smt: "csv|./test/output/|json_transform.csv|*"
+      smt: "json|./test/output/|csv_transform.json|*"
     },
     transforms: {
       filter: {
@@ -31,9 +31,7 @@ async function tests() {
           "Baz": "baz",
           "Fobe": "fobe",
           "Dt Test": "dt_test",
-          "enabled": "enabled",
-          "subObj1.state": "state",
-          "subObj2.subsub.izze": "izze"
+          "enabled": "enabled"
         }
       }
     }

@@ -25,7 +25,7 @@ module.exports = exports = async function (config) {
     logger.debug(">>> get source encoding (codify)");
     //let encoding = await j1.getEncoding();
 
-    // build codify pipeline
+    logger.verbose("build codify pipeline");
     let pipe1 = [];
     pipe1.push(j1.getReadStream({ max_read: 100 }));
     for (let [tfType,tfOptions] of Object.entries(transforms))
@@ -33,7 +33,7 @@ module.exports = exports = async function (config) {
     let cf = j1.getCodifyWriter();
     pipe1.push(cf);
 
-    // run the pipeline and get the resulting encoding
+    logger.verbose("run pipeline");
     await pipeline(pipe1);
     let encoding = await cf.getEncoding();
 
@@ -49,7 +49,7 @@ module.exports = exports = async function (config) {
     let pipe2 = [];
     pipe2.push(j1.getReadStream({ max_read: 100 }));
     for (let [tfType,tfOptions] of Object.entries(transforms))
-      pipe1.push(j1.getTransform(tfType, tfOptions));
+      pipe2.push(j1.getTransform(tfType, tfOptions));
     pipe2.push(j2.getWriteStream());
 
     logger.info(">>> start pipe");
