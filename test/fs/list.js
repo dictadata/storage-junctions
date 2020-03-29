@@ -1,19 +1,19 @@
 /**
- * test/s3_list
+ * test/fs_list
  */
 "use strict";
 
 const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: S3 list");
+logger.info("=== tests: local fs list");
 
 async function tests() {
 
-  logger.info("=== list S3 bucket (forEach)");
+  logger.info("=== list local filesystem (forEach)");
   await list({
     source: {
-      smt: "csv|S3:dictadata.org/test/output/|*.csv|*",
+      smt: "csv|./test/output/|*.csv|*",
       options: {
         list: {
           recursive: false,
@@ -22,33 +22,28 @@ async function tests() {
           }
         }
       }
-    }
+    },
+    outputFile: "./test/output/fs_list_1.json"
   });
 
-  logger.info("=== list S3 bucket (recursive)");
+  logger.info("=== list local filesystem (recursive)");
   await list({
     source: {
       smt: {
         model: "json",
-        locus: "S3:dictadata.org/test/",
+        locus: "./test/",
         schema: "*.json",
         key: "*"
       },
       options: {
-        s3: {
-          aws_profile: ""
-        },
         list: {
           recursive: true
         }
       }
-    }
+    },
+    outputFile: "./test/output/fs_list_2.json"
   });
 
 }
 
-async function main() {
-  await tests();
-}
-
-main();
+tests();

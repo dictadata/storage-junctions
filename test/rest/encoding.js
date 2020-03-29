@@ -36,7 +36,7 @@ async function tests() {
         }
       }
     },
-    OutputFile: './test/output/rest_forecast_encoding.json'
+    outputFile: './test/output/rest_forecast_encoding.json'
   });
 
 }

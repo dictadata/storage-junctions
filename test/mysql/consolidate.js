@@ -1,5 +1,5 @@
 /**
- * test/elasticsearch
+ * test/mysql
  */
 "use strict";
 
@@ -10,10 +10,10 @@ logger.info("=== Tests: retreive");
 
 async function tests() {
 
-  logger.info("=== elasticsearch consolidate");
+  logger.info("=== mysql consolidate");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -25,13 +25,13 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/elasticsearch_consolidate_1.json'
+    outputFile: './test/output/mysql_consolidate_1.json'
   });
 
-  logger.info("=== elasticsearch consolidate w/ groupby");
+  logger.info("=== mysql consolidate w/ groupby");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -47,13 +47,13 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/elasticsearch_consolidate_2.json'
+    outputFile: './test/output/mysql_consolidate_2.json'
   });
 
-  logger.info("=== elasticsearch groupby with summary");
+  logger.info("=== mysql groupby with summary");
   await retrieve({
     source: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -70,7 +70,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/elasticsearch_consolidate_3.json'
+    outputFile: './test/output/mysql_consolidate_3.json'
   });
 
 }

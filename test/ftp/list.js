@@ -28,7 +28,8 @@ async function tests() {
           }
         }
       }
-    }
+    },
+    outputFile: "./test/output/ftp_list_1.json"
   });
 
   logger.info("=== list ftp bucket (recursive)");
@@ -51,7 +52,8 @@ async function tests() {
           recursive: true
         }
       }
-    }
+    },
+    outputFile: "./test/output/ftp_list_2.json"
   });
 
 }

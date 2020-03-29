@@ -9,33 +9,26 @@ const logger = require('../lib/logger');
 
 logger.info("=== Test: transform");
 
-async function testEtlTransform() {
-  logger.info("=== transfer/transform json to elasticsearch");
-  logger.verbose('<<< ./test/data/foofile.json');
-  logger.verbose('>>> elasticsearch foo_transform_1');
+async function testDBTransform1() {
+  logger.info("=== elasticsearch > mysql");
+  logger.verbose('>>> mysql foo_dbtransform');
 
   await transfer({
     "source": {
-      "smt": "json|./test/data/|foofile.json|*",
+      "smt": "elasticsearch|http://localhost:9200|foo_schema|*",
       "options": {}
     },
     "destination": {
-      "smt": "elasticsearch|http://localhost:9200|foo_transform_1|=Foo",
+      "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_dbtransform|=Foo",
       "options": {}
     },
     "transforms": {
       "filter": {
         "match": {
-          "Bar": {
-            "op": "eq",
-            "value": "row"
-          }
+          "Bar": "row"
         },
         "drop": {
-          "Baz": {
-            "op": "eq",
-            "value": 5678
-          }
+          "Baz": { "eq": 456 }
         }
       },
       "fields": {
@@ -58,11 +51,10 @@ async function testEtlTransform() {
 
 }
 
-async function testDBTransform() {
+async function testDBTransform2() {
 
-  logger.info("=== transfer/transform mysql to elasticsearch");
-  logger.verbose("<<< mysql foo_schema");
-  logger.verbose(">>> elasticsearch foo_transform_2");
+  logger.info("=== mysql > elasticsearch");
+  logger.verbose(">>> elasticsearch foo_dbtransform");
 
   await transfer({
     "source": {
@@ -70,22 +62,16 @@ async function testDBTransform() {
       "options": {}
     },
     "destination": {
-      "smt": "elasticsearch|http://localhost:9200|foo_transform_2|=Foo",
+      "smt": "elasticsearch|http://localhost:9200|foo_dbtransform|=Foo",
       "options": {}
     },
     "transforms": {
       "filter": {
         "match": {
-          "Bar": {
-            "op": "eq",
-            "value": "row"
-          }
+          "Bar": { "eq": "row" }
         },
         "drop": {
-          "Baz": {
-            "op": "eq",
-            "value": 5678
-          }
+          "Baz": 5678
         }
       },
       "fields": {
@@ -143,8 +129,8 @@ async function forecastTransform(options) {
 }
 
 async function tests() {
-  await testEtlTransform();
-  await testDBTransform();
+  await testDBTransform1();
+  await testDBTransform2();
   await forecastTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
   await forecastTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
 }

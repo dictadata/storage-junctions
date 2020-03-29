@@ -20,6 +20,16 @@ async function tests() {
     }
   });
 
+  logger.verbose('=== json_output.csv');
+  await transfer({
+    source: {
+      smt: "json|./test/data/|foofile.json|*"
+    },
+    destination: {
+      smt: "csv|./test/output/|json_output.csv|*"
+    }
+  });
+
   logger.verbose('=== json_output_o.json');
   await transfer({
     source: {

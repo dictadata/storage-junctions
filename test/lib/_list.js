@@ -5,12 +5,13 @@
 
 const storage = require("../../index");
 const logger = require('../../lib/logger');
+const fs = require('fs');
 
 module.exports = exports = async function (options) {
 
   logger.info(">>> create junction");
   logger.verbose("smt:" + options.source.smt);
-  if (options.source.options) logger.verbose("options:" + options.source.options);
+  if (options.source.options) logger.verbose("options:" + JSON.stringify(options.source.options));
 
   var j1;
   try {
@@ -18,7 +19,11 @@ module.exports = exports = async function (options) {
     logger.info(">>> list");
     let list = await j1.list();
 
-    logger.verbose("list: " + JSON.stringify(list, null, "  "));
+    logger.debug("list: " + JSON.stringify(list, null, "  "));
+    if (options.outputFile) {
+      logger.info(">>> save encoding to " + options.outputFile);
+      fs.writeFileSync(options.outputFile, JSON.stringify(list,null,"  "), "utf8");
+    }
 
     logger.info(">>> completed");
   }

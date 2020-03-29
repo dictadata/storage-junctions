@@ -16,7 +16,20 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
-          "Foo": 'twenty'
+          "Foo": 'ten'
+        }
+      }
+    }
+  });
+
+  logger.info("=== mysql retrieve w/ cues");
+  await retrieve({
+    source: {
+      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
+      pattern: {
+        cues: {
+          "order": { "Foo": "asc" },
+          "count": 100
         }
       }
     }

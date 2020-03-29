@@ -11,7 +11,7 @@ logger.info("=== Test: xlsx");
 
 async function tests() {
 
-  logger.info("=== read csv write xlsx");
+  logger.info("=== csv > xlsx");
   await transfer({
     source: {
       smt: "csv|test/data/|foofile.csv|*",
@@ -20,17 +20,17 @@ async function tests() {
       }
     },
     destination: {
-      smt: "xlsx|test/output/csv_foofile.xlsx|foo|*",
+      smt: "xlsx|test/output/xlsx_foofile_1.xlsx|foo|*",
       options: {
         logger: logger
       }
     }
   });
 
-  logger.info("=== read xlsx write csv");
+  logger.info("=== xlsx > csv");
   await transfer({
     source: {
-      smt: "xlsx|test/output/csv_foofile.xlsx|foo|*",
+      smt: "xlsx|test/data/foofile.xlsx|foo|*",
       options: {
         logger: logger
       }
@@ -43,7 +43,7 @@ async function tests() {
     }
   });
 
-  logger.info("=== read json write xlsx");
+  logger.info("=== json > xlsx");
   await transfer({
     source: {
       smt: "json|test/data/|foofile.json|*",
@@ -52,17 +52,17 @@ async function tests() {
       }
     },
     destination: {
-      smt: "xlsx|test/output/json_foofile.xlsx|foo|*",
+      smt: "xlsx|test/output/xlsx_foofile_2.xlsx|foo|*",
       options: {
         logger: logger
       }
     }
   });
 
-  logger.info("=== read xlsx write json");
+  logger.info("=== xls > json");
   await transfer({
     source: {
-      smt: "xlsx|test/output/json_foofile.xlsx|foo|*",
+      smt: "xlsx|test/data/foofile.xls|foo|*",
       options: {
         logger: logger
       }

@@ -10,13 +10,13 @@ logger.info("=== Test: json transforms");
 
 async function tests() {
 
-  logger.verbose('=== csv_transform.json');
+  logger.verbose('=== csv_transform_1.json');
   await transfer({
     source: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
     destination: {
-      smt: "json|./test/output/|csv_transform.json|*"
+      smt: "json|./test/output/|csv_transform_1.json|*"
     },
     transforms: {
       filter: {
@@ -37,13 +37,13 @@ async function tests() {
     }
   });
 
-  logger.verbose('=== csv_transform2.json');
+  logger.verbose('=== csv_transform_2.json');
   await transfer({
     source: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
     destination: {
-      smt: "json|./test/output/|csv_transform2.json|*"
+      smt: "json|./test/output/|csv_transform_2.json|*"
     },
     transforms: {
       "filter": {

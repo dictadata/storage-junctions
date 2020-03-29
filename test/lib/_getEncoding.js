@@ -14,12 +14,12 @@ module.exports = exports = async function (options) {
   try {
     j1 = await storage.activate(options.source.smt, options.source.options);
     let encoding = await j1.getEncoding();
-    if (typeof encoding === 'object') {
-      logger.verbose(JSON.stringify(encoding));
 
-      if (options.OutputFile) {
-        fs.writeFileSync(options.OutputFile, JSON.stringify(encoding,null,"  "));
-        logger.verbose(options.OutputFile);
+    if (typeof encoding === 'object') {
+      logger.debug(JSON.stringify(encoding));
+      if (options.outputFile) {
+        logger.verbose(options.outputFile);
+        fs.writeFileSync(options.outputFile, JSON.stringify(encoding,null,"  "));
       }
     }
     else

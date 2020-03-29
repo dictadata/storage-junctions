@@ -7,12 +7,6 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "AWS Check",
-      "program": "${workspaceFolder}/test/aws_credentials.js"
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "echo junction",
       "program": "${workspaceFolder}/test/echo_junction.js",
       "outputCapture": "std",
@@ -90,8 +84,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "gzip transfers",
-      "program": "${workspaceFolder}/test/filestorage/gzip_transfers.js",
+      "name": "fs list",
+      "program": "${workspaceFolder}/test/fs/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -101,8 +95,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "fs list",
-      "program": "${workspaceFolder}/test/filestorage/fs_list.js",
+      "name": "fs gzip transfers",
+      "program": "${workspaceFolder}/test/fs/gzip_transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -113,7 +107,7 @@
       "type": "node",
       "request": "launch",
       "name": "ftp list",
-      "program": "${workspaceFolder}/test/filestorage/ftp_list.js",
+      "program": "${workspaceFolder}/test/ftp/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -124,7 +118,7 @@
       "type": "node",
       "request": "launch",
       "name": "ftp transfers",
-      "program": "${workspaceFolder}/test/filestorage/ftp_transfers.js",
+      "program": "${workspaceFolder}/test/ftp/transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -134,8 +128,14 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "AWS check",
+      "program": "${workspaceFolder}/test/aws_credentials.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "s3 list",
-      "program": "${workspaceFolder}/test/filestorage/s3_list.js",
+      "program": "${workspaceFolder}/test/s3/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -146,7 +146,7 @@
       "type": "node",
       "request": "launch",
       "name": "s3 transfers",
-      "program": "${workspaceFolder}/test/filestorage/s3_transfers.js",
+      "program": "${workspaceFolder}/test/s3/transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -211,8 +211,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch retrieve",
-      "program": "${workspaceFolder}/test/elasticsearch/retrieve.js",
+      "name": "elasticsearch dull",
+      "program": "${workspaceFolder}/test/elasticsearch/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -222,8 +222,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch dull",
-      "program": "${workspaceFolder}/test/elasticsearch/dull.js",
+      "name": "elasticsearch retrieve",
+      "program": "${workspaceFolder}/test/elasticsearch/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -288,8 +288,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql retrieve",
-      "program": "${workspaceFolder}/test/mysql/retrieve.js",
+      "name": "mysql dull",
+      "program": "${workspaceFolder}/test/mysql/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -299,8 +299,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql dull",
-      "program": "${workspaceFolder}/test/mysql/dull.js",
+      "name": "mysql retrieve",
+      "program": "${workspaceFolder}/test/mysql/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -354,7 +354,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "db transform",
+      "name": "db transforms",
       "program": "${workspaceFolder}/test/db_transforms.js",
       "outputCapture": "std",
       "env": {

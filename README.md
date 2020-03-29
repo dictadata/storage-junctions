@@ -79,26 +79,6 @@ elastic|node address|index|!field
 | \*     | Any or All. If primary key(s) are specified in the schema encodings then this is effectively equivalent to = key format. Otherwise, \* is a generic place holder primarily used when the source is only used for searching or streaming transfers.                                                                                           | \*                                       |
 | uid    | UID. A unique ID value (key) that addresses a specific piece of data on the data source. Similar to ! as the UID is a specific key. Used as the default value if no key is passed to store, recall and dull functions. Otherwise, the storage junction will behave the same as the bare ! key format. Rarely useful except in special cases. | 1234<br /> default                       |
 
-## Storage-Junctions Functions
-
-### getEncoding()
-
-### putEncoding(encoding)
-
-### store(construct)
-
-### recall(key)
-
-### retrieve(pattern)
-
-### getReadStream(options)
-
-### getWriteStream(options)
-
-### getFieldTransform(options)
-
-### getCodifyWriter(options)
-
 ## Storage Engram Encoding
 
 ````json
@@ -147,29 +127,147 @@ pattern: {
 }
 ```
 
-## Storage Transforms
+## Data Transforms
 
 ```json
+// example transform with filter and field mapping
 "transform": {
-  "inject": {
-    "Fie": "where's fum?"
-  },
-  "match": {
-    "Bar": {
-      "op": "eq",
-      "value": "row"
+  "filter" {
+    "match": {
+      "Bar": "row",
+      "Baz": { "gt": 100 }
+      }
+    },
+    "drop": {
+      "Baz": 5678
+      }
     }
   },
-  "drop": {
-    "Baz": {
-      "op": "eq",
-      "value": 5678
+  "fields": {
+    "inject_before": {
+      "Fie": "where's fum?"
+    },
+    "mapping": {
+      "Foo": "Foo",
+      "Bar": "Bar",
+      "Baz": "Bazzy"
+    },
+    "remove": [ "Fobe" ],
+    "inject_after": {
+      "Fie": "override the fum"
     }
-  },
-  "mapping": {
-    "Foo": "Foo",
-    "Bar": "Bar",
-    "Baz": "Bazzy"
   }
 }
 ```
+
+### FilterTransform
+
+```json
+  // example filter transform
+
+  transform: {
+    "filter": {
+      // match all expressions to forward
+      match: {
+        "field1": 'value',
+        "field2": {gt: 100, lt: 200}
+      },
+      // match all expressions to drop
+      drop: {
+        "field1": 'value',
+        "field2": { lt: 0 }
+        }
+      }
+    }
+  };
+```
+
+### FieldsTransform
+
+```json
+  // example fields transform
+
+  transform: {
+    "fields": {
+      // inject new fields or set defaults in case of missing values
+      inject_before: {
+        "newField": <value>
+        "existingField": <default value>
+      },
+
+      // select and map fields using dot notation
+      // { src: dest, ...}
+      mapping: {
+        "field1": "Field1",
+        "object1.subfield":  "FlatField"
+      },
+
+      // remove fields from the new construct
+      remove: ["field1", "field2"],
+
+      // inject new fields or override existing values
+      inject_after: {
+        "newField": <value>,
+        "existingField": <override value>
+      }
+
+    }
+  };
+```
+
+### order of operations
+
+* inject_before
+* mapping (or copy)
+* remove
+* inject_after
+
+### ConsolidateTransform
+
+Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GROUP BY and aggregate functions like SUM or Elasticsearch's _search aggregations.
+
+```json
+  // example consolidate transform
+
+  transform: {
+    consolidate: {
+
+      TBD soon
+
+    }
+  };
+```
+
+## Storage-Junctions Functions
+
+### getEncoding()
+
+### putEncoding(encoding)
+
+### store(construct)
+
+### recall(key)
+
+### retrieve(pattern)
+
+### getReadStream(options)
+
+### getWriteStream(options)
+
+### getTransform(tfType, options)
+
+### getFileStorage()
+
+## Transform Plugins
+
+* Codify - Infer field encodings from examining a stream of objects.
+* Consolidate - Summarize a data stream similar to SQL GROUP BY and SUM
+* Fields - field selection and name mappings.
+* Filter - select constructs to forward or drop.
+* MetaStats - calculate meta statistics about fields for a stream of constructs.
+
+## FileStorage Plugins
+
+* fs - Local file system support for Windwos, Linux and Mac iOS.
+* ftp - FTP file transport protocal servers.
+* s3 - AWS S3 storage.

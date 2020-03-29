@@ -1,59 +1,50 @@
 /**
- * test/list
+ * test/s3_list
  */
 "use strict";
 
 const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: CSV list");
+logger.info("=== tests: S3 list");
 
 async function tests() {
 
-  logger.info("=== list local filesystem");
-  await list({
-    source: {
-      smt: "csv|./test/|*.csv|*",
-      options: {
-        list: {
-          recursive: true,
-          forEach: (name) => {
-            logger.info("- " + name);
-          }
-        }
-      }
-    }
-  });
-
-  logger.info("=== list S3 bucket (recursive)");
+  logger.info("=== list S3 bucket (forEach)");
   await list({
     source: {
       smt: "csv|S3:dictadata.org/test/output/|*.csv|*",
       options: {
         list: {
-          recursive: false
+          recursive: false,
+          forEach: (name) => {
+            logger.info("- " + name);
+          }
         }
       }
-    }
+    },
+    outputFile: "./test/output/s3_list_1.json"
   });
 
-  logger.info("=== list S3 bucket");
+  logger.info("=== list S3 bucket (recursive)");
   await list({
     source: {
       smt: {
-        model: "csv",
+        model: "json",
         locus: "S3:dictadata.org/test/",
-        schema: "*.csv.*",
-        key: "*",
-        aws_profile: ""
+        schema: "*.json",
+        key: "*"
       },
       options: {
-
+        s3: {
+          aws_profile: ""
+        },
+        list: {
+          recursive: true
+        }
       }
     },
-    list: {
-      recursive: true
-    }
+    outputFile: "./test/output/s3_list_2.json"
   });
 
 }

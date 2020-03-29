@@ -23,9 +23,10 @@ async function tests() {
     source: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
-    OutputFile: './test/output/elasticsearch_foo_encoding.json'
+    outputFile: './test/output/elasticsearch_foo_encoding.json'
   });
 
+/*
   logger.info("=== putEncoding foo_schema_2");
   await putEncoding({
     source: {
@@ -39,9 +40,9 @@ async function tests() {
     source: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_2|*"
     },
-    OutputFile: './test/output/elasticsearch_foo_encoding_2.json'
+    outputFile: './test/output/elasticsearch_foo_encoding_2.json'
   });
-
+*/
 }
 
 tests();

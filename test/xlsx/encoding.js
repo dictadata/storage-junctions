@@ -30,7 +30,7 @@ async function tests() {
         logger: logger
       }
     },
-    OutputFile: './test/output/xlsx_foo_encoding.json'
+    outputFile: './test/output/xlsx_foo_encoding.json'
   });
 
 }

@@ -30,7 +30,7 @@ module.exports = exports = async function (config) {
     pipe1.push(j1.getReadStream({ max_read: 100 }));
     for (let [tfType,tfOptions] of Object.entries(transforms))
       pipe1.push(j1.getTransform(tfType, tfOptions));
-    let cf = j1.getCodifyWriter();
+    let cf = j1.getTransform('codify');
     pipe1.push(cf);
 
     logger.verbose("run pipeline");
