@@ -8,6 +8,7 @@
   - StorageJunction.activate() is now asynchronous and returns a promise
   - removed '_' prefix from properties of StorageJunction, StorageReader, StorageWriter base classes unless it truly is a private member
   - rename StorageJunction.scan() to list()
+  - refactor codifyWriter to codifyTransform
 - version 1.0.5
   - bug fix for StorageResult returning extra array container
 - version 1.0.4
