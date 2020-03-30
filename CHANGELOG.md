@@ -1,3 +1,5 @@
+- version 1.1.1
+  - fix issue with MySQL null dates
 - version 1.1.0
   - implement new xlsx-junction for Excel files
   - implement ftp-filestorage plugin
