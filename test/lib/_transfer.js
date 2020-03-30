@@ -23,7 +23,7 @@ module.exports = exports = async function (config) {
     let transforms = config.transforms || {};
 
     logger.debug(">>> get source encoding (codify)");
-    //let encoding = await j1.getEncoding();
+    let source_encoding = await j1.getEncoding();  // load encoding from source for validation
 
     logger.verbose("build codify pipeline");
     let pipe1 = [];
