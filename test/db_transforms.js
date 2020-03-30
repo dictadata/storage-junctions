@@ -102,7 +102,7 @@ async function forecastTransform(options) {
       options: {
         headers: {
           "Accept": "application/ld+json",
-          "User-Agent": "@dictadata.org/storage-node contact:drew@dictadata.org"
+          "User-Agent": "@dictadata.org/storage-node contact:info@dictadata.org"
         },
         reader: {
           extract: {
