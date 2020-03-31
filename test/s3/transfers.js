@@ -18,7 +18,12 @@ async function s3Upload() {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
     destination: {
-      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv|*"
+      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     }
   });
 
@@ -28,7 +33,12 @@ async function s3Upload() {
       smt: "csv|./test/data/|foofile.csv|*"
     },
     destination: {
-      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*"
+      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     }
   });
 
@@ -38,7 +48,12 @@ async function s3Upload() {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
     destination: {
-      smt: "json|S3:dictadata.org/test/output/|json_output.json|*"
+      smt: "json|S3:dictadata.org/test/output/|json_output.json|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     }
   });
 
@@ -48,7 +63,12 @@ async function s3Upload() {
       smt: "json|./test/data/|foofile.json|*"
     },
     destination: {
-      smt: "json|S3:dictadata.org/test/output/|json_output.json.gz|*"
+      smt: "json|S3:dictadata.org/test/output/|json_output.json.gz|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     }
   });
 
@@ -60,7 +80,12 @@ async function s3Download() {
   logger.verbose('=== s3_output.csv');
   await transfer({
     source: {
-      smt: "csv|S3:dictadata.org/test/data/|foofile.csv.gz|*"
+      smt: "csv|S3:dictadata.org/test/data/|foofile.csv.gz|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     },
     destination: {
       smt: "csv|./test/output/|s3_output.csv|*"
@@ -70,7 +95,12 @@ async function s3Download() {
   logger.verbose('=== s3_output.csv.gz');
   await transfer({
     source: {
-      smt: "csv|S3:dictadata.org/test/data/|foofile.csv|*"
+      smt: "csv|S3:dictadata.org/test/data/|foofile.csv|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     },
     destination: {
       smt: "csv|./test/output/|s3_output.csv.gz|*"
@@ -80,7 +110,12 @@ async function s3Download() {
   logger.verbose('=== s3_output.json');
   await transfer({
     source: {
-      smt: "json|S3:dictadata.org/test/data/|foofile.json.gz|*"
+      smt: "json|S3:dictadata.org/test/data/|foofile.json.gz|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     },
     destination: {
       smt: "json|./test/output/|s3_output.json|*"
@@ -90,7 +125,12 @@ async function s3Download() {
   logger.verbose('=== s3_output.json.gz');
   await transfer({
     source: {
-      smt: "json|S3:dictadata.org/test/data/|foofile.json|*"
+      smt: "json|S3:dictadata.org/test/data/|foofile.json|*",
+      options: {
+        "s3": {
+          "aws_profile": ""
+        }
+      }
     },
     destination: {
       smt: "json|./test/output/|s3_output.json.gz|*"
