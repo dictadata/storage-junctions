@@ -6,14 +6,14 @@
 const list = require('../lib/_list');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: local fs list");
+logger.info("=== tests: fs list");
 
 async function tests() {
 
-  logger.info("=== list local filesystem (forEach)");
+  logger.info("=== list fs directory (forEach)");
   await list({
     source: {
-      smt: "csv|./test/output/|*.csv|*",
+      smt: "json|./test/data/|*.json|*",
       options: {
         list: {
           recursive: false,
@@ -26,7 +26,7 @@ async function tests() {
     outputFile: "./test/output/fs_list_1.json"
   });
 
-  logger.info("=== list local filesystem (recursive)");
+  logger.info("=== list fs directory (recursive)");
   await list({
     source: {
       smt: {
@@ -37,6 +37,7 @@ async function tests() {
       },
       options: {
         list: {
+          schema: "foofile_*.json",
           recursive: true
         }
       }

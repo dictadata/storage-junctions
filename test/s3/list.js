@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list S3 bucket (forEach)");
   await list({
     source: {
-      smt: "csv|S3:dictadata.org/test/output/|*.csv|*",
+      smt: "json|S3:dictadata.org/test/data/|*.json|*",
       options: {
         list: {
           recursive: false,
@@ -37,9 +37,10 @@ async function tests() {
       },
       options: {
         s3: {
-          aws_profile: ""
+          aws_profile: "dictadata"
         },
         list: {
+          schema: "foofile_*.json",
           recursive: true
         }
       }

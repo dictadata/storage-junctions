@@ -10,10 +10,10 @@ logger.info("=== tests: FTP list");
 
 async function tests() {
 
-  logger.info("=== list ftp bucket (forEach)");
+  logger.info("=== list ftp directory (forEach)");
   await list({
     source: {
-      smt: "csv|ftp:/test/output/|*.csv|*",
+      smt: "json|ftp:/test/data/|*.json|*",
       options: {
         ftp: {
           host: 'localhost',
@@ -32,7 +32,7 @@ async function tests() {
     outputFile: "./test/output/ftp_list_1.json"
   });
 
-  logger.info("=== list ftp bucket (recursive)");
+  logger.info("=== list ftp directory (recursive)");
   await list({
     source: {
       smt: {
@@ -49,6 +49,7 @@ async function tests() {
           password: 'data'
         },
         list: {
+          schema: "foofile_*.json",
           recursive: true
         }
       }
