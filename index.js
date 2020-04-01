@@ -67,6 +67,8 @@ exports.ParquetJunction = ParquetJunction;
 
 var XlsxJunction = require("./lib/xlsx");
 cortex.use('xlsx', XlsxJunction);
+cortex.use('xls', XlsxJunction);
+cortex.use('ods', XlsxJunction);
 exports.XlsxJunction = XlsxJunction;
 
 var ElasticsearchJunction = require("./lib/elasticsearch");

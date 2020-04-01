@@ -84,6 +84,39 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "xlsx list",
+      "program": "${workspaceFolder}/test/xlsx/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "xlsx codify",
+      "program": "${workspaceFolder}/test/xlsx/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "xlsx transfers",
+      "program": "${workspaceFolder}/test/xlsx/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "fs list",
       "program": "${workspaceFolder}/test/fs/list.js",
       "outputCapture": "std",
@@ -147,17 +180,6 @@
       "request": "launch",
       "name": "s3 transfers",
       "program": "${workspaceFolder}/test/s3/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "xlsx transfers",
-      "program": "${workspaceFolder}/test/xlsx/transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

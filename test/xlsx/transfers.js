@@ -20,7 +20,7 @@ async function tests() {
       }
     },
     destination: {
-      smt: "xlsx|test/output/xlsx_foofile_1.xlsx|foo|*",
+      smt: "xlsx|test/output/xlsx_foofile_csv.xlsx|foo|*",
       options: {
         logger: logger
       }
@@ -52,7 +52,7 @@ async function tests() {
       }
     },
     destination: {
-      smt: "xlsx|test/output/xlsx_foofile_2.xlsx|foo|*",
+      smt: "xlsx|test/output/xlsx_foofile_json.xlsx|foo|*",
       options: {
         logger: logger
       }
