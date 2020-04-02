@@ -5,9 +5,9 @@
 
 const storage = require("../../index");
 const logger = require('../../lib/logger');
+
 const stream = require('stream');
 const util = require('util');
-
 const pipeline = util.promisify(stream.pipeline);
 
 /**
@@ -30,8 +30,8 @@ module.exports = exports = async function (config) {
     pipe1.push(j1.getReadStream({ max_read: 100 }));
     for (let [tfType,tfOptions] of Object.entries(transforms))
       pipe1.push(j1.getTransform(tfType, tfOptions));
-    let cf = j1.getTransform('codify');
-    pipe1.push(cf);
+    let ct = j1.getTransform('codify');
+    pipe1.push(ct);
 
     logger.verbose("run pipeline");
     await pipeline(pipe1);

@@ -28,6 +28,16 @@ async function tests() {
     }
   });
 
+  logger.info("=== json => elasticsearch");
+  await transfer({
+    source: {
+      smt: "json|./test/data/|foofile.json|*"
+    },
+    destination: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
+    }
+  });
+
   logger.info("=== elasticsearch => elasticsearch");
   await transfer({
     source: {
