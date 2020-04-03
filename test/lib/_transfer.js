@@ -35,7 +35,7 @@ module.exports = exports = async function (config) {
 
     logger.verbose("run pipeline");
     await pipeline(pipe1);
-    let encoding = await cf.getEncoding();
+    let encoding = await ct.getEncoding();
 
     logger.debug(">>> encoding results");
     logger.debug(JSON.stringify(encoding.fields, null, " "));

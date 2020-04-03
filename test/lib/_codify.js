@@ -47,7 +47,7 @@ module.exports = exports = async function (options) {
     let encoding2 = await codify.getEncoding();
 
     logger.debug(JSON.stringify(encoding2, null, "  "));
-    if (options.outputFile) {
+    if (options.outputFile2) {
       logger.info(">>> save encoding to " + options.outputFile2);
       fs.writeFileSync(options.outputFile2, JSON.stringify(encoding2,null,"  "), "utf8");
     }
