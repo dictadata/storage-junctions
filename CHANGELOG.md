@@ -1,3 +1,7 @@
+- version 1.1.2
+  - xlsx list and codify functionality
+  - Elasticsearch and MySQL list functionality
+  - use global logger (Winston)
 - version 1.1.1
   - fix issue with MySQL null dates
 - version 1.1.0
