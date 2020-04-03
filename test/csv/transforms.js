@@ -6,11 +6,11 @@
 const transfer = require('../lib/_transfer');
 const logger = require('../../lib/logger');
 
-logger.info("=== Test: json transforms");
+logger.info("=== Test: csv transforms");
 
 async function tests() {
 
-  logger.verbose('=== csv_transform_1.json');
+  logger.verbose('=== csv > csv_transform_1.json');
   await transfer({
     source: {
       smt: "csv|./test/data/|foofile.csv|*"
@@ -37,7 +37,7 @@ async function tests() {
     }
   });
 
-  logger.verbose('=== csv_transform_2.json');
+  logger.verbose('=== csv > csv_transform_2.json');
   await transfer({
     source: {
       smt: "csv|./test/data/|foofile.csv|*"

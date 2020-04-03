@@ -6,9 +6,10 @@
 const codify = require('../lib/_codify');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: Codify");
+logger.info("=== tests: csv Codify");
 
 async function tests() {
+  logger.verbose("=== csv > csv_encoding_x");
   await codify({
     source: {
       smt: "csv|./test/data/|foofile.csv|*"
@@ -17,6 +18,7 @@ async function tests() {
     outputFile2: './test/output/csv_encoding_2.json'
   });
 
+  logger.verbose("=== csv.gz > csv_encoding_gx")
   await codify({
     source: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
