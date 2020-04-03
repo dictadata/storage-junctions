@@ -4,7 +4,6 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dull = require('../lib/_dull');
 const logger = require('../../lib/logger');
 
 logger.info("=== Tests: elasticsearch");
@@ -55,6 +54,19 @@ async function tests() {
     },
     destination: {
       smt: "csv|./test/output/|elastic_output.csv|*",
+      options: {
+        append: false
+      }
+    }
+  });
+
+  logger.info("=== elasticsearch => json");
+  await transfer({
+    source: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
+    },
+    destination: {
+      smt: "json|./test/output/|elastic_output.json|*",
       options: {
         append: false
       }
