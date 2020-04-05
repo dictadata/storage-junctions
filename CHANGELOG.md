@@ -1,3 +1,5 @@
+- version 1.1.3
+  - consistent use of StorageError object
 - version 1.1.2
   - xlsx list and codify functionality
   - Elasticsearch and MySQL list functionality
