@@ -5,7 +5,7 @@
 
 const transfer = require('./lib/_transfer');
 const Engram = require('../lib/engram');
-const logger = require('../lib/logger').test();
+const logger = require('../lib/logger');
 
 logger.info("=== Test: transform");
 
