@@ -4,7 +4,7 @@
 "use strict";
 
 const storage = require("../../index");
-const logger = require('../../lib/logger');
+const logger = require('../../lib/logger').test();
 
 module.exports = exports = async function (options) {
 

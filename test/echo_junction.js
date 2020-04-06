@@ -5,7 +5,7 @@
 
 const storage = require("../index");
 const EchoJunction = require("../lib/echo");
-const logger = require('../lib/logger');
+const logger = require('../lib/logger').test();
 const stream = require('stream');
 const util = require('util');
 

@@ -11,8 +11,8 @@
       "program": "${workspaceFolder}/test/echo_junction.js",
       "outputCapture": "std",
       "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "debug"
       }
     },
     {
