@@ -1,3 +1,5 @@
+- version 1.1.4
+  - logger configuration changes
 - version 1.1.3
   - consistent use of StorageError object
 - version 1.1.2
