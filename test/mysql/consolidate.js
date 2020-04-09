@@ -37,7 +37,7 @@ async function tests() {
           "Baz": { "gte": 0, "lte": 1000 }
         },
         consolidate: {
-          "Bar": {
+          "Foo": {
             "baz_sum": { "sum": "Baz" }
           }
         },
