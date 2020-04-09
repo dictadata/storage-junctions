@@ -1,3 +1,7 @@
+- version 1.1.6
+  - Breaking changes:
+  - SelectTransform replaces FieldsTransform
+  - in SelectTransform options rename "mapping" property to "fields" which can now be array of field names or dot notation mapping object
 - version 1.1.5
   - add xlsx as local package
 - version 1.1.4

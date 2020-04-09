@@ -143,11 +143,11 @@ pattern: {
       }
     }
   },
-  "fields": {
+  "select": {
     "inject_before": {
       "Fie": "where's fum?"
     },
-    "mapping": {
+    "fields": {
       "Foo": "Foo",
       "Bar": "Bar",
       "Baz": "Bazzy"
@@ -182,31 +182,33 @@ pattern: {
   };
 ```
 
-### FieldsTransform
+### SelectTransform
 
 ```json
   // example fields transform
 
   transform: {
-    "fields": {
+    "select": {
       // inject new fields or set defaults in case of missing values
-      inject_before: {
+      "inject_before": {
         "newField": <value>
         "existingField": <default value>
       },
 
-      // select and map fields using dot notation
+      // select a list of fields
+      "fields": ["field1", "field2", ... ],
+      // or select and map fields using dot notation
       // { src: dest, ...}
-      mapping: {
+      "fields": {
         "field1": "Field1",
         "object1.subfield":  "FlatField"
       },
 
       // remove fields from the new construct
-      remove: ["field1", "field2"],
+      "remove": ["field1", "field2"],
 
       // inject new fields or override existing values
-      inject_after: {
+      "inject_after": {
         "newField": <value>,
         "existingField": <override value>
       }
@@ -218,7 +220,7 @@ pattern: {
 ### order of operations
 
 * inject_before
-* mapping (or copy)
+* select, mapping or copy
 * remove
 * inject_after
 
@@ -262,7 +264,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 
 * Codify - Infer field encodings from examining a stream of objects.
 * Consolidate - Summarize a data stream similar to SQL GROUP BY and SUM
-* Fields - field selection and name mappings.
+* Fields - field selection and mappings.
 * Filter - select constructs to forward or drop.
 * MetaStats - calculate meta statistics about fields for a stream of constructs.
 
