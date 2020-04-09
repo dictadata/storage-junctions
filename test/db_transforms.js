@@ -31,11 +31,11 @@ async function testDBTransform1() {
           "Baz": { "eq": 456 }
         }
       },
-      "fields": {
+      "select": {
         "inject_before": {
           "Fie": "where's fum?"
         },
-        "mapping": {
+        "fields": {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
@@ -74,11 +74,11 @@ async function testDBTransform2() {
           "Baz": 5678
         }
       },
-      "fields": {
+      "select": {
         "inject_before": {
           "Fie": "where's fum?"
         },
-        "mapping": {
+        "fields": {
           "Foo": "Foo",
           "Bar": "Bar",
           "Baz": "Bazzy"
@@ -118,7 +118,7 @@ async function forecastTransform(options) {
       "options": {}
     },
     "transforms": {
-      "fields": {
+      "select": {
         "inject_after": {
           "Fie": "It's always sunny in Philadelphia?"
         }

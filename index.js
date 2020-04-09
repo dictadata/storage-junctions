@@ -29,8 +29,8 @@ cortex.Transforms.use('codify', exports.CodifyTransform);
 exports.ConsolidateTransform = require("./lib/transform/consolidate");
 cortex.Transforms.use('consolidate', exports.ConsolidateTransform);
 
-exports.FieldsTransform = require("./lib/transform/fields");
-cortex.Transforms.use('fields', exports.FieldsTransform);
+exports.SelectTransform = require("./lib/transform/select");
+cortex.Transforms.use('select', exports.SelectTransform);
 
 exports.FilterTransform = require("./lib/transform/filter");
 cortex.Transforms.use('filter', exports.FilterTransform);

@@ -24,8 +24,8 @@ async function tests() {
           "Bar": { "eq": "row"}
         }
       },
-      fields: {
-        mapping: {
+      select: {
+        fields: {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
@@ -56,11 +56,11 @@ async function tests() {
           "Baz": 456
         }
       },
-      "fields": {
+      "select": {
         "inject_before": {
           "Fie": "where's fum?"
         },
-        "mapping": {
+        "fields": {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
