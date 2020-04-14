@@ -22,7 +22,7 @@ exports.StorageReader = require("./lib/junction/reader");
 exports.StorageWriter = require("./lib/junction/writer");
 //exports.CodifyWriter = require("./lib/junction/codifyWriter");
 
-// register tranforms
+// register transforms
 exports.CodifyTransform = require("./lib/transform/codify");
 cortex.Transforms.use('codify', exports.CodifyTransform);
 
