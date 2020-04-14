@@ -6,14 +6,14 @@
 const transfer = require('../lib/_transfer');
 const logger = require('../../lib/logger');
 
-logger.info("=== Test: json transforms");
+logger.info("=== Test: xlsx transforms");
 
 async function tests() {
 
-  logger.verbose('=== json_transform_1.json');
+  logger.verbose('=== xlsx > xlsx_transform_1.json');
   await transfer({
     source: {
-      smt: "json|./test/data/|foofile.json|*",
+      smt: "xlsx|./test/data/foofile.xlsx|foo|*",
       options: {
         reader: {
           match: {
@@ -21,23 +21,23 @@ async function tests() {
             "Baz": { "lte": 500 }
           },
           cues: {
-            fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
+            fields: ["Dt Test", "Foo", "Bar", "Baz"]
           }
         }
       }
     },
     destination: {
-      smt: "json|./test/output/|json_transform_1.json|*"
+      smt: "json|./test/output/|xlsx_transform_1.json|*"
     }
   });
 
-  logger.verbose('=== json_transform_2.json');
+  logger.verbose('=== xlsx > xlsx_transform_2.json');
   await transfer({
     source: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
     destination: {
-      smt: "json|./test/output/|json_transform_2.json|*"
+      smt: "json|./test/output/|xlsx_transform_2.json|*"
     },
     transforms: {
       "filter": {
@@ -56,12 +56,11 @@ async function tests() {
           "fum": "here"
         },
         "fields": {
+          "Dt Test": "dt_date",
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
-          "Fobe": "fobe",
-          "subObj1.state": "sub.state",
-          "subObj2.subsub.izze": "sub.izze"
+          "Fobe": "fobe"
         },
         "remove": ["fobe"],
       }

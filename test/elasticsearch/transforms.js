@@ -1,19 +1,19 @@
 /**
- * test/json
+ * test/elasticsearch
  */
 "use strict";
 
 const transfer = require('../lib/_transfer');
 const logger = require('../../lib/logger');
 
-logger.info("=== Test: json transforms");
+logger.info("=== Test: elasticsearch transforms");
 
 async function tests() {
 
-  logger.verbose('=== json_transform_1.json');
+  logger.verbose('=== es_transform_1.json');
   await transfer({
     source: {
-      smt: "json|./test/data/|foofile.json|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       options: {
         reader: {
           match: {
@@ -27,17 +27,17 @@ async function tests() {
       }
     },
     destination: {
-      smt: "json|./test/output/|json_transform_1.json|*"
+      smt: "json|./test/output/|es_transform_1.json|*"
     }
   });
 
-  logger.verbose('=== json_transform_2.json');
+  logger.verbose('=== es_transform_2.json');
   await transfer({
     source: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     destination: {
-      smt: "json|./test/output/|json_transform_2.json|*"
+      smt: "json|./test/output/|es_transform_2.json|*"
     },
     transforms: {
       "filter": {

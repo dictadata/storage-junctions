@@ -13,27 +13,21 @@ async function tests() {
   logger.verbose('=== csv > csv_transform_1.json');
   await transfer({
     source: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        reader: {
+          match: {
+            "Bar": "row",
+            "Baz": { "lte": 500 }
+          },
+          cues: {
+            fields: ["Dt Test", "Foo", "Bar", "Baz"]
+          }
+        }
+      }
     },
     destination: {
       smt: "json|./test/output/|csv_transform_1.json|*"
-    },
-    transforms: {
-      filter: {
-        "match": {
-          "Bar": { "eq": "row"}
-        }
-      },
-      select: {
-        fields: {
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "Dt Test": "dt_test",
-          "enabled": "enabled"
-        }
-      }
     }
   });
 
@@ -51,22 +45,24 @@ async function tests() {
           "Bar": "row"
         },
         "drop": {
-          "Baz": 456
+          "Baz": { "gt": 500 }
         }
       },
       "select": {
         "inject_before": {
-          "Fie": "where's fum?"
+          "fie": "where's fum?"
+        },
+        "inject_after": {
+          "fum": "here"
         },
         "fields": {
+          "Dt Test": "dt_date",
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
-          "Fobe": "fobe",
-          "enabled": "enabled",
-          "subObj1.state": "state",
-          "subObj2.subsub.izze": "izze"
-        }
+          "Fobe": "fobe"
+        },
+        "remove": ["fobe"],
       }
     }
   });

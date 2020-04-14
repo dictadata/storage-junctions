@@ -40,7 +40,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv transform",
+      "name": "csv transforms",
       "program": "${workspaceFolder}/test/csv/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -73,7 +73,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json transform",
+      "name": "json transforms",
       "program": "${workspaceFolder}/test/json/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -108,6 +108,17 @@
       "request": "launch",
       "name": "xlsx transfers",
       "program": "${workspaceFolder}/test/xlsx/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "xlsx transforms",
+      "program": "${workspaceFolder}/test/xlsx/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -288,6 +299,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "elasticsearch transforms",
+      "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "debug"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "mysql list",
       "program": "${workspaceFolder}/test/mysql/list.js",
       "outputCapture": "std",
@@ -356,6 +378,17 @@
       "request": "launch",
       "name": "mysql transfers",
       "program": "${workspaceFolder}/test/mysql/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "mysql transforms",
+      "program": "${workspaceFolder}/test/mysql/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
