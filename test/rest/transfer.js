@@ -36,7 +36,7 @@ async function testTransfer() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|rest_forecast_output.csv|*"
     }
   });

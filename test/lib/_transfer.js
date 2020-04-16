@@ -20,7 +20,7 @@ module.exports = exports = async function (tract) {
   try {
     logger.info(">>> create junctions");
     j1 = await storage.activate(tract.origin.smt, tract.origin.options);
-    j2 = await storage.activate(tract.terminus.smt, tract.terminus.options);
+    j2 = await storage.activate(tract.terminal.smt, tract.terminal.options);
     let transforms = tract.transforms || {};
 
     // load encoding from origin for validation
@@ -33,14 +33,14 @@ module.exports = exports = async function (tract) {
     else
       encoding = await j1.getEncoding();
 
-    if (tract.terminus.encoding) {
+    if (tract.terminal.encoding) {
       // use configured encoding
-      encoding = tract.terminus.encoding;
+      encoding = tract.terminal.encoding;
       if (typeof encoding === "string")
         encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
     }
     else {
-      // run some objects through any transforms to get terminus encoding
+      // run some objects through any transforms to get terminal encoding
       logger.verbose("build codify pipeline");
       let pipes = [];
       pipes.push(j1.getReadStream({ max_read: 100 }));
@@ -54,8 +54,8 @@ module.exports = exports = async function (tract) {
     logger.debug(">>> encoding results");
     logger.debug(JSON.stringify(encoding.fields, null, " "));
 
-    // attempt to create the terminus
-    logger.verbose(">>> put terminus encoding");
+    // attempt to create the terminal
+    logger.verbose(">>> put terminal encoding");
     encoding = await j2.putEncoding(encoding);
     if (typeof encoding !== "object")
       logger.info("could not create storage schema: " + encoding);

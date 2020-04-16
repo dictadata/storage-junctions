@@ -26,7 +26,7 @@ async function tests() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|json_transform_1.json|*"
     }
   });
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|json_transform_2.json|*"
     },
     transforms: {

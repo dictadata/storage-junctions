@@ -26,7 +26,7 @@ async function tests() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|es_transform_1.json|*"
     }
   });
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|es_transform_2.json|*"
     },
     transforms: {

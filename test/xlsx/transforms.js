@@ -26,7 +26,7 @@ async function tests() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|xlsx_transform_1.json|*"
     }
   });
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|xlsx_transform_2.json|*"
     },
     transforms: {

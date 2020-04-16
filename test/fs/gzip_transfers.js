@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|fs_gzip_output.csv.gz|*"
     }
   });
@@ -25,7 +25,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|fs_gzip_output.csv|*"
     }
   });
@@ -35,7 +35,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|fs_gzip_output.json.gz|*"
     }
   });
@@ -45,7 +45,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|fs_gzip_output.json|*"
     }
   });

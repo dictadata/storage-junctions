@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|csv_output.csv|*"
     }
   });
@@ -25,7 +25,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|csv_output.json|*"
     }
   });

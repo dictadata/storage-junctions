@@ -17,7 +17,7 @@ async function ftpUpload() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|ftp:/test/output/|csv_output.csv|*",
       options: {
         ftp: {
@@ -35,7 +35,7 @@ async function ftpUpload() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|ftp:/test/output/|csv_output.csv.gz|*",
       options: {
         ftp: {
@@ -53,7 +53,7 @@ async function ftpUpload() {
     origin: {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|ftp:/test/output/|json_output.json|*",
       options: {
         ftp: {
@@ -71,7 +71,7 @@ async function ftpUpload() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|ftp:/test/output/|json_output.json.gz|*",
       options: {
         ftp: {
@@ -102,7 +102,7 @@ async function ftpDownload() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|ftp_output.csv|*"
     }
   });
@@ -120,7 +120,7 @@ async function ftpDownload() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|ftp_output.csv.gz|*"
     }
   });
@@ -138,7 +138,7 @@ async function ftpDownload() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|ftp_output.json|*"
     }
   });
@@ -156,7 +156,7 @@ async function ftpDownload() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|ftp_output.json.gz|*"
     }
   });

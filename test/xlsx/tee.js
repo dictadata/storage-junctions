@@ -24,9 +24,9 @@ async function tests() {
         }
       }
     },
-    terminus: [
+    terminal: [
       {
-        terminus: {
+        terminal: {
           smt: "json|./test/output/|xlsx_tee_1.json|*",
           encoding: "./test/data/foo_encoding.json"
         },
@@ -34,7 +34,7 @@ async function tests() {
         }
       },
       {
-        terminus: {
+        terminal: {
           smt: "json|./test/output/|xlsx_tee_2.json|*",
           encoding: "./test/data/foo_encoding_t.json"
         },

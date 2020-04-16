@@ -18,7 +18,7 @@ async function testDBTransform1() {
       "smt": "elasticsearch|http://localhost:9200|foo_schema|*",
       "options": {}
     },
-    "terminus": {
+    "terminal": {
       "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_dbtransform|=Foo",
       "options": {}
     },
@@ -61,7 +61,7 @@ async function testDBTransform2() {
       "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
-    "terminus": {
+    "terminal": {
       "smt": "elasticsearch|http://localhost:9200|foo_dbtransform|=Foo",
       "options": {}
     },
@@ -91,7 +91,7 @@ async function testDBTransform2() {
 
 async function forecastTransform(tract) {
 
-  let engram = new Engram(tract.terminus.smt);
+  let engram = new Engram(tract.terminal.smt);
   logger.info("=== transfer REST to " + engram.smt.model);
   logger.verbose("<<< weather API");
   logger.verbose(">>> " + engram.smt.model + " " + engram.smt.schema);
@@ -113,8 +113,8 @@ async function forecastTransform(tract) {
         }
       }
     },
-    "terminus": {
-      "smt": tract.terminus.smt,
+    "terminal": {
+      "smt": tract.terminal.smt,
       "options": {}
     },
     "transforms": {
@@ -131,8 +131,8 @@ async function forecastTransform(tract) {
 async function tests() {
   await testDBTransform1();
   await testDBTransform2();
-  await forecastTransform({ terminus: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
-  await forecastTransform({ terminus: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
+  await forecastTransform({ terminal: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
+  await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
 }
 
 tests();

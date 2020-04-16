@@ -17,7 +17,7 @@ async function s3Upload() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|S3:dictadata.org/test/output/|csv_output.csv|*",
       options: {
         "s3": {
@@ -32,7 +32,7 @@ async function s3Upload() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*",
       options: {
         "s3": {
@@ -47,7 +47,7 @@ async function s3Upload() {
     origin: {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|S3:dictadata.org/test/output/|json_output.json|*",
       options: {
         "s3": {
@@ -62,7 +62,7 @@ async function s3Upload() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|S3:dictadata.org/test/output/|json_output.json.gz|*",
       options: {
         "s3": {
@@ -87,7 +87,7 @@ async function s3Download() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|s3_output.csv|*"
     }
   });
@@ -102,7 +102,7 @@ async function s3Download() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|s3_output.csv.gz|*"
     }
   });
@@ -117,7 +117,7 @@ async function s3Download() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|s3_output.json|*"
     }
   });
@@ -132,7 +132,7 @@ async function s3Download() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|s3_output.json.gz|*"
     }
   });

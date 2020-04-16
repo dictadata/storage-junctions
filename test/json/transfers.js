@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|json_output.json|*"
     }
   });
@@ -25,7 +25,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|json_output.csv|*"
     }
   });
@@ -35,7 +35,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "jsono|./test/output/|json_output_o.json|*"
     }
   });
@@ -45,7 +45,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "jsonl|./test/output/|json_output_l.log|*"
     }
   });
@@ -55,7 +55,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "jsons|./test/output/|json_output_s.txt|*"
     }
   });

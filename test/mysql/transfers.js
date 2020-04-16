@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     }
   });
@@ -25,7 +25,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     },
-    terminus: {
+    terminal: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*"
     }
   });
@@ -35,7 +35,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|mysql_transfer.csv|*"
     }
   });

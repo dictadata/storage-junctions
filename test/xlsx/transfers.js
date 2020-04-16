@@ -19,7 +19,7 @@ async function tests() {
 
       }
     },
-    terminus: {
+    terminal: {
       smt: "xlsx|test/output/xlsx_foofile_csv.xlsx|foo|*",
       options: {
 
@@ -35,7 +35,7 @@ async function tests() {
 
       }
     },
-    terminus: {
+    terminal: {
       smt: "csv|test/output/|xlsx_foofile.csv|*",
       options: {
 
@@ -51,7 +51,7 @@ async function tests() {
 
       }
     },
-    terminus: {
+    terminal: {
       smt: "xlsx|test/output/xlsx_foofile_json.xlsx|foo|*",
       options: {
 
@@ -67,7 +67,7 @@ async function tests() {
 
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|test/output/|xlsx_foofile.json|*",
       options: {
 

@@ -41,25 +41,25 @@ module.exports = exports = async function (tract) {
     for (let [tfType,tfOptions] of Object.entries(origin_transforms))
       reader = reader.pipe(js.getTransform(tfType, tfOptions));
 
-    logger.info(">>> create terminus pipeline(s)");
-    if (!Array.isArray(tract.terminus))
-      throw new Error("tract.terminus not an Array");
+    logger.info(">>> create terminal pipeline(s)");
+    if (!Array.isArray(tract.terminal))
+      throw new Error("tract.terminal not an Array");
 
-    for (let branch of tract.terminus) {
+    for (let branch of tract.terminal) {
       let transforms = branch.transforms || {};
 
-      logger.info(">>> create terminus junction")
-      let jd = await storage.activate(branch.terminus.smt, branch.terminus.options);
+      logger.info(">>> create terminal junction")
+      let jd = await storage.activate(branch.terminal.smt, branch.terminal.options);
       jdl.push(jd);
 
-      logger.info(">>> put terminus encoding")
-      if (branch.terminus.encoding)
-        encoding = branch.terminus.encoding;
+      logger.info(">>> put terminal encoding")
+      if (branch.terminal.encoding)
+        encoding = branch.terminal.encoding;
       if (typeof encoding === "string")
         encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
       encoding = await jd.putEncoding(encoding);
 
-      logger.info(">>> create terminus tee");
+      logger.info(">>> create terminal tee");
       let writer = null;
       // add transforms
       for (let [tfType,tfOptions] of Object.entries(transforms)) {
@@ -69,7 +69,7 @@ module.exports = exports = async function (tract) {
         else
           writer = writer.pipe(t);
       }
-      // add terminus
+      // add terminal
       let w = jd.getWriteStream();
       if (!writer)
         writer = reader.pipe(w);

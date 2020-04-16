@@ -22,7 +22,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    terminus: {
+    terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     }
   });
@@ -32,7 +32,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    terminus: {
+    terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     }
   });
@@ -42,7 +42,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
-    terminus: {
+    terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     }
   });
@@ -52,7 +52,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     },
-    terminus: {
+    terminal: {
       smt: "csv|./test/output/|elastic_output.csv|*",
       options: {
         append: false
@@ -65,7 +65,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|elastic_output.json|*",
       options: {
         append: false

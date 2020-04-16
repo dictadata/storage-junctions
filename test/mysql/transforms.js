@@ -26,7 +26,7 @@ async function tests() {
         }
       }
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|mysql_transform_1.json|*"
     }
   });
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     },
-    terminus: {
+    terminal: {
       smt: "json|./test/output/|mysql_transform_2.json|*"
     },
     transforms: {
