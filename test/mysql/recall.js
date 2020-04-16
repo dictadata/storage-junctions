@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== mysql recall");
   await recall({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
       pattern: {
         match: {
@@ -24,7 +24,7 @@ async function tests() {
 
   logger.info("=== mysql recall");
   await recall({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {

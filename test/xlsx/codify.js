@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== codify foofile.xlsx|foo");
   await codify({
-    source: {
+    origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
     outputFile1: './test/output/xlsx_encoding_1.json',
@@ -21,7 +21,7 @@ async function tests() {
 
   logger.info("=== codify foofile.xls|foo");
   await codify({
-    source: {
+    origin: {
       smt: "xls|./test/data/foofile.xls|foo|*"
     },
     outputFile1: './test/output/xls_encoding_1.json',

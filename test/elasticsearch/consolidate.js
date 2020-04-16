@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== elasticsearch consolidate");
   await retrieve({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
@@ -30,7 +30,7 @@ async function tests() {
 
   logger.info("=== elasticsearch consolidate w/ groupby");
   await retrieve({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
@@ -52,7 +52,7 @@ async function tests() {
 
   logger.info("=== elasticsearch groupby with summary");
   await retrieve({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {

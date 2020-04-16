@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== list");
   await list({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|*|*",
       options: {
         list: {

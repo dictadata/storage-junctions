@@ -14,10 +14,10 @@ async function ftpUpload() {
 
   logger.verbose('=== ftp: csv_output.csv');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|ftp:/test/output/|csv_output.csv|*",
       options: {
         ftp: {
@@ -32,10 +32,10 @@ async function ftpUpload() {
 
   logger.verbose('=== ftp: csv_output.csv.gz');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|ftp:/test/output/|csv_output.csv.gz|*",
       options: {
         ftp: {
@@ -50,10 +50,10 @@ async function ftpUpload() {
 
   logger.verbose('=== ftp: json_output.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
-    destination: {
+    terminus: {
       smt: "json|ftp:/test/output/|json_output.json|*",
       options: {
         ftp: {
@@ -68,10 +68,10 @@ async function ftpUpload() {
 
   logger.verbose('=== ftp: json_output.json.gz');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "json|ftp:/test/output/|json_output.json.gz|*",
       options: {
         ftp: {
@@ -91,7 +91,7 @@ async function ftpDownload() {
 
   logger.verbose('=== ftp_output.csv');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|ftp:/test/data/|foofile.csv.gz|*",
       options: {
         ftp: {
@@ -102,14 +102,14 @@ async function ftpDownload() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|ftp_output.csv|*"
     }
   });
 
   logger.verbose('=== ftp_output.csv.gz');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|ftp:/test/data/|foofile.csv|*",
       options: {
         ftp: {
@@ -120,14 +120,14 @@ async function ftpDownload() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|ftp_output.csv.gz|*"
     }
   });
 
   logger.verbose('=== ftp_output.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|ftp:/test/data/|foofile.json.gz|*",
       options: {
         ftp: {
@@ -138,14 +138,14 @@ async function ftpDownload() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|ftp_output.json|*"
     }
   });
 
   logger.verbose('=== ftp_output.json.gz');
   await transfer({
-    source: {
+    origin: {
       smt: "json|ftp:/test/data/|foofile.json|*",
       options: {
         ftp: {
@@ -156,7 +156,7 @@ async function ftpDownload() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|ftp_output.json.gz|*"
     }
   });

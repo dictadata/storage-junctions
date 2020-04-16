@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== list S3 bucket (forEach)");
   await list({
-    source: {
+    origin: {
       smt: "json|S3:dictadata.org/test/data/|*.json|*",
       options: {
         list: {
@@ -28,7 +28,7 @@ async function tests() {
 
   logger.info("=== list S3 bucket (recursive)");
   await list({
-    source: {
+    origin: {
       smt: {
         model: "json",
         locus: "S3:dictadata.org/test/",

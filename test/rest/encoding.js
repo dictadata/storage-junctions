@@ -13,7 +13,7 @@ async function tests() {
 
   logger.info("=== rest getEncoding (forecast)");
   await getEncoding({
-    source: {
+    origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
         headers: {

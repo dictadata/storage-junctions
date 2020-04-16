@@ -12,7 +12,7 @@ async function tests() {
 
   logger.verbose('=== es_transform_1.json');
   await transfer({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       options: {
         reader: {
@@ -26,17 +26,17 @@ async function tests() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|es_transform_1.json|*"
     }
   });
 
   logger.verbose('=== es_transform_2.json');
   await transfer({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|es_transform_2.json|*"
     },
     transforms: {

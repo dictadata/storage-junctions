@@ -12,7 +12,7 @@ async function tests() {
 
   logger.verbose('=== json_transform_1.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*",
       options: {
         reader: {
@@ -26,17 +26,17 @@ async function tests() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|json_transform_1.json|*"
     }
   });
 
   logger.verbose('=== json_transform_2.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|json_transform_2.json|*"
     },
     transforms: {

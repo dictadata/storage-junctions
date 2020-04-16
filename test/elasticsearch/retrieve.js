@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== elasticsearch retrieve");
   await retrieve({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
@@ -24,7 +24,7 @@ async function tests() {
 
   logger.info("=== elasticsearch retrieve w/ cues");
   await retrieve({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         cues: {
@@ -37,7 +37,7 @@ async function tests() {
 
   logger.info("=== elasticsearch retrieve w/ pattern");
   await retrieve({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {

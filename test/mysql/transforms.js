@@ -12,7 +12,7 @@ async function tests() {
 
   logger.verbose('=== mysql > mysql_transform_1.json');
   await transfer({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       options: {
         reader: {
@@ -26,17 +26,17 @@ async function tests() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|mysql_transform_1.json|*"
     }
   });
 
   logger.verbose('=== mysql > mysql_transform_2.json');
   await transfer({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|mysql_transform_2.json|*"
     },
     transforms: {

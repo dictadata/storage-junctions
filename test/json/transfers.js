@@ -12,50 +12,50 @@ async function tests() {
 
   logger.verbose('=== json_output.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|json_output.json|*"
     }
   });
 
   logger.verbose('=== json_output.csv');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|json_output.csv|*"
     }
   });
 
   logger.verbose('=== json_output_o.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "jsono|./test/output/|json_output_o.json|*"
     }
   });
 
   logger.verbose('=== json_output_l.log');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "jsonl|./test/output/|json_output_l.log|*"
     }
   });
 
   logger.verbose('=== json_output_s.txt');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "jsons|./test/output/|json_output_s.txt|*"
     }
   });

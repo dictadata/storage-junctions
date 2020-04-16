@@ -12,7 +12,7 @@ async function tests() {
 
   logger.verbose('=== xlsx > xlsx_transform_1.json');
   await transfer({
-    source: {
+    origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*",
       options: {
         reader: {
@@ -26,17 +26,17 @@ async function tests() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|xlsx_transform_1.json|*"
     }
   });
 
   logger.verbose('=== xlsx > xlsx_transform_2.json');
   await transfer({
-    source: {
+    origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|xlsx_transform_2.json|*"
     },
     transforms: {

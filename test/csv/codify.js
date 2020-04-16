@@ -11,7 +11,7 @@ logger.info("=== tests: csv Codify");
 async function tests() {
   logger.verbose("=== csv > csv_encoding_x");
   await codify({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
     outputFile1: './test/output/csv_encoding_1.json',
@@ -20,7 +20,7 @@ async function tests() {
 
   logger.verbose("=== csv.gz > csv_encoding_gx")
   await codify({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
     outputFile1: './test/output/csv_encoding_g1.json',

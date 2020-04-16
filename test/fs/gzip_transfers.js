@@ -12,40 +12,40 @@ async function tests() {
 
   logger.verbose('=== csv => fs_gzip_output.csv.gz');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|fs_gzip_output.csv.gz|*"
     }
   });
 
   logger.verbose('=== csv.gz => fs_gzip_output.csv');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|fs_gzip_output.csv|*"
     }
   });
 
   logger.verbose('=== json => fs_gzip_output.json.gz');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|fs_gzip_output.json.gz|*"
     }
   });
 
   logger.verbose('=== json.gz => fs_gzip_output.json');
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|fs_gzip_output.json|*"
     }
   });

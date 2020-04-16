@@ -12,47 +12,47 @@ async function tests() {
 
   //logger.info("=== dull foo_transfer");
   //await dull({
-  //  source: {
+  //  origin: {
   //    smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
   //  }
   //});
 
   logger.info("=== csv => elasticsearch");
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    destination: {
+    terminus: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     }
   });
 
   logger.info("=== json => elasticsearch");
   await transfer({
-    source: {
+    origin: {
       smt: "json|./test/data/|foofile.json|*"
     },
-    destination: {
+    terminus: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     }
   });
 
   logger.info("=== elasticsearch => elasticsearch");
   await transfer({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
-    destination: {
+    terminus: {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     }
   });
 
   logger.info("=== elasticsearch => csv");
   await transfer({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|elastic_output.csv|*",
       options: {
         append: false
@@ -62,10 +62,10 @@ async function tests() {
 
   logger.info("=== elasticsearch => json");
   await transfer({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|elastic_output.json|*",
       options: {
         append: false

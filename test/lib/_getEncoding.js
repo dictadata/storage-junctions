@@ -7,19 +7,19 @@ const storage = require("../../index");
 const logger = require('../../lib/logger');
 const fs = require('fs');
 
-module.exports = exports = async function (options) {
+module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
 
   var j1;
   try {
-    j1 = await storage.activate(options.source.smt, options.source.options);
+    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
     let encoding = await j1.getEncoding();
 
     if (typeof encoding === 'object') {
       logger.debug(JSON.stringify(encoding));
-      if (options.outputFile) {
-        logger.verbose(options.outputFile);
-        fs.writeFileSync(options.outputFile, JSON.stringify(encoding,null,"  "));
+      if (tract.outputFile) {
+        logger.verbose(tract.outputFile);
+        fs.writeFileSync(tract.outputFile, JSON.stringify(encoding,null,"  "));
       }
     }
     else

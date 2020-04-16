@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== elasticsearch dull");
   await dull({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
         match: {

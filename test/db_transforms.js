@@ -14,11 +14,11 @@ async function testDBTransform1() {
   logger.verbose('>>> mysql foo_dbtransform');
 
   await transfer({
-    "source": {
+    "origin": {
       "smt": "elasticsearch|http://localhost:9200|foo_schema|*",
       "options": {}
     },
-    "destination": {
+    "terminus": {
       "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_dbtransform|=Foo",
       "options": {}
     },
@@ -57,11 +57,11 @@ async function testDBTransform2() {
   logger.verbose(">>> elasticsearch foo_dbtransform");
 
   await transfer({
-    "source": {
+    "origin": {
       "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
-    "destination": {
+    "terminus": {
       "smt": "elasticsearch|http://localhost:9200|foo_dbtransform|=Foo",
       "options": {}
     },
@@ -89,15 +89,15 @@ async function testDBTransform2() {
 
 }
 
-async function forecastTransform(options) {
+async function forecastTransform(tract) {
 
-  let engram = new Engram(options.destination.smt);
+  let engram = new Engram(tract.terminus.smt);
   logger.info("=== transfer REST to " + engram.smt.model);
   logger.verbose("<<< weather API");
   logger.verbose(">>> " + engram.smt.model + " " + engram.smt.schema);
 
   await transfer({
-    source: {
+    origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
         headers: {
@@ -113,8 +113,8 @@ async function forecastTransform(options) {
         }
       }
     },
-    "destination": {
-      "smt": options.destination.smt,
+    "terminus": {
+      "smt": tract.terminus.smt,
       "options": {}
     },
     "transforms": {
@@ -131,8 +131,8 @@ async function forecastTransform(options) {
 async function tests() {
   await testDBTransform1();
   await testDBTransform2();
-  await forecastTransform({ destination: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
-  await forecastTransform({ destination: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
+  await forecastTransform({ terminus: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
+  await forecastTransform({ terminus: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
 }
 
 tests();

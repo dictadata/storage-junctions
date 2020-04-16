@@ -12,31 +12,31 @@ const fs = require('fs');
 
 const pipeline = util.promisify(stream.pipeline);
 
-module.exports = exports = async function (options) {
+module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
-  if (!options.transforms) options.transforms = {};
+  if (!tract.transforms) tract.transforms = {};
 
   var j1;
   try {
-    j1 = await storage.activate(options.source.smt, options.source.options);
+    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
 
     // *** get encoding for junction's schema
     logger.info(">>> getEncoding");
     let encoding1 = await j1.getEncoding();
 
     logger.debug(JSON.stringify(encoding1, null, "  "));
-    if (options.outputFile1) {
-      logger.info(">>> save encoding to " + options.outputFile1);
-      fs.writeFileSync(options.outputFile1, JSON.stringify(encoding1,null,"  "), "utf8");
+    if (tract.outputFile1) {
+      logger.info(">>> save encoding to " + tract.outputFile1);
+      fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1,null,2), "utf8");
     }
 
     // *** use CodifyTransform to determine encoding including optional transforms
     logger.info(">>> build pipeline");
     let pipes = [];
-    pipes.push(j1.getReadStream({max_read: (options.source.options && options.source.options.max_read) || 100 }));
-    for (let [tfType,tfOptions] of Object.entries(options.transforms))
+    pipes.push(j1.getReadStream({max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
+    for (let [tfType,tfOptions] of Object.entries(tract.transforms))
       pipes.push(j1.getTransform(tfType, tfOptions));
-    let codify = j1.getTransform('codify', options.codify ||{});
+    let codify = j1.getTransform('codify', tract.codify ||{});
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding
@@ -47,9 +47,9 @@ module.exports = exports = async function (options) {
     let encoding2 = await codify.getEncoding();
 
     logger.debug(JSON.stringify(encoding2, null, "  "));
-    if (options.outputFile2) {
-      logger.info(">>> save encoding to " + options.outputFile2);
-      fs.writeFileSync(options.outputFile2, JSON.stringify(encoding2,null,"  "), "utf8");
+    if (tract.outputFile2) {
+      logger.info(">>> save encoding to " + tract.outputFile2);
+      fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2,null,"  "), "utf8");
     }
 
     logger.info(">>> completed");

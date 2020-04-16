@@ -7,22 +7,22 @@ const storage = require("../../index");
 const logger = require('../../lib/logger');
 const fs = require('fs');
 
-module.exports = exports = async function (options) {
+module.exports = exports = async function (tract) {
 
   logger.info(">>> create junction");
 
   var j1;
   try {
-    j1 = await storage.activate(options.source.smt, options.source.options);
+    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
 
-    let filename = "./test/data/" + (options.source.filename || "foo_encoding.json");
+    let filename = (tract.origin.filename || "./test/data/foo_encoding.json");
     let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
 
-    let newencoding = await j1.putEncoding(encoding);
-    if (typeof newencoding === 'object')
-      logger.verbose(JSON.stringify(newencoding));
+    encoding = await j1.putEncoding(encoding);
+    if (typeof encoding === 'object')
+      logger.verbose(JSON.stringify(encoding));
     else
-      logger.warn("could not create storage schema: " + newencoding);
+      logger.warn("could not create storage schema: " + encoding);
 
     logger.info(">>> completed");
   }

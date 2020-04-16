@@ -1,7 +1,7 @@
 {
   "model": "*",
   "locus": "*",
-  "schema": "foo_schema_2",
+  "schema": "foo_schema_doc",
   "key": "*",
   "fields": {
     "Foo": {

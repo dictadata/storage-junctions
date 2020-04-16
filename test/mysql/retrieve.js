@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== mysql retrieve");
   await retrieve({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
@@ -24,7 +24,7 @@ async function tests() {
 
   logger.info("=== mysql retrieve w/ cues");
   await retrieve({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         cues: {
@@ -37,7 +37,7 @@ async function tests() {
 
   logger.info("=== mysql retrieve with pattern");
   await retrieve({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*",
       pattern: {
         match: {

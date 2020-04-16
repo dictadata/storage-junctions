@@ -13,14 +13,14 @@ async function tests() {
 
   logger.info("=== mysql putEncoding");
   await putEncoding({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     }
   });
 
   logger.info("=== mysql getEncoding");
   await getEncoding({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     },
     outputFile: './test/output/mysql_foo_encoding.json'

@@ -13,7 +13,7 @@ async function testRetrieve() {
 
   logger.verbose("=== Retrieve Weather Service forecast");
   await retrieve({
-    source: {
+    origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
         headers: {

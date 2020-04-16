@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== elasticsearch store");
   await store({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
     construct: {
@@ -24,7 +24,7 @@ async function tests() {
 
   logger.info("=== elasticsearch store");
   await store({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
     construct: {
@@ -36,7 +36,7 @@ async function tests() {
 
   logger.info("=== elasticsearch store");
   await store({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
     construct: {
@@ -48,7 +48,7 @@ async function tests() {
 
   logger.info("=== elasticsearch store");
   await store({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
     construct: {

@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== list");
   await list({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|*|*",
       options: {
         list: {

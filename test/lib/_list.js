@@ -7,22 +7,22 @@ const storage = require("../../index");
 const logger = require('../../lib/logger');
 const fs = require('fs');
 
-module.exports = exports = async function (options) {
+module.exports = exports = async function (tract) {
 
   logger.info(">>> create junction");
-  logger.verbose("smt:" + options.source.smt);
-  if (options.source.options) logger.verbose("options:" + JSON.stringify(options.source.options));
+  logger.verbose("smt:" + tract.origin.smt);
+  if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
 
   var j1;
   try {
-    j1 = await storage.activate(options.source.smt, options.source.options);
+    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
     logger.info(">>> list");
     let list = await j1.list();
 
     logger.debug("list: " + JSON.stringify(list, null, "  "));
-    if (options.outputFile) {
-      logger.info(">>> save encoding to " + options.outputFile);
-      fs.writeFileSync(options.outputFile, JSON.stringify(list,null,"  "), "utf8");
+    if (tract.outputFile) {
+      logger.info(">>> save encoding to " + tract.outputFile);
+      fs.writeFileSync(tract.outputFile, JSON.stringify(list,null,"  "), "utf8");
     }
 
     logger.info(">>> completed");

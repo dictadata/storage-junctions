@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== list xlsx sheets (forEach)");
   await list({
-    source: {
+    origin: {
       smt: "xlsx|test/data/foofile.xlsx|*|*",
       options: {
         list: {

@@ -12,20 +12,20 @@ async function tests() {
 
   logger.verbose('=== csv > csv_output.csv');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|csv_output.csv|*"
     }
   });
 
   logger.verbose('=== csv > csv_output.json');
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    destination: {
+    terminus: {
       smt: "json|./test/output/|csv_output.json|*"
     }
   });

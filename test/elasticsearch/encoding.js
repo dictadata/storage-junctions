@@ -13,34 +13,34 @@ async function tests() {
 
   logger.info("=== putEncoding foo_schema");
   await putEncoding({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     }
   });
 
   logger.info("=== getEncoding foo_schema");
   await getEncoding({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     outputFile: './test/output/elasticsearch_foo_encoding.json'
   });
 
 /*
-  logger.info("=== putEncoding foo_schema_2");
+  logger.info("=== putEncoding foo_schema_doc");
   await putEncoding({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_2|!Foo",
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema_doc|!Foo",
       filename: 'foo2_encoding.json'
     }
   });
 
-  logger.info("=== getEncoding foo_schema_2");
+  logger.info("=== getEncoding foo_schema_doc");
   await getEncoding({
-    source: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_2|*"
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema_doc|*"
     },
-    outputFile: './test/output/elasticsearch_foo_encoding_2.json'
+    outputFile: './test/output/elasticsearch_foo_encoding_doc.json'
   });
 */
 }

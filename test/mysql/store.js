@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== mysql store 20");
   await store({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
     },
     construct: {
@@ -24,7 +24,7 @@ async function tests() {
 
   logger.info("=== mysql store 30");
   await store({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
     },
     construct: {
@@ -37,7 +37,7 @@ async function tests() {
 
   logger.info("=== mysql store 10");
   await store({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
     },
     construct: {

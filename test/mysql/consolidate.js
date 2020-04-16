@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== mysql consolidate");
   await retrieve({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
@@ -30,7 +30,7 @@ async function tests() {
 
   logger.info("=== mysql consolidate w/ groupby");
   await retrieve({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {
@@ -52,7 +52,7 @@ async function tests() {
 
   logger.info("=== mysql groupby with summary");
   await retrieve({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
         match: {

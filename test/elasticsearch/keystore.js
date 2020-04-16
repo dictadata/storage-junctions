@@ -14,7 +14,7 @@ async function tests() {
 
   logger.info("=== elasticsearch store");
   let uid = await store({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
     construct: {
@@ -26,14 +26,14 @@ async function tests() {
 
   logger.info("=== elasticsearch recall uid");
   await recall({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|" + uid
     }
   });
 
   logger.info("=== elasticsearch recall !");
   await recall({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!",
       pattern: {
         key: uid
@@ -43,7 +43,7 @@ async function tests() {
 
   logger.info("=== elasticsearch recall !Foo");
   await recall({
-    source: {
+    origin: {
       smt: {
         model: "elasticsearch",
         locus: "http://localhost:9200",
@@ -58,7 +58,7 @@ async function tests() {
 /*
   logger.info("=== elasticsearch dull");
   await dull({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
       pattern: {
         Foo: uid

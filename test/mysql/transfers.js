@@ -12,30 +12,30 @@ async function tests() {
 
   logger.info("=== foofile.csv > mysql");
   await transfer({
-    source: {
+    origin: {
       smt: "csv|./test/data/|foofile.csv|*"
     },
-    destination: {
+    terminus: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     }
   });
 
   logger.info("=== mysql > mysql foo_transfer");
   await transfer({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     },
-    destination: {
+    terminus: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*"
     }
   });
 
   logger.info("=== mysql > mysql_transfer.csv");
   await transfer({
-    source: {
+    origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*"
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|mysql_transfer.csv|*"
     }
   });

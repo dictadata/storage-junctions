@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== list ftp directory (forEach)");
   await list({
-    source: {
+    origin: {
       smt: "json|ftp:/test/data/|*.json|*",
       options: {
         ftp: {
@@ -34,7 +34,7 @@ async function tests() {
 
   logger.info("=== list ftp directory (recursive)");
   await list({
-    source: {
+    origin: {
       smt: {
         model: "json",
         locus: "ftp:/test/",

@@ -12,7 +12,7 @@ async function tests() {
 
   logger.info("=== elasticsearch recall");
   await recall({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
         match: {
@@ -24,7 +24,7 @@ async function tests() {
 
   logger.info("=== elasticsearch recall");
   await recall({
-    source: {
+    origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
         match: {

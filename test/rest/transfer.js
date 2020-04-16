@@ -13,7 +13,7 @@ async function testTransfer() {
 
   logger.verbose("=== Transfer Weather Service forecast");
   await transfer({
-    source: {
+    origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
         headers: {
@@ -36,7 +36,7 @@ async function testTransfer() {
         }
       }
     },
-    destination: {
+    terminus: {
       smt: "csv|./test/output/|rest_forecast_output.csv|*"
     }
   });
