@@ -16,13 +16,13 @@ logger.info("=== Tests: EchoJunction");
 async function testStream() {
   logger.info("=== testStream");
 
-  var j1;
+  var jo;
   try {
     logger.info(">>> adding EchoJunction to storage cortex");
     storage.use("echo", EchoJunction);
 
     logger.info(">>> create junction");
-    j1 = await storage.activate({
+    jo = await storage.activate({
       smt: {
         model: "echo",
         locus: "somewhere",
@@ -32,20 +32,20 @@ async function testStream() {
     });
 
     logger.info(">>> create streams");
-    var reader = j1.getReadStream();
-    var writer = j1.getWriteStream();
+    var reader = jo.getReadStream();
+    var writer = jo.getWriteStream();
 
     logger.info(">>> start pipe");
     await pipeline(reader, writer);
 
-    if (j1) await j1.relax();
+    if (jo) await jo.relax();
     logger.info(">>> completed");
   }
   catch (err) {
     console.log(err.message)
   }
   finally {
-    if (j1) await j1.relax();
+    if (jo) await jo.relax();
   }
 }
 

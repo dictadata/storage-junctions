@@ -16,22 +16,24 @@ const pipeline = util.promisify(stream.pipeline);
  */
 module.exports = exports = async function (tract) {
 
-  var j1, j2;
+  var jo, jt;  // junctions origin, terminal
   try {
     logger.info(">>> create junctions");
-    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
-    j2 = await storage.activate(tract.terminal.smt, tract.terminal.options);
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let transforms = tract.transforms || {};
 
-    // load encoding from origin for validation
     logger.debug(">>> get origin encoding");
+    // load encoding from origin for validation
     let encoding = tract.origin.encoding;
     if (typeof encoding === "string")
       encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
     if (typeof encoding === "object")
-      encoding = j1.putEncoding(encoding);
+      encoding = jo.putEncoding(encoding);
     else
-      encoding = await j1.getEncoding();
+      encoding = await jo.getEncoding();
+
+    logger.debug("create the terminal");
+    jt = await storage.activate(tract.terminal.smt, tract.terminal.options);
 
     if (tract.terminal.encoding) {
       // use configured encoding
@@ -43,10 +45,10 @@ module.exports = exports = async function (tract) {
       // run some objects through any transforms to get terminal encoding
       logger.verbose("build codify pipeline");
       let pipes = [];
-      pipes.push(j1.getReadStream({ max_read: 100 }));
+      pipes.push(jo.getReadStream({ max_read: 100 }));
       for (let [tfType,tfOptions] of Object.entries(transforms))
-        pipes.push(j1.getTransform(tfType, tfOptions));
-      let ct = j1.getTransform('codify');
+        pipes.push(jo.getTransform(tfType, tfOptions));
+      let ct = jo.getTransform('codify');
       pipes.push(ct);
       await pipeline(pipes);
       encoding = await ct.getEncoding();
@@ -54,19 +56,19 @@ module.exports = exports = async function (tract) {
     logger.debug(">>> encoding results");
     logger.debug(JSON.stringify(encoding.fields, null, " "));
 
-    // attempt to create the terminal
     logger.verbose(">>> put terminal encoding");
-    encoding = await j2.putEncoding(encoding);
+    encoding = await jt.putEncoding(encoding);
     if (typeof encoding !== "object")
       logger.info("could not create storage schema: " + encoding);
 
     // transfer the data
     logger.info(">>> transfer pipeline");
     let pipes = [];
-    pipes.push(j1.getReadStream());
+    pipes.push(jo.getReadStream());
     for (let [tfType,tfOptions] of Object.entries(transforms))
-      pipes.push(j1.getTransform(tfType, tfOptions));
-    pipes.push(j2.getWriteStream());
+      pipes.push(jo.getTransform(tfType, tfOptions));
+    pipes.push(jt.getWriteStream());
+
     await pipeline(pipes);
 
     logger.info(">>> completed");
@@ -75,8 +77,8 @@ module.exports = exports = async function (tract) {
     logger.error('!!! transfer failed: ' + err.message);
   }
   finally {
-    if (j1) await j1.relax();
-    if (j2) await j2.relax();
+    if (jo) await jo.relax();
+    if (jt) await jt.relax();
   }
 
 };

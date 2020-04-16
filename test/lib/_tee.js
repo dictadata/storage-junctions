@@ -17,29 +17,29 @@ const finished = util.promisify(stream.finished);
  */
 module.exports = exports = async function (tract) {
 
-  var js;
-  var jdl = [];
+  var jo;
+  var jtl = [];
   try {
     let reader = null;
     let writers = [];
 
     logger.info(">>> create origin junction");
     let origin_transforms = tract.transforms || {};
-    js = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
     let encoding = tract.origin.encoding;
     if (typeof encoding === "string")
       encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
     if (typeof encoding === "object")
-      encoding = js.putEncoding(encoding);
+      encoding = jo.putEncoding(encoding);
     else
-      encoding = await js.getEncoding();
+      encoding = await jo.getEncoding();
 
     logger.info(">>> create origin pipeline");
-    reader = js.getReadStream();
+    reader = jo.getReadStream();
     for (let [tfType,tfOptions] of Object.entries(origin_transforms))
-      reader = reader.pipe(js.getTransform(tfType, tfOptions));
+      reader = reader.pipe(jo.getTransform(tfType, tfOptions));
 
     logger.info(">>> create terminal pipeline(s)");
     if (!Array.isArray(tract.terminal))
@@ -48,33 +48,27 @@ module.exports = exports = async function (tract) {
     for (let branch of tract.terminal) {
       let transforms = branch.transforms || {};
 
-      logger.info(">>> create terminal junction")
-      let jd = await storage.activate(branch.terminal.smt, branch.terminal.options);
-      jdl.push(jd);
+      logger.info(">>> create terminal junction");
+      let jt = await storage.activate(branch.terminal.smt, branch.terminal.options);
+      jtl.push(jt);
 
-      logger.info(">>> put terminal encoding")
+      logger.info(">>> put terminal encoding");
       if (branch.terminal.encoding)
         encoding = branch.terminal.encoding;
       if (typeof encoding === "string")
         encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
-      encoding = await jd.putEncoding(encoding);
+      encoding = await jt.putEncoding(encoding);
 
       logger.info(">>> create terminal tee");
       let writer = null;
       // add transforms
       for (let [tfType,tfOptions] of Object.entries(transforms)) {
-        let t = jd.getTransform(tfType, tfOptions);
-        if (!writer)
-          writer = reader.pipe(t);
-        else
-          writer = writer.pipe(t);
+        let t = jt.getTransform(tfType, tfOptions);
+        writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
       // add terminal
-      let w = jd.getWriteStream();
-      if (!writer)
-        writer = reader.pipe(w);
-      else
-        writer = writer.pipe(w);
+      let w = jt.getWriteStream();
+      writer = (writer) ? writer.pipe(w) : reader.pipe(w);
 
       writers.push(writer);
     }
@@ -90,9 +84,9 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    if (js)
-      await js.relax();
-    for (let j of jdl)
+    if (jo)
+      await jo.relax();
+    for (let j of jtl)
       await j.relax();
   }
 

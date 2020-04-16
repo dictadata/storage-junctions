@@ -11,14 +11,14 @@ module.exports = exports = async function (tract) {
 
   logger.info(">>> create junction");
 
-  var j1;
+  var jo;
   try {
-    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     let filename = (tract.origin.filename || "./test/data/foo_encoding.json");
     let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
 
-    encoding = await j1.putEncoding(encoding);
+    encoding = await jo.putEncoding(encoding);
     if (typeof encoding === 'object')
       logger.verbose(JSON.stringify(encoding));
     else
@@ -30,7 +30,7 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    if (j1) await j1.relax();
+    if (jo) await jo.relax();
   }
 
 };

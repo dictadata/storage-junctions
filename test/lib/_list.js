@@ -13,11 +13,11 @@ module.exports = exports = async function (tract) {
   logger.verbose("smt:" + tract.origin.smt);
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
 
-  var j1;
+  var jo;
   try {
-    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
     logger.info(">>> list");
-    let list = await j1.list();
+    let list = await jo.list();
 
     logger.debug("list: " + JSON.stringify(list, null, "  "));
     if (tract.outputFile) {
@@ -31,7 +31,7 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    await j1.relax();
+    await jo.relax();
   }
 
 };

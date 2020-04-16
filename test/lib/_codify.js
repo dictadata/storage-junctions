@@ -16,13 +16,13 @@ module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
   if (!tract.transforms) tract.transforms = {};
 
-  var j1;
+  var jo;
   try {
-    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     // *** get encoding for junction's schema
     logger.info(">>> getEncoding");
-    let encoding1 = await j1.getEncoding();
+    let encoding1 = await jo.getEncoding();
 
     logger.debug(JSON.stringify(encoding1, null, "  "));
     if (tract.outputFile1) {
@@ -33,10 +33,10 @@ module.exports = exports = async function (tract) {
     // *** use CodifyTransform to determine encoding including optional transforms
     logger.info(">>> build pipeline");
     let pipes = [];
-    pipes.push(j1.getReadStream({max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
+    pipes.push(jo.getReadStream({max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
     for (let [tfType,tfOptions] of Object.entries(tract.transforms))
-      pipes.push(j1.getTransform(tfType, tfOptions));
-    let codify = j1.getTransform('codify', tract.codify ||{});
+      pipes.push(jo.getTransform(tfType, tfOptions));
+    let codify = jo.getTransform('codify', tract.codify ||{});
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding
@@ -58,7 +58,7 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    if (j1) await j1.relax();
+    if (jo) await jo.relax();
   }
 
 };

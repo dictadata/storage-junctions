@@ -10,10 +10,10 @@ const fs = require('fs');
 module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
 
-  var j1;
+  var jo;
   try {
-    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
-    let encoding = await j1.getEncoding();
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    let encoding = await jo.getEncoding();
 
     if (typeof encoding === 'object') {
       logger.debug(JSON.stringify(encoding));
@@ -31,7 +31,7 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    if (j1) await j1.relax();
+    if (jo) await jo.relax();
   }
 
 };

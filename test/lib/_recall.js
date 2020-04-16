@@ -13,11 +13,11 @@ module.exports = exports = async function (tract) {
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
   if (tract.origin.pattern) logger.verbose("pattern: " + JSON.stringify(tract.origin.pattern));
 
-  var j1;
+  var jo;
   try {
-    j1 = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
-    let results = await j1.recall(tract.origin.pattern);
+    let results = await jo.recall(tract.origin.pattern);
     logger.verbose(JSON.stringify(results));
 
     logger.info(">>> completed");
@@ -26,7 +26,7 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
-    if (j1) await j1.relax();
+    if (jo) await jo.relax();
   }
 
 };
