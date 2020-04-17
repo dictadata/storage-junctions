@@ -28,7 +28,7 @@ module.exports = exports = async function (tract) {
     if (typeof encoding === "string")
       encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
     if (typeof encoding === "object")
-      encoding = jo.putEncoding(encoding);
+      encoding = await jo.putEncoding(encoding);
     else
       encoding = await jo.getEncoding();
 
