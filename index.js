@@ -23,19 +23,19 @@ exports.StorageWriter = require("./lib/junction/writer");
 //exports.CodifyWriter = require("./lib/junction/codifyWriter");
 
 // register transforms
-exports.CodifyTransform = require("./lib/transform/codify");
+exports.CodifyTransform = require("./lib/transforms/codify");
 cortex.Transforms.use('codify', exports.CodifyTransform);
 
-exports.ConsolidateTransform = require("./lib/transform/consolidate");
+exports.ConsolidateTransform = require("./lib/transforms/consolidate");
 cortex.Transforms.use('consolidate', exports.ConsolidateTransform);
 
-exports.SelectTransform = require("./lib/transform/select");
+exports.SelectTransform = require("./lib/transforms/select");
 cortex.Transforms.use('select', exports.SelectTransform);
 
-exports.FilterTransform = require("./lib/transform/filter");
+exports.FilterTransform = require("./lib/transforms/filter");
 cortex.Transforms.use('filter', exports.FilterTransform);
 
-exports.MetaStatsTransform = require("./lib/transform/metastats");
+exports.MetaStatsTransform = require("./lib/transforms/metastats");
 cortex.Transforms.use('metastats', exports.MetaStatsTransform);
 
 // register standard filestorage systems
