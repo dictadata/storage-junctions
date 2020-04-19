@@ -68,6 +68,27 @@ async function tests() {
     }
   });
 
+  logger.verbose('=== json > json_transform_3.csv');
+  await transfer({
+    origin: {
+      smt: "json|./test/data/|foofile.json|*"
+    },
+    terminal: {
+      smt: "csv|./test/output/|json_transform_3.csv|*"
+    },
+    transforms: {
+      filter: {
+        match: {
+          "Bar": /row/,
+          "Baz": [456,789]
+        },
+        select: {
+          fields: ["Foo","Bar","Baz","Fobe","Dt Test","enabled"]
+        }
+      }
+    }
+  });
+
 }
 
 tests();
