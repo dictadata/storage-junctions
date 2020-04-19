@@ -55,17 +55,7 @@ async function tests() {
       }
     }
   });
-/*
-  logger.info("=== elasticsearch dull");
-  await dull({
-    origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
-      pattern: {
-        Foo: uid
-      }
-    }
-  });
-*/
+
 }
 
 tests();

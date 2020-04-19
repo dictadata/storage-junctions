@@ -131,8 +131,8 @@ async function forecastTransform(tract) {
 async function tests() {
   await testDBTransform1();
   await testDBTransform2();
-  await forecastTransform({ terminal: { smt: "elasticsearch|http://localhost:9200|rest_forecast|=Foo" } });
-  await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|rest_forecast|*" } });
+  await forecastTransform({ terminal: { smt: "elasticsearch|http://localhost:9200|weather_forecast|=Foo" } });
+  await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|weather_forecast|*" } });
 }
 
 tests();

@@ -37,7 +37,7 @@ async function testTransfer() {
       }
     },
     terminal: {
-      smt: "csv|./test/output/|rest_forecast_output.csv|*"
+      smt: "csv|./test/output/|weather_forecast_output.csv|*"
     }
   });
 

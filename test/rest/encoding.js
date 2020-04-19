@@ -36,7 +36,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/rest_forecast_encoding.json'
+    outputFile: './test/output/weather_forecast_encoding.json'
   });
 
 }

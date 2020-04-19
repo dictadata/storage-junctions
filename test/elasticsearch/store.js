@@ -16,7 +16,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
     construct: {
-      Foo: 'first',
+      Foo: 'one',
       Bar: 'Washington',
       Baz: 1
     }

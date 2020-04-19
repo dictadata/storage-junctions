@@ -21,7 +21,7 @@ module.exports = exports = async function (tract) {
     let results = await jo.retrieve(tract.origin.pattern);
 
     logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0) );
-    logger.debug(JSON.stringify(results));
+    logger.verbose(JSON.stringify(results));
     if (tract.outputFile) {
       logger.info(">>> save results to " + tract.outputFile);
       fs.writeFileSync(tract.outputFile, JSON.stringify(results, null,"  "), "utf8");
