@@ -13,7 +13,7 @@ const pipeline = util.promisify(stream.pipeline);
 const finished = util.promisify(stream.finished);
 
 /**
- * transfer fucntion
+ * tee fucntion
  */
 module.exports = exports = async function (tract) {
 
