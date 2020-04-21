@@ -27,17 +27,15 @@ async function testTransfer() {
         params: {
           // querystring parameters
         },
-        reader: {
-          extract: {
-            encoding: "",  // name of property containing an array of field headers
-            // empty denotes data array contains json objects
-            data: "periods"  // name of property for data array (objects or values)
-          }
+        extract: {
+          data: "periods",  // name of property in response.data than contains the desired object or array
+          names: ""         // name of property in response.data containing an array of field names
+          // if names is empty then data should be a json object or array of json objects
         }
       }
     },
     terminal: {
-      smt: "csv|./test/output/|weather_forecast_output.csv|*"
+      smt: "csv|./test/output/|weather_forecast_transfer.csv|*"
     }
   });
 

@@ -15,12 +15,10 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|*|*",
       options: {
-        list: {
-          schema: "foo*"
-        }
+        schema: "foo*"
       }
     },
-    outputFile: "./test/output/elastic_list.json"
+    terminal: "./test/output/elastic_list.json"
   });
 
 }

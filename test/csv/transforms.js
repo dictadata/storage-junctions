@@ -15,14 +15,12 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        reader: {
-          match: {
-            "Bar": "row",
-            "Baz": { "lte": 500 }
-          },
-          cues: {
-            fields: ["Dt Test", "Foo", "Bar", "Baz"]
-          }
+        match: {
+          "Bar": "row",
+          "Baz": { "lte": 500 }
+        },
+        cues: {
+          fields: ["Dt Test", "Foo", "Bar", "Baz"]
         }
       }
     },

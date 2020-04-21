@@ -20,11 +20,13 @@ exports.StorageError = Types.StorageError;
 exports.StorageJunction = require("./lib/junction");
 exports.StorageReader = require("./lib/junction/reader");
 exports.StorageWriter = require("./lib/junction/writer");
-//exports.CodifyWriter = require("./lib/junction/codifyWriter");
 
 // register transforms
 exports.CodifyTransform = require("./lib/transforms/codify");
 cortex.Transforms.use('codify', exports.CodifyTransform);
+
+exports.ConjoinTransform = require("./lib/transforms/conjoin");
+cortex.Transforms.use('conjoin', exports.ConjoinTransform);
 
 exports.ConsolidateTransform = require("./lib/transforms/consolidate");
 cortex.Transforms.use('consolidate', exports.ConsolidateTransform);

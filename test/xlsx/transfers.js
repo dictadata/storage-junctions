@@ -15,15 +15,11 @@ async function tests() {
   await transfer({
     origin: {
       smt: "csv|test/data/|foofile.csv|*",
-      options: {
-
-      }
+      options: {}
     },
     terminal: {
       smt: "xlsx|test/output/xlsx_foofile_csv.xlsx|foo|*",
-      options: {
-
-      }
+      options: {}
     }
   });
 
@@ -31,15 +27,11 @@ async function tests() {
   await transfer({
     origin: {
       smt: "xlsx|test/data/foofile.xlsx|foo|*",
-      options: {
-
-      }
+      options: {}
     },
     terminal: {
       smt: "csv|test/output/|xlsx_foofile.csv|*",
-      options: {
-
-      }
+      options: {}
     }
   });
 
@@ -47,15 +39,11 @@ async function tests() {
   await transfer({
     origin: {
       smt: "json|test/data/|foofile.json|*",
-      options: {
-
-      }
+      options: {}
     },
     terminal: {
       smt: "xlsx|test/output/xlsx_foofile_json.xlsx|foo|*",
-      options: {
-
-      }
+      options: {}
     }
   });
 
@@ -63,15 +51,11 @@ async function tests() {
   await transfer({
     origin: {
       smt: "xlsx|test/data/foofile.xls|foo|*",
-      options: {
-
-      }
+      options: {}
     },
     terminal: {
       smt: "json|test/output/|xlsx_foofile.json|*",
-      options: {
-
-      }
+      options: {}
     }
   });
 

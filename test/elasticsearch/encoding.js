@@ -23,7 +23,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
-    outputFile: './test/output/elasticsearch_foo_encoding.json'
+    terminal: './test/output/elasticsearch_foo_encoding.json'
   });
 
 /*
@@ -40,7 +40,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_doc|*"
     },
-    outputFile: './test/output/elasticsearch_foo_encoding_doc.json'
+    terminal: './test/output/elasticsearch_foo_encoding_doc.json'
   });
 */
 }

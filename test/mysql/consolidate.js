@@ -25,7 +25,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/mysql_consolidate_1.json'
+    terminal: './test/output/mysql_consolidate_1.json'
   });
 
   logger.info("=== mysql consolidate w/ groupby");
@@ -47,7 +47,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/mysql_consolidate_2.json'
+    terminal: './test/output/mysql_consolidate_2.json'
   });
 
   logger.info("=== mysql groupby with summary");
@@ -70,7 +70,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/mysql_consolidate_3.json'
+    terminal: './test/output/mysql_consolidate_3.json'
   });
 
 }

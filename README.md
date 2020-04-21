@@ -165,7 +165,7 @@ pattern: {
 ```json
   // example filter transform
 
-  transform: {
+  transforms: {
     "filter": {
       // match all expressions to forward
       match: {
@@ -187,7 +187,7 @@ pattern: {
 ```json
   // example fields transform
 
-  transform: {
+  transforms: {
     "select": {
       // inject new fields or set defaults in case of missing values
       "inject_before": {
@@ -231,7 +231,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 ```json
   // example consolidate transform
 
-  transform: {
+  transforms: {
     consolidate: {
 
       TBD soon

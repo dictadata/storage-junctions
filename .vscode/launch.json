@@ -439,12 +439,35 @@
         "LOG_LEVEL": "verbose"
       }
     },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "REST conjoin",
+      "program": "${workspaceFolder}/test/rest/conjoin.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
 
     {
       "type": "node",
       "request": "launch",
       "name": "db transforms",
       "program": "${workspaceFolder}/test/db_transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "templateReplace",
+      "program": "${workspaceFolder}/test/testTemplateReplace.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

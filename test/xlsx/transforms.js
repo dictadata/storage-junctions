@@ -15,14 +15,12 @@ async function tests() {
     origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*",
       options: {
-        reader: {
-          match: {
-            "Bar": "row",
-            "Baz": { "lte": 500 }
-          },
-          cues: {
-            fields: ["Dt Test", "Foo", "Bar", "Baz"]
-          }
+        match: {
+          "Bar": "row",
+          "Baz": { "lte": 500 }
+        },
+        cues: {
+          fields: ["Dt Test", "Foo", "Bar", "Baz"]
         }
       }
     },

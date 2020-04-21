@@ -23,7 +23,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*"
     },
-    outputFile: './test/output/mysql_foo_encoding.json'
+    terminal: './test/output/mysql_foo_encoding.json'
   });
 
 }

@@ -15,15 +15,13 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|*.json|*",
       options: {
-        list: {
-          recursive: false,
-          forEach: (name) => {
-            logger.info("- " + name);
-          }
+        recursive: false,
+        forEach: (name) => {
+          logger.info("- " + name);
         }
       }
     },
-    outputFile: "./test/output/fs_list_1.json"
+    terminal: "./test/output/fs_list_1.json"
   });
 
   logger.info("=== list fs directory (recursive)");
@@ -36,13 +34,11 @@ async function tests() {
         key: "*"
       },
       options: {
-        list: {
-          schema: "foofile_*.json",
-          recursive: true
-        }
+        schema: "foofile_*.json",
+        recursive: true
       }
     },
-    outputFile: "./test/output/fs_list_2.json"
+    terminal: "./test/output/fs_list_2.json"
   });
 
 }

@@ -15,14 +15,12 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       options: {
-        reader: {
-          match: {
-            "Bar": "row",
-            "Baz": { "lte": 500 }
-          },
-          cues: {
-            fields: ["Dt Test", "Foo", "Bar", "Baz"]
-          }
+        match: {
+          "Bar": "row",
+          "Baz": { "lte": 500 }
+        },
+        cues: {
+          fields: ["Dt Test", "Foo", "Bar", "Baz"]
         }
       }
     },

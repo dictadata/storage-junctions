@@ -15,12 +15,10 @@ async function tests() {
     origin: {
       smt: "xlsx|test/data/foofile.xlsx|*|*",
       options: {
-        list: {
-          schema: "foo*"
-        }
+        schema: "foo*"
       }
     },
-    outputFile: "./test/output/xlsx_list.json"
+    terminal: "./test/output/xlsx_list.json"
   });
 
 }

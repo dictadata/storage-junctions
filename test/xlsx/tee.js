@@ -14,8 +14,9 @@ async function tests() {
   let tract = {
     origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*",
-      options: {},
-      encoding: "./test/data/foo_encoding.json"
+      options: {
+        encoding: "./test/data/foo_encoding.json"
+      }
     },
     transforms: {
       filter: {
@@ -28,7 +29,9 @@ async function tests() {
       {
         terminal: {
           smt: "json|./test/output/|xlsx_tee_1.json|*",
-          encoding: "./test/data/foo_encoding.json"
+          options: {
+            encoding: "./test/data/foo_encoding.json"
+          }
         },
         transforms: {
         }
@@ -36,7 +39,9 @@ async function tests() {
       {
         terminal: {
           smt: "json|./test/output/|xlsx_tee_2.json|*",
-          encoding: "./test/data/foo_encoding_t.json"
+          options: {
+            encoding: "./test/data/foo_encoding_t.json"
+          }
         },
         transforms: {
           select: {

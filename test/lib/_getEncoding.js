@@ -17,9 +17,9 @@ module.exports = exports = async function (tract) {
 
     if (typeof encoding === 'object') {
       logger.debug(JSON.stringify(encoding));
-      if (tract.outputFile) {
-        logger.verbose(tract.outputFile);
-        fs.writeFileSync(tract.outputFile, JSON.stringify(encoding,null,"  "));
+      if (tract.terminal) {
+        logger.verbose(tract.terminal);
+        fs.writeFileSync(tract.terminal, JSON.stringify(encoding,null,"  "));
       }
     }
     else

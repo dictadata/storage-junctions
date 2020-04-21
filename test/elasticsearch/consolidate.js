@@ -25,7 +25,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/elasticsearch_consolidate_1.json'
+    terminal: './test/output/elasticsearch_consolidate_1.json'
   });
 
   logger.info("=== elasticsearch consolidate w/ groupby");
@@ -47,7 +47,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/elasticsearch_consolidate_2.json'
+    terminal: './test/output/elasticsearch_consolidate_2.json'
   });
 
   logger.info("=== elasticsearch groupby with summary");
@@ -70,7 +70,7 @@ async function tests() {
         }
       }
     },
-    outputFile: './test/output/elasticsearch_consolidate_3.json'
+    terminal: './test/output/elasticsearch_consolidate_3.json'
   });
 
 }

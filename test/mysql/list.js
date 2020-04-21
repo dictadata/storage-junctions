@@ -15,12 +15,10 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|*|*",
       options: {
-        list: {
-          schema: "foo*"
-        }
+        schema: "foo*"
       }
     },
-    outputFile: "./test/output/mysql_list.json"
+    terminal: "./test/output/mysql_list.json"
   });
 
 }

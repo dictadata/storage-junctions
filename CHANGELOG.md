@@ -1,3 +1,5 @@
+- version 1.1.7
+  - mysql use TINYINT(1) for BOOLEAN
 - version 1.1.6
   - Breaking changes:
   - SelectTransform replaces FieldsTransform

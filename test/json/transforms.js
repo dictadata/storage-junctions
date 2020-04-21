@@ -15,14 +15,12 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile.json|*",
       options: {
-        reader: {
-          match: {
-            "Bar": "row",
-            "Baz": { "lte": 500 }
-          },
-          cues: {
-            fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
-          }
+        match: {
+          "Bar": "row",
+          "Baz": { "lte": 500 }
+        },
+        cues: {
+          fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
         }
       }
     },
