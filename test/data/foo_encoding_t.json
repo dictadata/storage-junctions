@@ -5,41 +5,9 @@
   "key": "*",
   "description": "short encoding for transforms",
   "fields": {
-    "Dt Test": {
-      "name": "Dt Test",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "isKey": false,
-      "label": "Dt Test"
-    },
-    "Foo": {
-      "name": "Foo",
-      "type": "keyword",
-      "size": 64,
-      "default": null,
-      "isNullable": false,
-      "isKey": true,
-      "label": "Foo"
-    },
-    "Bar": {
-      "name": "Bar",
-      "type": "keyword",
-      "size": 64,
-      "default": null,
-      "isNullable": true,
-      "isKey": false,
-      "label": "Bar"
-    },
-    "Baz": {
-      "name": "Baz",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "isKey": false,
-      "label": "Baz"
-    }
+    "Dt Test": "date",
+    "Foo": "keyword",
+    "Bar": "keyword",
+    "Baz": "integer"
   }
 }
