@@ -119,11 +119,9 @@ pattern: {
     "Foo": "first",
     "Bar": { "gte": 0, "lte": 1000 }
   },
-  cues: {
-    count: 3,
-    order: { "Bar": "desc" },
-    fields: ["Foo","Bar","Baz"]
-  }
+  count: 3,
+  order: { "Bar": "desc" },
+  fields: ["Foo","Bar","Baz"]
 }
 ```
 
@@ -224,20 +222,37 @@ pattern: {
 * remove
 * inject_after
 
-### ConsolidateTransform
+### AggregateTransform
 
 Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GROUP BY and aggregate functions like SUM or Elasticsearch's _search aggregations.
 
 ```json
-  // example consolidate transform
-
-  transforms: {
-    consolidate: {
-
-      TBD soon
-
+  // example aggregate Summary transform
+  // summary totals for field1
+  // format "newField: { "function": "field name" }
+  {
+    "transforms": {
+      "aggregate": {
+        "mySum": {"sum": "myField"},
+        "myMin": {"min": "myField"},
+        "myMax": {"max": "myField"},
+        "myAvg": {"avg": "myField"},
+        "myCount": {"count": "myField"},
+      }
     }
-  };
+  }
+
+  // Example aggregate Group By transform
+  // format: "group by field": { "newField": { "function": "field name" }}
+  {
+    "transforms": {
+      "aggregate": {
+        "field1": {
+          "subTotal": { "sum": "field2" } },
+          "count": { "count": "field2" } }
+      }
+    }
+  }
 ```
 
 ## Storage-Junctions Functions
@@ -263,7 +278,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 ## Transform Plugins
 
 * Codify - Infer field encodings from examining a stream of objects.
-* Consolidate - Summarize a data stream similar to SQL GROUP BY and SUM
+* Aggregate - Summarize a data stream similar to SQL GROUP BY and SUM
 * Fields - field selection and mappings.
 * Filter - select constructs to forward or drop.
 * MetaStats - calculate meta statistics about fields for a stream of constructs.

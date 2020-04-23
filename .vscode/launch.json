@@ -277,8 +277,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch dull",
-      "program": "${workspaceFolder}/test/elasticsearch/dull.js",
+      "name": "elasticsearch aggregate",
+      "program": "${workspaceFolder}/test/elasticsearch/aggregate.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -288,8 +288,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch consolidate",
-      "program": "${workspaceFolder}/test/elasticsearch/consolidate.js",
+      "name": "elasticsearch dull",
+      "program": "${workspaceFolder}/test/elasticsearch/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -367,6 +367,17 @@
       "request": "launch",
       "name": "mysql retrieve",
       "program": "${workspaceFolder}/test/mysql/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "mysql aggregate",
+      "program": "${workspaceFolder}/test/mysql/aggregate.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -462,12 +473,22 @@
         "LOG_LEVEL": "verbose"
       }
     },
-
     {
       "type": "node",
       "request": "launch",
-      "name": "templateReplace",
-      "program": "${workspaceFolder}/test/testTemplateReplace.js",
+      "name": "csv aggregate",
+      "program": "${workspaceFolder}/test/csv/aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "json aggregate",
+      "program": "${workspaceFolder}/test/json/aggregate.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
