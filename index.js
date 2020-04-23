@@ -28,8 +28,8 @@ cortex.Transforms.use('codify', exports.CodifyTransform);
 exports.ConjoinTransform = require("./lib/transforms/conjoin");
 cortex.Transforms.use('conjoin', exports.ConjoinTransform);
 
-exports.ConsolidateTransform = require("./lib/transforms/consolidate");
-cortex.Transforms.use('consolidate', exports.ConsolidateTransform);
+exports.AggregateTransform = require("./lib/transforms/aggregate");
+cortex.Transforms.use('aggregate', exports.AggregateTransform);
 
 exports.SelectTransform = require("./lib/transforms/select");
 cortex.Transforms.use('select', exports.SelectTransform);
