@@ -19,9 +19,7 @@ async function tests() {
           "Bar": "row",
           "Baz": { "lte": 500 }
         },
-        cues: {
-          fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
-        }
+        fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
       }
     },
     terminal: {

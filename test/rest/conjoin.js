@@ -19,9 +19,7 @@ async function testTransfer() {
           "Accept": "application/ld+json",
           "User-Agent": "@dictadata.org/storage-node contact:info@dictadata.org"
         },
-        cues: {
-          fields: ["cwa","gridX","gridY"]
-        }
+        fields: ["cwa","gridX","gridY"]
       }
     },
     transforms: {

@@ -27,10 +27,8 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
       pattern: {
-        cues: {
-          "order": { "Foo": "asc" },
-          "count": 100
-        }
+        "order": { "Foo": "asc" },
+        "count": 100
       }
     }
   });
@@ -44,11 +42,9 @@ async function tests() {
           "Foo": "first",
           "Baz": { "gte": 0, "lte": 1000 }
         },
-        cues: {
-          count: 3,
-          order: { "Dt Test": "asc" },
-          fields: ["Foo","Baz"]
-        }
+        count: 3,
+        order: { "Dt Test": "asc" },
+        fields: ["Foo","Baz"]
       }
     }
   });
