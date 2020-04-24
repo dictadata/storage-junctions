@@ -1,7 +1,7 @@
 {
   "model": "*",
   "locus": "*",
-  "schema": "foo_schema_t",
+  "schema": "foo_transform",
   "key": "*",
   "description": "short encoding for transforms",
   "fields": {

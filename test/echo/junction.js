@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const storage = require("../index");
-const EchoJunction = require("../lib/echo");
-const logger = require('../lib/logger');
+const storage = require("../../index");
+const EchoJunction = require("../../lib/echo");
+const logger = require('../../lib/logger');
 const stream = require('stream');
 const util = require('util');
 
@@ -42,7 +42,7 @@ async function testStream() {
     logger.info(">>> completed");
   }
   catch (err) {
-    console.log(err.message)
+    logger.error(err.message);
   }
   finally {
     if (jo) await jo.relax();

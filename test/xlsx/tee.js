@@ -35,7 +35,7 @@ async function tests() {
       {
         terminal: {
           smt: "json|./test/output/|xlsx_tee_2.json|*",
-          encoding: "./test/data/foo_encoding_t.json"
+          encoding: "./test/data/foo_encoding_transform.json"
         },
         transforms: {
           select: {

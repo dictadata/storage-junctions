@@ -8,10 +8,21 @@
       "type": "node",
       "request": "launch",
       "name": "echo junction",
-      "program": "${workspaceFolder}/test/echo_junction.js",
+      "program": "${workspaceFolder}/test/echo/junction.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "production",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "foo encodings",
+      "program": "${workspaceFolder}/test/echo/encodings.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
     },
