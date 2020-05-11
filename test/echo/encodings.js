@@ -18,7 +18,7 @@ async function tests() {
     logger.info(">>> adding EchoJunction to storage cortex");
     storage.use("echo", EchoJunction);
 
-    logger.verbose('=== foo_encoding full');
+    logger.verbose('=== read foo_encoding full');
     jo = await storage.activate("echo|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding.json", "utf8"));
     await jo.putEncoding(encoding);
@@ -26,7 +26,7 @@ async function tests() {
     logger.verbose(JSON.stringify(encoding,null,2));
     fs.writeFileSync("./test/output/foo_encoding_full.json",JSON.stringify(encoding,null,2), "utf8");
 
-    logger.verbose('=== foo_encoding short');
+    logger.verbose('=== read foo_encoding short');
     jo = await storage.activate("echo|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding_short.json", "utf8"));
     await jo.putEncoding(encoding);
@@ -34,7 +34,7 @@ async function tests() {
     logger.verbose(JSON.stringify(encoding,null,2));
     fs.writeFileSync("./test/output/foo_encoding_short.json",JSON.stringify(encoding,null,2), "utf8");
 
-    logger.verbose('=== foo_encoding typesonly');
+    logger.verbose('=== read foo_encoding typesonly');
     jo = await storage.activate("echo|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding_typesonly.json", "utf8"));
     await jo.putEncoding(encoding);

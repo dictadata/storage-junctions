@@ -476,8 +476,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "db transforms",
-      "program": "${workspaceFolder}/test/db_transforms.js",
+      "name": "transforms db",
+      "program": "${workspaceFolder}/test/transforms_db.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -487,7 +487,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "csv aggregate",
+      "name": "aggregate csv",
       "program": "${workspaceFolder}/test/csv/aggregate.js",
       "outputCapture": "std",
       "env": {
@@ -498,7 +498,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "json aggregate",
+      "name": "aggregate json",
       "program": "${workspaceFolder}/test/json/aggregate.js",
       "outputCapture": "std",
       "env": {
