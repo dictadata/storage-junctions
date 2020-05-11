@@ -1,5 +1,16 @@
 - version 1.1.7
+  - storage readers support for pattern filter
+  - implement aggregate transform class
+  - implement tee transform
+  - introduce a shortened storage encoding
+  - match filter supports regex
+  - consistent StoreageResult responses
   - mysql use TINYINT(1) for BOOLEAN
+  - Breaking changes:
+  - remove pattern.cues property
+  - rename consolidate to aggregate
+  - rename float to number
+  - refactor transform options properties
 - version 1.1.6
   - Breaking changes:
   - SelectTransform replaces FieldsTransform
