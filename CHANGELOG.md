@@ -1,3 +1,5 @@
+- version 1.1.8
+  - updated dependencies
 - version 1.1.7
   - storage readers support for pattern filter
   - implement aggregate transform class
