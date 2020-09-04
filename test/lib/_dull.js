@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const storage = require("../../index");
+const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 
 module.exports = exports = async function (tract) {

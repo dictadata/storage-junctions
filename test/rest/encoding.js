@@ -18,7 +18,7 @@ async function tests() {
       options: {
         headers: {
           "Accept": "application/ld+json",
-          "User-Agent": "@dictadata.org/storage-node contact:info@dictadata.org"
+          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
         },
         auth: {
           //username: this.options.auth.username,

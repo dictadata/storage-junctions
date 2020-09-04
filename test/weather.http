@@ -1,14 +1,14 @@
 ### Main weather request for Iowa City, IA
 GET https://api.weather.gov/points/41.6612,-91.5361
 Accept: application/ld+json
-User-Agent: @dictadata.org/storage-node contact:info@dictadata.org
+User-Agent: @dictadata.org/storage contact:info@dictadata.org
 
 ### get forecast for Iowa City, IA
 GET https://api.weather.gov/gridpoints/DVN/34,71/forecast
 Accept: application/ld+json
-User-Agent: @dictadata.org/storage-node contact:info@dictadata.org
+User-Agent: @dictadata.org/storage contact:info@dictadata.org
 
 ### get forecast for Iowa City, IA
 GET https://api.weather.gov/gridpoints/DVN/34,71/forecast/hourly
 Accept: application/ld+json
-User-Agent: @dictadata.org/storage-node contact:info@dictadata.org
+User-Agent: @dictadata.org/storage contact:info@dictadata.org

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const storage = require("../../index");
+const storage = require("../../lib/index");
 const EchoJunction = require("../../lib/echo");
 const logger = require('../../lib/logger');
 const stream = require('stream');

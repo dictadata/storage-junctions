@@ -102,7 +102,7 @@ async function forecastTransform(tract) {
       options: {
         headers: {
           "Accept": "application/ld+json",
-          "User-Agent": "@dictadata.org/storage-node contact:info@dictadata.org"
+          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
         },
         extract: {
           data: "periods",  // name of property in response.data than contains the desired object or array
