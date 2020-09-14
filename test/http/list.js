@@ -10,7 +10,31 @@ logger.info("=== tests: HTTP list");
 
 async function tests() {
 
-  logger.info("=== list http directory OPTIONS");
+  logger.info("=== list http directory - forEach");
+  await list({
+    origin: {
+      smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
+      options: {
+        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
+        path: '/shapefiles/United States/Iowa/Iowa City/',
+        headers: {
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
+          'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.5',
+          'accept-encoding': 'gzip, deflate',
+          'cache-control': 'max-age=0'          
+        },
+        recursive: false,
+        forEach: (name) => {
+          logger.info("- " + name);
+        },
+        http: 1.1
+      }
+    },
+    terminal: "./test/output/http_list_1.json"
+  });
+
+  logger.info("=== list http directory - recursive");
   await list({
     origin: {
       smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
@@ -24,11 +48,11 @@ async function tests() {
           'accept-encoding': 'gzip, deflate',
           'cache-control': 'max-age=0'          
         },
-        recursive: false,
+        recursive: true,
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_1.json"
+    terminal: "./test/output/http_list_2.json"
   });
 
 }
