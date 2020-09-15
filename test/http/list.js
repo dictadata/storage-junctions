@@ -8,15 +8,47 @@ const logger = require('../../lib/logger');
 
 logger.info("=== tests: HTTP list");
 
-async function tests() {
+async function testIIS() {
+/*
+  logger.info("=== list http directory - forEach");
+  await list({
+    origin: {
+      smt: "json|http://localhost/test/data/|*.json|*",
+      options: {
+        recursive: false,
+        forEach: (name) => {
+          logger.info("- " + name);
+        },
+        http: 1.1
+      }
+    },
+    terminal: "./test/output/http_list_1.json"
+  });
+*/
+  logger.info("=== list http directory - recursive");
+  await list({
+    origin: {
+      smt: "json|http://localhost/|*.json|*",
+      options: {
+        path: 'test/',
+        recursive: true,
+        http: 1.1
+      }
+    },
+    terminal: "./test/output/http_list_2.json"
+  });
+
+}
+
+async function testNGINX() {
 
   logger.info("=== list http directory - forEach");
   await list({
     origin: {
       smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
       options: {
-        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
-        path: '/shapefiles/United States/Iowa/Iowa City/',
+        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com/',
+        path: 'shapefiles/United States/Iowa/Iowa City/',
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -31,7 +63,7 @@ async function tests() {
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_1.json"
+    terminal: "./test/output/http_list_3.json"
   });
 
   logger.info("=== list http directory - recursive");
@@ -39,8 +71,8 @@ async function tests() {
     origin: {
       smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
       options: {
-        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
-        path: '/shapefiles/',
+        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com/',
+        path: 'shapefiles/',
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -52,13 +84,14 @@ async function tests() {
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_2.json"
+    terminal: "./test/output/http_list_4.json"
   });
 
 }
 
 async function main() {
-  await tests();
+  await testIIS();
+//  await testNGINX();
 }
 
 main();
