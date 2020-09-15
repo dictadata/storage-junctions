@@ -199,8 +199,7 @@
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose",
-        "NODE_OPTIONS": "--insecure-http-parser"
+        "LOG_LEVEL": "verbose"
       }
     },
     {

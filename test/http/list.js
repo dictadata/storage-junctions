@@ -9,7 +9,7 @@ const logger = require('../../lib/logger');
 logger.info("=== tests: HTTP list");
 
 async function testIIS() {
-/*
+
   logger.info("=== list http directory - forEach");
   await list({
     origin: {
@@ -24,13 +24,12 @@ async function testIIS() {
     },
     terminal: "./test/output/http_list_1.json"
   });
-*/
+
   logger.info("=== list http directory - recursive");
   await list({
     origin: {
-      smt: "json|http://localhost/|*.json|*",
+      smt: "json|http://localhost/test/|*.json|*",
       options: {
-        path: 'test/',
         recursive: true,
         http: 1.1
       }
@@ -47,8 +46,8 @@ async function testNGINX() {
     origin: {
       smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
       options: {
-        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com/',
-        path: 'shapefiles/United States/Iowa/Iowa City/',
+        origin: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
+        dirname: '/shapefiles/United States/Iowa/Iowa City/',
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -71,8 +70,8 @@ async function testNGINX() {
     origin: {
       smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
       options: {
-        url: 'http://ec2-3-208-205-6.compute-1.amazonaws.com/',
-        path: 'shapefiles/',
+        origin: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
+        dirname: '/shapefiles/',
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -91,7 +90,7 @@ async function testNGINX() {
 
 async function main() {
   await testIIS();
-//  await testNGINX();
+  await testNGINX();
 }
 
 main();
