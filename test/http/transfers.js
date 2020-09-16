@@ -17,12 +17,6 @@ async function httpDownload() {
     origin: {
       smt: "csv|http://localhost/test/data/|foofile.csv.gz|*",
       options: {
-        http: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
       }
     },
     terminal: {
@@ -35,12 +29,6 @@ async function httpDownload() {
     origin: {
       smt: "csv|http://localhost/test/data/|foofile.csv|*",
       options: {
-        http: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
       }
     },
     terminal: {
@@ -53,12 +41,6 @@ async function httpDownload() {
     origin: {
       smt: "json|http://localhost/test/data/|foofile.json.gz|*",
       options: {
-        http: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
       }
     },
     terminal: {
@@ -71,12 +53,6 @@ async function httpDownload() {
     origin: {
       smt: "json|http://localhost/test/data/|foofile.json|*",
       options: {
-        http: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
       }
     },
     terminal: {
