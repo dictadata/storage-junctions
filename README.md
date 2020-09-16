@@ -1,6 +1,6 @@
-### dictadata.org: Open source software for Data Engineering & Analytics
+### dictadata.org: Open source software for Civic Data Engineering & Analytics
 
-# @dictadata/storage-junctions 1.1.0
+# @dictadata/storage-junctions 1.2.0
 
 Node.js library for distributed data storage access and streaming transfers.
 

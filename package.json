@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.9.0",
-    "aws-sdk": "^2.748.0",
+    "aws-sdk": "^2.753.0",
     "axios": "^0.20.0",
     "axios-oauth-client": "^1.3.0",
-    "dot-object": "^2.1.3",
+    "dot-object": "^2.1.4",
     "ftp-ts": "^1.0.19",
     "merge-descriptors": "^1.0.1",
     "mysql": "^2.18.1",
@@ -29,11 +29,11 @@
     "tedious": "^9.2.1",
     "uuid": "^8.3.0",
     "winston": "^3.3.3",
-    "xlsx": "^0.16.6",
+    "xlsx": "^0.16.7",
     "yn": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.8.1",
+    "eslint": "^7.9.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1"
   },

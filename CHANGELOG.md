@@ -1,5 +1,5 @@
 - version 1.2.0
-  - implement html-filestorage
+  - implement http-filestorage, reading of HTML directories and downloading files as streams
 - version 1.1.8
   - updated dependencies
 - version 1.1.7
