@@ -1,5 +1,5 @@
 /**
- * test/gzip
+ * test/fs/transfers
  */
 "use strict";
 

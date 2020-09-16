@@ -1,5 +1,5 @@
 /**
- * test/fs_list
+ * test/fs/list
  */
 "use strict";
 

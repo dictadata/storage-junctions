@@ -162,7 +162,7 @@
       "type": "node",
       "request": "launch",
       "name": "fs gzip transfers",
-      "program": "${workspaceFolder}/test/fs/gzip_transfers.js",
+      "program": "${workspaceFolder}/test/fs/transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
