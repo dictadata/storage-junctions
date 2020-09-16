@@ -2,6 +2,8 @@
   - Breaking Changes:
     - refactor all FileStorage classes to FileSystem classes
   - export FileSystem base class from cortex
+  - filesystems add options.fsType to override prefix in smt.locus strings
+  - refactor model shapes to shp
 - version 1.2.0
   - implement http-filestorage, reading of HTML directories and downloading files as streams
 - version 1.1.8
