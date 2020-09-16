@@ -44,7 +44,7 @@ async function testNGINX() {
   logger.info("=== list http directory - forEach");
   await list({
     origin: {
-      smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
+      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
       options: {
         origin: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
         dirname: '/shapefiles/United States/Iowa/Iowa City/',
@@ -68,7 +68,7 @@ async function testNGINX() {
   logger.info("=== list http directory - recursive");
   await list({
     origin: {
-      smt: "shapes|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
+      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
       options: {
         origin: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
         dirname: '/shapefiles/',

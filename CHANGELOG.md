@@ -1,3 +1,7 @@
+- version 1.2.1
+  - Breaking Changes:
+    - refactor all FileStorage classes to FileSystem classes
+  - export FileSystem base class from cortex
 - version 1.2.0
   - implement http-filestorage, reading of HTML directories and downloading files as streams
 - version 1.1.8

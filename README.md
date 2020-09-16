@@ -273,7 +273,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 
 ### getTransform(tfType, options)
 
-### getFileStorage()
+### getFileSystem()
 
 ## Transform Plugins
 
@@ -283,7 +283,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 * Filter - select constructs to forward or drop.
 * MetaStats - calculate meta statistics about fields for a stream of constructs.
 
-## FileStorage Plugins
+## FileSystem Plugins
 
 * fs - Local file system support for Windwos, Linux and Mac iOS.
 * ftp - FTP file transport protocal servers.
