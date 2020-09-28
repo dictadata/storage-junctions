@@ -22,7 +22,7 @@ module.exports = exports = async function (tract) {
     logger.debug("list: " + JSON.stringify(list, null, "  "));
     if (tract.terminal) {
       logger.info(">>> save encoding to " + tract.terminal);
-      fs.writeFileSync(tract.terminal, JSON.stringify(list,null,"  "), "utf8");
+      fs.writeFileSync(tract.terminal, JSON.stringify(list, null, 2), "utf8");
     }
 
     logger.info(">>> completed");
