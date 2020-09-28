@@ -16,8 +16,8 @@ async function tests() {
       smt: "json|S3:dictadata.org/test/data/|*.json|*",
       options: {
         recursive: false,
-        forEach: (name) => {
-          logger.info("- " + name);
+        forEach: (entry) => {
+          logger.info("- " + entry.name);
         }
       }
     },

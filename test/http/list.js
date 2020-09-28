@@ -53,11 +53,11 @@ async function testNGINX() {
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
           'accept-language': 'en-US,en;q=0.5',
           'accept-encoding': 'gzip, deflate',
-          'cache-control': 'max-age=0'          
+          'cache-control': 'max-age=0'
         },
         recursive: false,
-        forEach: (name) => {
-          logger.info("- " + name);
+        forEach: (entry) => {
+          logger.info("- " + entry.name);
         },
         http: 1.1
       }
@@ -77,7 +77,7 @@ async function testNGINX() {
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
           'accept-language': 'en-US,en;q=0.5',
           'accept-encoding': 'gzip, deflate',
-          'cache-control': 'max-age=0'          
+          'cache-control': 'max-age=0'
         },
         recursive: true,
         http: 1.1

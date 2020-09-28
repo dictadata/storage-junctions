@@ -22,8 +22,8 @@ async function tests() {
           password: 'data'
         },
         recursive: false,
-        forEach: (name) => {
-          logger.info("- " + name);
+        forEach: (entry) => {
+          logger.info("- " + entry.name);
         }
       }
     },
