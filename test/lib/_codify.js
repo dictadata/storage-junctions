@@ -27,16 +27,16 @@ module.exports = exports = async function (tract) {
     logger.debug(JSON.stringify(encoding1, null, "  "));
     if (tract.outputFile1) {
       logger.info(">>> save encoding to " + tract.outputFile1);
-      fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1,null,2), "utf8");
+      fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1, null, 2), "utf8");
     }
 
     // *** use CodifyTransform to determine encoding including optional transforms
     logger.info(">>> build pipeline");
     let pipes = [];
-    pipes.push(jo.getReadStream({max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
-    for (let [tfType,tfOptions] of Object.entries(tract.transforms))
+    pipes.push(jo.getReadStream({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
+    for (let [tfType, tfOptions] of Object.entries(tract.transforms))
       pipes.push(jo.getTransform(tfType, tfOptions));
-    let codify = jo.getTransform('codify', tract.codify ||{});
+    let codify = jo.getTransform('codify', tract.origin);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding
@@ -49,7 +49,7 @@ module.exports = exports = async function (tract) {
     logger.debug(JSON.stringify(encoding2, null, "  "));
     if (tract.outputFile2) {
       logger.info(">>> save encoding to " + tract.outputFile2);
-      fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2,null,"  "), "utf8");
+      fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2, null, "  "), "utf8");
     }
 
     logger.info(">>> completed");
