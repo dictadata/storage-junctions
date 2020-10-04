@@ -1,5 +1,5 @@
 /**
- * test/http_list
+ * test/http/list
  */
 "use strict";
 

@@ -1,5 +1,5 @@
 /**
- * test/rest
+ * test/http/transfers
  */
 "use strict";
 
