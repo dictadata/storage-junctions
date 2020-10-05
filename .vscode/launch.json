@@ -183,6 +183,28 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "ftp download",
+      "program": "${workspaceFolder}/test/ftp/download.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "ftp upload",
+      "program": "${workspaceFolder}/test/ftp/upload.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "ftp transfers",
       "program": "${workspaceFolder}/test/ftp/transfers.js",
       "outputCapture": "std",
@@ -235,6 +257,28 @@
       "request": "launch",
       "name": "s3 list",
       "program": "${workspaceFolder}/test/s3/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "s3 download",
+      "program": "${workspaceFolder}/test/s3/download.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "s3 upload",
+      "program": "${workspaceFolder}/test/s3/upload.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
