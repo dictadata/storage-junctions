@@ -9,8 +9,8 @@ const logger = require('../../lib/logger');
 
 logger.info("=== Test: S3 transfers");
 
-async function s3Upload() {
-  logger.verbose("=== S3 uploads");
+async function s3Destination() {
+  logger.verbose("=== S3 destination");
 
   logger.verbose('=== S3: csv_output.csv');
   await transfer({
@@ -74,8 +74,8 @@ async function s3Upload() {
 
 }
 
-async function s3Download() {
-  logger.verbose("=== S3 downloads");
+async function s3Source() {
+  logger.verbose("=== S3 source");
 
   logger.verbose('=== s3_output.csv');
   await transfer({
@@ -139,10 +139,8 @@ async function s3Download() {
 
 }
 
-async function tests() {
-  await s3Upload();
-  await s3Download();
+(async () => {
+  await s3Source();
+  await s3Destination();
   logger.verbose("Done.");
-}
-
-tests();
+})();

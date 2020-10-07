@@ -10,7 +10,7 @@ const fs = require('fs');
 module.exports = exports = async function (tract) {
 
   logger.info(">>> create junction");
-  logger.verbose("smt:" + tract.origin.smt);
+  logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
 
   var jo;
@@ -20,9 +20,9 @@ module.exports = exports = async function (tract) {
     let list = await jo.list();
 
     logger.debug("list: " + JSON.stringify(list, null, "  "));
-    if (tract.terminal) {
-      logger.info(">>> save encoding to " + tract.terminal);
-      fs.writeFileSync(tract.terminal, JSON.stringify(list, null, 2), "utf8");
+    if (tract.terminal.output) {
+      logger.info(">>> save encoding to " + tract.terminal.output);
+      fs.writeFileSync(tract.terminal.output, JSON.stringify(list, null, 2), "utf8");
     }
 
     logger.info(">>> completed");

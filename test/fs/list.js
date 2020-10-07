@@ -21,7 +21,9 @@ async function tests() {
         }
       }
     },
-    terminal: "./test/output/fs_list_1.json"
+    terminal: {
+      output: "./test/output/fs_list_1.json"
+    }
   });
 
   logger.info("=== list fs directory (recursive)");
@@ -38,7 +40,9 @@ async function tests() {
         recursive: true
       }
     },
-    terminal: "./test/output/fs_list_2.json"
+    terminal: {
+      output: "./test/output/fs_list_2.json"
+    }
   });
 
 }

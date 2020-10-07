@@ -9,8 +9,8 @@ const logger = require('../../lib/logger');
 
 logger.info("=== Test: http transfers");
 
-async function httpDownload() {
-  logger.verbose("=== http downloads");
+async function test_01() {
+  logger.verbose("=== http source");
 
   logger.verbose('=== http_output.csv');
   await transfer({
@@ -62,9 +62,7 @@ async function httpDownload() {
 
 }
 
-async function tests() {
-  await httpDownload();
+(async () => {
+  await test_01();
   logger.verbose("Done.");
-}
-
-tests();
+})();

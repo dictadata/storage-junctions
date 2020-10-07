@@ -20,7 +20,9 @@ async function test_1() {
         saveFiles: true
       }
     },
-    terminal: "./test/output/downloads/"
+    terminal: {
+      output: "./test/output/downloads/"
+    }
   });
 }
 
@@ -37,7 +39,9 @@ async function test_2() {
         savePaths: true
       }
     },
-    terminal: "./test/output/shapefiles/"
+    terminal: {
+      output: "./test/output/shapefiles/"
+    }
   });
 }
 

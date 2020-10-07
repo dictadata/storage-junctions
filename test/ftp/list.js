@@ -27,7 +27,9 @@ async function tests() {
         }
       }
     },
-    terminal: "./test/output/ftp_list_1.json"
+    terminal: {
+      output: "./test/output/ftp_list_1.json"
+    }
   });
 
   logger.info("=== list ftp directory (recursive)");
@@ -50,7 +52,9 @@ async function tests() {
         recursive: true
       }
     },
-    terminal: "./test/output/ftp_list_2.json"
+    terminal: {
+      output: "./test/output/ftp_list_2.json"
+    }
   });
 
 }

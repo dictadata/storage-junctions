@@ -25,7 +25,9 @@ async function tests() {
         }
       }
     },
-    terminal: './test/output/mysql_aggregate_1.json'
+    terminal: {
+      output: './test/output/mysql_aggregate_1.json'
+    }
   });
 
   logger.info("=== mysql groupby with summary");
@@ -47,7 +49,9 @@ async function tests() {
         "count": 10
       }
     },
-    terminal: './test/output/mysql_aggregate_2.json'
+    terminal: {
+      output: './test/output/mysql_aggregate_2.json'
+    }
   });
 
   logger.info("=== mysql aggregate w/ groupby");
@@ -68,7 +72,9 @@ async function tests() {
         "count": 5
       }
     },
-    terminal: './test/output/mysql_aggregate_3.json'
+    terminal: {
+      output: './test/output/mysql_aggregate_3.json'
+    }
   });
 
 }

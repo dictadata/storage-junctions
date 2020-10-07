@@ -10,7 +10,7 @@ const fs = require('fs');
 module.exports = exports = async function (tract) {
 
   logger.info(">>> create junction");
-  logger.verbose("smt:" + tract.origin.smt);
+  logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
   if (tract.origin.pattern) logger.verbose("pattern: " + JSON.stringify(tract.origin.pattern));
 
@@ -20,11 +20,11 @@ module.exports = exports = async function (tract) {
 
     let results = await jo.retrieve(tract.origin.pattern);
 
-    logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0) );
+    logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0));
     logger.verbose(JSON.stringify(results));
-    if (tract.terminal) {
-      logger.info(">>> save results to " + tract.terminal);
-      fs.writeFileSync(tract.terminal, JSON.stringify(results, null,"  "), "utf8");
+    if (tract.terminal.oututp) {
+      logger.info(">>> save results to " + tract.terminal.output);
+      fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
     }
 
     logger.info(">>> completed");

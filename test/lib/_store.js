@@ -9,7 +9,7 @@ const logger = require('../../lib/logger');
 module.exports = exports = async function (tract) {
 
   logger.info(">>> create junction");
-  logger.verbose("smt:" + tract.origin.smt);
+  logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
   if (tract.origin.pattern) logger.verbose("pattern: " + JSON.stringify(tract.origin.pattern));
 

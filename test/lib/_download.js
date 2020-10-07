@@ -1,7 +1,7 @@
 /**
  * test/lib/download
  * 
- * download uses the browser to download file(s) directly to a local folder.
+ * download file(s) directly to a local folder.
  */
 "use strict";
 
@@ -33,7 +33,7 @@ module.exports = exports = async function (tract) {
 
       let options = Object.assign(entry, {
         saveFiles: true,
-        saveFolder: tract.terminal || './'
+        saveFolder: tract.terminal.output || './'
       });
       let ok = await stfs.download(options);
       if (!ok)

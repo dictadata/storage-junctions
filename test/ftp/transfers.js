@@ -9,8 +9,8 @@ const logger = require('../../lib/logger');
 
 logger.info("=== Test: ftp transfers");
 
-async function ftpUpload() {
-  logger.verbose("=== ftp uploads");
+async function test_01() {
+  logger.verbose("=== ftp destination");
 
   logger.verbose('=== ftp: csv_output.csv');
   await transfer({
@@ -86,8 +86,8 @@ async function ftpUpload() {
 
 }
 
-async function ftpDownload() {
-  logger.verbose("=== ftp downloads");
+async function test_02() {
+  logger.verbose("=== ftp source");
 
   logger.verbose('=== ftp_output.csv');
   await transfer({
@@ -163,10 +163,8 @@ async function ftpDownload() {
 
 }
 
-async function tests() {
-  await ftpUpload();
-  await ftpDownload();
+(async () => {
+  await test_01();
+  await test_02();
   logger.verbose("Done.");
-}
-
-tests();
+})();

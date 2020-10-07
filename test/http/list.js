@@ -22,7 +22,9 @@ async function testIIS() {
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_1.json"
+    terminal: {
+      output: "./test/output/http_list_1.json"
+    }
   });
 
   logger.info("=== list http directory - recursive");
@@ -34,7 +36,9 @@ async function testIIS() {
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_2.json"
+    terminal: {
+      output: "./test/output/http_list_2.json"
+    }
   });
 
 }
@@ -62,7 +66,9 @@ async function testNGINX() {
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_3.json"
+    terminal: {
+      output: "./test/output/http_list_3.json"
+    }
   });
 
   logger.info("=== list http directory - recursive");
@@ -83,7 +89,9 @@ async function testNGINX() {
         http: 1.1
       }
     },
-    terminal: "./test/output/http_list_4.json"
+    terminal: {
+      output: "./test/output/http_list_4.json"
+    }
   });
 
 }

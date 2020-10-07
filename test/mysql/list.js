@@ -18,7 +18,9 @@ async function tests() {
         schema: "foo*"
       }
     },
-    terminal: "./test/output/mysql_list.json"
+    terminal: {
+      output: "./test/output/mysql_list.json"
+    }
   });
 
 }

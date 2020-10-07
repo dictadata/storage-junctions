@@ -21,7 +21,9 @@ async function tests() {
         }
       }
     },
-    terminal: "./test/output/s3_list_1.json"
+    terminal: {
+      output: "./test/output/s3_list_1.json"
+    }
   });
 
   logger.info("=== list S3 bucket (recursive)");
@@ -41,7 +43,9 @@ async function tests() {
         recursive: true
       }
     },
-    terminal: "./test/output/s3_list_2.json"
+    terminal: {
+      output: "./test/output/s3_list_2.json"
+    }
   });
 
 }
