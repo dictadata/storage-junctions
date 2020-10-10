@@ -1,7 +1,7 @@
 /**
  * test/lib/download
  * 
- * download file(s) directly to a local folder.
+ * download file(s) from filesystem directly to a local folder.
  */
 "use strict";
 
@@ -11,14 +11,12 @@ const logger = require('../../lib/logger');
 
 module.exports = exports = async function (tract) {
 
-  logger.info(">>> create junction");
-  logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
-  if (tract.origin.options)
-    logger.verbose("options:" + JSON.stringify(tract.origin.options));
-
   var junction;
   try {
-    logger.info("=== http load directory page");
+    logger.info(">>> create junction");
+    logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
+    if (tract.origin.options)
+      logger.verbose("options:" + JSON.stringify(tract.origin.options));
     junction = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.info("=== get list of desired files");
