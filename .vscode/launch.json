@@ -34,30 +34,19 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "fs up/download",
+      "program": "${workspaceFolder}/test/fs/up_download.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "ftp list",
       "program": "${workspaceFolder}/test/ftp/list.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "ftp download",
-      "program": "${workspaceFolder}/test/ftp/download.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "ftp upload",
-      "program": "${workspaceFolder}/test/ftp/upload.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -78,6 +67,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "ftp up/download",
+      "program": "${workspaceFolder}/test/ftp/up_download.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "http list",
       "program": "${workspaceFolder}/test/http/list.js",
       "outputCapture": "std",
@@ -89,8 +89,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "http download",
-      "program": "${workspaceFolder}/test/http/download.js",
+      "name": "http transfers",
+      "program": "${workspaceFolder}/test/http/transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -100,8 +100,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "http transfers",
-      "program": "${workspaceFolder}/test/http/transfers.js",
+      "name": "http download",
+      "program": "${workspaceFolder}/test/ftp/up_download.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -128,30 +128,19 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "s3 download",
-      "program": "${workspaceFolder}/test/s3/download.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "s3 upload",
-      "program": "${workspaceFolder}/test/s3/upload.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "s3 transfers",
       "program": "${workspaceFolder}/test/s3/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "s3 up/download",
+      "program": "${workspaceFolder}/test/s3/up_download.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -162,6 +151,17 @@
       "type": "node-terminal",
       "name": "--- junctions",
       "request": "launch"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "* junction",
+      "program": "${workspaceFolder}/test/generic.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "production",
+        "LOG_LEVEL": "verbose"
+      }
     },
     {
       "type": "node",
