@@ -23,7 +23,7 @@ async function test_1() {
     });
 
     logger.info(">>> create filesystem");
-    var stfs = junction.getFileSystem();
+    var stfs = await junction.getFileSystem();
 
 
     logger.info(">>> relax junction");
