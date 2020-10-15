@@ -66,4 +66,5 @@ async function test_3() {
 (async () => {
   await test_1();
   await test_2();
+  await test_3();
 })();

@@ -16,7 +16,7 @@ module.exports = exports = async function (tract) {
   try {
     logger.info(">>> create generic for local files");
     let p = path.parse(tract.origin.options.filespec);
-    let smt = "*|" + p.dir + "|" + p.name + "|";
+    let smt = "*|" + p.dir + "/|" + p.base + "|*";
     logger.verbose("smt:" + JSON.stringify(smt, null, 2));
     generic = await storage.activate(smt);
 
@@ -34,9 +34,9 @@ module.exports = exports = async function (tract) {
     let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
-      logger.verbose(JSON.stringify(entry, null, 2));
+      logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign(tract.terminal.options, entry);
+      let options = Object.assign({ folder: p.dir + '/' }, tract.origin.options, entry);
       let ok = await stfs.upload(options);
       if (!ok)
         logger.error("download failed: " + entry.href);

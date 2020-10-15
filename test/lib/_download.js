@@ -27,7 +27,7 @@ module.exports = exports = async function (tract) {
     let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
-      logger.verbose(JSON.stringify(entry, null, 2));
+      logger.debug(JSON.stringify(entry, null, 2));
 
       let options = Object.assign(tract.terminal.options, entry);
       let ok = await stfs.download(options);
