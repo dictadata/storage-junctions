@@ -7,33 +7,37 @@
 
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
-
+const path = require('path');
 
 module.exports = exports = async function (tract) {
 
+  var generic;
   var junction;
   try {
+    logger.info(">>> create generic for local files");
+    let p = path.parse(tract.origin.options.filespec);
+    let smt = "*|" + p.dir + "|" + p.name + "|";
+    logger.verbose("smt:" + JSON.stringify(smt, null, 2));
+    generic = await storage.activate(smt);
+
+    logger.info("=== get list of local files");
+    let list = await generic.list();
+
     logger.info(">>> create junction");
-    logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
-    if (tract.origin.options)
-      logger.verbose("options:" + JSON.stringify(tract.origin.options));
-    junction = await storage.activate(tract.origin.smt, tract.origin.options);
+    logger.verbose("smt:" + JSON.stringify(tract.terminal.smt, null, 2));
+    if (tract.terminal.options)
+      logger.verbose("options:" + JSON.stringify(tract.terminal.options));
+    junction = await storage.activate(tract.terminal.smt, tract.terminal.options);
 
-    logger.info("=== get list of desired files");
-    let list = await junction.list();
-
-    logger.info("=== download files");
+    logger.info("=== upload files");
     // download is a filesystem level method
     let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
       logger.verbose(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign(entry, {
-        saveFiles: true,
-        saveFolder: tract.terminal.output || './'
-      });
-      let ok = await stfs.download(options);
+      let options = Object.assign(tract.terminal.options, entry);
+      let ok = await stfs.upload(options);
       if (!ok)
         logger.error("download failed: " + entry.href);
     }
@@ -42,6 +46,7 @@ module.exports = exports = async function (tract) {
     logger.error('!!! request failed: ' + err.message);
   }
   finally {
+    await generic.relax();
     await junction.relax();
   }
 

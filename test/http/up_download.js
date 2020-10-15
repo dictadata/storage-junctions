@@ -14,14 +14,15 @@ async function test_1() {
   logger.verbose("--- create http");
   await download({
     origin: {
-      smt: "csv|http://localhost/test/data/|*.csv|*",
+      smt: "*|http://localhost/test/data/|*.csv|*",
       options: {
-        recursive: false,
-        saveFiles: true
+        recursive: false
       }
     },
     terminal: {
-      output: "./test/output/downloads/"
+      options: {
+        folder: "./test/output/downloads/"
+      }
     }
   });
 }
@@ -34,13 +35,14 @@ async function test_2() {
     origin: {
       smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
       options: {
-        recursive: true,
-        saveFiles: true,
-        savePaths: true
+        recursive: true
       }
     },
     terminal: {
-      output: "./test/output/shapefiles/"
+      options: {
+        folder: "./test/output/shapefiles/",
+        useRPath: true
+      }
     }
   });
 }

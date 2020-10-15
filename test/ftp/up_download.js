@@ -20,7 +20,9 @@ async function test_1() {
       }
     },
     terminal: {
-      smt: "*|./test/output/downloads/|*|*"
+      options: {
+        folder: "./test/output/downloads/"
+      }
     }
   });
 }
@@ -30,13 +32,13 @@ async function test_2() {
 
   await upload({
     origin: {
-      smt: "*|./test/data/|*.csv|*",
+      uploads: "./test/data/*.csv",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "csv|ftp://localhost/test/data/uploads/|*|*",
+      smt: "*|ftp://localhost/test/data/uploads/|*|*",
     }
   });
 }
@@ -49,13 +51,14 @@ async function test_3() {
     origin: {
       smt: "*|ftp://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
       options: {
-        recursive: true,
-        saveFiles: true,
-        savePaths: true
+        recursive: true
       }
     },
     terminal: {
-      smt: "*|./test/output/shapefiles/|*|*"
+      options: {
+        folder: "./test/output/shapefiles/",
+        useRPath: true
+      }
     }
   });
 }

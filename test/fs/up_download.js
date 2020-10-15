@@ -1,46 +1,47 @@
 /**
- * test/http/download
+ * test/fs/up_download
  */
 "use strict";
 
 const download = require('../lib/_download');
+const upload = require('../lib/_upload');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: http downloads");
+logger.info("=== tests: fs file copy");
 
 async function test_1() {
-  logger.info("=== download from HTML directory page");
+  logger.info("=== download files");
 
-  logger.verbose("--- create http");
   await download({
     origin: {
-      smt: "csv|http://localhost/test/data/|*.csv|*",
+      smt: "*|file:./test/data/|*.csv|*",
       options: {
-        recursive: false,
-        saveFiles: true
+        recursive: false
       }
     },
     terminal: {
-      output: "./test/output/downloads/"
+      options: {
+        folder: "./test/output/downloads/"
+      }
     }
   });
 }
 
 async function test_2() {
-  logger.info("=== download shape files");
+  logger.info("=== upload files");
 
-  logger.verbose("--- create http");
-  await download({
+  await upload({
     origin: {
-      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
       options: {
-        recursive: true,
-        saveFiles: true,
-        savePaths: true
+        filespec: "./test/data/*.json",
+        recursive: true
       }
     },
     terminal: {
-      output: "./test/output/shapefiles/"
+      smt: "*|file:./test/output/uploads/|*|*",
+      options: {
+        useRPath: true
+      }
     }
   });
 }
