@@ -8,19 +8,13 @@ const logger = require('../../lib/logger');
 
 logger.info("=== tests: FTP list");
 
-async function tests() {
+async function test_1() {
 
   logger.info("=== list ftp directory (forEach)");
   await list({
     origin: {
-      smt: "json|ftp:/test/data/|*.json|*",
+      smt: "json|ftp://dicta:data@localhost/test/data/|*.json|*",
       options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        },
         recursive: false,
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -37,17 +31,11 @@ async function tests() {
     origin: {
       smt: {
         model: "json",
-        locus: "ftp:/test/",
+        locus: "ftp://dicta:data@localhost/test/",
         schema: "*.json",
         key: "*"
       },
       options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        },
         schema: "foofile_*.json",
         recursive: true
       }
@@ -59,8 +47,6 @@ async function tests() {
 
 }
 
-async function main() {
-  await tests();
-}
-
-main();
+(async () => {
+  await test_1();
+})();

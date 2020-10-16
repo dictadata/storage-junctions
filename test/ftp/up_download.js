@@ -14,20 +14,14 @@ async function test_1() {
 
   await download({
     origin: {
-      smt: "*|ftp://localhost/test/data/|*.csv|*",
+      smt: "*|ftp://dicta:data@localhost/test/data/|*.csv|*",
       options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        },
         recursive: false
       }
     },
     terminal: {
       options: {
-        folder: "./test/output/downloads/"
+        downloads: "./test/output/downloads/"
       }
     }
   });
@@ -38,21 +32,14 @@ async function test_2() {
 
   await upload({
     origin: {
-      uploads: "./test/data/*.csv",
       options: {
+        uploads: "./test/data/*.csv",
         recursive: false
       }
     },
     terminal: {
-      smt: "*|ftp://localhost/test/data/uploads/|*|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "*|ftp://dicta:data@localhost/test/data/uploads/|*|*",
+      options: {}
     }
   });
 }
@@ -63,14 +50,14 @@ async function test_3() {
   logger.verbose("--- create ftp");
   await download({
     origin: {
-      smt: "*|ftp://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
+      smt: "*|ftp://dicta:data@localhost/shapefiles/|*.*|*",
       options: {
         recursive: true
       }
     },
     terminal: {
       options: {
-        folder: "./test/output/shapefiles/",
+        downloads: "./test/output/shapefiles/",
         useRPath: true
       }
     }

@@ -18,15 +18,8 @@ async function test_01() {
       smt: "csv|./test/data/|foofile.csv.gz|*"
     },
     terminal: {
-      smt: "csv|ftp:/test/output/|csv_output.csv|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv|*",
+      options: {}
     }
   });
 
@@ -36,15 +29,8 @@ async function test_01() {
       smt: "csv|./test/data/|foofile.csv|*"
     },
     terminal: {
-      smt: "csv|ftp:/test/output/|csv_output.csv.gz|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv.gz|*",
+      options: {}
     }
   });
 
@@ -54,15 +40,8 @@ async function test_01() {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|ftp:/test/output/|json_output.json|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "json|ftp://dicta:data@localhost/test/output/|json_output.json|*",
+      options: {}
     }
   });
 
@@ -72,15 +51,8 @@ async function test_01() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "json|ftp:/test/output/|json_output.json.gz|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "json|ftp://dicta:data@localhost/test/output/|json_output.json.gz|*",
+      options: {}
     }
   });
 
@@ -92,15 +64,8 @@ async function test_02() {
   logger.verbose('=== ftp_output.csv');
   await transfer({
     origin: {
-      smt: "csv|ftp:/test/data/|foofile.csv.gz|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "csv|ftp://dicta:data@localhost/test/data/|foofile.csv.gz|*",
+      options: {}
     },
     terminal: {
       smt: "csv|./test/output/|ftp_output.csv|*"
@@ -110,15 +75,8 @@ async function test_02() {
   logger.verbose('=== ftp_output.csv.gz');
   await transfer({
     origin: {
-      smt: "csv|ftp:/test/data/|foofile.csv|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "csv|ftp://dicta:data@localhost/test/data/|foofile.csv|*",
+      options: {}
     },
     terminal: {
       smt: "csv|./test/output/|ftp_output.csv.gz|*"
@@ -128,15 +86,8 @@ async function test_02() {
   logger.verbose('=== ftp_output.json');
   await transfer({
     origin: {
-      smt: "json|ftp:/test/data/|foofile.json.gz|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "json|ftp://dicta:data@localhost/test/data/|foofile.json.gz|*",
+      options: {}
     },
     terminal: {
       smt: "json|./test/output/|ftp_output.json|*"
@@ -146,15 +97,8 @@ async function test_02() {
   logger.verbose('=== ftp_output.json.gz');
   await transfer({
     origin: {
-      smt: "json|ftp:/test/data/|foofile.json|*",
-      options: {
-        ftp: {
-          host: 'localhost',
-          port: 21,
-          user: 'dicta',
-          password: 'data'
-        }
-      }
+      smt: "json|ftp://dicta:data@localhost/test/data/|foofile.json|*",
+      options: {}
     },
     terminal: {
       smt: "json|./test/output/|ftp_output.json.gz|*"
