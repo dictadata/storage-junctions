@@ -16,6 +16,12 @@ async function test_1() {
     origin: {
       smt: "*|ftp://localhost/test/data/|*.csv|*",
       options: {
+        ftp: {
+          host: 'localhost',
+          port: 21,
+          user: 'dicta',
+          password: 'data'
+        },
         recursive: false
       }
     },
@@ -39,6 +45,14 @@ async function test_2() {
     },
     terminal: {
       smt: "*|ftp://localhost/test/data/uploads/|*|*",
+      options: {
+        ftp: {
+          host: 'localhost',
+          port: 21,
+          user: 'dicta',
+          password: 'data'
+        }
+      }
     }
   });
 }

@@ -14,7 +14,7 @@ module.exports = exports = async function (tract) {
   var generic;
   var junction;
   try {
-    logger.info(">>> create generic for local files");
+    logger.info(">>> create generic junction to local files");
     let p = path.parse(tract.origin.options.filespec);
     let smt = "*|" + p.dir + "/|" + p.base + "|*";
     logger.verbose("smt:" + JSON.stringify(smt, null, 2));
