@@ -1,20 +1,20 @@
 /**
- * test/s3/download
+ * test/S3/up_download
  */
 "use strict";
 
 const download = require('../lib/_download');
+const upload = require('../lib/_upload');
 const logger = require('../../lib/logger');
 
-logger.info("=== tests: s3 downloads");
+logger.info("=== tests: S3 downloads");
 
 async function test_1() {
-  logger.info("=== download from HTML directory page");
+  logger.info("=== download files from S3 folder");
 
-  logger.verbose("--- create s3");
   await download({
     origin: {
-      smt: "*|s3://localhost/test/data/|*.csv|*",
+      smt: "*|S3:dictadata.org/test/data/|*.csv|*",
       options: {
         recursive: false
       }
@@ -28,12 +28,29 @@ async function test_1() {
 }
 
 async function test_2() {
+  logger.info("=== upload files to S3 folder");
+
+  await upload({
+    origin: {
+      options: {
+        uploads: "./test/data/*.csv",
+        recursive: false
+      }
+    },
+    terminal: {
+      smt: "*|S3:dictadata.org/test/output/uploads/|*|*",
+      options: {}
+    }
+  });
+}
+
+async function test_3() {
   logger.info("=== download shape files");
 
-  logger.verbose("--- create s3");
+  logger.verbose("--- create S3");
   await download({
     origin: {
-      smt: "shp|s3://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
+      smt: "*|S3:dictadata.org/shapefiles/|*.*|*",
       options: {
         recursive: true
       }
@@ -50,4 +67,5 @@ async function test_2() {
 (async () => {
   await test_1();
   await test_2();
+  await test_3();
 })();

@@ -101,7 +101,7 @@
       "type": "node",
       "request": "launch",
       "name": "http download",
-      "program": "${workspaceFolder}/test/ftp/up_download.js",
+      "program": "${workspaceFolder}/test/http/up_download.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

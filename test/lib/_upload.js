@@ -36,7 +36,7 @@ module.exports = exports = async function (tract) {
     for (let entry of list) {
       logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({ downloads: uploads.dir + '/' }, tract.origin.options, entry);
+      let options = Object.assign({ uploadPath: uploads.dir + '/' }, tract.origin.options, entry);
       let ok = await stfs.upload(options);
       if (!ok)
         logger.error("download failed: " + entry.href);

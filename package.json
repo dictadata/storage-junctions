@@ -17,6 +17,7 @@
     "axios": "^0.20.0",
     "axios-oauth-client": "^1.3.0",
     "dot-object": "^2.1.4",
+    "form-data": "^3.0.0",
     "ftp": "^0.3.10",
     "merge-descriptors": "^1.0.1",
     "mysql": "^2.18.1",

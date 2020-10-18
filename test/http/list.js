@@ -16,8 +16,8 @@ async function testIIS() {
       smt: "json|http://localhost/test/data/|*.json|*",
       options: {
         recursive: false,
-        forEach: (name) => {
-          logger.info("- " + name);
+        forEach: (entry) => {
+          logger.info("- " + entry.name);
         },
         http: 1.1
       }
@@ -96,9 +96,7 @@ async function testNGINX() {
 
 }
 
-async function main() {
+(async () => {
   await testIIS();
   await testNGINX();
-}
-
-main();
+})();
