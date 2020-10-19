@@ -15,7 +15,7 @@ module.exports = exports = async function (tract) {
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
-    let filename = (tract.origin.filename || "./test/data/foo_encoding.json");
+    let filename = (tract.origin.encoding || "./test/data/foo_encoding.json");
     let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
 
     encoding = await jo.putEncoding(encoding);

@@ -9,6 +9,7 @@ const fs = require('fs');
 
 module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
+  if (!tract.terminal) tract.terminal = {};
 
   var jo;
   try {

@@ -19,7 +19,7 @@ async function testDBTransform1() {
       "options": {}
     },
     "terminal": {
-      "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_dbtransform|=Foo",
+      "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_dbtransform|=Foo",
       "options": {}
     },
     "transforms": {
@@ -58,7 +58,7 @@ async function testDBTransform2() {
 
   await transfer({
     "origin": {
-      "smt": "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|=Foo",
+      "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
     "terminal": {
@@ -130,5 +130,5 @@ async function forecastTransform(tract) {
   await testDBTransform1();
   await testDBTransform2();
   await forecastTransform({ terminal: { smt: "elasticsearch|http://localhost:9200|weather_forecast|=Foo" } });
-  await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|weather_forecast|*" } });
+  await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|weather_forecast|*" } });
 })();

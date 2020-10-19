@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql retrieve");
   await retrieve({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Foo": 'twenty'
@@ -25,7 +25,7 @@ async function tests() {
   logger.info("=== mysql retrieve w/ cues");
   await retrieve({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 100
@@ -36,7 +36,7 @@ async function tests() {
   logger.info("=== mysql retrieve with pattern");
   await retrieve({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=dicta;database=storage_node|foo_transfer|*",
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*",
       pattern: {
         match: {
           "Foo": "first",
@@ -44,7 +44,7 @@ async function tests() {
         },
         count: 3,
         order: { "Dt Test": "asc" },
-        fields: ["Foo","Baz"]
+        fields: ["Foo", "Baz"]
       }
     }
   });

@@ -13,6 +13,7 @@ module.exports = exports = async function (tract) {
   logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
   if (tract.origin.pattern) logger.verbose("pattern: " + JSON.stringify(tract.origin.pattern));
+  if (!tract.terminal) tract.terminal = {};
 
   var jo;
   try {
@@ -22,7 +23,7 @@ module.exports = exports = async function (tract) {
 
     logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0));
     logger.verbose(JSON.stringify(results));
-    if (tract.terminal.oututp) {
+    if (tract.terminal.output) {
       logger.info(">>> save results to " + tract.terminal.output);
       fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
     }

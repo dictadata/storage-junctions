@@ -254,8 +254,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch list",
-      "program": "${workspaceFolder}/test/elasticsearch/list.js",
+      "name": "elasticsearch encoding",
+      "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -265,8 +265,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch encoding",
-      "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
+      "name": "elasticsearch list",
+      "program": "${workspaceFolder}/test/elasticsearch/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -364,8 +364,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql list",
-      "program": "${workspaceFolder}/test/mysql/list.js",
+      "name": "mysql encoding",
+      "program": "${workspaceFolder}/test/mysql/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -375,8 +375,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql encoding",
-      "program": "${workspaceFolder}/test/mysql/encoding.js",
+      "name": "mysql list",
+      "program": "${workspaceFolder}/test/mysql/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
