@@ -20,10 +20,10 @@ module.exports = exports = async function (tract) {
     logger.info(">>> create junction");
     junction = await storage.activate(tract.origin.smt, tract.origin.options);
 
-    logger.info("=== get list of desired files");
+    logger.info(">>> get list of desired files");
     let list = await junction.list();
 
-    logger.info("=== download files");
+    logger.info(">>> download files");
     // download is a filesystem level method
     let stfs = await junction.getFileSystem();
 
@@ -33,7 +33,7 @@ module.exports = exports = async function (tract) {
       let options = Object.assign({}, tract.terminal.options, entry);
       let ok = await stfs.download(options);
       if (!ok)
-        logger.error("download failed: " + entry.name);
+        logger.error("!!! download failed: " + entry.name);
     }
   }
   catch (err) {

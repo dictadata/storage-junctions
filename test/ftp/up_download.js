@@ -47,7 +47,6 @@ async function test_2() {
 async function test_3() {
   logger.info("=== download shape files");
 
-  logger.verbose("--- create ftp");
   await download({
     origin: {
       smt: "*|ftp://dicta:data@localhost/shapefiles/|*.*|*",

@@ -11,7 +11,6 @@ logger.info("=== tests: http downloads");
 async function test_1() {
   logger.info("=== download from HTML directory page");
 
-  logger.verbose("--- create http");
   await download({
     origin: {
       smt: "*|http://localhost/test/data/|*.csv|*",
@@ -30,7 +29,6 @@ async function test_1() {
 async function test_2() {
   logger.info("=== download shape files");
 
-  logger.verbose("--- create http");
   await download({
     origin: {
       smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
