@@ -1,11 +1,16 @@
 - version 1.2.1
-  - Breaking Changes:
-    - refactor all FileStorage classes to FileSystem classes
-  - export FileSystem base class from cortex
-  - filesystems add options.fsPrefix to override prefix in smt.locus strings
-  - refactor model shapes to shp
+  - FileSystem class interface
+    - add upload() and download() methods
+  - implement upload and download methods in current FileSystem classes file, ftp, http, S3
+  - implement HttpFileSystem to list HTML directory pages, create read streams and download files
+  - change junction model "shapes" to "shp"
 - version 1.2.0
-  - implement http-filestorage, reading of HTML directories and downloading files as streams
+  - Breaking Changes:
+    - refactor FileStorage classes to FileSystem classes
+  - Cortex (library interface)
+    - add a generic StorageJunction * model for use with FileSystems
+    - export FileSystem base class for creating FileSystem plugins
+    - FileSystems add() method specifies which junctions models use file systems
 - version 1.1.8
   - updated dependencies
 - version 1.1.7
