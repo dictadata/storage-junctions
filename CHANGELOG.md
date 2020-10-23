@@ -1,3 +1,5 @@
+# CHANGELOG:  @dictadata/storage-junctions
+
 - version 1.2.1
   - FileSystem class interface
     - add upload() and download() methods
