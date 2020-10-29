@@ -46,7 +46,7 @@ module.exports = exports = async function (tract) {
       logger.verbose("build codify pipeline");
       let pipes = [];
       pipes.push(jo.getReadStream({ max_read: 100 }));
-      for (let [tfType,tfOptions] of Object.entries(transforms))
+      for (let [tfType, tfOptions] of Object.entries(transforms))
         pipes.push(jo.getTransform(tfType, tfOptions));
       let ct = jo.getTransform('codify');
       pipes.push(ct);
@@ -65,7 +65,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> transfer pipeline");
     let pipes = [];
     pipes.push(jo.getReadStream());
-    for (let [tfType,tfOptions] of Object.entries(transforms))
+    for (let [tfType, tfOptions] of Object.entries(transforms))
       pipes.push(jo.getTransform(tfType, tfOptions));
     pipes.push(jt.getWriteStream());
 

@@ -30,6 +30,22 @@ async function tests() {
     }
   });
 
+  logger.verbose('=== timeseries.csv > csv_timeseries.json');
+  await transfer({
+    origin: {
+      smt: "csv|./test/data/|timeseries.csv|*",
+      encoding: {
+        "time": "date",
+        "temp": "number"
+      }
+    },
+    terminal: {
+      smt: "json|./test/output/|csv_timeseries.json|*"
+    }
+  });
+
 }
 
-tests();
+(async () => {
+  await tests();
+})();
