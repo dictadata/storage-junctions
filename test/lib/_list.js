@@ -5,7 +5,7 @@
 
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
-const fs = require('fs');
+const fs = require('fs/promises');
 
 module.exports = exports = async function (tract) {
 

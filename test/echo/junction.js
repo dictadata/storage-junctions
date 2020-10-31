@@ -7,9 +7,7 @@ const storage = require("../../lib/index");
 const EchoJunction = require("../../lib/echo");
 const logger = require('../../lib/logger');
 const stream = require('stream');
-const util = require('util');
 
-const pipeline = util.promisify(stream.pipeline);
 
 logger.info("=== Tests: EchoJunction");
 
@@ -36,7 +34,7 @@ async function testStream() {
     var writer = jo.getWriteStream();
 
     logger.info(">>> start pipe");
-    await pipeline(reader, writer);
+    await stream.pipeline(reader, writer);
 
     if (jo) await jo.relax();
     logger.info(">>> completed");

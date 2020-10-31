@@ -6,11 +6,8 @@
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 
-const fs = require('fs');
+const fs = require('fs/promises');
 const stream = require('stream');
-const util = require('util');
-const pipeline = util.promisify(stream.pipeline);
-const finished = util.promisify(stream.finished);
 
 /**
  * tee fucntion
@@ -38,7 +35,7 @@ module.exports = exports = async function (tract) {
 
     logger.info(">>> create origin pipeline");
     reader = jo.getReadStream();
-    for (let [tfType,tfOptions] of Object.entries(origin_transforms))
+    for (let [tfType, tfOptions] of Object.entries(origin_transforms))
       reader = reader.pipe(jo.getTransform(tfType, tfOptions));
 
     logger.info(">>> create terminal pipeline(s)");
@@ -62,7 +59,7 @@ module.exports = exports = async function (tract) {
       logger.info(">>> create terminal tee");
       let writer = null;
       // add transforms
-      for (let [tfType,tfOptions] of Object.entries(transforms)) {
+      for (let [tfType, tfOptions] of Object.entries(transforms)) {
         let t = jt.getTransform(tfType, tfOptions);
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
@@ -74,9 +71,9 @@ module.exports = exports = async function (tract) {
     }
 
     logger.info(">>> wait on pipes");
-    await finished(reader);
+    await stream.finished(reader);
     for (let writer of writers)
-      await finished(writer);
+      await stream.finished(writer);
 
     logger.info(">>> completed");
   }

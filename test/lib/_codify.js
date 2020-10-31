@@ -7,10 +7,8 @@ const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 
 const stream = require('stream');
-const util = require('util');
-const fs = require('fs');
+const fs = require('fs/promises');
 
-const pipeline = util.promisify(stream.pipeline);
 
 module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
@@ -41,7 +39,7 @@ module.exports = exports = async function (tract) {
 
     // run the pipeline and get the resulting encoding
     logger.info(">>> start pipeline");
-    await pipeline(pipes);
+    await stream.pipeline(pipes);
 
     // save the codify results
     let encoding2 = await codify.getEncoding();
