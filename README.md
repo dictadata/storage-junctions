@@ -8,20 +8,20 @@ A storage junction provides a normalized, plug-in interface to a specific data s
 
 ## Supported Storage Sources
 
-| model         | encoding | store | recall | retrieve | dull | streamable | key-value | documents | tables |
-| ------------- | :------: | :---: | :----: | :------: | :--: | :--------: | :-------: | :-------: | :----: |
-| csv           |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    no     |  yes   |
-| json          |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
-| parquet       |   yes    |  no   |   no   |    -     |  no  |    yes     |    no     |    yes    |  yes   |
-| xlsx (Excel)  |   yes    |   -   |   -    |    -     |  -   |    yes     |    no     |    no     |  yes   |
-| rest          |   yes    |   -   |   -    |   yes    |  -   |    yes     |     -     |     -     |  yes   |
-| elasticsearch |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    yes    |    yes    |  yes   |
-| mysql         |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
-| redshift      |   yes    |  yes  |  yes   |   yes    | yes  |    yes     |    no     |     -     |  yes   |
-| \*mssql       |          |       |        |          |      |            |    no     |     -     |  yes   |
-| \*postgresql  |          |       |        |          |      |            |    no     |     -     |  yes   |
-| \*mongodb     |          |       |        |          |      |            |    yes    |    yes    |  yes   |
-| -memcache     |          |       |        |          |      |            |    yes    |    no     |   no   |
+| model         | encoding | store | recall | retrieve | dull  | streamable | key-value | documents | tables |
+| ------------- | :------: | :---: | :----: | :------: | :---: | :--------: | :-------: | :-------: | :----: |
+| csv           |   yes    |  no   |   no   |    -     |  no   |    yes     |    no     |    no     |  yes   |
+| json          |   yes    |  no   |   no   |    -     |  no   |    yes     |    no     |    yes    |  yes   |
+| parquet       |   yes    |  no   |   no   |    -     |  no   |    yes     |    no     |    yes    |  yes   |
+| xlsx (Excel)  |   yes    |   -   |   -    |    -     |   -   |    yes     |    no     |    no     |  yes   |
+| rest          |   yes    |   -   |   -    |   yes    |   -   |    yes     |     -     |     -     |  yes   |
+| elasticsearch |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    yes    |    yes    |  yes   |
+| mysql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
+| redshift      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
+| \*mssql       |          |       |        |          |       |            |    no     |     -     |  yes   |
+| \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
+| \*mongodb     |          |       |        |          |       |            |    yes    |    yes    |  yes   |
+| -memcache     |          |       |        |          |       |            |    yes    |    no     |   no   |
 
 \* In the plans for future development.
 &dash; Not planned, but will be developed as needed.
@@ -31,13 +31,13 @@ A storage junction provides a normalized, plug-in interface to a specific data s
 File Storage systems provide read and write streams to objects (files) on local and cloud storage systems.
 GZip compression is handled seemlessly based on filename extension .gz.
 
-| model         |  list | read  | write | scan  |
-| ------------- | :---: | :---: | :---: | :---: |
-| local         |  yes  |  yes  |  yes  |  yes  |
-| FTP           |  yes  |  yes  |  yes  |  yes  |
-| AWS S3        |  yes  |  yes  |  yes  |  yes  |
-| \*Azure ADLS  |   -   |   -   |   -   |   -   |
-| \*Google CS   |   -   |   -   |   -   |   -   |
+| model        | list  | read  | write | scan  |
+| ------------ | :---: | :---: | :---: | :---: |
+| local        |  yes  |  yes  |  yes  |  yes  |
+| FTP          |  yes  |  yes  |  yes  |  yes  |
+| AWS S3       |  yes  |  yes  |  yes  |  yes  |
+| \*Azure ADLS |   -   |   -   |   -   |   -   |
+| \*Google CS  |   -   |   -   |   -   |   -   |
 
 \* Not currently in plans for development.
 &dash; Not planned, but will be developed as needed.
@@ -267,11 +267,11 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 
 ### retrieve(pattern)
 
-### getReadStream(options)
+### createReadStream(options)
 
-### getWriteStream(options)
+### createWriteStream(options)
 
-### getTransform(tfType, options)
+### createTrensform(tfType, options)
 
 ### getFileSystem()
 
