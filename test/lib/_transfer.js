@@ -43,10 +43,10 @@ module.exports = exports = async function (tract) {
       // run some objects through any transforms to get terminal encoding
       logger.verbose("build codify pipeline");
       let pipes = [];
-      pipes.push(jo.getReadStream({ max_read: 100 }));
+      pipes.push(jo.createReadStream({ max_read: 100 }));
       for (let [tfType, tfOptions] of Object.entries(transforms))
-        pipes.push(jo.getTransform(tfType, tfOptions));
-      let ct = jo.getTransform('codify');
+        pipes.push(jo.createTrensform(tfType, tfOptions));
+      let ct = jo.createTrensform('codify');
       pipes.push(ct);
       await stream.pipeline(pipes);
       encoding = await ct.getEncoding();
@@ -62,10 +62,10 @@ module.exports = exports = async function (tract) {
     // transfer the data
     logger.info(">>> transfer pipeline");
     let pipes = [];
-    pipes.push(jo.getReadStream());
+    pipes.push(jo.createReadStream());
     for (let [tfType, tfOptions] of Object.entries(transforms))
-      pipes.push(jo.getTransform(tfType, tfOptions));
-    pipes.push(jt.getWriteStream());
+      pipes.push(jo.createTrensform(tfType, tfOptions));
+    pipes.push(jt.createWriteStream());
 
     await stream.pipeline(pipes);
 

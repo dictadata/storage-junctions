@@ -34,9 +34,9 @@ module.exports = exports = async function (tract) {
       encoding = await jo.getEncoding();
 
     logger.info(">>> create origin pipeline");
-    reader = jo.getReadStream();
+    reader = jo.createReadStream();
     for (let [tfType, tfOptions] of Object.entries(origin_transforms))
-      reader = reader.pipe(jo.getTransform(tfType, tfOptions));
+      reader = reader.pipe(jo.createTrensform(tfType, tfOptions));
 
     logger.info(">>> create terminal pipeline(s)");
     if (!Array.isArray(tract.terminal))
@@ -60,11 +60,11 @@ module.exports = exports = async function (tract) {
       let writer = null;
       // add transforms
       for (let [tfType, tfOptions] of Object.entries(transforms)) {
-        let t = jt.getTransform(tfType, tfOptions);
+        let t = jt.createTrensform(tfType, tfOptions);
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
       // add terminal
-      let w = jt.getWriteStream();
+      let w = jt.createWriteStream();
       writer = (writer) ? writer.pipe(w) : reader.pipe(w);
 
       writers.push(writer);

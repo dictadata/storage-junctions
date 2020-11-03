@@ -31,10 +31,10 @@ module.exports = exports = async function (tract) {
     // *** use CodifyTransform to determine encoding including optional transforms
     logger.info(">>> build pipeline");
     let pipes = [];
-    pipes.push(jo.getReadStream({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
+    pipes.push(jo.createReadStream({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
     for (let [tfType, tfOptions] of Object.entries(tract.transforms))
-      pipes.push(jo.getTransform(tfType, tfOptions));
-    let codify = jo.getTransform('codify', tract.origin);
+      pipes.push(jo.createTrensform(tfType, tfOptions));
+    let codify = jo.createTrensform('codify', tract.origin);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding
