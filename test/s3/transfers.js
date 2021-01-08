@@ -30,7 +30,10 @@ async function s3Destination() {
   logger.verbose('=== S3: csv_output.csv.gz');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     terminal: {
       smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*",
@@ -97,6 +100,7 @@ async function s3Source() {
     origin: {
       smt: "csv|S3:dictadata.org/test/data/|foofile.csv|*",
       options: {
+        hasHeader: true,
         "s3": {
           "aws_profile": ""
         }

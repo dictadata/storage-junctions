@@ -4,9 +4,9 @@
 "use strict";
 
 const storage = require("../../lib/index");
-const EchoJunction = require("../../lib/echo");
+const EchoJunction = require("../../lib/echo-junction");
 const logger = require('../../lib/logger');
-const fs = require('fs/promises');
+const fs = require('fs');
 
 logger.info("=== Tests: echo encodings");
 
@@ -23,7 +23,8 @@ async function tests() {
     encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding.json", "utf8"));
     await jo.putEncoding(encoding);
     encoding = await jo.getEncoding();
-    logger.verbose(JSON.stringify(encoding, null, 2));
+    logger.verbose(">> foo_encoding_full.json")
+    logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./test/output/foo_encoding_full.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read foo_encoding short');
@@ -31,7 +32,8 @@ async function tests() {
     encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding_short.json", "utf8"));
     await jo.putEncoding(encoding);
     encoding = await jo.getEncoding();
-    logger.verbose(JSON.stringify(encoding, null, 2));
+    logger.verbose(">> foo_encoding_short.json");
+    logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./test/output/foo_encoding_short.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read foo_encoding typesonly');
@@ -39,7 +41,8 @@ async function tests() {
     encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding_typesonly.json", "utf8"));
     await jo.putEncoding(encoding);
     encoding = await jo.getEncoding();
-    logger.verbose(JSON.stringify(encoding, null, 2));
+    logger.verbose(">> foo_encoding_typesonly.json");
+    logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./test/output/foo_encoding_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
   }
   catch (err) {

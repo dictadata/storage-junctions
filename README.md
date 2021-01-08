@@ -271,7 +271,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
 
 ### createWriteStream(options)
 
-### createTrensform(tfType, options)
+### createTransform(tfType, options)
 
 ### getFileSystem()
 

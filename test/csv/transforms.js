@@ -15,6 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
+        hasHeader: true,
         match: {
           "Bar": "row",
           "Baz": { "lte": 500 }
@@ -30,7 +31,10 @@ async function tests() {
   logger.verbose('=== csv > csv_transform_2.json');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     terminal: {
       smt: "json|./test/output/|csv_transform_2.json|*"
@@ -66,7 +70,10 @@ async function tests() {
   logger.verbose('=== csv > csv_transform_3.json');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     terminal: {
       smt: "json|./test/output/|csv_transform_3.json|*"

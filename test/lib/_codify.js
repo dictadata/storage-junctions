@@ -6,7 +6,7 @@
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 
-const fs = require('fs/promises');
+const fs = require('fs');
 const stream = require('stream/promises');
 
 
@@ -33,8 +33,8 @@ module.exports = exports = async function (tract) {
     let pipes = [];
     pipes.push(jo.createReadStream({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
     for (let [tfType, tfOptions] of Object.entries(tract.transforms))
-      pipes.push(jo.createTrensform(tfType, tfOptions));
-    let codify = jo.createTrensform('codify', tract.origin);
+      pipes.push(jo.createTransform(tfType, tfOptions));
+    let codify = jo.createTransform('codify', tract.origin);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding

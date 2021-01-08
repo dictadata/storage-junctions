@@ -13,7 +13,10 @@ async function tests() {
   logger.info("=== csv aggregate");
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     "transforms": {
       filter: {
@@ -36,6 +39,9 @@ async function tests() {
   await transfer({
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     "transforms": {
       filter: {
@@ -60,7 +66,10 @@ async function tests() {
   logger.info("=== csv aggregate w/ groupby");
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     transforms: {
       filter: {

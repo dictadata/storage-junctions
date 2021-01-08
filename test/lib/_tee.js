@@ -6,11 +6,11 @@
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 
-const fs = require('fs/promises');
+const fs = require('fs');
 const stream = require('stream/promises');
 
 /**
- * tee fucntion
+ * tee function
  */
 module.exports = exports = async function (tract) {
 
@@ -36,7 +36,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> create origin pipeline");
     reader = jo.createReadStream();
     for (let [tfType, tfOptions] of Object.entries(origin_transforms))
-      reader = reader.pipe(jo.createTrensform(tfType, tfOptions));
+      reader = reader.pipe(jo.createTransform(tfType, tfOptions));
 
     logger.info(">>> create terminal pipeline(s)");
     if (!Array.isArray(tract.terminal))
@@ -60,7 +60,7 @@ module.exports = exports = async function (tract) {
       let writer = null;
       // add transforms
       for (let [tfType, tfOptions] of Object.entries(transforms)) {
-        let t = jt.createTrensform(tfType, tfOptions);
+        let t = jt.createTransform(tfType, tfOptions);
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
       // add terminal

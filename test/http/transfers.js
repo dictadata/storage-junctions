@@ -29,6 +29,7 @@ async function test_01() {
     origin: {
       smt: "csv|http://localhost/test/data/|foofile.csv|*",
       options: {
+        hasHeader: true
       }
     },
     terminal: {

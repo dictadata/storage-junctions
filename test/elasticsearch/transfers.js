@@ -20,7 +20,10 @@ async function tests() {
   logger.info("=== csv => elasticsearch");
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"

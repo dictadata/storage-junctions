@@ -26,7 +26,10 @@ async function test_01() {
   logger.verbose('=== ftp: csv_output.csv.gz');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*"
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        hasHeader: true
+      }
     },
     terminal: {
       smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv.gz|*",

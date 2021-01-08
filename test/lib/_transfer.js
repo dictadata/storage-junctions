@@ -6,11 +6,11 @@
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 
-const fs = require('fs/promises');
+const fs = require('fs');
 const stream = require('stream/promises');
 
 /**
- * transfer fucntion
+ * transfer function
  */
 module.exports = exports = async function (tract) {
 
@@ -45,8 +45,8 @@ module.exports = exports = async function (tract) {
       let pipes = [];
       pipes.push(jo.createReadStream({ max_read: 100 }));
       for (let [tfType, tfOptions] of Object.entries(transforms))
-        pipes.push(jo.createTrensform(tfType, tfOptions));
-      let ct = jo.createTrensform('codify');
+        pipes.push(jo.createTransform(tfType, tfOptions));
+      let ct = jo.createTransform('codify');
       pipes.push(ct);
       await stream.pipeline(pipes);
       encoding = await ct.getEncoding();
@@ -64,7 +64,7 @@ module.exports = exports = async function (tract) {
     let pipes = [];
     pipes.push(jo.createReadStream());
     for (let [tfType, tfOptions] of Object.entries(transforms))
-      pipes.push(jo.createTrensform(tfType, tfOptions));
+      pipes.push(jo.createTransform(tfType, tfOptions));
     pipes.push(jt.createWriteStream());
 
     await stream.pipeline(pipes);

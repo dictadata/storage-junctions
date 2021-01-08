@@ -15,7 +15,9 @@ async function tests() {
   await transfer({
     origin: {
       smt: "csv|test/data/|foofile.csv|*",
-      options: {}
+      options: {
+        hasHeader: true
+      }
     },
     terminal: {
       smt: "xlsx|test/output/xlsx_foofile_csv.xlsx|foo|*",
