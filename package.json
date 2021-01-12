@@ -1,6 +1,6 @@
 {
   "name": "@dictadata/storage-junctions",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Node.js library for distributed data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "license": "MIT",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.10.0",
-    "aws-sdk": "^2.822.0",
+    "aws-sdk": "^2.825.0",
     "axios": "^0.21.1",
     "axios-oauth-client": "^1.4.0",
     "dot-object": "^2.1.4",
@@ -24,7 +24,7 @@
     "ftp": "^0.3.10",
     "merge-descriptors": "^1.0.1",
     "mysql": "^2.18.1",
-    "node-html-parser": "^2.0.1",
+    "node-html-parser": "^2.0.2",
     "pg": "^8.5.1",
     "sqlstring": "^2.3.2",
     "stream-chain": "^2.2.4",

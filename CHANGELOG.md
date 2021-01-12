@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.2.2
+  - node 15.0.1 promises
+  - updates for CsvParser encoder
 - version 1.2.1
   - FileSystem class interface
     - add upload() and download() methods
