@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.2.4
+  - fix bug with validating file schema extension names
 - version 1.2.3
   - republish as 1.2.3
 - version 1.2.2
