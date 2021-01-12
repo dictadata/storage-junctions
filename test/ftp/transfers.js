@@ -15,11 +15,16 @@ async function test_01() {
   logger.verbose('=== ftp: csv_output.csv');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv.gz|*"
+      smt: "csv|./test/data/|foofile.csv.gz|*",
+      options: {
+        csvHeader: true
+      }
     },
     terminal: {
       smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv|*",
-      options: {}
+      options: {
+        csvHeader: true
+      }
     }
   });
 
@@ -28,12 +33,14 @@ async function test_01() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
       smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv.gz|*",
-      options: {}
+      options: {
+        csvHeader: true
+      }
     }
   });
 
@@ -68,10 +75,15 @@ async function test_02() {
   await transfer({
     origin: {
       smt: "csv|ftp://dicta:data@localhost/test/data/|foofile.csv.gz|*",
-      options: {}
+      options: {
+        csvHeader: true
+      }
     },
     terminal: {
-      smt: "csv|./test/output/|ftp_output.csv|*"
+      smt: "csv|./test/output/|ftp_output.csv|*",
+      options: {
+        csvHeader: true
+      }
     }
   });
 
@@ -82,7 +94,10 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "csv|./test/output/|ftp_output.csv.gz|*"
+      smt: "csv|./test/output/|ftp_output.csv.gz|*",
+      options: {
+        csvHeader: true
+      }
     }
   });
 

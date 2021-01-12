@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     "transforms": {
@@ -31,7 +31,10 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./test/output/|csv_aggregate_1.csv|*'
+      "smt": 'csv|./test/output/|csv_aggregate_1.csv|*',
+      options: {
+        csvHeader: true
+      }
     }
   });
 
@@ -40,7 +43,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     "transforms": {
@@ -59,7 +62,10 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./test/output/|csv_aggregate_2.csv|*'
+      "smt": 'csv|./test/output/|csv_aggregate_2.csv|*',
+      options: {
+        csvHeader: true
+      }
     }
   });
 
@@ -68,7 +74,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     transforms: {
@@ -85,7 +91,10 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./test/output/|csv_aggregate_3.csv|*'
+      "smt": 'csv|./test/output/|csv_aggregate_3.csv|*',
+      options: {
+        csvHeader: true
+      }
     }
   });
 

@@ -26,7 +26,10 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "csv|./test/output/|json_output.csv|*"
+      smt: "csv|./test/output/|json_output.csv|*",
+      options: {
+        csvHeader: true
+      }
     }
   });
 

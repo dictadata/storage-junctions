@@ -15,21 +15,30 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
-      smt: "csv|./test/output/|fs_gzip_output.csv.gz|*"
+      smt: "csv|./test/output/|fs_gzip_output.csv.gz|*",
+      options: {
+        csvHeader: true
+      }
     }
   });
 
   logger.verbose('=== csv.gz => fs_gzip_output.csv');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv.gz|*"
+      smt: "csv|./test/data/|foofile.csv.gz|*",
+      options: {
+        csvHeader: true
+      }
     },
     terminal: {
-      smt: "csv|./test/output/|fs_gzip_output.csv|*"
+      smt: "csv|./test/output/|fs_gzip_output.csv|*",
+      options: {
+        csvHeader: true
+      }
     }
   });
 

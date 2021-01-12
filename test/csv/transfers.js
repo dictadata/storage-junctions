@@ -15,11 +15,27 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
-      smt: "csv|./test/output/|csv_output.csv|*"
+      smt: "csv|./test/output/|csv_output.csv|*",
+      options: {
+        csvHeader: true
+      }
+    }
+  });
+
+  logger.verbose('=== csv > csv_output_noheader.csv');
+  await transfer({
+    origin: {
+      smt: "csv|./test/data/|foofile.csv|*",
+      options: {
+        csvHeader: true
+      }
+    },
+    terminal: {
+      smt: "csv|./test/output/|csv_output_noheader.csv|*"
     }
   });
 
@@ -28,7 +44,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
@@ -40,6 +56,9 @@ async function tests() {
   await transfer({
     origin: {
       smt: "csv|./test/data/|timeseries.csv|*",
+      options: {
+        csvHeader: false
+      },
       encoding: {
         "time": "date",
         "temp": "number"

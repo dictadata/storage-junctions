@@ -22,7 +22,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
@@ -58,6 +58,7 @@ async function tests() {
     terminal: {
       smt: "csv|./test/output/|elastic_output.csv|*",
       options: {
+        csvHeader: true,
         append: false
       }
     }

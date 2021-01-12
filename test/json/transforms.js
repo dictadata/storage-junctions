@@ -70,7 +70,10 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "csv|./test/output/|json_transform_3.csv|*"
+      smt: "csv|./test/output/|json_transform_3.csv|*",
+      options: {
+        csvHeader: true
+      }
     },
     transforms: {
       filter: {

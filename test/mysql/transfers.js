@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
@@ -39,7 +39,10 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./test/output/|mysql_transfer.csv|*"
+      smt: "csv|./test/output/|mysql_transfer.csv|*",
+      options: {
+        csvHeader: true
+      }
     }
   });
 }

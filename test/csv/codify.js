@@ -14,17 +14,20 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     outputFile1: './test/output/csv_encoding_1.json',
     outputFile2: './test/output/csv_encoding_2.json'
   });
 
-  logger.verbose("=== csv.gz > csv_encoding_gx")
+  logger.verbose("=== csv.gz > csv_encoding_gz")
   await codify({
     origin: {
-      smt: "csv|./test/data/|foofile.csv.gz|*"
+      smt: "csv|./test/data/|foofile.csv.gz|*",
+      options: {
+        csvHeader: true
+      }
     },
     outputFile1: './test/output/csv_encoding_g1.json',
     outputFile2: './test/output/csv_encoding_g2.json'

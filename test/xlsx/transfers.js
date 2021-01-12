@@ -16,7 +16,7 @@ async function tests() {
     origin: {
       smt: "csv|test/data/|foofile.csv|*",
       options: {
-        hasHeader: true
+        csvHeader: true
       }
     },
     terminal: {
@@ -33,7 +33,9 @@ async function tests() {
     },
     terminal: {
       smt: "csv|test/output/|xlsx_foofile.csv|*",
-      options: {}
+      options: {
+        csvHeader: true
+      }
     }
   });
 
