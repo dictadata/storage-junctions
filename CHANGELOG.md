@@ -1,5 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.2.5
+  - Breaking Changes:
+    - default for csv files is now no header. Add options.csvHeader to read/write first line with header.
+  - implement options.csvHeader for csv files
 - version 1.2.4
   - fix bug with validating file schema extension names
 - version 1.2.3
