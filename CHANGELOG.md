@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.2.6
+  - StorageWriter classes will not write empty constructs to destination storage.
 - version 1.2.5
   - Breaking Changes:
     - default for csv files is now no header. Add options.csvHeader to read/write first line with header.
