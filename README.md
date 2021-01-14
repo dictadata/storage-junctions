@@ -16,9 +16,9 @@ A storage junction provides a normalized, plug-in interface to a specific data s
 | xlsx (Excel)  |   yes    |   -   |   -    |    -     |   -   |    yes     |    no     |    no     |  yes   |
 | rest          |   yes    |   -   |   -    |   yes    |   -   |    yes     |     -     |     -     |  yes   |
 | elasticsearch |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    yes    |    yes    |  yes   |
+| mssql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | mysql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | redshift      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
-| \*mssql       |          |       |        |          |       |            |    no     |     -     |  yes   |
 | \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
 | \*mongodb     |          |       |        |          |       |            |    yes    |    yes    |  yes   |
 | -memcache     |          |       |        |          |       |            |    yes    |    no     |   no   |
