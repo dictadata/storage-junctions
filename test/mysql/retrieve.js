@@ -16,9 +16,12 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
         match: {
-          "Foo": 'twenty'
+          "Bar": { 'wc': 'row*' }
         }
       }
+    },
+    terminal: {
+      output: "./test/output/mysql_retrieve.json"
     }
   });
 

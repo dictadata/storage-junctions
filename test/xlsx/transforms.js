@@ -16,10 +16,9 @@ async function tests() {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*",
       options: {
         match: {
-          "Bar": "row",
-          "Baz": { "lte": 500 }
+          "Bar": { "wc": "row*" }
         },
-        fields: ["Dt Test", "Foo", "Bar", "Baz"]
+        fields: ["Foo", "Bar", "Baz", "Dt Test"]
       }
     },
     terminal: {

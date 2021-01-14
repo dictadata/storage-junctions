@@ -16,10 +16,9 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*",
       options: {
         match: {
-          "Bar": "row",
-          "Baz": { "lte": 500 }
+          "Bar": { "wc": "row*" }
         },
-        fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
+        fields: ["Foo", "Bar", "Baz", "Dt Test","subObj1"]
       }
     },
     terminal: {

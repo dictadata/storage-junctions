@@ -16,9 +16,12 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
-          "Foo": 'twenty'
+          "Bar": { 'wc': 'row*' }
         }
       }
+    },
+    terminal: {
+      output: "./test/output/elastic_retrieve.json"
     }
   });
 
