@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.2.7
+  - implement MSSQLJunction for Microsoft SQL Server
+  - implement "wc" wildcard filter expression
 - version 1.2.6
   - StorageWriter classes will not write empty constructs to destination storage.
 - version 1.2.5
