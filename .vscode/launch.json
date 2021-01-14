@@ -111,8 +111,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch encoding",
-      "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
+      "name": "elasticsearch list",
+      "program": "${workspaceFolder}/test/elasticsearch/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -122,8 +122,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch list",
-      "program": "${workspaceFolder}/test/elasticsearch/list.js",
+      "name": "elasticsearch encoding",
+      "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -146,6 +146,28 @@
       "request": "launch",
       "name": "elasticsearch store",
       "program": "${workspaceFolder}/test/elasticsearch/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch transfers",
+      "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch transforms",
+      "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -199,8 +221,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch transfers",
-      "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
+      "name": "mssql list",
+      "program": "${workspaceFolder}/test/mssql/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -210,8 +232,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch transforms",
-      "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
+      "name": "mssql encoding",
+      "program": "${workspaceFolder}/test/mssql/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -221,8 +243,74 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql encoding",
-      "program": "${workspaceFolder}/test/mysql/encoding.js",
+      "name": "mssql store",
+      "program": "${workspaceFolder}/test/mssql/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql transfers",
+      "program": "${workspaceFolder}/test/mssql/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql transforms",
+      "program": "${workspaceFolder}/test/mssql/transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql recall",
+      "program": "${workspaceFolder}/test/mssql/recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql retrieve",
+      "program": "${workspaceFolder}/test/mssql/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql aggregate",
+      "program": "${workspaceFolder}/test/mssql/aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql dull",
+      "program": "${workspaceFolder}/test/mssql/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -243,8 +331,41 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "mysql encoding",
+      "program": "${workspaceFolder}/test/mysql/encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "mysql store",
       "program": "${workspaceFolder}/test/mysql/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql transfers",
+      "program": "${workspaceFolder}/test/mysql/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql transforms",
+      "program": "${workspaceFolder}/test/mysql/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -289,28 +410,6 @@
       "request": "launch",
       "name": "mysql dull",
       "program": "${workspaceFolder}/test/mysql/dull.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mysql transfers",
-      "program": "${workspaceFolder}/test/mysql/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mysql transforms",
-      "program": "${workspaceFolder}/test/mysql/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
