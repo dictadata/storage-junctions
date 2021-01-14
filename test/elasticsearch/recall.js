@@ -17,6 +17,9 @@ async function tests() {
       pattern: {
         key: 'twenty'
       }
+    },
+    terminal: {
+      output: "./test/output/elastic_recall.json"
     }
   });
 

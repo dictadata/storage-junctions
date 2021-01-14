@@ -19,6 +19,9 @@ async function tests() {
           Foo: 'twenty'
         }
       }
+    },
+    terminal: {
+      output: "./test/output/mysql_recall.json"
     }
   });
 

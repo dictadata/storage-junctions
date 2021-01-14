@@ -21,7 +21,7 @@ module.exports = exports = async function (tract) {
     let list = await jo.list();
 
     logger.debug("list: " + JSON.stringify(list, null, "  "));
-    if (tract.terminal.output) {
+    if (tract.terminal && tract.terminal.output) {
       logger.info(">>> save encoding to " + tract.terminal.output);
       fs.writeFileSync(tract.terminal.output, JSON.stringify(list, null, 2), "utf8");
     }

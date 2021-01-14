@@ -23,7 +23,7 @@ module.exports = exports = async function (tract) {
 
     logger.verbose("result: " + results.result + " count: " + (results.data ? results.data.length : 0));
     logger.verbose(JSON.stringify(results));
-    if (tract.terminal.output) {
+    if (tract.terminal && tract.terminal.output) {
       logger.info(">>> save results to " + tract.terminal.output);
       fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
     }

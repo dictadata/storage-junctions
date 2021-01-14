@@ -5,6 +5,7 @@
 
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
+const fs = require('fs');
 
 module.exports = exports = async function (tract) {
 
@@ -19,6 +20,10 @@ module.exports = exports = async function (tract) {
 
     let results = await jo.recall(tract.origin.pattern);
     logger.verbose(JSON.stringify(results));
+    if (tract.terminal && tract.terminal.output) {
+      logger.info(">>> save results to " + tract.terminal.output);
+      fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
+    }
 
     logger.info(">>> completed");
   }

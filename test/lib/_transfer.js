@@ -41,7 +41,7 @@ module.exports = exports = async function (tract) {
     }
     else {
       // run some objects through any transforms to get terminal encoding
-      logger.verbose("build codify pipeline");
+      logger.verbose(">>> codify pipeline");
       let pipes = [];
       pipes.push(jo.createReadStream({ max_read: 100 }));
       for (let [tfType, tfOptions] of Object.entries(transforms))
