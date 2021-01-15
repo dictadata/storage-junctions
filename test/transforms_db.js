@@ -9,9 +9,9 @@ const logger = require('../lib/logger');
 
 logger.info("=== Test: transform");
 
-async function testDBTransform1() {
-  logger.info("=== elasticsearch > mysql");
-  logger.verbose('>>> mysql foo_dbtransform');
+async function testDBTransform1(tract) {
+  logger.info("=== elasticsearch > sql");
+  logger.verbose('>>> sql foo_dbtransform');
 
   await transfer({
     "origin": {
@@ -19,7 +19,7 @@ async function testDBTransform1() {
       "options": {}
     },
     "terminal": {
-      "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_dbtransform|=Foo",
+      "smt": tract.terminal.smt,
       "options": {}
     },
     "transforms": {
@@ -127,8 +127,10 @@ async function forecastTransform(tract) {
 }
 
 (async () => {
-  await testDBTransform1();
+  await testDBTransform1({ terminal: { smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_dbtransform|=foo" }});
+  await testDBTransform1({ terminal: { smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_dbtransform|=foo" }});
   await testDBTransform2();
   await forecastTransform({ terminal: { smt: "elasticsearch|http://localhost:9200|weather_forecast|=Foo" } });
+  await forecastTransform({ terminal: { smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|weather_forecast|*" } });
   await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|weather_forecast|*" } });
 })();
