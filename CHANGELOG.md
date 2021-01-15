@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.2.8
+  - use smt.key value(s) to set field.isKey encoding
+  - fix WHERE clause in mssql UPDATE statements
 - version 1.2.7
   - implement MSSQLJunction for Microsoft SQL Server
   - implement "wc" wildcard filter expression
