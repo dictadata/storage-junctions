@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.3.0
+  - support for Microsoft SQL Server (mssql)
 - version 1.2.8
   - use smt.key value(s) to set field.isKey encoding
   - fix WHERE clause in mssql UPDATE statements
