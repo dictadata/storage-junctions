@@ -17,8 +17,9 @@ module.exports = exports = async function (tract) {
   var jo;
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    let pattern = tract.origin.pattern;
 
-    let results = await jo.recall(tract.origin.pattern);
+    let results = await jo.recall(pattern);
     logger.verbose(JSON.stringify(results));
     if (tract.terminal && tract.terminal.output) {
       logger.info(">>> save results to " + tract.terminal.output);

@@ -19,6 +19,15 @@ async function tests() {
     outputFile2: './test/output/json_encoding_2.json'
   });
 
+  logger.info("=== codify foofile_long.json");
+  await codify({
+    origin: {
+      smt: "json|./test/data/|foofile_long.json|*"
+    },
+    outputFile1: './test/output/json_encoding_long_1.json',
+    outputFile2: './test/output/json_encoding_long_2.json'
+  });
+
   logger.info("=== codify foofile.json.gz");
   await codify({
     origin: {
