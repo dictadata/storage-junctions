@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.3.1
+  - bug fixes for SQL create table statements
 - version 1.3.0
   - support for Microsoft SQL Server (mssql)
 - version 1.2.8
