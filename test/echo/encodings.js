@@ -18,32 +18,32 @@ async function tests() {
     logger.info(">>> adding EchoJunction to storage cortex");
     storage.use("echo", EchoJunction);
 
-    logger.verbose('=== read foo_encoding full');
+    logger.verbose('=== read encoding_foo.json');
     jo = await storage.activate("echo|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo.json", "utf8"));
     await jo.putEncoding(encoding);
     encoding = await jo.getEncoding();
-    logger.verbose(">> foo_encoding_full.json")
+    logger.verbose(">> encoding_foo_full.json")
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/output/foo_encoding_full.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./test/output/encoding_foo_full.json", JSON.stringify(encoding, null, 2), "utf8");
 
-    logger.verbose('=== read foo_encoding short');
+    logger.verbose('=== read encoding_foo_short.json');
     jo = await storage.activate("echo|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding_short.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_short.json", "utf8"));
     await jo.putEncoding(encoding);
     encoding = await jo.getEncoding();
-    logger.verbose(">> foo_encoding_short.json");
+    logger.verbose(">> encoding_foo_short.json");
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/output/foo_encoding_short.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./test/output/encoding_foo_short.json", JSON.stringify(encoding, null, 2), "utf8");
 
-    logger.verbose('=== read foo_encoding typesonly');
+    logger.verbose('=== read encoding_foo_typesonly');
     jo = await storage.activate("echo|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./test/data/foo_encoding_typesonly.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_typesonly.json", "utf8"));
     await jo.putEncoding(encoding);
     encoding = await jo.getEncoding();
-    logger.verbose(">> foo_encoding_typesonly.json");
+    logger.verbose(">> encoding_foo_typesonly.json");
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/output/foo_encoding_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./test/output/encoding_foo_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
   }
   catch (err) {
     logger.error(err);

@@ -15,7 +15,7 @@ async function tests() {
   await putEncoding({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
-      encoding: "./test/data/foo_encoding.json"
+      encoding: "./test/data/encoding_foo.json"
     }
   });
 
@@ -25,7 +25,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     terminal: {
-      output: './test/output/elasticsearch_foo_encoding.json'
+      output: './test/output/elasticsearch_encoding_foo.json'
     }
   });
 
@@ -44,7 +44,7 @@ async function tests() {
         smt: "elasticsearch|http://localhost:9200|foo_schema_doc|*"
       },
       terminal: {
-        output: './test/output/elasticsearch_foo_encoding_doc.json'
+        output: './test/output/elasticsearch_encoding_foo_doc.json'
       }
     });
   */

@@ -15,7 +15,7 @@ async function tests() {
   await putEncoding({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
-      encoding: "./test/data/foo_encoding.json"
+      encoding: "./test/data/encoding_foo.json"
     }
   });
 
@@ -25,7 +25,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*"
     },
     terminal: {
-      output: './test/output/mysql_foo_encoding.json'
+      output: './test/output/mysql_encoding_foo.json'
     }
   });
 

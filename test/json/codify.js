@@ -19,15 +19,6 @@ async function tests() {
     outputFile2: './test/output/json_encoding_2.json'
   });
 
-  logger.info("=== codify foofile_long.json");
-  await codify({
-    origin: {
-      smt: "json|./test/data/|foofile_long.json|*"
-    },
-    outputFile1: './test/output/json_encoding_long_1.json',
-    outputFile2: './test/output/json_encoding_long_2.json'
-  });
-
   logger.info("=== codify foofile.json.gz");
   await codify({
     origin: {
@@ -37,6 +28,23 @@ async function tests() {
     outputFile2: './test/output/json_encoding_g2.json'
   });
 
+  logger.info("=== codify foofile__01.json");
+  await codify({
+    origin: {
+      smt: "json|./test/data/|foofile_01.json|*"
+    },
+    outputFile1: './test/output/json_encoding_m1.json',
+    outputFile2: './test/output/json_encoding_m2.json'
+  });
+
+  logger.info("=== codify foofile__01.json");
+  await codify({
+    origin: {
+      smt: "json|./test/data/|foofile_02.json|*"
+    },
+    outputFile1: './test/output/json_encoding_l1.json',
+    outputFile2: './test/output/json_encoding_l2.json'
+  });
 }
 
 tests();
