@@ -119,6 +119,15 @@
           }
         }
       }
+    },
+    "tags": {
+      "name": "tags",
+      "type": "list",
+      "_item": {
+        "name": "_item",
+        "type": "keyword",
+        "size": 64
+      }
     }
   }
 }

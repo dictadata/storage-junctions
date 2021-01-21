@@ -6,14 +6,17 @@
     "Fobe": "1.0",
     "Dt Test": "2018-10-07",
     "enabled": "true",
-    "tags": ["fun","fast"],
-    "widgets": [{
-      "part": "core",
-      "count": 12
-    },{
-      "part": "screw",
-      "count": 9
-    }]
+    "tags": [ "fun", "fast" ],
+    "widgets": [
+      {
+        "part": "core",
+        "count": 12
+      },
+      {
+        "part": "screw",
+        "count": 9
+      }
+    ]
   },
   {
     "Foo": "second",
@@ -22,14 +25,17 @@
     "Fobe": "2.1",
     "Dt Test": "10/07/2018",
     "enabled": "false",
-    "tags": ["fun","fast"],
-    "widgets": [{
-      "part": "core",
-      "count": 12
-    },{
-      "part": "screw",
-      "count": 9
-    }]
+    "tags": [ "unfun", "slow" ],
+    "widgets": [
+      {
+        "part": "core",
+        "count": 12
+      },
+      {
+        "part": "screw",
+        "count": 9
+      }
+    ]
   },
   {
     "Foo": "third",
@@ -38,14 +44,17 @@
     "Fobe": "3",
     "Dt Test": "10-18-18",
     "enabled": "true",
-    "tags": ["fun","fast"],
-    "widgets": [{
-      "part": "core",
-      "count": 12
-    },{
-      "part": "screw",
-      "count": 9
-    }]
+    "tags": [ "row", "boat!" ],
+    "widgets": [
+      {
+        "part": "core",
+        "count": 12
+      },
+      {
+        "part": "screw",
+        "count": 9
+      }
+    ]
   },
   {
     "Foo": "fourth",
@@ -54,14 +63,17 @@
     "Fobe": "4.3",
     "Dt Test": "2018-10-10T14:13:30.500Z",
     "enabled": "false",
-    "tags": ["fun","fast"],
-    "widgets": [{
-      "part": "shaft",
-      "count": 12
-    },{
-      "part": "spring",
-      "count": 9
-    }]
+    "tags": [ "ancient", "guardian", "beast" ],
+    "widgets": [
+      {
+        "part": "shaft",
+        "count": 12
+      },
+      {
+        "part": "spring",
+        "count": 9
+      }
+    ]
   },
   {
     "Foo": "fifth",
@@ -70,14 +82,17 @@
     "Fobe": "+19",
     "Dt Test": "10/18/18",
     "enabled": "true",
-    "tags": ["fun","fast"],
-    "widgets": [{
-      "part": "core",
-      "count": 12
-    },{
-      "part": "screw",
-      "count": 9
-    }]
+     "tags": [ "wild", "side" ],
+     "widgets": [
+      {
+        "part": "core",
+        "count": 12
+      },
+      {
+        "part": "screw",
+        "count": 9
+      }
+    ]
   },
   {
     "Foo": "sixth",
@@ -94,12 +109,19 @@
     "Fobe": "4.3",
     "Dt Test": "2018-10-10T14:13:30.000-05:00",
     "enabled": "false",
-    "widgets": [{
-      "part": "gear",
-      "count": 12
-    },{
-      "part": "screw",
-      "count": 9
-    }]
+    "widgets": [
+      {
+        "part": "gear",
+        "count": 12
+      },
+      {
+        "part": "screw",
+        "count": 9
+      },
+      {
+        "part": "shaft",
+        "count": 9
+      }
+    ]
   }
 ]

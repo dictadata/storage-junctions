@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== json_transform_1.json');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*",
+      smt: "json|./test/data/|foofile_01.json|*",
       options: {
         match: {
           "Bar": { "wc": "row*" }
@@ -29,7 +29,7 @@ async function tests() {
   logger.verbose('=== json_transform_2.json');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/|foofile_01.json|*"
     },
     terminal: {
       smt: "json|./test/output/|json_transform_2.json|*"
@@ -66,7 +66,7 @@ async function tests() {
   logger.verbose('=== json > json_transform_3.csv');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/|foofile_02.json|*"
     },
     terminal: {
       smt: "csv|./test/output/|json_transform_3.csv|*",
