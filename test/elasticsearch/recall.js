@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/elastic_recall.json"
+      output: "./test/output/elasticsearch_recall_1.json"
     }
   });
 
@@ -29,9 +29,12 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
         match: {
-          Foo: 'twenty'
+          Foo: 'ten'
         }
       }
+    },
+    terminal: {
+      output: "./test/output/elasticsearch_recall_2.json"
     }
   });
 

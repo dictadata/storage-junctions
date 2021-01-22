@@ -21,25 +21,28 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/elastic_retrieve.json"
+      output: "./test/output/elasticsearch_retrieve_1.json"
     }
   });
 
   logger.info("=== elasticsearch retrieve w/ cues");
   await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema_01|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 100
       }
+    },
+    terminal: {
+      output: "./test/output/elasticsearch_retrieve_2.json"
     }
   });
 
   logger.info("=== elasticsearch retrieve w/ pattern");
   await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema_02|*",
       pattern: {
         match: {
           "Foo": "first",
@@ -47,8 +50,11 @@ async function tests() {
         },
         count: 3,
         order: { "Dt Test": "asc" },
-        fields: ["Foo", "Baz"]
+        fields: ["Foo", "Baz", "tags", "widgets"]
       }
+    },
+    terminal: {
+      output: "./test/output/elasticsearch_retrieve_3.json"
     }
   });
 

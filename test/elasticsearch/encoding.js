@@ -9,45 +9,29 @@ const logger = require('../../lib/logger');
 
 logger.info("===== elasticsearch encoding ");
 
-async function tests() {
+async function test(schema, encoding) {
 
-  logger.info("=== putEncoding foo_schema");
+  logger.info("=== putEncoding " + schema);
   await putEncoding({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
-      encoding: "./test/data/encoding_foo.json"
+      smt: "elasticsearch|http://localhost:9200|" + schema + "|!Foo",
+      encoding: "./test/data/" + encoding + ".json"
     }
   });
 
-  logger.info("=== getEncoding foo_schema");
+  logger.info("=== getEncoding " + schema);
   await getEncoding({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
+      smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
     },
     terminal: {
-      output: './test/output/elasticsearch_encoding_foo.json'
+      output: "./test/output/elasticsearch_" + encoding + ".json"
     }
   });
-
-  /*
-    logger.info("=== putEncoding foo_schema_doc");
-    await putEncoding({
-      origin: {
-        smt: "elasticsearch|http://localhost:9200|foo_schema_doc|!Foo",
-        encoding: 'foo2_encoding.json'
-      }
-    });
-  
-    logger.info("=== getEncoding foo_schema_doc");
-    await getEncoding({
-      origin: {
-        smt: "elasticsearch|http://localhost:9200|foo_schema_doc|*"
-      },
-      terminal: {
-        output: './test/output/elasticsearch_encoding_foo_doc.json'
-      }
-    });
-  */
 }
 
-tests();
+(async () => {
+  await test("foo_schema", "encoding_foo");
+  await test("foo_schema_01", "encoding_foo_01");
+  await test("foo_schema_02", "encoding_foo_02");
+})();

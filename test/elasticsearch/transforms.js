@@ -10,7 +10,7 @@ logger.info("=== Test: elasticsearch transforms");
 
 async function tests() {
 
-  logger.verbose('=== es_transform_1.json');
+  logger.verbose('=== elasticsearch_transform_1.json');
   await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
@@ -19,21 +19,21 @@ async function tests() {
           "Bar": "row",
           "Baz": { "lte": 500 }
         },
-        fields: ["Dt Test", "Foo", "Bar", "Baz","subObj1"]
+        fields: ["Dt Test", "Foo", "Bar", "Baz"]
       }
     },
     terminal: {
-      smt: "json|./test/output/|es_transform_1.json|*"
+      smt: "json|./test/output/|elasticsearch_transform_1.json|*"
     }
   });
 
-  logger.verbose('=== es_transform_2.json');
+  logger.verbose('=== elasticsearch_transform_2.json');
   await transfer({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
     },
     terminal: {
-      smt: "json|./test/output/|es_transform_2.json|*"
+      smt: "json|./test/output/|elasticsearch_transform_2.json|*"
     },
     transforms: {
       "filter": {
@@ -56,6 +56,7 @@ async function tests() {
           "Bar": "bar",
           "Baz": "baz",
           "Fobe": "fobe",
+          "tags": "tags",
           "subObj1.state": "sub.state",
           "subObj2.subsub.izze": "sub.izze"
         },
