@@ -24,7 +24,7 @@ module.exports = exports = async function (tract) {
 
     logger.debug(JSON.stringify(encoding1, null, "  "));
     if (tract.outputFile1) {
-      logger.info(">>> save encoding to " + tract.outputFile1);
+      logger.info("<<< save encoding to " + tract.outputFile1);
       fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1, null, 2), "utf8");
     }
 
@@ -46,7 +46,7 @@ module.exports = exports = async function (tract) {
 
     logger.debug(JSON.stringify(encoding2, null, "  "));
     if (tract.outputFile2) {
-      logger.info(">>> save encoding to " + tract.outputFile2);
+      logger.info("<<< save encoding to " + tract.outputFile2);
       fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2, null, "  "), "utf8");
     }
 

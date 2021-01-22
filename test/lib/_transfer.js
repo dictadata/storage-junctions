@@ -26,15 +26,17 @@ module.exports = exports = async function (tract) {
     if (typeof encoding === "string")
       encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
     if (typeof encoding === "object")
-      encoding = await jo.putEncoding(encoding);
+      encoding = await jo.putEncoding(encoding, true);
     else
       encoding = await jo.getEncoding();
 
     logger.debug("create the terminal");
     jt = await storage.activate(tract.terminal.smt, tract.terminal.options);
 
+    let force = false;
     if (tract.terminal.encoding) {
       // use configured encoding
+      force = true;
       encoding = tract.terminal.encoding;
       if (typeof encoding === "string")
         encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
@@ -55,7 +57,7 @@ module.exports = exports = async function (tract) {
     logger.debug(JSON.stringify(encoding.fields, null, " "));
 
     logger.verbose(">>> put terminal encoding");
-    encoding = await jt.putEncoding(encoding);
+    encoding = await jt.putEncoding(encoding, force);
     if (typeof encoding !== "object")
       logger.info("could not create storage schema: " + encoding);
 

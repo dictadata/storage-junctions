@@ -17,12 +17,19 @@ module.exports = exports = async function (tract) {
   var jo;
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
-    let pattern = tract.origin.pattern;
+    if (tract.origin.encoding) {
+      let encoding = tract.origin.encoding;
+      if (typeof encoding === "string")
+        encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
+      jo.putEncoding(encoding, true); // force encoding
+    }
 
+    let pattern = tract.origin.pattern;
     let results = await jo.recall(pattern);
-    logger.verbose(JSON.stringify(results));
+    
+    logger.debug(JSON.stringify(results));
     if (tract.terminal && tract.terminal.output) {
-      logger.info(">>> save results to " + tract.terminal.output);
+      logger.info("<<< save results to " + tract.terminal.output);
       fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
     }
 

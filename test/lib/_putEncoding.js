@@ -18,11 +18,11 @@ module.exports = exports = async function (tract) {
     let filename = (tract.origin.encoding || "./test/data/encoding_foo.json");
     let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
 
-    encoding = await jo.putEncoding(encoding);
-    if (typeof encoding === 'object')
-      logger.verbose(JSON.stringify(encoding));
+    let results = await jo.putEncoding(encoding);
+    if (typeof results === 'object')
+      logger.debug(JSON.stringify(results));
     else
-      logger.warn("could not create storage schema: " + encoding);
+      logger.warn("could not create storage schema: " + results);
 
     logger.info(">>> completed");
   }
