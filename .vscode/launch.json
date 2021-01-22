@@ -408,6 +408,17 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "mysql codify",
+      "program": "${workspaceFolder}/test/mysql/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "mysql transforms",
       "program": "${workspaceFolder}/test/mysql/transforms.js",
       "outputCapture": "std",
