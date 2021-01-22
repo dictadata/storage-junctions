@@ -18,7 +18,7 @@ async function tests() {
         match: {
           "Bar": { "wc": "row*" }
         },
-        fields: ["Foo", "Bar", "Baz", "Dt Test","subObj1"]
+        fields: ["Foo", "Bar", "Baz", "Dt Test","tags","subObj1"]
       }
     },
     terminal: {
@@ -78,11 +78,11 @@ async function tests() {
       filter: {
         match: {
           "Bar": /row/,
-          "Baz": [456,789]
-        },
-        select: {
-          fields: ["Foo","Bar","Baz","Fobe","Dt Test","enabled"]
+          "Baz": [456, 789]
         }
+      },
+      select: {
+        fields: ["Foo","Bar","Baz","Fobe","Dt Test","enabled"]
       }
     }
   });

@@ -12,7 +12,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "* junction",
+      "name": "generic junction",
       "program": "${workspaceFolder}/test/generic.js",
       "outputCapture": "std",
       "env": {
@@ -34,7 +34,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "foo encodings",
+      "name": "echo encodings",
       "program": "${workspaceFolder}/test/echo/encodings.js",
       "outputCapture": "std",
       "env": {
@@ -133,17 +133,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch codify",
-      "program": "${workspaceFolder}/test/elasticsearch/codify.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "elasticsearch keystore",
       "program": "${workspaceFolder}/test/elasticsearch/keystore.js",
       "outputCapture": "std",
@@ -166,28 +155,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch transfers",
-      "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "elasticsearch transforms",
-      "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "elasticsearch recall",
       "program": "${workspaceFolder}/test/elasticsearch/recall.js",
       "outputCapture": "std",
@@ -199,8 +166,41 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "elasticsearch transfers",
+      "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "elasticsearch retrieve",
       "program": "${workspaceFolder}/test/elasticsearch/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch codify",
+      "program": "${workspaceFolder}/test/elasticsearch/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch transforms",
+      "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -265,28 +265,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mssql transfers",
-      "program": "${workspaceFolder}/test/mssql/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mssql transforms",
-      "program": "${workspaceFolder}/test/mssql/transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "mssql recall",
       "program": "${workspaceFolder}/test/mssql/recall.js",
       "outputCapture": "std",
@@ -298,8 +276,41 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "mssql transfers",
+      "program": "${workspaceFolder}/test/mssql/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "mssql retrieve",
       "program": "${workspaceFolder}/test/mssql/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql codify",
+      "program": "${workspaceFolder}/test/mssql/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql transforms",
+      "program": "${workspaceFolder}/test/mssql/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -364,28 +375,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql transfers",
-      "program": "${workspaceFolder}/test/mysql/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mysql transforms",
-      "program": "${workspaceFolder}/test/mysql/transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "mysql recall",
       "program": "${workspaceFolder}/test/mysql/recall.js",
       "outputCapture": "std",
@@ -397,8 +386,30 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "mysql transfers",
+      "program": "${workspaceFolder}/test/mysql/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "mysql retrieve",
       "program": "${workspaceFolder}/test/mysql/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql transforms",
+      "program": "${workspaceFolder}/test/mysql/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

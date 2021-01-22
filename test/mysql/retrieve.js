@@ -21,7 +21,39 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/mysql_retrieve.json"
+      output: "./test/output/mysql_retrieve_0.json"
+    }
+  });
+
+  logger.info("=== mysql retrieve");
+  await retrieve({
+    origin: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
+      encoding: "./test/data/encoding_foo_01.json",
+      pattern: {
+        match: {
+          "Bar": { 'wc': 'row*' }
+        }
+      }
+    },
+    terminal: {
+      output: "./test/output/mysql_retrieve_1.json"
+    }
+  });
+
+  logger.info("=== mysql retrieve");
+  await retrieve({
+    origin: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
+      encoding: "./test/data/encoding_foo_02.json",
+      pattern: {
+        match: {
+          "Bar": { 'wc': 'row*' }
+        }
+      }
+    },
+    terminal: {
+      output: "./test/output/mysql_retrieve_2.json"
     }
   });
 

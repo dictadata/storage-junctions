@@ -23,6 +23,28 @@ async function tests() {
     }
   });
 
+  logger.info("=== foofile_01.json > mysql");
+  await transfer({
+    origin: {
+      smt: "json|./test/data/|foofile_01.json|*" 
+    },
+    terminal: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo",
+      encoding: "./test/data/encoding_foo_01.json"
+    }
+  });
+
+  logger.info("=== foofile_02.json > mysql");
+  await transfer({
+    origin: {
+      smt: "json|./test/data/|foofile_02.json|*" 
+    },
+    terminal: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|=Foo",
+      encoding: "./test/data/encoding_foo_02.json"
+    }
+  });
+
   logger.info("=== mysql.foo_schema > mysql.foo_transfer");
   await transfer({
     origin: {
