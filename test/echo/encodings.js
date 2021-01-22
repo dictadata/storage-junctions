@@ -19,29 +19,32 @@ async function tests() {
     storage.use("echo", EchoJunction);
 
     logger.verbose('=== read encoding_foo.json');
+    logger.verbose(">>> encoding_foo_full.json")
     jo = await storage.activate("echo|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo.json", "utf8"));
     await jo.putEncoding(encoding);
+    logger.verbose("<<< encoding_foo_full.json")
     encoding = await jo.getEncoding();
-    logger.verbose(">> encoding_foo_full.json")
     logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./test/output/encoding_foo_full.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_short.json');
+    logger.verbose(">>> encoding_foo_short.json");
     jo = await storage.activate("echo|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_short.json", "utf8"));
     await jo.putEncoding(encoding);
+    logger.verbose("<<< encoding_foo_short.json");
     encoding = await jo.getEncoding();
-    logger.verbose(">> encoding_foo_short.json");
     logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./test/output/encoding_foo_short.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_typesonly');
+    logger.verbose(">>> encoding_foo_typesonly.json");
     jo = await storage.activate("echo|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_typesonly.json", "utf8"));
     await jo.putEncoding(encoding);
+    logger.verbose("<<< encoding_foo_typesonly.json");
     encoding = await jo.getEncoding();
-    logger.verbose(">> encoding_foo_typesonly.json");
     logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./test/output/encoding_foo_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
   }
