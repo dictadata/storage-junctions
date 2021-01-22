@@ -21,7 +21,7 @@ module.exports = exports = async function (tract) {
       let encoding = tract.origin.encoding;
       if (typeof encoding === "string")
         encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
-      jo.putEncoding(encoding, true); // force encoding
+      jo.putEncoding(encoding, true); // overlay encoding
     }
 
     let pattern = tract.origin.pattern;
