@@ -1,5 +1,10 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.3.2
+  - enhanced implementation of map and list storage types
+  - overlay encoding on data source, e.g. nested storage encoding on a SQL table
+  - enchance support for map and list types when codifying a data source
+  - bug fixes for SQL statement generation
 - version 1.3.1
   - bug fixes for SQL create table statements
 - version 1.3.0
