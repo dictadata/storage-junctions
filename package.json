@@ -25,6 +25,7 @@
     "merge-descriptors": "^1.0.1",
     "mysql": "^2.18.1",
     "node-html-parser": "^2.0.2",
+    "oracledb": "^5.1.0",
     "pg": "^8.5.1",
     "sqlstring": "^2.3.2",
     "stream-chain": "^2.2.4",
