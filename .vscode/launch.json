@@ -452,6 +452,28 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "oracle list",
+      "program": "${workspaceFolder}/test/oracle/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "oracle encoding",
+      "program": "${workspaceFolder}/test/oracle/encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "rest encoding",
       "program": "${workspaceFolder}/test/rest/encoding.js",
       "outputCapture": "std",
