@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== oracle retrieve");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== oracle retrieve");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_01|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       encoding: "./test/data/encoding_foo_01.json",
       pattern: {
         match: {
@@ -44,7 +44,7 @@ async function tests() {
   logger.info("=== oracle retrieve");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_02|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       encoding: "./test/data/encoding_foo_02.json",
       pattern: {
         match: {
@@ -60,7 +60,7 @@ async function tests() {
   logger.info("=== oracle retrieve w/ cues");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 100
@@ -71,7 +71,7 @@ async function tests() {
   logger.info("=== oracle retrieve with pattern");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_transfer|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*",
       pattern: {
         match: {
           "Foo": "first",

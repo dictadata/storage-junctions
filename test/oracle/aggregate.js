@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql aggregate");
   await retrieve({
     origin: {
-      smt: "mysql|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "mysql|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -33,7 +33,7 @@ async function tests() {
   logger.info("=== mysql groupby with summary");
   await retrieve({
     origin: {
-      smt: "mysql|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "mysql|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -57,7 +57,7 @@ async function tests() {
   logger.info("=== mysql aggregate w/ groupby");
   await retrieve({
     origin: {
-      smt: "mysql|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "mysql|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

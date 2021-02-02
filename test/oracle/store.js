@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== oracle store 20");
   await store({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|=Foo",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -25,7 +25,7 @@ async function tests() {
   logger.info("=== oracle store 30");
   await store({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|=Foo",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -38,7 +38,7 @@ async function tests() {
   logger.info("=== oracle store 10");
   await store({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|=Foo",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
     construct: {
       Foo: 'ten',

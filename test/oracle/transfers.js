@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
     }
   });
 
@@ -29,7 +29,7 @@ async function tests() {
       smt: "json|./test/data/|foofile_01.json|*" 
     },
     terminal: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_01|=Foo",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|=Foo",
       encoding: "./test/data/encoding_foo_01.json"
     }
   });
@@ -40,7 +40,7 @@ async function tests() {
       smt: "json|./test/data/|foofile_02.json|*" 
     },
     terminal: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_02|=Foo",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|=Foo",
       encoding: "./test/data/encoding_foo_02.json"
     }
   });
@@ -48,17 +48,17 @@ async function tests() {
   logger.info("=== oracle.foo_schema > oracle.foo_transfer");
   await transfer({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
     },
     terminal: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_transfer|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*"
     }
   });
 
   logger.info("=== oracle.foo_transfer > oracle_transfer.csv");
   await transfer({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_transfer|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*"
     },
     terminal: {
       smt: "csv|./test/output/|oracle_transfer.csv|*",

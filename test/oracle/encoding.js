@@ -14,7 +14,7 @@ async function tests() {
   logger.info("=== oracle putEncoding");
   await putEncoding({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       encoding: "./test/data/encoding_foo.json"
     }
   });
@@ -22,7 +22,7 @@ async function tests() {
   logger.info("=== oracle getEncoding");
   await getEncoding({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
     },
     terminal: {
       output: './test/output/oracle_encoding_foo.json'
@@ -32,7 +32,7 @@ async function tests() {
   logger.info("=== oracle putEncoding");
   await putEncoding({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_01|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       encoding: "./test/data/encoding_foo_01.json"
     }
   });
@@ -40,7 +40,7 @@ async function tests() {
   logger.info("=== oracle getEncoding");
   await getEncoding({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_01|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*"
     },
     terminal: {
       output: './test/output/oracle_encoding_foo_01.json'
@@ -51,7 +51,7 @@ async function tests() {
   logger.info("=== oracle putEncoding");
   await putEncoding({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_02|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       encoding: "./test/data/encoding_foo_02.json"
     }
   });
@@ -59,7 +59,7 @@ async function tests() {
   logger.info("=== oracle getEncoding");
   await getEncoding({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_02|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*"
     },
     terminal: {
       output: './test/output/oracle_encoding_foo_02.json'

@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== oracle > oracle_transform_0.json');
   await transfer({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       options: {
         match: {
           "Bar": "row",
@@ -30,7 +30,7 @@ async function tests() {
   logger.verbose('=== oracle > oracle_transform_1.json');
   await transfer({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_01|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       encoding: "./test/data/encoding_foo_01.json",
     },
     terminal: {
@@ -68,7 +68,7 @@ async function tests() {
   logger.verbose('=== oracle > oracle_transform_2.json');
   await transfer({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|foo_schema_02|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       encoding: "./test/data/encoding_foo_02.json",
     },
     terminal: {
