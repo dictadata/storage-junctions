@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list");
   await list({
     origin: {
-      smt: "oracle|connectString=localhost/XE;user=dicta;password=data|*|*",
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo*|*",
       options: {
         schema: "foo*"
       }
