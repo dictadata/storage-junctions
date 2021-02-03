@@ -1,5 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.0
+  - implement OracleJunction
+  - introduce support for case-insensitive field encodings
+  - bug fixes for overlay encodings
 - version 1.3.2
   - enhanced implementation of map and list storage types
   - overlay encoding on data source, e.g. nested storage encoding on a SQL table
