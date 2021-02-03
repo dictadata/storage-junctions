@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.2
+  - updated dependencies for tedious (mssql), node-html-parser
 - version 1.4.1
   - prefer INSERT then UPDATE in store() for mssql and oracle junctions
   - use PRIMARY KEY clause for Oracle CREATE TABLE instead of column property
