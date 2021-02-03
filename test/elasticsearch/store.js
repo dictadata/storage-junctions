@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== elasticsearch store");
   await store({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
     construct: {
       Foo: 'one',
@@ -25,7 +25,7 @@ async function tests() {
   logger.info("=== elasticsearch store");
   await store({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
     construct: {
       Foo: 'twenty',
