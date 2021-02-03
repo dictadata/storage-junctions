@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.3
+  - update dependency for aws-sdk
 - version 1.4.2
   - updated dependencies for tedious (mssql), node-html-parser
 - version 1.4.1
