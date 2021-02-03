@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.1
+  - prefer INSERT then UPDATE in store() for mssql and oracle junctions
+  - use PRIMARY KEY clause for Oracle CREATE TABLE instead of column property
 - version 1.4.0
   - implement OracleJunction
   - introduce support for case-insensitive field encodings
