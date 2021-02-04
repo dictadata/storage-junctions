@@ -61,7 +61,7 @@ async function tests() {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|=Foo"
     },
     terminal: {
-      smt: "csv|./test/output/|mssql_transfer.csv|*",
+      smt: "csv|./output/|mssql_transfer.csv|*",
       options: {
         csvHeader: true
       }

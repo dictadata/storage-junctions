@@ -23,7 +23,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/output/|csv_transform_1.json|*"
+      smt: "json|./output/|csv_transform_1.json|*"
     }
   });
 
@@ -36,7 +36,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/output/|csv_transform_2.json|*"
+      smt: "json|./output/|csv_transform_2.json|*"
     },
     transforms: {
       "filter": {
@@ -75,7 +75,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/output/|csv_transform_3.json|*"
+      smt: "json|./output/|csv_transform_3.json|*"
     },
     transforms: {
       filter: {

@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/s3_list_1.json"
+      output: "./output/s3_list_1.json"
     }
   });
 
@@ -44,7 +44,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/s3_list_2.json"
+      output: "./output/s3_list_2.json"
     }
   });
 

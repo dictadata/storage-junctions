@@ -21,7 +21,7 @@ async function test_1() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/downloads/"
+        downloads: "./output/downloads/"
       }
     }
   });
@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|S3:dictadata.org/test/output/uploads/|*|*",
+      smt: "*|S3:dictadata.org/output/uploads/|*|*",
       options: {}
     }
   });
@@ -75,7 +75,7 @@ async function test_4() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/shapefiles/",
+        downloads: "./output/shapefiles/",
         useRPath: true
       }
     }

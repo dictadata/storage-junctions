@@ -35,7 +35,7 @@ async function testRetrieve() {
       }
     },
     terminal: {
-      output: './test/output/weather_forecast_retrieve.json'
+      output: './output/weather_forecast_retrieve.json'
     }
   });
 

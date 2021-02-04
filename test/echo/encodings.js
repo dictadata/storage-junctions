@@ -26,7 +26,7 @@ async function tests() {
     logger.verbose("<<< encoding_foo_full.json")
     encoding = await jo.getEncoding();
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/output/encoding_foo_full.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./output/encoding_foo_full.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_short.json');
     logger.verbose(">>> encoding_foo_short.json");
@@ -36,7 +36,7 @@ async function tests() {
     logger.verbose("<<< encoding_foo_short.json");
     encoding = await jo.getEncoding();
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/output/encoding_foo_short.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./output/encoding_foo_short.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_typesonly');
     logger.verbose(">>> encoding_foo_typesonly.json");
@@ -46,7 +46,7 @@ async function tests() {
     logger.verbose("<<< encoding_foo_typesonly.json");
     encoding = await jo.getEncoding();
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/output/encoding_foo_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./output/encoding_foo_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
   }
   catch (err) {
     logger.error(err);

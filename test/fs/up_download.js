@@ -21,7 +21,7 @@ async function test_1() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/downloads/"
+        downloads: "./output/downloads/"
       }
     }
   });
@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|./test/output/uploads/|*|*",
+      smt: "*|./output/uploads/|*|*",
       options: {
         useRPath: true
       }

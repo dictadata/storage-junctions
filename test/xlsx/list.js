@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/xlsx_list.json"
+      output: "./output/xlsx_list.json"
     }
   });
 

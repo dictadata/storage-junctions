@@ -20,7 +20,7 @@ async function test_1() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/downloads/"
+        downloads: "./output/downloads/"
       }
     }
   });
@@ -38,7 +38,7 @@ async function test_2() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/shapefiles/",
+        downloads: "./output/shapefiles/",
         useRPath: true
       }
     }

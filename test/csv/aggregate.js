@@ -31,7 +31,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./test/output/|csv_aggregate_1.csv|*',
+      "smt": 'csv|./output/|csv_aggregate_1.csv|*',
       options: {
         csvHeader: true
       }
@@ -62,7 +62,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./test/output/|csv_aggregate_2.csv|*',
+      "smt": 'csv|./output/|csv_aggregate_2.csv|*',
       options: {
         csvHeader: true
       }
@@ -93,7 +93,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./test/output/|csv_aggregate_3.csv|*',
+      "smt": 'csv|./output/|csv_aggregate_3.csv|*',
       options: {
         csvHeader: true
       }

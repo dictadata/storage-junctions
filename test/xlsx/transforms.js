@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/output/|xlsx_transform_1.json|*"
+      smt: "json|./output/|xlsx_transform_1.json|*"
     }
   });
 
@@ -32,7 +32,7 @@ async function tests() {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
     terminal: {
-      smt: "json|./test/output/|xlsx_transform_2.json|*"
+      smt: "json|./output/|xlsx_transform_2.json|*"
     },
     transforms: {
       "filter": {

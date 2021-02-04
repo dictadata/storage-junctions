@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/oracle_list.json"
+      output: "./output/oracle_list.json"
     }
   });
 

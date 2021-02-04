@@ -61,7 +61,7 @@ async function tests() {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./test/output/|oracle_transfer.csv|*",
+      smt: "csv|./output/|oracle_transfer.csv|*",
       options: {
         csvHeader: true
       }

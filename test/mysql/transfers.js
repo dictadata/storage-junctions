@@ -61,7 +61,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./test/output/|mysql_transfer.csv|*",
+      smt: "csv|./output/|mysql_transfer.csv|*",
       options: {
         csvHeader: true
       }

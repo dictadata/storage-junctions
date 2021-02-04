@@ -21,7 +21,7 @@ async function test_01() {
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv|*",
+      smt: "csv|ftp://dicta:data@localhost/output/|csv_output.csv|*",
       options: {
         csvHeader: true
       }
@@ -37,7 +37,7 @@ async function test_01() {
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv.gz|*",
+      smt: "csv|ftp://dicta:data@localhost/output/|csv_output.csv.gz|*",
       options: {
         csvHeader: true
       }
@@ -50,7 +50,7 @@ async function test_01() {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/test/output/|json_output.json|*",
+      smt: "json|ftp://dicta:data@localhost/output/|json_output.json|*",
       options: {}
     }
   });
@@ -61,7 +61,7 @@ async function test_01() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/test/output/|json_output.json.gz|*",
+      smt: "json|ftp://dicta:data@localhost/output/|json_output.json.gz|*",
       options: {}
     }
   });
@@ -80,7 +80,7 @@ async function test_02() {
       }
     },
     terminal: {
-      smt: "csv|./test/output/|ftp_output.csv|*",
+      smt: "csv|./output/|ftp_output.csv|*",
       options: {
         csvHeader: true
       }
@@ -94,7 +94,7 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "csv|./test/output/|ftp_output.csv.gz|*",
+      smt: "csv|./output/|ftp_output.csv.gz|*",
       options: {
         csvHeader: true
       }
@@ -108,7 +108,7 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "json|./test/output/|ftp_output.json|*"
+      smt: "json|./output/|ftp_output.json|*"
     }
   });
 
@@ -119,7 +119,7 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "json|./test/output/|ftp_output.json.gz|*"
+      smt: "json|./output/|ftp_output.json.gz|*"
     }
   });
 

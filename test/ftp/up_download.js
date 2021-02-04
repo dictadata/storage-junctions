@@ -21,7 +21,7 @@ async function test_1() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/downloads/"
+        downloads: "./output/downloads/"
       }
     }
   });
@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|ftp://dicta:data@localhost/test/output/uploads/|*|*",
+      smt: "*|ftp://dicta:data@localhost/output/uploads/|*|*",
       options: {}
     }
   });
@@ -56,7 +56,7 @@ async function test_3() {
     },
     terminal: {
       options: {
-        downloads: "./test/output/shapefiles/",
+        downloads: "./output/shapefiles/",
         useRPath: true
       }
     }

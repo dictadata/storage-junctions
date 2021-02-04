@@ -22,7 +22,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/output/ftp_list_1.json"
+      output: "./output/ftp_list_1.json"
     }
   });
 
@@ -41,7 +41,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/output/ftp_list_2.json"
+      output: "./output/ftp_list_2.json"
     }
   });
 

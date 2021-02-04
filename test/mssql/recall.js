@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/output/mssql_recall.json"
+      output: "./output/mssql_recall.json"
     }
   });
 
