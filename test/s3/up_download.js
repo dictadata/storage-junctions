@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|S3:dictadata.org/output/uploads/|*|*",
+      smt: "*|S3:dictadata.org/test/output/uploads/|*|*",
       options: {}
     }
   });

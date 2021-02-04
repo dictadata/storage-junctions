@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|ftp://dicta:data@localhost/output/uploads/|*|*",
+      smt: "*|ftp://dicta:data@localhost/test/output/uploads/|*|*",
       options: {}
     }
   });

@@ -21,7 +21,7 @@ async function s3Destination() {
       }
     },
     terminal: {
-      smt: "csv|S3:dictadata.org/output/|csv_output.csv|*",
+      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv|*",
       options: {
         csvHeader: true,
         "s3": {
@@ -40,7 +40,7 @@ async function s3Destination() {
       }
     },
     terminal: {
-      smt: "csv|S3:dictadata.org/output/|csv_output.csv.gz|*",
+      smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*",
       options: {
         csvHeader: true,
         "s3": {
@@ -56,7 +56,7 @@ async function s3Destination() {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|S3:dictadata.org/output/|json_output.json|*",
+      smt: "json|S3:dictadata.org/test/output/|json_output.json|*",
       options: {
         "s3": {
           "aws_profile": ""
@@ -71,7 +71,7 @@ async function s3Destination() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "json|S3:dictadata.org/output/|json_output.json.gz|*",
+      smt: "json|S3:dictadata.org/test/output/|json_output.json.gz|*",
       options: {
         "s3": {
           "aws_profile": ""

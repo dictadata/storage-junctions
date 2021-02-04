@@ -20,7 +20,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "xlsx|test/output/xlsx_foofile_csv.xlsx|foo|*",
+      smt: "xlsx|./output/xlsx_foofile_csv.xlsx|foo|*",
       options: {}
     }
   });
@@ -32,7 +32,7 @@ async function tests() {
       options: {}
     },
     terminal: {
-      smt: "csv|test/output/|xlsx_foofile.csv|*",
+      smt: "csv|./output/|xlsx_foofile.csv|*",
       options: {
         csvHeader: true
       }
@@ -46,7 +46,7 @@ async function tests() {
       options: {}
     },
     terminal: {
-      smt: "xlsx|test/output/xlsx_foofile_json.xlsx|foo|*",
+      smt: "xlsx|./output/xlsx_foofile_json.xlsx|foo|*",
       options: {}
     }
   });
@@ -58,7 +58,7 @@ async function tests() {
       options: {}
     },
     terminal: {
-      smt: "json|test/output/|xlsx_foofile.json|*",
+      smt: "json|./output/|xlsx_foofile.json|*",
       options: {}
     }
   });
