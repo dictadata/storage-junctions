@@ -32,7 +32,7 @@ async function tests() {
     }
   });
 
-  logger.info("=== json groupby with summary");
+  logger.info("=== json aggregate summary");
   await transfer({
     origin: {
       smt: "json|./test/data/|foofile.json|*",
@@ -71,7 +71,9 @@ async function tests() {
       aggregate: {
         "Foo": {
           "baz_sum": { "sum": "Baz" },
-          "count": { "count": "Baz" }
+          "count": { "count": "Baz" },
+          "dt_min": { "min": "Dt Test" },
+          "dt_max": { "max": "Dt Test" }
         }
       }
     },

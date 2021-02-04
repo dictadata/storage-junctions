@@ -38,7 +38,7 @@ async function tests() {
     }
   });
 
-  logger.info("=== csv groupby with summary");
+  logger.info("=== csv aggregate summary");
   await transfer({
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
@@ -86,7 +86,9 @@ async function tests() {
       aggregate: {
         "Foo": {
           "baz_sum": { "sum": "Baz" },
-          "count": { "count": "Baz" }
+          "count": { "count": "Baz" },
+          "dt_min": { "min": "Dt Test" },
+          "dt_max": { "max": "Dt Test" }
         }
       }
     },

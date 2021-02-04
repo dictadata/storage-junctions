@@ -30,7 +30,7 @@ async function tests() {
     }
   });
 
-  logger.info("=== elasticsearch groupby with summary");
+  logger.info("=== elasticsearch aggregate summary");
   await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
@@ -65,7 +65,9 @@ async function tests() {
         aggregate: {
           "Foo": {
             "baz_sum": { "sum": "Baz" },
-            "count": { "count": "Baz" }
+            "count": { "count": "Baz" },
+            "dt_min": { "min": "Dt Test" },
+            "dt_max": { "max": "Dt Test" }
           }
         },
         "order": { "baz_sum": "desc" },

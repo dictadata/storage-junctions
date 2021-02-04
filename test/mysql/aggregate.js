@@ -30,7 +30,7 @@ async function tests() {
     }
   });
 
-  logger.info("=== mysql groupby with summary");
+  logger.info("=== mysql aggregate summary");
   await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
@@ -65,7 +65,9 @@ async function tests() {
         aggregate: {
           "Foo": {
             "baz_sum": { "sum": "Baz" },
-            "count": { "count": "Baz" }
+            "count": { "count": "Baz" },
+            "dt_min": { "min": "Dt Test" },
+            "dt_max": { "max": "Dt Test" }
           }
         },
         "order": { "baz_sum": "desc" },
