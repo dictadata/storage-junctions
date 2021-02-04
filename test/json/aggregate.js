@@ -9,7 +9,7 @@ const logger = require('../../lib/logger');
 logger.info("=== Tests: retreive");
 
 async function tests() {
-/*
+
   logger.info("=== json aggregate");
   await transfer({
     origin: {
@@ -56,7 +56,7 @@ async function tests() {
       "smt": 'json|./output/|json_aggregate_2.json|*'
     }
   });
-*/
+
   logger.info("=== json aggregate w/ groupby");
   await transfer({
     origin: {
