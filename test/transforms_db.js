@@ -10,8 +10,9 @@ const logger = require('../lib/logger');
 logger.info("=== Test: transform");
 
 async function testDBTransform1(tract) {
-  logger.info("=== elasticsearch > sql");
-  logger.verbose('>>> sql foo_dbtransform');
+  let engram = new Engram(tract.terminal.smt);
+  logger.info("=== DBTRANSFORM1 elasticsearch > " + engram.smt.model);
+  logger.verbose("=== " + engram.smt.model + "||" + engram.smt.schema);
 
   await transfer({
     "origin": {
@@ -53,8 +54,8 @@ async function testDBTransform1(tract) {
 
 async function testDBTransform2() {
 
-  logger.info("=== mysql > elasticsearch");
-  logger.verbose(">>> elasticsearch foo_dbtransform");
+  logger.info("=== DBTRANSFORM2 mysql > elasticsearch");
+  logger.verbose("=== elasticsearch||foo_dbtransform");
 
   await transfer({
     "origin": {
@@ -92,9 +93,8 @@ async function testDBTransform2() {
 async function forecastTransform(tract) {
 
   let engram = new Engram(tract.terminal.smt);
-  logger.info("=== transfer REST to " + engram.smt.model);
-  logger.verbose("<<< weather API");
-  logger.verbose(">>> " + engram.smt.model + " " + engram.smt.schema);
+  logger.info("=== WEATHER FORECAST API to " + engram.smt.model);
+  logger.verbose("=== " + engram.smt.model + "||" + engram.smt.schema);
 
   await transfer({
     origin: {
@@ -129,8 +129,10 @@ async function forecastTransform(tract) {
 (async () => {
   await testDBTransform1({ terminal: { smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_dbtransform|=foo" }});
   await testDBTransform1({ terminal: { smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_dbtransform|=foo" }});
+  await testDBTransform1({ terminal: { smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_dbtransform|*" } });
   await testDBTransform2();
   await forecastTransform({ terminal: { smt: "elasticsearch|http://localhost:9200|weather_forecast|=Foo" } });
   await forecastTransform({ terminal: { smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|weather_forecast|*" } });
   await forecastTransform({ terminal: { smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|weather_forecast|*" } });
+  await forecastTransform({ terminal: { smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|weather_forecast|*" } });
 })();
