@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.4
+  - fix bug with Oracle PRIMARY KEY clause
+  - fix bug in aggregate w/ group by
 - version 1.4.3
   - update dependency for aws-sdk
 - version 1.4.2
