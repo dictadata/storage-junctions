@@ -10,7 +10,7 @@
       "size": 64,
       "default": null,
       "isNullable": false,
-      "isKey": true,
+      "keyOrdinal": 1,
       "label": "Foo"
     },
     "Bar": {
@@ -19,7 +19,7 @@
       "size": 64,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Bar"
     },
     "Baz": {
@@ -28,7 +28,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Baz"
     },
     "Fobe": {
@@ -37,7 +37,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Fobe"
     },
     "Dt Test": {
@@ -46,7 +46,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Dt Test"
     },
     "enabled": {
@@ -55,7 +55,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "enabled"
     }
   }

@@ -12,7 +12,7 @@
       "size": 7,
       "default": null,
       "isNullable": true,
-      "isKey": true,
+      "keyOrdinal": 1,
       "label": "Foo"
     },
     "Bar": {
@@ -21,7 +21,7 @@
       "size": 13,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Bar"
     },
     "Baz": {
@@ -30,7 +30,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Baz"
     },
     "Fobe": {
@@ -39,7 +39,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Fobe"
     },
     "Dt Test": {
@@ -48,7 +48,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Dt Test"
     },
     "enabled": {
@@ -57,7 +57,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "enabled"
     },
     "subObj1": {
@@ -66,7 +66,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "subObj1",
       "fields": {
         "state": {
@@ -75,7 +75,7 @@
           "size": 7,
           "default": null,
           "isNullable": true,
-          "isKey": false,
+          "keyOrdinal": 0,
           "label": "state"
         },
         "ex-state": {
@@ -84,7 +84,7 @@
           "size": 4,
           "default": null,
           "isNullable": true,
-          "isKey": false,
+          "keyOrdinal": 0,
           "label": "ex-state"
         }
       }
@@ -95,7 +95,7 @@
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "subObj2",
       "fields": {
         "subsub": {
@@ -104,7 +104,7 @@
           "size": 0,
           "default": null,
           "isNullable": true,
-          "isKey": false,
+          "keyOrdinal": 0,
           "label": "subsub",
           "fields": {
             "izze": {
@@ -113,7 +113,7 @@
               "size": 0,
               "default": null,
               "isNullable": true,
-              "isKey": false,
+              "keyOrdinal": 0,
               "label": "izze"
             }
           }

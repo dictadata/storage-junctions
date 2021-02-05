@@ -10,7 +10,7 @@
       "size": 64,
       "default": null,
       "isNullable": false,
-      "isKey": true
+      "keyOrdinal": 1
     },
     "Bar": {
       "name": "Bar",

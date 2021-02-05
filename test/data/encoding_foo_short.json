@@ -7,7 +7,7 @@
     "Foo": {
       "type": "keyword",
       "size": 64,
-      "isKey": true
+      "keyOrdinal": 1
     },
     "Bar": {
       "type": "keyword",
