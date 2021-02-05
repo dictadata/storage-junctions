@@ -45,4 +45,6 @@ async function tests() {
   await testRetrieve();
 }
 
-tests();
+(async () => {
+  await tests();
+})();

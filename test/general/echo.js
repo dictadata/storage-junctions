@@ -51,4 +51,6 @@ async function tests() {
   await testStream();
 }
 
-tests();
+(async () => {
+  await tests();
+})();

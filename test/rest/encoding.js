@@ -41,4 +41,6 @@ async function tests() {
 
 }
 
-tests();
+(async () => {
+  await tests();
+})();

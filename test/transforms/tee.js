@@ -48,4 +48,6 @@ async function tests() {
   await tee(tract);
 }
 
-tests();
+(async () => {
+  await tests();
+})();

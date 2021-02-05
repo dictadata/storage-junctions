@@ -48,4 +48,6 @@ async function tests() {
   await testTransfer();
 }
 
-tests();
+(async () => {
+  await tests();
+})();
