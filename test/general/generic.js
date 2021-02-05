@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const storage = require("../lib/index");
-const logger = require('../lib/logger');
+const storage = require("../../lib/index");
+const logger = require('../../lib/logger');
 
 logger.info("=== Tests: Generic * Junction");
 

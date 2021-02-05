@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const transfer = require('./lib/_transfer');
-const Engram = require('../lib/engram');
-const logger = require('../lib/logger');
+const transfer = require('../lib/_transfer');
+const Engram = require('../../lib/engram');
+const logger = require('../../lib/logger');
 
 logger.info("=== Test: transform");
 

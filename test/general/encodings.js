@@ -28,15 +28,15 @@ async function tests() {
     logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./output/encoding_foo_full.json", JSON.stringify(encoding, null, 2), "utf8");
 
-    logger.verbose('=== read encoding_foo_short.json');
-    logger.verbose(">>> encoding_foo_short.json");
+    logger.verbose('=== read encoding_foo_types.json');
+    logger.verbose(">>> encoding_foo_types.json");
     jo = await storage.activate("echo|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_short.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_types.json", "utf8"));
     await jo.putEncoding(encoding);
-    logger.verbose("<<< encoding_foo_short.json");
+    logger.verbose("<<< encoding_foo_types.json");
     encoding = await jo.getEncoding();
     logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./output/encoding_foo_short.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./output/encoding_foo_types.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_typesonly');
     logger.verbose(">>> encoding_foo_typesonly.json");

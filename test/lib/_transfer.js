@@ -4,6 +4,7 @@
 "use strict";
 
 const storage = require("../../lib/index");
+const { typeOf } = require("../../lib/types");
 const logger = require('../../lib/logger');
 
 const fs = require('fs');
@@ -25,7 +26,7 @@ module.exports = exports = async function (tract) {
     let encoding = tract.origin.encoding;
     if (typeof encoding === "string")
       encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
-    if (typeof encoding === "object")
+    if (typeOf(encoding) === "object")
       encoding = await jo.putEncoding(encoding, true);
     else
       encoding = await jo.getEncoding();
@@ -58,7 +59,7 @@ module.exports = exports = async function (tract) {
 
     logger.verbose(">>> put terminal encoding");
     let result = await jt.putEncoding(encoding, overlay);
-    if (typeof result !== "object")
+    if (typeOf(result) !== "object")
       logger.info("could not create storage schema: " + result);
 
     // transfer the data

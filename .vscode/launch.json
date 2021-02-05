@@ -13,7 +13,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "generic junction",
-      "program": "${workspaceFolder}/test/generic.js",
+      "program": "${workspaceFolder}/test/general/generic.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "production",
@@ -24,7 +24,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "echo junction",
-      "program": "${workspaceFolder}/test/echo/junction.js",
+      "program": "${workspaceFolder}/test/general/echo.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "production",
@@ -35,7 +35,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "echo encodings",
-      "program": "${workspaceFolder}/test/echo/encodings.js",
+      "program": "${workspaceFolder}/test/general/encodings.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -216,7 +216,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "AWS check",
-      "program": "${workspaceFolder}/test/aws_credentials.js"
+      "program": "${workspaceFolder}/test/s3/aws_credentials.js"
     },
     {
       "type": "pwa-node",
@@ -797,8 +797,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transforms db",
-      "program": "${workspaceFolder}/test/transforms_db.js",
+      "name": "db transforms",
+      "program": "${workspaceFolder}/test/general/db_transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

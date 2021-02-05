@@ -4,6 +4,7 @@
 "use strict";
 
 const storage = require("../../lib/index");
+const { typeOf } = require("../../lib/types");
 const logger = require('../../lib/logger');
 const fs = require('fs');
 
@@ -19,7 +20,7 @@ module.exports = exports = async function (tract) {
     let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
 
     let results = await jo.putEncoding(encoding);
-    if (typeof results === 'object')
+    if (typeOf(results) === 'object')
       logger.debug(JSON.stringify(results));
     else
       logger.warn("could not create storage schema: " + results);

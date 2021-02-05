@@ -4,6 +4,7 @@
 "use strict";
 
 const storage = require("../../lib/index");
+const { typeOf } = require("../../lib/types");
 const logger = require('../../lib/logger');
 
 const fs = require('fs');
@@ -28,7 +29,7 @@ module.exports = exports = async function (tract) {
     let encoding = tract.origin.encoding;
     if (typeof encoding === "string")
       encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
-    if (typeof encoding === "object")
+    if (typeOf(encoding) === "object")
       encoding = await jo.putEncoding(encoding);
     else
       encoding = await jo.getEncoding();

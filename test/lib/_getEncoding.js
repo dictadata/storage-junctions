@@ -4,6 +4,7 @@
 "use strict";
 
 const storage = require("../../lib/index");
+const { typeOf } = require("../../lib/types");
 const logger = require('../../lib/logger');
 const fs = require('fs');
 
@@ -16,7 +17,7 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let encoding = await jo.getEncoding();
 
-    if (typeof encoding === 'object') {
+    if (typeOf(encoding) === 'object') {
       logger.debug(JSON.stringify(encoding));
       if (tract.terminal && tract.terminal.output) {
         logger.verbose("<<< " + tract.terminal.output);
