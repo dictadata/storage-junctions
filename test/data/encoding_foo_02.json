@@ -10,7 +10,7 @@
       "size": 64,
       "default": null,
       "isNullable": false,
-      "keyOrdinal": 1
+      "keyOrdinal": 2
     },
     "Bar": {
       "name": "Bar",
@@ -23,7 +23,8 @@
       "name": "Baz",
       "type": "integer",
       "default": null,
-      "isNullable": true
+      "isNullable": true,
+      "keyOrdinal": 1
     },
     "Fobe": {
       "name": "Fobe",
