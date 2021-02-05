@@ -797,19 +797,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "db transforms",
-      "program": "${workspaceFolder}/test/general/db_transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "aggregate csv",
-      "program": "${workspaceFolder}/test/csv/aggregate.js",
+      "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -820,7 +809,29 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "aggregate json",
-      "program": "${workspaceFolder}/test/json/aggregate.js",
+      "program": "${workspaceFolder}/test/transforms/json_aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "db2db transforms",
+      "program": "${workspaceFolder}/test/transforms/db2db_transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "compose/flatten",
+      "program": "${workspaceFolder}/test/transforms/compose_flatten.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -831,7 +842,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "tee xlsx",
-      "program": "${workspaceFolder}/test/xlsx/tee.js",
+      "program": "${workspaceFolder}/test/transforms/tee.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
