@@ -94,7 +94,7 @@ elastic|node address|index|!field
       "size": 0,
       "default": null,
       "isNullable": false,
-      "isKey": true,
+      "keyOrdinal": 1,
       "label": "Foo"
     },
     "Bar": {
@@ -103,7 +103,7 @@ elastic|node address|index|!field
       "size": 0,
       "default": null,
       "isNullable": true,
-      "isKey": false,
+      "keyOrdinal": 0,
       "label": "Bar"
     },```
     ...
