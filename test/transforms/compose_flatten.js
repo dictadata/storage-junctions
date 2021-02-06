@@ -29,6 +29,23 @@ async function tests() {
   });
 
   logger.info("=== flatten");
+  await transfer({
+    origin: {
+      smt: "json|./output/|compose_db_schema.json|*",
+      options: {}
+    },
+    "transforms": {
+      flatten: {
+        path: ["SCHEMA_NAME", "TABLE_NAME", "COLUMN_NAME"]
+      }
+    },
+    terminal: {
+      "smt": 'csv|./output/|flatten_db_schema.csv|*',
+      options: {
+        csvHeader: true
+      }
+    }
+  });
 
 }
 
