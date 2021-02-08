@@ -15,13 +15,13 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|./output/|csv_output.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
@@ -44,7 +44,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
@@ -57,7 +57,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|timeseries.csv|*",
       options: {
-        csvHeader: false
+        header: false
       },
       encoding: {
         "time": "date",

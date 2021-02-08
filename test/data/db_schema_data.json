@@ -1,0 +1,70 @@
+{
+  "results" : [
+    {
+      "columns" : [
+        {
+          "name" : "INDN",
+          "type" : "NUMBER"
+        },
+        {
+          "name" : "SAVEFLAG",
+          "type" : "VARCHAR2"
+        }
+      ],
+      "items" : [
+        {
+          "indn" : 388811,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388813,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388814,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388816,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388817,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388818,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388819,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388820,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388821,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388822,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388823,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388824,
+          "saveflag" : "Y"
+        },
+        {
+          "indn" : 388825,
+          "saveflag" : "Y"
+        }
+      ]
+    }
+  ]
+}

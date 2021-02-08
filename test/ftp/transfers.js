@@ -17,13 +17,13 @@ async function test_01() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -33,13 +33,13 @@ async function test_01() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -76,13 +76,13 @@ async function test_02() {
     origin: {
       smt: "csv|ftp://dicta:data@localhost/test/data/|foofile.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|./output/|ftp_output.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -96,7 +96,7 @@ async function test_02() {
     terminal: {
       smt: "csv|./output/|ftp_output.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });

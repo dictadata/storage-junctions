@@ -28,7 +28,7 @@ async function tests() {
     terminal: {
       smt: "csv|./output/|json_output.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });

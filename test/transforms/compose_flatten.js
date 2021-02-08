@@ -42,7 +42,7 @@ async function tests() {
     terminal: {
       "smt": 'csv|./output/|flatten_db_schema.csv|*',
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });

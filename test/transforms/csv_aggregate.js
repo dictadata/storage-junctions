@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     "transforms": {
@@ -33,7 +33,7 @@ async function tests() {
     terminal: {
       "smt": 'csv|./output/|csv_aggregate_1.csv|*',
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -43,7 +43,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     "transforms": {
@@ -64,7 +64,7 @@ async function tests() {
     terminal: {
       "smt": 'csv|./output/|csv_aggregate_2.csv|*',
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -74,7 +74,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     transforms: {
@@ -95,7 +95,7 @@ async function tests() {
     terminal: {
       "smt": 'csv|./output/|csv_aggregate_3.csv|*',
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });

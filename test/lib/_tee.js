@@ -22,7 +22,7 @@ module.exports = exports = async function (tract) {
     let writers = [];
 
     logger.info(">>> create origin junction");
-    let origin_transforms = tract.transforms || {};
+    const origin_transforms = tract.transforms || {};
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
@@ -43,8 +43,8 @@ module.exports = exports = async function (tract) {
     if (!Array.isArray(tract.terminal))
       throw new Error("tract.terminal not an Array");
 
-    for (let branch of tract.terminal) {
-      let transforms = branch.transforms || {};
+    for (const branch of tract.terminal) {
+      const transforms = branch.transforms || {};
 
       logger.info(">>> create terminal junction");
       let jt = await storage.activate(branch.terminal.smt, branch.terminal.options);

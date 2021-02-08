@@ -19,7 +19,7 @@ module.exports = exports = async function (tract) {
   try {
     logger.info(">>> create junctions");
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
-    let transforms = tract.transforms || {};
+    const transforms = tract.transforms || {};
 
     logger.debug(">>> get origin encoding");
     // load encoding from origin for validation

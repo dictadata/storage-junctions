@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true,
+        header: true,
         match: {
           "Bar": { "wc": "row*" }
         },
@@ -32,7 +32,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
@@ -71,7 +71,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {

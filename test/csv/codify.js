@@ -14,7 +14,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     outputFile1: './output/csv_encoding_1.json',
@@ -26,7 +26,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     outputFile1: './output/csv_encoding_g1.json',

@@ -15,13 +15,13 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|./output/|fs_gzip_output.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -31,13 +31,13 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|./output/|fs_gzip_output.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });

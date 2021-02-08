@@ -17,13 +17,13 @@ async function s3Destination() {
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|S3:dictadata.org/test/output/|csv_output.csv|*",
       options: {
-        csvHeader: true,
+        header: true,
         "s3": {
           "aws_profile": ""
         }
@@ -36,13 +36,13 @@ async function s3Destination() {
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     terminal: {
       smt: "csv|S3:dictadata.org/test/output/|csv_output.csv.gz|*",
       options: {
-        csvHeader: true,
+        header: true,
         "s3": {
           "aws_profile": ""
         }
@@ -90,7 +90,7 @@ async function s3Source() {
     origin: {
       smt: "csv|S3:dictadata.org/test/data/|foofile.csv.gz|*",
       options: {
-        csvHeader: true,
+        header: true,
         "s3": {
           "aws_profile": ""
         }
@@ -99,7 +99,7 @@ async function s3Source() {
     terminal: {
       smt: "csv|./output/|s3_output.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });
@@ -109,7 +109,7 @@ async function s3Source() {
     origin: {
       smt: "csv|S3:dictadata.org/test/data/|foofile.csv|*",
       options: {
-        csvHeader: true,
+        header: true,
         "s3": {
           "aws_profile": ""
         }
@@ -118,7 +118,7 @@ async function s3Source() {
     terminal: {
       smt: "csv|./output/|s3_output.csv.gz|*",
       options: {
-        csvHeader: true
+        header: true
       }
     }
   });

@@ -71,7 +71,7 @@ async function tests() {
     terminal: {
       smt: "csv|./output/|json_transform_3.csv|*",
       options: {
-        csvHeader: true
+        header: true
       }
     },
     transforms: {
