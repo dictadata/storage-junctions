@@ -840,9 +840,36 @@
     },
     {
       "type": "pwa-node",
+      "name": "--- transforms",
+      "request": "launch"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "split db schemas",
+      "program": "${workspaceFolder}/test/pipelines/splitdbschemas.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "load db schema",
+      "program": "${workspaceFolder}/test/pipelines/loaddbschema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
       "request": "launch",
       "name": "tee xlsx",
-      "program": "${workspaceFolder}/test/transforms/tee.js",
+      "program": "${workspaceFolder}/test/pipelines/tee.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
