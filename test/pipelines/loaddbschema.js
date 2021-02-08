@@ -15,7 +15,7 @@ async function tests() {
     "origin": {
       "smt": "json|./test/data/|db_schema_data.json|*",
       "options": {
-        "pick": "results[0].items"
+        "pick": "results.0.items"
       }
     },
     "terminal": {
