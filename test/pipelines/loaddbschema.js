@@ -10,7 +10,7 @@ logger.info("=== Test: split file");
 
 async function tests() {
 
-  logger.verbose('=== db_schema_data => ./output/anibus');
+  logger.verbose('=== db_schema_data => ./output/DB/');
   await transfer({
     "origin": {
       "smt": "json|./test/data/|db_schema_data.json|*",
@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "json|./output/ANIBUS/|db_data.json|*"
+      "smt": "json|./output/DB/|db_data.json|*"
     }
   });
 }

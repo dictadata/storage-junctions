@@ -10,7 +10,7 @@ logger.info("=== Test: split file");
 
 async function tests() {
 
-  logger.verbose('=== db_schema => ./output/anibus_*');
+  logger.verbose('=== db_schema => ./output/DB_*');
   await transfer({
     "origin": {
       "smt": "json|./test/data/|db_schema.json|*"
@@ -39,7 +39,7 @@ async function tests() {
             }
           },
           "terminal": {
-            "smt": "jsono|./output/ANIBUS|*_encoding.json|=name",
+            "smt": "jsono|./output/DB|*_encoding.json|=name",
             "options": {
               "formation": {
                 "opening": '{\n"fields": {\n  ',
