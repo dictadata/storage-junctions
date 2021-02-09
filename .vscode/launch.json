@@ -402,6 +402,17 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "mssql bulk store",
+      "program": "${workspaceFolder}/test/mssql/store_bulk.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "mssql recall",
       "program": "${workspaceFolder}/test/mssql/recall.js",
       "outputCapture": "std",
@@ -503,6 +514,17 @@
       "request": "launch",
       "name": "mysql store",
       "program": "${workspaceFolder}/test/mysql/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql bulk store",
+      "program": "${workspaceFolder}/test/mysql/store_bulk.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
