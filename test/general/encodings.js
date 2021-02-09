@@ -31,7 +31,7 @@ async function tests() {
     logger.verbose('=== read encoding_foo_types.json');
     logger.verbose(">>> encoding_foo_types.json");
     jo = await storage.activate("echo|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_types.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/encoding_foo_typesonly.json", "utf8"));
     await jo.putEncoding(encoding);
     logger.verbose("<<< encoding_foo_types.json");
     encoding = await jo.getEncoding();
