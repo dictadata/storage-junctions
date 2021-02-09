@@ -1,7 +1,7 @@
 {
   "name": "@dictadata/storage-junctions",
   "version": "1.4.8",
-  "description": "Node.js library for distributed data storage access and streaming transfers.",
+  "description": "Node.js library for distributed data storage access and streaming transfers. ",
   "author": "Drew O. Letcher",
   "license": "MIT",
   "main": "lib/index.js",

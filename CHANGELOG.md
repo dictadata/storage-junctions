@@ -1,7 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
 - version 1.4.8
-  - support for default Oracle dates "DD-MON-YY" "DD-MON-YY HH:MI:SS"
+  - support for default Oracle dates "DD-MON-YY" and "DD-MON-YY HH:MI:SS"
 - version 1.4.7
   - add storeBulk method for mysql-junction and mssql-junction
 - version 1.4.6
