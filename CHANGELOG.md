@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.6
+  - add setter for field.isKey
 - version 1.4.5
   - primary key ordinals
   - add compose and decompose (flatten) tranforms
