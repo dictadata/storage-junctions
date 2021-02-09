@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.7
+  - add storeBulk method for mysql-junction and mssql-junction
 - version 1.4.6
   - add setter for field.isKey
 - version 1.4.5
