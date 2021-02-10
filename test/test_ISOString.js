@@ -28,7 +28,12 @@ function test () {
   console.log(isoDates.parseDate("2019-09-30 23:00:00.000-01:00").toISOString());
   console.log(isoDates.parseDate("2019-09-30 18:00:00.000-06:").toISOString());
   console.log(isoDates.parseDate("2019-09-30 18:00:00-06:").toISOString());
-  console.log(isoDates.parseDate("2019-10-01 06:00:00+06:").toISOString());
+
+  console.log();
+  console.log(isoDates.parseDate("10-OCT-18"));
+  console.log(typeof isoDates.parseDate("03-MAY-25"));
+  console.log(typeof isoDates.parseDate("2019-09-30T14:00:00"));
+
 }
 
 test();

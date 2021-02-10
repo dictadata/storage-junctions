@@ -40,6 +40,8 @@ function test () {
   console.log(isDate("03-MAY-25 13:05:17"));
   let d2 = new Date("03-MAY-25 13:05:17");
   console.log(d2.toISOString());
+  let d3 = new Date("03-MAY-1925 13:05:17");
+  console.log(d3.toISOString());
 }
 
 test();
