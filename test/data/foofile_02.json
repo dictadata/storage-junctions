@@ -97,7 +97,7 @@
   {
     "Foo": "sixth",
     "Bar": null,
-    "Baz": null,
+    "Baz": 6,
     "Fobe": null,
     "Dt Test": null,
     "enabled": null
@@ -121,6 +121,28 @@
       {
         "part": "shaft",
         "count": 9
+      }
+    ]
+  },
+  {
+    "Foo": "eighth",
+    "Bar": "bigger data",
+    "Baz": "12",
+    "Fobe": "3.4",
+    "Dt Test": "10-OCT-18",
+    "enabled": "false",
+    "widgets": [
+      {
+        "part": "core",
+        "count": 0
+      },
+      {
+        "part": "screw",
+        "count": 1000000
+      },
+      {
+        "part": "shaft",
+        "count": 3
       }
     ]
   }
