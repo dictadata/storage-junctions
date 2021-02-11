@@ -80,6 +80,14 @@ async function tests() {
     }
   });
 
+  logger.info("=== mysql no none-keys");
+  await putEncoding({
+    origin: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
+      encoding: "./test/data/encoding_foo_two.json"
+    }
+  });
+
 }
 
 (async () => {

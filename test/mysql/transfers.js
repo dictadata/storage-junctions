@@ -10,6 +10,17 @@ logger.info("=== Test: mysql transfers");
 
 async function tests() {
 
+  logger.info("=== foofile_two.json > mysql");
+  await transfer({
+    origin: {
+      smt: "json|./test/data/|foofile_two.json|*" 
+    },
+    terminal: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
+      encoding: "./test/data/encoding_foo_two.json"
+    }
+  });
+
   logger.info("=== foofile.csv > mysql.foo_schema");
   await transfer({
     origin: {
