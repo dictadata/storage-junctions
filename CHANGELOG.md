@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.4.10
+  - customizable stringBreakpoints for sizing database string types
+  - improved handling of date strings
 - version 1.4.9
   - implement Oracle bulk loading
 - version 1.4.8
