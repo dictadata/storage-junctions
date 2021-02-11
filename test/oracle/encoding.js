@@ -47,7 +47,6 @@ async function tests() {
     }
   });
 
-
   logger.info("=== oracle putEncoding");
   await putEncoding({
     origin: {
@@ -63,6 +62,20 @@ async function tests() {
     },
     terminal: {
       output: './output/oracle_encoding_foo_02.json'
+    }
+  });
+
+  logger.info("=== oracle large fields");
+  await putEncoding({
+    origin: {
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_lg|*",
+      options: {
+        stringBreakpoints: {
+          keyword: 120,
+          text: 2000
+        }
+      },
+      encoding: "./test/data/encoding_foo_lg.json"
     }
   });
 

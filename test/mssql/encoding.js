@@ -67,6 +67,20 @@ async function tests() {
     }
   });
 
+  logger.info("=== mssql large fields");
+  await putEncoding({
+    origin: {
+      smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_lg|*",
+      options: {
+        stringBreakpoints: {
+          keyword: 120,
+          text: 2000
+        }
+      },
+      encoding: "./test/data/encoding_foo_lg.json"
+    }
+  });
+
 }
 
 (async () => {

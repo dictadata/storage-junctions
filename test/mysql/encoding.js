@@ -66,6 +66,20 @@ async function tests() {
     }
   });
 
+  logger.info("=== mysql large fields");
+  await putEncoding({
+    origin: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_lg|*",
+      options: {
+        stringBreakpoints: {
+          keyword: 120,
+          text: 2000
+        }
+      },
+      encoding: "./test/data/encoding_foo_lg.json"
+    }
+  });
+
 }
 
 (async () => {
