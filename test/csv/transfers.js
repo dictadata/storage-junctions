@@ -68,7 +68,6 @@ async function tests() {
       smt: "json|./output/|csv_timeseries.json|*"
     }
   });
-
 }
 
 (async () => {

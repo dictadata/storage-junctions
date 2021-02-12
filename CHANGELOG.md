@@ -17,8 +17,8 @@
   - primary key ordinals
   - add compose and decompose (flatten) tranforms
   - add encoder transform
-  - json reader option.pick for chosing a JSON input array
-  - json writer option.formation for structure of json output file
+  - json reader options.pick for chosing a JSON input array
+  - json writer options.formation for structure of json output file
   - add splitter-junction to divide a stream into multiple outputs
 - version 1.4.4
   - fix bug with Oracle PRIMARY KEY clause
