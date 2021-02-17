@@ -23,7 +23,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./output/http_list_1.json"
+      output: "./output/http/list_1.json"
     }
   });
 
@@ -37,7 +37,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./output/http_list_2.json"
+      output: "./output/http/list_2.json"
     }
   });
 
@@ -67,7 +67,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./output/http_list_3.json"
+      output: "./output/http/list_3.json"
     }
   });
 
@@ -90,7 +90,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./output/http_list_4.json"
+      output: "./output/http/list_4.json"
     }
   });
 

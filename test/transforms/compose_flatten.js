@@ -23,7 +23,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./output/|compose_db_schema.json|*',
+      "smt": 'json|./output/compose/|db_schema.json|*',
       options: {}
     }
   });
@@ -31,7 +31,7 @@ async function tests() {
   logger.info("=== flatten");
   await transfer({
     origin: {
-      smt: "json|./output/|compose_db_schema.json|*",
+      smt: "json|./output/compose/|db_schema.json|*",
       options: {}
     },
     "transforms": {
@@ -40,7 +40,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./output/|flatten_db_schema.csv|*',
+      "smt": 'csv|./output/flatten/|db_schema.csv|*',
       options: {
         header: true
       }

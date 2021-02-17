@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "csv|./output/|csv_output.csv|*",
+      smt: "csv|./output/csv/|output.csv|*",
       options: {
         header: true
       }
@@ -35,7 +35,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "csv|./output/|csv_output_noheader.csv|*"
+      smt: "csv|./output/csv/|output_noheader.csv|*"
     }
   });
 
@@ -48,7 +48,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/|csv_output.json|*"
+      smt: "json|./output/csv/|output.json|*"
     }
   });
 
@@ -65,7 +65,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/|csv_timeseries.json|*"
+      smt: "json|./output/csv/|timeseries.json|*"
     }
   });
 */
@@ -78,7 +78,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/|csv_fueltrim.json|*"
+      smt: "json|./output/csv/|fueltrim.json|*"
     }
   });
 

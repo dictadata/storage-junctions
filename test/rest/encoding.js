@@ -35,7 +35,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/weather_forecast_encoding.json'
+      output: './output/rest/weather_forecast_encoding.json'
     }
   });
 

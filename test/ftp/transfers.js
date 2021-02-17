@@ -21,7 +21,7 @@ async function test_01() {
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv|*",
+      smt: "csv|ftp://dicta:data@localhost/test/output/csv/|output.csv|*",
       options: {
         header: true
       }
@@ -37,7 +37,7 @@ async function test_01() {
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/test/output/|csv_output.csv.gz|*",
+      smt: "csv|ftp://dicta:data@localhost/test/output/csv/|output.csv.gz|*",
       options: {
         header: true
       }
@@ -50,7 +50,7 @@ async function test_01() {
       smt: "json|./test/data/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/test/output/|json_output.json|*",
+      smt: "json|ftp://dicta:data@localhost/test/output/json/|output.json|*",
       options: {}
     }
   });
@@ -61,7 +61,7 @@ async function test_01() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/test/output/|json_output.json.gz|*",
+      smt: "json|ftp://dicta:data@localhost/test/output/json/|output.json.gz|*",
       options: {}
     }
   });
@@ -81,7 +81,7 @@ async function test_02() {
       }
     },
     terminal: {
-      smt: "csv|./output/|ftp_output.csv|*",
+      smt: "csv|./output/ftp/|output.csv|*",
       options: {
         header: true
       }
@@ -95,7 +95,7 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "csv|./output/|ftp_output.csv.gz|*",
+      smt: "csv|./output/ftp/|output.csv.gz|*",
       options: {
         header: true
       }
@@ -109,7 +109,7 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "json|./output/|ftp_output.json|*"
+      smt: "json|./output/ftp/|output.json|*"
     }
   });
 
@@ -120,7 +120,7 @@ async function test_02() {
       options: {}
     },
     terminal: {
-      smt: "json|./output/|ftp_output.json.gz|*"
+      smt: "json|./output/ftp/|output.json.gz|*"
     }
   });
 

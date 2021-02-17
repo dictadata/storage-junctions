@@ -16,7 +16,7 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "json|./output/|json_output.json|*"
+      smt: "json|./output/json/|output.json|*"
     }
   });
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "csv|./output/|json_output.csv|*",
+      smt: "csv|./output/json/|output.csv|*",
       options: {
         header: true
       }
@@ -39,7 +39,7 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "jsono|./output/|json_output_o.json|*"
+      smt: "jsono|./output/json/|output_o.json|*"
     }
   });
 
@@ -49,7 +49,7 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "jsonl|./output/|json_output_l.log|*"
+      smt: "jsonl|./output/json/|output_l.log|*"
     }
   });
 
@@ -59,7 +59,7 @@ async function tests() {
       smt: "json|./test/data/|foofile.json|*"
     },
     terminal: {
-      smt: "jsons|./output/|json_output_s.txt|*"
+      smt: "jsons|./output/json/|output_s.txt|*"
     }
   });
 

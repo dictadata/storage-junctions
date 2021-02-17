@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/|json_transform_1.json|*"
+      smt: "json|./output/json/|transform_1.json|*"
     }
   });
 
@@ -32,7 +32,7 @@ async function tests() {
       smt: "json|./test/data/|foofile_01.json|*"
     },
     terminal: {
-      smt: "json|./output/|json_transform_2.json|*"
+      smt: "json|./output/json/|transform_2.json|*"
     },
     transforms: {
       "filter": {
@@ -69,7 +69,7 @@ async function tests() {
       smt: "json|./test/data/|foofile_02.json|*"
     },
     terminal: {
-      smt: "csv|./output/|json_transform_3.csv|*",
+      smt: "csv|./output/json/|transform_3.csv|*",
       options: {
         header: true
       }

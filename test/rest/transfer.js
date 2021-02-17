@@ -35,7 +35,7 @@ async function testTransfer() {
       }
     },
     terminal: {
-      smt: "csv|./output/|weather_forecast_transfer.csv|*",
+      smt: "csv|./output/weather/|forecast_transfer.csv|*",
       options: {
         header: true
       }
