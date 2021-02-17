@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mssql_retrieve_0.json"
+      output: "./output/mssql/retrieve_0.json"
     }
   });
 
@@ -37,7 +37,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mssql_retrieve_1.json"
+      output: "./output/mssql/retrieve_1.json"
     }
   });
 
@@ -53,7 +53,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mssql_retrieve_2.json"
+      output: "./output/mssql/retrieve_2.json"
     }
   });
 

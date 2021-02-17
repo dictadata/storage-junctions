@@ -25,7 +25,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*"
     },
     terminal: {
-      output: './output/mysql_encoding_foo.json'
+      output: './output/mysql/encoding_foo.json'
     }
   });
 
@@ -43,7 +43,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*"
     },
     terminal: {
-      output: './output/mysql_encoding_foo_01.json'
+      output: './output/mysql/encoding_foo_01.json'
     }
   });
 
@@ -62,7 +62,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*"
     },
     terminal: {
-      output: './output/mysql_encoding_foo_02.json'
+      output: './output/mysql/encoding_foo_02.json'
     }
   });
 

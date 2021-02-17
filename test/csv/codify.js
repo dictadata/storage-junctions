@@ -17,8 +17,8 @@ async function tests() {
         header: true
       }
     },
-    outputFile1: './output/csv_encoding_1.json',
-    outputFile2: './output/csv_encoding_2.json'
+    outputFile1: './output/csv/encoding_1.json',
+    outputFile2: './output/csv/encoding_2.json'
   });
 
   logger.verbose("=== csv.gz > csv_encoding_gz")
@@ -29,8 +29,8 @@ async function tests() {
         header: true
       }
     },
-    outputFile1: './output/csv_encoding_g1.json',
-    outputFile2: './output/csv_encoding_g2.json'
+    outputFile1: './output/csv/encoding_g1.json',
+    outputFile2: './output/csv/encoding_g2.json'
   });
 
 }

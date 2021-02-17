@@ -26,7 +26,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/mysql_aggregate_1.json'
+      output: './output/mysql/aggregate_1.json'
     }
   });
 
@@ -50,7 +50,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/mysql_aggregate_2.json'
+      output: './output/mysql/aggregate_2.json'
     }
   });
 
@@ -75,7 +75,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/mysql_aggregate_3.json'
+      output: './output/mysql/aggregate_3.json'
     }
   });
 

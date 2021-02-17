@@ -28,8 +28,10 @@ module.exports = exports = async function (tract) {
   catch (err) {
     if (err.statusCode < 500)
       logger.warn(err.message);
-    else
+    else {
       logger.error('!!! request failed: ' + err.message);
+      process.exitCode = 1;
+    }
   }
   finally {
     if (jo) await jo.relax();

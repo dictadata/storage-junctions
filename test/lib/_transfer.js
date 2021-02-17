@@ -89,6 +89,7 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! transfer failed: ' + err.message);
+    process.exitCode = 1;
   }
   finally {
     if (jo) await jo.relax();

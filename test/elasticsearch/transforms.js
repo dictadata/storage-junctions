@@ -23,7 +23,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/|elasticsearch_transform_1.json|*"
+      smt: "json|./output/elasticsearch/|transform_1.json|*"
     }
   });
 
@@ -33,7 +33,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
     },
     terminal: {
-      smt: "json|./output/|elasticsearch_transform_2.json|*"
+      smt: "json|./output/elasticsearch/|transform_2.json|*"
     },
     transforms: {
       "filter": {

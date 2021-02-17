@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mysql_retrieve_0.json"
+      output: "./output/mysql/retrieve_0.json"
     }
   });
 
@@ -37,7 +37,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mysql_retrieve_1.json"
+      output: "./output/mysql/retrieve_1.json"
     }
   });
 
@@ -53,7 +53,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mysql_retrieve_2.json"
+      output: "./output/mysql/retrieve_2.json"
     }
   });
 

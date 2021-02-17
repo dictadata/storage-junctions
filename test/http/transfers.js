@@ -72,5 +72,4 @@ async function test_01() {
 
 (async () => {
   await test_01();
-  logger.verbose("Done.");
 })();

@@ -40,5 +40,4 @@ async function test_1() {
 
 (async () => {
   await test_1();
-  logger.info(">>> completed");
 })();

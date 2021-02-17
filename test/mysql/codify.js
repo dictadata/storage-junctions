@@ -15,8 +15,8 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"
     },
-    outputFile1: './output/mysql_codify_01.json',
-    outputFile2: './output/mysql_codify_02.json'
+    outputFile1: './output/mysql/codify_01.json',
+    outputFile2: './output/mysql/codify_02.json'
   });
 
   logger.info("=== codify foo_schema_01");
@@ -24,8 +24,8 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo"
     },
-    outputFile1: './output/mysql_codify_11.json',
-    outputFile2: './output/mysql_codify_12.json'
+    outputFile1: './output/mysql/codify_11.json',
+    outputFile2: './output/mysql/codify_12.json'
   });
 
   logger.info("=== codify foo_schema_02");
@@ -33,8 +33,8 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|=Foo"
     },
-    outputFile1: './output/mysql_codify_21.json',
-    outputFile2: './output/mysql_codify_22.json'
+    outputFile1: './output/mysql/codify_21.json',
+    outputFile2: './output/mysql/codify_22.json'
   });
 
 }

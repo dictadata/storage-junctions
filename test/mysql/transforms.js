@@ -23,7 +23,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/|mysql_transform_0.json|*"
+      smt: "json|./output/mysql/|transform_0.json|*"
     }
   });
 
@@ -34,7 +34,7 @@ async function tests() {
       encoding: "./test/data/encoding_foo_01.json",
     },
     terminal: {
-      smt: "json|./output/|mysql_transform_1.json|*"
+      smt: "json|./output/mysql/|transform_1.json|*"
     },
     transforms: {
       "filter": {
@@ -72,7 +72,7 @@ async function tests() {
       encoding: "./test/data/encoding_foo_02.json",
     },
     terminal: {
-      smt: "json|./output/|mysql_transform_2.json|*"
+      smt: "json|./output/mysql/|transform_2.json|*"
     },
     transforms: {
       "filter": {

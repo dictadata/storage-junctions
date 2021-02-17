@@ -158,5 +158,4 @@ async function s3Source() {
 (async () => {
   await s3Source();
   await s3Destination();
-  logger.verbose("Done.");
 })();

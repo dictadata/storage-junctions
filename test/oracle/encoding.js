@@ -25,7 +25,7 @@ async function tests() {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
     },
     terminal: {
-      output: './output/oracle_encoding_foo.json'
+      output: './output/oracle/encoding_foo.json'
     }
   });
 
@@ -43,7 +43,7 @@ async function tests() {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*"
     },
     terminal: {
-      output: './output/oracle_encoding_foo_01.json'
+      output: './output/oracle/encoding_foo_01.json'
     }
   });
 
@@ -61,7 +61,7 @@ async function tests() {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*"
     },
     terminal: {
-      output: './output/oracle_encoding_foo_02.json'
+      output: './output/oracle/encoding_foo_02.json'
     }
   });
 

@@ -38,6 +38,7 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.message);
+    process.exitCode = 1;
   }
   finally {
     await junction.relax();

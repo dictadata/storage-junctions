@@ -6,6 +6,7 @@
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 const fs = require('fs');
+const path = require('path');
 
 module.exports = exports = async function (tract) {
 
@@ -23,6 +24,7 @@ module.exports = exports = async function (tract) {
     logger.verbose(JSON.stringify(list, null, "  "));
     if (tract.terminal && tract.terminal.output) {
       logger.info("<<< save encoding to " + tract.terminal.output);
+      fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
       fs.writeFileSync(tract.terminal.output, JSON.stringify(list, null, 2), "utf8");
     }
 
@@ -30,6 +32,7 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.message);
+    process.exitCode = 1;
   }
   finally {
     await jo.relax();

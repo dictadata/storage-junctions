@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/mysql_recall.json"
+      output: "./output/mysql/recall.json"
     }
   });
 

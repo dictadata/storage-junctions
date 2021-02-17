@@ -26,7 +26,7 @@ async function tests() {
     terminal: [
       {
         terminal: {
-          smt: "json|./output/|xlsx_tee_1.json|*",
+          smt: "json|./output/xlsx/|tee_1.json|*",
           encoding: "./test/data/encoding_foo.json"
         },
         transforms: {
@@ -34,7 +34,7 @@ async function tests() {
       },
       {
         terminal: {
-          smt: "json|./output/|xlsx_tee_2.json|*",
+          smt: "json|./output/xlsx/|tee_2.json|*",
           encoding: "./test/data/encoding_foo_transform.json"
         },
         transforms: {

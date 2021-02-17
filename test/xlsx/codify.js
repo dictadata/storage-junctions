@@ -15,8 +15,8 @@ async function tests() {
     origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
-    outputFile1: './output/xlsx_encoding_1.json',
-    outputFile2: './output/xlsx_encoding_2.json'
+    outputFile1: './output/xlsx/encoding_1.json',
+    outputFile2: './output/xlsx/encoding_2.json'
   });
 
   logger.info("=== codify foofile.xls|foo");
@@ -24,8 +24,8 @@ async function tests() {
     origin: {
       smt: "xls|./test/data/foofile.xls|foo|*"
     },
-    outputFile1: './output/xls_encoding_1.json',
-    outputFile2: './output/xls_encoding_2.json'
+    outputFile1: './output/xlsx/encoding_xls_1.json',
+    outputFile2: './output/xlsx/encoding_xls_2.json'
   });
 
 }
