@@ -842,7 +842,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "aggregate csv",
+      "name": "transform aggregate csv",
       "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
       "outputCapture": "std",
       "env": {
@@ -853,7 +853,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "aggregate json",
+      "name": "transform aggregate json",
       "program": "${workspaceFolder}/test/transforms/json_aggregate.js",
       "outputCapture": "std",
       "env": {
@@ -864,7 +864,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "db2db transforms",
+      "name": "transform db2db",
       "program": "${workspaceFolder}/test/transforms/db2db_transforms.js",
       "outputCapture": "std",
       "env": {
@@ -875,7 +875,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "compose/flatten",
+      "name": "transform compose/flatten",
       "program": "${workspaceFolder}/test/transforms/compose_flatten.js",
       "outputCapture": "std",
       "env": {
@@ -885,13 +885,13 @@
     },
     {
       "type": "pwa-node",
-      "name": "--- transforms",
+      "name": "--- pipelines",
       "request": "launch"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "split db schemas",
+      "name": "pipeline split db schemas",
       "program": "${workspaceFolder}/test/pipelines/splitdbschemas.js",
       "outputCapture": "std",
       "env": {
@@ -902,7 +902,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "load db schema",
+      "name": "pipeline load db schema",
       "program": "${workspaceFolder}/test/pipelines/loaddbschema.js",
       "outputCapture": "std",
       "env": {
@@ -913,7 +913,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "tee xlsx",
+      "name": "pipeline tee xlsx",
       "program": "${workspaceFolder}/test/pipelines/tee.js",
       "outputCapture": "std",
       "env": {
