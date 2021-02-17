@@ -85,7 +85,7 @@ module.exports = exports = async function (tract) {
     await stream.pipeline(pipes);
     logger.info(">>> completed");
     let stats = tws.statistics;
-    console.log(stats.count + " in " + stats.elapsed / 1000 + "s");
+    console.log(stats.count + ", " + stats.elapsed / 1000 + "s, " + Math.round(stats.count / (stats.elapsed / 1000)) + "/sec");
   }
   catch (err) {
     logger.error('!!! transfer failed: ' + err.message);
