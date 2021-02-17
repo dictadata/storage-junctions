@@ -383,7 +383,11 @@
       "env": {
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
-      }
+      },
+      "outFiles": [
+        "${workspaceFolder}/lib/**/*.js",
+        "${workspaceFolder}/test/lib/*.js"
+      ]
     },
     {
       "type": "pwa-node",
