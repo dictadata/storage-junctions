@@ -29,7 +29,10 @@ async function runTest(args) {
     const program = spawn('node', args);
 
     program.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
+      if (data[data.length - 1] === 10 && data[data.length - 2] === 13)
+        console.log(`${data.slice(0, data.length - 2)}`);
+      else
+        console.log(`${data}`);
     });
 
     program.stderr.on('data', (data) => {
