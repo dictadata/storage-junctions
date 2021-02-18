@@ -1,8 +1,10 @@
 {
-  "model": "*",
-  "locus": "*",
-  "schema": "foo_schema",
-  "key": "*",
+  "smt": {
+    "model": "*",
+    "locus": "*",
+    "schema": "foo_schema",
+    "key": "*"
+  },
   "fields": {
     "Foo": {
       "type": "keyword",

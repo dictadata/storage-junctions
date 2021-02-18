@@ -1,8 +1,10 @@
 {
-  "model": "*",
-  "locus": "*",
-  "schema": "encoding_template",
-  "key": "=foo",
+  "smt": {
+    "model": "*",
+    "locus": "*",
+    "schema": "encoding_template",
+    "key": "=foo"
+  },
   "fields": {
     "Foo": {
       "name": "Foo",
@@ -75,9 +77,9 @@
   },
   "indices": {
     "foo_index_02": {
-      "unique": true,
+      "unique": false,
       "fields": [{
-        "name": "Baz"
+        "name": "Bar"
       },{
         "name": "Fobe",
         "order": "DESC"
