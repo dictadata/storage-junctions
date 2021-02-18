@@ -47,7 +47,6 @@ async function tests() {
     }
   });
 
-
   logger.info("=== mysql putEncoding");
   await putEncoding({
     origin: {
