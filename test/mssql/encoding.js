@@ -29,7 +29,6 @@ async function tests() {
     }
   });
 
-
   logger.info("=== mssql putEncoding");
   await putEncoding({
     origin: {

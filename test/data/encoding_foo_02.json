@@ -72,5 +72,16 @@
         }
       }
     }
+  },
+  "indices": {
+    "foo_index_02": {
+      "unique": true,
+      "fields": [{
+        "name": "Baz"
+      },{
+        "name": "Fobe",
+        "order": "DESC"
+      }]
+    }
   }
 }
