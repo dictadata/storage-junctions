@@ -835,7 +835,7 @@
       }
     },
     {
-      "type": "pwa-node",
+      "type": "node-terminal",
       "name": "--- transforms",
       "request": "launch"
     },
@@ -884,7 +884,7 @@
       }
     },
     {
-      "type": "pwa-node",
+      "type": "node-terminal",
       "name": "--- pipelines",
       "request": "launch"
     },
