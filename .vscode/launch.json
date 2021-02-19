@@ -892,7 +892,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "pipeline split db schemas",
-      "program": "${workspaceFolder}/test/pipelines/splitdbschemas.js",
+      "program": "${workspaceFolder}/test/pipelines/split_schemas.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -902,8 +902,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "pipeline load db schema",
-      "program": "${workspaceFolder}/test/pipelines/loaddbschema.js",
+      "name": "pipeline pick data",
+      "program": "${workspaceFolder}/test/pipelines/pickdata.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

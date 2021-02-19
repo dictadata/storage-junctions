@@ -10,10 +10,10 @@ logger.info("=== Test: split file");
 
 async function tests() {
 
-  logger.verbose('=== db_schema => ./output/DB_*');
+  logger.verbose('=== table_schemas => ./output/split_*_encoding');
   await transfer({
     "origin": {
-      "smt": "json|./test/data/|db_schema.json|*"
+      "smt": "json|./test/data/|table_schemas.json|*"
     },
     "terminal": {
       "smt": "split|*|*|*",
@@ -39,7 +39,7 @@ async function tests() {
             }
           },
           "terminal": {
-            "smt": "jsono|./output/pipelines|DB_*_encoding.json|=name",
+            "smt": "jsono|./output/pipelines|split_*_encoding.json|=name",
             "options": {
               "formation": {
                 "opening": '{\n"fields": {\n  ',
