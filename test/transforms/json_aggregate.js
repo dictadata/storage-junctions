@@ -28,7 +28,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./output/json/|aggregate_1.json|*'
+      "smt": 'json|./output/transforms/|json_aggregate_1.json|*'
     }
   });
 
@@ -53,7 +53,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./output/json/|aggregate_2.json|*'
+      "smt": 'json|./output/transforms/|json_aggregate_2.json|*'
     }
   });
 
@@ -78,7 +78,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./output/json/|aggregate_3.json|*'
+      "smt": 'json|./output/transforms/|json_aggregate_3.json|*'
     }
   });
 

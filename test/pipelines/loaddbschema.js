@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "json|./output/DB/|db_data.json|*"
+      "smt": "json|./output/pipelines/|db_data.json|*"
     }
   });
 }

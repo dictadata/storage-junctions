@@ -39,7 +39,7 @@ async function tests() {
             }
           },
           "terminal": {
-            "smt": "jsono|./output/DB|*_encoding.json|=name",
+            "smt": "jsono|./output/pipelines|DB_*_encoding.json|=name",
             "options": {
               "formation": {
                 "opening": '{\n"fields": {\n  ',
