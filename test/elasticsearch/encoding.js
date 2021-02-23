@@ -5,11 +5,17 @@
 
 const getEncoding = require('../lib/_getEncoding');
 const putEncoding = require('../lib/_putEncoding');
+const dullEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("===== elasticsearch encoding ");
 
 async function test(schema, encoding) {
+
+  logger.info("=== dullEncoding" + schema);
+  await dullEncoding({
+    smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
+  });
 
   logger.info("=== putEncoding " + schema);
   await putEncoding({

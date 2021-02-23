@@ -4,18 +4,17 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
+const dullEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  //logger.info("=== dull foo_transfer");
-  //await dull({
-  //  origin: {
-  //    smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
-  //  }
-  //});
+  logger.info("=== dullEncoding foo_transfer");
+  await dullEncoding({
+    smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
+  });
 
   logger.info("=== csv => elasticsearch");
   await transfer({
@@ -90,7 +89,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     },
     terminal: {
-      smt: "json|./output/elasticsearch/|output.json|*",
+      smt: "json|./output/elasticsearch/|output_j.json|*",
       options: {
         append: false
       }

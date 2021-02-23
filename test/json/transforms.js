@@ -4,6 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
+const dullEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: json transforms");
@@ -11,6 +12,9 @@ logger.info("=== Test: json transforms");
 async function tests() {
 
   logger.verbose('=== json_transform_1.json');
+  let smt1 = "json|./output/json/|transform_1.json|*";
+  await dullEncoding({ smt: smt1 })
+
   await transfer({
     origin: {
       smt: "json|./test/data/|foofile_01.json|*",
@@ -22,11 +26,14 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/json/|transform_1.json|*"
+      smt: smt1
     }
   });
 
   logger.verbose('=== json_transform_2.json');
+  let smt2 = "json|./output/json/|transform_2.json|*";
+  await dullEncoding({ smt: smt2 })
+
   await transfer({
     origin: {
       smt: "json|./test/data/|foofile_01.json|*"
@@ -59,11 +66,14 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/json/|transform_2.json|*"
+      smt: smt2
     }
   });
 
   logger.verbose('=== json > json_transform_3.csv');
+  let smt3 = "csv|./output/json/|transform_3.csv|*";
+  await dullEncoding({ smt: smt3 })
+
   await transfer({
     origin: {
       smt: "json|./test/data/|foofile_02.json|*"
@@ -80,7 +90,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "csv|./output/json/|transform_3.csv|*",
+      smt: smt3,
       options: {
         header: true
       }

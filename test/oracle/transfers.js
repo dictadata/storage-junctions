@@ -4,11 +4,17 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
+const getEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: oracle transfers");
 
 async function tests() {
+
+  logger.info("=== dullEncoding foo_transfer");
+  await dullEncoding({
+    smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*"
+  });
 
   logger.info("=== foofile.csv > oracle.foo_schema");
   await transfer({

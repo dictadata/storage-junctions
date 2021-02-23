@@ -4,11 +4,17 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
+const getEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: mssql transfers");
 
 async function tests() {
+
+  logger.info("=== dullEncoding foo_transfer");
+  await dullEncoding({
+    smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|*"
+  });
 
   logger.info("=== foofile.csv > mssql");
   await transfer({

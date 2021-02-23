@@ -4,6 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
+const dullEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: gzip transfers");
@@ -11,6 +12,8 @@ logger.info("=== Test: gzip transfers");
 async function tests() {
 
   logger.verbose('=== csv => fs/gzip_output.csv.gz');
+  await dullEncoding({ smt: "csv|./output/fs/|gzip_output.csv.gz|*" });
+  
   await transfer({
     origin: {
       smt: "csv|./test/data/|foofile.csv|*",

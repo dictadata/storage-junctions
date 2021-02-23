@@ -4,6 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
+const dullEncoding = require('../lib/_dullEncoding');
 const logger = require('../../lib/logger');
 
 
@@ -13,6 +14,8 @@ async function test_01() {
   logger.verbose("=== fs to ftp");
 
   logger.verbose('=== ftp: csv_output.csv');
+  await dullEncoding({ smt: "csv|ftp://dicta:data@localhost/test/output/csv/|output.csv|*" });
+  
   await transfer({
     origin: {
       smt: "csv|./test/data/|foofile.csv.gz|*",
