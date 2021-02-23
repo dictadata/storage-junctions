@@ -33,9 +33,6 @@ async function tests() {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       encoding: "./test/data/encoding_foo_01.json",
     },
-    terminal: {
-      smt: "json|./output/oracle/|transform_1.json|*"
-    },
     transforms: {
       "filter": {
         "match": {
@@ -62,6 +59,9 @@ async function tests() {
         },
         "remove": ["fobe"],
       }
+    },
+    terminal: {
+      smt: "json|./output/oracle/|transform_1.json|*"
     }
   });
 
@@ -70,9 +70,6 @@ async function tests() {
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       encoding: "./test/data/encoding_foo_02.json",
-    },
-    terminal: {
-      smt: "json|./output/oracle/|transform_2.json|*"
     },
     transforms: {
       "filter": {
@@ -100,6 +97,9 @@ async function tests() {
         },
         "remove": ["fobe"],
       }
+    },
+    terminal: {
+      smt: "json|./output/oracle/|transform_2.json|*"
     }
   });
 

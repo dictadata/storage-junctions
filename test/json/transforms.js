@@ -31,9 +31,6 @@ async function tests() {
     origin: {
       smt: "json|./test/data/|foofile_01.json|*"
     },
-    terminal: {
-      smt: "json|./output/json/|transform_2.json|*"
-    },
     transforms: {
       "filter": {
         "match": {
@@ -60,6 +57,9 @@ async function tests() {
         },
         "remove": ["fobe"],
       }
+    },
+    terminal: {
+      smt: "json|./output/json/|transform_2.json|*"
     }
   });
 
@@ -67,12 +67,6 @@ async function tests() {
   await transfer({
     origin: {
       smt: "json|./test/data/|foofile_02.json|*"
-    },
-    terminal: {
-      smt: "csv|./output/json/|transform_3.csv|*",
-      options: {
-        header: true
-      }
     },
     transforms: {
       filter: {
@@ -83,6 +77,12 @@ async function tests() {
       },
       select: {
         fields: ["Foo","Bar","Baz","Fobe","Dt Test","enabled"]
+      }
+    },
+    terminal: {
+      smt: "csv|./output/json/|transform_3.csv|*",
+      options: {
+        header: true
       }
     }
   });

@@ -31,9 +31,6 @@ async function tests() {
     origin: {
       smt: "xlsx|./test/data/foofile.xlsx|foo|*"
     },
-    terminal: {
-      smt: "json|./output/xlsx/|transform_2.json|*"
-    },
     transforms: {
       "filter": {
         "match": {
@@ -59,6 +56,9 @@ async function tests() {
         },
         "remove": ["fobe"],
       }
+    },
+    terminal: {
+      smt: "json|./output/xlsx/|transform_2.json|*"
     }
   });
 

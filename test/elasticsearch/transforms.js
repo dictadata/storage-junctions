@@ -32,9 +32,6 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
     },
-    terminal: {
-      smt: "json|./output/elasticsearch/|transform_2.json|*"
-    },
     transforms: {
       "filter": {
         "match": {
@@ -62,6 +59,9 @@ async function tests() {
         },
         "remove": ["fobe"],
       }
+    },
+    terminal: {
+      smt: "json|./output/elasticsearch/|transform_2.json|*"
     }
   });
 

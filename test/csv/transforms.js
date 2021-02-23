@@ -35,9 +35,6 @@ async function tests() {
         header: true
       }
     },
-    terminal: {
-      smt: "json|./output/csv/|transform_2.json|*"
-    },
     transforms: {
       "filter": {
         "match": {
@@ -63,6 +60,9 @@ async function tests() {
         },
         "remove": ["fobe"],
       }
+    },
+    terminal: {
+      smt: "json|./output/csv/|transform_2.json|*"
     }
   });
 
@@ -74,9 +74,6 @@ async function tests() {
         header: true
       }
     },
-    terminal: {
-      smt: "json|./output/csv/|transform_3.json|*"
-    },
     transforms: {
       filter: {
         match: {
@@ -87,6 +84,9 @@ async function tests() {
           fields: ["Foo","Bar","Baz","Fobe","Dt Test","enabled"]
         }
       }
+    },
+    terminal: {
+      smt: "json|./output/csv/|transform_3.json|*"
     }
   });
 
