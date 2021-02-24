@@ -14,8 +14,9 @@ async function tests() {
   await transfer({
     origin: {
       smt: "json|./test/data/|table_schemas.json|*",
-      options: {},
-      encoding: "./test/data/table_schemas_encoding.json"
+      options: {
+        encoding: "./test/data/table_schemas_encoding.json"
+      }      
     },
     "transforms": {
       compose: {

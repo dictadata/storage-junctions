@@ -20,7 +20,7 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     // *** get encoding for junction's schema
-    logger.info(">>> getEncoding");
+    logger.info(">>> get encoding");
     let encoding1 = await jo.getEncoding();
 
     logger.debug(JSON.stringify(encoding1, null, "  "));
@@ -44,7 +44,7 @@ module.exports = exports = async function (tract) {
     await stream.pipeline(pipes);
 
     // save the codify results
-    let encoding2 = await codify.getEncoding();
+    let encoding2 = codify.encoding;
 
     logger.debug(JSON.stringify(encoding2, null, "  "));
     if (tract.outputFile2) {

@@ -4,15 +4,15 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const getEncoding = require('../lib/_dullEncoding');
+const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: oracle transfers");
 
 async function tests() {
 
-  logger.info("=== dullEncoding foo_transfer");
-  await dullEncoding({
+  logger.info("=== dullSchema foo_transfer");
+  await dullSchema({
     smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*"
   });
 
@@ -25,7 +25,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
+      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo"
     }
   });
 
@@ -36,7 +36,9 @@ async function tests() {
     },
     terminal: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|=Foo",
-      encoding: "./test/data/encoding_foo_01.json"
+      options: {
+        encoding: "./test/data/encoding_foo_01.json"
+      }
     }
   });
 
@@ -47,7 +49,9 @@ async function tests() {
     },
     terminal: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|=Foo",
-      encoding: "./test/data/encoding_foo_02.json"
+      options: {
+        encoding: "./test/data/encoding_foo_02.json"
+      }
     }
   });
 

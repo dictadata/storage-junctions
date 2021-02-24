@@ -4,24 +4,26 @@
 "use strict";
 
 const getEncoding = require('../lib/_getEncoding');
-const putEncoding = require('../lib/_putEncoding');
-const dullEncoding = require('../lib/_dullEncoding');
+const createSchema = require('../lib/_createSchema');
+const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../lib/logger');
 
 logger.info("===== elasticsearch encoding ");
 
 async function test(schema, encoding) {
 
-  logger.info("=== dullEncoding" + schema);
-  await dullEncoding({
+  logger.info("=== dullSchema" + schema);
+  await dullSchema({
     smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
   });
 
-  logger.info("=== putEncoding " + schema);
-  await putEncoding({
+  logger.info("=== createSchema " + schema);
+  await createSchema({
     origin: {
       smt: "elasticsearch|http://localhost:9200|" + schema + "|!Foo",
-      encoding: "./test/data/" + encoding + ".json"
+      options: {
+        encoding: "./test/data/" + encoding + ".json"
+      }
     }
   });
 

@@ -4,22 +4,24 @@
 "use strict";
 
 const getEncoding = require('../lib/_getEncoding');
-const putEncoding = require('../lib/_putEncoding');
+const createSchema = require('../lib/_createSchema');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: mysql");
 
 async function tests() {
 
-  logger.info("=== mysql putEncoding");
-  await putEncoding({
+  logger.info("=== mysql createSchema");
+  await createSchema({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
-      encoding: "./test/data/encoding_foo.json"
+      options: {
+        encoding: "./test/data/encoding_foo.json"
+      }
     }
   });
 
-  logger.info("=== mysql getEncoding");
+  logger.info("=== mysql get encoding");
   await getEncoding({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*"
@@ -29,15 +31,17 @@ async function tests() {
     }
   });
 
-  logger.info("=== mysql putEncoding");
-  await putEncoding({
+  logger.info("=== mysql createSchema");
+  await createSchema({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
-      encoding: "./test/data/encoding_foo_01.json"
+      options: {
+        encoding: "./test/data/encoding_foo_01.json"
+      }
     }
   });
 
-  logger.info("=== mysql getEncoding");
+  logger.info("=== mysql get encoding");
   await getEncoding({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*"
@@ -47,15 +51,17 @@ async function tests() {
     }
   });
 
-  logger.info("=== mysql putEncoding");
-  await putEncoding({
+  logger.info("=== mysql createSchema");
+  await createSchema({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
-      encoding: "./test/data/encoding_foo_02.json"
+      options: {
+        encoding: "./test/data/encoding_foo_02.json"
+      }
     }
   });
 
-  logger.info("=== mysql getEncoding");
+  logger.info("=== mysql get encoding");
   await getEncoding({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*"
@@ -66,7 +72,7 @@ async function tests() {
   });
 
   logger.info("=== mysql large fields");
-  await putEncoding({
+  await createSchema({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_lg|*",
       options: {
@@ -75,15 +81,19 @@ async function tests() {
           text: 2000
         }
       },
-      encoding: "./test/data/encoding_foo_lg.json"
+      options: {
+        encoding: "./test/data/encoding_foo_lg.json"
+      }
     }
   });
 
   logger.info("=== mysql no none-keys");
-  await putEncoding({
+  await createSchema({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
-      encoding: "./test/data/encoding_foo_two.json"
+      options: {
+        encoding: "./test/data/encoding_foo_two.json"
+      }
     }
   });
 

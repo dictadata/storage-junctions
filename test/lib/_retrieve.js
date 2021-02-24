@@ -18,15 +18,13 @@ module.exports = exports = async function (tract) {
 
   var jo;
   try {
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
-
-    if (tract.origin.encoding) {
-      let encoding = tract.origin.encoding;
-      if (typeof encoding === "string")
-        encoding = JSON.parse(fs.readFileSync(encoding, "utf8"));
-      jo.putEncoding(encoding, true); // overlay encoding
+    if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
+      // read encoding from file
+      let filename = tract.origin.options.encoding;
+      tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
 
+    jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.retrieve(tract.origin.pattern);
 
     logger.debug("result: " + results.result + " count: " + (results.data ? results.data.length : 0));

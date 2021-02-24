@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullEncoding = require("../lib/_dullEncoding");
+const dullSchema = require("../lib/_dullSchema");
 const Engram = require('../../lib/engram');
 const logger = require('../../lib/logger');
 
@@ -94,7 +94,7 @@ async function forecastTransform(tract) {
   logger.info("=== WEATHER FORECAST API to " + engram.smt.model);
   logger.verbose("=== " + engram.smt.model + "||" + engram.smt.schema);
 
-  await dullEncoding(tract.terminal);
+  await dullSchema(tract.terminal);
 
   await transfer({
     origin: {

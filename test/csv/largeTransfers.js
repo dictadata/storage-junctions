@@ -57,12 +57,12 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|timeseries.csv|*",
       options: {
-        header: false
+        header: false,
+        encoding: {
+          "time": "date",
+          "temp": "number"
+        }
       },
-      encoding: {
-        "time": "date",
-        "temp": "number"
-      }
     },
     terminal: {
       smt: "json|./output/csv/|timeseries.json|*"

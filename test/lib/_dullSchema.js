@@ -17,8 +17,8 @@ module.exports = exports = async function (tract) {
   var jo;
   try {
     jo = await storage.activate(tract.smt, tract.options);
-    logger.info(">>> dullEncoding");
-    let result = await jo.dullEncoding();
+    logger.info(">>> dullSchema");
+    let result = await jo.dullSchema();
     logger.info(result);
   }
   catch (err) {

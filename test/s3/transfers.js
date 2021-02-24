@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullEncoding = require('../lib/_dullEncoding');
+const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../lib/logger');
 
 
@@ -14,7 +14,7 @@ async function s3Destination() {
   logger.verbose("=== S3 destination");
 
   logger.verbose('=== S3: csv_output.csv');
-  await dullEncoding({ smt: "csv|S3:dictadata.org/test/output/csv/|output.csv|*" });
+  await dullSchema({ smt: "csv|S3:dictadata.org/test/output/csv/|output.csv|*" });
   
   await transfer({
     origin: {

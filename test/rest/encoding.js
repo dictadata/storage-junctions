@@ -4,7 +4,6 @@
 "use strict";
 
 const getEncoding = require('../lib/_getEncoding');
-const putEncoding = require('../lib/_putEncoding');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: rest encoding");

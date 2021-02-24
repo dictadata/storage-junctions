@@ -31,7 +31,9 @@ async function tests() {
   await transfer({
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*",
-      encoding: "./test/data/encoding_foo_01.json",
+      options: {
+        encoding: "./test/data/encoding_foo_01.json"
+      }
     },
     transforms: {
       "filter": {
@@ -69,7 +71,9 @@ async function tests() {
   await transfer({
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*",
-      encoding: "./test/data/encoding_foo_02.json",
+      options: {
+        encoding: "./test/data/encoding_foo_02.json"
+      }
     },
     transforms: {
       "filter": {

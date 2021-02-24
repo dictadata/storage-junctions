@@ -36,11 +36,11 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/|timeseries.csv|*",
       options: {
-        header: false
-      },
-      encoding: {
-        "time": "date",
-        "temp": "number"
+        header: false,
+        encoding: {
+          "time": "date",
+          "temp": "number"
+        }
       }
     },
     terminal: {

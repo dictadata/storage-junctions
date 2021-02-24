@@ -4,15 +4,15 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullEncoding = require('../lib/_dullEncoding');
+const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../lib/logger');
 
 logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  logger.info("=== dullEncoding foo_transfer");
-  await dullEncoding({
+  logger.info("=== dullSchema foo_transfer");
+  await dullSchema({
     smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
   });
 

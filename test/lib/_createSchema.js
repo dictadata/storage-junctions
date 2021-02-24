@@ -1,5 +1,5 @@
 /**
- * test/putEncoding
+ * test/createSchema
  */
 "use strict";
 
@@ -14,12 +14,14 @@ module.exports = exports = async function (tract) {
 
   var jo;
   try {
+    if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
+      // read encoding from file
+      let filename = tract.origin.options.encoding;
+      tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
+    }
+
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
-
-    let filename = (tract.origin.encoding || "./test/data/encoding_foo.json");
-    let encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
-
-    let results = await jo.putEncoding(encoding);
+    let results = await jo.createSchema();
     if (typeOf(results) === 'object')
       logger.debug(JSON.stringify(results));
     else

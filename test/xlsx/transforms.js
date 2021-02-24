@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullEncoding = require('../lib/_dullEncoding');
+const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: xlsx transforms");

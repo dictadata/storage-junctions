@@ -4,22 +4,24 @@
 "use strict";
 
 const getEncoding = require('../lib/_getEncoding');
-const putEncoding = require('../lib/_putEncoding');
+const createSchema = require('../lib/_createSchema');
 const logger = require('../../lib/logger');
 
 logger.info("=== Test: oracle");
 
 async function tests() {
 
-  logger.info("=== oracle putEncoding");
-  await putEncoding({
+  logger.info("=== oracle createSchema");
+  await createSchema({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
-      encoding: "./test/data/encoding_foo.json"
+      options: {
+        encoding: "./test/data/encoding_foo.json"
+      }
     }
   });
 
-  logger.info("=== oracle getEncoding");
+  logger.info("=== oracle get encoding");
   await getEncoding({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
@@ -29,15 +31,17 @@ async function tests() {
     }
   });
 
-  logger.info("=== oracle putEncoding");
-  await putEncoding({
+  logger.info("=== oracle createSchema");
+  await createSchema({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
-      encoding: "./test/data/encoding_foo_01.json"
+      options: {
+        encoding: "./test/data/encoding_foo_01.json"
+      }
     }
   });
 
-  logger.info("=== oracle getEncoding");
+  logger.info("=== oracle get encoding");
   await getEncoding({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*"
@@ -47,15 +51,17 @@ async function tests() {
     }
   });
 
-  logger.info("=== oracle putEncoding");
-  await putEncoding({
+  logger.info("=== oracle createSchema");
+  await createSchema({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
-      encoding: "./test/data/encoding_foo_02.json"
+      options: {
+        encoding: "./test/data/encoding_foo_02.json"
+      }
     }
   });
 
-  logger.info("=== oracle getEncoding");
+  logger.info("=== oracle get encoding");
   await getEncoding({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*"
@@ -66,16 +72,16 @@ async function tests() {
   });
 
   logger.info("=== oracle large fields");
-  await putEncoding({
+  await createSchema({
     origin: {
       smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_lg|*",
       options: {
         stringBreakpoints: {
           keyword: 120,
           text: 2000
-        }
-      },
-      encoding: "./test/data/encoding_foo_lg.json"
+        },
+        encoding: "./test/data/encoding_foo_lg.json"
+      }
     }
   });
 
