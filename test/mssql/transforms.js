@@ -10,6 +10,45 @@ logger.info("=== Test: mssql transforms");
 
 async function tests() {
 
+  logger.verbose("=== json => mssql foo_schema_etl2");
+  await transfer({
+    "origin": {
+      "smt": "json|./test/data/|foofile_01.json|*"
+    },
+    "transforms": {
+      "filter": {
+        "match": {
+          "Bar": "row"
+        },
+        "drop": {
+          "Baz": {
+            "eq": 456
+          }
+        }
+      },
+      "select": {
+        "fields": {
+          "Foo": "foo",
+          "Bar": "bar",
+          "Baz": "baz",
+          "Fobe": "fobe",
+          "Dt Test": "dt_test",
+          "subObj1.state": "state"
+        },
+        "inject_after": {
+          "fie": "where's fum?"
+        },
+        "remove": ["fobe"]
+      }
+    },
+    "terminal": {
+      "smt": "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_etl2|*",
+      "options": {
+        "encoding": "./test/data/foo_encoding_t.json"
+      }
+    }
+  });
+
   logger.verbose('=== mssql > mssql_transform_0.json');
   await transfer({
     origin: {

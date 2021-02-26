@@ -10,6 +10,45 @@ logger.info("=== Test: oracle transforms");
 
 async function tests() {
 
+  logger.verbose('=== json > oracle foo_schema_etl2');
+  await transfer({
+    "origin": {
+      "smt": "json|./test/data/|foofile.json|*"
+    },
+    "transforms": {
+      "filter": {
+        "match": {
+          "Bar": "row"
+        },
+        "drop": {
+          "Baz": {
+            "eq": 456
+          }
+        }
+      },
+      "select": {
+        "fields": {
+          "Foo": "foo",
+          "Bar": "bar",
+          "Baz": "baz",
+          "Fobe": "fobe",
+          "Dt Test": "dt_test",
+          "subObj1.state": "state"
+        },
+        "inject_after": {
+          "fie": "where's fum?"
+        },
+        "remove": ["fobe"]
+      }
+    },
+    "terminal": {
+      "smt": "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_etl2|*",
+      "options": {
+        "encoding": "./test/data/foo_encoding_t.json"
+      }
+    }
+  });
+
   logger.verbose('=== oracle > oracle_transform_0.json');
   await transfer({
     origin: {
