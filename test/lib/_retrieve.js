@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const _process = require("./_process");
 const storage = require("../../lib/index");
 const logger = require('../../lib/logger');
 const fs = require('fs');

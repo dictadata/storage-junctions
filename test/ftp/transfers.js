@@ -57,7 +57,7 @@ async function test_01() {
       options: {}
     }
   });
-
+/*
   logger.verbose('=== ftp: json_output.json.gz');
   await transfer({
     origin: {
@@ -68,7 +68,7 @@ async function test_01() {
       options: {}
     }
   });
-
+*/
 }
 
 
