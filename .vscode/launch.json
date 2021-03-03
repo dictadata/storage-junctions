@@ -902,7 +902,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "pipeline pick data",
+      "name": "pipeline extract data",
       "program": "${workspaceFolder}/test/pipelines/pickdata.js",
       "outputCapture": "std",
       "env": {
