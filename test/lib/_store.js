@@ -17,6 +17,7 @@ module.exports = exports = async function (tract) {
   var jo;
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    let encoding = await jo.getEncoding();
     let results = await jo.store(tract.construct, tract.origin.pattern);
     logger.verbose(JSON.stringify(results));
 
