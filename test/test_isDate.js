@@ -30,18 +30,31 @@ function test () {
   console.log(isDate("2019-09-30 18:00:00-06:"));
   console.log(isDate("2019-10-01 06:00:00+06:"));
 
-  console.log();
-  console.log(isDate("01/18/1961"));
+  console.log("Other Date Values");
+  console.log(isDate("2018-10-18"));
+  console.log(isDate("2018-10-18T14:13:30.500Z"));
+  console.log(isDate("2018-10-10T14:13:30.000-05:00"));
+  console.log(isDate(null));
+  console.log(isDate("10/18/2018"));
+  console.log(isDate("10-18-2018"));
+  console.log(isDate("10-18-18"));
+  console.log(isDate("10/18/18"));
+  console.log(isDate("10-OCT-18"));
 
-  console.log();
+  console.log("ISO Dates");
+  
   console.log(isDate("03-MAY-25"));
   let d1 = new Date("03-MAY-25");
   console.log(d1.toISOString());
+
   console.log(isDate("03-MAY-25 13:05:17"));
   let d2 = new Date("03-MAY-25 13:05:17");
   console.log(d2.toISOString());
+
+  console.log(isDate("03-MAY-1925 13:05:17"));
   let d3 = new Date("03-MAY-1925 13:05:17");
   console.log(d3.toISOString());
+
 }
 
 test();
