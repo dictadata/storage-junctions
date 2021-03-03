@@ -1,6 +1,6 @@
 ### dictadata.org: Open source software for Civic Data Engineering & Analytics
 
-# @dictadata/storage-junctions 1.2.3
+# @dictadata/storage-junctions 1.5.0
 
 Node.js library for distributed data storage access and streaming transfers.
 
@@ -18,6 +18,7 @@ A storage junction provides a normalized, plug-in interface to a specific data s
 | elasticsearch |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    yes    |    yes    |  yes   |
 | mssql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | mysql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
+| oracle        |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | redshift      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
 | \*mongodb     |          |       |        |          |       |            |    yes    |    yes    |  yes   |
@@ -36,6 +37,7 @@ GZip compression is handled seemlessly based on filename extension .gz.
 | local        |  yes  |  yes  |  yes  |  yes  |
 | FTP          |  yes  |  yes  |  yes  |  yes  |
 | AWS S3       |  yes  |  yes  |  yes  |  yes  |
+| \*scp        |   -   |   -   |   -   |   -   |
 | \*Azure ADLS |   -   |   -   |   -   |   -   |
 | \*Google CS  |   -   |   -   |   -   |   -   |
 

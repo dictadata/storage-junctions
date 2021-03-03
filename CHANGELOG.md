@@ -1,5 +1,11 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.5.1
+  - add encodings for SQL indexes in addition to primary key index
+  - add junction encoding getter/setter and createSchema/dullSchema methods
+  - automated testing scripts
+  - add simple metrics for transfer streams
+  - bug fixes and enhancements to encoding values for storage
 - version 1.4.11
   - only perform DB update if there are none-key columns
 - version 1.4.10
