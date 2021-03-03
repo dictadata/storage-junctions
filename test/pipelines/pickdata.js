@@ -10,12 +10,12 @@ logger.info("=== Test: split file");
 
 async function tests() {
 
-  logger.verbose('=== json pick results.0.items');
+  logger.verbose('=== json extract results.0.items');
   await transfer({
     "origin": {
       "smt": "json|./test/data/|pick_data.json|*",
       "options": {
-        "pick": "results.0.items"
+        "extract": "results.0.items"
       }
     },
     "terminal": {
