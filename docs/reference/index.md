@@ -1,6 +1,6 @@
 # @dictadata/storage-junctions API Reference
 
-<hr class="line"/>
+---
 
 ## Core Data Types
 
@@ -32,6 +32,6 @@
 * [HTTPFileSystem](http-filesystem.md)
 * [S3FileSystem](s3-filesystem.md)
 
-<hr class="line"/>
+---
 
 * [Code repository and issue tracker](https://github.com/dictadata/storage-junctions)

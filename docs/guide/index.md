@@ -15,6 +15,6 @@
 * [transforms](transforms.md)
 * [upload](upload.md)
 
-<hr class="line"/>
+---
 
 * [Code repository and issue tracker](https://github.com/dictadata/storage-junctions)

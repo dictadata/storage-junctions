@@ -3,7 +3,7 @@
 * [storage-junctions API Reference](reference/index.md)
 * [storage-junctions Programming Guide](guide/index.md)
 
-<hr class="line"/>
+---
 
 * [About this documentation](documentation.md)
 * [Usage and example](synopsis.md)

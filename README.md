@@ -53,7 +53,7 @@ GZip compression is handled seemlessly based on filename extension .gz.
 \* Not currently in plans for development.
 &dash; Not planned, but will be developed as needed.
 
-<hr class="line"/>
+---
 
 * [About this documentation](docs/documentation.md)
 * [Usage and example](docs/synopsis.md)
