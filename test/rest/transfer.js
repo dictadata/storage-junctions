@@ -24,9 +24,6 @@ async function testTransfer() {
           //username: this.options.auth.username,
           //password: this.options.auth.password
         },
-        params: {
-          // querystring parameters
-        },
         extract: {
           data: "periods",  // name of property in response.data than contains the desired object or array
           names: ""         // name of property in response.data containing an array of field names
