@@ -11,7 +11,7 @@
 //  "uuid"
 //  "binary"
 
-const logger = require('./logger');
+const logger = require('../logger');
 const ynBoolean = require('yn');
 
 /**

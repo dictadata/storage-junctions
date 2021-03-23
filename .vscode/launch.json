@@ -20,7 +20,7 @@
         "LOG_LEVEL": "verbose"
       },
       "outFiles": [
-        "${workspaceFolder}/lib/**/*.js",
+        "${workspaceFolder}/storage/**/*.js",
         "${workspaceFolder}/test/lib/*.js"
       ]
     },
@@ -128,7 +128,7 @@
         "LOG_LEVEL": "verbose"
       },
       "outFiles": [
-        "${workspaceFolder}/lib/**/*.js",
+        "${workspaceFolder}/storage/**/*.js",
         "${workspaceFolder}/test/lib/*.js"
       ]
     },
@@ -357,7 +357,7 @@
         "LOG_LEVEL": "verbose"
       },
       "outFiles": [
-        "${workspaceFolder}/lib/**/*.js",
+        "${workspaceFolder}/storage/**/*.js",
         "${workspaceFolder}/test/lib/*.js"
       ]
     },

@@ -1,8 +1,8 @@
 "use strict";
 
 const { Writable } = require('stream');
-const { hasOwnProperty, StorageError } = require("../types");
-const logger = require('../logger');
+const { hasOwnProperty, StorageError } = require("../../types");
+const logger = require('../../logger');
 const { IncomingMessage } = require('http');
 
 module.exports = exports = class StorageWriter extends Writable {

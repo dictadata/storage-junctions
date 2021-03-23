@@ -161,7 +161,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
-        var gzip = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+        var gzip = zlib.createUnzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
         rs.pipe(gzip);
         return gzip;
       }
@@ -211,7 +211,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let rs = await this._httpRequest(src, { method: 'GET', responseType: 'stream' });
 
       // save to local file
-      rs.pipe(fs.createWriteStream(dest));
+      await rs.pipe(fs.createWriteStream(dest));
     }
     catch (err) {
       logger.error(err);
@@ -270,7 +270,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       } catch (error) {
         throw new Error(`Invalid url ${rpath}`);
       }
-      
+
       var request = {
         method: (options.method && options.method.toUpperCase()) || "GET",
         host: Url.hostname,
@@ -283,23 +283,32 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         request.headers["Cookie"] = Object.entries(this.cookies).join('; ');
       if (data)
         options.headers['Content-Length'] = Buffer.byteLength(data);
-      
+
       const req = http.request(request, (res) => {
         this.response.statusCode = res.statusCode;
         this.response.headers = res.headers;
         this._saveCookies(res.headers);
-        res.setEncoding('utf8');
 
-        res.on('data', (chunk) => {
-          this.response.data += chunk;
-        });
+        if (options.responseType !== 'stream') {
+          res.setEncoding('utf8');
 
-        res.on('end', () => {
-          logger.debug(`\n${this.response.data}`);
-          resolve(this.response.data);
-        });
+          res.on('data', (chunk) => {
+            this.response.data += chunk;
+          });
+
+          res.on('end', () => {
+            logger.debug(`\n${this.response.data}`);
+            resolve(this.response.data);
+          });
+        }
       });
 
+      if (options.responseType === 'stream') {
+        req.on('response', (response) => {
+          resolve(response);
+        });
+      }
+    
       req.on('error', (e) => {
         logger.error(err);
         reject(err);

@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const { typeOf, isDate, hasOwnProperty } = require('../types');
-const isoDates = require('../utils/isoDates');
-const logger = require('../logger');
+const { typeOf, isDate, hasOwnProperty } = require('../../types');
+const isoDates = require('../../utils/isoDates');
+const logger = require('../../logger');
 
 exports.encodeValues = function (engram, construct) {
   let data = {};

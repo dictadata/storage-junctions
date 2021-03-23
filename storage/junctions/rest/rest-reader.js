@@ -4,9 +4,9 @@
 "use strict";
 
 const { StorageReader } = require('../storage');
-const encoder = require('./encoder');
+const encoder = require('./rest-encoder');
 const Axios = require("axios");
-const logger = require('../logger');
+const logger = require('../../logger');
 
 module.exports = exports = class RESTReader extends StorageReader {
 

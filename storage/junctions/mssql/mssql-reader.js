@@ -4,8 +4,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage');
-const logger = require('../logger');
-const sqlEncoder = require("./encoder_sql");
+const logger = require('../../logger');
+const sqlEncoder = require("./mssql-encoder-sql");
 const tedious = require('tedious');
 
 

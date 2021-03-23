@@ -1,8 +1,8 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { typeOf, StorageResults, StorageError } = require("../types");
-const logger = require('../logger');
+const { typeOf, StorageResults, StorageError } = require("../../types");
+const logger = require('../../logger');
 
 const TransportReader = require("./transport-reader");
 const TransportWriter = require("./transport-writer");

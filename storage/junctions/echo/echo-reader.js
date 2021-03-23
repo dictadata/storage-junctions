@@ -1,8 +1,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage');
-const { StorageError } = require("../types");
-const logger = require('../logger');
+const { StorageError } = require("../../types");
+const logger = require('../../logger');
 
 module.exports = exports = class EchoReader extends StorageReader {
 

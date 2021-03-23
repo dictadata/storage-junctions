@@ -1,10 +1,10 @@
 "use strict";
 
 const { StorageWriter } = require('../storage');
-const Types = require("../types");
+const Types = require("../../types");
 const StorageError = Types.StorageError;
-const isoDates = require("../utils/isoDates");
-const logger = require('../logger');
+const isoDates = require("../../utils/isoDates");
+const logger = require('../../logger');
 
 const path = require('path');
 

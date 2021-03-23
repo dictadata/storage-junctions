@@ -4,8 +4,8 @@
 "use strict";
 
 const StorageJunction = require("../storage");
-const { StorageResults, StorageError } = require("../types");
-const logger = require('../logger');
+const { StorageResults, StorageError } = require("../../types");
+const logger = require('../../logger');
 
 const ParquetReader = require("./parquet-reader");
 const ParquetWriter = require("./parquet-writer");

@@ -4,9 +4,9 @@
 "use strict";
 
 const { StorageWriter } = require('../storage');
-const { StorageError } = require("../types");
-//coconst logger = require('../logger');
-const logger = require('../logger');
+const { StorageError } = require("../../types");
+//coconst logger = require('../../logger');
+const logger = require('../../logger');
 
 module.exports = exports = class TransportWriter extends StorageWriter {
 

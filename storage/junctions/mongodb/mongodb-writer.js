@@ -1,9 +1,10 @@
 "use strict";
 
-const { Storage } = require('../storage');
+const { StorageWriter } = require('../storage');
+const { StorageError } = require("../../types");
+const logger = require('../../logger');
+
 //const MongoDB = require('mongodb');
-const { StorageError } = require("../types");
-const logger = require('../logger');
 
 module.exports = exports = class MongoDBWriter extends StorageWriter {
 

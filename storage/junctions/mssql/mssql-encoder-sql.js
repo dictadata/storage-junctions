@@ -3,11 +3,11 @@
  */
 "use strict";
 
-const encoder = require('./encoder');
+const encoder = require('./mssql-encoder');
 const sqlString = require('tsqlstring');
-const { typeOf, isDate, hasOwnProperty, StorageError } = require('../types');
-const isoDates = require('../utils/isoDates');
-const logger = require('../logger');
+const { typeOf, isDate, hasOwnProperty, StorageError } = require('../../types');
+const isoDates = require('../../utils/isoDates');
+const logger = require('../../logger');
 
 exports.connectionConfig = (options) => {
 

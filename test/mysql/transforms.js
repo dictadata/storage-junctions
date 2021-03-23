@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Test: mysql transforms");
 

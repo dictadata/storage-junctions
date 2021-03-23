@@ -6,12 +6,12 @@
 const StorageJunction = require("../storage");
 const ElasticsearchReader = require("./elasticsearch-reader");
 const ElasticsearchWriter = require("./elasticsearch-writer");
-const { StorageResults, StorageError } = require("../types");
-const logger = require('../logger');
+const { StorageResults, StorageError } = require("../../types");
+const logger = require('../../logger');
 
-const encoder = require("./elasticsearc-encoder");
-const dslEncoder = require("./encoder_dsl");
-const ElasticQuery = require("./elastic_query");
+const encoder = require("./elasticsearch-encoder");
+const dslEncoder = require("./elasticsearch-encoder-dsl");
+const ElasticQuery = require("./elasticsearch-client-query");
 const fs = require('fs');
 const path = require('path');
 

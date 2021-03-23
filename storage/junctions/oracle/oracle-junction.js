@@ -4,9 +4,9 @@
 "use strict";
 
 const StorageJunction = require("../storage");
-const Engram = require("../engram");
-const { typeOf, hasOwnProperty, StorageResults, StorageError } = require("../types");
-const logger = require('../logger');
+const Engram = require("../../engram");
+const { typeOf, hasOwnProperty, StorageResults, StorageError } = require("../../types");
+const logger = require('../../logger');
 
 const OracleDBReader = require("./oracle-reader");
 const OracleDBWriter = require("./oracle-writer");

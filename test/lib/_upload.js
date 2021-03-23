@@ -6,8 +6,8 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../lib/index");
-const logger = require('../../lib/logger');
+const storage = require("../../storage");
+const logger = require('../../storage/logger');
 const path = require('path');
 
 module.exports = exports = async function (tract) {

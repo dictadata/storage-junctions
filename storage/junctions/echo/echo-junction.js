@@ -6,8 +6,8 @@
 const StorageJunction = require("../storage");
 const EchoReader = require("./echo-reader");
 const EchoWriter = require("./echo-writer");
-const { typeOf, StorageError } = require("../types");
-const logger = require('../logger');
+const { typeOf, StorageError } = require("../../types");
+const logger = require('../../logger');
 
 class EchoJunction extends StorageJunction {
 

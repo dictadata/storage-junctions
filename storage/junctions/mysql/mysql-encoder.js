@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const types = require('../types');
+const types = require('../../types');
 const { Types } = require('mysql');
 const ynBoolean = require('yn');
 

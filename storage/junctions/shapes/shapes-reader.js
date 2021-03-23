@@ -1,7 +1,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage');
-const logger = require('../logger');
+const logger = require('../../logger');
 
 const path = require('path');
 

@@ -1,7 +1,7 @@
 // filesystems/ftp-filesystem
 "use strict";
 
-const StorageFileSystem = require("../storage-filesystem");
+const StorageFileSystem = require("./storage-filesystem");
 const { hasOwnProperty, StorageError } = require("../types");
 const logger = require("../logger");
 

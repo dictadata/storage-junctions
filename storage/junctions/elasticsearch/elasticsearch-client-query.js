@@ -4,8 +4,8 @@
 "use strict";
 
 const elasticsearch = require("@elastic/elasticsearch");
-const {typeOf, StorageError} = require("../types");
-const logger = require('../logger');
+const {typeOf, StorageError} = require("../../types");
+const logger = require('../../logger');
 
 /**
  * Notes about Elasticsearch Javascript API:

@@ -1,8 +1,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage');
-const Types = require('../types');
-const logger = require('../logger');
+const Types = require('../../types');
+const logger = require('../../logger');
 
 const path = require('path');
 const ynBoolean = require('yn');

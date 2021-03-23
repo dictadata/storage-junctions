@@ -61,7 +61,7 @@ cortex.FileSystems.use('https', exports.HTTPFileSystem);
 // register standard junctions
 var StorageJunction = require("./junctions/storage");
 exports.StorageJunction = StorageJunction;
-exports.StorageReader = StorageJuction.StorageReader;
+exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
 cortex.use('*', StorageJunction, true);
 

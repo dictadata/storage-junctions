@@ -5,7 +5,7 @@
 
 const download = require('../lib/_download');
 const upload = require('../lib/_upload');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== tests: ftp downloads");
 

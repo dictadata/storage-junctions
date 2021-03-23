@@ -4,14 +4,14 @@
 "use strict";
 
 const StorageJunction = require("../storage");
-const Engram = require("../engram");
-const { typeOf, hasOwnProperty, StorageResults, StorageError } = require("../types");
-const logger = require('../logger');
+const Engram = require("../../engram");
+const { typeOf, hasOwnProperty, StorageResults, StorageError } = require("../../types");
+const logger = require('../../logger');
 
 const MSSQLReader = require("./mssql-reader");
 const MSSQLWriter = require("./mssql-writer");
 const encoder = require("./mssql-encoder");
-const sqlEncoder = require("./mssql-encoder_sql");
+const sqlEncoder = require("./mssql-encoder-sql");
 
 const tedious = require('tedious');
 const util = require('util');

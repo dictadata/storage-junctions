@@ -1,7 +1,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const storage = require("../../lib/index");
+const storage = require("../../storage");
 const { typeOf, hasOwnProperty, StorageError } = require("../types");
 const logger = require('../logger');
 

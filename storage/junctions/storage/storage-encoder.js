@@ -8,7 +8,7 @@
  */
 "use strict";
 
-const types = require('../types');
+const types = require('../../types');
 const ynBoolean = require('yn');
 
 /**

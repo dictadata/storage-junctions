@@ -4,7 +4,7 @@
 "use strict";
 
 const tee = require('../lib/_tee');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Test: pipeline tee");
 

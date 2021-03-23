@@ -4,7 +4,7 @@
 "use strict";
 
 const retrieve = require('../lib/_retrieve');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Tests: elasticsearch");
 

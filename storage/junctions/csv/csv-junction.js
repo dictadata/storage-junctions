@@ -4,10 +4,10 @@
 "use strict";
 
 const StorageJunction = require("../storage");
-const { StorageResults, StorageError } = require("../types");
+const { StorageResults, StorageError } = require("../../types");
 const CSVReader = require("./csv-reader");
 const CSVWriter = require("./csv-writer");
-const logger = require("../logger");
+const logger = require("../../logger");
 
 const path = require('path');
 const stream = require('stream/promises');

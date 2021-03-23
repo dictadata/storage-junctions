@@ -4,7 +4,7 @@
 "use strict";
 
 const recall = require('../lib/_recall');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Test: mssql");
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const types = require('../types');
+const types = require('../../types');
 const hasOwnProperty = types.hasOwnProperty;
 const oracledb = require('oracledb');
 

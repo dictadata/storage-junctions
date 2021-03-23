@@ -1,9 +1,9 @@
 "use strict";
 
-const Cortex = require('../cortex');
-const Engram = require("../engram");
-const { StorageError } = require("../types");
-const logger = require("../logger");
+const Cortex = require('../../cortex');
+const Engram = require("../../engram");
+const { StorageError } = require("../../types");
+const logger = require("../../logger");
 
 const Reader = require("./storage-reader");
 const Writer = require("./storage-writer");
@@ -230,7 +230,7 @@ class StorageJunction {
       if (pattern.match)
         reader = reader.pipe(this.createTransform("filter", { match: pattern.match }));
       if (pattern.fields)
-        readerpatt = reader.pipe(this.createTransform("select", { fields: pattern.fields }));
+        reader = reader.pipe(this.createTransform("select", { fields: pattern.fields }));
     }
     return reader;
   }

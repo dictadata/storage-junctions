@@ -4,7 +4,7 @@
 "use strict";
 
 const dull = require('../lib/_dull');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Test: mssql");
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const types = require('../types');
+const types = require('../../types');
 const TYPES = require('tedious').TYPES;
 const ynBoolean = require('yn');
 

@@ -3,8 +3,10 @@
 const StorageJunction = require("../storage");
 const MongoDBReader = require("./mongodb-reader");
 const MongoDBWriter = require("./mongodb-writer");
-const { typeOf, StorageError } = require("../types");
-const logger = require('../logger');
+const { typeOf, StorageError } = require("../../types");
+const logger = require('../../logger');
+
+//const MongoDB = require('mongodb');
 
 class MongoDBJunction extends StorageJunction {
 

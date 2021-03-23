@@ -5,7 +5,7 @@
 
 const transfer = require('../lib/_transfer');
 const dullSchema = require('../lib/_dullSchema');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Tests: elasticsearch");
 

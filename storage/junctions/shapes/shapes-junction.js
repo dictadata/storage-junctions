@@ -4,11 +4,11 @@
 "use strict";
 
 const StorageJunction = require("../storage");
-const { StorageResults, StorageError } = require("../types");
+const { StorageResults, StorageError } = require("../../types");
 
 const ShapesReader = require("./shapes-reader");
 const ShapesWriter = require("./shapes-writer");
-const logger = require("../logger");
+const logger = require("../../logger");
 
 const path = require('path');
 const stream = require('stream/promises');

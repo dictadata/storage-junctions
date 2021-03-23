@@ -4,7 +4,7 @@
 "use strict";
 
 const codify = require('../lib/_codify');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== tests: Codify");
 

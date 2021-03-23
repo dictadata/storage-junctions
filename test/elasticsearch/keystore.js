@@ -6,7 +6,7 @@
 const store = require('../lib/_store');
 const recall = require('../lib/_recall');
 const dull = require('../lib/_dull');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== Tests: elasticsearch");
 

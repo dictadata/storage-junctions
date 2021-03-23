@@ -4,7 +4,7 @@
 "use strict";
 
 const list = require('../lib/_list');
-const logger = require('../../lib/logger');
+const logger = require('../../storage/logger');
 
 logger.info("=== tests: mysql list");
 

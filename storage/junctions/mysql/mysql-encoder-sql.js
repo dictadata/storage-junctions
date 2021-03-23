@@ -3,11 +3,11 @@
  */
 "use strict";
 
-const encoder = require('./encoder');
+const encoder = require('./mysql-encoder');
 const sqlString = require('sqlstring');
-const { typeOf, isDate, hasOwnProperty } = require('../types');
-const isoDates = require('../utils/isoDates');
-const logger = require('../logger');
+const { typeOf, isDate, hasOwnProperty } = require('../../types');
+const isoDates = require('../../utils/isoDates');
+const logger = require('../../logger');
 const { escapeId } = require('tsqlstring');
 
 
