@@ -2,7 +2,8 @@
 
 const { Transform } = require('stream');
 const storage = require("../../storage");
-const { typeOf, hasOwnProperty, StorageError } = require("../types");
+const { StorageError } = require("../types");
+const { typeOf, hasOwnProperty } = require("../utils");
 const logger = require('../logger');
 
 

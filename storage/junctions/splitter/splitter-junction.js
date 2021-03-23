@@ -3,10 +3,10 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage");
+const StorageJunction = require("../storage-junction");
 const Cortex = require("../../cortex");
-const Engram = require("../../engram");
-const { hasOwnProperty, StorageError } = require("../../types");
+const { Engram, StorageError } = require("../../types");
+const { hasOwnProperty } = require("../../utils");
 const logger = require("../../logger");
 
 const SplitterWriter = require("./splitter-writer");

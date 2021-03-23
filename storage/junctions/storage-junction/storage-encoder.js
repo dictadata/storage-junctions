@@ -8,7 +8,7 @@
  */
 "use strict";
 
-const types = require('../../types');
+const { stringBreakpoints } = require('../../types');
 const ynBoolean = require('yn');
 
 /**
@@ -103,11 +103,11 @@ exports.srcType = function srcType(field) {
         srcType = "double";
         break;
       case "keyword":
-        mssqlType = "varchar(" + (field.size > 0 ? field.size : types.stringBreakpoints.keyword) + ")";
+        mssqlType = "varchar(" + (field.size > 0 ? field.size : stringBreakpoints.keyword) + ")";
         break;
       case "string":
       case "text":
-        mssqlType = "varchar(" + (field.size > 0 ? field.size : types.stringBreakpoints.text) + ")";
+        mssqlType = "varchar(" + (field.size > 0 ? field.size : stringBreakpoints.text) + ")";
         break;
       case "date":
         srcType = "datetime";

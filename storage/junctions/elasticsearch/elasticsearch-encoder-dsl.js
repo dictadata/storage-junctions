@@ -3,8 +3,7 @@
  */
 "use strict";
 
-const { typeOf, isDate, hasOwnProperty } = require('../../types');
-const isoDates = require('../../utils/isoDates');
+const { typeOf, isDate, parseDate } = require('../../utils');
 const logger = require('../../logger');
 
 exports.encodeValues = function (engram, construct) {
@@ -16,7 +15,7 @@ exports.encodeValues = function (engram, construct) {
       case "date":
         let dt = value;
         if (typeof value === "string")
-          dt = (isDate(value) === 1) ? isoDates.parseDate(value) : new Date(dt);
+          dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
         data[name] = dt;
         break;
       case "boolean":

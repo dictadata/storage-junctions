@@ -1,7 +1,8 @@
 "use strict";
 
-const { StorageWriter } = require('../storage');
-const { hasOwnProperty, StorageError } = require("../../types");
+const { StorageWriter } = require('../storage-junction');
+const { StorageError } = require("../../types");
+const { hasOwnProperty } = require("../../utils");
 const logger = require('../../logger');
 
 const path = require('path');

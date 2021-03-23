@@ -3,11 +3,11 @@
  */
 "use strict";
 
-const types = require('../../types');
+var { stringBreakpoints } = require('../../types');
 const { Types } = require('mysql');
 const ynBoolean = require('yn');
 
-var stringBreakpoints = exports.stringBreakpoints = Object.assign({}, types.stringBreakpoints);
+stringBreakpoints = exports.stringBreakpoints = Object.assign({}, stringBreakpoints);
 // short text use storage default
 // could be up to 65535, but that is also the limit for the entire row
 

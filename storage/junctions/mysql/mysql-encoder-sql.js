@@ -5,8 +5,7 @@
 
 const encoder = require('./mysql-encoder');
 const sqlString = require('sqlstring');
-const { typeOf, isDate, hasOwnProperty } = require('../../types');
-const isoDates = require('../../utils/isoDates');
+const { typeOf, hasOwnProperty, isDate, parseDate } = require('../../utils');
 const logger = require('../../logger');
 const { escapeId } = require('tsqlstring');
 
@@ -16,7 +15,7 @@ function encodeValue(field, value) {
     case "date":
       let dt = value;
       if (typeof value === "string")
-        dt = (isDate(value) === 1) ? isoDates.parseDate(value) : new Date(dt);
+        dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
       return dt ? sqlString.escape(dt) : "NULL";
     case "boolean":
       return (value) ? 1 : 0;

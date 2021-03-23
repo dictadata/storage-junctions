@@ -77,6 +77,9 @@ var storageField = exports.storageField = function (srcdef) {
 };
 
 exports.parseData = function (data, options, callback) {
+  if (typeof data !== 'object')
+    throw new Error("invalid json data");
+
   const extract = options.extract || options || {};
   const names = (extract.names && data[extract.names]) || [];
   const rows = (extract.data) ? data[extract.data] : data;
@@ -101,3 +104,13 @@ exports.parseData = function (data, options, callback) {
       callback(construct);
   }
 };
+
+exports.isContentJSON = function (contentType) {
+  let p = contentType.split('/');
+  if (p[1] === 'json')
+    return true;
+  if (p[1].indexOf("+json") >= 0)
+    return true;
+  
+  return false;
+}

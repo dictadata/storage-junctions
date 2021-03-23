@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const storage = require("../../storage");
-const { typeOf } = require("../../storage/types");
+const { typeOf } = require("../../storage/utils");
 const logger = require('../../storage/logger');
 
 const fs = require('fs');
@@ -56,7 +56,10 @@ module.exports = exports = async function (tract) {
     }
     else
       tract.terminal.options.encoding = encoding;
-
+ 
+    if (typeof tract.terminal.options.encoding !== "object")
+      throw new Error("invalid encoding");
+    
     logger.debug(">>> encoding results");
     logger.debug(JSON.stringify(tract.terminal.options.encoding.fields, null, " "));
 

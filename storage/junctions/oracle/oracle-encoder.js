@@ -3,11 +3,11 @@
  */
 "use strict";
 
-const types = require('../../types');
-const hasOwnProperty = types.hasOwnProperty;
+var { hasOwnProperty } = require('../../utils');
+var { stringBreakpoints } = require('../../types');
 const oracledb = require('oracledb');
 
-var stringBreakpoints = exports.stringBreakpoints = Object.assign({}, types.stringBreakpoints);
+stringBreakpoints = exports.stringBreakpoints = Object.assign({}, stringBreakpoints);
 if (stringBreakpoints.text > 4000)
   stringBreakpoints.text = 4000;   // up to 32767 if MAX_STRING_SIZE = EXTENDED;
 

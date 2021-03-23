@@ -1,4 +1,4 @@
-let { isDate } = require('../lib/types');
+let { isDate } = require('../storage/utils');
 
 function test () {
   console.log(isDate("2019-10-01"));

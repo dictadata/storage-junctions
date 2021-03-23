@@ -4,7 +4,8 @@
 "use strict";
 
 const elasticsearch = require("@elastic/elasticsearch");
-const {typeOf, StorageError} = require("../../types");
+const { StorageError } = require("../../types");
+const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
 /**

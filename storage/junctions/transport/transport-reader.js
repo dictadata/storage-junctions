@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { StorageReader } = require('../storage');
+const { StorageReader } = require('../storage-junction');
 const encoder = require('./transport-encoder');
 const Axios = require("axios");
 const logger = require('../../logger');

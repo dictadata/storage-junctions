@@ -1,9 +1,10 @@
 "use strict";
 
-const StorageJunction = require("../storage");
+const StorageJunction = require("../storage-junction");
 const MongoDBReader = require("./mongodb-reader");
 const MongoDBWriter = require("./mongodb-writer");
-const { typeOf, StorageError } = require("../../types");
+const { StorageError } = require("../../types");
+const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
 //const MongoDB = require('mongodb');

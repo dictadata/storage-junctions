@@ -1,5 +1,5 @@
 /**
- * storage/engram
+ * storage/types/Engram
  *
  * An Engram is a desciptor for a storage memory locus (locus)
  * and the information needed to encode and decode constructs for storage.
@@ -12,8 +12,8 @@
 "use strict";
 
 const Field = require('./field');
-const { typeOf, hasOwnProperty, StorageError } = require("./types");
-const getCI = require("./utils/getCI");
+const StorageError = require('./storage-error');
+const { typeOf, hasOwnProperty, getCI } = require("../utils");
 
 module.exports = exports = class Engram {
 

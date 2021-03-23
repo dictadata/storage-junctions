@@ -5,8 +5,7 @@ const StorageFileSystem = require("./storage-filesystem");
 const { StorageError } = require("../types");
 const logger = require("../logger");
 
-const http = require('http');
-const http2 = require('http2');
+const httpRequest = require('../utils/httpRequest');
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
@@ -33,7 +32,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       this.options.dirname += '/';
 
     // default request headers, override with options.headers
-    this.headers = Object.assign({
+    this.options.headers = Object.assign({
       'accept': '*/*',
       'accept-encoding': 'gzip, deflate, br',
       "user-agent": "storage-junctions/1.2 (dictadata.org)",
@@ -41,8 +40,6 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     },
       this.options.headers);
 
-    this.cookies = Object.assign({}, this.options.cookies);
-    this.response = {};
     this._dirname = '';
   }
 
@@ -54,10 +51,14 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug('http-filesystem list');
 
     options = Object.assign({}, this.options, options);
+    options.method = 'GET';
+    Object.assign(options.headers, {
+      accept: 'text/html,application/xhtml+xml'
+    });
     let schema = options.schema || this.smt.schema;
     let dirpath = this.options.dirname || "/";
     let list = [];
-
+      
     // regex for filespec match
     let filespec = schema || '*';
     let rx = '^' + filespec + '$';
@@ -74,20 +75,14 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         logger.debug('scanner');
 
         // HTTP GET
-        that.options.method = 'GET';
-        let content = await that._httpRequest(dirpath, {
-          method: "GET",
-          headers: {
-            accept: 'text/html,application/xhtml+xml'
-          }
-        });
-        logger.debug(content);
+        let response = await httpRequest(dirpath, options);
+        logger.debug(response);
 
-        if (!that.response.headers['content-type'].startsWith('text/html'))
+        if (!response.headers['content-type'].startsWith('text/html'))
           throw new StorageError({ statusCode: 400 }, 'invalid content-type');
 
         // parse the html page into a simple DOM
-        var root = HTMLParser.parse(content, {
+        var root = HTMLParser.parse(response.data, {
           lowerCaseTagName: true,  // convert tag name to lower case (hurt performance heavily)
           script: true,             // retrieve content in <script> (hurt performance slightly)
           style: false,             // retrieve content in <style> (hurt performance slightly)
@@ -99,7 +94,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         var pre = root.querySelectorAll('pre');
         if (pre.length === 0)
           return;
-        var directory = that._parseHtmlDir(pre[0].rawText);
+        var directory = that._parseHtmlDir(response, pre[0].rawText);
         logger.debug(JSON.stringify(directory, null, 2));
 
         for (let entry of directory) {
@@ -150,14 +145,16 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   async createReadStream(options) {
     logger.debug("HTTPFileSystem createReadStream");
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let rs = null;
+    options.method = 'GET'
+    options.responseType = 'stream';
 
+    let rs = null;
     try {
+      let schema = options.schema || this.smt.schema;
       let filename = this.options.dirname + schema;
 
       // create read stream
-      rs = await this._httpRequest(filename, { method: 'GET', responseType: 'stream' });
+      rs = await httpRequest(filename, options);
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -194,21 +191,22 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   async download(options) {
     logger.debug("HTTPFileSystem download");
     options = Object.assign({}, this.options, options);
-    const link = options.link || options.href || this.smt.schema;
-    let result = true;
+    options.method = 'GET'
+    options.responseType = 'stream';
 
+    let result = true;
     try {
       let src = options.dirname + options.rpath;
       let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        await mkdir(dirname, { recursive: true });
+        fs.mkdirSync(dirname, { recursive: true });
         this._dirname = dirname;
       }
       logger.verbose("  " + src + " >> " + dest);
 
       // get file
-      let rs = await this._httpRequest(src, { method: 'GET', responseType: 'stream' });
+      let rs = await httpRequest(src, options);
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
@@ -223,10 +221,10 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
   async upload(options) {
     logger.debug("HTTPFileSystem upload")
-
     options = Object.assign({}, this.options, options);
-    let result = false;
+    options.method = 'PUT';
 
+    let result = false;
     try {
       let src = path.join(options.uploadPath, options.rpath);
       let filename = (options.useRPath ? options.rpath : options.name);
@@ -236,10 +234,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       const form = new FormData();
       for (let [n, v] of Object.entries(options.formdata))
         form.append(n, v);
-
       form.append(filename, fs.createReadStream(src));
 
-      this._httpRequest(this._url.pathname, { method: 'POST', headers: form.getHeaders() }, form);
+      // send the file
+      Object.assign(options.headers, form.getHeaders());
+      let response = await httpRequest(this._url.pathname, options, form);
     }
     catch (err) {
       logger.error(err);
@@ -249,151 +248,10 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     return result;
   }
 
-  /////// HTTP requests
-
-  async _httpRequest(rpath, options) {
-    if (this.options.http === 2)
-      return this._http2Request(rpath, options);
-    else
-      return this._http1Request(rpath, options);
-  }
-
-  async _http1Request(rpath, options, data) {
-    return new Promise((resolve, reject) => {
-      this.response = {
-        data: ""
-      };
-
-      let Url;
-      try {
-        Url = new URL(rpath, this.options.origin || this.smt.locus);
-      } catch (error) {
-        throw new Error(`Invalid url ${rpath}`);
-      }
-
-      var request = {
-        method: (options.method && options.method.toUpperCase()) || "GET",
-        host: Url.hostname,
-        port: Url.port,
-        path: Url.pathname,
-        timeout: options.timeout || 5000
-      };
-      request.headers = Object.assign({}, this.headers, options.headers);
-      if (this.cookies)
-        request.headers["Cookie"] = Object.entries(this.cookies).join('; ');
-      if (data)
-        options.headers['Content-Length'] = Buffer.byteLength(data);
-
-      const req = http.request(request, (res) => {
-        this.response.statusCode = res.statusCode;
-        this.response.headers = res.headers;
-        this._saveCookies(res.headers);
-
-        if (options.responseType !== 'stream') {
-          res.setEncoding('utf8');
-
-          res.on('data', (chunk) => {
-            this.response.data += chunk;
-          });
-
-          res.on('end', () => {
-            logger.debug(`\n${this.response.data}`);
-            resolve(this.response.data);
-          });
-        }
-      });
-
-      if (options.responseType === 'stream') {
-        req.on('response', (response) => {
-          resolve(response);
-        });
-      }
-    
-      req.on('error', (e) => {
-        logger.error(err);
-        reject(err);
-      });
-
-      if (data)
-        req.write(data);
-      req.end();      
-    });
-  }
-
-  _http2Request(rpath, options, data) {
-    return new Promise((resolve, reject) => {
-      this.response = {};
-
-      const client = http2.connect(this.options.origin || this.smt.locus);
-
-      client.on('error', (err) => {
-        logger.error(err);
-        reject(err);
-      });
-
-      let request = Object.assign({
-        ':method': this.options.method || 'GET',
-        ':path': rpath || ''
-      },
-        this.options.headers);
-      if (this.options.cookies)
-        request["cookie"] = Object.entries(this.options.cookies).join('; ');
-
-      const req = client.request(request);
-
-      req.setEncoding('utf8');
-      req.end();
-
-      req.on('response', (headers, flags) => {
-        this.response.headers = headers;
-        this._saveCookies(headers);
-      });
-
-      req.on('data', (chunk) => {
-        this.response.data += chunk;
-      });
-
-      req.on('end', () => {
-        logger.debug(`\n${this.response.data}`);
-        client.close();
-        resolve(this.response.data);
-      });
-
-    });
-  }
-
-////////////////////////////////
-  
-  _saveCookies(headers) {
-    // parse cookies
-    for (const name in headers) {
-      logger.debug(`${name}: ${headers[name]}`);
-      if (name === "set-cookie") {
-        let cookies = [];
-        let hdval = headers[name];
-        if (typeof hdval === 'string')
-          cookies.push(hdval);
-        else
-          cookies = hdval;
-
-        for (let cookie of cookies) {
-          let nvs = cookie.split(';');
-          if (nvs.length > 0) {
-            let ck = nvs[0].split('=');
-            if (ck.length > 0) {
-              logger.debug(ck[0] + '=' + ck[1]);
-              this.cookies[ck[0]] = ck[1];
-            }
-          }
-        }
-      }
-    }
-  }
-
   /////// parse HTML directory page
 
-  _parseHtmlDir(dirText) {
-    let server = this.response.headers["server"];
+  _parseHtmlDir(response, dirText) {
+    let server = response.headers["server"];
 
     let direxp = null;
     if (this.options.direxp)

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage");
+const StorageJunction = require("../storage-junction");
 const { StorageResults, StorageError } = require("../../types");
 const CSVReader = require("./csv-reader");
 const CSVWriter = require("./csv-writer");

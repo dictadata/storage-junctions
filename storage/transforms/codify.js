@@ -8,9 +8,8 @@
 // It is up to the application to provide a representative sample of constructs as input.
 
 const { Transform } = require('stream');
-const Engram = require('../engram');
-const Field = require("../field");
-const Types = require('../types');
+const { Field, Engram, storageType } = require('../types');
+const { typeOf } = require("../utils");
 const logger = require('../logger');
 
 
@@ -35,7 +34,7 @@ module.exports = exports = class CodifyTransform extends Transform {
     // engram for storing encoding
     this.engram = new Engram('any|*|*|*');
 
-    if (Types.typeOf(this.options.encoding) === 'object') {
+    if (typeOf(this.options.encoding) === 'object') {
       this.engram.fields = this.options.encoding.fields || this.options.encoding;
       // Note at this point engram.fields will point to the same object as:
       //    options.encoding.fields (precedence)
@@ -129,7 +128,7 @@ module.exports = exports = class CodifyTransform extends Transform {
 
   processValue(value, field) {
     // determine type of value
-    let stype = Types.storageType(value);
+    let stype = storageType(value);
 
     // check if field needs an initial type
     if (field.type === "undefined" && stype !== "null") {

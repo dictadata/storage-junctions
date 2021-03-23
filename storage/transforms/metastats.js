@@ -9,8 +9,7 @@
 // It is up to the application to provide a representative sample of constructs as input.
 
 const { Transform } = require('stream');
-const Engram = require('../engram');
-const Field = require("../field");
+const { Field, Engram } = require('../types');
 const logger = require('../logger');
 
 

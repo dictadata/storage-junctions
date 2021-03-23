@@ -19,10 +19,10 @@ async function tests() {
           "Accept": "application/ld+json",
           "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
         },
-        auth: {
+        //auth: {
           //username: this.options.auth.username,
           //password: this.options.auth.password
-        },
+        //},
         extract: {
           data: "periods",  // name of property in response.data than contains the desired object or array
           names: ""         // name of property in response.data containing an array of field names

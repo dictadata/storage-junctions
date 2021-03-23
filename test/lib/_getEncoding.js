@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const storage = require("../../storage");
-const { typeOf } = require("../../storage/types");
+const { typeOf } = require("../../storage/utils");
 const logger = require('../../storage/logger');
 const fs = require('fs');
 const path = require('path');

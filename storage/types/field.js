@@ -1,6 +1,7 @@
+// storage/types/Field
 "use strict";
 
-const {StorageError} = require("./types");
+const StorageError = require("./storage-error");
 
 /**
  * An field is a desciptor for a individual item of a construct.

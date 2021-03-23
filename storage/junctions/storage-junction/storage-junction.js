@@ -1,8 +1,7 @@
 "use strict";
 
 const Cortex = require('../../cortex');
-const Engram = require("../../engram");
-const { StorageError } = require("../../types");
+const { Engram, StorageError } = require("../../types");
 const logger = require("../../logger");
 
 const Reader = require("./storage-reader");

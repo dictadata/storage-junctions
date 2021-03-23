@@ -1,7 +1,7 @@
 "use strict";
 
-const { StorageReader } = require('../storage');
-const Types = require('../../types');
+const { StorageReader } = require('../storage-junction');
+const { parseValue } = require('../../types');
 const logger = require('../../logger');
 
 const path = require('path');
@@ -75,7 +75,7 @@ module.exports = exports = class CSVReader extends StorageReader {
             newValue = field.default;
         }
         else {
-          newValue = Types.parseValue(value);
+          newValue = parseValue(value);
         }
 
         if (newValue !== value)

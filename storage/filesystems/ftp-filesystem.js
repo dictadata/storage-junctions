@@ -2,7 +2,8 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { hasOwnProperty, StorageError } = require("../types");
+const { StorageError } = require("../types");
+const { hasOwnProperty } = require("../utils");
 const logger = require("../logger");
 
 const FTP = require("promise-ftp");

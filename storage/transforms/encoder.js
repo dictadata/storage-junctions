@@ -6,7 +6,7 @@
  */
 
 const storage = require("../index");
-const { hasOwnProperty } = require("../types");
+const { hasOwnProperty } = require("../utils");
 const logger = require('../logger');
 
 const { Transform } = require('stream');

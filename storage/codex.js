@@ -6,8 +6,8 @@
  */
 "use strict";
 
-const Engram = require('./engram');
-const Field = require('./field');
+const Engram = require('./types/engram');
+const Field = require('./types/field');
 const Types = require("./types");
 
 /* Example codex entry

@@ -1,5 +1,7 @@
+// storage/utils/ifOptions
 "use strict";
-const { hasOwnProperty } = require("../types");
+
+const { hasOwnProperty } = require("./hasOwnProperty");
 
 function ifOptions(dst, src, names) {
   if (!Array.isArray(names))
@@ -9,3 +11,5 @@ function ifOptions(dst, src, names) {
     if (hasOwnProperty(src, name))
       dst[name] = src[name];
 }
+
+module.exports = exports = ifOptions;

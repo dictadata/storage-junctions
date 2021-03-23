@@ -1,7 +1,8 @@
 "use strict";
 
 const { Readable } = require('stream');
-const { hasOwnProperty, StorageError } = require("../../types");
+const { StorageError } = require("../../types");
+const { hasOwnProperty } = require("../../utils");
 const logger = require('../../logger');
 
 module.exports = exports = class StorageReader extends Readable {

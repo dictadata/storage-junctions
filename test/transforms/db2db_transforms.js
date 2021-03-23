@@ -5,7 +5,7 @@
 
 const transfer = require('../lib/_transfer');
 const dullSchema = require("../lib/_dullSchema");
-const Engram = require('../../storage/engram');
+const Engram = require('../../storage/types/engram');
 const logger = require('../../storage/logger');
 
 logger.info("=== Test: transform");

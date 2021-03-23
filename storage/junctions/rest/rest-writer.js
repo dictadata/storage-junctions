@@ -1,6 +1,6 @@
 "use strict";
 
-const { StorageWriter } = require('../storage');
+const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
 //coconst logger = require('../../logger');
 const logger = require('../../logger');

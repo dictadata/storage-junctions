@@ -3,11 +3,12 @@
  */
 "use strict";
 
-const types = require('../../types');
+var { hasOwnProperty } = require('../../utils');
+var { stringBreakpoints } = require('../../types');
 const TYPES = require('tedious').TYPES;
 const ynBoolean = require('yn');
 
-var stringBreakpoints = exports.stringBreakpoints = Object.assign({}, types.stringBreakpoints);
+stringBreakpoints = exports.stringBreakpoints = Object.assign({}, stringBreakpoints);
 if (stringBreakpoints.text > 8000)
   stringBreakpoints.text = 8000;   // up to 32767 if MAX_STRING_SIZE = EXTENDED;
 
@@ -100,7 +101,7 @@ exports.storageField = (column) => {
     size: column["size"].value,
     default: column["default"].value || null,
     isNullable: ynBoolean(column["is_nullable"].value) || false,
-    keyOrdinal: types.hasOwnProperty(column, "key_ordinal") ? column["key_ordinal"].value : 0,
+    keyOrdinal: hasOwnProperty(column, "key_ordinal") ? column["key_ordinal"].value : 0,
     // add additional MSSQL fields
     _mssql: {
       precision: column["precision"].value,

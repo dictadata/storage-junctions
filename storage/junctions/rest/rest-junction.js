@@ -1,7 +1,8 @@
 "use strict";
 
-const StorageJunction = require("../storage");
-const { typeOf, StorageResults, StorageError } = require("../../types");
+const StorageJunction = require("../storage-junction");
+const { StorageResults, StorageError } = require("../../types");
+const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
 const RESTReader = require("./rest-reader");
@@ -9,7 +10,7 @@ const RESTWriter = require("./rest-writer");
 const encoder = require('./rest-encoder');
 
 const stream = require('stream/promises');
-const http = require("http");
+const httpRequest = require("../../utils/httpRequest");
 
 
 class RESTJunction extends StorageJunction {
@@ -127,16 +128,24 @@ class RESTJunction extends StorageJunction {
         // url += ???
       }
       let request = {
-        method: "GET",
+        method: this.options.method || "GET",
+        origin: this.options.origin || this.smt.locus,
         headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
-        auth: this.options.auth || {},
         timeout: this.options.timeout || 10000
       };
+      if (this.options.auth)
+        request["auth"] = this.options.auth;
 
-      let response = await this._httpRequest(url, request);
+      let response = await httpRequest(url, request);
+
+      let data;
+      if (encoder.isContentJSON(response.headers["content-type"]))
+        data = JSON.parse(response.data);
+      else
+        data = response.data;
 
       let constructs = [];
-      encoder.parseData(response.data, this.options, (construct) => {
+      encoder.parseData(data, this.options, (construct) => {
         constructs.push(construct);
       });
 
@@ -168,93 +177,7 @@ class RESTJunction extends StorageJunction {
     }
   }
   
-  /////////////////////////
-
-  async _httpRequest(rpath, options, data) {
-    return new Promise((resolve, reject) => {
-      this.response = {
-        data: ""
-      };
-
-      let Url;
-      try {
-        Url = new URL(rpath, this.engram.smt.locus);
-      } catch (error) {
-        throw new Error(`Invalid url ${rpath}`);
-      }
-
-      var request = {
-        method: (options.method && options.method.toUpperCase()) || "GET",
-        host: Url.hostname,
-        port: Url.port,
-        path: Url.pathname,
-        timeout: options.timeout || 5000
-      };
-      request.headers = Object.assign({}, this.headers, options.headers);
-      if (options.auth)
-        request.auth = options.auth;
-      if (this.cookies)
-        request.headers["Cookie"] = Object.entries(this.cookies).join('; ');
-      if (data)
-        options.headers['Content-Length'] = Buffer.byteLength(data);
-
-      const req = http.request(request, (res) => {
-        this.response.statusCode = res.statusCode;
-        this.response.headers = res.headers;
-        this._saveCookies(res.headers);
-        res.setEncoding('utf8');
-
-        res.on('data', (chunk) => {
-          this.response.data += chunk;
-        });
-
-        res.on('end', () => {
-          logger.debug(`\n${this.response.data}`);
-          resolve(this.response.data);
-        });
-      });
-
-      req.on('error', (e) => {
-        logger.error(err);
-        reject(err);
-      });
-
-      if (data)
-        req.write(data);
-      req.end();
-    });
-  }
-
-  ////////////////////////////////
-  
-  _saveCookies(headers) {
-    // parse cookies
-    for (const name in headers) {
-      logger.debug(`${name}: ${headers[name]}`);
-      if (name === "set-cookie") {
-        let cookies = [];
-        let hdval = headers[name];
-        if (typeof hdval === 'string')
-          cookies.push(hdval);
-        else
-          cookies = hdval;
-
-        for (let cookie of cookies) {
-          let nvs = cookie.split(';');
-          if (nvs.length > 0) {
-            let ck = nvs[0].split('=');
-            if (ck.length > 0) {
-              logger.debug(ck[0] + '=' + ck[1]);
-              this.cookies[ck[0]] = ck[1];
-            }
-          }
-        }
-      }
-    }
-  }
-
 };
-
 
 // define module exports
 RESTJunction.encoder = encoder;

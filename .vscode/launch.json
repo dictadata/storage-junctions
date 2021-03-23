@@ -60,7 +60,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "csv transfers",
+      "name": "csv transfer",
       "program": "${workspaceFolder}/test/csv/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -71,7 +71,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "csv transforms",
+      "name": "csv transform",
       "program": "${workspaceFolder}/test/csv/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -93,7 +93,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "json transfers",
+      "name": "json transfer",
       "program": "${workspaceFolder}/test/json/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -104,7 +104,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "json transforms",
+      "name": "json transform",
       "program": "${workspaceFolder}/test/json/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -135,7 +135,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "fs transfers",
+      "name": "fs transfer",
       "program": "${workspaceFolder}/test/fs/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -168,7 +168,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "ftp transfers",
+      "name": "ftp transfer",
       "program": "${workspaceFolder}/test/ftp/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -201,7 +201,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "http transfers",
+      "name": "http transfer",
       "program": "${workspaceFolder}/test/http/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -283,7 +283,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch transfers",
+      "name": "elasticsearch transfer",
       "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -327,7 +327,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch transforms",
+      "name": "elasticsearch transform",
       "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -397,7 +397,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mssql transfers",
+      "name": "mssql transfer",
       "program": "${workspaceFolder}/test/mssql/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -452,7 +452,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mssql transforms",
+      "name": "mssql transform",
       "program": "${workspaceFolder}/test/mssql/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -518,7 +518,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql transfers",
+      "name": "mysql transfer",
       "program": "${workspaceFolder}/test/mysql/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -573,7 +573,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql transforms",
+      "name": "mysql transform",
       "program": "${workspaceFolder}/test/mysql/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -639,7 +639,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle transfers",
+      "name": "oracle transfer",
       "program": "${workspaceFolder}/test/oracle/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -694,7 +694,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle transforms",
+      "name": "oracle transform",
       "program": "${workspaceFolder}/test/oracle/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -764,13 +764,13 @@
     },
     {
       "type": "node-terminal",
-      "name": "--- transforms",
+      "name": "--- transform",
       "request": "launch"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transform aggregate csv",
+      "name": "transforms aggregate csv",
       "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
       "outputCapture": "std",
       "env": {
@@ -781,7 +781,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transform aggregate json",
+      "name": "transforms aggregate json",
       "program": "${workspaceFolder}/test/transforms/json_aggregate.js",
       "outputCapture": "std",
       "env": {
@@ -792,7 +792,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transform db2db",
+      "name": "transforms db2db",
       "program": "${workspaceFolder}/test/transforms/db2db_transforms.js",
       "outputCapture": "std",
       "env": {
@@ -803,7 +803,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transform compose/flatten",
+      "name": "transforms compose/flatten",
       "program": "${workspaceFolder}/test/transforms/compose_flatten.js",
       "outputCapture": "std",
       "env": {
@@ -819,7 +819,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "pipeline split db schemas",
+      "name": "pipelines split db schemas",
       "program": "${workspaceFolder}/test/pipelines/split_schemas.js",
       "outputCapture": "std",
       "env": {
@@ -830,7 +830,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "pipeline extract data",
+      "name": "pipelines extract data",
       "program": "${workspaceFolder}/test/pipelines/pickdata.js",
       "outputCapture": "std",
       "env": {
@@ -841,7 +841,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "pipeline tee",
+      "name": "pipelines tee",
       "program": "${workspaceFolder}/test/pipelines/tee.js",
       "outputCapture": "std",
       "env": {

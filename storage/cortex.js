@@ -6,7 +6,8 @@
  */
 "use strict";
 
-const { typeOf, hasOwnProperty, StorageError } = require("./types");
+const { StorageError } = require("./types");
+const { typeOf, hasOwnProperty } = require("./utils");
 
 class Cortex {
 

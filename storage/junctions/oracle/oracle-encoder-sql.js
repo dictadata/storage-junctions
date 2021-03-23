@@ -4,9 +4,7 @@
 "use strict";
 
 const encoder = require('./oracle-encoder');
-const { typeOf, isDate, hasOwnProperty } = require('../../types');
-const isoDates = require('../../utils/isoDates');
-const getCI = require("../../utils/getCI");
+const { typeOf, hasOwnProperty, isDate, parseDate, getCI } = require('../../utils');
 const logger = require('../../logger');
 
 //var _reservedWords = ["ACCESS", "ELSE", "MODIFY", "START", "ADD", "EXCLUSIVE", "NOAUDIT", "SELECT", "ALL", "EXISTS", "NOCOMPRESS", "SESSION", "ALTER", "FILE", "NOT", "SET", "AND", "FLOAT", "NOTFOUND", "SHARE", "ANY", "FOR", "NOWAIT", "SIZE", "ARRAYLEN", "FROM", "NULL", "SMALLINT", "AS", "GRANT", "NUMBER", "SQLBUF", "ASC", "GROUP", "OF", "SUCCESSFUL", "AUDIT", "HAVING", "OFFLINE", "SYNONYM", "BETWEEN", "IDENTIFIED", "ON", "SYSDATE", "BY", "IMMEDIATE", "ONLINE", "TABLE", "CHAR", "IN", "OPTION", "THEN", "CHECK", "INCREMENT", "OR", "TO", "CLUSTER", "INDEX", "ORDER", "TRIGGER", "COLUMN", "INITIAL", "PCTFREE", "UID", "COMMENT", "INSERT", "PRIOR", "UNION", "COMPRESS", "INTEGER", "PRIVILEGES", "UNIQUE", "CONNECT", "INTERSECT", "PUBLIC", "UPDATE", "CREATE", "INTO", "RAW", "USER", "CURRENT", "IS", "RENAME", "VALIDATE", "DATE", "LEVEL", "RESOURCE", "VALUES", "DECIMAL", "LIKE", "REVOKE", "VARCHAR", "DEFAULT", "LOCK", "ROW", "VARCHAR2", "DELETE", "LONG", "ROWID", "VIEW", "DESC", "MAXEXTENTS", "ROWLABEL", "WHENEVER", "DISTINCT", "MINUS", "ROWNUM", "WHERE", "DROP", "MODE", "ROWS", "WITH"];
@@ -63,7 +61,7 @@ function encodeValue(field, value) {
     case "date":
       let dt = value;
       if (typeof value === "string")
-        dt = (isDate(value) === 1) ? isoDates.parseDate(value) : new Date(dt);
+        dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
       return dt ? formatSQLDate(dt) : "NULL";
     case "boolean":
       return (value) ? 1 : 0;

@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const { StorageReader } = require('../storage');
+const { StorageReader } = require('../storage-junction');
 const encoder = require('./rest-encoder');
-const Axios = require("axios");
+const httpRequest = require('../../utils/httpRequest');
 const logger = require('../../logger');
 
 module.exports = exports = class RESTReader extends StorageReader {
@@ -31,22 +31,30 @@ module.exports = exports = class RESTReader extends StorageReader {
     // read up to size constructs
 
     try {
-      let url = this.options.url || this.engram.smt.schema || '/';
-      if (pattern) {
+      let url = this.options.url || this.engram.smt.schema || '';
+      //if (pattern) {
         // querystring parameters
         // url += ???
-      }
+      //}
 
       let request = {
         method: 'GET',
+        origin: this.options.origin || this.smt.locus,
         headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
-        auth: this.options.auth || {},
         timeout: this.options.timeout || 10000
       };
+      if (this.options.auth)
+        request["auth"] = this.options.auth;
 
-      let response = await this.junction._httpRequest(url, request);;
+      let response = await httpRequest(url, request);
 
-      encoder.parseData(response.data, this.options, (construct) => {
+      let data;
+      if (encoder.isContentJSON(response.headers["content-type"]))
+        data = JSON.parse(response.data);
+      else
+        data = response.data;
+
+      encoder.parseData(data, this.options, (construct) => {
         this.push(construct);
       });
 

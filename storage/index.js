@@ -9,12 +9,11 @@ module.exports = exports = cortex;
 exports.logger = require('./logger');
 
 // other storage classes
-exports.Engram = require("./engram");
-exports.Field = require("./field");
-
-let Types = exports.Types = require("./types");
-exports.StorageResults = Types.StorageResults;
-exports.StorageError = Types.StorageError;
+const types = exports.types = require("./types");
+exports.Engram = types.Engram;
+exports.Field = types.Field;
+exports.StorageResults = types.StorageResults;
+exports.StorageError = types.StorageError;
 
 // register transforms
 exports.FilterTransform = require("./transforms/filter");
@@ -59,7 +58,7 @@ cortex.FileSystems.use('http', exports.HTTPFileSystem);
 cortex.FileSystems.use('https', exports.HTTPFileSystem);
 
 // register standard junctions
-var StorageJunction = require("./junctions/storage");
+var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;

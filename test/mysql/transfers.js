@@ -16,19 +16,6 @@ async function tests() {
     smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*"
   });
 
-  logger.info("=== foofile_two.json > mysql");
-  await transfer({
-    origin: {
-      smt: "json|./test/data/|foofile_two.json|*" 
-    },
-    terminal: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
-      options: {
-        encoding: "./test/data/encoding_foo_two.json"
-      }
-    }
-  });
-
   logger.info("=== foofile.csv > mysql.foo_schema");
   await transfer({
     origin: {
@@ -64,6 +51,19 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|=Foo",
       options: {
         encoding: "./test/data/encoding_foo_02.json"
+      }
+    }
+  });
+
+  logger.info("=== foofile_two.json > mysql");
+  await transfer({
+    origin: {
+      smt: "json|./test/data/|foofile_two.json|*" 
+    },
+    terminal: {
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
+      options: {
+        encoding: "./test/data/encoding_foo_two.json"
       }
     }
   });

@@ -3,10 +3,11 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage");
+const StorageJunction = require("../storage-junction");
 const EchoReader = require("./echo-reader");
 const EchoWriter = require("./echo-writer");
-const { typeOf, StorageError } = require("../../types");
+const { StorageError } = require("../../types");
+const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
 class EchoJunction extends StorageJunction {

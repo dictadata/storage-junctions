@@ -5,8 +5,8 @@
 
 const encoder = require('./mssql-encoder');
 const sqlString = require('tsqlstring');
-const { typeOf, isDate, hasOwnProperty, StorageError } = require('../../types');
-const isoDates = require('../../utils/isoDates');
+const { StorageError } = require('../../types');
+const { typeOf, hasOwnProperty, isDate, parseDate } = require('../../utils');
 const logger = require('../../logger');
 
 exports.connectionConfig = (options) => {
@@ -38,7 +38,7 @@ function encodeValue(field, value) {
     case "date":
       let dt = value;
       if (typeof value === "string")
-        dt = (isDate(value) === 1) ? isoDates.parseDate(value) : new Date(dt);
+        dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
       return dt ? sqlString.escape(dt) : "NULL";
     case "boolean":
       return (value) ? 1 : 0;

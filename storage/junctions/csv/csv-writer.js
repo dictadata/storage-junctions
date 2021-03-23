@@ -1,9 +1,8 @@
 "use strict";
 
-const { StorageWriter } = require('../storage');
-const Types = require("../../types");
-const StorageError = Types.StorageError;
-const isoDates = require("../../utils/isoDates");
+const { StorageWriter } = require('../storage-junction');
+const { StorageError } = require("../../types");
+const { formatDate } = require("../../utils");
 const logger = require('../../logger');
 
 const path = require('path');
@@ -75,7 +74,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
               data += value ? "true" : "false";
               break;
             case "date":
-              data += isoDates.formatDate(value);
+              data += formatDate(value);
               break;
             case "number":
             case "integer":
