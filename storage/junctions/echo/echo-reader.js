@@ -1,6 +1,6 @@
 "use strict";
 
-const StorageReader = require('../storage-junction/reader');
+const { StorageReader } = require('../storage');
 const { StorageError } = require("../types");
 const logger = require('../logger');
 

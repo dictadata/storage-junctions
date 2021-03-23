@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
+const StorageJunction = require("../storage");
 const ElasticsearchReader = require("./elasticsearch-reader");
 const ElasticsearchWriter = require("./elasticsearch-writer");
 const { StorageResults, StorageError } = require("../types");

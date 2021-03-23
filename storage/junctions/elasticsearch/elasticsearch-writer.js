@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const StorageWriter = require('../storage-junction/storage-writer');
+const { StorageWriter } = require('../storage');
 const { StorageError } = require("../types");
 const logger = require('../logger');
 

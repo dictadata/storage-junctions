@@ -221,34 +221,6 @@
       }
     },
     {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "AWS check",
-      "program": "${workspaceFolder}/test/s3/aws_credentials.js"
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "s3 list",
-      "program": "${workspaceFolder}/test/s3/list.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "s3 transfers",
-      "program": "${workspaceFolder}/test/s3/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
       "type": "node-terminal",
       "name": "--- db junctions",
       "request": "launch"
@@ -791,50 +763,6 @@
       }
     },
     {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "xlsx list",
-      "program": "${workspaceFolder}/test/xlsx/list.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "xlsx codify",
-      "program": "${workspaceFolder}/test/xlsx/codify.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "xlsx transfers",
-      "program": "${workspaceFolder}/test/xlsx/transfers.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "xlsx transforms",
-      "program": "${workspaceFolder}/test/xlsx/transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
       "type": "node-terminal",
       "name": "--- transforms",
       "request": "launch"
@@ -913,7 +841,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "pipeline tee xlsx",
+      "name": "pipeline tee",
       "program": "${workspaceFolder}/test/pipelines/tee.js",
       "outputCapture": "std",
       "env": {

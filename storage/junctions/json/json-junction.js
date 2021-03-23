@@ -1,54 +1,51 @@
 /**
- * CSVJunction
+ * JSONJunction
  */
 "use strict";
 
 const StorageJunction = require("../storage");
 const { StorageResults, StorageError } = require("../types");
-const CSVReader = require("./csv-reader");
-const CSVWriter = require("./csv-writer");
+const JSONReader = require("./json-reader");
+const JSONWriter = require("./json-writer");
 const logger = require("../logger");
 
 const path = require('path');
 const stream = require('stream/promises');
 
 
-class CSVJunction extends StorageJunction {
+class JSONJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'csv|folder|filename|key' or an Engram object
+   * @param {*} SMT 'json|folder|filename|key' or an Engram object
    * @param {*} options
    */
   constructor(SMT, options) {
+    logger.debug("JSONJunction");
     super(SMT, options);
-    logger.debug("CSVJunction");
 
-    this._readerClass = CSVReader;
-    this._writerClass = CSVWriter;
+    this._readerClass = JSONReader;
+    this._writerClass = JSONWriter;
 
     // check schema's extension
     if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
-      this.options.schema = this.smt.schema + '.csv';
-    
-    // this.options.header = false;  // default value
+      this.options.schema = this.smt.schema + '.json';
   }
 
   /**
    *  Get the encoding for the storage junction.
    */
   async getEncoding() {
-    logger.debug("CSVJunction get encoding");
-    
+
     try {
       if (!this.engram.isDefined) {
-        // read the file to infer data types
+        // read file to infer data types
         // default to 100 constructs unless overridden in options
         let options = Object.assign({ max_read: 100 }, this.options);
         let reader = this.createReadStream(options);
-        let codify = this.createTransform("codify", options);
-        await stream.pipeline(reader, codify);
+        let codify = this.createTransform('codify', options);
 
+        await stream.pipeline(reader, codify);
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
@@ -71,35 +68,34 @@ class CSVJunction extends StorageJunction {
   /**
    *
    * @param {*} construct
-   * @param {*} pattern
    */
   async store(construct, pattern) {
-    logger.debug("CSVJunction store");
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction store");
+    logger.debug("JSONJunction store");
+    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction store");
   }
 
   /**
    *
    */
-  async recall(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction recall");
+  async recall(options) {
+    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction recall");
   }
 
   /**
    *
-   * @param {*} pattern
+   * @param {*} options options.pattern
    */
-  async retrieve(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction retrieve");
+  async retrieve(options) {
+    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction retrieve");
   }
 
   /**
    *
    */
-  async dull(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction dull");
+  async dull(options) {
+    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction dull");
   }
 
 };
 
-module.exports = CSVJunction;
+module.exports = JSONJunction;

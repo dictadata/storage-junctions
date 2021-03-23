@@ -6,14 +6,14 @@
 const tee = require('../lib/_tee');
 const logger = require('../../lib/logger');
 
-logger.info("=== Test: xlsx tee");
+logger.info("=== Test: pipeline tee");
 
 async function tests() {
 
-  logger.verbose('=== xlsx > xlsx_tee_1.json, xlsx_tee_2.json');
+  logger.verbose('=== foo_schema > pipelines/tee_1.json, pipelines/tee_2.json');
   let tract = {
     origin: {
-      smt: "xlsx|./test/data/foofile.xlsx|foo|*",
+      smt: "json|./test/data/|foofile.json|*",
       options: {
         encoding: "./test/data/encoding_foo.json"
       }
@@ -28,7 +28,7 @@ async function tests() {
     terminal: [
       {
         terminal: {
-          smt: "json|./output/pipelines/|xlsx_tee_1.json|*",
+          smt: "json|./output/pipelines/|tee_1.json|*",
           options: {
             encoding: "./test/data/encoding_foo.json"
           }
@@ -38,7 +38,7 @@ async function tests() {
       },
       {
         terminal: {
-          smt: "json|./output/pipelines/|xlsx_tee_2.json|*",
+          smt: "json|./output/pipelines/|tee_2.json|*",
           options: {
             encoding: "./test/data/encoding_foo_transform.json"
           }

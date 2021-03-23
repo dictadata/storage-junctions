@@ -1,10 +1,14 @@
+/**
+ * transport/writer
+ */
 "use strict";
 
 const { StorageWriter } = require('../storage');
 const { StorageError } = require("../types");
+//coconst logger = require('../logger');
 const logger = require('../logger');
 
-module.exports = exports = class EchoWriter extends StorageWriter {
+module.exports = exports = class TransportWriter extends StorageWriter {
 
   /**
    *
@@ -17,17 +21,18 @@ module.exports = exports = class EchoWriter extends StorageWriter {
   }
 
   async _write(construct, encoding, callback) {
-    logger.debug("EchoWriter._write");
-    logger.debug(JSON.stringify(construct));    
+    logger.debug("TransportWriter._write");
+    logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();
       return;
     }
+
     try {
       // save construct to .schema
       this._count(1);
-      logger.info(JSON.stringify(construct));
+      logger.debug(JSON.stringify(construct));
     }
     catch (err) {
       logger.error(err);
@@ -38,7 +43,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
   }
 
   async _writev(chunks, callback) {
-    logger.debug("EchoWriter._writev");
+    logger.debug("TransportWriter._writev");
 
     try {
       for (var i = 0; i < chunks.length; i++) {
@@ -57,7 +62,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
   }
 
   async _final(callback) {
-    logger.debug("EchoWriter._final");
+    logger.debug("TransportWriter._final");
 
     try {
       // close connection, cleanup resources, ...

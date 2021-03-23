@@ -1,10 +1,13 @@
+/**
+ * splitter/writer
+ */
 "use strict";
 
 const { StorageWriter } = require('../storage');
 const { StorageError } = require("../types");
-const logger = require('../logger');
+const logger = require("../logger");
 
-module.exports = exports = class EchoWriter extends StorageWriter {
+module.exports = exports = class SplitterWriter extends StorageWriter {
 
   /**
    *
@@ -17,28 +20,35 @@ module.exports = exports = class EchoWriter extends StorageWriter {
   }
 
   async _write(construct, encoding, callback) {
-    logger.debug("EchoWriter._write");
-    logger.debug(JSON.stringify(construct));    
+    logger.debug("SplitterWriter._write");
+    logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();
       return;
     }
+
     try {
-      // save construct to .schema
+      // value to splitOn
+      let sname = construct[this.options.splitOn];
+
+      // get storage junction for splitter field(s)
+      let wstream = await this.junction.getTractStream(sname);
+
+      // store
       this._count(1);
-      logger.info(JSON.stringify(construct));
+      await wstream.write(construct);
+      callback();
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(err);
     }
 
-    callback();
   }
 
   async _writev(chunks, callback) {
-    logger.debug("EchoWriter._writev");
+    logger.debug("SplitterWriter._writev");
 
     try {
       for (var i = 0; i < chunks.length; i++) {
@@ -57,16 +67,17 @@ module.exports = exports = class EchoWriter extends StorageWriter {
   }
 
   async _final(callback) {
-    logger.debug("EchoWriter._final");
+    logger.debug("SplitterWriter._final");
 
     try {
       // close connection, cleanup resources, ...
+      this.junction.endTractStream();
       this._count(null);
       callback();
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error writer._final'));
+      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
     }
   }
 

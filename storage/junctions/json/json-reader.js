@@ -1,19 +1,18 @@
 "use strict";
 
 const { StorageReader } = require('../storage');
-const Types = require('../types');
 const logger = require('../logger');
 
 const path = require('path');
-const ynBoolean = require('yn');
 
-const chain = require('stream-chain');
-const ParserCsv = require('stream-csv-as-json');
-const CsvTransform = require('./CsvTransform'); //require('stream-csv-as-json/AsObjects');
-const StreamValues = require('stream-json/streamers/StreamValues');
+const { parser } = require('stream-json/Parser');
+const { streamValues } = require('stream-json/streamers/StreamValues');
+const { streamArray } = require('stream-json/streamers/StreamArray');
+const { streamObject } = require('stream-json/streamers/StreamObject');
+const { chain } = require('stream-chain');
+const { pick } = require('stream-json/filters/Pick');
 
-
-module.exports = exports = class CSVReader extends StorageReader {
+module.exports = exports = class JSONReader extends StorageReader {
 
   /**
    *
@@ -25,9 +24,7 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     // check schema's extension
     if (this.options.schema && path.extname(this.options.schema) === '')
-      this.options.schema = this.options.schema + '.csv';
-
-    // this.options.header = false;  // default value
+      this.options.schema = this.options.schema + '.json';
 
     // set capabilities of the StorageReader
     this.useTransforms = true;  // the data source doesn't support queries, so use the base junction will use Transforms to filter and select
@@ -35,47 +32,33 @@ module.exports = exports = class CSVReader extends StorageReader {
     /***** create the parser and data handlers *****/
     var reader = this;
     var encoding = this.engram;
-    this.started = false;
 
     function cast(construct) {
 
       for (let [name, value] of Object.entries(construct)) {
-        let newValue = value;
         let field = encoding.find(name);
+        let newValue = value;
 
-        if (value === "" || value === null) {     // current parser generates "" instead of null
+        if (value === null) {
           newValue = field.default;
-        }
-        else if (field.type === 'boolean') {
-          newValue = ynBoolean(value);
-          if (typeof newValue === "undefined")
-            newValue = field.default;
         }
         else if (field.type === 'integer') {
           newValue = Number.parseInt(value, 10);
-          if (Number.isNaN(newValue))
-            newValue = field.default;
+          if (Number.isNaN(newValue)) newValue = field.default;
         }
         else if (field.type === 'float') {
           newValue = Number.parseFloat(value);
-          if (!Number.isFinite(newValue))
-            newValue = field.default;
+          if (!Number.isFinite(newValue)) newValue = field.default;
         }
         else if (field.type === 'date') {
           newValue = new Date(value);
-          if (isNaN(newValue))
-            newValue = field.default;
+          if (isNaN(newValue)) newValue = field.default;
         }
         else if (field.type === 'keyword') {
-          if (value === null)
-            newValue = field.default;
+          if (value === null) newValue = field.default;
         }
         else if (field.type === 'text') {
-          if (value === null)
-            newValue = field.default;
-        }
-        else {
-          newValue = Types.parseValue(value);
+          if (value === null) newValue = field.default;
         }
 
         if (newValue !== value)
@@ -85,41 +68,52 @@ module.exports = exports = class CSVReader extends StorageReader {
       return construct;
     }
 
-    let parser = this.parser = new chain([
-      ParserCsv(),
-      new CsvTransform({ keys: encoding.names, header: options.header }),
-      new StreamValues()
-    ]);
+    // create the parser chain pipeline
+    let myParser = this.myParser = parser();
+    let pipes = [myParser];
+    
+    if (this.options.extract) {
+      pipes.push(pick({ filter: this.options.extract }));
+    }
 
+    if (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl')
+      pipes.push(streamValues());
+    else if (this.engram.smt.model === 'jsono')
+      pipes.push( streamObject());
+    else  // default json array
+      pipes.push(streamArray());
+
+    let pipeline = this.pipeline = chain(pipes);
+    
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
 
     // eslint-disable-next-line arrow-parens
-    parser.on('data', (data) => {
+    pipeline.on('data', (data) => {
       if (data.value) {
-        let construct = cast(data.value);
-        logger.debug(JSON.stringify(construct));
-        if (data.value && !reader.push(construct))
-          parser.pause();  // If push() returns false stop reading from source.
+        let c = cast(data.value);
+        logger.debug(JSON.stringify(data.value));
+        if (data.value && !reader.push(c))
+          myParser.pause();  // If push() returns false stop reading from source.
 
         if (statistics.count % 1000 === 0)
-          logger.debug(statistics.count);
+          logger.verbose(statistics.count);
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          parser.destroy();
+          myParser.destroy();
         }
       }
-
     });
 
-    parser.on('end', () => {
+    pipeline.on('end', () => {
       reader.push(null);
     });
 
-    parser.on('error', function (err) {
+    pipeline.on('error', function (err) {
       logger.error(err);
     });
 
+    this.started = false;
   }
 
   /**
@@ -127,20 +121,20 @@ module.exports = exports = class CSVReader extends StorageReader {
    * @param {*} size <number> Number of constructs to read asynchronously
    */
   async _read(_size) {
-    logger.debug('CSVReader _read');
+    logger.debug('JSONReader _read');
 
     if (!this.started) {
       // start the reader
       let stfs = await this.junction.getFileSystem();
       var rs = await stfs.createReadStream(this.options);
-      rs.pipe(this.parser);
+      rs.pipe(this.pipeline);
       this.started = true;
     }
-    else if (this.parser.isPaused()) {
+    else if (this.myParser.isPaused()) {
       // resume reading
-      this.parser.resume();
+      this.myParser.resume();
     }
-    else if (this.parser.destroyed || !this.parser.readable)
+    else if (this.myParser.destroyed || !this.myParser.readable)
       this.push(null);
   }
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const StorageReader = require('../storage-junction/reader');
+const { StorageReader } = require('../storage');
 const logger = require('../logger');
 
 const dslEncoder = require("./encoder_dsl");

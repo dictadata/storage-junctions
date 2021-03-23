@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
+const StorageJunction = require("../storage");
 const EchoReader = require("./echo-reader");
 const EchoWriter = require("./echo-writer");
 const { typeOf, StorageError } = require("../types");

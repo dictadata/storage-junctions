@@ -4,7 +4,6 @@
 "use strict";
 
 var cortex = require("./cortex");
-
 module.exports = exports = cortex;
 
 exports.logger = require('./logger');
@@ -16,10 +15,6 @@ exports.Field = require("./field");
 let Types = exports.Types = require("./types");
 exports.StorageResults = Types.StorageResults;
 exports.StorageError = Types.StorageError;
-
-exports.StorageJunction = require("./storage-junction");
-exports.StorageReader = require("./storage-junction/reader");
-exports.StorageWriter = require("./storage-junction/writer");
 
 // register transforms
 exports.FilterTransform = require("./transforms/filter");
@@ -51,29 +46,30 @@ exports.MetaStatsTransform = require("./transforms/metastats");
 cortex.Transforms.use('metastats', exports.MetaStatsTransform);
 
 // register standard StorageFileSystem's
-exports.FileSystem = require("./storage-filesystem");
+exports.FileSystem = require("./filesystems/storage-filesystem");
 
-exports.FSFileSystem = require("./fs-filesystem");
+exports.FSFileSystem = require("./filesystems/fs-filesystem");
 cortex.FileSystems.use('file', exports.FSFileSystem);
 
-exports.FTPFileSystem = require("./ftp-filesystem");
+exports.FTPFileSystem = require("./filesystems/ftp-filesystem");
 cortex.FileSystems.use('ftp', exports.FTPFileSystem);
 
-exports.HTTPFileSystem = require("./http-filesystem");
+exports.HTTPFileSystem = require("./filesystems/http-filesystem");
 cortex.FileSystems.use('http', exports.HTTPFileSystem);
 cortex.FileSystems.use('https', exports.HTTPFileSystem);
 
-exports.S3FileSystem = require("./s3-filesystem");
-cortex.FileSystems.use('s3', exports.S3FileSystem);
-
 // register standard junctions
-cortex.use('*', exports.StorageJunction, true);
+var StorageJunction = require("./junctions/storage");
+exports.StorageJunction = StorageJunction;
+exports.StorageReader = StorageJuction.StorageReader;
+exports.StorageWriter = StorageJunction.StorageWriter;
+cortex.use('*', StorageJunction, true);
 
-var CSVJunction = require("./csv-junction");
+var CSVJunction = require("./junctions/csv");
 exports.CSVJunction = CSVJunction;
 cortex.use('csv', CSVJunction, true);
 
-var JSONJunction = require("./json-junction");
+var JSONJunction = require("./junctions/json");
 exports.JSONJunction = JSONJunction;
 cortex.use('json', JSONJunction, true);   // defaults to json array
 cortex.use('jsons', JSONJunction, true);  // json stream
@@ -81,51 +77,40 @@ cortex.use('jsonl', JSONJunction, true);  // json line
 cortex.use('jsona', JSONJunction, true);  // json array
 cortex.use('jsono', JSONJunction, true);  // json object
 
-var ShapesJunction = require("./shapes-junction");
+var ShapesJunction = require("./junctions/shapes");
 exports.ShapesJunction = ShapesJunction;
 cortex.use('shp', ShapesJunction, true);
 
-var ParquetJunction = require("./parquet-junction");
+var ParquetJunction = require("./junctions/parquet");
 exports.ParquetJunction = ParquetJunction;
 cortex.use('parquet', ParquetJunction, true);
 
-var XlsxJunction = require("./xlsx-junction");
-exports.XlsxJunction = XlsxJunction;
-cortex.use('xlsx', XlsxJunction);
-cortex.use('xls', XlsxJunction);
-cortex.use('ods', XlsxJunction);
-
-var ElasticsearchJunction = require("./elasticsearch-junction");
+var ElasticsearchJunction = require("./junctions/elasticsearch");
 exports.ElasticsearchJunction = ElasticsearchJunction;
 cortex.use('elastic', ElasticsearchJunction);
 cortex.use('elasticsearch', ElasticsearchJunction);
 
-var MongoDBJunction = require("./mongodb-junction");
+var MongoDBJunction = require("./junctions/mongodb");
 exports.MongoDBJunction = MongoDBJunction;
 cortex.use('mongodb', MongoDBJunction);
 
-var MSSQLJunction = require("./mssql-junction");
+var MSSQLJunction = require("./junctions/mssql");
 exports.MSSQLJunction = MSSQLJunction;
 cortex.use('mssql', MSSQLJunction);
 
-var MySQLJunction = require("./mysql-junction");
+var MySQLJunction = require("./junctions/mysql");
 exports.MySQLJunction = MySQLJunction;
 cortex.use('mysql', MySQLJunction);
 
-var OracleJunction = require("./oracle-junction");
+var OracleJunction = require("./junctions/oracle");
 exports.OracleJunction = OracleJunction;
 cortex.use('oracle', OracleJunction);
 
-var PostgreSQLJunction = require("./postgresql-junction");
-exports.PostgreSQLJunction = PostgreSQLJunction;
-cortex.use('postgresql', PostgreSQLJunction);
-cortex.use('postgres', PostgreSQLJunction);
-
-var RESTJunction = require("./rest-junction");
+var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
 cortex.use('rest', RESTJunction);
 
-var SplitterJunction = require("./splitter-junction");
+var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
 cortex.use('splitter', SplitterJunction);
 cortex.use('split', SplitterJunction);
