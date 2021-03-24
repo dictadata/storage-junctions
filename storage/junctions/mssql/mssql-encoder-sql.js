@@ -372,7 +372,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
           // aggregate columns for GROUP BY
           let asfld = func;
           for (let [func,fld] of Object.entries(value)) {
-            let exp = aggFunction(func) + "(" + sqlString.escapeId(fld) + ")";
+            let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
             columns.push(exp + " as " + sqlString.escapeId(asfld));
           }
         }
@@ -380,7 +380,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
           // aggregate columns for summary
           let asfld = name;
           let fld = value;
-          let exp = aggFunction(func) + "(" + sqlString.escapeId(fld) + ")";
+          let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
           columns.push(exp + " as " + sqlString.escapeId(asfld));
         }
       }
@@ -461,7 +461,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
   return sql;
 };
 
-function aggFunction(cfunc) {
+function sqlFunction(cfunc) {
   switch (cfunc) {
     case 'sum': return 'SUM';
     case 'avg': return 'AVG';

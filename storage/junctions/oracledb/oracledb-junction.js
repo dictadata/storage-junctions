@@ -1,6 +1,4 @@
-/**
- * oracledb-junction
- */
+// storage/junctions/oracledb-junction
 "use strict";
 
 const StorageJunction = require("../storage-junction");
@@ -8,10 +6,10 @@ const { Engram, StorageResults, StorageError } = require("../../types");
 const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
-const OracleDBReader = require("./oracle-reader");
-const OracleDBWriter = require("./oracle-writer");
-const encoder = require("./oracle-encoder");
-const sqlEncoder = require("./oracle-encoder-sql");
+const OracleDBReader = require("./oracledb-reader");
+const OracleDBWriter = require("./oracledb-writer");
+const encoder = require("./oracledb-encoder");
+const sqlEncoder = require("./oracledb-sql-encoder");
 
 const oracledb = require('oracledb');
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
@@ -24,7 +22,7 @@ class OracleDBJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo' or an Engram object
+   * @param {*} SMT 'oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo' or an Engram object
    * @param {*} options
    */
   constructor(SMT, options) {
@@ -119,7 +117,7 @@ class OracleDBJunction extends StorageJunction {
       rx = new RegExp(rx);
 
       // fetch encoding form storage source
-      let sql = "SELECT table_name FROM user_tables";
+      let sql = sqlEncoder.sqlListTables();
       connection = await this.pool.getConnection();
       let results = await connection.execute(sql);
       let tables = results.rows;
@@ -153,15 +151,12 @@ class OracleDBJunction extends StorageJunction {
     try {
       // fetch encoding form storage source
 
-      // get one row w/ metadata
+      // get table columns
       let sql = sqlEncoder.sqlDescribeTable(this.smt.schema);
       connection = await this.pool.getConnection();
-      let results = await connection.execute(sql, {}, {
-        resultSet: true,
-        extendedMetaData: true
-      });
-      for (let column of results.metaData) {
-        let field = encoder.storageField(column);
+      let results = await connection.execute(sql);
+      for (let row of results.rows) {
+        let field = encoder.storageField(row);
         this.engram.add(field);
       }
 
@@ -198,7 +193,7 @@ class OracleDBJunction extends StorageJunction {
       let encoding = options.encoding || this.engram.encoding;
 
       // check if table already exists
-      let tables = this.list();
+      let tables = await this.list();
       if (tables.length > 0) {
         return 'schema exists';
       }
@@ -246,13 +241,13 @@ class OracleDBJunction extends StorageJunction {
    * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async dullSchema(options) {
-    logger.debug('OracleJunction dullSchema');
+    logger.debug('OracleDBJunction dullSchema');
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
     
     let connection;
     try {
-      let sql = "DROP TABLE " + schema;
+      let sql = sqlEncoder.sqlDropTable(schema);
       connection = await this.pool.getConnection();
       let results = await connection.execute(sql);
     }
@@ -329,7 +324,7 @@ class OracleDBJunction extends StorageJunction {
    * @param {Object} pattern - optional parameters, source dependent
    */
   async storeBulk(constructs, pattern) {
-    logger.debug("OracleJunction store");
+    logger.debug("OracleDBJunction store");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
       throw new StorageError({ statusCode: 400 }, "unique keys not supported");

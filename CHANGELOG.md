@@ -37,7 +37,7 @@
   - prefer INSERT then UPDATE in store() for mssql and oracle junctions
   - use PRIMARY KEY clause for Oracle CREATE TABLE instead of column property
 - version 1.4.0
-  - implement OracleJunction
+  - implement OracleDBJunction
   - introduce support for case-insensitive field encodings
   - bug fixes for overlay encodings
 - version 1.3.2

@@ -5,8 +5,9 @@
 
 const { StorageReader } = require('../storage-junction');
 const encoder = require('./rest-encoder');
-const httpRequest = require('../../utils/httpRequest');
 const logger = require('../../logger');
+
+const httpRequest = require('../../utils/httpRequest');
 
 module.exports = exports = class RESTReader extends StorageReader {
 
@@ -32,13 +33,13 @@ module.exports = exports = class RESTReader extends StorageReader {
 
     try {
       let url = this.options.url || this.engram.smt.schema || '';
-      //if (pattern) {
+      //if (this.options.pattern) {
         // querystring parameters
         // url += ???
       //}
 
       let request = {
-        method: 'GET',
+        method: this.options.method || 'GET',
         origin: this.options.origin || this.smt.locus,
         headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
         timeout: this.options.timeout || 10000

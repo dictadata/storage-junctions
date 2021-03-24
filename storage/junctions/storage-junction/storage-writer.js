@@ -4,7 +4,6 @@ const { Writable } = require('stream');
 const { StorageError } = require("../../types");
 const { hasOwnProperty } = require("../../utils");
 const logger = require('../../logger');
-const { IncomingMessage } = require('http');
 
 module.exports = exports = class StorageWriter extends Writable {
 

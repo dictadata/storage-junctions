@@ -1,13 +1,13 @@
 /**
- * oracle/reader
+ * oracledb/reader
  */
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
 const logger = require('../../logger');
-const sqlEncoder = require("./oracle-encoder-sql");
+const sqlEncoder = require("./oracledb-sql-encoder");
 
-module.exports = exports = class OracleReader extends StorageReader {
+module.exports = exports = class OracleDBReader extends StorageReader {
 
   /**
    *
@@ -25,7 +25,7 @@ module.exports = exports = class OracleReader extends StorageReader {
    * @param {*} size <number> Number of bytes to read asynchronously
    */
   async _read(size) {
-    logger.debug('OracleReader._read');
+    logger.debug('OracleDBReader._read');
 
     // read up to size constructs
     if (!this.started) {

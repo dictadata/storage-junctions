@@ -595,8 +595,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle encoding",
-      "program": "${workspaceFolder}/test/oracle/encoding.js",
+      "name": "oracledb encoding",
+      "program": "${workspaceFolder}/test/oracledb/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -606,8 +606,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle list",
-      "program": "${workspaceFolder}/test/oracle/list.js",
+      "name": "oracledb list",
+      "program": "${workspaceFolder}/test/oracledb/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -617,8 +617,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle store",
-      "program": "${workspaceFolder}/test/oracle/store.js",
+      "name": "oracledb store",
+      "program": "${workspaceFolder}/test/oracledb/store.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -628,8 +628,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle recall",
-      "program": "${workspaceFolder}/test/oracle/recall.js",
+      "name": "oracledb recall",
+      "program": "${workspaceFolder}/test/oracledb/recall.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -639,8 +639,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle transfer",
-      "program": "${workspaceFolder}/test/oracle/transfers.js",
+      "name": "oracledb transfer",
+      "program": "${workspaceFolder}/test/oracledb/transfers.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -650,8 +650,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle retrieve",
-      "program": "${workspaceFolder}/test/oracle/retrieve.js",
+      "name": "oracledb retrieve",
+      "program": "${workspaceFolder}/test/oracledb/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -661,8 +661,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle dull",
-      "program": "${workspaceFolder}/test/oracle/dull.js",
+      "name": "oracledb dull",
+      "program": "${workspaceFolder}/test/oracledb/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -672,8 +672,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle store bulk",
-      "program": "${workspaceFolder}/test/oracle/store_bulk.js",
+      "name": "oracledb store bulk",
+      "program": "${workspaceFolder}/test/oracledb/store_bulk.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -683,8 +683,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle codify",
-      "program": "${workspaceFolder}/test/oracle/codify.js",
+      "name": "oracledb codify",
+      "program": "${workspaceFolder}/test/oracledb/codify.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -694,8 +694,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle transform",
-      "program": "${workspaceFolder}/test/oracle/transforms.js",
+      "name": "oracledb transform",
+      "program": "${workspaceFolder}/test/oracledb/transforms.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -705,8 +705,129 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracle aggregate",
-      "program": "${workspaceFolder}/test/oracle/aggregate.js",
+      "name": "oracledb aggregate",
+      "program": "${workspaceFolder}/test/oracledb/aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport encoding",
+      "program": "${workspaceFolder}/test/transport/encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport list",
+      "program": "${workspaceFolder}/test/transport/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport store",
+      "program": "${workspaceFolder}/test/transport/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport recall",
+      "program": "${workspaceFolder}/test/transport/recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport transfer",
+      "program": "${workspaceFolder}/test/transport/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport retrieve",
+      "program": "${workspaceFolder}/test/transport/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport dull",
+      "program": "${workspaceFolder}/test/transport/dull.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport store bulk",
+      "program": "${workspaceFolder}/test/transport/store_bulk.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport codify",
+      "program": "${workspaceFolder}/test/transport/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport transform",
+      "program": "${workspaceFolder}/test/transport/transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport aggregate",
+      "program": "${workspaceFolder}/test/transport/aggregate.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

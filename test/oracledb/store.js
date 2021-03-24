@@ -1,19 +1,19 @@
 /**
- * test/oracle
+ * test/oracledb
  */
 "use strict";
 
 const store = require('../lib/_store');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: oracle");
+logger.info("=== Test: oracledb");
 
 async function tests() {
 
-  logger.info("=== oracle store 20");
+  logger.info("=== oracledb store 20");
   await store({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -22,10 +22,10 @@ async function tests() {
     }
   });
 
-  logger.info("=== oracle store 30");
+  logger.info("=== oracledb store 30");
   await store({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -35,10 +35,10 @@ async function tests() {
     }
   });
 
-  logger.info("=== oracle store 10");
+  logger.info("=== oracledb store 10");
   await store({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
     construct: {
       Foo: 'ten',

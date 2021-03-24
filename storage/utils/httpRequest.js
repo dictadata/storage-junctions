@@ -6,7 +6,7 @@ const https = require('https');
 const http2 = require('http2');
 const logger = require('../logger');
 
-function httpRequest(url, options) {
+function httpRequest(url, options, data) {
 
   let Url;
   if (typeof url === "object")
@@ -20,9 +20,9 @@ function httpRequest(url, options) {
   }
 
   if (options.httpVersion === 2)
-    return http2Request(Url, options);
+    return http2Request(Url, options, data);
   else
-    return http1Request(Url, options);
+    return http1Request(Url, options, data);
 }
 
 module.exports = exports = httpRequest;
@@ -107,6 +107,8 @@ function http2Request(Url, options, data) {
     const req = client.request(request);
 
     req.setEncoding('utf8');
+    if (data)
+      req.write(data);
     req.end();
 
     req.on('response', (headers, flags) => {

@@ -1,6 +1,8 @@
 // storage/types/StorageError
 "use strict";
 
+const { typeOf } = require("../utils");
+
 class StorageError extends Error {
   constructor(status, ...params) {
     // Pass normal error arguments to parent constructor

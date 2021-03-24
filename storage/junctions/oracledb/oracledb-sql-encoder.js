@@ -1,9 +1,9 @@
 /**
- * oracle/queries
+ * oracledb/queries
  */
 "use strict";
 
-const encoder = require('./oracle-encoder');
+const encoder = require('./oracledb-encoder');
 const { typeOf, hasOwnProperty, isDate, parseDate, getCI } = require('../../utils');
 const logger = require('../../logger');
 
@@ -77,7 +77,7 @@ function encodeValue(field, value) {
 }
 
 exports.decodeResults = (engram, construct) => {
-  logger.debug("oracle decodeResults");
+  logger.debug("oracledb decodeResults");
   if (typeOf(construct) !== "object") return;
 
   for (let [name, value] of Object.entries(construct)) {
@@ -102,8 +102,16 @@ exports.decodeResults = (engram, construct) => {
 
 };
 
+exports.sqlListTables = () => {
+  return "SELECT table_name FROM user_tables";
+}
+
 exports.sqlDescribeTable = (schema) => {
-  return `SELECT * FROM ${schema.toUpperCase()} FETCH FIRST 1 ROW ONLY`;
+  //return `SELECT * FROM ${schema.toUpperCase()} FETCH FIRST 1 ROW ONLY`;
+  return `select column_id, column_name, data_type, data_length, data_precision, data_scale, nullable 
+from user_tab_columns 
+where table_name = '${schema.toUpperCase()}' 
+order by column_id`;
 };
 
 exports.sqlDescribeIndexes = (schema) => {
@@ -112,7 +120,7 @@ exports.sqlDescribeIndexes = (schema) => {
   JOIN user_ind_columns uic ON uic.index_name = ui.index_name 
   LEFT JOIN user_constraints ucon ON ucon.index_name = ui.index_name 
   LEFT JOIN user_ind_expressions uie ON uie.index_name = ui.index_name AND uie.column_position = uic.column_position 
-  WHERE ui.table_name = '${schema.toUpperCase()}'
+  WHERE ui.table_name = '${schema.toUpperCase()}' 
   ORDER BY ui.index_name, uic.column_position`;
 };
 
@@ -191,6 +199,10 @@ exports.sqlCreateIndex = (engram, indexName) => {
   sql += ")";
   return sql;
 };
+
+exports.sqlDropTable = (schema) => {
+  return "DROP TABLE " + schema;
+}
 
 exports.sqlInsert = (engram, construct) => {
 
@@ -352,7 +364,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
           // aggregate columns for GROUP BY
           let asfld = func;
           for (let [func,fld] of Object.entries(value)) {
-            let exp = aggFunction(func) + "(" + escapeId(fld) + ")";
+            let exp = sqlFunction(func) + "(" + escapeId(fld) + ")";
             columns.push(exp + " as " + escapeId(asfld));
           }
         }
@@ -360,7 +372,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
           // totals aggregation functions
           let asfld = name;
           let fld = value;
-          let exp = aggFunction(func) + "(" + escapeId(fld) + ")";
+          let exp = sqlFunction(func) + "(" + escapeId(fld) + ")";
           columns.push(exp + " as " + escapeId(asfld));
         }
       }
@@ -445,7 +457,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
   return sql;
 };
 
-function aggFunction(cfunc) {
+function sqlFunction(cfunc) {
   switch (cfunc) {
     case 'sum': return 'SUM';
     case 'avg': return 'AVG';

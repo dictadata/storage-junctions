@@ -4,9 +4,10 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const encoder = require('./transport-encoder');
-const Axios = require("axios");
+const encoder = require('../rest/rest-encoder');
 const logger = require('../../logger');
+
+const httpRequest = require("../../utils/httpRequest");
 
 module.exports = exports = class TransportReader extends StorageReader {
 
@@ -31,18 +32,30 @@ module.exports = exports = class TransportReader extends StorageReader {
     // read up to size constructs
 
     try {
-      let axiosOptions = {
-        baseURL: this.engram.smt.locus,
+      let url = this.options.url || this.engram.smt.schema || '';
+      //if (this.options.pattern) {
+        // querystring parameters
+        // url += ???
+      //}
+
+      let request = {
+        method: this.options.method || 'GET',
+        origin: this.options.origin || this.smt.locus,
         headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
-        auth: this.options.auth || {},
-        params: this.options.params || {},
         timeout: this.options.timeout || 10000
       };
+      if (this.options.auth)
+        request["auth"] = this.options.auth;
 
-      let url = this.options.url || this.engram.smt.schema || '/';
-      let response = await Axios.get(url, axiosOptions);
+      let response = await httpRequest(url, request);
 
-      encoder.parseData(response.data, this.options, (construct) => {
+      let data;
+      if (encoder.isContentJSON(response.headers["content-type"]))
+        data = JSON.parse(response.data);
+      else
+        data = response.data;
+
+      encoder.parseData(data, this.options, (construct) => {
         this.push(construct);
       });
 

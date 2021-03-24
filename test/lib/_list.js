@@ -36,7 +36,8 @@ module.exports = exports = async function (tract) {
     process.exitCode = 1;
   }
   finally {
-    await jo.relax();
+    if (jo)
+      await jo.relax();
   }
 
 };

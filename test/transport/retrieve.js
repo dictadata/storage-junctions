@@ -1,45 +1,93 @@
 /**
- * test/transport/retreive
+ * test/oracledb
  */
 "use strict";
 
 const retrieve = require('../lib/_retrieve');
 const logger = require('../../storage/logger');
 
+logger.info("=== Test: oracledb");
 
-logger.info("=== Test: rest retrieve");
+async function tests() {
 
-async function testRetrieve() {
-
-  logger.verbose("=== Retrieve from remote Node");
+  logger.info("=== oracledb retrieve");
   await retrieve({
     origin: {
-      smt: "transport|https://localhost:8089/node/|storage|=*",
-      options: {
-        headers: {
-          "Accept": "application/ld+json",
-          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
-        },
-        auth: {
-          //username: this.options.auth.username,
-          //password: this.options.auth.password
-        },
-        extract: {
-          data: "periods",  // name of property in response.data than contains the desired object or array
-          names: ""         // name of property in response.data containing an array of field names
-          // if names is empty then data should be a json object or array of json objects
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      pattern: {
+        match: {
+          "Bar": { 'wc': 'row*' }
         }
       }
     },
     terminal: {
-      output: './output/rest/weather_forecast_retrieve.json'
+      output: "./output/oracledb/retrieve_0.json"
     }
   });
 
-}
+  logger.info("=== oracledb retrieve");
+  await retrieve({
+    origin: {
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
+      options: {
+        encoding: "./test/data/encoding_foo_01.json"
+      },
+      pattern: {
+        match: {
+          "Bar": { 'wc': 'row*' }
+        }
+      }
+    },
+    terminal: {
+      output: "./output/oracledb/retrieve_1.json"
+    }
+  });
 
-async function tests() {
-  await testRetrieve();
+  logger.info("=== oracledb retrieve");
+  await retrieve({
+    origin: {
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
+      options: {
+        encoding: "./test/data/encoding_foo_02.json"
+      },
+      pattern: {
+        match: {
+          "Bar": { 'wc': 'row*' }
+        }
+      }
+    },
+    terminal: {
+      output: "./output/oracledb/retrieve_2.json"
+    }
+  });
+
+  logger.info("=== oracledb retrieve w/ cues");
+  await retrieve({
+    origin: {
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      pattern: {
+        "order": { "Foo": "asc" },
+        "count": 100
+      }
+    }
+  });
+
+  logger.info("=== oracledb retrieve with pattern");
+  await retrieve({
+    origin: {
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*",
+      pattern: {
+        match: {
+          "Foo": "first",
+          "Baz": { "gte": 0, "lte": 1000 }
+        },
+        count: 3,
+        order: { "Dt Test": "asc" },
+        fields: ["Foo", "Baz"]
+      }
+    }
+  });
+
 }
 
 (async () => {

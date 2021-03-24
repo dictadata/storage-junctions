@@ -27,7 +27,7 @@ npm install @dictadata/storage-junctions
 | elasticsearch |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    yes    |    yes    |  yes   |
 | mssql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | mysql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
-| oracle        |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
+| oracledb      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | redshift      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
 | \*mongodb     |          |       |        |          |       |            |    yes    |    yes    |  yes   |

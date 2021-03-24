@@ -6,11 +6,10 @@ const logger = require("../../logger");
 
 const Reader = require("./storage-reader");
 const Writer = require("./storage-writer");
-const Encoder = require("./storage-encoder");
 
 const stream = require('stream');
 
-class StorageJunction {
+module.exports = exports = class StorageJunction {
 
   /**
    *
@@ -265,5 +264,3 @@ class StorageJunction {
   }
 
 };
-
-module.exports = StorageJunction;

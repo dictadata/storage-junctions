@@ -1,5 +1,5 @@
 /**
- * oracle/writer
+ * oracledb/writer
  */
 "use strict";
 
@@ -8,7 +8,7 @@ const { StorageError } = require("../../types");
 const logger = require('../../logger');
 
 
-module.exports = exports = class OracleWriter extends StorageWriter {
+module.exports = exports = class OracleDBWriter extends StorageWriter {
 
   /**
    *
@@ -21,7 +21,7 @@ module.exports = exports = class OracleWriter extends StorageWriter {
   }
 
   async _write(construct, encoding, callback) {
-    logger.debug("OracleWriter._write");
+    logger.debug("OracleDBWriter._write");
     logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
@@ -44,7 +44,7 @@ module.exports = exports = class OracleWriter extends StorageWriter {
   }
 
   async _writev(chunks, callback) {
-    logger.debug("OracleWriter._writev");
+    logger.debug("OracleDBWriter._writev");
 
     try {
       this._count(chunks.length);
@@ -72,7 +72,7 @@ module.exports = exports = class OracleWriter extends StorageWriter {
   }
 
   async _final(callback) {
-    logger.debug("OracleWriter._final");
+    logger.debug("OracleDBWriter._final");
 
     try {
       // close connection, cleanup resources, ...

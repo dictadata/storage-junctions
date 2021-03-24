@@ -1,5 +1,5 @@
 /**
- * oracle/encoder
+ * oracledb/encoder
  */
 "use strict";
 
@@ -72,7 +72,7 @@ exports.sqlType = (field) => {
 /**
  * convert Oracle client db type to a storage field type
  */
-var storageType = exports.storageType = (column) => {
+var storageTypeDB = exports.storageTypeDB = (column) => {
  
   let fldType = 'undefined';
   switch (column.dbType) {
@@ -140,15 +140,13 @@ var storageType = exports.storageType = (column) => {
 
 /**
  * convert Oracle client column definition to storage field encoding
+ * output from results with metadata
  */
-exports.storageField = (column) => {
+exports.storageFieldDB = (column) => {
 
-  if (!hasOwnProperty(column, "dbType"))
-    return storageFieldSQL(column);
-  
   let field = {
     name: column["name"],
-    type: storageType(column),
+    type: storageTypeDB(column),
     size: (column["byteSize"]) ? column["byteSize"] : 0,
     isNullable: column["nullable"],
     //default: null,
@@ -164,7 +162,7 @@ exports.storageField = (column) => {
 /**
  * convert an Oracle SQL type to a storage type
  */
-var storageTypeSQL = exports.storageTypeSQL = (sqlType, sqlSize) => {
+var storageType = exports.storageType = (sqlType, sqlSize) => {
   let mst = '';
   let sz = '';
 
@@ -214,6 +212,7 @@ var storageTypeSQL = exports.storageTypeSQL = (sqlType, sqlSize) => {
     case "VARCHAR2":
     case 'NCHAR':
     case 'NVARCHAR':
+    case 'NVARCHAR2':
       if (size <= stringBreakpoints.keyword) {
         fldType = 'keyword';
         break;
@@ -248,16 +247,44 @@ var storageTypeSQL = exports.storageTypeSQL = (sqlType, sqlSize) => {
 
 /**
  * convert Oracle SQL column definition to a storage field definition
+ * output from SELECT ... FROM user_tab_columns
+ */
+let storageField = exports.storageField = (column) => {
+  // COLUMN_ID, COLUMN_NAME, DATA_TYPE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE, NULLABLE, DATA_DEFAULT
+
+  let fldType, size;
+  [fldType, size] = storageType(column["DATA_TYPE"], column["DATA_LENGTH"]);
+
+  let field = {
+    name: column["COLUMN_NAME"],
+    type: fldType,
+    size: size,
+    isNullable: (column["NULLABLE"] === 'Y'),
+    ordinal: column["COLUMN_ID"]
+    // keyOrdinal: set from constraints
+  }
+  if (column["DATA_DEFAULT"])
+    field['default'] = column["DATA_DEFAULT"];
+
+  // add additional Oracle fields
+  field._oracle = column;
+
+  return field;
+}
+
+/**
+ * convert Oracle SQL column definition to a storage field definition
+ * output from DESCRIBE <table> or other external definition
  */
 let storageFieldSQL = exports.storageFieldSQL = (column) => {
 
   let fldType, size;
   if (hasOwnProperty(column, "Type"))
     // from DESCRIBE <table>
-    [fldType, size] = storageTypeSQL(column["Type"]);
+    [fldType, size] = storageType(column["Type"]);
   else
     // external definitions, e.g. Excel, .csv, ...
-    [fldType, size] = storageTypeSQL(column["TYPE"], column["LENGTH"]);
+    [fldType, size] = storageType(column["TYPE"], column["LENGTH"]);
 
   let field = {
     name: column["Name"] || column["NAME"],

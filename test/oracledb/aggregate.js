@@ -1,5 +1,5 @@
 /**
- * test/oracle
+ * test/oracledb
  */
 "use strict";
 
@@ -10,10 +10,10 @@ logger.info("=== Tests: retreive");
 
 async function tests() {
 
-  logger.info("=== oracle aggregate");
+  logger.info("=== oracledb aggregate");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -26,14 +26,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/oracle/aggregate_1.json'
+      output: './output/oracledb/aggregate_1.json'
     }
   });
 
-  logger.info("=== oracle aggregate summary");
+  logger.info("=== oracledb aggregate summary");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -50,14 +50,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/oracle/aggregate_2.json'
+      output: './output/oracledb/aggregate_2.json'
     }
   });
 
-  logger.info("=== oracle aggregate w/ groupby");
+  logger.info("=== oracledb aggregate w/ groupby");
   await retrieve({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -75,7 +75,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/oracle/aggregate_3.json'
+      output: './output/oracledb/aggregate_3.json'
     }
   });
 

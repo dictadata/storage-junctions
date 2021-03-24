@@ -1,19 +1,19 @@
 /**
- * test/oracle
+ * test/oracledb
  */
 "use strict";
 
 const dull = require('../lib/_dull');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: oracle");
+logger.info("=== Test: oracledb");
 
 async function tests() {
 
-  logger.info("=== oracle dull");
+  logger.info("=== oracledb dull");
   await dull({
     origin: {
-      smt: "oracle|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
         match: {
           Foo: 'twenty'

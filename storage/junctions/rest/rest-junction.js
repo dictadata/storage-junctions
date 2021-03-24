@@ -122,11 +122,12 @@ class RESTJunction extends StorageJunction {
   async retrieve(pattern) {
 
     try {
-      let url = this.options.url || this.engram.smt.schema || '/';
+      let url = this.options.url || this.engram.smt.schema || '';
       if (pattern) {
         // querystring parameters
         // url += ???
       }
+      
       let request = {
         method: this.options.method || "GET",
         origin: this.options.origin || this.smt.locus,

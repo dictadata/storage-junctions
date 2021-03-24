@@ -35,7 +35,7 @@ async function tests() {
               }
             },
             "encoder": {
-              "junction": "OracleJunction"
+              "junction": "OracleDBJunction"
             }
           },
           "terminal": {

@@ -101,9 +101,9 @@ var MySQLJunction = require("./junctions/mysql");
 exports.MySQLJunction = MySQLJunction;
 cortex.use('mysql', MySQLJunction);
 
-var OracleJunction = require("./junctions/oracle");
-exports.OracleJunction = OracleJunction;
-cortex.use('oracle', OracleJunction);
+var OracleDBJunction = require("./junctions/oracledb");
+exports.OracleDBJunction = OracleDBJunction;
+cortex.use('oracledb', OracleDBJunction);
 
 var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
@@ -113,3 +113,7 @@ var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
 cortex.use('splitter', SplitterJunction);
 cortex.use('split', SplitterJunction);
+
+var TransportJunction = require("./junctions/transport");
+exports.TransportJunction = TransportJunction;
+cortex.use('transport', TransportJunction);

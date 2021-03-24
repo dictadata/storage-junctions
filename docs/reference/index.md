@@ -20,7 +20,7 @@
 * [JSONJunction](json-junction.md)
 * [MSSQLJunction](mssql-junction.md)
 * [MySQLJunction](mysql-junction.md)
-* [OracleJunction](oracle-junction.md)
+* [OracleDBJunction](oracledb-junction.md)
 * [RESTJunction](rest-junction.md)
 * [ShapesJunction](shapes-junction.md)
 * [XlsxJunction](xlsx-junction.md)
