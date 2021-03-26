@@ -104,13 +104,3 @@ exports.parseData = function (data, options, callback) {
       callback(construct);
   }
 };
-
-exports.isContentJSON = function (contentType) {
-  let p = contentType.split('/');
-  if (p[1] === 'json')
-    return true;
-  if (p[1].indexOf("+json") >= 0)
-    return true;
-  
-  return false;
-}

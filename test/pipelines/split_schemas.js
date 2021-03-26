@@ -21,19 +21,6 @@ async function tests() {
         "splitOn": "TABLE_NAME",
         "tract": {
           "transforms": {
-            "select": {
-              "fields": {
-                "COLUMN_NAME": "NAME",
-                "COLUMN_ID": "ORDINAL",
-                "DATA_TYPE": "TYPE",
-                "DATA_LENGTH": "LENGTH",
-                "DATA_PRECISION": "PRECISION",
-                "DATA_SCALE": "SCALE",
-                "NULLABLE": "NULLABLE",
-                "SCHEMA_NAME": "SCHEMA_NAME",
-                "TABLE_NAME": "TABLE_NAME"
-              }
-            },
             "encoder": {
               "junction": "OracleDBJunction"
             }

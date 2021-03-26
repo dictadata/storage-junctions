@@ -1,19 +1,19 @@
 /**
- * test/oracledb
+ * test/transport
  */
 "use strict";
 
 const recall = require('../lib/_recall');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: oracledb");
+logger.info("=== Test: transport");
 
 async function tests() {
 
-  logger.info("=== oracledb recall");
+  logger.info("=== transport recall");
   await recall({
     origin: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'
@@ -21,14 +21,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/oracledb/recall.json"
+      output: "./output/transport/recall.json"
     }
   });
 
-  logger.info("=== oracledb recall");
+  logger.info("=== transport recall");
   await recall({
     origin: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
         match: {
           Foo: 'ten'

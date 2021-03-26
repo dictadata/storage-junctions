@@ -14,7 +14,7 @@ module.exports = exports = class StorageReader extends Readable {
    */
   constructor(storageJunction, options) {
     if (!hasOwnProperty(storageJunction, "engram"))
-      throw new StorageError({statusCode: 400}, "Invalid parameter: storageJunction");
+      throw new StorageError( 400, "Invalid parameter: storageJunction");
 
     let streamOptions = {
       objectMode: true,
@@ -74,7 +74,7 @@ module.exports = exports = class StorageReader extends Readable {
    */
   async _read(size) {
     logger.debug('StorageReader _read');
-    throw new StorageError({statusCode: 501}, "StorageReader._read method not implemented");
+    throw new StorageError( 501, "StorageReader._read method not implemented");
   }
 
 };

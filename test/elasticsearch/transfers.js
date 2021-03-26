@@ -75,7 +75,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./output/elasticsearch/|output.csv|*",
+      smt: "csv|./output/elasticsearch/|transfer_foo.csv|*",
       options: {
         header: true,
         append: false
@@ -89,7 +89,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     },
     terminal: {
-      smt: "json|./output/elasticsearch/|output_j.json|*",
+      smt: "json|./output/elasticsearch/|transfer_foo_j.json|*",
       options: {
         append: false
       }

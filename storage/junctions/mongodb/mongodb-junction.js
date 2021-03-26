@@ -3,7 +3,7 @@
 const StorageJunction = require("../storage-junction");
 const MongoDBReader = require("./mongodb-reader");
 const MongoDBWriter = require("./mongodb-writer");
-const { StorageError } = require("../../types");
+const { StorageResults, StorageError } = require("../../types");
 const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
@@ -39,9 +39,9 @@ class MongoDBJunction extends StorageJunction {
     let list = [];
 
     // junctions that don't use filesystems should override the list() method
-    throw new StorageError({ statusCode: 501 }, "StorageJunction.list method not implemented");
+    throw new StorageError(501);
 
-    //return list;
+    //return new StorageResults(0, null, list);
   }
 
   /**
@@ -54,7 +54,7 @@ class MongoDBJunction extends StorageJunction {
         // fetch form storage source
       }
 
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       logger.error(err);
@@ -76,7 +76,7 @@ class MongoDBJunction extends StorageJunction {
 
       // if successful update encoding
       this.engram.encoding = encoding;
-      return this.engram;
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
@@ -94,7 +94,7 @@ class MongoDBJunction extends StorageJunction {
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
 
-    throw new StorageError({ statusCode: 501 }, "StorageJunction.dullSchema method not implemented");
+    throw new StorageError(501);
     
     // return "ok";
   }
@@ -106,10 +106,10 @@ class MongoDBJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError(400, "construct is not an object");
 
     try {
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
@@ -126,7 +126,7 @@ class MongoDBJunction extends StorageJunction {
     }
 
     try {
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
@@ -141,7 +141,7 @@ class MongoDBJunction extends StorageJunction {
   async retrieve(pattern) {
 
     try {
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
@@ -161,7 +161,7 @@ class MongoDBJunction extends StorageJunction {
         // delete all constructs in the .schema
       }
 
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);

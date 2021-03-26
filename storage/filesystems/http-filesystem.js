@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageError } = require("../types");
+const { StorageResults, StorageError } = require("../types");
 const logger = require("../logger");
 
 const httpRequest = require('../utils/httpRequest');
@@ -50,23 +50,23 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   async list(options) {
     logger.debug('http-filesystem list');
 
-    options = Object.assign({}, this.options, options);
-    options.method = 'GET';
-    Object.assign(options.headers, {
-      accept: 'text/html,application/xhtml+xml'
-    });
-    let schema = options.schema || this.smt.schema;
-    let dirpath = this.options.dirname || "/";
-    let list = [];
-      
-    // regex for filespec match
-    let filespec = schema || '*';
-    let rx = '^' + filespec + '$';
-    rx = rx.replace('.', '\\.');
-    rx = rx.replace('*', '.*');
-    rx = new RegExp(rx);
-
     try {
+      options = Object.assign({}, this.options, options);
+      options.method = 'GET';
+      Object.assign(options.headers, {
+        accept: 'text/html,application/xhtml+xml'
+      });
+      let schema = options.schema || this.smt.schema;
+      let dirpath = this.options.dirname || "/";
+      let list = [];
+        
+      // regex for filespec match
+      let filespec = schema || '*';
+      let rx = '^' + filespec + '$';
+      rx = rx.replace('.', '\\.');
+      rx = rx.replace('*', '.*');
+      rx = new RegExp(rx);
+
       let that = this;
 
       // recursive scanner function
@@ -79,7 +79,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         logger.debug(response);
 
         if (!response.headers['content-type'].startsWith('text/html'))
-          throw new StorageError({ statusCode: 400 }, 'invalid content-type');
+          throw new StorageError(400, 'invalid content-type');
 
         // parse the html page into a simple DOM
         var root = HTMLParser.parse(response.data, {
@@ -119,13 +119,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       }
 
       await scanner(dirpath);
+
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return list;
   }
 
   async dull(options) {
@@ -134,9 +134,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
 
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.dull method not implemented");
+    throw new StorageError(501);
 
-    //return "ok";
+    //return new StorageResults(0);
   }
 
   /**
@@ -144,12 +144,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   */
   async createReadStream(options) {
     logger.debug("HTTPFileSystem createReadStream");
-    options = Object.assign({}, this.options, options);
-    options.method = 'GET'
-    options.responseType = 'stream';
 
-    let rs = null;
     try {
+      options = Object.assign({}, this.options, options);
+      options.method = 'GET'
+      options.responseType = 'stream';
+
+      let rs = null;
       let schema = options.schema || this.smt.schema;
       let filename = this.options.dirname + schema;
 
@@ -162,13 +163,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         rs.pipe(gzip);
         return gzip;
       }
+
+      return rs;
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return rs;
   }
 
   /**
@@ -176,7 +177,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   */
   async createWriteStream(options) {
     logger.debug("HTTPFileSystem createWriteStream");
-    throw new StorageError({ statusCode: 501 }, "HTTPFileSystem.createWriteStream method not implemented");
+    throw new StorageError(501);
 
     // implement writestream creation in overrides
     //options = Object.assign({}, this.options, options);
@@ -190,12 +191,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
   async download(options) {
     logger.debug("HTTPFileSystem download");
-    options = Object.assign({}, this.options, options);
-    options.method = 'GET'
-    options.responseType = 'stream';
 
-    let result = true;
     try {
+      options = Object.assign({}, this.options, options);
+      options.method = 'GET'
+      options.responseType = 'stream';
+      let resultCode = 0;
+
       let src = options.dirname + options.rpath;
       let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
       let dirname = path.dirname(dest);
@@ -210,22 +212,23 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
+
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return result;
   }
 
   async upload(options) {
     logger.debug("HTTPFileSystem upload")
-    options = Object.assign({}, this.options, options);
-    options.method = 'PUT';
 
-    let result = false;
     try {
+      options = Object.assign({}, this.options, options);
+      options.method = 'PUT';
+      let resultCode = 0;
+
       let src = path.join(options.uploadPath, options.rpath);
       let filename = (options.useRPath ? options.rpath : options.name);
       let dest = this._url.pathname + filename.split(path.sep).join(path.posix.sep);
@@ -239,13 +242,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // send the file
       Object.assign(options.headers, form.getHeaders());
       let response = await httpRequest(this._url.pathname, options, form);
+
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return result;
   }
 
   /////// parse HTML directory page

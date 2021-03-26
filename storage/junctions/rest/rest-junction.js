@@ -48,11 +48,11 @@ class RESTJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -76,7 +76,7 @@ class RESTJunction extends StorageJunction {
     let schema = options.schema || this.smt.schema;
 
     // junctions that don't use filesystems should override the dullSchema() method
-    throw new StorageError({ statusCode: 501 }, "RESTJunction.dullSchema method not implemented");
+    throw new StorageError(501);
 
     //return result;
   }
@@ -87,14 +87,14 @@ class RESTJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -103,15 +103,15 @@ class RESTJunction extends StorageJunction {
    */
   async recall(pattern) {
     if (!this.engram.smt.key) {
-      throw "no storage key specified";
+      throw new StorageError(400, "no storage key specified");
     }
 
     try {
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -140,7 +140,7 @@ class RESTJunction extends StorageJunction {
       let response = await httpRequest(url, request);
 
       let data;
-      if (encoder.isContentJSON(response.headers["content-type"]))
+      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
         data = JSON.parse(response.data);
       else
         data = response.data;
@@ -150,11 +150,12 @@ class RESTJunction extends StorageJunction {
         constructs.push(construct);
       });
 
-      return new StorageResults((constructs.length > 0) ? 'ok' : "not found", constructs);
+      let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
+      return new StorageResults(resultCode, null, constructs);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -170,11 +171,11 @@ class RESTJunction extends StorageJunction {
         // delete all constructs in the .schema
       }
 
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
   

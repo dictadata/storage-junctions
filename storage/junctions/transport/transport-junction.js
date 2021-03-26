@@ -33,14 +33,14 @@ class TransportJunction extends StorageJunction {
       Object.assign(encoder.stringBreakpoints, this.options.stringBreakpoints);
     
     this.url = this.options.url || '';
-    this.request = {
+    this.reqOptions = {
       method: this.options.method || "POST",
       origin: this.options.origin || this.smt.locus,
       headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
       timeout: this.options.timeout || 10000
     };
     if (this.options.auth)
-      this.request["auth"] = this.options.auth;
+      this.reqOptions["auth"] = this.options.auth;
   }
 
   /**
@@ -64,16 +64,19 @@ class TransportJunction extends StorageJunction {
       rx = new RegExp(rx);
 
       // fetch schema list from storage source
-      let query = {
+      let request = {
         model: 'oracledb',
         method: 'list',
         sql: sqlEncoder.sqlListTables()
       }
 
-      let response = await httpRequest(this.url, this.request, JSON.stringify(query));
-      let results = JSON.parse(response.data);
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+      if (response.resultCode !== 0) {
+        throw new StorageError(response.resultCode, response.resultText);
+      }
 
-      let tables = results.rows || results;
+      let tables = response.data || response;
       for (let table of tables) {
         let name = table["TABLE_NAME"];
         if (rx.test(name))
@@ -82,10 +85,10 @@ class TransportJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
 
-    return list;
+    return new StorageResults(0, null, list);
   }
 
   /**
@@ -99,36 +102,43 @@ class TransportJunction extends StorageJunction {
       // fetch encoding form storage source
 
       // get one row w/ metadata
-      let query = {
+      let request = {
         model: 'oracledb',
         method: 'getEncoding',
         sql: sqlEncoder.sqlDescribeTable(this.smt.schema)
       }
 
-      let response = await httpRequest(this.url, this.request, JSON.stringify(query));
-      let results = JSON.parse(response.data);
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+      if (response.resultCode !== 0) {
+        throw new StorageError(response.resultCode, response.resultText);
+      }
 
-      for (let column of results.metaData) {
+      for (let column of response.data) {
         let field = encoder.storageField(column);
         this.engram.add(field);
       }
 
       // get indexes
       request.sql = sqlEncoder.sqlDescribeIndexes(this.smt.schema);
-      response = await httpRequest(url, request, JSON.stringify(query));
-      results = JSON.parse(response.data);
+      res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      response = JSON.parse(res.data);
+      if (response.resultCode !== 0) {
+        throw new StorageError(response.resultCode, response.resultText);
+      }
 
-      sqlEncoder.decodeIndexResults(this.engram, results);
+      response.rows = response.data;  // oracledb returns rows
+      sqlEncoder.decodeIndexResults(this.engram, response);
+
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return 'not found';
+        return new StorageResults(404, 'table not found');
 
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return this.engram;
   }
 
   /**
@@ -145,7 +155,7 @@ class TransportJunction extends StorageJunction {
       // check if table already exists
       let tables = await this.list();
       if (tables.length > 0) {
-        return 'schema exists';
+        return new StorageResults(409, 'table exists');
       }
 
       // use a temporary engram
@@ -153,38 +163,44 @@ class TransportJunction extends StorageJunction {
       engram.encoding = encoding;
 
       // create table
-      let query = {
+      let request = {
         model: 'oracledb',
         method: 'createSchema',
         sql: sqlEncoder.sqlCreateTable(engram, this.options)
       }
       logger.verbose(request.sql);
 
-      let response = await httpRequest(this.url, this.request, JSON.stringify(sql));
-      let results = JSON.parse(response.data);
-      // note, should throw error if table exists
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+      if (response.resultCode !== 0) {
+        throw new StorageError(response.resultCode, response.resultText);
+      }
 
       // if successful update engram
       this.engram.encoding = encoding;
 
       // Oracle create indices
       if (!this.options.bulkLoad && this.engram.indices) {
-        query.method = 'createIndex';
+        request.method = 'createIndex';
         for (let indexName of Object.keys(this.engram.indices)) {
-          query.sql = sqlEncoder.sqlCreateIndex(engram, indexName);
+          request.sql = sqlEncoder.sqlCreateIndex(engram, indexName);
           logger.verbose(sql);
-          response = await httpRequest(this.url, this.request, JSON.stringify(sql));
-          results = JSON.parse(response.data);
+          res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+          response = JSON.parse(res.data);
+          if (response.resultCode !== 0) {
+            throw new StorageError(response.resultCode, response.resultText);
+          }
         }
       }
-      return this.engram;
+
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.errorNum === 955)
-        return "schema exists";
+        return new StorageResults(409, "table exists");
       
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -199,24 +215,28 @@ class TransportJunction extends StorageJunction {
     let schema = options.schema || this.smt.schema;
     
     try {
-      let query = {
+      let request = {
         model: 'oracledb',
         method: 'dullSchema',
         sql: sqlEncoder.sqlDropTable(schema)
       }
 
-      let response = await httpRequest(this.url, this.request, JSON.stringify(sql));
-      let results = JSON.parse(response.data);
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+      if (response.resultCode !== 0) {
+        throw new StorageError(response.resultCode, response.resultText);
+      }
+
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return 'not found';
+        return new StorageResults(404, 'table not found');
 
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
 
-    return "ok";
   }
 
   /**
@@ -224,15 +244,50 @@ class TransportJunction extends StorageJunction {
    * @param {*} construct
    */
   async store(construct, pattern) {
+    logger.debug("Transport store");
+
+    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
-      return new this.StorageResults('invalid');
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+      
+      // Insert/Update logic
+      let request = {
+        model: 'oracledb',
+        method: 'store',
+        sql: sqlEncoder.sqlInsert(this.engram, construct)
+      }
+      logger.debug(request.sql);
+
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+      if (response.resultCode !== 0) {
+        throw new StorageError(response.resultCode, response.resultText);
+      }
+
+      if (response.resultCode !== 0 && this.engram.keys.length > 0 && this.engram.keys.length < this.engram.fieldsLength) {
+        request.sql = sqlEncoder.sqlUpdate(this.engram, construct);
+        logger.debug(request.sql);
+
+        res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+        response = JSON.parse(res.data);
+      }
+
+      let resultCode = response.resultCode;
+      let rowsAffected = resultCode ? 0 : response.data.rowsAffected;
+
+      return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
+      if (err.errorNum === 1 || err.errorNum === 3342)
+         return new StorageResults(err.errorNum, 'duplicate entry');
+
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -241,15 +296,15 @@ class TransportJunction extends StorageJunction {
    */
   async recall(pattern) {
     if (!this.engram.smt.key) {
-      throw "no storage key specified";
+      throw new StorageError(400 "no storage key specified");
     }
 
     try {
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -267,32 +322,30 @@ class TransportJunction extends StorageJunction {
       }
       
       let request = {
-        method: this.options.method || "GET",
-        origin: this.options.origin || this.smt.locus,
-        headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
-        timeout: this.options.timeout || 10000
+        model: "oracledb",
+        method: "retrieve",
+        sql: ""
       };
-      if (this.options.auth)
-        request["auth"] = this.options.auth;
 
-      let response = await httpRequest(url, request);
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
 
       let data;
-      if (encoder.isContentJSON(response.headers["content-type"]))
-        data = JSON.parse(response.data);
+      if (httpRequest.contentTypeIsJSON(res.headers["content-type"]))
+        data = JSON.parse(res.data);
       else
-        data = response.data;
+        data = res.data;
 
       let constructs = [];
       encoder.parseData(data, this.options, (construct) => {
         constructs.push(construct);
       });
 
-      return new StorageResults((constructs.length > 0) ? 'ok' : "not found", constructs);
+      let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
+      return new StorageResults(resultCode, null, constructs);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -308,16 +361,16 @@ class TransportJunction extends StorageJunction {
         // delete all constructs in the .schema
       }
 
-      return new this.StorageResults('invalid');
+      throw new StorageError(501);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
 };
 
 // define module exports
-TransportJunction.encoder = encoder;
+//TransportJunction.encoder = encoder;
 module.exports = TransportJunction;

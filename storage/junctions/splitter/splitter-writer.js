@@ -62,7 +62,7 @@ module.exports = exports = class SplitterWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
 
@@ -77,7 +77,7 @@ module.exports = exports = class SplitterWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
 

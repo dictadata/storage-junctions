@@ -10,8 +10,10 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = exports = async function (tract) {
-
   logger.info(">>> create junction");
+  if (tract.origin)
+    tract = tract.origin;
+  
   logger.verbose("smt:" + JSON.stringify(tract.smt, null, 2));
   if (tract.options) logger.verbose("options:" + JSON.stringify(tract.options));
 

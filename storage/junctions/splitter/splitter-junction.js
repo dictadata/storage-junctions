@@ -28,10 +28,10 @@ class SplitterJunction extends StorageJunction {
     this._writerClass = SplitterWriter;
 
     if (!hasOwnProperty(this.options, "tract"))
-      throw new StorageError({ statusCode: 400 }, "tract not defined in terminal.options");
+      throw new StorageError( 400, "tract not defined in terminal.options");
     this.split_tract = this.options.tract;
     if (!hasOwnProperty(this.split_tract, "terminal"))
-      throw new StorageError({ statusCode: 400 }, "terminal not defined in terminal.options.tract");
+      throw new StorageError( 400, "terminal not defined in terminal.options.tract");
 
     this.split_junctions = {};
     this.split_streams = {};
@@ -111,18 +111,18 @@ class SplitterJunction extends StorageJunction {
    * @param {*} construct
    */
   async store(construct, pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: SplitterJunction.store");
+    throw new StorageError(501);
   }
 
   async list(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: SplitterJunction.list");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async recall(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: SplitterJunction.recall");
+    throw new StorageError(501);
   }
 
   /**
@@ -130,18 +130,18 @@ class SplitterJunction extends StorageJunction {
    * @param {*} options options.pattern
    */
   async retrieve(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: SplitterJunction.retrieve");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async dull(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: SplitterJunction.dull");
+    throw new StorageError(501);
   }
 
   createReadStream(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: SplitterJunction.createReadStream");
+    throw new StorageError(501);
   }
 
 };

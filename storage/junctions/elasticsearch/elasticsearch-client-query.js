@@ -23,11 +23,11 @@ module.exports = exports = class ElasticQuery {
    **/
   constructor(options) {
     if (typeOf(options) !== "object")
-      throw new StorageError({statusCode: 400}, "Invalid parameter: options");
+      throw new StorageError( 400, "Invalid parameter: options");
     if (!options.node)
-      throw new StorageError({statusCode: 400}, "Missing options: node");
+      throw new StorageError( 400, "Missing options: node");
     if (!options.index)
-      throw new StorageError({statusCode: 400}, "Missing options: index");
+      throw new StorageError( 400, "Missing options: index");
 
     this.options = Object.assign({},options);
 
@@ -66,7 +66,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.index(params)
         .then((response) => {
-          resolve(response.body);
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -82,7 +82,6 @@ module.exports = exports = class ElasticQuery {
    **/
   put(uid, document) {
     logger.debug("elasticQuery put " + uid);
-
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({
@@ -92,7 +91,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.index(params)
       .then((response) => {
-        resolve(response.body);
+        resolve(response);
       })
       .catch( (error) => {
         reject(error);
@@ -107,7 +106,6 @@ module.exports = exports = class ElasticQuery {
    **/
   get(uid) {
     logger.debug("elasticQuery get " + JSON.stringify(uid));
-
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({
@@ -116,17 +114,10 @@ module.exports = exports = class ElasticQuery {
 
       this.client.get(params)
         .then((response) => {
-          if (response.body) {
-            resolve(response.body);
-          } else {
-            reject(new StorageError({statusCode: 404}, "id not found")); // shouldn't happen
-          }
+          resolve(response);
         })
         .catch( (error) => {
-          if (error.statusCode === 404)
-            resolve({result: 'not found'});  // not found
-          else
-            reject(error);
+          reject(error);
         });
 
     });
@@ -138,7 +129,6 @@ module.exports = exports = class ElasticQuery {
    **/
   delete(uid) {
     logger.debug("elasticQuery delete");
-
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({
@@ -147,14 +137,9 @@ module.exports = exports = class ElasticQuery {
 
       this.client.delete(params)
       .then((response) => {
-        resolve(response.body);
+        resolve(response);
       })
       .catch( (error) => {
-        if (error.statusCode === 404) {
-          resolve(false);
-          return;
-        }
-
         reject(error);
       });
     });
@@ -167,7 +152,6 @@ module.exports = exports = class ElasticQuery {
    **/
   find(querystring) {
     logger.debug("elasticQuery find");
-
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({
@@ -186,12 +170,8 @@ module.exports = exports = class ElasticQuery {
 
       this.client.search(params)
         .then((response) => {
-          var hits = response.body.hits.hits;
-          if (hits.length > 0) {
-            resolve(hits[0]);
-          } else {
-            resolve(false);
-          }
+          //var hits = response.body.hits.hits;
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -205,19 +185,14 @@ module.exports = exports = class ElasticQuery {
    **/
   search(query, params={}) {
     logger.debug("elasticQuery search");
-
     return new Promise((resolve, reject) => {
 
       var _params = Object.assign({}, this.elasticParams, params, {body: query});
 
       this.client.search(_params)
         .then((response) => {
-          var hits = response.body.hits.hits;
-          if (hits.length > 0) {
-            resolve(hits);
-          } else {
-            resolve(false); // no hits
-          }
+          //var hits = response.body.hits.hits;
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -238,7 +213,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.deleteByQuery(params)
         .then((response) => {
-          resolve(response.body);
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -249,19 +224,12 @@ module.exports = exports = class ElasticQuery {
   /**
    * short-cut for deleteByQuery match_all
    */
-  async truncate() {
-    let query = {
+  truncate() {
+    return this.deleteByQuery({
       "query": {
         "match_all": {}
       }
-    };
-
-    let response = await this.deleteByQuery(query)
-    .catch((err) => {
-      return err;
     });
-
-    return response;
   }
 
   /**
@@ -277,7 +245,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.search(params)
         .then((response) => {
-          resolve(response.body); // body: { aggregations: [] }
+          resolve(response); // body: { aggregations: [] }
         })
         .catch( (error) => {
           reject(error);
@@ -299,8 +267,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.ping()
         .then((response) => {
-          var results = "ok";
-          resolve(results);
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -322,10 +289,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.cat.indices(params)
         .then((response) => {
-          if (response.statusCode === 200)
-            resolve(response.body);
-          else
-            reject(response);
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -345,7 +309,7 @@ module.exports = exports = class ElasticQuery {
 
       this.client.indices.refresh(params)
         .then((response) => {
-          resolve(response.body);
+          resolve(response);
         })
         .catch( (error) => {
           reject(error);
@@ -357,17 +321,23 @@ module.exports = exports = class ElasticQuery {
    * Create Index
    * @param {config} index settings and mappings
    */
-  async createIndex(config) {
+  createIndex(config) {
     logger.debug("elasticQuery createIndex");
+    return new Promise((resolve, reject) => {
 
-    var params = Object.assign({
-      body: config // {settings:..., mappings:...}
-    }, this.elasticParams);
-    logger.debug(JSON.stringify(params));
+      var params = Object.assign({
+        body: config // {settings:..., mappings:...}
+      }, this.elasticParams);
+      logger.debug(JSON.stringify(params));
 
-    let response = await this.client.indices.create(params);
-    logger.debug("createIndex", response);
-    return response.body;
+      this.client.indices.create(params)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   }
 
   /**
@@ -375,7 +345,6 @@ module.exports = exports = class ElasticQuery {
    */
   deleteIndex(indexName) {
     logger.debug("elasticQuery deleteIndex");
-
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({}, this.elasticParams);
@@ -384,7 +353,7 @@ module.exports = exports = class ElasticQuery {
       this.client.indices.delete(params)
       .then((response) => {
         logger.debug("deleteIndex", response);
-        resolve(response.body);
+        resolve(response);
       })
       .catch( (error) => {
         reject(error);
@@ -397,11 +366,9 @@ module.exports = exports = class ElasticQuery {
    */
   getMapping() {
     logger.debug("elasticQuery getMapping");
-
     return new Promise((resolve, reject) => {
 
-      var params = Object.assign({
-      }, this.elasticParams);
+      var params = Object.assign({}, this.elasticParams);
       //params.type = "_doc";
 
       this.client.indices.getMapping(params)
@@ -423,7 +390,6 @@ module.exports = exports = class ElasticQuery {
    */
   putMapping(mappings) {
     logger.debug("elasticQuery putMapping");
-
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({

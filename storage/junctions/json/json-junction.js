@@ -49,11 +49,16 @@ class JSONJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return this.engram;
+
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
-      logger.error(err);
-      throw err;
+      if (err instanceof StorageError)
+        throw err;
+      else {
+        logger.error(err);
+        throw new StorageError(500).inner(err);
+      }
     }
   }
 
@@ -71,14 +76,14 @@ class JSONJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("JSONJunction store");
-    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction store");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async recall(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction recall");
+    throw new StorageError(501);
   }
 
   /**
@@ -86,14 +91,14 @@ class JSONJunction extends StorageJunction {
    * @param {*} options options.pattern
    */
   async retrieve(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction retrieve");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async dull(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: JSONJunction dull");
+    throw new StorageError(501);
   }
 
 };

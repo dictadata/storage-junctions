@@ -50,11 +50,11 @@ class ParquetJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -77,7 +77,7 @@ class ParquetJunction extends StorageJunction {
     logger.debug('ParquetJunction list');
     let stfs = await this.getFileSystem();
     let list = await stfs.list(options);
-    return list;
+    return new StorageResponse(0, null, list);
   }
 
 
@@ -87,14 +87,14 @@ class ParquetJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("ParquetJunction store");
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ParquetJunction store");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async recall(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ParquetJunction recall");
+    throw new StorageError(501);
   }
 
   /**
@@ -102,14 +102,14 @@ class ParquetJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ParquetJunction retrieve");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async dull(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ParquetJunction dull");
+    throw new StorageError(501);
   }
 
 };

@@ -38,7 +38,7 @@ module.exports = exports = class EchoReader extends StorageReader {
     }
 
     if (!ok) {
-      process.nextTick(() => this.emit('error', new StorageError({ statusCode: 500 }, 'error reading')));
+      process.nextTick(() => this.emit('error', new StorageError( 500, 'error reading')));
       return;
     }
 

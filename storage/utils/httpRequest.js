@@ -43,9 +43,11 @@ function http1Request(Url, options, data) {
     request.headers = Object.assign({}, options.headers);
     if (options.cookies)
       request.headers["Cookie"] = Object.entries(options.cookies).join('; ');
-    if (data)
-      options.headers['Content-Length'] = Buffer.byteLength(data);
-
+    // If no Content-Length header is sent 
+    // then data is sent using chunked encoding (default )
+    //if (data)
+    //  options.headers['Content-Length'] = Buffer.byteLength(data);
+    
     let _http = (Url.protocol === "https:") ? https : http;
 
     const req = _http.request(request, (res) => {
@@ -73,7 +75,7 @@ function http1Request(Url, options, data) {
       });
     }
 
-    req.on('error', (e) => {
+    req.on('error', (err) => {
       logger.error(err);
       reject(err);
     });
@@ -155,4 +157,14 @@ function saveCookies(options, headers) {
       }
     }
   }
+}
+
+exports.contentTypeIsJSON = (contentType) => {
+  let p = contentType.split('/');
+  if (p[1] === 'json')
+    return true;
+  if (p[1].indexOf("+json") >= 0)
+    return true;
+  
+  return false;
 }

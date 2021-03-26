@@ -17,7 +17,7 @@ module.exports = exports = class Field {
       definition = { name: definition, label: definition };
     }
     if (!(definition && definition.name))
-      throw new StorageError({statusCode: 400}, "Invalid field definition");
+      throw new StorageError( 400, "Invalid field definition");
 
     // set defaults
     this.name = definition.name;

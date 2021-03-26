@@ -3,15 +3,14 @@
  */
 "use strict";
 
-const getEncoding = require('../lib/_getEncoding');
 const createSchema = require('../lib/_createSchema');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: transport");
+logger.info("=== Tests: transport createSchema");
 
 async function tests() {
 
-  logger.info("=== transport createSchema");
+  logger.info("=== transport createSchema foo_scheam");
   await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
@@ -21,13 +20,14 @@ async function tests() {
     }
   });
 
-  logger.info("=== transport get encoding");
-  await getEncoding({
+  // create schema for dullSchema.js
+  logger.info("=== transport createSchema foo_schema_x");
+  await createSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*"
-    },
-    terminal: {
-      output: './output/transport/encoding_foo.json'
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_x|*",
+      options: {
+        encoding: "./test/data/encoding_foo.json"
+      }
     }
   });
 
@@ -41,16 +41,6 @@ async function tests() {
     }
   });
 
-  logger.info("=== transport get encoding");
-  await getEncoding({
-    origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*"
-    },
-    terminal: {
-      output: './output/transport/encoding_foo_01.json'
-    }
-  });
-
   logger.info("=== transport createSchema");
   await createSchema({
     origin: {
@@ -58,16 +48,6 @@ async function tests() {
       options: {
         encoding: "./test/data/encoding_foo_02.json"
       }
-    }
-  });
-
-  logger.info("=== transport get encoding");
-  await getEncoding({
-    origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*"
-    },
-    terminal: {
-      output: './output/transport/encoding_foo_02.json'
     }
   });
 

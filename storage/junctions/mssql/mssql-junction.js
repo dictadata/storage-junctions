@@ -127,10 +127,7 @@ class MSSQLJunction extends StorageJunction {
     return new Promise((resolve, reject) => {
       let request = new tedious.Request(sql, (err, rowCount) => {
         if (err) {
-          if (err.number === 2627)
-            resolve(0);  // duplicate key
-          else
-            reject(err);
+          reject(err);
         } else {
           resolve(rowCount);
         }
@@ -172,11 +169,11 @@ class MSSQLJunction extends StorageJunction {
         if (rx.test(tblname))
           list.push(tblname);
       });
-      return list;
+      return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.error(err.statusCode, err.message);
-      throw err;
+      logger.error(err);
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -201,11 +198,11 @@ class MSSQLJunction extends StorageJunction {
         sqlEncoder.decodeIndexResults(this.engram, column);
       });
       
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -223,7 +220,7 @@ class MSSQLJunction extends StorageJunction {
       // check if table already exists
       let tables = await this.list();
       if (tables.length > 0) {
-        return 'schema exists';
+        return new StorageResults(409, 'table exists');
       }
 
       // use temporary engram
@@ -233,7 +230,7 @@ class MSSQLJunction extends StorageJunction {
       // create table on source
       let sql = sqlEncoder.sqlCreateTable(engram, this.options);
       logger.verbose(sql);
-      let results = await this._request(sql, null);
+      await this._request(sql, null);
 
       // if successfull update engram
       this.engram.encoding = encoding;      
@@ -241,7 +238,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -258,14 +255,14 @@ class MSSQLJunction extends StorageJunction {
     try {
       let sql = "DROP TABLE " + schema;
       await this._request(sql);
-      return "ok";
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.number === 3701)
-        return "schema exists";
+        return new StorageResults(404, "table not found");
       
       logger.error(err.number, err.message);
-      return err.message;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -277,9 +274,9 @@ class MSSQLJunction extends StorageJunction {
     logger.debug("MSSQLJunction.store");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
       if (!this.engram.isDefined) {
@@ -298,11 +295,14 @@ class MSSQLJunction extends StorageJunction {
         rowCount = await this._request(sql, null);
       }
 
-      return new StorageResults((rowCount > 0 ? "ok" : "not stored"), null);
+      return new StorageResults(200, null, rowCount, "rowCount");
     }
     catch (err) {
+      if (err.number === 2627)
+        return new StorageResults(err.number, err.message);
+      
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -315,9 +315,9 @@ class MSSQLJunction extends StorageJunction {
     logger.debug("MSSQLJunction storeBulk");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(constructs) !== "array")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
       if (!this.engram.isDefined)
@@ -328,11 +328,14 @@ class MSSQLJunction extends StorageJunction {
       let rowCount = await this._request(sql, null);
 
       // check if rows were inserted
-      return new StorageResults((rowCount > 0) ? "ok" : "not stored", null, null, this.options.meta ? results : null);
+      return new StorageResults(200, null, rowCount, "rowCount");
     }
     catch (err) {
+      if (err.number === 2627)
+        return new StorageResults(err.number, err.message);
+      
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -343,7 +346,7 @@ class MSSQLJunction extends StorageJunction {
     logger.debug("MSSQLJunction.recall");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
 
     try {
       if (!this.engram.isDefined)
@@ -358,11 +361,12 @@ class MSSQLJunction extends StorageJunction {
       });
       
       logger.debug(rowCount + ' rows');
-      return new StorageResults((rowCount > 0 ? "ok" : "not found"), resultRow);
+      let resultCode = rowCount > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, resultRow);
    }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -387,13 +391,13 @@ class MSSQLJunction extends StorageJunction {
       });
         
       logger.debug(rowCount + ' rows');
-      return new StorageResults((rowCount > 0 ? "ok" : "not found"), resultRows);
+      let resultCode = resultRows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, resultRows);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
   }
 
   /**
@@ -404,7 +408,7 @@ class MSSQLJunction extends StorageJunction {
     if (!pattern) pattern = {};
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
 
     try {
       if (!this.engram.isDefined)
@@ -422,11 +426,11 @@ class MSSQLJunction extends StorageJunction {
       logger.verbose(sql);
 
       let rowCount = await this._request(sql, null);
-      return new StorageResults((rowCount > 0 ? "ok" : "not found"), null);
+      return new StorageResults(200, null, rowCount, "rowCount");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 

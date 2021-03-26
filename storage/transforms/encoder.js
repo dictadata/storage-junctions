@@ -36,15 +36,15 @@ module.exports = exports = class EncoderTransform extends Transform {
     this.options = Object.assign({}, options);
 
     if (!hasOwnProperty(options, "junction"))
-      throw new storage.StorageError({ statusCode: 400 }, "options.junction not defined");
+      throw new storage.StorageError( 400, "options.junction not defined");
 
     if (options && hasOwnProperty(storage, options.junction))
       if (hasOwnProperty(storage[options.junction], "encoder"))
         this.encoder = storage[options.junction].encoder;
       else
-        throw new storage.StorageError({ statusCode: 400 }, "Junction does not have encoder " + options.junction);
+        throw new storage.StorageError( 400, "Junction does not have encoder " + options.junction);
     else
-      throw new storage.StorageError({ statusCode: 404 }, "Junction not found " + options.junction);
+      throw new storage.StorageError( 404, "Junction not found " + options.junction);
   }
 
   /**

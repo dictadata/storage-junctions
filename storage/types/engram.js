@@ -39,7 +39,7 @@ module.exports = exports = class Engram {
     };
 
     if (!hasOwnProperty(this, "smt"))
-      throw new StorageError({ statusCode: 400 }, "Invalid Parameter: SMT");
+      throw new StorageError( 400, "Invalid Parameter: SMT");
 
     if (!hasOwnProperty(this, "fields"))
       this.fields = {};
@@ -241,7 +241,7 @@ module.exports = exports = class Engram {
   add(field) {
     let newField = new Field(field);
     if (!(newField && newField.name))
-      throw new StorageError({ statusCode: 400 }, "Invalid field definition");
+      throw new StorageError( 400, "Invalid field definition");
 
     let kname = (this.caseInsensitive) ? newField.name.toUpperCase() : field.name;
 
@@ -259,7 +259,7 @@ module.exports = exports = class Engram {
   merge(fields) {
     let newFields = fields.fields || fields;  // code do some more type checking
     if (typeOf(newFields) !== "object")
-      throw new StorageError({ statusCode: 400 }, "invalid parameter");
+      throw new StorageError( 400, "invalid parameter");
 
     for (let [kname, field] of Object.entries(newFields)) {
       let name = field.name || kname;

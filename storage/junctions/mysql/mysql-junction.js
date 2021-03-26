@@ -109,11 +109,12 @@ class MySQLJunction extends StorageJunction {
    */
   async list(options) {
     logger.debug('MySQLJunction list');
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let list = [];
 
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let list = [];
+
       let rx = '^' + schema + '$';
       rx = rx.replace('.', '\\.');
       rx = rx.replace('*', '.*');
@@ -128,13 +129,13 @@ class MySQLJunction extends StorageJunction {
         if (rx.test(name))
           list.push(name);
       }
+
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
-      logger.error(err.statusCode, err.message);
-      throw err;
+      logger.error(err);
+      throw StorageError(500).inner(err);
     }
-
-    return list;
   }
 
   /**
@@ -163,10 +164,10 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
-        return 'not found';
+        return new StorageResults(404, 'no such table');
 
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -198,11 +199,11 @@ class MySQLJunction extends StorageJunction {
 
       // if successfull update engram
       this.engram.encoding = encoding;
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -219,14 +220,14 @@ class MySQLJunction extends StorageJunction {
     try {
       let sql = "DROP TABLE " + schema + ";";
       let results = await this.pool.query(sql);
-      return "ok";
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
-        return 'not found';
+        return new StorageResults(404, 'no such table');
 
       logger.error(err);
-      return err.message;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -239,9 +240,9 @@ class MySQLJunction extends StorageJunction {
     logger.debug("MySQLJunction store");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
       if (!this.engram.isDefined)
@@ -252,15 +253,15 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if row was inserted
-      return new StorageResults((results.affectedRows > 0) ? "ok" : "not stored", null, null, this.options.meta ? results : null);
+      return new StorageResults(200, null, results.affectedRows, "affectedRows");
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY
-        return new StorageResults('duplicate', null, null, err);
+        return new StorageResults(409, 'duplicate entry');
       }
 
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -273,9 +274,9 @@ class MySQLJunction extends StorageJunction {
     logger.debug("MySQLJunction store");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(constructs) !== "array")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
       if (!this.engram.isDefined)
@@ -286,15 +287,15 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if rows were inserted
-      return new StorageResults((results.affectedRows > 0) ? "ok" : "not stored", null, null, this.options.meta ? results : null);
+      return new StorageResults(0, null, results.affectedRows, "affectedRows");
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY
-        return new StorageResults('duplicate', null, null, err);
+        return new StorageResults(409, 'duplicate entry');
       }
 
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -305,7 +306,7 @@ class MySQLJunction extends StorageJunction {
     logger.debug("MySQLJunction recall");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError(400, "unique keys not supported");
 
     try {
       if (!this.engram.isDefined)
@@ -318,11 +319,12 @@ class MySQLJunction extends StorageJunction {
       if (rows.length > 0)
         sqlEncoder.decodeResults(this.engram, rows[0]);
 
-      return new StorageResults((rows.length > 0) ? "ok" : "not found", rows[0]);
+      let resultCode = rows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, rows.length > 0 ? rows[0] : null);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -344,11 +346,12 @@ class MySQLJunction extends StorageJunction {
       for (let i = 0; i < rows.length; i++)
         sqlEncoder.decodeResults(this.engram, rows[i]);
 
-      return new StorageResults((rows.length > 0) ? "ok" : "not found", rows);
+      let resultCode = rows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, rows);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 
@@ -360,7 +363,7 @@ class MySQLJunction extends StorageJunction {
     if (!pattern) pattern = {};
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
 
     try {
       if (!this.engram.isDefined)
@@ -380,11 +383,11 @@ class MySQLJunction extends StorageJunction {
         results = await this.pool.query(sql);
       }
 
-      return new StorageResults((results.affectedRows > 0) ? "ok" : "not found", null, null, (this.options.meta ? results : null));
+      return new StorageResults(0, null, results.affectedRows, "affectedRows");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
   }
 

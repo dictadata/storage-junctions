@@ -50,7 +50,7 @@ module.exports = exports = class RESTReader extends StorageReader {
       let response = await httpRequest(url, request);
 
       let data;
-      if (encoder.isContentJSON(response.headers["content-type"]))
+      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
         data = JSON.parse(response.data);
       else
         data = response.data;

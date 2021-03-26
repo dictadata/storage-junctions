@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageError } = require("../types");
+const { StorageResults, StorageError } = require("../types");
 const { hasOwnProperty } = require("../utils");
 const logger = require("../logger");
 
@@ -70,11 +70,11 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   async list(options) {
     logger.debug('ftp-filesystem list');
 
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let list = [];
-
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let list = [];
+
       let wdPath = this._url.pathname;
 
       let filespec = schema || '*';
@@ -108,31 +108,31 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       }
 
       await scanner(wdPath, "", options);
+
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return list;
   }
 
   async dull(options) {
     logger.debug('ftp-filesystem dull');
 
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+
       let filename = this._url.pathname + schema;
       await this._ftp.delete(filename);
+
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
-      return err.message;
+      throw new StorageError(500).inner(err);
     }
-
-    return "ok";
   }
 
   /**
@@ -140,11 +140,12 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   */
   async createReadStream(options) {
     logger.debug("FTPFileSystem createReadStream");
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let rs = null;
 
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let rs = null;
+
       let filename = schema;
 
       // create the read stream
@@ -158,13 +159,13 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
         rs.pipe(gzip);
         return gzip;
       }
+
+      return rs;
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return rs;
   }
 
   /**
@@ -172,11 +173,12 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   */
   async createWriteStream(options) {
     logger.debug("FTPFileSystem createWriteStream");
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let ws = false;
 
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let ws = false;
+
       let filename = schema;
 
       // create the read stream
@@ -202,22 +204,22 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
         gzip.pipe(ws);
         return gzip;
       }
+
+      return ws;
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return ws;
   }
 
   async download(options) {
     logger.debug("ftp-fileSystem download");
 
-    options = Object.assign({}, this.options, options);
-    let result = true;
-
     try {
+      options = Object.assign({}, this.options, options);
+      let resultCode = 0;
+
       let wdPath = this._url.pathname + (options.recursive ? path.dirname(options.rpath) : '');
       let src = wdPath + (options.recursive ? options.rpath : options.name);
       let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
@@ -234,22 +236,22 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       // save to local file
       rs.pipe(fs.createWriteStream(dest));
+
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return result;
   }
 
   async upload(options) {
     logger.debug("ftp-fileSystem upload");
 
-    options = Object.assign({}, this.options, options);
-    let result = true;
-
     try {
+      options = Object.assign({}, this.options, options);
+      let resultCode = 0;
+
       let src = path.join(options.uploadPath, options.rpath);
       let dest = this._url.pathname + (options.useRPath ? options.rpath : options.name).split(path.sep).join(path.posix.sep);
       logger.verbose("  " + src + " >> " + dest);
@@ -258,13 +260,13 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let wdPath = path.dirname(dest);
       await this._walkCWD(wdPath);
       await this._ftp.put(src, options.name);
+
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return result;
   }
 
 
@@ -287,7 +289,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       }
 
       if (rc !== 0)
-        throw new StorageError("Could not walk ftp directory: " + rc);
+        throw new StorageError(rc, "Could not walk ftp directory");
     }
   }
 

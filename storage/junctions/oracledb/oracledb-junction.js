@@ -105,12 +105,13 @@ class OracleDBJunction extends StorageJunction {
    */
   async list(options) {
     logger.debug('OracleDBJunction list');
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let list = [];
 
     let connection;
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let list = [];
+
       let rx = '^' + schema.toUpperCase() + '$';
       rx = rx.replace('.', '\\.');
       rx = rx.replace('*', '.*');
@@ -127,17 +128,17 @@ class OracleDBJunction extends StorageJunction {
         if (rx.test(name))
           list.push(name);
       }
+
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
     finally {
       if (connection)
         await connection.close();
     }
-
-    return list;
   }
 
   /**
@@ -164,20 +165,20 @@ class OracleDBJunction extends StorageJunction {
       sql = sqlEncoder.sqlDescribeIndexes(this.smt.schema);
       results = await connection.execute(sql);
       sqlEncoder.decodeIndexResults(this.engram, results);
+
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return 'not found';
+        return new StorageResults(404, 'no such table');
 
       logger.error(err);
-      throw err;
+      throw StorageError(500).inner(err);
     }
     finally {
       if (connection)
         await connection.close();
     }
-
-    return this.engram;
   }
 
   /**
@@ -195,7 +196,7 @@ class OracleDBJunction extends StorageJunction {
       // check if table already exists
       let tables = await this.list();
       if (tables.length > 0) {
-        return 'schema exists';
+        return new StorageResults(409, 'table exists');
       }
 
       // use a temporary engram
@@ -220,14 +221,14 @@ class OracleDBJunction extends StorageJunction {
           results = await connection.execute(sql);
         }
       }
-      return this.engram;
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.errorNum === 955)
-        return "schema exists";
+        return new StorageResults(409, "table exists");
       
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
     finally {
       if (connection)
@@ -250,19 +251,20 @@ class OracleDBJunction extends StorageJunction {
       let sql = sqlEncoder.sqlDropTable(schema);
       connection = await this.pool.getConnection();
       let results = await connection.execute(sql);
+
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return 'not found';
+        return new StorageResults(404, 'no such table');
 
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
     finally {
       if (connection)
         await connection.close();
     }
-    return "ok";
   }
 
   async _request(sql) {
@@ -273,8 +275,6 @@ class OracleDBJunction extends StorageJunction {
       return results.rowsAffected;
     }
     catch (err) {
-      if (err.errorNum === 1 || err.errorNum === 3342)
-        return 0; // duplicate key
       throw err;      
     }
     finally {
@@ -291,9 +291,9 @@ class OracleDBJunction extends StorageJunction {
     logger.debug("OracleDBJunction store");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
       if (!this.engram.isDefined)
@@ -310,11 +310,14 @@ class OracleDBJunction extends StorageJunction {
         rowsAffected = await this._request(sql);
       }
 
-      return new StorageResults((rowsAffected > 0) ? "ok" : "not stored", null, null, null);
+      return new StorageResults(200, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
+      if (err.errorNum === 1 || err.errorNum === 3342)
+         return new StorageResults(409, 'duplicate entry');
+
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -327,9 +330,9 @@ class OracleDBJunction extends StorageJunction {
     logger.debug("OracleDBJunction store");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
     if (typeOf(constructs) !== "array")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
 
     try {
       if (!this.engram.isDefined)
@@ -339,15 +342,14 @@ class OracleDBJunction extends StorageJunction {
       logger.debug(sql);
       let rowsAffected = await this._request(sql);
 
-      return new StorageResults((rowsAffected > 0) ? "ok" : "not stored", null, null, null);
+      return new StorageResults(200, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
-      if (err.errno === 1062) {  // ER_DUP_ENTRY
-        return new StorageResults('duplicate', null, null, err);
-      }
+      if (err.errorNum === 1 || err.errorNum === 3342)
+        return new StorageResults(409, 'duplicate entry');
 
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -358,7 +360,7 @@ class OracleDBJunction extends StorageJunction {
     logger.debug("OracleDBJunction recall");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
 
     let connection;
     try {
@@ -374,11 +376,12 @@ class OracleDBJunction extends StorageJunction {
       if (rows.length > 0)
         sqlEncoder.decodeResults(this.engram, rows[0]);
 
-      return new StorageResults((rows.length > 0) ? "ok" : "not found", rows[0]);
+      let resultCode = rows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, (rows.length > 0) ? rows[0] : null);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
     finally {
       if (connection)
@@ -407,11 +410,12 @@ class OracleDBJunction extends StorageJunction {
       for (let i = 0; i < rows.length; i++)
         sqlEncoder.decodeResults(this.engram, rows[i]);
 
-      return new StorageResults((rows.length > 0) ? "ok" : "not found", rows);
+      let resultCode = rows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, rows);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
     finally {
       if (connection)
@@ -427,7 +431,7 @@ class OracleDBJunction extends StorageJunction {
     if (!pattern) pattern = {};
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError({ statusCode: 400 }, "unique keys not supported");
+      throw new StorageError( 400, "unique keys not supported");
 
     let connection;
     try {
@@ -450,11 +454,11 @@ class OracleDBJunction extends StorageJunction {
         results = await connection.execute(sql);
       }
 
-      return new StorageResults((results.rowsAffected > 0) ? "ok" : "not found", null, null, (this.options.meta ? results : null));
+      return new StorageResults(200, null, results.rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
     finally {
       if (connection)

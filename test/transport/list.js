@@ -1,5 +1,5 @@
 /**
- * test/oracledb list
+ * test/transport list
  */
 "use strict";
 

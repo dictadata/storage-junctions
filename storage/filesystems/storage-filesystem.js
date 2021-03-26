@@ -1,7 +1,7 @@
 // filesystems/storage-filesystem
 "use strict";
 
-const { StorageError } = require("../types");
+const { StorageResults, StorageError } = require("../types");
 const logger = require("../logger");
 
 const path = require('path');
@@ -58,7 +58,7 @@ module.exports = exports = class StorageFileSystem {
    */
   async list(options) {
     logger.debug("StorageFileSystem list");
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.list method not implemented");
+    throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
     //let schema = options.schema || this.smt.schema;
@@ -66,14 +66,14 @@ module.exports = exports = class StorageFileSystem {
 
     // implement directory list in overrides
 
-    //return list;
+    //return new StorageResults(0, null, list);
   }
 
   async dull(schema) {
     logger.debug("StorageFileSystem dull");
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.dull method not implemented");
+    throw new StorageError(501);
 
-    // return result;
+    // return newStorageResponse(0);
   }
 
   /**
@@ -81,7 +81,7 @@ module.exports = exports = class StorageFileSystem {
   */
   async createReadStream(options) {
     logger.debug("StorageFileSystem createReadStream");
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.createReadStream method not implemented");
+    throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
     //let schema = options.schema || this.smt.schema;
@@ -97,7 +97,7 @@ module.exports = exports = class StorageFileSystem {
   */
   async createWriteStream(options) {
     logger.debug("StorageFileSystem createWriteStream")
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.createWriteStream method not implemented");
+    throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
     //let schema = options.schema || this.smt.schema;
@@ -111,24 +111,24 @@ module.exports = exports = class StorageFileSystem {
 
   async download(options) {
     logger.debug("StorageFileSystem download");
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.download method not implemented");
+    throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
     //let schema = options.schema || this.smt.schema;
     //let result = false;
 
-    //return result;
+    //return new StorageResults(0);
   }
 
   async upload(options) {
     logger.debug("StorageFileSystem upload");
-    throw new StorageError({ statusCode: 501 }, "StorageFileSystem.upload method not implemented");
+    throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
     //let schema = options.schema || this.smt.schema;
     //let result = false;
 
-    //return result;
+    //return new StorageResults(0);
   }
 
 };

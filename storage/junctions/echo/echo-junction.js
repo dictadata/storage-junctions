@@ -32,32 +32,19 @@ class EchoJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     if (typeOf(construct) !== "object")
-      throw new StorageError({ statusCode: 400 }, "Invalid parameter: construct is not an object");
+      throw new StorageError(400, "Invalid parameter: construct is not an object");
 
-    try {
-      return new this.StorageResults('invalid');
-    }
-    catch (err) {
-      logger.error(err);
-      throw err;
-    }
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async recall(pattern) {
-    if (!this.engram.smt.key) {
-      throw "no storage key specified";
-    }
+    if (!this.engram.smt.key)
+      throw new StorageError(400, "no storage key specified");
 
-    try {
-      return new this.StorageResults('invalid');
-    }
-    catch (err) {
-      logger.error(err);
-      throw err;
-    }
+    throw new StorageError(501);
   }
 
   /**
@@ -65,34 +52,21 @@ class EchoJunction extends StorageJunction {
    * @param {*} pattern Object containing match, filter and cue elements
    */
   async retrieve(pattern) {
-
-    try {
-      return new this.StorageResults('invalid');
-    }
-    catch (err) {
-      logger.error(err);
-      throw err;
-    }
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async dull(pattern) {
-    try {
-      if (this.engram.smt.key) {
-        // delete construct by key
-      }
-      else {
-        // delete all constructs in the .schema
-      }
+    if (this.engram.smt.key) {
+      // delete construct by key
+    }
+    else {
+      // delete all constructs in the .schema
+    }
 
-      return new this.StorageResults('invalid');
-    }
-    catch (err) {
-      logger.error(err);
-      throw err;
-    }
+    throw new StorageError(501);
   }
 
 };

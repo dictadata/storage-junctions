@@ -83,7 +83,7 @@ module.exports = exports = class ShapesWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
 
   }
@@ -108,7 +108,7 @@ module.exports = exports = class ShapesWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
 
@@ -134,7 +134,7 @@ module.exports = exports = class ShapesWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error _final'));
+      callback(new StorageError(500, 'Error _final').inner(err));
     }
   }
 

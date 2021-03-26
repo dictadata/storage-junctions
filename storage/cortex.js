@@ -27,7 +27,7 @@ class Cortex {
       model = SMT.model || (SMT.smt && SMT.smt.model);
     }
     else {
-      throw new StorageError({ statusCode: 400, model: model }, "Invalid parameter: smt");
+      throw new StorageError(400, "Invalid parameter: smt");
     }
 
     if (Cortex._storageJunctions.has(model)) {
@@ -36,7 +36,7 @@ class Cortex {
       return junction;
     }
     else
-      throw new StorageError({ statusCode: 400, model: model }, "Unknown smt.model: " + model);
+      throw new StorageError(400, "Unknown smt.model: " + model);
   }
 
   static async relax(junction) {
@@ -57,14 +57,14 @@ class Transforms {
 
   static create(tfType, options) {
     if (!tfType)
-      throw new StorageError({ statusCode: 400 }, "invalid transform type");
+      throw new StorageError( 400, "invalid transform type");
 
     if (Transforms._transforms.has(tfType)) {
       let transform = new (Transforms._transforms.get(tfType))(options);
       return transform;
     }
     else
-      throw new StorageError({ statusCode: 400, tfType: tfType }, "Unknown transform type: " + tfType);
+      throw new StorageError(400, "Unknown transform type: " + tfType);
   }
 
 }
@@ -99,9 +99,9 @@ class FileSystems {
 
   static async activate(smt, options) {
     if (!smt)
-      throw new StorageError({ statusCode: 400 }, "invalid smt");
+      throw new StorageError( 400, "invalid smt");
     if (!FileSystems.isUsedBy(smt.model))
-      throw new StorageError({ statusCode: 400 }, "junction's model does not support a filesystem, " + smt.model);
+      throw new StorageError( 400, "junction's model does not support a filesystem, " + smt.model);
 
     let fsPrefix = 'file';
     if (smt.locus.indexOf(':') > 1)
@@ -113,7 +113,7 @@ class FileSystems {
       return stfs;
     }
     else
-      throw new StorageError({ statusCode: 400, fsPrefix: fsPrefix }, "Unknown FileSystem type: " + fsPrefix);
+      throw new StorageError(400, "Unknown FileSystem type: " + fsPrefix);
   }
 
   static async relax(stfs) {

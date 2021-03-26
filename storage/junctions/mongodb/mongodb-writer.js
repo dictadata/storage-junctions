@@ -34,7 +34,7 @@ module.exports = exports = class MongoDBWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
 
     callback();
@@ -55,7 +55,7 @@ module.exports = exports = class MongoDBWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
 
@@ -69,7 +69,7 @@ module.exports = exports = class MongoDBWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error writer._final'));
+      callback(new StorageError(500, 'Error writer._final').inner(err));
     }
   }
 

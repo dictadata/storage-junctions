@@ -16,6 +16,64 @@ if (stringBreakpoints.text > 4000)
  */
 exports.sqlType = (field) => {
   if (field._oracle) {
+    let type = field._oracle.DATA_TYPE;
+
+    if (field._oracle.DATA_LENGTH && field._oracle.DATA_TYPE !== "DATE")
+      type += "(" + field._oracle.DATA_LENGTH + ")";
+    else if (field._oracle.DATA_PRECISION) {
+      if (field._oracle.DATA_PRECISION === 126)
+        type = "FLOAT(126)"
+      else
+        type += "(" + field._oracle.DATA_PRECISION + "," + field._oracle.DATA_SCALE + ")";
+    }
+    
+    return type;
+  }
+
+  let sqlType = "VARCHAR2(256)";  // default type
+  switch (field.type) {
+    case "boolean":
+      sqlType = "CHAR";
+      break;
+    case "integer":
+      sqlType = "INTEGER";
+      break;
+    case "number":
+      sqlType = "FLOAT";
+      break;
+    case "keyword":
+      sqlType = "NVARCHAR2(" + (field.size > 0 ? field.size : stringBreakpoints.keyword) + ")";
+      break;
+    case "string":
+    case "text":
+      if (field.size > stringBreakpoints.text)
+        sqlType = "CLOB"
+      else
+        sqlType = "NVARCHAR2(" + (field.size > 0 ? field.size : stringBreakpoints.keyword) + ")";
+      break;
+    case "date":
+      sqlType = "DATE";
+      break;
+    case "uuid":
+      sqlType = "ROWID";
+      break;
+    case "list":
+    case "map":
+      sqlType = "CLOB";  // will be stuffed in a column as JSON
+      break;
+    case "binary":
+      sqlType = "RAW";
+      break;
+  }
+  
+  return sqlType;
+};
+
+/**
+ * convert storage field type to Oracle SQL type 
+ */
+exports.sqlTypeDB = (field) => {
+  if (field._oracle) {
     let type = field._oracle.dbTypeName;
 
     if (field._oracle.byteSize)

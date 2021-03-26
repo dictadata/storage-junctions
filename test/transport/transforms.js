@@ -6,11 +6,11 @@
 const transfer = require('../lib/_transfer');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: oracledb transforms");
+logger.info("=== Test: transport transforms");
 
 async function tests() {
 
-  logger.verbose('=== json > oracledb foo_schema_etl2');
+  logger.verbose('=== json > transport foo_schema_etl2');
   await transfer({
     "origin": {
       "smt": "json|./test/data/|foofile.json|*"
@@ -42,17 +42,17 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_etl2|*",
+      "smt": "transport|http://localhost:8089/transport/storage_node|foo_schema_etl2|*",
       "options": {
         "encoding": "./test/data/foo_encoding_t.json"
       }
     }
   });
 
-  logger.verbose('=== oracledb > oracle_transform_0.json');
+  logger.verbose('=== transport > oracle_transform_0.json');
   await transfer({
     origin: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       options: {
         match: {
           "Bar": "row",
@@ -62,14 +62,14 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/oracledb/|transform_0.json|*"
+      smt: "json|./output/transport/|transform_0.json|*"
     }
   });
 
-  logger.verbose('=== oracledb > oracle_transform_1.json');
+  logger.verbose('=== transport > oracle_transform_1.json');
   await transfer({
     origin: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
       options: {
         encoding: "./test/data/encoding_foo_01.json"
       }
@@ -102,14 +102,14 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/oracledb/|transform_1.json|*"
+      smt: "json|./output/transport/|transform_1.json|*"
     }
   });
 
-  logger.verbose('=== oracledb > oracle_transform_2.json');
+  logger.verbose('=== transport > oracle_transform_2.json');
   await transfer({
     origin: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
       options: {
         encoding: "./test/data/encoding_foo_02.json"
       }
@@ -142,7 +142,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/oracledb/|transform_2.json|*"
+      smt: "json|./output/transport/|transform_2.json|*"
     }
   });
 

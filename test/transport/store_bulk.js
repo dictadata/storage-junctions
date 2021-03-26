@@ -1,5 +1,5 @@
 /**
- * test/oracledb
+ * test/transport
  */
 "use strict";
 
@@ -7,14 +7,14 @@ const storeBulk = require('../lib/_store_bulk');
 const transfer = require('../lib/_transfer');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: oracledb bulk storage");
+logger.info("=== Test: transport bulk storage");
 
 async function tests() {
 
-  logger.info("=== oracledb storeBulk");
+  logger.info("=== transport storeBulk");
   await storeBulk({
     origin: {
-      smt: "oracledb|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|=Foo"
+      smt: "transport|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|=Foo"
     },
     constructs: [{
       Foo: 'one-o-five',
@@ -31,7 +31,7 @@ async function tests() {
     }]
   });
 
-  logger.verbose('=== timeseries.csv > oracledb');
+  logger.verbose('=== timeseries.csv > transport');
   await transfer({
     origin: {
       smt: "csv|./test/data/|timeseries.csv|*",
@@ -44,7 +44,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "oracledb|connectString=localhost/XEPDB1;user=dicta;password=data|timeseries|*",
+      smt: "transport|connectString=localhost/XEPDB1;user=dicta;password=data|timeseries|*",
       options: {
         bulkLoad: true
       }

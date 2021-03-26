@@ -15,7 +15,7 @@ async function tests() {
   await dullSchema({
     smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_transfer|*"
   });
-
+/*
   logger.info("=== foofile.csv > oracledb.foo_schema");
   await transfer({
     origin: {
@@ -54,7 +54,7 @@ async function tests() {
       }
     }
   });
-
+*/
   logger.info("=== oracledb.foo_schema > oracledb.foo_transfer");
   await transfer({
     origin: {

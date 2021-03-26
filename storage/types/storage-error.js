@@ -2,26 +2,28 @@
 "use strict";
 
 const { typeOf } = require("../utils");
+const StorageResults = require("./storage-results");
 
-class StorageError extends Error {
-  constructor(status, ...params) {
+module.exports = exports = class StorageError extends Error {
+  constructor(resultCode, ...params) {
     // Pass normal error arguments to parent constructor
     super(...params);
 
     this.name = 'StorageError';
 
-    // StorageError status information
-    if (typeof status === "number")
-      this.statusCode = status;
-    else if (typeOf(status) === "object")
-      Object.assign(this, {statusCode: 500}, status);  // caller should be careful not to accidentially overwrite any standard Error properties
+    // StorageError result information
+    this.resultCode = resultCode;
+    if (!this.message)
+      this.message = StorageResults.RESULT_CODES[this.resultCode] || 'unknown error';
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, StorageError);
     }
+  }
 
+  inner(error) {
+    this.innerError = error;
+    return this;
   }
 }
-
-module.exports = exports = StorageError;

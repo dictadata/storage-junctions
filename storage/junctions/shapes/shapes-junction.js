@@ -50,11 +50,11 @@ class ShapesJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encodign");
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -72,14 +72,14 @@ class ShapesJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("ShapesJunction store");
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ShapesJunction store");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async recall(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ShapesJunction recall");
+    throw new StorageError(501);
   }
 
   /**
@@ -87,14 +87,14 @@ class ShapesJunction extends StorageJunction {
    * @param {*} options options.pattern
    */
   async retrieve(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ShapesJunction retrieve");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async dull(options) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: ShapesJunction dull");
+    throw new StorageError(501);
   }
 
 };

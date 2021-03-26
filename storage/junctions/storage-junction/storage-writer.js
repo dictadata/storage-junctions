@@ -14,7 +14,7 @@ module.exports = exports = class StorageWriter extends Writable {
    */
   constructor(storageJunction, options) {
     if (!hasOwnProperty(storageJunction, "engram"))
-      throw new StorageError({statusCode: 400}, "Invalid parameter: storageJunction");
+      throw new StorageError( 400, "Invalid parameter: storageJunction");
 
     let streamOptions = {
       objectMode: true,
@@ -92,7 +92,7 @@ module.exports = exports = class StorageWriter extends Writable {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error storing construct'));
+      callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
 
@@ -104,7 +104,7 @@ module.exports = exports = class StorageWriter extends Writable {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError({ statusCode: 500, _error: err }, 'Error writer._final'));
+      callback(new StorageError(500, 'Error writer._final').inner(err));
     }
   }
 

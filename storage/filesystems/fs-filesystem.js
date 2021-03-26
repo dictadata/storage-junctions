@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageError } = require("../types");
+const { StorageResults, StorageError } = require("../types");
 const logger = require("../logger");
 
 const fs = require('fs');
@@ -28,11 +28,11 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
   async list(options) {
     logger.debug('fs-filesystem list');
 
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    var list = [];
-
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      var list = [];
+
       let dirpath = url.fileURLToPath(this._url);
 
       let filespec = schema || '*';
@@ -72,31 +72,31 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       }
 
       await scanner(dirpath, "", options);
+
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return list;
   }
 
   async dull(options) {
     logger.debug('fs-filesystem dull');
 
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+
       let filepath = path.join(url.fileURLToPath(this._url), schema);
       await fsp.unlink(filepath);
+
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
-      return err.message;
+      throw new StorageError(500).inner(err);
     }
-
-    return "ok";
   }
 
   /**
@@ -104,11 +104,12 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
   */
   async createReadStream(options) {
     logger.debug("FSFileSystem createReadStream");
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let rs = null;
 
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let rs = null;
+
       let filename = path.join(url.fileURLToPath(this._url), schema);
       rs = fs.createReadStream(filename);
 
@@ -118,13 +119,13 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         rs.pipe(gzip);
         return gzip;
       }
+
+      return rs;
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return rs;
   }
 
   /**
@@ -132,11 +133,12 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
   */
   async createWriteStream(options) {
     logger.debug("FSFileSystem createWriteStream");
-    options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
-    let ws = false;
 
     try {
+      options = Object.assign({}, this.options, options);
+      let schema = options.schema || this.smt.schema;
+      let ws = false;
+
       let filename = path.join(url.fileURLToPath(this._url), schema);
       let append = this.options.append || false;
 
@@ -157,53 +159,65 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         gzip.pipe(ws);
         return gzip;
       }
+
+      return ws;
     }
     catch (err) {
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
-
-    return ws;
   }
 
   async download(options) {
     logger.debug("fs-fileSystem download");
 
-    options = Object.assign({}, this.options, options);
-    let result = true;
+    try {
+      options = Object.assign({}, this.options, options);
+      let resultCode = 0;
 
-    let src = path.join(url.fileURLToPath(this._url), options.name);
-    let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
+      let src = path.join(url.fileURLToPath(this._url), options.name);
+      let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
 
-    let dirname = path.dirname(dest);
-    if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-      await fsp.mkdir(dirname, { recursive: true });
-      this._dirname = dirname;
+      let dirname = path.dirname(dest);
+      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
+        await fsp.mkdir(dirname, { recursive: true });
+        this._dirname = dirname;
+      }
+      logger.verbose("  " + src + " >> " + dest);
+      await fsp.copyFile(src, dest);
+
+      return new StorageResults(resultCode);
     }
-    logger.verbose("  " + src + " >> " + dest);
-    await fsp.copyFile(src, dest);
-
-    return result;
+    catch (err) {
+      logger.error(err);
+      throw new StorageError(500).inner(err);
+    }
   }
 
   async upload(options) {
     logger.debug("fs-fileSystem upload");
 
-    options = Object.assign({}, this.options, options);
-    let result = true;
+    try {
+      options = Object.assign({}, this.options, options);
+      let resultCode = 0;
 
-    let src = path.join(options.uploadPath, options.rpath);
-    let dest = path.join(url.fileURLToPath(this._url), (options.useRPath ? options.rpath : options.name));
+      let src = path.join(options.uploadPath, options.rpath);
+      let dest = path.join(url.fileURLToPath(this._url), (options.useRPath ? options.rpath : options.name));
 
-    let dirname = path.dirname(dest);
-    if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-      await fsp.mkdir(dirname, { recursive: true });
-      this._dirname = dirname;
+      let dirname = path.dirname(dest);
+      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
+        await fsp.mkdir(dirname, { recursive: true });
+        this._dirname = dirname;
+      }
+      logger.verbose("  " + src + " >> " + dest);
+      await fsp.copyFile(src, dest);
+
+      return new StorageResults(resultCode);
     }
-    logger.verbose("  " + src + " >> " + dest);
-    await fsp.copyFile(src, dest);
-
-    return result;
+    catch (err) {
+      logger.error(err);
+      throw new StorageError(500).inner(err);
+    }
   }
 
 };

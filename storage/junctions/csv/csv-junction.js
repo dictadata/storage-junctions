@@ -52,11 +52,13 @@ class CSVJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return this.engram;
+      return new StorageResults(0, null, this.engram, "encoding");
     }
     catch (err) {
+      if (e instanceof StorageError)
+        throw err;
       logger.error(err);
-      throw err;
+      throw new StorageError(500).inner(err);
     }
   }
 
@@ -75,14 +77,14 @@ class CSVJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("CSVJunction store");
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction store");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async recall(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction recall");
+    throw new StorageError(501);
   }
 
   /**
@@ -90,14 +92,14 @@ class CSVJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction retrieve");
+    throw new StorageError(501);
   }
 
   /**
    *
    */
   async dull(pattern) {
-    throw new StorageError({ statusCode: 501 }, "Not implemented: CSVJunction dull");
+    throw new StorageError(501);
   }
 
 };

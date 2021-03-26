@@ -228,8 +228,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch encoding",
-      "program": "${workspaceFolder}/test/elasticsearch/encoding.js",
+      "name": "elasticsearch list",
+      "program": "${workspaceFolder}/test/elasticsearch/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -239,8 +239,30 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch list",
-      "program": "${workspaceFolder}/test/elasticsearch/list.js",
+      "name": "elasticsearch createSchema",
+      "program": "${workspaceFolder}/test/elasticsearch/createSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch getEncoding",
+      "program": "${workspaceFolder}/test/elasticsearch/getEncoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch dullSchema",
+      "program": "${workspaceFolder}/test/elasticsearch/dullSchema.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -349,6 +371,17 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "mssql list",
+      "program": "${workspaceFolder}/test/mssql/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "mssql encoding",
       "program": "${workspaceFolder}/test/mssql/encoding.js",
       "outputCapture": "std",
@@ -360,17 +393,6 @@
         "${workspaceFolder}/storage/**/*.js",
         "${workspaceFolder}/test/lib/*.js"
       ]
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mssql list",
-      "program": "${workspaceFolder}/test/mssql/list.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
     },
     {
       "type": "pwa-node",
@@ -474,8 +496,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql encoding",
-      "program": "${workspaceFolder}/test/mysql/encoding.js",
+      "name": "mysql list",
+      "program": "${workspaceFolder}/test/mysql/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -485,8 +507,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql list",
-      "program": "${workspaceFolder}/test/mysql/list.js",
+      "name": "mysql encoding",
+      "program": "${workspaceFolder}/test/mysql/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -595,8 +617,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracledb encoding",
-      "program": "${workspaceFolder}/test/oracledb/encoding.js",
+      "name": "oracledb list",
+      "program": "${workspaceFolder}/test/oracledb/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -606,8 +628,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracledb list",
-      "program": "${workspaceFolder}/test/oracledb/list.js",
+      "name": "oracledb encoding",
+      "program": "${workspaceFolder}/test/oracledb/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -716,8 +738,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport encoding",
-      "program": "${workspaceFolder}/test/transport/encoding.js",
+      "name": "transport list",
+      "program": "${workspaceFolder}/test/transport/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -727,8 +749,30 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport list",
-      "program": "${workspaceFolder}/test/transport/list.js",
+      "name": "transport createSchema",
+      "program": "${workspaceFolder}/test/transport/createSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport getEncoding",
+      "program": "${workspaceFolder}/test/transport/getEncoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transport dullSchema",
+      "program": "${workspaceFolder}/test/transport/dullSchema.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

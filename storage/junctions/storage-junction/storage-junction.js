@@ -1,7 +1,7 @@
 "use strict";
 
 const Cortex = require('../../cortex');
-const { Engram, StorageError } = require("../../types");
+const { Engram, StorageResults, StorageError } = require("../../types");
 const logger = require("../../logger");
 
 const Reader = require("./storage-reader");
@@ -65,13 +65,7 @@ module.exports = exports = class StorageJunction {
    * @param {*} encoding
    */
   set encoding(encoding) {
-    try {
-      this.engram.encoding = encoding;
-    }
-    catch (err) {
-      logger.error(err);
-      throw err;
-    }
+    this.engram.encoding = encoding;
   }
   
   /**
@@ -89,7 +83,7 @@ module.exports = exports = class StorageJunction {
     if (!this.engram.isDefined) {
       // get encoding from source
     }
-    return this.engram;
+    return new StorageResults(0, null, this.engram, "encoding");
   }
 
   /**
@@ -119,12 +113,13 @@ module.exports = exports = class StorageJunction {
 
     // junctions that don't use filesystems should override the list() method
     if (!Cortex.FileSystems.isUsedBy(this.smt.model))
-      throw new StorageError({ statusCode: 501 }, "StorageJunction.list method not implemented");
+      throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
     let stfs = await this.getFileSystem();
     let list = await stfs.list(options);
-    return list;
+
+    return new StorageResults(0, null, list);
   }
 
   /**
@@ -133,6 +128,7 @@ module.exports = exports = class StorageJunction {
    */
   async createSchema(options={}) {
     logger.debug('StorageJunction createSchema');
+
     options = Object.assign({}, this.options, options);
     if (!options.schema)
       options.schema = this.smt.schema;
@@ -141,7 +137,7 @@ module.exports = exports = class StorageJunction {
       delete options.encoding;
     }
 
-    return this.engram;
+    return new StorageResults(0);
   }
 
   /**
@@ -157,12 +153,13 @@ module.exports = exports = class StorageJunction {
 
     // junctions that don't use filesystems should override the dullSchema() method
     if (!Cortex.FileSystems.isUsedBy(this.smt.model))
-      throw new StorageError({ statusCode: 501 }, "StorageJunction.dullSchema method not implemented");
+      throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
     let stfs = await this.getFileSystem();
     let result = await stfs.dull(options);
-    return result;
+
+    return new StorageResults(0);
   }
 
   /////////// storing & accessing //////////
@@ -175,7 +172,7 @@ module.exports = exports = class StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("StorageJunction store");
-    throw new StorageError({ statusCode: 501 }, "StorageJunction.store method not implemented");
+    throw new StorageError(501);
   }
 
   /**
@@ -186,7 +183,7 @@ module.exports = exports = class StorageJunction {
    */
   async storeBulk(constructs, pattern) {
     logger.debug("StorageJunction storeBulk");
-    throw new StorageError({ statusCode: 501 }, "StorageJunction.storeBulk method not implemented");
+    throw new StorageError(501);
   }
 
   /**
@@ -194,7 +191,7 @@ module.exports = exports = class StorageJunction {
    */
   async recall(pattern) {
     logger.debug("StorageJunction recall");
-    throw new StorageError({ statusCode: 501 }, "StorageJunction.recall method not implemented");
+    throw new StorageError(501);
   }
 
   /**
@@ -203,7 +200,7 @@ module.exports = exports = class StorageJunction {
   async retrieve(pattern) {
     logger.debug("StorageJunction retrieve");
 
-    throw new StorageError({ statusCode: 501 }, "StorageJunction.retrieve method not implemented");
+    throw new StorageError(501);
   }
 
   /**
@@ -211,7 +208,7 @@ module.exports = exports = class StorageJunction {
    */
   async dull(pattern) {
     logger.debug("StorageJunction dull");
-    throw new StorageError({ statusCode: 400 }, "StorageJunction.dull method not implemented");
+    throw new StorageError(501);
   }
 
   ////////// object streaming //////////
