@@ -20,7 +20,7 @@ module.exports = exports = async function (tract) {
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     logger.info(">>> list");
-    let list = await jo.list();
+    let { data: list } = await jo.list();
 
     logger.verbose(JSON.stringify(list, null, "  "));
     if (tract.terminal && tract.terminal.output) {
@@ -32,7 +32,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

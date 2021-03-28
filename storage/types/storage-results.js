@@ -1,9 +1,7 @@
 // storage/types/StorageResults
 "use strict";
 
-const { StorageResults } = require('.');
-
-module.exports = exports = class StorageResults {
+class StorageResults {
 
   /**
    * The results type returned by storage methods. Note encoding methods return an Engram object.
@@ -92,3 +90,5 @@ StorageResults.RESULT_CODES = {
     504: "Gateway Time-out",
     505: "HTTP Version not supported"
 };
+
+module.exports = exports = StorageResults;

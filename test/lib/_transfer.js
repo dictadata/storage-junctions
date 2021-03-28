@@ -32,7 +32,8 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
-    let encoding = await jo.getEncoding();  // load encoding from origin for validation
+    let results = await jo.getEncoding();  // load encoding from origin for validation
+    let encoding = results.data["encoding"];
 
     if (tract.terminal.options && typeof tract.terminal.options.encoding === "string") {
       // read encoding from file
@@ -65,9 +66,9 @@ module.exports = exports = async function (tract) {
 
     logger.debug("create the terminal");
     jt = await storage.activate(tract.terminal.smt, tract.terminal.options);
-    let result = await jt.createSchema();
-    if (typeOf(result) !== "object")
-      logger.info("could not create storage schema: " + result);
+    results = await jt.createSchema();
+    if (results.resultCode !== 0)
+      logger.info("could not create storage schema: " + results.resultText);
     
     // transfer the data
     logger.info(">>> transfer pipeline");

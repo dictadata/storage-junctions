@@ -30,7 +30,7 @@ module.exports = exports = async function (tract) {
     if (err.statusCode < 500)
       logger.warn(err.message);
     else {
-      logger.error('!!! request failed: ' + err.message);
+      logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
       process.exitCode = 1;
     }
   }

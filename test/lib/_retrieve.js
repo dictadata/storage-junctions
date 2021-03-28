@@ -28,7 +28,7 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.retrieve(tract.origin.pattern);
 
-    logger.debug("result: " + results.result + " count: " + (results.data ? results.data.length : 0));
+    logger.debug("result: " + results.resultCode + " count: " + (results.data ? results.data.length : 0));
     logger.debug(JSON.stringify(results));
     if (tract.terminal && tract.terminal.output) {
       logger.info("<<< save results to " + tract.terminal.output);
@@ -39,7 +39,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

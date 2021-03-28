@@ -130,7 +130,7 @@ class TransportJunction extends StorageJunction {
       response.rows = response.data;  // oracledb returns rows
       sqlEncoder.decodeIndexResults(this.engram, response);
 
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
@@ -153,9 +153,9 @@ class TransportJunction extends StorageJunction {
       let encoding = options.encoding || this.engram.encoding;
 
       // check if table already exists
-      let tables = await this.list();
+      let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResults(409, 'table exists');
+        return new StorageResults(409, 'schema exists');
       }
 
       // use a temporary engram
@@ -197,7 +197,7 @@ class TransportJunction extends StorageJunction {
     }
     catch (err) {
       if (err.errorNum === 955)
-        return new StorageResults(409, "table exists");
+        return new StorageResults(409, "schema exists");
       
       logger.error(err);
       throw new StorageError(500).inner(err);
@@ -296,7 +296,7 @@ class TransportJunction extends StorageJunction {
    */
   async recall(pattern) {
     if (!this.engram.smt.key) {
-      throw new StorageError(400 "no storage key specified");
+      throw new StorageError(400, "no storage key specified");
     }
 
     try {

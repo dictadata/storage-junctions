@@ -17,7 +17,8 @@ module.exports = exports = async function (tract) {
   var jo;
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
-    let encoding = await jo.getEncoding();
+    let results = await jo.getEncoding();
+    let encoding = results.data["encoding"];
 
     if (typeOf(encoding) === 'object') {
       logger.debug(JSON.stringify(encoding));
@@ -33,7 +34,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

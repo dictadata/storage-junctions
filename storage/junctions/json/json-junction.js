@@ -50,7 +50,7 @@ class JSONJunction extends StorageJunction {
         this.engram.encoding = encoding;
       }
 
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err instanceof StorageError)

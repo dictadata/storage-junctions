@@ -50,7 +50,7 @@ class ShapesJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResults(0, null, this.engram, "encodign");
+      return new StorageResults(0, null, this.engram.encoding, "encodign");
     }
     catch (err) {
       logger.error(err);

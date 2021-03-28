@@ -18,8 +18,5 @@ async function test(schema, encoding) {
 }
 
 (async () => {
-  //await test("foo_schema", "encoding_foo");
-  //await test("foo_schema_01", "encoding_foo_01");
-  //await test("foo_schema_02", "encoding_foo_02");
   await test("foo_schema_x", "encoding_foo");
 })();

@@ -83,7 +83,7 @@ module.exports = exports = class StorageJunction {
     if (!this.engram.isDefined) {
       // get encoding from source
     }
-    return new StorageResults(0, null, this.engram, "encoding");
+    return new StorageResults(0, null, this.engram.encoding, "encoding");
   }
 
   /**
@@ -117,9 +117,9 @@ module.exports = exports = class StorageJunction {
 
     // default implementation for StorageJunctions that use FileSystems
     let stfs = await this.getFileSystem();
-    let list = await stfs.list(options);
+    let results = await stfs.list(options);
 
-    return new StorageResults(0, null, list);
+    return results;
   }
 
   /**
@@ -157,9 +157,9 @@ module.exports = exports = class StorageJunction {
 
     // default implementation for StorageJunctions that use FileSystems
     let stfs = await this.getFileSystem();
-    let result = await stfs.dull(options);
+    let results = await stfs.dull(options);
 
-    return new StorageResults(0);
+    return results;
   }
 
   /////////// storing & accessing //////////

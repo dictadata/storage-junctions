@@ -50,7 +50,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       if (this.options.notation === "dot")
         return flatten();
       else
-        return this.engram;
+        return this.engram.encoding;
     }
     catch (err) {
       logger.error(err);

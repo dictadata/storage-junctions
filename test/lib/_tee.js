@@ -33,7 +33,8 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
-    let encoding = await jo.getEncoding();
+    let results = await jo.getEncoding();
+    let encoding = results.data["encoding"];
 
     logger.info(">>> create origin pipeline");
     reader = jo.createReadStream();
@@ -80,7 +81,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

@@ -22,7 +22,7 @@ module.exports = exports = async function (tract) {
     local = await storage.activate(smt, tract.origin.options);
 
     logger.info(">>> get list of local files");
-    let list = await local.list();
+    let { data: list } = await local.list();
 
     logger.info(">>> create junction");
     logger.verbose("smt:" + JSON.stringify(tract.terminal.smt, null, 2));
@@ -38,13 +38,13 @@ module.exports = exports = async function (tract) {
       logger.debug(JSON.stringify(entry, null, 2));
 
       let options = Object.assign({ uploadPath: uploads.dir + '\\' }, tract.origin.options, entry);
-      let ok = await stfs.upload(options);
-      if (!ok)
-        logger.error("!!! upload failed: " + entry.href);
+      let results = await stfs.upload(options);
+      if (results.resultCode !== 0)
+        logger.error("!!! upload failed: " + results.resultCode);
     }
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

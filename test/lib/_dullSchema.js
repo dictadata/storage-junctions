@@ -21,11 +21,11 @@ module.exports = exports = async function (tract) {
   try {
     jo = await storage.activate(tract.smt, tract.options);
     logger.info(">>> dullSchema");
-    let result = await jo.dullSchema();
-    logger.info(result);
+    let results = await jo.dullSchema();
+    logger.info(JSON.stringify(results));
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

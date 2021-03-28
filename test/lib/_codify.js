@@ -22,7 +22,8 @@ module.exports = exports = async function (tract) {
 
     // *** get encoding for junction's schema
     logger.info(">>> get encoding");
-    let encoding1 = await jo.getEncoding();
+    let results = await jo.getEncoding();
+    let encoding1 = results.data["encoding"];
 
     logger.debug(JSON.stringify(encoding1, null, "  "));
     if (tract.outputFile1) {
@@ -57,7 +58,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.message);
+    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
     process.exitCode = 1;
   }
   finally {

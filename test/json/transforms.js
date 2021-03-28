@@ -4,7 +4,6 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../storage/logger');
 
 logger.info("=== Test: json transforms");
@@ -13,7 +12,6 @@ async function tests() {
 
   logger.verbose('=== json_transform_1.json');
   let smt1 = "json|./output/json/|transform_1.json|*";
-  await dullSchema({ smt: smt1 })
 
   await transfer({
     origin: {
@@ -32,7 +30,6 @@ async function tests() {
 
   logger.verbose('=== json_transform_2.json');
   let smt2 = "json|./output/json/|transform_2.json|*";
-  await dullSchema({ smt: smt2 })
 
   await transfer({
     origin: {
@@ -72,7 +69,6 @@ async function tests() {
 
   logger.verbose('=== json > json_transform_3.csv');
   let smt3 = "csv|./output/json/|transform_3.csv|*";
-  await dullSchema({ smt: smt3 })
 
   await transfer({
     origin: {

@@ -58,7 +58,7 @@ module.exports = exports = class MetaStatsTransform extends Transform {
    */
   get encoding() {
     try {
-      return this.engram;
+      return this.engram.encoding;
     }
     catch(err) {
       logger.error(err);

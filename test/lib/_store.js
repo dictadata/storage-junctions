@@ -17,8 +17,10 @@ module.exports = exports = async function (tract) {
   var jo;
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
-    let encoding = await jo.getEncoding();
-    let results = await jo.store(tract.construct, tract.origin.pattern);
+    let results = await jo.getEncoding();
+    let encoding = results.data["encoding"];
+
+    results = await jo.store(tract.construct, tract.origin.pattern);
     logger.verbose(JSON.stringify(results));
 
     logger.info(">>> completed");
@@ -31,7 +33,7 @@ module.exports = exports = async function (tract) {
     if (err.statusCode < 500)
       logger.warn(err.message);
     else {
-      logger.error('!!! request failed: ' + err.message);
+      logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
       process.exitCode = 1;
     }
   }

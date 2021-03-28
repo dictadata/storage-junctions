@@ -130,7 +130,7 @@ class MySQLJunction extends StorageJunction {
           list.push(name);
       }
 
-      return new StorageResponse(0, null, list);
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -160,7 +160,7 @@ class MySQLJunction extends StorageJunction {
       columns = await this.pool.query(sql);
       sqlEncoder.decodeIndexResults(this.engram, columns);
 
-      return this.engram;
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
@@ -183,9 +183,9 @@ class MySQLJunction extends StorageJunction {
       let encoding = options.encoding || this.engram.encoding;
 
       // check if table already exists
-      let tables = await this.list();
+      let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return 'schema exists';
+        return new StorageResults(409, null, 'table exists');
       }
 
       // use a temporary engram
@@ -199,7 +199,7 @@ class MySQLJunction extends StorageJunction {
 
       // if successfull update engram
       this.engram.encoding = encoding;
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);

@@ -54,7 +54,7 @@ class MongoDBJunction extends StorageJunction {
         // fetch form storage source
       }
 
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);

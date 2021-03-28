@@ -50,7 +50,7 @@ class ParquetJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);
@@ -77,7 +77,7 @@ class ParquetJunction extends StorageJunction {
     logger.debug('ParquetJunction list');
     let stfs = await this.getFileSystem();
     let list = await stfs.list(options);
-    return new StorageResponse(0, null, list);
+    return new StorageResults(0, null, list);
   }
 
 

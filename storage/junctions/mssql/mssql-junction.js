@@ -198,7 +198,7 @@ class MSSQLJunction extends StorageJunction {
         sqlEncoder.decodeIndexResults(this.engram, column);
       });
       
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);
@@ -218,7 +218,7 @@ class MSSQLJunction extends StorageJunction {
       let encoding = options.encoding || this.engram.encoding;
       
       // check if table already exists
-      let tables = await this.list();
+      let { data: tables } = await this.list();
       if (tables.length > 0) {
         return new StorageResults(409, 'table exists');
       }
@@ -234,7 +234,7 @@ class MSSQLJunction extends StorageJunction {
 
       // if successfull update engram
       this.engram.encoding = encoding;      
-      return this.engram;
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
@@ -280,8 +280,8 @@ class MSSQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined) {
-        let result = await this.getEncoding();
-        logger.debug(result);
+        let results = await this.getEncoding();
+        logger.debug(JSON.stringify(results));
       }
 
       // INSERT/UPDATE logic

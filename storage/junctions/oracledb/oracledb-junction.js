@@ -166,7 +166,7 @@ class OracleDBJunction extends StorageJunction {
       results = await connection.execute(sql);
       sqlEncoder.decodeIndexResults(this.engram, results);
 
-      return new StorageResults(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
@@ -194,7 +194,7 @@ class OracleDBJunction extends StorageJunction {
       let encoding = options.encoding || this.engram.encoding;
 
       // check if table already exists
-      let tables = await this.list();
+      let { data: tables } = await this.list();
       if (tables.length > 0) {
         return new StorageResults(409, 'table exists');
       }

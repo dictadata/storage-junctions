@@ -91,7 +91,7 @@ class ElasticsearchJunction extends StorageJunction {
     }
     catch (err) {
       if (err.statusCode === 404)
-        return new StorageResults(0, null, list); // empty list
+        return new StorageResults(0, null, []); // empty list
       
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
@@ -112,7 +112,7 @@ class ElasticsearchJunction extends StorageJunction {
         this.engram.fields = this.encoder.mappingsToFields(mappings);
       }
 
-      return new StorageResults(0, null, this.engram);
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.statusCode === 404)  // index_not_found_exception
@@ -135,9 +135,9 @@ class ElasticsearchJunction extends StorageJunction {
       let encoding = options.encoding || this.engram.encoding;
     
       // check if table already exists
-      let tables = await this.list();
+      let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResponse(409, 'index exists');
+        return new StorageResults(409, 'index exists');
       }
 
       // load the default config containing index settings
@@ -157,7 +157,7 @@ class ElasticsearchJunction extends StorageJunction {
       // if successfull update encoding
       this.engram.encoding = encoding;
 
-      return new StorageResponse(0, null, this.engram, "encoding");
+      return new StorageResults(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.statusCode === 400 && err.message === "resource_already_exists_exception")
@@ -184,7 +184,7 @@ class ElasticsearchJunction extends StorageJunction {
     }
     catch (err) {
       if (err.statusCode === 404)  // index_not_found_exception
-        return new ResponseResults( 404, 'index not found' );
+        return new StorageResults( 404, 'index not found' );
 
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
