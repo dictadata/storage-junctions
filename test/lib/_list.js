@@ -4,6 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
+const _compare = require("./_compare");
 const storage = require("../../storage");
 const logger = require('../../storage/logger');
 const fs = require('fs');
