@@ -253,7 +253,7 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if row was inserted
-      return new StorageResults(200, null, results.affectedRows, "affectedRows");
+      return new StorageResults(0, null, results.affectedRows, "affectedRows");
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY

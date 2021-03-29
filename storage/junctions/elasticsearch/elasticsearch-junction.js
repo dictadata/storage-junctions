@@ -279,7 +279,7 @@ class ElasticsearchJunction extends StorageJunction {
       let dsl = dslEncoder.searchQuery(pattern);
       logger.verbose(JSON.stringify(dsl));
       let isKeyStore = (this.engram.keyof === 'uid' || this.engram.keyof === 'key');
-      let storageResults = new StorageResults(200);
+      let storageResults = new StorageResults(0);
 
       if (pattern.aggregate) {
         // aggregation response

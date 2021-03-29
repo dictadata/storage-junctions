@@ -285,9 +285,16 @@ class MSSQLJunction extends StorageJunction {
       }
 
       // INSERT/UPDATE logic
+      let rowCount = 0;
       let sql = sqlEncoder.sqlInsert(this.engram, construct);
       logger.debug(sql);
-      let rowCount = await this._request(sql, null);
+      try {
+        rowCount = await this._request(sql, null);
+      }
+      catch (err) {
+        if (err.number !== 2627)  // violation of primary key constraint
+          throw err;
+      }
 
       if (rowCount === 0 && this.engram.keys.length > 0 && this.engram.keys.length < this.engram.fieldsLength) {
         let sql = sqlEncoder.sqlUpdate(this.engram, construct);
@@ -295,12 +302,9 @@ class MSSQLJunction extends StorageJunction {
         rowCount = await this._request(sql, null);
       }
 
-      return new StorageResults(200, null, rowCount, "rowCount");
+      return new StorageResults(0, null, rowCount, "rowCount");
     }
     catch (err) {
-      if (err.number === 2627)
-        return new StorageResults(err.number, err.message);
-      
       logger.error(err);
       throw new StorageError(500).inner(err);
     }
@@ -328,7 +332,7 @@ class MSSQLJunction extends StorageJunction {
       let rowCount = await this._request(sql, null);
 
       // check if rows were inserted
-      return new StorageResults(200, null, rowCount, "rowCount");
+      return new StorageResults(0, null, rowCount, "rowCount");
     }
     catch (err) {
       if (err.number === 2627)
@@ -426,7 +430,7 @@ class MSSQLJunction extends StorageJunction {
       logger.verbose(sql);
 
       let rowCount = await this._request(sql, null);
-      return new StorageResults(200, null, rowCount, "rowCount");
+      return new StorageResults(0, null, rowCount, "rowCount");
     }
     catch (err) {
       logger.error(err);

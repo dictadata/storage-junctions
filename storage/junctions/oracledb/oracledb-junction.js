@@ -300,9 +300,16 @@ class OracleDBJunction extends StorageJunction {
         await this.getEncoding();
       
       // Insert/Update logic
+      let rowsAffected = 0;
       let sql = sqlEncoder.sqlInsert(this.engram, construct);
       logger.debug(sql);
-      let rowsAffected = await this._request(sql);
+      try {
+        rowsAffected = await this._request(sql);
+      }
+      catch (err) {
+        if (err.errorNum !== 1 && err.errorNum !== 3342)
+          throw err;
+      }
 
       if (rowsAffected === 0 && this.engram.keys.length > 0 && this.engram.keys.length < this.engram.fieldsLength) {
         let sql = sqlEncoder.sqlUpdate(this.engram, construct);
@@ -310,12 +317,9 @@ class OracleDBJunction extends StorageJunction {
         rowsAffected = await this._request(sql);
       }
 
-      return new StorageResults(200, null, rowsAffected, "rowsAffected");
+      return new StorageResults(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
-      if (err.errorNum === 1 || err.errorNum === 3342)
-         return new StorageResults(409, 'duplicate entry');
-
       logger.error(err);
       throw new StorageError(500).inner(err);
     }
@@ -342,7 +346,7 @@ class OracleDBJunction extends StorageJunction {
       logger.debug(sql);
       let rowsAffected = await this._request(sql);
 
-      return new StorageResults(200, null, rowsAffected, "rowsAffected");
+      return new StorageResults(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       if (err.errorNum === 1 || err.errorNum === 3342)
@@ -454,7 +458,7 @@ class OracleDBJunction extends StorageJunction {
         results = await connection.execute(sql);
       }
 
-      return new StorageResults(200, null, results.rowsAffected, "rowsAffected");
+      return new StorageResults(0, null, results.rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);

@@ -85,7 +85,10 @@ class TransportJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
 
     return new StorageResults(0, null, list);
@@ -137,7 +140,10 @@ class TransportJunction extends StorageJunction {
         return new StorageResults(404, 'table not found');
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
   }
 
@@ -200,7 +206,10 @@ class TransportJunction extends StorageJunction {
         return new StorageResults(409, "schema exists");
       
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
   }
 
@@ -234,7 +243,10 @@ class TransportJunction extends StorageJunction {
         return new StorageResults(404, 'table not found');
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
 
   }
@@ -265,7 +277,7 @@ class TransportJunction extends StorageJunction {
 
       let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
       let response = JSON.parse(res.data);
-      if (response.resultCode !== 0) {
+      if (response.resultCode !== 0 && response.resultCode !== 1 && response.resultCode !== 3342) {
         throw new StorageError(response.resultCode, response.resultText);
       }
 
@@ -275,6 +287,9 @@ class TransportJunction extends StorageJunction {
 
         res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
         response = JSON.parse(res.data);
+        if (response.resultCode !== 0) {
+          throw new StorageError(response.resultCode, response.resultText);
+        }
       }
 
       let resultCode = response.resultCode;
@@ -283,11 +298,11 @@ class TransportJunction extends StorageJunction {
       return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
-      if (err.errorNum === 1 || err.errorNum === 3342)
-         return new StorageResults(err.errorNum, 'duplicate entry');
-
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
   }
 
@@ -304,7 +319,10 @@ class TransportJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
   }
 
@@ -345,7 +363,10 @@ class TransportJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
   }
 
@@ -365,7 +386,10 @@ class TransportJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
     }
   }
 
