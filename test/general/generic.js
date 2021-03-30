@@ -16,7 +16,7 @@ async function test_1() {
     junction = await storage.activate({
       smt: {
         model: "*",
-        locus: "./test/data/",
+        locus: "./data/test/",
         schema: "*",
         key: "*"
       }

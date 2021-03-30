@@ -1,0 +1,5 @@
+[
+{"Foo":"first","Bar":"row","Baz":123,"Dt Test":"2018-10-07T00:00:00.000Z"},
+{"Foo":"second","Bar":"row","Baz":456,"Dt Test":"2018-10-07T05:00:00.000Z"},
+{"Foo":"third","Bar":"row your boat","Baz":789,"Dt Test":"2018-10-18T05:00:00.000Z"}
+]

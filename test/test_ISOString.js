@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let { parseDate } = require('../storage/utils');
 
 function test () {

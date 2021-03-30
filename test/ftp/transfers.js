@@ -14,17 +14,17 @@ async function test_01() {
   logger.verbose("=== fs to ftp");
 
   logger.verbose('=== ftp: csv_output.csv');
-  await dullSchema({ smt: "csv|ftp://dicta:data@localhost/test/output/csv/|output.csv|*" });
+  await dullSchema({ smt: "csv|ftp://dicta:data@localhost/data/output/csv/|output.csv|*" });
   
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv.gz|*",
+      smt: "csv|./data/test/|foofile.csv.gz|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/test/output/csv/|output.csv|*",
+      smt: "csv|ftp://dicta:data@localhost/data/output/csv/|output.csv|*",
       options: {
         header: true
       }
@@ -34,13 +34,13 @@ async function test_01() {
   logger.verbose('=== ftp: csv_output.csv.gz');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./data/test/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/test/output/csv/|output.csv.gz|*",
+      smt: "csv|ftp://dicta:data@localhost/data/output/csv/|output.csv.gz|*",
       options: {
         header: true
       }
@@ -50,10 +50,10 @@ async function test_01() {
   logger.verbose('=== ftp: json_output.json');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json.gz|*"
+      smt: "json|./data/test/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/test/output/json/|output.json|*",
+      smt: "json|ftp://dicta:data@localhost/data/output/json/|output.json|*",
       options: {}
     }
   });
@@ -61,10 +61,10 @@ async function test_01() {
   logger.verbose('=== ftp: json_output.json.gz');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./data/test/|foofile.json|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/test/output/json/|output.json.gz|*",
+      smt: "json|ftp://dicta:data@localhost/data/output/json/|output.json.gz|*",
       options: {}
     }
   });
@@ -78,13 +78,13 @@ async function test_02() {
   logger.verbose('=== ftp_output.csv');
   await transfer({
     origin: {
-      smt: "csv|ftp://dicta:data@localhost/test/data/|foofile.csv.gz|*",
+      smt: "csv|ftp://dicta:data@localhost/data/test/|foofile.csv.gz|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./output/ftp/|output.csv|*",
+      smt: "csv|./data/output/ftp/|output.csv|*",
       options: {
         header: true
       }
@@ -94,11 +94,11 @@ async function test_02() {
   logger.verbose('=== ftp_output.csv.gz');
   await transfer({
     origin: {
-      smt: "csv|ftp://dicta:data@localhost/test/data/|foofile.csv|*",
+      smt: "csv|ftp://dicta:data@localhost/data/test/|foofile.csv|*",
       options: {}
     },
     terminal: {
-      smt: "csv|./output/ftp/|output.csv.gz|*",
+      smt: "csv|./data/output/ftp/|output.csv.gz|*",
       options: {
         header: true
       }
@@ -108,22 +108,22 @@ async function test_02() {
   logger.verbose('=== ftp_output.json');
   await transfer({
     origin: {
-      smt: "json|ftp://dicta:data@localhost/test/data/|foofile.json.gz|*",
+      smt: "json|ftp://dicta:data@localhost/data/test/|foofile.json.gz|*",
       options: {}
     },
     terminal: {
-      smt: "json|./output/ftp/|output.json|*"
+      smt: "json|./data/output/ftp/|output.json|*"
     }
   });
 
   logger.verbose('=== ftp_output.json.gz');
   await transfer({
     origin: {
-      smt: "json|ftp://dicta:data@localhost/test/data/|foofile.json|*",
+      smt: "json|ftp://dicta:data@localhost/data/test/|foofile.json|*",
       options: {}
     },
     terminal: {
-      smt: "json|./output/ftp/|output.json.gz|*"
+      smt: "json|./data/output/ftp/|output.json.gz|*"
     }
   });
 

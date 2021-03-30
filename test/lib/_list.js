@@ -25,9 +25,13 @@ module.exports = exports = async function (tract) {
 
     logger.verbose(JSON.stringify(list, null, "  "));
     if (tract.terminal && tract.terminal.output) {
-      logger.info("<<< save encoding to " + tract.terminal.output);
+      logger.info("<<< saving list to " + tract.terminal.output);
       fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
       fs.writeFileSync(tract.terminal.output, JSON.stringify(list, null, 2), "utf8");
+
+      let expected_output = tract.terminal.output.replace("output", "expected");
+      if (_compare(tract.terminal.output, expected_output))
+        throw new storage.StorageError(409, "file compare failed");
     }
 
     logger.info(">>> completed");

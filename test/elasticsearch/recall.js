@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/elasticsearch/recall_1.json"
+      output: "./data/output/elasticsearch/recall_1.json"
     }
   });
 
@@ -34,7 +34,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/elasticsearch/recall_2.json"
+      output: "./data/output/elasticsearch/recall_2.json"
     }
   });
 

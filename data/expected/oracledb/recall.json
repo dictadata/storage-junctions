@@ -1,0 +1,14 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "Foo": "twenty",
+      "Bar": "Jackson",
+      "Baz": 30,
+      "Fobe": null,
+      "Dt Test": null,
+      "enabled": true
+    }
+  ]
+}

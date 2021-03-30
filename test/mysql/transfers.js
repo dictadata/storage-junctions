@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== foofile.csv > mysql.foo_schema");
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./data/test/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,12 +32,12 @@ async function tests() {
   logger.info("=== foofile_01.json > mysql");
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_01.json|*" 
+      smt: "json|./data/test/|foofile_01.json|*" 
     },
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./data/test/encoding_foo_01.json"
       }
     }
   });
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== foofile_02.json > mysql");
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_02.json|*" 
+      smt: "json|./data/test/|foofile_02.json|*" 
     },
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./data/test/encoding_foo_02.json"
       }
     }
   });
@@ -58,12 +58,12 @@ async function tests() {
   logger.info("=== foofile_two.json > mysql");
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_two.json|*" 
+      smt: "json|./data/test/|foofile_two.json|*" 
     },
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
       options: {
-        encoding: "./test/data/encoding_foo_two.json"
+        encoding: "./data/test/encoding_foo_two.json"
       }
     }
   });
@@ -84,7 +84,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./output/mysql/|transfer.csv|*",
+      smt: "csv|./data/output/mysql/|transfer.csv|*",
       options: {
         header: true
       }

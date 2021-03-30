@@ -16,7 +16,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
       options: {
-        encoding: "./test/data/encoding_foo.json"
+        encoding: "./data/test/encoding_foo.json"
       }
     }
   });
@@ -27,7 +27,7 @@ async function tests() {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*"
     },
     terminal: {
-      output: './output/mssql/encoding_foo.json'
+      output: './data/output/mssql/encoding_foo.json'
     }
   });
 
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./data/test/encoding_foo_01.json"
       }
     }
   });
@@ -47,7 +47,7 @@ async function tests() {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*"
     },
     terminal: {
-      output: './output/mssql/encoding_foo_01.json'
+      output: './data/output/mssql/encoding_foo_01.json'
     }
   });
 
@@ -56,7 +56,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./data/test/encoding_foo_02.json"
       }
     }
   });
@@ -67,7 +67,7 @@ async function tests() {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*"
     },
     terminal: {
-      output: './output/mssql/encoding_foo_02.json'
+      output: './data/output/mssql/encoding_foo_02.json'
     }
   });
 
@@ -76,7 +76,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/encoding_foo_lg.json",
+        encoding: "./data/test/encoding_foo_lg.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

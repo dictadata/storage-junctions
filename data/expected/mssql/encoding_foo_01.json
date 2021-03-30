@@ -1,0 +1,137 @@
+{
+  "smt": {
+    "model": "mssql",
+    "locus": "server=localhost;userName=dicta;password=data;database=storage_node",
+    "schema": "foo_schema_01",
+    "key": "*"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 7,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 1,
+      "label": "Foo",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(7)"
+      }
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "keyword",
+      "size": 13,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Bar",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(13)"
+      }
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "integer",
+      "size": 4,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Baz",
+      "_mssql": {
+        "precision": 10,
+        "scale": 0,
+        "type": "int"
+      }
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "number",
+      "size": 8,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Fobe",
+      "_mssql": {
+        "precision": 53,
+        "scale": 0,
+        "type": "float"
+      }
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "date",
+      "size": 8,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Dt Test",
+      "_mssql": {
+        "precision": 23,
+        "scale": 3,
+        "type": "datetime"
+      }
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "boolean",
+      "size": 1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabled",
+      "_mssql": {
+        "precision": 1,
+        "scale": 0,
+        "type": "bit"
+      }
+    },
+    "subObj1": {
+      "name": "subObj1",
+      "type": "text",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "subObj1",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "nvarchar(-1)"
+      }
+    },
+    "subObj2": {
+      "name": "subObj2",
+      "type": "text",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "subObj2",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "nvarchar(-1)"
+      }
+    },
+    "tags": {
+      "name": "tags",
+      "type": "text",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "tags",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "nvarchar(-1)"
+      }
+    }
+  },
+  "_SMT": "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*"
+}

@@ -736,6 +736,55 @@
       }
     },
     {
+      "type": "node-terminal",
+      "name": "--- other junctions",
+      "request": "launch"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "rest encoding",
+      "program": "${workspaceFolder}/test/rest/encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "rest retrieve",
+      "program": "${workspaceFolder}/test/rest/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "rest transfer",
+      "program": "${workspaceFolder}/test/rest/transfer.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "rest conjoin",
+      "program": "${workspaceFolder}/test/rest/conjoin.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
       "type": "pwa-node",
       "request": "launch",
       "name": "transport list",
@@ -872,55 +921,6 @@
       "request": "launch",
       "name": "transport aggregate",
       "program": "${workspaceFolder}/test/transport/aggregate.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node-terminal",
-      "name": "--- other junctions",
-      "request": "launch"
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "rest encoding",
-      "program": "${workspaceFolder}/test/rest/encoding.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "rest retrieve",
-      "program": "${workspaceFolder}/test/rest/retrieve.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "rest transfer",
-      "program": "${workspaceFolder}/test/rest/transfer.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "rest conjoin",
-      "program": "${workspaceFolder}/test/rest/conjoin.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

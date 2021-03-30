@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/oracledb/retrieve_0.json"
+      output: "./data/output/oracledb/retrieve_0.json"
     }
   });
 
@@ -30,7 +30,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./data/test/encoding_foo_01.json"
       },
       pattern: {
         match: {
@@ -39,7 +39,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/oracledb/retrieve_1.json"
+      output: "./data/output/oracledb/retrieve_1.json"
     }
   });
 
@@ -48,7 +48,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./data/test/encoding_foo_02.json"
       },
       pattern: {
         match: {
@@ -57,7 +57,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/oracledb/retrieve_2.json"
+      output: "./data/output/oracledb/retrieve_2.json"
     }
   });
 

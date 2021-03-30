@@ -23,7 +23,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/elasticsearch/|transform_1.json|*"
+      smt: "json|./data/output/elasticsearch/|transform_1.json|*"
     }
   });
 
@@ -61,7 +61,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/elasticsearch/|transform_2.json|*"
+      smt: "json|./data/output/elasticsearch/|transform_2.json|*"
     }
   });
 

@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== json > oracledb foo_schema_etl2');
   await transfer({
     "origin": {
-      "smt": "json|./test/data/|foofile.json|*"
+      "smt": "json|./data/test/|foofile.json|*"
     },
     "transforms": {
       "filter": {
@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_etl2|*",
       "options": {
-        "encoding": "./test/data/foo_encoding_t.json"
+        "encoding": "./data/test/foo_encoding_t.json"
       }
     }
   });
@@ -62,7 +62,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/oracledb/|transform_0.json|*"
+      smt: "json|./data/output/oracledb/|transform_0.json|*"
     }
   });
 
@@ -71,7 +71,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./data/test/encoding_foo_01.json"
       }
     },
     transforms: {
@@ -102,7 +102,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/oracledb/|transform_1.json|*"
+      smt: "json|./data/output/oracledb/|transform_1.json|*"
     }
   });
 
@@ -111,7 +111,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./data/test/encoding_foo_02.json"
       }
     },
     transforms: {
@@ -142,7 +142,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./output/oracledb/|transform_2.json|*"
+      smt: "json|./data/output/oracledb/|transform_2.json|*"
     }
   });
 

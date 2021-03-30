@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/elasticsearch/list.json"
+      output: "./data/output/elasticsearch/list.json"
     }
   });
 

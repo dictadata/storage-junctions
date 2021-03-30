@@ -26,7 +26,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/oracledb/aggregate_1.json'
+      output: './data/output/oracledb/aggregate_1.json'
     }
   });
 
@@ -50,7 +50,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/oracledb/aggregate_2.json'
+      output: './data/output/oracledb/aggregate_2.json'
     }
   });
 
@@ -75,7 +75,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './output/oracledb/aggregate_3.json'
+      output: './data/output/oracledb/aggregate_3.json'
     }
   });
 

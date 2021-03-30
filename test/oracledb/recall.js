@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/oracledb/recall.json"
+      output: "./data/output/oracledb/recall.json"
     }
   });
 

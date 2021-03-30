@@ -34,13 +34,13 @@ function compareJSON(object1, object2) {
     let keys1 = Object.keys(object1);
     let keys2 = Object.keys(object2);
     if (keys1.length != keys2.length) {
-      logger.error("compare: objects have different lengths");
+      logger.error("compare: object maps have different lengths");
       return 1;
     }
 
     for (let key of Object.keys(object1)) {
       if (!hasOwnProperty(object2, key)) {
-        logger.error("compare: object2 does not contain property");
+        logger.error("compare: object2 does not contain property: " + key);
         return 1;
       }
       if (compareJSON(object1[key], object2[key]))
@@ -48,7 +48,7 @@ function compareJSON(object1, object2) {
     }
   }
   else if (object1 !== object2) {
-    logger.error("compare: value mismatch");
+    logger.error(`compare: value mismatch: ${object1} <> ${object2}`)
     return 1;
   }
 
@@ -60,7 +60,8 @@ module.exports = exports = function (filename1, filename2) {
 
   let ext1 = path.extname(filename1);
   let ext2 = path.extname(filename2);
-
+  logger.info(">>> " + filename1 + " === " + filename2);
+  
   // unzip, if needed
   if (ext1 === ".gz")
     ext1 = path.extname(filename1.substring(0,filename1.length-3))
@@ -87,7 +88,7 @@ module.exports = exports = function (filename1, filename2) {
   else if (ext1 === '.csv')
     return compareCSV(output1, output2)
   else {
-    logger.error("compare: unknonw file extension");
+    logger.error("compare: unknown file extension");
     return 1;
   }
   

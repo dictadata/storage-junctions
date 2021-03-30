@@ -1,0 +1,60 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "Foo": "first",
+      "Baz": 123,
+      "widgets": [
+        {
+          "part": "core",
+          "count": 12
+        },
+        {
+          "part": "screw",
+          "count": 9
+        }
+      ],
+      "tags": [
+        "fun",
+        "fast"
+      ]
+    },
+    {
+      "Foo": "first",
+      "Baz": 123,
+      "widgets": [
+        {
+          "part": "core",
+          "count": 12
+        },
+        {
+          "part": "screw",
+          "count": 9
+        }
+      ],
+      "tags": [
+        "fun",
+        "fast"
+      ]
+    },
+    {
+      "Foo": "first",
+      "Baz": 123,
+      "widgets": [
+        {
+          "part": "core",
+          "count": 12
+        },
+        {
+          "part": "screw",
+          "count": 9
+        }
+      ],
+      "tags": [
+        "fun",
+        "fast"
+      ]
+    }
+  ]
+}

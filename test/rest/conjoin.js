@@ -39,7 +39,7 @@ async function testTransfer() {
       }
     },
     terminal: {
-      smt: "csv|./output/rest/|weather_forecast_conjoin.csv|*",
+      smt: "csv|./data/output/rest/|weather_forecast_conjoin.csv|*",
       options: {
         header: true
       }

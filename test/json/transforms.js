@@ -11,11 +11,11 @@ logger.info("=== Test: json transforms");
 async function tests() {
 
   logger.verbose('=== json_transform_1.json');
-  let smt1 = "json|./output/json/|transform_1.json|*";
+  let smt1 = "json|./data/output/json/|transform_1.json|*";
 
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_01.json|*",
+      smt: "json|./data/test/|foofile_01.json|*",
       options: {
         match: {
           "Bar": { "wc": "row*" }
@@ -29,11 +29,11 @@ async function tests() {
   });
 
   logger.verbose('=== json_transform_2.json');
-  let smt2 = "json|./output/json/|transform_2.json|*";
+  let smt2 = "json|./data/output/json/|transform_2.json|*";
 
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_01.json|*"
+      smt: "json|./data/test/|foofile_01.json|*"
     },
     transforms: {
       "filter": {
@@ -68,11 +68,11 @@ async function tests() {
   });
 
   logger.verbose('=== json > json_transform_3.csv');
-  let smt3 = "csv|./output/json/|transform_3.csv|*";
+  let smt3 = "csv|./data/output/json/|transform_3.csv|*";
 
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_02.json|*"
+      smt: "json|./data/test/|foofile_02.json|*"
     },
     transforms: {
       filter: {

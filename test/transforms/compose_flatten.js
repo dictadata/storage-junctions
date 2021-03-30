@@ -13,9 +13,9 @@ async function tests() {
   logger.info("=== compose");
   await transfer({
     origin: {
-      smt: "json|./test/data/|table_schemas.json|*",
+      smt: "json|./data/test/|table_schemas.json|*",
       options: {
-        encoding: "./test/data/table_schemas_encoding.json"
+        encoding: "./data/test/table_schemas_encoding.json"
       }      
     },
     "transforms": {
@@ -24,7 +24,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./output/transforms/|compose_schemas.json|*',
+      "smt": 'json|./data/output/transforms/|compose_schemas.json|*',
       options: {}
     }
   });
@@ -32,7 +32,7 @@ async function tests() {
   logger.info("=== flatten");
   await transfer({
     origin: {
-      smt: "json|./output/transforms/|compose_schemas.json|*",
+      smt: "json|./data/output/transforms/|compose_schemas.json|*",
       options: {}
     },
     "transforms": {
@@ -41,7 +41,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./output/transforms/|flatten_schemas.csv|*',
+      "smt": 'csv|./data/output/transforms/|flatten_schemas.csv|*',
       options: {
         header: true
       }

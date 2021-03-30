@@ -1,0 +1,10 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "fobe_max": 2.1,
+      "baz_sum": 3930
+    }
+  ]
+}

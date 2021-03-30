@@ -34,7 +34,7 @@ async function tests() {
   logger.verbose('=== timeseries.csv > mysql');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|timeseries.csv|*",
+      smt: "csv|./data/test/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {

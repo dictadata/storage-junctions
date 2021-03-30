@@ -1,0 +1,139 @@
+{
+  "smt": {
+    "model": "elasticsearch",
+    "locus": "http://localhost:9200",
+    "schema": "foo_schema_01",
+    "key": "*"
+  },
+  "fields": {
+    "Bar": {
+      "name": "Bar",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "integer",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "integer"
+      }
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "date",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "date"
+      }
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "float",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "double"
+      }
+    },
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "keyword"
+      }
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "boolean",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "boolean"
+      }
+    },
+    "subObj1": {
+      "name": "subObj1",
+      "type": "map",
+      "fields": {
+        "ex-state": {
+          "name": "ex-state",
+          "type": "keyword",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "_elasticsearch": {
+            "type": "keyword"
+          }
+        },
+        "state": {
+          "name": "state",
+          "type": "keyword",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "_elasticsearch": {
+            "type": "keyword"
+          }
+        }
+      }
+    },
+    "subObj2": {
+      "name": "subObj2",
+      "type": "map",
+      "fields": {
+        "subsub": {
+          "name": "subsub",
+          "type": "map",
+          "fields": {
+            "izze": {
+              "name": "izze",
+              "type": "integer",
+              "size": 0,
+              "default": null,
+              "isNullable": true,
+              "keyOrdinal": 0,
+              "_elasticsearch": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tags": {
+      "name": "tags",
+      "type": "keyword",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "keyword"
+      }
+    }
+  },
+  "_SMT": "elasticsearch|http://localhost:9200|foo_schema_01|*"
+}

@@ -1,4 +1,6 @@
-function type(obj, fullClass=false) {
+#!/usr/bin/env node
+
+function type(obj, fullClass = false) {
   // get toPrototypeString() of obj (handles all types)
   // Early JS environments return '[object Object]' for null, so it's best to directly check for it.
   if (fullClass) {

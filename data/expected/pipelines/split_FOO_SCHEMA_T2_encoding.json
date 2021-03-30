@@ -1,0 +1,10 @@
+{
+"fields": {
+  "foo": {"name":"foo","type":"keyword","size":14,"isNullable":false,"ordinal":1,"_oracle":{"COLUMN_ID":1,"SCHEMA_NAME":"STORAGE_NODE","TABLE_NAME":"FOO_SCHEMA_T2","COLUMN_NAME":"foo","DATA_TYPE":"NVARCHAR2","DATA_LENGTH":14,"NULLABLE":"N"}},
+  "bar": {"name":"bar","type":"keyword","size":26,"isNullable":true,"ordinal":2,"_oracle":{"COLUMN_ID":2,"SCHEMA_NAME":"STORAGE_NODE","TABLE_NAME":"FOO_SCHEMA_T2","COLUMN_NAME":"bar","DATA_TYPE":"NVARCHAR2","DATA_LENGTH":26,"NULLABLE":"Y"}},
+  "baz": {"name":"baz","type":"number","size":22,"isNullable":true,"ordinal":3,"_oracle":{"COLUMN_ID":3,"SCHEMA_NAME":"STORAGE_NODE","TABLE_NAME":"FOO_SCHEMA_T2","COLUMN_NAME":"baz","DATA_TYPE":"NUMBER","DATA_LENGTH":22,"NULLABLE":"Y","DATA_SCALE":0}},
+  "fobe": {"name":"fobe","type":"undefined","size":22,"isNullable":true,"ordinal":4,"_oracle":{"COLUMN_ID":4,"SCHEMA_NAME":"STORAGE_NODE","TABLE_NAME":"FOO_SCHEMA_T2","COLUMN_NAME":"fobe","DATA_TYPE":"FLOAT","DATA_LENGTH":22,"NULLABLE":"Y","DATE_PRECISION":126}},
+  "dt test": {"name":"dt test","type":"date","size":null,"isNullable":true,"ordinal":5,"_oracle":{"COLUMN_ID":5,"SCHEMA_NAME":"STORAGE_NODE","TABLE_NAME":"FOO_SCHEMA_T2","COLUMN_NAME":"dt test","DATA_TYPE":"DATE","DATE_LENGTH":7,"NULLABLE":"Y"}},
+  "enabled": {"name":"enabled","type":"boolean","size":1,"isNullable":true,"ordinal":6,"_oracle":{"COLUMN_ID":6,"SCHEMA_NAME":"STORAGE_NODE","TABLE_NAME":"FOO_SCHEMA_T2","COLUMN_NAME":"enabled","DATA_TYPE":"CHAR","DATA_LENGTH":1,"NULLABLE":"Y"}}
+}
+}

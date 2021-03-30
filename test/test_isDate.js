@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let { isDate } = require('../storage/utils');
 
 function test () {

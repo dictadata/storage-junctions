@@ -1,0 +1,41 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "Foo": "third",
+      "count": 6,
+      "dt_max": "2018-10-18T05:00:00.000Z",
+      "dt_min": "2018-10-18T05:00:00.000Z",
+      "baz_sum": 4734
+    },
+    {
+      "Foo": "second",
+      "count": 7,
+      "dt_max": "2018-10-07T05:00:00.000Z",
+      "dt_min": "2018-10-07T05:00:00.000Z",
+      "baz_sum": 3192
+    },
+    {
+      "Foo": "first",
+      "count": 6,
+      "dt_max": "2018-10-07T00:00:00.000Z",
+      "dt_min": "2018-10-07T00:00:00.000Z",
+      "baz_sum": 738
+    },
+    {
+      "Foo": "twenty",
+      "count": 6,
+      "dt_max": null,
+      "dt_min": null,
+      "baz_sum": 120
+    },
+    {
+      "Foo": "eighth",
+      "count": 6,
+      "dt_max": "2018-10-10T05:00:00.000Z",
+      "dt_min": "2018-10-10T05:00:00.000Z",
+      "baz_sum": 72
+    }
+  ]
+}

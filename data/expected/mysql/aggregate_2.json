@@ -1,0 +1,13 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "sum": 1725,
+      "avg": 172.5,
+      "min": 0,
+      "max": 789,
+      "count": 10
+    }
+  ]
+}

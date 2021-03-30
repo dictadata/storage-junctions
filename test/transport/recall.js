@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/transport/recall.json"
+      output: "./data/output/transport/recall.json"
     }
   });
 

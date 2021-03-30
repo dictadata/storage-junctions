@@ -1,0 +1,13 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "min": 0,
+      "avg": 201.29545454545453,
+      "max": 789,
+      "count": 44,
+      "sum": 8857
+    }
+  ]
+}

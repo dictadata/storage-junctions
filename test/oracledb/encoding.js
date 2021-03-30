@@ -16,7 +16,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       options: {
-        encoding: "./test/data/encoding_foo.json"
+        encoding: "./data/test/encoding_foo.json"
       }
     }
   });
@@ -27,7 +27,7 @@ async function tests() {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
     },
     terminal: {
-      output: './output/oracledb/encoding_foo.json'
+      output: './data/output/oracledb/encoding_foo.json'
     }
   });
 
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./data/test/encoding_foo_01.json"
       }
     }
   });
@@ -47,7 +47,7 @@ async function tests() {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*"
     },
     terminal: {
-      output: './output/oracledb/encoding_foo_01.json'
+      output: './data/output/oracledb/encoding_foo_01.json'
     }
   });
 
@@ -56,7 +56,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./data/test/encoding_foo_02.json"
       }
     }
   });
@@ -67,7 +67,7 @@ async function tests() {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*"
     },
     terminal: {
-      output: './output/oracledb/encoding_foo_02.json'
+      output: './data/output/oracledb/encoding_foo_02.json'
     }
   });
 
@@ -80,7 +80,7 @@ async function tests() {
           keyword: 120,
           text: 2000
         },
-        encoding: "./test/data/encoding_foo_lg.json"
+        encoding: "./data/test/encoding_foo_lg.json"
       }
     }
   });

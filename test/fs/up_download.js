@@ -14,14 +14,14 @@ async function test_1() {
 
   await download({
     origin: {
-      smt: "*|./test/data/|*.csv|*",
+      smt: "*|./data/test/|*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
       options: {
-        downloads: "./output/downloads/"
+        downloads: "./data/output/fs/downloads/"
       }
     }
   });
@@ -33,12 +33,12 @@ async function test_2() {
   await upload({
     origin: {
       options: {
-        uploads: "./test/data/*.json",
+        uploads: "./data/test/*.json",
         recursive: true
       }
     },
     terminal: {
-      smt: "*|./output/uploads/|*|*",
+      smt: "*|./data/output/fs/uploads/|*|*",
       options: {
         useRPath: true
       }

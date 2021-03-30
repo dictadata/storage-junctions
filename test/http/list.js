@@ -13,7 +13,7 @@ async function testIIS() {
   logger.info("=== list http directory - forEach");
   await list({
     origin: {
-      smt: "json|http://localhost/test/data/|*.json|*",
+      smt: "json|http://localhost/data/test/|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -23,21 +23,21 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./output/http/list_1.json"
+      output: "./data/output/http/list_1.json"
     }
   });
 
   logger.info("=== list http directory - recursive");
   await list({
     origin: {
-      smt: "json|http://localhost/test/|*.json|*",
+      smt: "json|http://localhost/data/|*.json|*",
       options: {
         recursive: true,
         http: 1.1
       }
     },
     terminal: {
-      output: "./output/http/list_2.json"
+      output: "./data/output/http/list_2.json"
     }
   });
 
@@ -67,7 +67,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./output/http/list_3.json"
+      output: "./data/output/http/list_3.json"
     }
   });
 
@@ -90,7 +90,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./output/http/list_4.json"
+      output: "./data/output/http/list_4.json"
     }
   });
 

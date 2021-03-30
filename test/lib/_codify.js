@@ -30,6 +30,10 @@ module.exports = exports = async function (tract) {
       logger.info("<<< save encoding to " + tract.outputFile1);
       fs.mkdirSync(path.dirname(tract.outputFile1), { recursive: true });
       fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1, null, 2), "utf8");
+
+      let expected_output = tract.outputFile1.replace("output", "expected");
+      if (_compare(tract.outputFile1, expected_output))
+        throw new storage.StorageError(409, "file compare failed");
     }
 
     // *** use CodifyTransform to determine encoding including optional transforms
@@ -53,6 +57,10 @@ module.exports = exports = async function (tract) {
       logger.info("<<< save encoding to " + tract.outputFile2);
       fs.mkdirSync(path.dirname(tract.outputFile1), { recursive: true });
       fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2, null, "  "), "utf8");
+
+      let expected_output = tract.outputFile2.replace("output", "expected");
+      if (_compare(tract.outputFile2, expected_output))
+        throw new storage.StorageError(409, "file compare failed");
     }
 
     logger.info(">>> completed");

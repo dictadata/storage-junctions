@@ -13,13 +13,13 @@ async function tests() {
   logger.verbose('=== json extract results.0.items');
   await transfer({
     "origin": {
-      "smt": "json|./test/data/|pick_data.json|*",
+      "smt": "json|./data/test/|extract_data.json|*",
       "options": {
         "extract": "results.0.items"
       }
     },
     "terminal": {
-      "smt": "json|./output/pipelines/|pick_data.json|*"
+      "smt": "json|./data/output/pipelines/|extracted_data.json|*"
     }
   });
 }

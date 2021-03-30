@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list fs directory (forEach)");
   await list({
     origin: {
-      smt: "json|./test/data/|*.json|*",
+      smt: "json|./data/test/|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/fs/list_1.json"
+      output: "./data/output/fs/list_1.json"
     }
   });
 
@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: {
         model: "json",
-        locus: "./test/",
+        locus: "./data/test/",
         schema: "*.json",
         key: "*"
       },
@@ -41,7 +41,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/fs/list_2.json"
+      output: "./data/output/fs/list_2.json"
     }
   });
 

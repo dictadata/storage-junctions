@@ -13,7 +13,7 @@ async function test_1() {
   logger.info("=== list ftp directory (forEach)");
   await list({
     origin: {
-      smt: "json|ftp://dicta:data@localhost/test/data/|*.json|*",
+      smt: "json|ftp://dicta:data@localhost/data/test/|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -22,7 +22,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./output/ftp/list_1.json"
+      output: "./data/output/ftp/list_1.json"
     }
   });
 
@@ -31,7 +31,7 @@ async function test_1() {
     origin: {
       smt: {
         model: "json",
-        locus: "ftp://dicta:data@localhost/test/",
+        locus: "ftp://dicta:data@localhost/data/",
         schema: "*.json",
         key: "*"
       },
@@ -41,7 +41,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./output/ftp/list_2.json"
+      output: "./data/output/ftp/list_2.json"
     }
   });
 

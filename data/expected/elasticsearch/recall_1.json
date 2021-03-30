@@ -1,0 +1,11 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": {
+    "twenty": {
+      "Foo": "twenty",
+      "Bar": "Jackson",
+      "Baz": 20
+    }
+  }
+}

@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== csv => elasticsearch");
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./data/test/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,7 +32,7 @@ async function tests() {
   logger.info("=== json => elasticsearch");
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./data/test/|foofile.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
@@ -42,7 +42,7 @@ async function tests() {
   logger.info("=== json 01 => elasticsearch");
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_01.json|*"
+      smt: "json|./data/test/|foofile_01.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
@@ -52,7 +52,7 @@ async function tests() {
   logger.info("=== json 02 => elasticsearch");
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_02.json|*"
+      smt: "json|./data/test/|foofile_02.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_02|*"
@@ -75,7 +75,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./output/elasticsearch/|transfer_foo.csv|*",
+      smt: "csv|./data/output/elasticsearch/|transfer_foo.csv|*",
       options: {
         header: true,
         append: false
@@ -89,7 +89,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     },
     terminal: {
-      smt: "json|./output/elasticsearch/|transfer_foo_j.json|*",
+      smt: "json|./data/output/elasticsearch/|transfer_foo_j.json|*",
       options: {
         append: false
       }

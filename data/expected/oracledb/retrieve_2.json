@@ -1,0 +1,72 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "Foo": "second",
+      "Bar": "row",
+      "Baz": 456,
+      "Fobe": 2.1,
+      "Dt Test": "2018-10-07T10:00:00.000Z",
+      "enabled": true,
+      "tags": [
+        "unfun",
+        "slow"
+      ],
+      "widgets": [
+        {
+          "part": "core",
+          "count": 12
+        },
+        {
+          "part": "screw",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "Foo": "first",
+      "Bar": "row",
+      "Baz": 123,
+      "Fobe": 1,
+      "Dt Test": "2018-10-07T05:00:00.000Z",
+      "enabled": true,
+      "tags": [
+        "fun",
+        "fast"
+      ],
+      "widgets": [
+        {
+          "part": "core",
+          "count": 12
+        },
+        {
+          "part": "screw",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "Foo": "third",
+      "Bar": "row your boat",
+      "Baz": 789,
+      "Fobe": 3,
+      "Dt Test": "2018-10-18T10:00:00.000Z",
+      "enabled": true,
+      "tags": [
+        "row",
+        "boat!"
+      ],
+      "widgets": [
+        {
+          "part": "core",
+          "count": 12
+        },
+        {
+          "part": "screw",
+          "count": 9
+        }
+      ]
+    }
+  ]
+}

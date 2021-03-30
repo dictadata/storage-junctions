@@ -15,7 +15,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "elasticsearch|http://localhost:9200|" + schema + "|!Foo",
       options: {
-        encoding: "./test/data/" + encoding + ".json"
+        encoding: "./data/test/" + encoding + ".json"
       }
     }
   });

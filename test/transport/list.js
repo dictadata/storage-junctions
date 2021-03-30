@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/transport/list.json"
+      output: "./data/output/transport/list.json"
     }
   });
 

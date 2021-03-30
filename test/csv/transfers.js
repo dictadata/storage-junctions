@@ -13,13 +13,13 @@ async function tests() {
   logger.verbose('=== csv > csv_output.csv');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./data/test/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./output/csv/|output.csv|*",
+      smt: "csv|./data/output/csv/|output.csv|*",
       options: {
         header: true
       }
@@ -29,33 +29,33 @@ async function tests() {
   logger.verbose('=== csv > csv_output_noheader.csv');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./data/test/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./output/csv/|output_noheader.csv|*"
+      smt: "csv|./data/output/csv/|output_noheader.csv|*"
     }
   });
 
   logger.verbose('=== csv > csv_output.json');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./data/test/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "json|./output/csv/|output.json|*"
+      smt: "json|./data/output/csv/|output.json|*"
     }
   });
 
   logger.verbose('=== timeseries.csv > csv_timeseries.json');
   await transfer({
     origin: {
-      smt: "csv|./test/data/|timeseries.csv|*",
+      smt: "csv|./data/test/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {
@@ -65,7 +65,7 @@ async function tests() {
       },
     },
     terminal: {
-      smt: "json|./output/csv/|timeseries.json|*"
+      smt: "json|./data/output/csv/|timeseries.json|*"
     }
   });
 }

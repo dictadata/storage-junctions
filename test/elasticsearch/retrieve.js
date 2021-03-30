@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/elasticsearch/retrieve_1.json"
+      output: "./data/output/elasticsearch/retrieve_1.json"
     }
   });
 
@@ -35,7 +35,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/elasticsearch/retrieve_2.json"
+      output: "./data/output/elasticsearch/retrieve_2.json"
     }
   });
 
@@ -54,7 +54,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./output/elasticsearch/retrieve_3.json"
+      output: "./data/output/elasticsearch/retrieve_3.json"
     }
   });
 

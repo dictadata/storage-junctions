@@ -1,0 +1,10 @@
+[
+{"Foo":"first","baz_sum":123},
+{"Foo":"second","baz_sum":456},
+{"Foo":"third","baz_sum":789},
+{"Foo":"fourth","baz_sum":0},
+{"Foo":"fifth","baz_sum":-12},
+{"Foo":"sixth","baz_sum":0},
+{"Foo":"seventh","baz_sum":0},
+{"Foo":"eighth","baz_sum":12}
+]

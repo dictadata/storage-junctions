@@ -26,6 +26,10 @@ module.exports = exports = async function (tract) {
         logger.verbose("<<< " + tract.terminal.output);
         fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
         fs.writeFileSync(tract.terminal.output, JSON.stringify(encoding, null, "  "));
+
+        let expected_output = tract.terminal.output.replace("output", "expected");
+        if (_compare(tract.terminal.output, expected_output))
+          throw new storage.StorageError(409, "file compare failed");
       }
     }
     else

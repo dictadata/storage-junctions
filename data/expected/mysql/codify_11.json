@@ -1,0 +1,119 @@
+{
+  "smt": {
+    "model": "mysql",
+    "locus": "host=localhost;user=dicta;password=data;database=storage_node",
+    "schema": "foo_schema_01",
+    "key": "=Foo"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 7,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 1,
+      "label": "Foo",
+      "_mysql": {
+        "Type": "varchar(7)"
+      }
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "keyword",
+      "size": 13,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Bar",
+      "_mysql": {
+        "Type": "varchar(13)"
+      }
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "integer",
+      "size": 11,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Baz",
+      "_mysql": {
+        "Type": "int(11)"
+      }
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "float",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Fobe",
+      "_mysql": {
+        "Type": "double"
+      }
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "date",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Dt Test",
+      "_mysql": {
+        "Type": "datetime"
+      }
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "boolean",
+      "size": 1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabled",
+      "_mysql": {
+        "Type": "tinyint(1)"
+      }
+    },
+    "subObj1": {
+      "name": "subObj1",
+      "type": "map",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "subObj1",
+      "_mysql": {
+        "Type": "json"
+      }
+    },
+    "subObj2": {
+      "name": "subObj2",
+      "type": "map",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "subObj2",
+      "_mysql": {
+        "Type": "json"
+      }
+    },
+    "tags": {
+      "name": "tags",
+      "type": "map",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "tags",
+      "_mysql": {
+        "Type": "json"
+      }
+    }
+  },
+  "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo"
+}
