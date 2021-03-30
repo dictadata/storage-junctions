@@ -11,7 +11,7 @@ logger.info("=== Tests: elasticsearch");
 async function tests() {
 
   logger.info("=== elasticsearch recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
       pattern: {
@@ -21,10 +21,10 @@ async function tests() {
     terminal: {
       output: "./data/output/elasticsearch/recall_1.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
@@ -36,10 +36,10 @@ async function tests() {
     terminal: {
       output: "./data/output/elasticsearch/recall_2.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -11,7 +11,7 @@ logger.info("=== Tests: retreive");
 async function tests() {
 
   logger.info("=== csv aggregate");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -36,10 +36,10 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== csv aggregate summary");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -67,10 +67,10 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== csv aggregate w/ groupby");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -98,10 +98,10 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

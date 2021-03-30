@@ -12,7 +12,7 @@ logger.info("=== tests: ftp downloads");
 async function test_1() {
   logger.info("=== download files from ftp folder");
 
-  await download({
+  if (await download({
     origin: {
       smt: "*|ftp://dicta:data@localhost/data/test/|*.csv|*",
       options: {
@@ -24,13 +24,13 @@ async function test_1() {
         downloads: "./data/output/ftp/downloads/"
       }
     }
-  });
+  })) return 1;
 }
 
 async function test_2() {
   logger.info("=== upload files to ftp folder");
 
-  await upload({
+  if (await upload({
     origin: {
       options: {
         uploads: "./data/test/*.csv",
@@ -41,13 +41,13 @@ async function test_2() {
       smt: "*|ftp://dicta:data@localhost/data/output/uploads/|*|*",
       options: {}
     }
-  });
+  })) return 1;
 }
 
 async function test_3() {
   logger.info("=== download shape files");
 
-  await download({
+  if (await download({
     origin: {
       smt: "*|ftp://dicta:data@localhost/shapefiles/|*.*|*",
       options: {
@@ -60,11 +60,11 @@ async function test_3() {
         useRPath: true
       }
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await test_1();
-  await test_2();
-  await test_3();
+  if (await test_1()) return;
+  if (await test_2()) return;
+  if (await test_3()) return;
 })();

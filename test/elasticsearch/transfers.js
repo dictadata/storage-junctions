@@ -12,12 +12,12 @@ logger.info("=== Tests: elasticsearch");
 async function tests() {
 
   logger.info("=== dullSchema foo_transfer");
-  await dullSchema({
+  if (await dullSchema({
     smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
-  });
+  })) return 1;
 
   logger.info("=== csv => elasticsearch");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -27,50 +27,50 @@ async function tests() {
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     }
-  });
+  })) return 1;
 
   logger.info("=== json => elasticsearch");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     }
-  });
+  })) return 1;
 
   logger.info("=== json 01 => elasticsearch");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile_01.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
     }
-  });
+  })) return 1;
 
   logger.info("=== json 02 => elasticsearch");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile_02.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_02|*"
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch => elasticsearch");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     terminal: {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch => csv");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
     },
@@ -81,10 +81,10 @@ async function tests() {
         append: false
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch => json");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
     },
@@ -94,10 +94,10 @@ async function tests() {
         append: false
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

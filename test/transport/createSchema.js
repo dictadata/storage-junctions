@@ -11,48 +11,48 @@ logger.info("=== Tests: transport createSchema");
 async function tests() {
 
   logger.info("=== transport createSchema foo_scheam");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       options: {
         encoding: "./data/test/encoding_foo.json"
       }
     }
-  });
+  })) return 1;
 
   // create schema for dullSchema.js
   logger.info("=== transport createSchema foo_schema_x");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_x|*",
       options: {
         encoding: "./data/test/encoding_foo.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== transport createSchema");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/test/encoding_foo_01.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== transport createSchema");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/test/encoding_foo_02.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== transport large fields");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_lg|*",
       options: {
@@ -63,10 +63,10 @@ async function tests() {
         encoding: "./data/test/encoding_foo_lg.json"
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -11,7 +11,7 @@ logger.info("=== tests: transport list");
 async function tests() {
 
   logger.info("=== list");
-  await list({
+  if (await list({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|*|*",
       options: {
@@ -21,10 +21,10 @@ async function tests() {
     terminal: {
       output: "./data/output/transport/list.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

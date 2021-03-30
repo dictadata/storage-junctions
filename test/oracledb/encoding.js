@@ -12,67 +12,67 @@ logger.info("=== Test: oracledb");
 async function tests() {
 
   logger.info("=== oracledb createSchema");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       options: {
         encoding: "./data/test/encoding_foo.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb get encoding");
-  await getEncoding({
+  if (await getEncoding({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*"
     },
     terminal: {
       output: './data/output/oracledb/encoding_foo.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb createSchema");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       options: {
         encoding: "./data/test/encoding_foo_01.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb get encoding");
-  await getEncoding({
+  if (await getEncoding({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*"
     },
     terminal: {
       output: './data/output/oracledb/encoding_foo_01.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb createSchema");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       options: {
         encoding: "./data/test/encoding_foo_02.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb get encoding");
-  await getEncoding({
+  if (await getEncoding({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*"
     },
     terminal: {
       output: './data/output/oracledb/encoding_foo_02.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb large fields");
-  await createSchema({
+  if (await createSchema({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_lg|*",
       options: {
@@ -83,10 +83,10 @@ async function tests() {
         encoding: "./data/test/encoding_foo_lg.json"
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

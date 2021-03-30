@@ -5,7 +5,7 @@
     "isDir": false,
     "date": null,
     "size": 1229,
-    "rpath": "data/foo_encoding.json"
+    "rpath": "test/foo_encoding.json"
   },
   {
     "href": "/data/test/foo_encoding_2.json",
@@ -13,7 +13,7 @@
     "isDir": false,
     "date": null,
     "size": 1968,
-    "rpath": "data/foo_encoding_2.json"
+    "rpath": "test/foo_encoding_2.json"
   },
   {
     "href": "/data/test/foofile.json",
@@ -21,7 +21,7 @@
     "isDir": false,
     "date": "2020-03-30T05:53:00.000Z",
     "size": 1692,
-    "rpath": "data/foofile.json"
+    "rpath": "test/foofile.json"
   },
   {
     "href": "/data/test/foofile_01.json",
@@ -29,7 +29,7 @@
     "isDir": false,
     "date": "2020-03-30T05:54:00.000Z",
     "size": 1729,
-    "rpath": "data/foofile_01.json"
+    "rpath": "test/foofile_01.json"
   },
   {
     "href": "/data/test/foofile_02.json",
@@ -37,7 +37,7 @@
     "isDir": false,
     "date": "2020-03-30T05:55:00.000Z",
     "size": 1729,
-    "rpath": "data/foofile_02.json"
+    "rpath": "test/foofile_02.json"
   },
   {
     "href": "/data/test/foofile_03.json",
@@ -45,7 +45,7 @@
     "isDir": false,
     "date": "2020-03-30T05:55:00.000Z",
     "size": 1729,
-    "rpath": "data/foofile_03.json"
+    "rpath": "test/foofile_03.json"
   },
   {
     "href": "/data/test/transforms.json",
@@ -53,6 +53,6 @@
     "isDir": false,
     "date": null,
     "size": 369,
-    "rpath": "data/transforms.json"
+    "rpath": "test/transforms.json"
   }
 ]

@@ -11,7 +11,7 @@ logger.info("=== Test: mysql");
 async function tests() {
 
   logger.info("=== mysql dull");
-  await dull({
+  if (await dull({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -20,10 +20,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

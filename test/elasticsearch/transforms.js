@@ -11,7 +11,7 @@ logger.info("=== Test: elasticsearch transforms");
 async function tests() {
 
   logger.verbose('=== elasticsearch_transform_1.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       options: {
@@ -25,10 +25,10 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/elasticsearch/|transform_1.json|*"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== elasticsearch_transform_2.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
     },
@@ -63,10 +63,10 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/elasticsearch/|transform_2.json|*"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

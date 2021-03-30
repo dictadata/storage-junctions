@@ -12,7 +12,7 @@ logger.info("=== Test: rest retrieve");
 async function testRetrieve() {
 
   logger.verbose("=== Retrieve Weather Service forecast");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
@@ -30,14 +30,10 @@ async function testRetrieve() {
     terminal: {
       output: './data/output/rest/weather_forecast_retrieve.json'
     }
-  });
+  })) return 1;
 
-}
-
-async function tests() {
-  await testRetrieve();
 }
 
 (async () => {
-  await tests();
+  if (await testRetrieve()) return;
 })();

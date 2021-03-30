@@ -11,7 +11,7 @@ logger.info("=== tests: oracledb list");
 async function tests() {
 
   logger.info("=== list");
-  await list({
+  if (await list({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo*|*",
       options: {
@@ -21,10 +21,10 @@ async function tests() {
     terminal: {
       output: "./data/output/oracledb/list.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

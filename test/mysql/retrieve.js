@@ -11,7 +11,7 @@ logger.info("=== Test: mysql");
 async function tests() {
 
   logger.info("=== mysql retrieve");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -23,10 +23,10 @@ async function tests() {
     terminal: {
       output: "./data/output/mysql/retrieve_0.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql retrieve");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
@@ -41,10 +41,10 @@ async function tests() {
     terminal: {
       output: "./data/output/mysql/retrieve_1.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql retrieve");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
@@ -59,10 +59,10 @@ async function tests() {
     terminal: {
       output: "./data/output/mysql/retrieve_2.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql retrieve w/ cues");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -70,10 +70,10 @@ async function tests() {
         "count": 100
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql retrieve with pattern");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*",
       pattern: {
@@ -86,10 +86,10 @@ async function tests() {
         fields: ["Foo", "Baz"]
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

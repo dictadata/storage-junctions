@@ -9,6 +9,7 @@ const logger = require('../../storage/logger');
 logger.info("=== Tests: Generic * Junction");
 
 async function test_1() {
+  retCode = 0;
 
   var junction;
   try {
@@ -25,19 +26,21 @@ async function test_1() {
     logger.info(">>> create filesystem");
     var stfs = await junction.getFileSystem();
 
-
     logger.info(">>> relax junction");
     if (junction) await junction.relax();
 
   }
   catch (err) {
     logger.error(err.message);
+    retCode = 1;
   }
   finally {
     if (junction) await junction.relax();
   }
+
+  return process.exitCode = retCode;
 }
 
 (async () => {
-  await test_1();
+  if (await test_1()) return;
 })();

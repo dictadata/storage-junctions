@@ -11,7 +11,7 @@ logger.info("=== tests: HTTP list");
 async function testIIS() {
 
   logger.info("=== list http directory - forEach");
-  await list({
+  if (await list({
     origin: {
       smt: "json|http://localhost/data/test/|*.json|*",
       options: {
@@ -25,10 +25,10 @@ async function testIIS() {
     terminal: {
       output: "./data/output/http/list_1.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== list http directory - recursive");
-  await list({
+  if (await list({
     origin: {
       smt: "json|http://localhost/data/|*.json|*",
       options: {
@@ -39,14 +39,14 @@ async function testIIS() {
     terminal: {
       output: "./data/output/http/list_2.json"
     }
-  });
+  })) return 1;
 
 }
 
 async function testNGINX() {
 
   logger.info("=== list http directory - forEach");
-  await list({
+  if (await list({
     origin: {
       smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
       options: {
@@ -69,10 +69,10 @@ async function testNGINX() {
     terminal: {
       output: "./data/output/http/list_3.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== list http directory - recursive");
-  await list({
+  if (await list({
     origin: {
       smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
       options: {
@@ -92,11 +92,11 @@ async function testNGINX() {
     terminal: {
       output: "./data/output/http/list_4.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await testIIS();
-  await testNGINX();
+  if (await testIIS()) return;
+  if (await testNGINX()) return;
 })();

@@ -23,26 +23,27 @@ async function tests() {
       Baz: 20
     }
   });
+  if (uid === 1) return;
 
   logger.info("=== elasticsearch recall uid");
-  await recall({
+  if (await recall({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|" + uid
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch recall !");
-  await recall({
+  if (await recall({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!",
       pattern: {
         key: uid
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch recall !Foo");
-  await recall({
+  if (await recall({
     origin: {
       smt: {
         model: "elasticsearch",
@@ -54,10 +55,10 @@ async function tests() {
         Foo: uid
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

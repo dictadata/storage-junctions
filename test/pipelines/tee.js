@@ -11,7 +11,7 @@ logger.info("=== Test: pipeline tee");
 async function tests() {
 
   logger.verbose('=== foo_schema > pipelines/tee_1.json, pipelines/tee_2.json');
-  let tract = {
+  if (await tee({
     origin: {
       smt: "json|./data/test/|foofile.json|*",
       options: {
@@ -50,10 +50,9 @@ async function tests() {
         }
       }
     ]
-  };
-  await tee(tract);
+  })) return 1;
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

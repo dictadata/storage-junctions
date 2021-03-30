@@ -15,7 +15,7 @@ async function testDBTransform1(tract) {
   logger.info("=== DBTRANSFORM1 elasticsearch > " + engram.smt.model);
   logger.verbose("=== " + engram.smt.model + "||" + engram.smt.schema);
 
-  await transfer({
+  if (await transfer({
     "origin": {
       "smt": "elasticsearch|http://localhost:9200|foo_schema|*",
       "options": {}
@@ -46,7 +46,7 @@ async function testDBTransform1(tract) {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
@@ -55,7 +55,7 @@ async function testDBTransform2() {
   logger.info("=== DBTRANSFORM2 mysql > elasticsearch");
   logger.verbose("=== elasticsearch||foo_dbtransform");
 
-  await transfer({
+  if (await transfer({
     "origin": {
       "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
       "options": {}
@@ -84,7 +84,7 @@ async function testDBTransform2() {
       "smt": "elasticsearch|http://localhost:9200|foo_dbtransform|=Foo",
       "options": {}
     }
-  });
+  })) return 1;
 
 }
 
@@ -94,9 +94,10 @@ async function forecastTransform(tract) {
   logger.info("=== WEATHER FORECAST API to " + engram.smt.model);
   logger.verbose("=== " + engram.smt.model + "||" + engram.smt.schema);
 
-  await dullSchema(tract.terminal);
+  if (await dullSchema(tract.terminal))
+    return 1;
 
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
@@ -119,48 +120,55 @@ async function forecastTransform(tract) {
       }
     },
     "terminal": tract.terminal
-  });
+  })) return 1;
 
 }
 
 (async () => {
 
-  await testDBTransform1({
+  if (await testDBTransform1({
     terminal: {
       smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_dbtransform|=foo"
     }
-  });
-  await testDBTransform1({
+  })) return;
+
+  if (await testDBTransform1({
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_dbtransform|=foo"
     }
-  });
-  await testDBTransform1({
+  })) return;
+
+  if (await testDBTransform1({
     terminal: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_dbtransform|*"
     }
-  });
+  })) return;
 
-  await testDBTransform2();
+  if (await testDBTransform2())
+    return 1;
 
-  await forecastTransform({
+  if (await forecastTransform({
     terminal: {
       smt: "elasticsearch|http://localhost:9200|weather_forecast|=Foo"
     }
-  });
-    await forecastTransform({
+  })) return;
+
+  if (await forecastTransform({
     terminal: {
       smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|weather_forecast|*"
     }
-  });
-  await forecastTransform({
+  })) return;
+
+  if (await forecastTransform({
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|weather_forecast|*"
     }
-  });
-  await forecastTransform({
+  })) return;
+
+  if (await forecastTransform({
     terminal: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|weather_forecast|*"
     }
-  });
+  })) return;
+  
 })();

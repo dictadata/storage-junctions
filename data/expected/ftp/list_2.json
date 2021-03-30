@@ -3,27 +3,6 @@
     "name": "foofile_01.json",
     "type": "-",
     "size": 1729,
-    "date": "2020-03-30T05:54:00.000Z",
-    "rpath": "data/foofile_01.json"
-  },
-  {
-    "name": "foofile_02.json",
-    "type": "-",
-    "size": 1729,
-    "date": "2020-03-30T05:55:00.000Z",
-    "rpath": "data/foofile_02.json"
-  },
-  {
-    "name": "foofile_03.json",
-    "type": "-",
-    "size": 1729,
-    "date": "2020-03-30T05:55:00.000Z",
-    "rpath": "data/foofile_03.json"
-  },
-  {
-    "name": "foofile_01.json",
-    "type": "-",
-    "size": 1729,
     "date": "2021-02-24T18:14:00.000Z",
     "rpath": "output/uploads/foofile_01.json"
   },
@@ -40,5 +19,26 @@
     "size": 1729,
     "date": "2021-02-24T18:14:00.000Z",
     "rpath": "output/uploads/foofile_03.json"
+  },
+  {
+    "name": "foofile_01.json",
+    "type": "-",
+    "size": 1729,
+    "date": "2020-03-30T05:54:00.000Z",
+    "rpath": "test/foofile_01.json"
+  },
+  {
+    "name": "foofile_02.json",
+    "type": "-",
+    "size": 1729,
+    "date": "2020-03-30T05:55:00.000Z",
+    "rpath": "test/foofile_02.json"
+  },
+  {
+    "name": "foofile_03.json",
+    "type": "-",
+    "size": 1729,
+    "date": "2020-03-30T05:55:00.000Z",
+    "rpath": "test/foofile_03.json"
   }
 ]

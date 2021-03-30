@@ -11,7 +11,7 @@ logger.info("=== Test: oracledb");
 async function tests() {
 
   logger.info("=== oracledb recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
       pattern: {
@@ -23,10 +23,10 @@ async function tests() {
     terminal: {
       output: "./data/output/oracledb/recall.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
@@ -35,10 +35,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

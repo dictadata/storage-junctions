@@ -11,8 +11,9 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = exports = async function (tract) {
-
   logger.info(">>> create junction");
+  let retCode = 0;
+
   logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
   if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
   if (!tract.terminal) tract.terminal = {};
@@ -30,19 +31,19 @@ module.exports = exports = async function (tract) {
       fs.writeFileSync(tract.terminal.output, JSON.stringify(list, null, 2), "utf8");
 
       let expected_output = tract.terminal.output.replace("output", "expected");
-      if (_compare(tract.terminal.output, expected_output))
-        throw new storage.StorageError(409, "file compare failed");
+      retCode = _compare(tract.terminal.output, expected_output);
     }
 
     logger.info(">>> completed");
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     if (jo)
       await jo.relax();
   }
 
+  return process.exitCode = retCode;
 };

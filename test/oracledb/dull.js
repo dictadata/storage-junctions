@@ -11,7 +11,7 @@ logger.info("=== Test: oracledb");
 async function tests() {
 
   logger.info("=== oracledb dull");
-  await dull({
+  if (await dull({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
@@ -20,10 +20,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

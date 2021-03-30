@@ -11,7 +11,7 @@ logger.info("=== tests: FTP list");
 async function test_1() {
 
   logger.info("=== list ftp directory (forEach)");
-  await list({
+  if (await list({
     origin: {
       smt: "json|ftp://dicta:data@localhost/data/test/|*.json|*",
       options: {
@@ -24,10 +24,10 @@ async function test_1() {
     terminal: {
       output: "./data/output/ftp/list_1.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== list ftp directory (recursive)");
-  await list({
+  if (await list({
     origin: {
       smt: {
         model: "json",
@@ -43,10 +43,10 @@ async function test_1() {
     terminal: {
       output: "./data/output/ftp/list_2.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await test_1();
+  if (await test_1()) return;
 })();

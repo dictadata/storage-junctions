@@ -11,7 +11,7 @@ logger.info("=== Tests: retreive");
 async function tests() {
 
   logger.info("=== oracledb aggregate");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
@@ -28,10 +28,10 @@ async function tests() {
     terminal: {
       output: './data/output/oracledb/aggregate_1.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb aggregate summary");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
@@ -52,10 +52,10 @@ async function tests() {
     terminal: {
       output: './data/output/oracledb/aggregate_2.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb aggregate w/ groupby");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
       pattern: {
@@ -77,10 +77,10 @@ async function tests() {
     terminal: {
       output: './data/output/oracledb/aggregate_3.json'
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

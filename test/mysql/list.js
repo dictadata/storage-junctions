@@ -11,7 +11,7 @@ logger.info("=== tests: mysql list");
 async function tests() {
 
   logger.info("=== list");
-  await list({
+  if (await list({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|*|*",
       options: {
@@ -21,10 +21,10 @@ async function tests() {
     terminal: {
       output: "./data/output/mysql/list.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

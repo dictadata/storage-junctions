@@ -12,7 +12,7 @@ logger.info("=== tests: fs file copy");
 async function test_1() {
   logger.info("=== download files");
 
-  await download({
+  if (await download({
     origin: {
       smt: "*|./data/test/|*.csv|*",
       options: {
@@ -24,13 +24,13 @@ async function test_1() {
         downloads: "./data/output/fs/downloads/"
       }
     }
-  });
+  })) return 1;
 }
 
 async function test_2() {
   logger.info("=== upload files");
 
-  await upload({
+  if (await upload({
     origin: {
       options: {
         uploads: "./data/test/*.json",
@@ -43,10 +43,10 @@ async function test_2() {
         useRPath: true
       }
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await test_1();
-  await test_2();
+  if (await test_1()) return;
+  if (await test_2()) return;
 })();

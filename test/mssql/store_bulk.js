@@ -12,7 +12,7 @@ logger.info("=== Test: mssql bulk storage");
 async function tests() {
 
   logger.info("=== mssql storeBulk");
-  await storeBulk({
+  if (await storeBulk({
     origin: {
       smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema|=Foo"
     },
@@ -29,10 +29,10 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 120
     }]
-  });
+  })) return 1;
 
   logger.verbose('=== timeseries.csv > mssql');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|timeseries.csv|*",
       options: {
@@ -49,10 +49,10 @@ async function tests() {
         bulkLoad: true
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

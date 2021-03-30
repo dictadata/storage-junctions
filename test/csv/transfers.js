@@ -11,7 +11,7 @@ logger.info("=== Test: csv transfers");
 async function tests() {
 
   logger.verbose('=== csv > csv_output.csv');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -24,10 +24,10 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 
   logger.verbose('=== csv > csv_output_noheader.csv');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -37,10 +37,10 @@ async function tests() {
     terminal: {
       smt: "csv|./data/output/csv/|output_noheader.csv|*"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== csv > csv_output.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -50,10 +50,10 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/csv/|output.json|*"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== timeseries.csv > csv_timeseries.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|timeseries.csv|*",
       options: {
@@ -67,9 +67,9 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/csv/|timeseries.json|*"
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

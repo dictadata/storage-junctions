@@ -11,7 +11,7 @@ logger.info("=== Test: mysql transforms");
 async function tests() {
 
   logger.verbose("=== json => mysql foo_schema_etl2");
-  await transfer({
+  if (await transfer({
     "origin": {
       "smt": "json|./data/test/|foofile.json|*"
     },
@@ -47,10 +47,10 @@ async function tests() {
         "encoding": "./data/test/foo_encoding_t.json"
       }
     }
-  });
+  })) return 1;
 
   logger.verbose('=== mysql > mysql_transform_0.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       options: {
@@ -64,10 +64,10 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/mysql/|transform_0.json|*"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== mysql > mysql_transform_1.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
@@ -104,10 +104,10 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/mysql/|transform_1.json|*"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== mysql > mysql_transform_2.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
@@ -144,10 +144,10 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/mysql/|transform_2.json|*"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -12,7 +12,7 @@ logger.info("=== Test: transport bulk storage");
 async function tests() {
 
   logger.info("=== transport storeBulk");
-  await storeBulk({
+  if (await storeBulk({
     origin: {
       smt: "transport|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|=Foo"
     },
@@ -29,10 +29,10 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 120
     }]
-  });
+  })) return 1;
 
   logger.verbose('=== timeseries.csv > transport');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|timeseries.csv|*",
       options: {
@@ -49,10 +49,10 @@ async function tests() {
         bulkLoad: true
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

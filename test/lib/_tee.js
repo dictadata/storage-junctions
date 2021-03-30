@@ -15,6 +15,7 @@ const stream = require('stream/promises');
  * tee function
  */
 module.exports = exports = async function (tract) {
+  let retCode = 0;
 
   var jo;
   var jtlist = [];
@@ -82,7 +83,7 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     if (jo)
@@ -91,4 +92,5 @@ module.exports = exports = async function (tract) {
       await j.relax();
   }
 
+  return process.exitCode = retCode;
 };

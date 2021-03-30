@@ -12,12 +12,12 @@ logger.info("=== Test: mssql transfers");
 async function tests() {
 
   logger.info("=== dullSchema foo_transfer");
-  await dullSchema({
+  if (await dullSchema({
     smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|*"
-  });
+  })) return 1;
 
   logger.info("=== foofile.csv > mssql");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -27,10 +27,10 @@ async function tests() {
     terminal: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo"
     }
-  });
+  })) return 1;
 
   logger.info("=== foofile_01.json > mssql");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile_01.json|*" 
     },
@@ -40,10 +40,10 @@ async function tests() {
         encoding: "./data/test/encoding_foo_01.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== foofile_02.json > mssql");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile_02.json|*" 
     },
@@ -53,20 +53,20 @@ async function tests() {
         encoding: "./data/test/encoding_foo_02.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== mssql > mssql foo_transfer");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo"
     },
     terminal: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|=Foo"
     }
-  });
+  })) return 1;
 
   logger.info("=== mssql > mssql_transfer.csv");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|=Foo"
     },
@@ -76,9 +76,9 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

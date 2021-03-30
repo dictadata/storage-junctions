@@ -11,6 +11,7 @@ const fs = require('fs');
 logger.info("=== Tests: echo encodings");
 
 async function tests() {
+  let retCode = 0;
 
   var jo;
   var encoding;
@@ -50,12 +51,15 @@ async function tests() {
   }
   catch (err) {
     logger.error(err);
+    retCode = 1;
   }
   finally {
     if (jo) jo.relax();
   }
+
+  return process.exitCode = retCode;
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -8,11 +8,11 @@ const EchoJunction = require("../../storage/junctions/echo");
 const logger = require('../../storage/logger');
 const stream = require('stream/promises');
 
-
 logger.info("=== Tests: EchoJunction");
 
 async function testStream() {
   logger.info("=== testStream");
+  let retCode = 0;
 
   var jo;
   try {
@@ -41,16 +41,15 @@ async function testStream() {
   }
   catch (err) {
     logger.error(err.message);
+    retCode = 1;
   }
   finally {
     if (jo) await jo.relax();
   }
-}
 
-async function tests() {
-  await testStream();
+  return process.exitCode = retCode;
 }
 
 (async () => {
-  await tests();
+  if (await testStream()) return;
 })();

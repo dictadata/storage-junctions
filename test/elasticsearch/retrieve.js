@@ -11,7 +11,7 @@ logger.info("=== Tests: elasticsearch");
 async function tests() {
 
   logger.info("=== elasticsearch retrieve");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
@@ -23,10 +23,10 @@ async function tests() {
     terminal: {
       output: "./data/output/elasticsearch/retrieve_1.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch retrieve w/ cues");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*",
       pattern: {
@@ -37,10 +37,10 @@ async function tests() {
     terminal: {
       output: "./data/output/elasticsearch/retrieve_2.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch retrieve w/ pattern");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_02|*",
       pattern: {
@@ -56,10 +56,10 @@ async function tests() {
     terminal: {
       output: "./data/output/elasticsearch/retrieve_3.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

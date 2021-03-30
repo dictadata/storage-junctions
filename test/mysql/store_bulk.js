@@ -12,7 +12,7 @@ logger.info("=== Test: mysql bulk storage");
 async function tests() {
 
   logger.info("=== mysql storeBulk");
-  await storeBulk({
+  if (await storeBulk({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"
     },
@@ -29,10 +29,10 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 120
     }]
-  });
+  })) return 1;
 
   logger.verbose('=== timeseries.csv > mysql');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|timeseries.csv|*",
       options: {
@@ -49,10 +49,10 @@ async function tests() {
         bulkLoad: true
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -11,14 +11,14 @@ logger.info("=== Tests: transport dullSchema");
 async function tests() {
 
   logger.info("=== transport dullSchema foo_schema_x");
-  await dullSchema({
+  if (await dullSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_x|*"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

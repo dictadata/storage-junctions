@@ -11,7 +11,7 @@ logger.info("=== Test: split file");
 async function tests() {
 
   logger.verbose('=== json extract results.0.items');
-  await transfer({
+  if (await transfer({
     "origin": {
       "smt": "json|./data/test/|extract_data.json|*",
       "options": {
@@ -21,9 +21,9 @@ async function tests() {
     "terminal": {
       "smt": "json|./data/output/pipelines/|extracted_data.json|*"
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -11,7 +11,7 @@ logger.info("=== Test: transport");
 async function tests() {
 
   logger.info("=== transport dull");
-  await dull({
+  if (await dull({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
@@ -20,10 +20,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

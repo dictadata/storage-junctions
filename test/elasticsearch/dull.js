@@ -11,17 +11,17 @@ logger.info("=== Tests: elasticsearch");
 async function tests() {
 
   logger.info("=== elasticsearch dull !Foo");
-  await dull({
+  if (await dull({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
       pattern: {
         key: 'twenty'
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch dull =Foo");
-  await dull({
+  if (await dull({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
@@ -30,10 +30,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -48,6 +48,12 @@
     "date": "2021-02-05T04:47:31.357Z"
   },
   {
+    "name": "extract_data.json",
+    "rpath": "extract_data.json",
+    "size": 1279,
+    "date": "2021-03-30T00:05:44.463Z"
+  },
+  {
     "name": "foofile.json",
     "rpath": "foofile.json",
     "size": 1156,
@@ -78,12 +84,6 @@
     "date": "2021-03-07T22:18:53.235Z"
   },
   {
-    "name": "pick_data.json",
-    "rpath": "pick_data.json",
-    "size": 1279,
-    "date": "2021-02-19T02:11:23.614Z"
-  },
-  {
     "name": "shakespeare_6.0.json",
     "rpath": "shakespeare_6.0.json",
     "size": 25327465,
@@ -92,8 +92,8 @@
   {
     "name": "table_schemas.json",
     "rpath": "table_schemas.json",
-    "size": 13391,
-    "date": "2021-02-19T02:09:05.425Z"
+    "size": 2817,
+    "date": "2021-03-30T00:27:02.006Z"
   },
   {
     "name": "table_schemas_encoding.json",

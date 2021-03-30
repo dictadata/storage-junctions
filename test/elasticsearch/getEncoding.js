@@ -13,19 +13,19 @@ logger.info("===== elasticsearch getEncoding ");
 async function test(schema, encoding) {
 
   logger.info("=== getEncoding " + schema);
-  await getEncoding({
+  if (await getEncoding({
     origin: {
       smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
     },
     terminal: {
       output: "./data/output/elasticsearch/" + encoding + ".json"
     }
-  });
+  })) return 1;
   
 }
 
 (async () => {
-  await test("foo_schema", "encoding_foo");
-  await test("foo_schema_01", "encoding_foo_01");
-  await test("foo_schema_02", "encoding_foo_02");
+  if (await test("foo_schema", "encoding_foo")) return;
+  if (await test("foo_schema_01", "encoding_foo_01")) return;
+  if (await test("foo_schema_02", "encoding_foo_02")) return;
 })();

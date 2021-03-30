@@ -11,7 +11,7 @@ logger.info("=== Tests: retreive");
 async function tests() {
 
   logger.info("=== json aggregate");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile.json|*"
     },
@@ -30,10 +30,10 @@ async function tests() {
     terminal: {
       "smt": 'json|./data/output/transforms/|json_aggregate_1.json|*'
     }
-  });
+  })) return 1;
 
   logger.info("=== json aggregate summary");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile.json|*",
     },
@@ -55,10 +55,10 @@ async function tests() {
     terminal: {
       "smt": 'json|./data/output/transforms/|json_aggregate_2.json|*'
     }
-  });
+  })) return 1;
 
   logger.info("=== json aggregate w/ groupby");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile.json|*"
     },
@@ -80,10 +80,10 @@ async function tests() {
     terminal: {
       "smt": 'json|./data/output/transforms/|json_aggregate_3.json|*'
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

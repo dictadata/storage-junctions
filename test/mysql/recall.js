@@ -11,7 +11,7 @@ logger.info("=== Test: mysql");
 async function tests() {
 
   logger.info("=== mysql recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
       pattern: {
@@ -23,10 +23,10 @@ async function tests() {
     terminal: {
       output: "./data/output/mysql/recall.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -35,10 +35,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

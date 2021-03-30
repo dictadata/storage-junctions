@@ -11,12 +11,12 @@ logger.info("===== elasticsearch getEncoding ");
 async function test(schema, encoding) {
 
   logger.info("=== dullSchema" + schema);
-  await dullSchema({
+  if (await dullSchema({
     smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await test("foo_schema_x", "encoding_foo");
+  if (await test("foo_schema_x", "encoding_foo")) return;
 })();

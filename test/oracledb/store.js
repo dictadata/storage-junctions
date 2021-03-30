@@ -11,7 +11,7 @@ logger.info("=== Test: oracledb");
 async function tests() {
 
   logger.info("=== oracledb store 20");
-  await store({
+  if (await store({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
@@ -20,10 +20,10 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 20
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb store 30");
-  await store({
+  if (await store({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
@@ -33,10 +33,10 @@ async function tests() {
       Baz: 30,
       enabled: false
     }
-  });
+  })) return 1;
 
   logger.info("=== oracledb store 10");
-  await store({
+  if (await store({
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
     },
@@ -46,10 +46,10 @@ async function tests() {
       Baz: 10,
       enabled: false
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -11,7 +11,7 @@ logger.info("=== Tests: transfer w/ transforms");
 async function tests() {
 
   logger.info("=== compose");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|table_schemas.json|*",
       options: {
@@ -27,10 +27,10 @@ async function tests() {
       "smt": 'json|./data/output/transforms/|compose_schemas.json|*',
       options: {}
     }
-  });
+  })) return 1;
 
   logger.info("=== flatten");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/output/transforms/|compose_schemas.json|*",
       options: {}
@@ -46,10 +46,10 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

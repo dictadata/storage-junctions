@@ -11,7 +11,7 @@ logger.info("=== Tests: elasticsearch");
 async function tests() {
 
   logger.info("=== elasticsearch store");
-  await store({
+  if (await store({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
@@ -23,10 +23,10 @@ async function tests() {
       "Dt Test": "10/07/2018",
       "enabled": false
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch store");
-  await store({
+  if (await store({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
@@ -35,10 +35,10 @@ async function tests() {
       Bar: 'Washington',
       Baz: 1
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch store");
-  await store({
+  if (await store({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
@@ -47,10 +47,10 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 20
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch store");
-  await store({
+  if (await store({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
@@ -59,10 +59,10 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 20
     }
-  });
+  })) return 1;
 
   logger.info("=== elasticsearch store");
-  await store({
+  if (await store({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
     },
@@ -71,10 +71,10 @@ async function tests() {
       Bar: 'Hamilton',
       Baz: 10
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

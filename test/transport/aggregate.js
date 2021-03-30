@@ -11,7 +11,7 @@ logger.info("=== Tests: retreive");
 async function tests() {
 
   logger.info("=== transport aggregate");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
@@ -28,10 +28,10 @@ async function tests() {
     terminal: {
       output: './data/output/transport/aggregate_1.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== transport aggregate summary");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
@@ -52,10 +52,10 @@ async function tests() {
     terminal: {
       output: './data/output/transport/aggregate_2.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== transport aggregate w/ groupby");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
@@ -77,10 +77,10 @@ async function tests() {
     terminal: {
       output: './data/output/transport/aggregate_3.json'
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

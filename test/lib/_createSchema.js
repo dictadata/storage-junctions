@@ -10,8 +10,8 @@ const logger = require('../../storage/logger');
 const fs = require('fs');
 
 module.exports = exports = async function (tract) {
-
   logger.info(">>> create junction");
+  let retCode = 0;
 
   var jo;
   try {
@@ -30,10 +30,11 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     if (jo) await jo.relax();
   }
 
+  return process.exitCode = retCode;
 };

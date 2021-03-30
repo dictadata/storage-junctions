@@ -11,7 +11,7 @@ logger.info("=== tests: fs list");
 async function tests() {
 
   logger.info("=== list fs directory (forEach)");
-  await list({
+  if (await list({
     origin: {
       smt: "json|./data/test/|*.json|*",
       options: {
@@ -24,10 +24,10 @@ async function tests() {
     terminal: {
       output: "./data/output/fs/list_1.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== list fs directory (recursive)");
-  await list({
+  if (await list({
     origin: {
       smt: {
         model: "json",
@@ -43,10 +43,10 @@ async function tests() {
     terminal: {
       output: "./data/output/fs/list_2.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -13,7 +13,7 @@ async function test_01() {
   logger.verbose("=== http source");
 
   logger.verbose('=== http_output.csv');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|http://localhost/data/test/|foofile.csv.gz|*",
       options: {
@@ -26,10 +26,10 @@ async function test_01() {
         header: true
       }
     }
-  });
+  })) return 1;
 
   logger.verbose('=== http_output.csv.gz');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|http://localhost/data/test/|foofile.csv|*",
       options: {
@@ -42,10 +42,10 @@ async function test_01() {
         header: true
       }
     }
-  });
+  })) return 1;
 
   logger.verbose('=== http_output.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|http://localhost/data/test/|foofile.json.gz|*",
       options: {
@@ -54,10 +54,10 @@ async function test_01() {
     terminal: {
       smt: "json|./data/output/http/|output.json|*"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== http_output.json.gz');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|http://localhost/data/test/|foofile.json|*",
       options: {
@@ -66,10 +66,10 @@ async function test_01() {
     terminal: {
       smt: "json|./data/output/http/|output.json.gz|*"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await test_01();
+  if (await test_01()) return;
 })();

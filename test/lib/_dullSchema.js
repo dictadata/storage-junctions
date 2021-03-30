@@ -11,6 +11,8 @@ const path = require('path');
 
 module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
+  let retCode = 0;
+
   if (tract.origin)
     tract = tract.origin;
   
@@ -26,11 +28,12 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     if (jo)
       await jo.relax();
   }
 
+  return process.exitCode = retCode;
 };

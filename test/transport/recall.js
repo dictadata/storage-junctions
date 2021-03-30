@@ -11,7 +11,7 @@ logger.info("=== Test: transport");
 async function tests() {
 
   logger.info("=== transport recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo",
       pattern: {
@@ -23,10 +23,10 @@ async function tests() {
     terminal: {
       output: "./data/output/transport/recall.json"
     }
-  });
+  })) return 1;
 
   logger.info("=== transport recall");
-  await recall({
+  if (await recall({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
@@ -35,10 +35,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

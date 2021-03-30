@@ -11,6 +11,7 @@ const logger = require('../../storage/logger');
 const path = require('path');
 
 module.exports = exports = async function (tract) {
+  let retCode = 0;
 
   var local;
   var junction;
@@ -39,17 +40,21 @@ module.exports = exports = async function (tract) {
 
       let options = Object.assign({ uploadPath: uploads.dir + '\\' }, tract.origin.options, entry);
       let results = await stfs.upload(options);
-      if (results.resultCode !== 0)
+      if (results.resultCode !== 0) {
         logger.error("!!! upload failed: " + results.resultCode);
+        retCode = 1;
+        break;
+      }
     }
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     await local.relax();
     await junction.relax();
   }
 
+  return process.exitCode = retCode;
 };

@@ -11,7 +11,7 @@ logger.info("=== Test: split file");
 async function tests() {
 
   logger.verbose('=== table_schemas => ./data/output/split_*_encoding');
-  await transfer({
+  if (await transfer({
     "origin": {
       "smt": "json|./data/test/|table_schemas.json|*"
     },
@@ -38,9 +38,9 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

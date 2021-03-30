@@ -11,7 +11,7 @@ logger.info("=== tests: http downloads");
 async function test_1() {
   logger.info("=== download from HTML directory page");
 
-  await download({
+  if (await download({
     origin: {
       smt: "*|http://localhost/data/test/|*.csv|*",
       options: {
@@ -30,13 +30,13 @@ async function test_1() {
         downloads: "./data/output/http/downloads/"
       }
     }
-  });
+  })) return 1;
 }
 
 async function test_2() {
   logger.info("=== download shape files");
 
-  await download({
+  if (await download({
     origin: {
       smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
       options: {
@@ -49,10 +49,10 @@ async function test_2() {
         useRPath: true
       }
     }
-  });
+  })) return 1;
 }
 
 (async () => {
-  await test_1();
-  await test_2();
+  if (await test_1()) return;
+  if (await test_2()) return;
 })();

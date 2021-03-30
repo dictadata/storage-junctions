@@ -11,7 +11,7 @@ logger.info("=== tests: elasticsearch list");
 async function tests() {
 
   logger.info("=== list");
-  await list({
+  if (await list({
     origin: {
       smt: "elasticsearch|http://localhost:9200|*|*",
       options: {
@@ -21,10 +21,10 @@ async function tests() {
     terminal: {
       output: "./data/output/elasticsearch/list.json"
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

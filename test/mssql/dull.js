@@ -11,7 +11,7 @@ logger.info("=== Test: mssql");
 async function tests() {
 
   logger.info("=== mssql dull");
-  await dull({
+  if (await dull({
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -20,10 +20,10 @@ async function tests() {
         }
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -11,7 +11,7 @@ logger.info("=== Tests: retreive");
 async function tests() {
 
   logger.info("=== mysql aggregate");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -28,10 +28,10 @@ async function tests() {
     terminal: {
       output: './data/output/mysql/aggregate_1.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql aggregate summary");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -52,10 +52,10 @@ async function tests() {
     terminal: {
       output: './data/output/mysql/aggregate_2.json'
     }
-  });
+  })) return 1;
 
   logger.info("=== mysql aggregate w/ groupby");
-  await retrieve({
+  if (await retrieve({
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
       pattern: {
@@ -77,10 +77,10 @@ async function tests() {
     terminal: {
       output: './data/output/mysql/aggregate_3.json'
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

@@ -15,6 +15,7 @@ const stream = require('stream/promises');
  * transfer function
  */
 module.exports = exports = async function (tract) {
+  let retCode = 0;
 
   var jo, jt;  // junctions origin, terminal
   try {
@@ -94,11 +95,12 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! transfer failed: ' + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     if (jo) await jo.relax();
     if (jt) await jt.relax();
   }
 
+  return process.exitCode = retCode;
 };

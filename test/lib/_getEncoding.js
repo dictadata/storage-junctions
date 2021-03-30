@@ -4,6 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
+const _compare = require("./_compare");
 const storage = require("../../storage");
 const { typeOf } = require("../../storage/utils");
 const logger = require('../../storage/logger');
@@ -13,6 +14,7 @@ const path = require('path');
 module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
   if (!tract.terminal) tract.terminal = {};
+  let retCode = 0;
 
   var jo;
   try {
@@ -28,8 +30,7 @@ module.exports = exports = async function (tract) {
         fs.writeFileSync(tract.terminal.output, JSON.stringify(encoding, null, "  "));
 
         let expected_output = tract.terminal.output.replace("output", "expected");
-        if (_compare(tract.terminal.output, expected_output))
-          throw new storage.StorageError(409, "file compare failed");
+        retCode = _compare(tract.terminal.output, expected_output);
       }
     }
     else
@@ -39,10 +40,11 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     if (jo) await jo.relax();
   }
 
+  return process.exitCode = retCode;
 };

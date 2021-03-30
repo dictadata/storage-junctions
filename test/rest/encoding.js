@@ -11,7 +11,7 @@ logger.info("=== Test: rest encoding");
 async function tests() {
 
   logger.info("=== rest getEncoding (forecast)");
-  await getEncoding({
+  if (await getEncoding({
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
@@ -33,10 +33,10 @@ async function tests() {
     terminal: {
       output: './data/output/rest/weather_forecast_encoding.json'
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

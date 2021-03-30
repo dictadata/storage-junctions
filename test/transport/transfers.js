@@ -12,12 +12,12 @@ logger.info("=== Test: transport transfers");
 async function tests() {
 
   logger.info("=== dullSchema foo_transfer");
-  await dullSchema({
+  if (await dullSchema({
     smt: "transport|http://localhost:8089/transport/storage_node|foo_transfer|*"
-  });
+  })) return 1;
 
   logger.info("=== foofile.csv > transport.foo_schema");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "csv|./data/test/|foofile.csv|*",
       options: {
@@ -27,10 +27,10 @@ async function tests() {
     terminal: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo"
     }
-  });
+  })) return 1;
 
   logger.info("=== foofile_01.json > transport");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile_01.json|*" 
     },
@@ -40,10 +40,10 @@ async function tests() {
         encoding: "./data/test/encoding_foo_01.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== foofile_02.json > transport");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./data/test/|foofile_02.json|*" 
     },
@@ -53,20 +53,20 @@ async function tests() {
         encoding: "./data/test/encoding_foo_02.json"
       }
     }
-  });
+  })) return 1;
 
   logger.info("=== transport.foo_schema > transport.foo_transfer");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*"
     },
     terminal: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_transfer|*"
     }
-  });
+  })) return 1;
 
   logger.info("=== transport.foo_transfer > oracle_transfer.csv");
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_transfer|*"
     },
@@ -76,10 +76,10 @@ async function tests() {
         header: true
       }
     }
-  });
+  })) return 1;
 
 }
 
 (async () => {
-  await tests();
+  if (await tests()) return;
 })();

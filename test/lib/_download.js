@@ -11,6 +11,7 @@ const logger = require('../../storage/logger');
 
 
 module.exports = exports = async function (tract) {
+  let retCode = 0;
 
   logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
   if (tract.origin.options)
@@ -34,16 +35,20 @@ module.exports = exports = async function (tract) {
 
       let options = Object.assign({}, tract.terminal.options, entry);
       let results = await stfs.download(options);
-      if (results.resultCode !== 0)
+      if (results.resultCode !== 0) {
         logger.error("!!! download failed: " + entry.name);
+        retCode = 1;
+        break;
+      }
     }
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    process.exitCode = 1;
+    retCode = 1;
   }
   finally {
     await junction.relax();
   }
 
+  return process.exitCode = retCode;
 };
