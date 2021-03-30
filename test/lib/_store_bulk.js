@@ -7,7 +7,7 @@ const _pev = require("./_process_events");
 const storage = require("../../storage");
 const logger = require('../../storage/logger');
 
-module.exports = exports = async function (tract) {
+module.exports = exports = async function (tract, keyValues) {
   logger.info(">>> create junction");
   let retCode = 0;
 
@@ -23,9 +23,9 @@ module.exports = exports = async function (tract) {
 
     logger.info(">>> completed");
     // check for a returnd keystore UniqueID value
-    //if (results.data && !Array.isArray(results.data)) {
-    //  return Object.keys(results.data)[0];
-    //}
+    if (keyValues && results.data && !Array.isArray(results.data)) {
+      keyValues.uid = Object.keys(results.data)[0];
+    }
   }
   catch (err) {
     if (err.statusCode < 500)

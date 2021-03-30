@@ -9,7 +9,7 @@ const logger = require('../../storage/logger');
 logger.info("=== Tests: Generic * Junction");
 
 async function test_1() {
-  retCode = 0;
+  let retCode = 0;
 
   var junction;
   try {

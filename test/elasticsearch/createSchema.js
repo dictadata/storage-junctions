@@ -4,6 +4,7 @@
 "use strict";
 
 const createSchema = require('../lib/_createSchema');
+const dull = require("../lib/_dull");
 const logger = require('../../storage/logger');
 
 logger.info("===== elasticsearch createSchema ");
@@ -17,6 +18,13 @@ async function test(schema, encoding) {
       options: {
         encoding: "./data/test/" + encoding + ".json"
       }
+    }
+  })) return 1;
+
+  logger.info("=== dull (truncate) " + schema);
+  if (await dull({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
     }
   })) return 1;
 

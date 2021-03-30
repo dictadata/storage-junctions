@@ -17,7 +17,8 @@ async function tests() {
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
-        }
+        },
+        order: { "Foo": "asc" }
       }
     },
     terminal: {
@@ -31,7 +32,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*",
       pattern: {
         "order": { "Foo": "asc" },
-        "count": 100
+        "count": 5
       }
     },
     terminal: {

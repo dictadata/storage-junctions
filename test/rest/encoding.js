@@ -33,7 +33,7 @@ async function tests() {
     terminal: {
       output: './data/output/rest/weather_forecast_encoding.json'
     }
-  })) return 1;
+  }, false)) return 1;
 
 }
 

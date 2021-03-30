@@ -11,7 +11,7 @@ const logger = require('../../storage/logger');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = exports = async function (tract) {
+module.exports = exports = async function (tract, compareValues = true) {
   logger.info(">>> create junction");
   if (!tract.terminal) tract.terminal = {};
   let retCode = 0;
@@ -30,7 +30,7 @@ module.exports = exports = async function (tract) {
         fs.writeFileSync(tract.terminal.output, JSON.stringify(encoding, null, "  "));
 
         let expected_output = tract.terminal.output.replace("output", "expected");
-        retCode = _compare(tract.terminal.output, expected_output);
+        retCode = _compare(tract.terminal.output, expected_output, compareValues);
       }
     }
     else

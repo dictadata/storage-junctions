@@ -30,7 +30,7 @@ async function testRetrieve() {
     terminal: {
       output: './data/output/rest/weather_forecast_retrieve.json'
     }
-  })) return 1;
+  }, false)) return 1;
 
 }
 

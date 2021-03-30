@@ -3,39 +3,39 @@
   "resultText": "OK",
   "data": [
     {
-      "Foo": "third",
-      "count": 6,
-      "dt_max": "2018-10-18T05:00:00.000Z",
-      "dt_min": "2018-10-18T05:00:00.000Z",
-      "baz_sum": 4734
-    },
-    {
       "Foo": "second",
-      "count": 7,
+      "count": 2,
       "dt_max": "2018-10-07T05:00:00.000Z",
       "dt_min": "2018-10-07T05:00:00.000Z",
-      "baz_sum": 3192
+      "baz_sum": 912
+    },
+    {
+      "Foo": "third",
+      "count": 1,
+      "dt_max": "2018-10-18T05:00:00.000Z",
+      "dt_min": "2018-10-18T05:00:00.000Z",
+      "baz_sum": 789
     },
     {
       "Foo": "first",
-      "count": 6,
+      "count": 1,
       "dt_max": "2018-10-07T00:00:00.000Z",
       "dt_min": "2018-10-07T00:00:00.000Z",
-      "baz_sum": 738
+      "baz_sum": 123
     },
     {
       "Foo": "twenty",
-      "count": 6,
+      "count": 1,
       "dt_max": null,
       "dt_min": null,
-      "baz_sum": 120
+      "baz_sum": 20
     },
     {
       "Foo": "eighth",
-      "count": 6,
+      "count": 1,
       "dt_max": "2018-10-10T05:00:00.000Z",
       "dt_min": "2018-10-10T05:00:00.000Z",
-      "baz_sum": 72
+      "baz_sum": 12
     }
   ]
 }

@@ -442,21 +442,19 @@ class OracleDBJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      let results = null;
+      let sql;
       if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
         // delete construct by ID
-        let sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
-        logger.verbose(sql);
-        connection = await this.pool.getConnection();
-        results = await connection.execute(sql);
+        sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
       }
       else {
         // delete all constructs in the .schema
-        let sql = "TRUNCATE " + this.smt.schema + ";";
-        logger.verbose(sql);
-        connection = await this.pool.getConnection();
-        results = await connection.execute(sql);
+        sql = "TRUNCATE " + this.smt.schema + ";";
       }
+      logger.verbose(sql);
+
+      connection = await this.pool.getConnection();
+      let results = await connection.execute(sql);
 
       return new StorageResults(0, null, results.rowsAffected, "rowsAffected");
     }

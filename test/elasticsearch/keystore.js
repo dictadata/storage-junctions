@@ -11,9 +11,10 @@ const logger = require('../../storage/logger');
 logger.info("=== Tests: elasticsearch");
 
 async function tests() {
+  let keyValues = {};
 
   logger.info("=== elasticsearch store");
-  let uid = await store({
+  if (await store({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
@@ -22,13 +23,12 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 20
     }
-  });
-  if (uid === 1) return;
+  }, keyValues)) return 1;
 
   logger.info("=== elasticsearch recall uid");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|" + uid
+      smt: "elasticsearch|http://localhost:9200|foo_schema|" + keyValues.uid
     }
   })) return 1;
 
@@ -37,7 +37,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!",
       pattern: {
-        key: uid
+        key: keyValues.uid
       }
     }
   })) return 1;
@@ -52,7 +52,7 @@ async function tests() {
         key: "!Foo"
       },
       pattern: {
-        Foo: uid
+        Foo: keyValues.uid
       }
     }
   })) return 1;
