@@ -160,10 +160,12 @@ function saveCookies(options, headers) {
 }
 
 exports.contentTypeIsJSON = (contentType) => {
-  let p = contentType.split('/');
-  if (p[1] === 'json')
+  let expressions = contentType.split(';');
+
+  let [type, value] = expressions[0].split('/');
+  if (value === 'json')
     return true;
-  if (p[1].indexOf("+json") >= 0)
+  if (value.indexOf("+json") >= 0)
     return true;
   
   return false;

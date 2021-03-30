@@ -4,7 +4,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const encoder = require('../rest/rest-encoder');
+const encoder = require("../oracledb/oracledb-encoder");
+const sqlEncoder = require("../oracledb/oracledb-sql-encoder");
 const logger = require('../../logger');
 
 const httpRequest = require("../../utils/httpRequest");
@@ -32,32 +33,23 @@ module.exports = exports = class TransportReader extends StorageReader {
     // read up to size constructs
 
     try {
-      let url = this.options.url || this.engram.smt.schema || '';
-      //if (this.options.pattern) {
-        // querystring parameters
-        // url += ???
-      //}
+      let pattern = this.options.pattern || {};
 
       let request = {
-        method: this.options.method || 'GET',
-        origin: this.options.origin || this.smt.locus,
-        headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
-        timeout: this.options.timeout || 10000
-      };
-      if (this.options.auth)
-        request["auth"] = this.options.auth;
+        model: 'oracledb',
+        method: 'retrieve',
+        sql: sqlEncoder.sqlSelectWithPattern(this.engram, pattern)
+      }
+      logger.debug(request.sql);
 
-      let response = await httpRequest(url, request);
-
-      let data;
-      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
-        data = JSON.parse(response.data);
-      else
-        data = response.data;
-
-      encoder.parseData(data, this.options, (construct) => {
-        this.push(construct);
-      });
+      let res = await httpRequest(this.junction.url, this.junction.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+      
+      let rows = response.data;
+      for (let i = 0; i < rows.length; i++) {
+        sqlEncoder.decodeResults(this.engram, rows[i]);
+        this.push(rows[i]);
+      }
 
     }
     catch (err) {

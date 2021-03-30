@@ -232,16 +232,17 @@ class TransportJunction extends StorageJunction {
 
       let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
       let response = JSON.parse(res.data);
+      
       if (response.resultCode !== 0) {
+        if (response.resultCode === 942)  // ER_NO_SUCH_TABLE
+          return new StorageResults(404, 'table not found');
+
         throw new StorageError(response.resultCode, response.resultText);
       }
 
       return new StorageResults(0);
     }
     catch (err) {
-      if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return new StorageResults(404, 'table not found');
-
       logger.error(err);
       if (err instanceof StorageError)
         throw err;
@@ -277,6 +278,7 @@ class TransportJunction extends StorageJunction {
 
       let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
       let response = JSON.parse(res.data);
+      // check for duplicate key result
       if (response.resultCode !== 0 && response.resultCode !== 1 && response.resultCode !== 3342) {
         throw new StorageError(response.resultCode, response.resultText);
       }
@@ -310,20 +312,37 @@ class TransportJunction extends StorageJunction {
    *
    */
   async recall(pattern) {
-    if (!this.engram.smt.key) {
-      throw new StorageError(400, "no storage key specified");
-    }
+    logger.debug("TransportJunction recall");
+
+    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
+      throw new StorageError( 400, "unique keys not supported");
 
     try {
-      throw new StorageError(501);
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
+      let request = {
+        model: 'oracledb',
+        method: 'recall',
+        sql: "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern)
+      }
+      logger.debug(request.sql);
+
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+
+      let rows = response.data;
+      if (rows.length > 0)
+        sqlEncoder.decodeResults(this.engram, rows[0]);
+
+      let resultCode = rows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, (rows.length > 0) ? rows[0] : null);
     }
     catch (err) {
       logger.error(err);
-      if (err instanceof StorageError)
-        throw err;
-      else
-        throw new StorageError(500).inner(err);
+      throw new StorageError(500).inner(err);
     }
+
   }
 
   /**
@@ -331,65 +350,74 @@ class TransportJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
+    logger.debug("TransportJunction retrieve");
 
     try {
-      let url = this.options.url || this.engram.smt.schema || '';
-      if (pattern) {
-        // querystring parameters
-        // url += ???
-      }
-      
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
       let request = {
-        model: "oracledb",
-        method: "retrieve",
-        sql: ""
-      };
-
+        model: 'oracledb',
+        method: 'retrieve',
+        sql: sqlEncoder.sqlSelectWithPattern(this.engram, pattern)
+      }
+      logger.debug(request.sql);
+      
       let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
 
-      let data;
-      if (httpRequest.contentTypeIsJSON(res.headers["content-type"]))
-        data = JSON.parse(res.data);
-      else
-        data = res.data;
+      let rows = response.data;
+      for (let i = 0; i < rows.length; i++)
+        sqlEncoder.decodeResults(this.engram, rows[i]);
 
-      let constructs = [];
-      encoder.parseData(data, this.options, (construct) => {
-        constructs.push(construct);
-      });
-
-      let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
-      return new StorageResults(resultCode, null, constructs);
+      let resultCode = rows.length > 0 ? 200 : 404;
+      return new StorageResults(resultCode, null, rows);
     }
     catch (err) {
       logger.error(err);
-      if (err instanceof StorageError)
-        throw err;
-      else
-        throw new StorageError(500).inner(err);
+      throw new StorageError(500).inner(err);
     }
+
   }
 
   /**
    *
    */
   async dull(pattern) {
+    logger.debug("TransportJunction dull");
+    if (!pattern) pattern = {};
+
+    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
+      throw new StorageError( 400, "unique keys not supported");
+
     try {
-      if (this.engram.smt.key) {
-        // delete construct by key
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
+      let request = {
+        model: 'oracledb',
+        method: 'dull',
+        sql: ''
+      }
+
+      if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+        // delete construct by ID
+        request.sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
       }
       else {
         // delete all constructs in the .schema
+        request.sql = "TRUNCATE " + this.smt.schema + ";";
       }
+      logger.debug(request.sql);
 
-      throw new StorageError(501);
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+
+      return new StorageResults(0, null, response.rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
-      if (err instanceof StorageError)
-        throw err;
-      else
-        throw new StorageError(500).inner(err);
+      throw new StorageError(500).inner(err);
     }
   }
 
