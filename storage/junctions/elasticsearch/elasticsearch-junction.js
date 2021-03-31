@@ -331,7 +331,7 @@ class ElasticsearchJunction extends StorageJunction {
 
         response = await this.elasticQuery.delete(key);
       }
-      else if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+      else if (this.engram.keyof === 'primary') {
         // delete by query
         let dsl = dslEncoder.matchQuery(this.engram.keys, pattern);
         response = await this.elasticQuery.deleteByQuery(dsl);

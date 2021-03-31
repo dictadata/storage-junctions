@@ -33,13 +33,13 @@
     "Baz": {
       "name": "Baz",
       "type": "integer",
-      "size": 11,
+      "size": null,
       "default": null,
       "isNullable": false,
       "keyOrdinal": 1,
       "label": "Baz",
       "_mysql": {
-        "Type": "int(11)"
+        "Type": "int"
       }
     },
     "Fobe": {

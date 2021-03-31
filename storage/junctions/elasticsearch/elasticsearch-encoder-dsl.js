@@ -38,6 +38,7 @@ exports.encodeValues = function (engram, construct) {
  */
 exports.matchQuery = function (keys, pattern) {
   logger.debug("elasticEncoder matchQuery");
+  pattern = pattern || {};
 
   try {
     var dsl = {
@@ -85,7 +86,7 @@ exports.searchQuery = function (pattern) {
 function match(dsl, pattern) {
   const match = (pattern && pattern.match) || {};
 
-  if (!match) {
+  if (Object.keys(match).length <= 0) {
     dsl.query["match_all"] = {};
     return;
   }
