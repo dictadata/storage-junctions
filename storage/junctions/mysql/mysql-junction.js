@@ -223,7 +223,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults(0);
     }
     catch (err) {
-      if (err.errno === 1146)  // ER_NO_SUCH_TABLE
+      if (err.errno === 1051)  // ER_BAD_TABLE_ERROR
         return new StorageResults(404, 'no such table');
 
       logger.error(err);
