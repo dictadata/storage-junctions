@@ -787,7 +787,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport list",
+      "name": "transportdb list",
       "program": "${workspaceFolder}/test/transport/list.js",
       "outputCapture": "std",
       "env": {
@@ -798,7 +798,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport createSchema",
+      "name": "transportdb createSchema",
       "program": "${workspaceFolder}/test/transport/createSchema.js",
       "outputCapture": "std",
       "env": {
@@ -809,7 +809,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport getEncoding",
+      "name": "transportdb getEncoding",
       "program": "${workspaceFolder}/test/transport/getEncoding.js",
       "outputCapture": "std",
       "env": {
@@ -820,7 +820,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport dullSchema",
+      "name": "transportdb dullSchema",
       "program": "${workspaceFolder}/test/transport/dullSchema.js",
       "outputCapture": "std",
       "env": {
@@ -831,7 +831,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport store",
+      "name": "transportdb store",
       "program": "${workspaceFolder}/test/transport/store.js",
       "outputCapture": "std",
       "env": {
@@ -842,7 +842,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport recall",
+      "name": "transportdb recall",
       "program": "${workspaceFolder}/test/transport/recall.js",
       "outputCapture": "std",
       "env": {
@@ -853,7 +853,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport transfer",
+      "name": "transportdb transfer",
       "program": "${workspaceFolder}/test/transport/transfers.js",
       "outputCapture": "std",
       "env": {
@@ -864,7 +864,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport retrieve",
+      "name": "transportdb retrieve",
       "program": "${workspaceFolder}/test/transport/retrieve.js",
       "outputCapture": "std",
       "env": {
@@ -875,7 +875,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport dull",
+      "name": "transportdb dull",
       "program": "${workspaceFolder}/test/transport/dull.js",
       "outputCapture": "std",
       "env": {
@@ -886,7 +886,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport store bulk",
+      "name": "transportdb store bulk",
       "program": "${workspaceFolder}/test/transport/store_bulk.js",
       "outputCapture": "std",
       "env": {
@@ -897,7 +897,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport codify",
+      "name": "transportdb codify",
       "program": "${workspaceFolder}/test/transport/codify.js",
       "outputCapture": "std",
       "env": {
@@ -908,7 +908,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport transform",
+      "name": "transportdb transform",
       "program": "${workspaceFolder}/test/transport/transforms.js",
       "outputCapture": "std",
       "env": {
@@ -919,7 +919,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "transport aggregate",
+      "name": "transportdb aggregate",
       "program": "${workspaceFolder}/test/transport/aggregate.js",
       "outputCapture": "std",
       "env": {

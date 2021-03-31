@@ -1,9 +1,9 @@
 {
   "smt": {
-    "model": "transport",
-    "locus": "http://localhost:8089/transport/storage_node",
-    "schema": "foo_schema_lg",
-    "key": "*"
+    "model": "transportdb",
+    "locus": "http://localhost:8089/transportdb/storage_node",
+    "schema": "foo_schema_02",
+    "key": "=Foo"
   },
   "fields": {
     "Foo": {
@@ -12,7 +12,7 @@
       "size": 128,
       "default": null,
       "isNullable": false,
-      "keyOrdinal": 1,
+      "keyOrdinal": 2,
       "label": "Foo",
       "ordinal": 1,
       "_oracle": {
@@ -28,7 +28,7 @@
     "Bar": {
       "name": "Bar",
       "type": "text",
-      "size": 512,
+      "size": 128,
       "default": null,
       "isNullable": true,
       "keyOrdinal": 0,
@@ -38,7 +38,7 @@
         "COLUMN_ID": 2,
         "COLUMN_NAME": "Bar",
         "DATA_TYPE": "NVARCHAR2",
-        "DATA_LENGTH": 512,
+        "DATA_LENGTH": 128,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
         "NULLABLE": "Y"
@@ -46,27 +46,27 @@
     },
     "Baz": {
       "name": "Baz",
-      "type": "keyword",
-      "size": 40,
+      "type": "number",
+      "size": 22,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "isNullable": false,
+      "keyOrdinal": 1,
       "label": "Baz",
       "ordinal": 3,
       "_oracle": {
         "COLUMN_ID": 3,
         "COLUMN_NAME": "Baz",
-        "DATA_TYPE": "NVARCHAR2",
-        "DATA_LENGTH": 40,
+        "DATA_TYPE": "NUMBER",
+        "DATA_LENGTH": 22,
         "DATA_PRECISION": null,
-        "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "DATA_SCALE": 0,
+        "NULLABLE": "N"
       }
     },
     "Fobe": {
       "name": "Fobe",
-      "type": "text",
-      "size": 2400,
+      "type": "undefined",
+      "size": 22,
       "default": null,
       "isNullable": true,
       "keyOrdinal": 0,
@@ -75,17 +75,17 @@
       "_oracle": {
         "COLUMN_ID": 4,
         "COLUMN_NAME": "Fobe",
-        "DATA_TYPE": "NVARCHAR2",
-        "DATA_LENGTH": 2400,
-        "DATA_PRECISION": null,
+        "DATA_TYPE": "FLOAT",
+        "DATA_LENGTH": 22,
+        "DATA_PRECISION": 126,
         "DATA_SCALE": null,
         "NULLABLE": "Y"
       }
     },
     "Dt Test": {
       "name": "Dt Test",
-      "type": "text",
-      "size": 4000,
+      "type": "date",
+      "size": 7,
       "default": null,
       "isNullable": true,
       "keyOrdinal": 0,
@@ -94,8 +94,8 @@
       "_oracle": {
         "COLUMN_ID": 5,
         "COLUMN_NAME": "Dt Test",
-        "DATA_TYPE": "CLOB",
-        "DATA_LENGTH": 4000,
+        "DATA_TYPE": "DATE",
+        "DATA_LENGTH": 7,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
         "NULLABLE": "Y"
@@ -103,8 +103,8 @@
     },
     "enabled": {
       "name": "enabled",
-      "type": "text",
-      "size": 4000,
+      "type": "boolean",
+      "size": 1,
       "default": null,
       "isNullable": true,
       "keyOrdinal": 0,
@@ -113,25 +113,25 @@
       "_oracle": {
         "COLUMN_ID": 6,
         "COLUMN_NAME": "enabled",
-        "DATA_TYPE": "CLOB",
-        "DATA_LENGTH": 4000,
+        "DATA_TYPE": "CHAR",
+        "DATA_LENGTH": 1,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
         "NULLABLE": "Y"
       }
     },
-    "Str Test": {
-      "name": "Str Test",
+    "tags": {
+      "name": "tags",
       "type": "text",
       "size": 4000,
       "default": null,
       "isNullable": true,
       "keyOrdinal": 0,
-      "label": "Str Test",
+      "label": "tags",
       "ordinal": 7,
       "_oracle": {
         "COLUMN_ID": 7,
-        "COLUMN_NAME": "Str Test",
+        "COLUMN_NAME": "tags",
         "DATA_TYPE": "CLOB",
         "DATA_LENGTH": 4000,
         "DATA_PRECISION": null,
@@ -139,18 +139,18 @@
         "NULLABLE": "Y"
       }
     },
-    "enabler": {
-      "name": "enabler",
+    "widgets": {
+      "name": "widgets",
       "type": "text",
       "size": 4000,
       "default": null,
       "isNullable": true,
       "keyOrdinal": 0,
-      "label": "enabler",
+      "label": "widgets",
       "ordinal": 8,
       "_oracle": {
         "COLUMN_ID": 8,
-        "COLUMN_NAME": "enabler",
+        "COLUMN_NAME": "widgets",
         "DATA_TYPE": "CLOB",
         "DATA_LENGTH": 4000,
         "DATA_PRECISION": null,
@@ -159,5 +159,20 @@
       }
     }
   },
-  "_SMT": "transport|http://localhost:8089/transport/storage_node|foo_schema_lg|*"
+  "_SMT": "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|=Foo",
+  "indices": {
+    "foo_index_02": {
+      "fields": [
+        {
+          "name": "Bar",
+          "order": "ASC"
+        },
+        {
+          "name": "SYS_NC00009$",
+          "order": "DESC"
+        }
+      ],
+      "unique": false
+    }
+  }
 }

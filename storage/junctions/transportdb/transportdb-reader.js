@@ -1,5 +1,5 @@
 /**
- * transport/reader
+ * transportdb/reader
  */
 "use strict";
 
@@ -10,7 +10,7 @@ const logger = require('../../logger');
 
 const httpRequest = require("../../utils/httpRequest");
 
-module.exports = exports = class TransportReader extends StorageReader {
+module.exports = exports = class TransportDBReader extends StorageReader {
 
   /**
    *

@@ -1,52 +1,52 @@
 /**
- * test/transport
+ * test/transportdb
  */
 "use strict";
 
 const getEncoding = require('../lib/_getEncoding');
 const logger = require('../../storage/logger');
 
-logger.info("=== Tests: transport getEncoding");
+logger.info("=== Tests: transportdb getEncoding");
 
 async function tests() {
 
-  logger.info("=== transport getEncoding foo_schema");
+  logger.info("=== transportdb getEncoding foo_schema");
   if (await getEncoding({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo.json'
+      output: './data/output/transportdb/encoding_foo.json'
     }
   })) return 1;
 
-  logger.info("=== transport getEncoding foo_schema_01");
+  logger.info("=== transportdb getEncoding foo_schema_01");
   if (await getEncoding({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_01|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo_01.json'
+      output: './data/output/transportdb/encoding_foo_01.json'
     }
   })) return 1;
 
-  logger.info("=== transport getEncoding foo_schema_02");
+  logger.info("=== transportdb getEncoding foo_schema_02");
   if (await getEncoding({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo_02.json'
+      output: './data/output/transportdb/encoding_foo_02.json'
     }
   })) return 1;
 
-  logger.info("=== transport getEncoding foo_schema_lg");
+  logger.info("=== transportdb getEncoding foo_schema_lg");
   if (await getEncoding({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_lg|*"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_lg|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo_lg.json'
+      output: './data/output/transportdb/encoding_foo_lg.json'
     }
   })) return 1;
 

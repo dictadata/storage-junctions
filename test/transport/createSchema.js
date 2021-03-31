@@ -1,19 +1,19 @@
 /**
- * test/transport
+ * test/transportdb
  */
 "use strict";
 
 const createSchema = require('../lib/_createSchema');
 const logger = require('../../storage/logger');
 
-logger.info("=== Tests: transport createSchema");
+logger.info("=== Tests: transportdb createSchema");
 
 async function tests() {
 
-  logger.info("=== transport createSchema foo_scheam");
+  logger.info("=== transportdb createSchema foo_scheam");
   if (await createSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
       options: {
         encoding: "./data/test/encoding_foo.json"
       }
@@ -21,40 +21,40 @@ async function tests() {
   })) return 1;
 
   // create schema for dullSchema.js
-  logger.info("=== transport createSchema foo_schema_x");
+  logger.info("=== transportdb createSchema foo_schema_x");
   if (await createSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_x|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_x|*",
       options: {
         encoding: "./data/test/encoding_foo.json"
       }
     }
   })) return 1;
 
-  logger.info("=== transport createSchema");
+  logger.info("=== transportdb createSchema");
   if (await createSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/test/encoding_foo_01.json"
       }
     }
   })) return 1;
 
-  logger.info("=== transport createSchema");
+  logger.info("=== transportdb createSchema");
   if (await createSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/test/encoding_foo_02.json"
       }
     }
   })) return 1;
 
-  logger.info("=== transport large fields");
+  logger.info("=== transportdb large fields");
   if (await createSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_lg|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_lg|*",
       options: {
         stringBreakpoints: {
           keyword: 120,

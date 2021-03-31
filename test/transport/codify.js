@@ -13,28 +13,28 @@ async function tests() {
   logger.info("=== codify foo_schema");
   if (await codify({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|=Foo"
     },
-    outputFile1: './data/output/transport/codify_01.json',
-    outputFile2: './data/output/transport/codify_02.json'
+    outputFile1: './data/output/transportdb/codify_01.json',
+    outputFile2: './data/output/transportdb/codify_02.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
   if (await codify({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|=Foo"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_01|=Foo"
     },
-    outputFile1: './data/output/transport/codify_11.json',
-    outputFile2: './data/output/transport/codify_12.json'
+    outputFile1: './data/output/transportdb/codify_11.json',
+    outputFile2: './data/output/transportdb/codify_12.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
   if (await codify({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|=Foo"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|=Foo"
     },
-    outputFile1: './data/output/transport/codify_21.json',
-    outputFile2: './data/output/transport/codify_22.json'
+    outputFile1: './data/output/transportdb/codify_21.json',
+    outputFile2: './data/output/transportdb/codify_22.json'
   })) return 1;
 
 }

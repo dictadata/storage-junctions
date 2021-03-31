@@ -1,5 +1,5 @@
 /**
- * test/transport
+ * test/transportdb
  */
 "use strict";
 
@@ -8,14 +8,14 @@ const dull = require('../lib/_dull');
 const transfer = require('../lib/_transfer');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: transport bulk storage");
+logger.info("=== Test: transportdb bulk storage");
 
 async function tests() {
 
-  logger.info("=== transport dull");
+  logger.info("=== transportdb dull");
   if (await dull({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
       pattern: {
         match: {
           Foo: {"wc": "one-*"}
@@ -24,10 +24,10 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== transport storeBulk");
+  logger.info("=== transportdb storeBulk");
   if (await storeBulk({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|=Foo"
     },
     constructs: [{
       Foo: 'one-o-five',
@@ -44,7 +44,7 @@ async function tests() {
     }]
   })) return 1;
 
-  logger.verbose('=== timeseries.csv > transport');
+  logger.verbose('=== timeseries.csv > transportdb');
   if (await transfer({
     origin: {
       smt: "csv|./data/test/|timeseries.csv|*",
@@ -57,7 +57,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "transport|http://localhost:8089/transport/storage_node|timeseries|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|timeseries|*",
       options: {
         bulkLoad: true
       }

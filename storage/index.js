@@ -114,6 +114,6 @@ exports.SplitterJunction = SplitterJunction;
 cortex.use('splitter', SplitterJunction);
 cortex.use('split', SplitterJunction);
 
-var TransportJunction = require("./junctions/transport");
-exports.TransportJunction = TransportJunction;
-cortex.use('transport', TransportJunction);
+var TransportDBJunction = require("./junctions/transportdb");
+exports.TransportDBJunction = TransportDBJunction;
+cortex.use('transportdb', TransportDBJunction);

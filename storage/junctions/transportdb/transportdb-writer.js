@@ -1,5 +1,5 @@
 /**
- * transport/writer
+ * transportdb/writer
  */
 "use strict";
 
@@ -8,7 +8,7 @@ const { StorageError } = require("../../types");
 const logger = require('../../logger');
 
 
-module.exports = exports = class TransportWriter extends StorageWriter {
+module.exports = exports = class TransportDBWriter extends StorageWriter {
 
   /**
    *
@@ -21,7 +21,7 @@ module.exports = exports = class TransportWriter extends StorageWriter {
   }
 
   async _write(construct, encoding, callback) {
-    logger.debug("TransportWriter._write");
+    logger.debug("TransportDBWriter._write");
     logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
@@ -44,7 +44,7 @@ module.exports = exports = class TransportWriter extends StorageWriter {
   }
 
   async _writev(chunks, callback) {
-    logger.debug("TransportWriter._writev");
+    logger.debug("TransportDBWriter._writev");
 
     try {
       this._count(chunks.length);
@@ -72,7 +72,7 @@ module.exports = exports = class TransportWriter extends StorageWriter {
   }
 
   async _final(callback) {
-    logger.debug("TransportWriter._final");
+    logger.debug("TransportDBWriter._final");
 
     try {
       // close connection, cleanup resources, ...

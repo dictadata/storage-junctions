@@ -1,19 +1,19 @@
 /**
- * test/transport
+ * test/transportdb
  */
 "use strict";
 
 const retrieve = require('../lib/_retrieve');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: transport");
+logger.info("=== Test: transportdb");
 
 async function tests() {
 
-  logger.info("=== transport retrieve");
+  logger.info("=== transportdb retrieve");
   if (await retrieve({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
@@ -22,14 +22,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/transport/retrieve_0.json"
+      output: "./data/output/transportdb/retrieve_0.json"
     }
   })) return 1;
 
-  logger.info("=== transport retrieve");
+  logger.info("=== transportdb retrieve");
   if (await retrieve({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/test/encoding_foo_01.json"
       },
@@ -41,14 +41,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/transport/retrieve_1.json"
+      output: "./data/output/transportdb/retrieve_1.json"
     }
   })) return 1;
 
-  logger.info("=== transport retrieve");
+  logger.info("=== transportdb retrieve");
   if (await retrieve({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/test/encoding_foo_02.json"
       },
@@ -60,14 +60,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/transport/retrieve_2.json"
+      output: "./data/output/transportdb/retrieve_2.json"
     }
   })) return 1;
 
-  logger.info("=== transport retrieve w/ cues");
+  logger.info("=== transportdb retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 100
@@ -75,10 +75,10 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== transport retrieve with pattern");
+  logger.info("=== transportdb retrieve with pattern");
   if (await retrieve({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_transfer|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_transfer|*",
       pattern: {
         match: {
           "Foo": "first",

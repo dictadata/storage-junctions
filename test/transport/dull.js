@@ -1,19 +1,19 @@
 /**
- * test/transport
+ * test/transportdb
  */
 "use strict";
 
 const dull = require('../lib/_dull');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: transport");
+logger.info("=== Test: transportdb");
 
 async function tests() {
 
-  logger.info("=== transport dull");
+  logger.info("=== transportdb dull");
   if (await dull({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
       pattern: {
         match: {
           Foo: 'twenty'

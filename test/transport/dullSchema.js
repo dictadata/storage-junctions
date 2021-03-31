@@ -1,19 +1,19 @@
 /**
- * test/transport
+ * test/transportdb
  */
 "use strict";
 
 const dullSchema = require('../lib/_dullSchema');
 const logger = require('../../storage/logger');
 
-logger.info("=== Tests: transport dullSchema");
+logger.info("=== Tests: transportdb dullSchema");
 
 async function tests() {
 
-  logger.info("=== transport dullSchema foo_schema_x");
+  logger.info("=== transportdb dullSchema foo_schema_x");
   if (await dullSchema({
     origin: {
-      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_x|*"
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_x|*"
     }
   })) return 1;
 
