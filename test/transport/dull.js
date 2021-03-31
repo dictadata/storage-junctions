@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== transportdb dull");
   if (await dull({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
+      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'

@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== oracledb dull");
   if (await dull({
     origin: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|*",
+      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'

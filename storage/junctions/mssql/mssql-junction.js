@@ -425,7 +425,7 @@ class MSSQLJunction extends StorageJunction {
       }
       else {
         // delete all constructs in the .schema
-        sql = "TRUNCATE " + this.smt.schema + ";";
+        sql = "TRUNCATE TABLE " + this.smt.schema;
       }
       logger.verbose(sql);
 

@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql dull");
   if (await dull({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|*",
+      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'

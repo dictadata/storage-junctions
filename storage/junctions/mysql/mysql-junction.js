@@ -70,7 +70,7 @@ class MySQLJunction extends StorageJunction {
         results = await this.pool.query(sql); 
         sql = "SET foreign_key_checks=0";
         results = await this.pool.query(sql); 
-        logger.verbose(results);
+        logger.debug(JSON.stringify(results));
         }
     }
     catch (err) {
