@@ -38,7 +38,7 @@ module.exports = exports = class TransportReader extends StorageReader {
       let request = {
         model: 'oracledb',
         method: 'retrieve',
-        sql: sqlEncoder.sqlSelectWithPattern(this.engram, pattern)
+        sql: sqlEncoder.sqlSelectByPattern(this.engram, pattern)
       }
       logger.debug(request.sql);
 

@@ -33,7 +33,7 @@ module.exports = exports = class OracleDBReader extends StorageReader {
     
       let connection;
       try {
-        let sql = sqlEncoder.sqlSelectWithPattern(this.engram, this.options);
+        let sql = sqlEncoder.sqlSelectByPattern(this.engram, this.options);
         connection = await this.junction.pool.getConnection();
         let qstream = await connection.queryStream(sql, [],  // no binds 
           {

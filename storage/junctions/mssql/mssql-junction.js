@@ -357,7 +357,7 @@ class MSSQLJunction extends StorageJunction {
         await this.getEncoding();
 
       let resultRow = null;
-      let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+      let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
       logger.verbose(sql);
       let engram = this.engram;
       let rowCount = await this._request(sql, (row) => {
@@ -386,7 +386,7 @@ class MSSQLJunction extends StorageJunction {
         await this.getEncoding();
 
       let resultRows = [];
-      let sql = sqlEncoder.sqlSelectWithPattern(this.engram, pattern);
+      let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
       logger.verbose(sql);
       let engram = this.engram;
       let rowCount = await this._request(sql, (row) => {
@@ -419,9 +419,9 @@ class MSSQLJunction extends StorageJunction {
         await this.getEncoding();
 
       let sql = '';
-      if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+      if (this.engram.keyof === 'primary') {
         // delete construct by ID
-        sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+        sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
       }
       else {
         // delete all constructs in the .schema

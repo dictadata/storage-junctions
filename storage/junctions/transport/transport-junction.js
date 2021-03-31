@@ -43,6 +43,51 @@ class TransportJunction extends StorageJunction {
       this.reqOptions["auth"] = this.options.auth;
   }
 
+  async activate() {
+    this._isActive = true;
+    logger.debug("TransportJunction activate");
+
+    try {
+      if (this.options.bulkLoad) {
+        let request = {
+          model: 'oracledb',
+          method: 'createSchema',
+          sql: sqlEncoder.sqlActivate(this.smt.schema)
+        }
+        if (request.sql) {
+          let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+          let response = JSON.parse(res.data);
+        }
+      }
+    }
+    catch (err) {
+      logger.error(err);
+    }
+  }
+
+  async relax() {
+    this._isActive = false;
+    logger.debug("TransportJunction relax");
+
+    try {
+      // release an resources
+      if (this.options.bulkLoad) {
+        let request = {
+          model: 'oracledb',
+          method: 'createSchema',
+          sql: sqlEncoder.sqlRelax(this.smt.schema)
+        }
+        if (request.sql) {
+          let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+          let response = JSON.parse(res.data);
+        }
+      }
+    }
+    catch (err) {
+      logger.error(err);
+    }
+  }
+
   /**
    * Return list of schema names found in the data source like files or tables.
    * smt.schema or options.schema should contain a wildcard character *.
@@ -232,7 +277,7 @@ class TransportJunction extends StorageJunction {
 
       let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
       let response = JSON.parse(res.data);
-      
+
       if (response.resultCode !== 0) {
         if (response.resultCode === 942)  // ER_NO_SUCH_TABLE
           return new StorageResults(404, 'table not found');
@@ -295,8 +340,50 @@ class TransportJunction extends StorageJunction {
       }
 
       let resultCode = response.resultCode;
-      let rowsAffected = resultCode ? 0 : response.data.rowsAffected;
+      let rowsAffected = resultCode ? 0 : response.data[0].rowsAffected;
+      return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
+    }
+    catch (err) {
+      logger.error(err);
+      if (err instanceof StorageError)
+        throw err;
+      else
+        throw new StorageError(500).inner(err);
+    }
+  }
 
+  /**
+   *
+   * @param {Array} constructs - array of data objects to store
+   * @param {Object} pattern - optional parameters, source dependent
+   */
+  async storeBulk(constructs, pattern) {
+    logger.debug("TransportJunction storeBulk");
+
+    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
+      throw new StorageError( 400, "unique keys not supported");
+    if (typeOf(constructs) !== "array")
+      throw new StorageError( 400, "Invalid parameter: construct is not an object");
+
+    try {
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
+      let request = {
+        model: 'oracledb',
+        method: 'storeBulk',
+        sql: sqlEncoder.sqlBulkInsert(this.engram, constructs)
+      }
+      logger.debug(request.sql);
+
+      let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
+      let response = JSON.parse(res.data);
+
+      let resultCode = response.resultCode;
+      if (resultCode) {
+        throw new StorageError(resultCode, response.resultText);
+      }
+      let rowsAffected = resultCode ? 0 : response.data[0].rowsAffected;
       return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
@@ -324,7 +411,7 @@ class TransportJunction extends StorageJunction {
       let request = {
         model: 'oracledb',
         method: 'recall',
-        sql: "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern)
+        sql: sqlEncoder.sqlSelectByKey(this.engram, pattern)
       }
       logger.debug(request.sql);
 
@@ -359,7 +446,7 @@ class TransportJunction extends StorageJunction {
       let request = {
         model: 'oracledb',
         method: 'retrieve',
-        sql: sqlEncoder.sqlSelectWithPattern(this.engram, pattern)
+        sql: sqlEncoder.sqlSelectByPattern(this.engram, pattern)
       }
       logger.debug(request.sql);
       
@@ -400,20 +487,25 @@ class TransportJunction extends StorageJunction {
         sql: ''
       }
 
-      if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+      if (this.engram.keyof === 'primary') {
         // delete construct by ID
-        request.sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+        request.sql = sqlEncoder.sqlDeleteByKey(this.engram, pattern);
+      }
+      else if (pattern.match) {
+        request.sql = sqlEncoder.sqlDeleteByPattern(this.engram, pattern);
       }
       else {
         // delete all constructs in the .schema
-        request.sql = "TRUNCATE " + this.smt.schema + ";";
+        request.sql = sqlEncoder.sqlTruncateTable(this.smt.schema);
       }
       logger.debug(request.sql);
 
       let res = await httpRequest(this.url, this.reqOptions, JSON.stringify(request));
       let response = JSON.parse(res.data);
 
-      return new StorageResults(0, null, response.rowsAffected, "rowsAffected");
+      let resultCode = response.resultCode;
+      let rowsAffected = resultCode ? 0 : response.data[0].rowsAffected;
+      return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);

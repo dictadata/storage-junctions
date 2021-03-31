@@ -4,6 +4,7 @@
 "use strict";
 
 const storeBulk = require('../lib/_store_bulk');
+const dull = require('../lib/_dull');
 const transfer = require('../lib/_transfer');
 const logger = require('../../storage/logger');
 
@@ -11,10 +12,22 @@ logger.info("=== Test: transport bulk storage");
 
 async function tests() {
 
+  logger.info("=== transport dull");
+  if (await dull({
+    origin: {
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
+      pattern: {
+        match: {
+          Foo: {"wc": "one-*"}
+        }
+      }
+    }
+  })) return 1;
+
   logger.info("=== transport storeBulk");
   if (await storeBulk({
     origin: {
-      smt: "transport|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|=Foo"
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo"
     },
     constructs: [{
       Foo: 'one-o-five',
@@ -44,7 +57,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "transport|connectString=localhost/XEPDB1;user=dicta;password=data|timeseries|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|timeseries|*",
       options: {
         bulkLoad: true
       }

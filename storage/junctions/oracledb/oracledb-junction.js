@@ -52,7 +52,6 @@ class OracleDBJunction extends StorageJunction {
     this._isActive = true;
     logger.debug("OracleDBJunction activate");
 
-    let connection;
     try {
      this.pool = await oracledb.createPool({
         connectString: this.options.connectString || 'localhost/XE',
@@ -61,18 +60,16 @@ class OracleDBJunction extends StorageJunction {
       });
 
       if (this.options.bulkLoad) {
-        let sql = "ALTER TABLE " + this.smt.schema + " NOLOGGING";
-        connection = await this.pool.getConnection();
-        let results = await connection.execute(sql);
+        let sql = sqlEncoder.sqlActivate(this.smt.schema);
+        if (sql) {
+          let results = await this._request(sql);
+        }
       }
     }
     catch (err) {
       logger.error(err);
     }
-    finally {
-      if (connection)
-        await connection.close();
-    }
+
   }
 
   async relax() {
@@ -82,10 +79,10 @@ class OracleDBJunction extends StorageJunction {
     try {
       // release an resources
       if (this.options.bulkLoad) {
-        let sql = "ALTER TABLE " + this.smt.schema + " LOGGING";
-        let connection = await this.pool.getConnection();
-        let results = await connection.execute(sql);
-        await connection.close();
+        let sql = sqlEncoder.sqlRelax(this.smt.schema);
+        if (sql) {
+          let results = await this._request(sql);
+        }
       }
 
       await this.pool.close(0);
@@ -146,7 +143,7 @@ class OracleDBJunction extends StorageJunction {
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
   async getEncoding() {
-    logger.debug("OracleDBJunction get encoding");
+    logger.debug("OracleDBJunction getEncoding");
 
     let connection;
     try {
@@ -189,7 +186,6 @@ class OracleDBJunction extends StorageJunction {
   async createSchema(options={}) {
     logger.debug("OracleDBJunction createSchema");
 
-    let connection;
     try {
       let encoding = options.encoding || this.engram.encoding;
 
@@ -206,8 +202,7 @@ class OracleDBJunction extends StorageJunction {
       // create table
       let sql = sqlEncoder.sqlCreateTable(engram, this.options);
       logger.verbose(sql);
-      connection = await this.pool.getConnection();
-      let results = await connection.execute(sql);
+      let results = await this._request(sql);
       // note, execute will throw error if table exists
 
       // if successful update engram
@@ -218,7 +213,7 @@ class OracleDBJunction extends StorageJunction {
         for (let indexName of Object.keys(this.engram.indices)) {
           sql = sqlEncoder.sqlCreateIndex(engram, indexName);
           logger.verbose(sql);
-          results = await connection.execute(sql);
+          results = await this._request(sql);
         }
       }
       return new StorageResults(0);
@@ -229,10 +224,6 @@ class OracleDBJunction extends StorageJunction {
       
       logger.error(err);
       throw new StorageError(500).inner(err);
-    }
-    finally {
-      if (connection)
-        await connection.close();
     }
   }
 
@@ -246,11 +237,9 @@ class OracleDBJunction extends StorageJunction {
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
     
-    let connection;
     try {
       let sql = sqlEncoder.sqlDropTable(schema);
-      connection = await this.pool.getConnection();
-      let results = await connection.execute(sql);
+      let results = await this._request(sql);
 
       return new StorageResults(0);
     }
@@ -260,10 +249,6 @@ class OracleDBJunction extends StorageJunction {
 
       logger.error(err);
       throw new StorageError(500).inner(err);
-    }
-    finally {
-      if (connection)
-        await connection.close();
     }
   }
 
@@ -331,7 +316,7 @@ class OracleDBJunction extends StorageJunction {
    * @param {Object} pattern - optional parameters, source dependent
    */
   async storeBulk(constructs, pattern) {
-    logger.debug("OracleDBJunction store");
+    logger.debug("OracleDBJunction storeBulk");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
       throw new StorageError( 400, "unique keys not supported");
@@ -344,14 +329,12 @@ class OracleDBJunction extends StorageJunction {
 
       let sql = sqlEncoder.sqlBulkInsert(this.engram, constructs);
       logger.debug(sql);
+
       let rowsAffected = await this._request(sql);
 
       return new StorageResults(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
-      if (err.errorNum === 1 || err.errorNum === 3342)
-        return new StorageResults(409, 'duplicate entry');
-
       logger.error(err);
       throw new StorageError(500).inner(err);
     }
@@ -371,7 +354,7 @@ class OracleDBJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+      let sql = sqlEncoder.sqlSelectByKey(this.engram, pattern);
       logger.verbose(sql);
       connection = await this.pool.getConnection();
       let results = await connection.execute(sql);
@@ -405,7 +388,7 @@ class OracleDBJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      let sql = sqlEncoder.sqlSelectWithPattern(this.engram, pattern);
+      let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
       logger.verbose(sql);
       connection = await this.pool.getConnection();
       let results = await connection.execute(sql);
@@ -437,34 +420,31 @@ class OracleDBJunction extends StorageJunction {
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
       throw new StorageError( 400, "unique keys not supported");
 
-    let connection;
     try {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
       let sql;
-      if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+      if (this.engram.keyof === 'primary') {
         // delete construct by ID
-        sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+        sql = sqlEncoder.sqlDeleteByKey(this.engram, pattern);
+      }
+      else if (pattern.match) {
+        sql = sqlEncoder.sqlDeleteByPattern(this.engram, pattern);
       }
       else {
         // delete all constructs in the .schema
-        sql = "TRUNCATE " + this.smt.schema + ";";
+        sql = sqlEncoder.sqlTruncateTable(this.smt.schema);
       }
       logger.verbose(sql);
 
-      connection = await this.pool.getConnection();
-      let results = await connection.execute(sql);
+      let rowsAffected = await this._request(sql);
 
-      return new StorageResults(0, null, results.rowsAffected, "rowsAffected");
+      return new StorageResults(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
       throw new StorageError(500).inner(err);
-    }
-    finally {
-      if (connection)
-        await connection.close();
     }
   }
 

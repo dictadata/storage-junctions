@@ -4,6 +4,7 @@
 "use strict";
 
 const storeBulk = require('../lib/_store_bulk');
+const dull = require('../lib/_dull');
 const transfer = require('../lib/_transfer');
 const logger = require('../../storage/logger');
 
@@ -11,7 +12,19 @@ logger.info("=== Test: oracledb bulk storage");
 
 async function tests() {
 
-  logger.info("=== oracledb storeBulk");
+  logger.info("=== transport dull");
+  if (await dull({
+    origin: {
+      smt: "oracledb|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|*",
+      pattern: {
+        match: {
+          Foo: {"wc": "one-*"}
+        }
+      }
+    }
+  })) return 1;
+
+   logger.info("=== oracledb storeBulk");
   if (await storeBulk({
     origin: {
       smt: "oracledb|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|=Foo"

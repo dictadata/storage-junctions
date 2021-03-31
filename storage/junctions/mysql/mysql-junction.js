@@ -312,7 +312,7 @@ class MySQLJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+      let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
       logger.verbose(sql);
       let rows = await this.pool.query(sql);
 
@@ -339,7 +339,7 @@ class MySQLJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      let sql = sqlEncoder.sqlSelectWithPattern(this.engram, pattern);
+      let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
       logger.verbose(sql);
       let rows = await this.pool.query(sql);
 
@@ -370,9 +370,9 @@ class MySQLJunction extends StorageJunction {
         await this.getEncoding();
 
       let results = null;
-      if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+      if (this.engram.keyof === 'primary') {
         // delete construct by ID
-        let sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereFromKey(this.engram, pattern);
+        let sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
         logger.verbose(sql);
         results = await this.pool.query(sql);
       }

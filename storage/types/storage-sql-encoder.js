@@ -300,7 +300,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
   /**
    * options: {fieldname: value, ...}
    */
-  sqlWhereFromKey(engram, pattern) {
+  sqlWhereByKey(engram, pattern) {
     const match = (pattern && pattern.match) || pattern || {};
     let sql = "";
 
@@ -335,7 +335,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
    * aggregate groupby
    *   aggregate: {"<groupby field>": {"<as name>": {"func", "field"}}}
    */
-  sqlSelectWithPattern(engram, pattern) {
+  sqlSelectByPattern(engram, pattern) {
 
     let sql = "SELECT ";
 

@@ -311,7 +311,7 @@ exports.sqlUpdate = (engram, construct) => {
 /**
  * options: {fieldname: value, ...}
  */
-exports.sqlWhereFromKey = (engram, pattern) => {
+exports.sqlWhereByKey = (engram, pattern) => {
   const match = (pattern && pattern.match) || pattern || {};
   let sql = "";
 
@@ -346,7 +346,7 @@ exports.sqlWhereFromKey = (engram, pattern) => {
  * aggregate groupby
  *   aggregate: {"<groupby field>": {"<as name>": {"func", "field"}}}
  */
-exports.sqlSelectWithPattern = (engram, pattern) => {
+exports.sqlSelectByPattern = (engram, pattern) => {
 
   let sql = "SELECT ";
 

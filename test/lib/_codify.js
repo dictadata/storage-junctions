@@ -34,7 +34,7 @@ module.exports = exports = async function (tract) {
       fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1, null, 2), "utf8");
 
       let expected_output = tract.outputFile1.replace("output", "expected");
-      if (_compare(tract.outputFile1, expected_output))
+      if (_compare(tract.outputFile1, expected_output, false))
         return process.exitCode = 1;
     }
 
@@ -61,7 +61,7 @@ module.exports = exports = async function (tract) {
       fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2, null, "  "), "utf8");
 
       let expected_output = tract.outputFile2.replace("output", "expected");
-      retCode = _compare(tract.outputFile2, expected_output);
+      retCode = _compare(tract.outputFile2, expected_output, false);
     }
 
     logger.info(">>> completed");

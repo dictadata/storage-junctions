@@ -150,6 +150,14 @@ exports.decodeIndexResults = (engram, results) => {
   }
 }
 
+exports.sqlActivate = (schema) => {
+  return "ALTER TABLE " + schema + " NOLOGGING";
+};
+
+exports.sqlRelax = (schema) => {
+  return "ALTER TABLE " + schema + " LOGGING";
+};
+
 exports.sqlCreateTable = (engram, options) => {
   let sql = "CREATE TABLE " + engram.smt.schema + " (";
   let primaryKeys = [];
@@ -304,29 +312,21 @@ exports.sqlUpdate = (engram, construct) => {
   return sql;
 };
 
-/**
- * options: {fieldname: value, ...}
- */
-exports.sqlWhereFromKey = (engram, pattern) => {
-  const match = (pattern && pattern.match) || pattern || {};
-  let sql = "";
+exports.sqlSelectByKey = (engram, pattern) => {
+  return "SELECT * FROM " + engram.smt.schema + sqlWhereByKey(engram, pattern)
+}
 
-  if (engram.keys.length > 0) {
-    sql += " WHERE ";
+exports.sqlDeleteByKey = (engram, pattern) => {
+  return "DELETE FROM " + engram.smt.schema + sqlWhereByKey(engram, pattern);
+}
 
-    let first = true;
-    for (let key of engram.keys) {
-      let value = getCI(match, key);
-      if (typeof value === "undefined")
-        throw "key value undefined " + key;
-      (first) ? first = false : sql += " AND ";
-      sql += escapeId(key) + "=" + encodeValue(engram.find(key), value);
-    }
-  }
+exports.sqlDeleteByPattern = (engram, pattern) => {
+  return "DELETE FROM " + engram.smt.schema + sqlWhereByPattern(engram, pattern);
+}
 
-  logger.debug(sql);
-  return sql;
-};
+exports.sqlTruncateTable = (schema) => {
+  return "TRUNCATE " + schema;
+}
 
 /**
  * Pattern for aggregation
@@ -342,7 +342,7 @@ exports.sqlWhereFromKey = (engram, pattern) => {
  * aggregate groupby
  *   aggregate: {"<groupby field>": {"<as name>": {"func", "field"}}}
  */
-exports.sqlSelectWithPattern = (engram, pattern) => {
+exports.sqlSelectByPattern = (engram, pattern) => {
 
   let sql = "SELECT ";
 
@@ -388,37 +388,7 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
 
   // WHERE clause
   if (pattern && pattern.match) {
-    sql += " WHERE ";
-
-    let first = true;
-    for (let [fldname,value] of Object.entries(pattern.match)) {
-      if (typeOf(value) === 'object') {
-        // expression(s) { op: value, ...}
-        for (let [op,val] of Object.entries(value)) {
-          (first) ? first = false : sql += " AND ";
-
-          sql += escapeId(fldname);
-          switch (op) {
-            case 'gt': sql += " > "; break;
-            case 'gte': sql += " >= "; break;
-            case 'lt': sql += " < "; break;
-            case 'lte': sql += " <= "; break;
-            case 'eq': sql += " = "; break;
-            case 'neq': sql += " != "; break;
-            case 'wc': sql += " LIKE ";
-              val = val.replace(/\*/g, "%").replace(/\?/g, "_");
-              break;
-            default: sql += " ??? ";
-          }
-          sql += encodeValue(engram.find(fldname), val);
-        }
-      }
-      else {
-        // single property { field: value }
-        (first) ? first = false : sql += " AND ";
-        sql += escapeId(fldname) + "=" + encodeValue(engram.find(fldname), value);
-      }
-    }
+    sql += this.sqlWhereByPattern(engram, pattern);
   }
 
   // GROUP BY clause
@@ -454,6 +424,71 @@ exports.sqlSelectWithPattern = (engram, pattern) => {
   if (pattern.count)
     sql += ` FETCH FIRST ${pattern.count} ROWS ONLY`;
   
+  return sql;
+};
+
+/**
+ * options: {fieldname: value, ...}
+ */
+let sqlWhereByKey = exports.sqlWhereByKey = (engram, pattern) => {
+  const match = (pattern && pattern.match) || pattern || {};
+  let sql = "";
+
+  if (engram.keys.length > 0) {
+    sql += " WHERE ";
+
+    let first = true;
+    for (let key of engram.keys) {
+      let value = getCI(match, key);
+      if (typeof value === "undefined")
+        throw "key value undefined " + key;
+      (first) ? first = false : sql += " AND ";
+      sql += escapeId(key) + "=" + encodeValue(engram.find(key), value);
+    }
+  }
+
+  logger.debug(sql);
+  return sql;
+};
+
+/**
+ * options: {fieldname: value, ...}
+ */
+let sqlWhereByPattern = exports.sqlWhereByPattern = (engram, pattern) => {
+  const match = (pattern && pattern.match) || pattern || {};
+  let sql = " WHERE ";
+
+  let first = true;
+  for (let [fldname, value] of Object.entries(match)) {
+    if (typeOf(value) === 'object') {
+      // expression(s) { op: value, ...}
+      for (let [op, val] of Object.entries(value)) {
+        (first) ? first = false : sql += " AND ";
+
+        sql += escapeId(fldname);
+        switch (op) {
+          case 'gt': sql += " > "; break;
+          case 'gte': sql += " >= "; break;
+          case 'lt': sql += " < "; break;
+          case 'lte': sql += " <= "; break;
+          case 'eq': sql += " = "; break;
+          case 'neq': sql += " != "; break;
+          case 'wc': sql += " LIKE ";
+            val = val.replace(/\*/g, "%").replace(/\?/g, "_");
+            break;
+          default: sql += " ??? ";
+        }
+        sql += encodeValue(engram.find(fldname), val);
+      }
+    }
+    else {
+      // single property { field: value }
+      (first) ? first = false : sql += " AND ";
+      sql += escapeId(fldname) + "=" + encodeValue(engram.find(fldname), value);
+    }
+  }
+  
+  logger.debug(sql);
   return sql;
 };
 
