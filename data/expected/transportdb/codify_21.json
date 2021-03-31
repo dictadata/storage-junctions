@@ -1,7 +1,7 @@
 {
   "smt": {
-    "model": "transportdb",
-    "locus": "http://localhost:8089/transportdb/storage_node",
+    "model": "transport",
+    "locus": "http://localhost:8089/transport/storage_node",
     "schema": "foo_schema_02",
     "key": "=Foo"
   },
@@ -159,7 +159,7 @@
       }
     }
   },
-  "_SMT": "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|=Foo",
+  "_SMT": "transport|http://localhost:8089/transport/storage_node|foo_schema_02|=Foo",
   "indices": {
     "foo_index_02": {
       "fields": [

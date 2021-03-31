@@ -1,25 +1,25 @@
 /**
- * test/transportdb list
+ * test/transport list
  */
 "use strict";
 
 const list = require('../lib/_list');
 const logger = require('../../storage/logger');
 
-logger.info("=== tests: transportdb list");
+logger.info("=== tests: transport list");
 
 async function tests() {
 
   logger.info("=== list");
   if (await list({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|*|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|*|*",
       options: {
         schema: "foo*"
       }
     },
     terminal: {
-      output: "./data/output/transportdb/list.json"
+      output: "./data/output/transport/list.json"
     }
   })) return 1;
 

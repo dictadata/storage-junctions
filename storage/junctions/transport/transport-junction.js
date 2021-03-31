@@ -1,4 +1,4 @@
-// storage/junctions/transportdb-junction
+// storage/junctions/transport-junction
 "use strict";
 
 const StorageJunction = require("../storage-junction");
@@ -6,28 +6,28 @@ const { Engram, StorageResults, StorageError } = require("../../types");
 const { typeOf } = require("../../utils");
 const logger = require('../../logger');
 
-const TransportDBReader = require("./transportdb-reader");
-const TransportDBWriter = require("./transportdb-writer");
-//const encoder = require('./transportdb-encoder');
+const TransportReader = require("./transport-reader");
+const TransportWriter = require("./transport-writer");
+//const encoder = require('./transport-encoder');
 const encoder = require("../oracledb/oracledb-encoder");
 const sqlEncoder = require("../oracledb/oracledb-sql-encoder");
 
 const stream = require('stream/promises');
 const httpRequest = require("../../utils/httpRequest");
 
-class TransportDBJunction extends StorageJunction {
+class TransportJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'transportdb|host|endpoint|key' or an Engram object
+   * @param {*} SMT 'transport|host|endpoint|key' or an Engram object
    * @param {*} options
    */
   constructor(SMT, options) {
     super(SMT, options);
-    logger.debug("TransportDBJunction");
+    logger.debug("TransportJunction");
 
-    this._readerClass = TransportDBReader;
-    this._writerClass = TransportDBWriter;
+    this._readerClass = TransportReader;
+    this._writerClass = TransportWriter;
 
     if (this.options.stringBreakpoints)
       Object.assign(encoder.stringBreakpoints, this.options.stringBreakpoints);
@@ -45,7 +45,7 @@ class TransportDBJunction extends StorageJunction {
 
   async activate() {
     this._isActive = true;
-    logger.debug("TransportDBJunction activate");
+    logger.debug("TransportJunction activate");
 
     try {
       if (this.options.bulkLoad) {
@@ -67,7 +67,7 @@ class TransportDBJunction extends StorageJunction {
 
   async relax() {
     this._isActive = false;
-    logger.debug("TransportDBJunction relax");
+    logger.debug("TransportJunction relax");
 
     try {
       // release an resources
@@ -97,7 +97,7 @@ class TransportDBJunction extends StorageJunction {
    * @param {*} options list options
    */
   async list(options) {
-    logger.debug('TransportDBJunction list');
+    logger.debug('TransportJunction list');
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
     let list = [];
@@ -198,7 +198,7 @@ class TransportDBJunction extends StorageJunction {
    * @param {*} encoding
    */
   async createSchema(options={}) {
-        logger.debug("TransportDBJunction createSchema");
+        logger.debug("TransportJunction createSchema");
 
     try {
       let encoding = options.encoding || this.engram.encoding;
@@ -358,7 +358,7 @@ class TransportDBJunction extends StorageJunction {
    * @param {Object} pattern - optional parameters, source dependent
    */
   async storeBulk(constructs, pattern) {
-    logger.debug("TransportDBJunction storeBulk");
+    logger.debug("TransportJunction storeBulk");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
       throw new StorageError( 400, "unique keys not supported");
@@ -399,7 +399,7 @@ class TransportDBJunction extends StorageJunction {
    *
    */
   async recall(pattern) {
-    logger.debug("TransportDBJunction recall");
+    logger.debug("TransportJunction recall");
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
       throw new StorageError( 400, "unique keys not supported");
@@ -437,7 +437,7 @@ class TransportDBJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    logger.debug("TransportDBJunction retrieve");
+    logger.debug("TransportJunction retrieve");
 
     try {
       if (!this.engram.isDefined)
@@ -471,7 +471,7 @@ class TransportDBJunction extends StorageJunction {
    *
    */
   async dull(pattern) {
-    logger.debug("TransportDBJunction dull");
+    logger.debug("TransportJunction dull");
     if (!pattern) pattern = {};
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
@@ -516,5 +516,5 @@ class TransportDBJunction extends StorageJunction {
 };
 
 // define module exports
-//TransportDBJunction.encoder = encoder;
-module.exports = TransportDBJunction;
+//TransportJunction.encoder = encoder;
+module.exports = TransportJunction;

@@ -1,5 +1,5 @@
 /**
- * test/transportdb
+ * test/transport
  */
 "use strict";
 
@@ -10,10 +10,10 @@ logger.info("=== Tests: retreive");
 
 async function tests() {
 
-  logger.info("=== transportdb aggregate");
+  logger.info("=== transport aggregate");
   if (await retrieve({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -26,14 +26,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: './data/output/transportdb/aggregate_1.json'
+      output: './data/output/transport/aggregate_1.json'
     }
   })) return 1;
 
-  logger.info("=== transportdb aggregate summary");
+  logger.info("=== transport aggregate summary");
   if (await retrieve({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -50,14 +50,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: './data/output/transportdb/aggregate_2.json'
+      output: './data/output/transport/aggregate_2.json'
     }
   })) return 1;
 
-  logger.info("=== transportdb aggregate w/ groupby");
+  logger.info("=== transport aggregate w/ groupby");
   if (await retrieve({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -75,7 +75,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './data/output/transportdb/aggregate_3.json'
+      output: './data/output/transport/aggregate_3.json'
     }
   })) return 1;
 

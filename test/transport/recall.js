@@ -1,19 +1,19 @@
 /**
- * test/transportdb
+ * test/transport
  */
 "use strict";
 
 const recall = require('../lib/_recall');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: transportdb");
+logger.info("=== Test: transport");
 
 async function tests() {
 
-  logger.info("=== transportdb recall");
+  logger.info("=== transport recall");
   if (await recall({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|=Foo",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'
@@ -21,14 +21,14 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/transportdb/recall.json"
+      output: "./data/output/transport/recall.json"
     }
   })) return 1;
 
-  logger.info("=== transportdb recall");
+  logger.info("=== transport recall");
   if (await recall({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       pattern: {
         match: {
           Foo: 'ten'

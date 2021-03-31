@@ -6,11 +6,11 @@
 const transfer = require('../lib/_transfer');
 const logger = require('../../storage/logger');
 
-logger.info("=== Test: transportdb transforms");
+logger.info("=== Test: transport transforms");
 
 async function tests() {
 
-  logger.verbose('=== json > transportdb foo_schema_etl2');
+  logger.verbose('=== json > transport foo_schema_etl2');
   if (await transfer({
     "origin": {
       "smt": "json|./data/test/|foofile.json|*"
@@ -42,17 +42,17 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_etl2|*",
+      "smt": "transport|http://localhost:8089/transport/storage_node|foo_schema_etl2|*",
       "options": {
         "encoding": "./data/test/foo_encoding_t.json"
       }
     }
   })) return 1;
 
-  logger.verbose('=== transportdb > oracle_transform_0.json');
+  logger.verbose('=== transport > oracle_transform_0.json');
   if (await transfer({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       options: {
         match: {
           "Bar": "row",
@@ -62,14 +62,14 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/transportdb/|transform_0.json|*"
+      smt: "json|./data/output/transport/|transform_0.json|*"
     }
   })) return 1;
 
-  logger.verbose('=== transportdb > oracle_transform_1.json');
+  logger.verbose('=== transport > oracle_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_01|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/test/encoding_foo_01.json"
       }
@@ -102,14 +102,14 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/transportdb/|transform_1.json|*"
+      smt: "json|./data/output/transport/|transform_1.json|*"
     }
   })) return 1;
 
-  logger.verbose('=== transportdb > oracle_transform_2.json');
+  logger.verbose('=== transport > oracle_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "transportdb|http://localhost:8089/transportdb/storage_node|foo_schema_02|*",
+      smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/test/encoding_foo_02.json"
       }
@@ -142,7 +142,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/transportdb/|transform_2.json|*"
+      smt: "json|./data/output/transport/|transform_2.json|*"
     }
   })) return 1;
 

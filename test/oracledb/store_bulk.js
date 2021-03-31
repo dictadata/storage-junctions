@@ -12,7 +12,7 @@ logger.info("=== Test: oracledb bulk storage");
 
 async function tests() {
 
-  logger.info("=== transportdb dull");
+  logger.info("=== transport dull");
   if (await dull({
     origin: {
       smt: "oracledb|connectString=localhost/XEPDB1;user=dicta;password=data|foo_schema|*",
