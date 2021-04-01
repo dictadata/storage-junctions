@@ -1,0 +1,12 @@
+dist/
+output/
+logs/
+*.log
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.vscode/settings.json
+.vscode/tasks.json
