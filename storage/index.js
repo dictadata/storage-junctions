@@ -6,45 +6,17 @@
 var cortex = require("./cortex");
 module.exports = exports = cortex;
 
-exports.logger = require('./logger');
-
-// other storage classes
+///// Storage types
 const types = exports.types = require("./types");
 exports.Engram = types.Engram;
 exports.Field = types.Field;
 exports.StorageResults = types.StorageResults;
 exports.StorageError = types.StorageError;
 
-// register transforms
-exports.FilterTransform = require("./transforms/filter");
-cortex.Transforms.use('filter', exports.FilterTransform);
+///// Storage utils
+const utils = exports.utils = require("./utils");
 
-exports.SelectTransform = require("./transforms/select");
-cortex.Transforms.use('select', exports.SelectTransform);
-
-exports.ComposeTransform = require("./transforms/compose");
-cortex.Transforms.use('compose', exports.ComposeTransform);
-
-exports.DecomposeTransform = require("./transforms/decompose");
-cortex.Transforms.use('decompose', exports.DecomposeTransform);
-cortex.Transforms.use('flatten', exports.DecomposeTransform);
-
-exports.ConjoinTransform = require("./transforms/conjoin");
-cortex.Transforms.use('conjoin', exports.ConjoinTransform);
-
-exports.AggregateTransform = require("./transforms/aggregate");
-cortex.Transforms.use('aggregate', exports.AggregateTransform);
-
-exports.CodifyTransform = require("./transforms/codify");
-cortex.Transforms.use('codify', exports.CodifyTransform);
-
-exports.EncoderTransform = require("./transforms/encoder");
-cortex.Transforms.use('encoder', exports.EncoderTransform);
-
-exports.MetaStatsTransform = require("./transforms/metastats");
-cortex.Transforms.use('metastats', exports.MetaStatsTransform);
-
-// register standard StorageFileSystem's
+///// register Storage FileSystems
 exports.FileSystem = require("./filesystems/storage-filesystem");
 
 exports.FSFileSystem = require("./filesystems/fs-filesystem");
@@ -57,7 +29,7 @@ exports.HTTPFileSystem = require("./filesystems/http-filesystem");
 cortex.FileSystems.use('http', exports.HTTPFileSystem);
 cortex.FileSystems.use('https', exports.HTTPFileSystem);
 
-// register standard junctions
+///// register Storage Junctions
 var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
@@ -117,3 +89,32 @@ cortex.use('split', SplitterJunction);
 var TransportJunction = require("./junctions/transport");
 exports.TransportJunction = TransportJunction;
 cortex.use('transport', TransportJunction);
+
+///// register Storage Transforms
+exports.FilterTransform = require("./transforms/filter");
+cortex.Transforms.use('filter', exports.FilterTransform);
+
+exports.SelectTransform = require("./transforms/select");
+cortex.Transforms.use('select', exports.SelectTransform);
+
+exports.ComposeTransform = require("./transforms/compose");
+cortex.Transforms.use('compose', exports.ComposeTransform);
+
+exports.DecomposeTransform = require("./transforms/decompose");
+cortex.Transforms.use('decompose', exports.DecomposeTransform);
+cortex.Transforms.use('flatten', exports.DecomposeTransform);
+
+exports.ConjoinTransform = require("./transforms/conjoin");
+cortex.Transforms.use('conjoin', exports.ConjoinTransform);
+
+exports.AggregateTransform = require("./transforms/aggregate");
+cortex.Transforms.use('aggregate', exports.AggregateTransform);
+
+exports.CodifyTransform = require("./transforms/codify");
+cortex.Transforms.use('codify', exports.CodifyTransform);
+
+exports.EncoderTransform = require("./transforms/encoder");
+cortex.Transforms.use('encoder', exports.EncoderTransform);
+
+exports.MetaStatsTransform = require("./transforms/metastats");
+cortex.Transforms.use('metastats', exports.MetaStatsTransform);

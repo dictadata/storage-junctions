@@ -4,7 +4,7 @@
 "use strict";
 
 const dullSchema = require('../lib/_dullSchema');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: transport dullSchema");
 

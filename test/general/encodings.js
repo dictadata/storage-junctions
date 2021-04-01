@@ -5,7 +5,7 @@
 
 const storage = require("../../storage");
 const EchoJunction = require("../../storage/junctions/echo");
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 const fs = require('fs');
 
 logger.info("=== Tests: echo encodings");

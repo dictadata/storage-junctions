@@ -4,7 +4,7 @@
 "use strict";
 
 const storage = require("../../storage");
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: Generic * Junction");
 

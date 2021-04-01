@@ -2,7 +2,7 @@
 "use strict";
 
 const { StorageResults, StorageError } = require("../types");
-const logger = require("../logger");
+const { logger } = require("../utils");
 
 const path = require('path');
 const url = require('url');

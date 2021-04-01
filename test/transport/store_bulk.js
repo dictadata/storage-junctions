@@ -6,7 +6,7 @@
 const storeBulk = require('../lib/_store_bulk');
 const dull = require('../lib/_dull');
 const transfer = require('../lib/_transfer');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: transport bulk storage");
 

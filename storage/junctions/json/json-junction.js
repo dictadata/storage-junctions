@@ -5,9 +5,9 @@
 
 const StorageJunction = require("../storage-junction");
 const { StorageResults, StorageError } = require("../../types");
+const { logger } = require("../../utils");
 const JSONReader = require("./json-reader");
 const JSONWriter = require("./json-writer");
-const logger = require("../../logger");
 
 const path = require('path');
 const stream = require('stream/promises');

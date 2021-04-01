@@ -3,7 +3,7 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { StorageResults, StorageError } = require("../types");
-const logger = require("../logger");
+const { logger } = require("../utils");
 
 const fs = require('fs');
 const fsp = require('fs/promises');

@@ -3,8 +3,7 @@
 
 const StorageJunction = require("../storage-junction");
 const { Engram, StorageResults, StorageError } = require("../../types");
-const { typeOf } = require("../../utils");
-const logger = require('../../logger');
+const { typeOf, httpRequest, logger } = require("../../utils");
 
 const TransportReader = require("./transport-reader");
 const TransportWriter = require("./transport-writer");
@@ -13,7 +12,6 @@ const encoder = require("../oracledb/oracledb-encoder");
 const sqlEncoder = require("../oracledb/oracledb-sql-encoder");
 
 const stream = require('stream/promises');
-const httpRequest = require("../../utils/httpRequest");
 
 class TransportJunction extends StorageJunction {
 

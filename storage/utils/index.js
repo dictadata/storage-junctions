@@ -13,3 +13,5 @@ exports.getCI = require('./getCI');
 exports.ifOptions = require('./ifOptions');
 
 exports.httpRequest = require('./httpRequest');
+
+exports.logger = require('./logger');

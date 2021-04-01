@@ -4,7 +4,7 @@
 "use strict";
 
 const getEncoding = require('../lib/_getEncoding');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: transport getEncoding");
 

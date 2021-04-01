@@ -5,8 +5,7 @@
 
 const elasticsearch = require("@elastic/elasticsearch");
 const { StorageError } = require("../../types");
-const { typeOf } = require("../../utils");
-const logger = require('../../logger');
+const { typeOf, logger } = require("../../utils");
 
 /**
  * Notes about Elasticsearch Javascript API:

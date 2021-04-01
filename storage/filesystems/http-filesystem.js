@@ -3,9 +3,8 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { StorageResults, StorageError } = require("../types");
-const logger = require("../logger");
+const { logger, httpRequest } = require("../utils");
 
-const httpRequest = require('../utils/httpRequest');
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');

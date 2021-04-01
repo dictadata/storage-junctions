@@ -4,7 +4,7 @@
 "use strict";
 
 const dull = require('../lib/_dull');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: elasticsearch");
 

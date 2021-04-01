@@ -2,7 +2,7 @@
 
 const Cortex = require('../../cortex');
 const { Engram, StorageResults, StorageError } = require("../../types");
-const logger = require("../../logger");
+const { logger } = require("../../utils");
 
 const Reader = require("./storage-reader");
 const Writer = require("./storage-writer");

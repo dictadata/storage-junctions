@@ -4,11 +4,9 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
+const { logger, httpRequest } = require('../../utils');
 const encoder = require("../oracledb/oracledb-encoder");
 const sqlEncoder = require("../oracledb/oracledb-sql-encoder");
-const logger = require('../../logger');
-
-const httpRequest = require("../../utils/httpRequest");
 
 module.exports = exports = class TransportReader extends StorageReader {
 

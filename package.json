@@ -4,7 +4,7 @@
   "description": "Node.js library for distributed data storage access and streaming transfers. ",
   "author": "Drew O. Letcher",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "storage/index.js",
   "repository": "github:dictadata/storage-junctions",
   "scripts": {
     "debug": "set NODE_ENV=development&& node --inspect-brk test/lib/<some file to test>.js",

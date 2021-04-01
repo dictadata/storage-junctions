@@ -4,7 +4,7 @@
 "use strict";
 
 const download = require('../lib/_download');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== tests: http downloads");
 

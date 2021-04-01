@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const storage = require("../../storage");
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 module.exports = exports = async function (tract, keyValues) {
   logger.info(">>> create junction");

@@ -5,8 +5,7 @@
 
 const encoder = require('./storage-encoder');
 const { StorageError } = require('.');
-const { typeOf, hasOwnProperty, isDate, parseDate } = require('../utils');
-const logger = require('../logger');
+const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../utils');
 
 module.exports = exports = class StorageSQLEncoder {
 

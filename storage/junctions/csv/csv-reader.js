@@ -2,7 +2,7 @@
 
 const { StorageReader } = require('../storage-junction');
 const { parseValue } = require('../../types');
-const logger = require('../../logger');
+const { logger } = require('../../utils');
 
 const path = require('path');
 const ynBoolean = require('yn');

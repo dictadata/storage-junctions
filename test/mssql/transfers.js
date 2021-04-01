@@ -5,7 +5,7 @@
 
 const transfer = require('../lib/_transfer');
 const dullSchema = require('../lib/_dullSchema');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: mssql transfers");
 

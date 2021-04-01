@@ -3,8 +3,7 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { StorageResults, StorageError } = require("../types");
-const { hasOwnProperty } = require("../utils");
-const logger = require("../logger");
+const { hasOwnProperty, logger } = require("../utils");
 
 const FTP = require("promise-ftp");
 const { PassThrough } = require('stream');

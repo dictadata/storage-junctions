@@ -4,7 +4,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const logger = require('../../logger');
+const { logger } = require('../../utils');
 
 const dslEncoder = require("./elasticsearch-encoder-dsl");
 

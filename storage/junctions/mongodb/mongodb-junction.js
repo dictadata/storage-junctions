@@ -4,8 +4,7 @@ const StorageJunction = require("../storage-junction");
 const MongoDBReader = require("./mongodb-reader");
 const MongoDBWriter = require("./mongodb-writer");
 const { StorageResults, StorageError } = require("../../types");
-const { typeOf } = require("../../utils");
-const logger = require('../../logger');
+const { typeOf, logger } = require("../../utils");
 
 //const MongoDB = require('mongodb');
 

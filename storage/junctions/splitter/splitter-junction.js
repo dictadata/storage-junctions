@@ -6,8 +6,7 @@
 const StorageJunction = require("../storage-junction");
 const Cortex = require("../../cortex");
 const { Engram, StorageError } = require("../../types");
-const { hasOwnProperty } = require("../../utils");
-const logger = require("../../logger");
+const { hasOwnProperty, logger } = require("../../utils");
 
 const SplitterWriter = require("./splitter-writer");
 

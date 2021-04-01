@@ -4,8 +4,7 @@
 "use strict";
 
 const { StorageError } = require("../../types");
-const { hasOwnProperty } = require("../../utils");
-const logger = require('../../logger');
+const { hasOwnProperty, logger } = require("../../utils");
 
 var excludeProperties = [ "@timestamp", "_meta" ];
 

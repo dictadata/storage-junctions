@@ -2,8 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
-const { hasOwnProperty } = require("../../utils");
-const logger = require('../../logger');
+const { hasOwnProperty, logger } = require("../../utils");
 
 const path = require('path');
 

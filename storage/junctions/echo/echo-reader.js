@@ -2,7 +2,7 @@
 
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require("../../types");
-const logger = require('../../logger');
+const { logger } = require('../../utils');
 
 module.exports = exports = class EchoReader extends StorageReader {
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 const fs = require('fs');
 const path = require('path');

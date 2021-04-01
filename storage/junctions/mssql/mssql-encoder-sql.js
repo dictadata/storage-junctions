@@ -6,8 +6,7 @@
 const encoder = require('./mssql-encoder');
 const sqlString = require('tsqlstring');
 const { StorageError } = require('../../types');
-const { typeOf, hasOwnProperty, isDate, parseDate } = require('../../utils');
-const logger = require('../../logger');
+const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../utils');
 
 exports.connectionConfig = (options) => {
 

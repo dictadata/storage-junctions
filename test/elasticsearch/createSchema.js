@@ -5,7 +5,7 @@
 
 const createSchema = require('../lib/_createSchema');
 const dull = require("../lib/_dull");
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("===== elasticsearch createSchema ");
 

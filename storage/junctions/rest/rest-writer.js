@@ -2,8 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
-//coconst logger = require('../../logger');
-const logger = require('../../logger');
+const { logger } = require('../../utils');
 
 module.exports = exports = class RESTWriter extends StorageWriter {
 

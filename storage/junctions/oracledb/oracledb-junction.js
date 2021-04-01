@@ -3,8 +3,7 @@
 
 const StorageJunction = require("../storage-junction");
 const { Engram, StorageResults, StorageError } = require("../../types");
-const { typeOf } = require("../../utils");
-const logger = require('../../logger');
+const { typeOf, logger } = require("../../utils");
 
 const OracleDBReader = require("./oracledb-reader");
 const OracleDBWriter = require("./oracledb-writer");

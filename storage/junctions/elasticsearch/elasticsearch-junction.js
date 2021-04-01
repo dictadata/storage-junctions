@@ -7,7 +7,7 @@ const StorageJunction = require("../storage-junction");
 const ElasticsearchReader = require("./elasticsearch-reader");
 const ElasticsearchWriter = require("./elasticsearch-writer");
 const { StorageResults, StorageError } = require("../../types");
-const logger = require('../../logger');
+const { logger } = require('../../utils');
 
 const encoder = require("./elasticsearch-encoder");
 const dslEncoder = require("./elasticsearch-encoder-dsl");

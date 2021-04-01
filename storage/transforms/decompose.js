@@ -5,8 +5,7 @@
  */
 
 const { Transform } = require('stream');
-const { typeOf } = require("../utils");
-const logger = require('../logger');
+const { typeOf, logger } = require("../utils");
 
 // example decompose transform
 /*

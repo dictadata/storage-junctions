@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: transfer w/ transforms");
 

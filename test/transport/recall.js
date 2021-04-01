@@ -4,7 +4,7 @@
 "use strict";
 
 const recall = require('../lib/_recall');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: transport");
 

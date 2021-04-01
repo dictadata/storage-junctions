@@ -2,16 +2,13 @@
 
 const StorageJunction = require("../storage-junction");
 const { StorageResults, StorageError } = require("../../types");
-const { typeOf } = require("../../utils");
-const logger = require('../../logger');
+const { typeOf, logger, httpRequest } = require("../../utils");
 
 const RESTReader = require("./rest-reader");
 const RESTWriter = require("./rest-writer");
 const encoder = require('./rest-encoder');
 
 const stream = require('stream/promises');
-const httpRequest = require("../../utils/httpRequest");
-
 
 class RESTJunction extends StorageJunction {
 

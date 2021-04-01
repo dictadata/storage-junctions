@@ -4,9 +4,8 @@
 "use strict";
 
 const encoder = require('./mysql-encoder');
+const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../utils');
 const sqlString = require('sqlstring');
-const { typeOf, hasOwnProperty, isDate, parseDate } = require('../../utils');
-const logger = require('../../logger');
 const { escapeId } = require('tsqlstring');
 
 

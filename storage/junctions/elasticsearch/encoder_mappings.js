@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const logger = require("../../logger");
+const { logger } = require("../../utils");
 const fs = require('fs');
-const logger = require('../../logger');
+const { logger } = require('../../utils');
 
 module.exports = exports = class ElasticMappings {
 

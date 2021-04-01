@@ -4,7 +4,7 @@
 "use strict";
 
 const list = require('../lib/_list');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== tests: oracledb list");
 

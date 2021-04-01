@@ -5,7 +5,7 @@
 
 const storeBulk = require('../lib/_store_bulk');
 const transfer = require('../lib/_transfer');
-const logger = require('../../storage/logger');
+const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: mysql bulk storage");
 
