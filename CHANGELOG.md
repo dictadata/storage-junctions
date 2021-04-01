@@ -1,5 +1,10 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.7.0
+  - refactoring of project files
+  - all async methods now return a StorageResults object or throw a StorageError object
+  - automated testing implemented
+  - moved S3-FileSystem and XlsxJunction to separate plugin projects
 - version 1.5.1
   - add encodings for SQL indexes in addition to primary key index
   - add junction encoding getter/setter and createSchema/dullSchema methods
