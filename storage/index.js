@@ -14,7 +14,10 @@ exports.StorageResults = types.StorageResults;
 exports.StorageError = types.StorageError;
 
 ///// Storage utils
-const utils = exports.utils = require("./utils");
+exports.utils = require("./utils");
+
+///// Storage tests
+exports.tests = require("../test/lib");
 
 ///// register Storage FileSystems
 exports.FileSystem = require("./filesystems/storage-filesystem");
