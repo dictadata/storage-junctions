@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.7.1
+  - export tests lib
 - version 1.7.0
   - refactoring of project files
   - all async methods now return a StorageResults object or throw a StorageError object
