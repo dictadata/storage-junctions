@@ -110,7 +110,8 @@ module.exports = exports = class JSONReader extends StorageReader {
     });
 
     pipeline.on('error', function (err) {
-      logger.error(err);
+      //logger.error(err);
+      throw err;
     });
 
     this.started = false;

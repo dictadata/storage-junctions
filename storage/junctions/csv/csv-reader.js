@@ -117,7 +117,8 @@ module.exports = exports = class CSVReader extends StorageReader {
     });
 
     parser.on('error', function (err) {
-      logger.error(err);
+      //logger.error(err);
+      throw err;
     });
 
   }
