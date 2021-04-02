@@ -20,7 +20,7 @@ exports.utils = require("./utils");
 exports.tests = require("../test/lib");
 
 ///// register Storage FileSystems
-exports.FileSystem = require("./filesystems/storage-filesystem");
+exports.StorageFileSystem = require("./filesystems/storage-filesystem");
 
 exports.FSFileSystem = require("./filesystems/fs-filesystem");
 cortex.FileSystems.use('file', exports.FSFileSystem);
