@@ -30,14 +30,15 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     if (!this.options.dirname.endsWith('/'))
       this.options.dirname += '/';
 
-    // default request headers, override with options.headers
-    this.options.headers = Object.assign({
+    // set some default request headers, if not defined in options
+    this.headers = Object.assign({
       'accept': '*/*',
       'accept-encoding': 'gzip, deflate, br',
       "user-agent": "storage-junctions/1.2 (dictadata.org)",
       'cache-control': 'max-age=0'
     },
       this.options.headers);
+    delete this.options.headers;  // beware shallow copies
 
     this._dirname = '';
   }
@@ -52,7 +53,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       options.method = 'GET';
-      Object.assign(options.headers, {
+      options.headers = Object.assign({}, this.headers, options.headers, {
         accept: 'text/html,application/xhtml+xml'
       });
       let schema = options.schema || this.smt.schema;
@@ -131,6 +132,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug('http-filesystem dull');
 
     options = Object.assign({}, this.options, options);
+    options.headers = Object.assign({}, this.headers, options.headers);
     let schema = options.schema || this.smt.schema;
 
     throw new StorageError(501);
@@ -146,6 +148,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
+      options.headers = Object.assign({}, this.headers, options.headers);
       options.method = 'GET'
       options.responseType = 'stream';
 
@@ -180,6 +183,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // implement writestream creation in overrides
     //options = Object.assign({}, this.options, options);
+    //options.headers = Object.assign({}, this.headers, options.headers);
     //let schema = options.schema || this.smt.schema;
     //let ws = false;
 
@@ -193,6 +197,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
+      options.headers = Object.assign({}, this.headers, options.headers);
       options.method = 'GET'
       options.responseType = 'stream';
       let resultCode = 0;
@@ -225,6 +230,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
+      options.headers = Object.assign({}, this.headers, options.headers);
       options.method = 'PUT';
       let resultCode = 0;
 
@@ -239,7 +245,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       form.append(filename, fs.createReadStream(src));
 
       // send the file
-      Object.assign(options.headers, form.getHeaders());
+      options.headers = Object.assign({}, this.headers, options.headers, form.getHeaders());
       let response = await httpRequest(this._url.pathname, options, form);
 
       return new StorageResults(resultCode);
