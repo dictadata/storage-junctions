@@ -127,7 +127,7 @@ class RESTJunction extends StorageJunction {
       
       let request = {
         method: this.options.method || "GET",
-        origin: this.options.origin || this.smt.locus,
+        base: this.options.base || this.smt.locus,
         headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
         timeout: this.options.timeout || 10000
       };

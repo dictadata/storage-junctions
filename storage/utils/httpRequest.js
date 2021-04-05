@@ -9,14 +9,13 @@ const logger = require('./logger');
 function httpRequest(url, options, data) {
 
   let Url;
-  if (typeof url === "object")
+  if (typeof url === "string") {
+    Url = new URL(url, (options.base || options.origin));
+  }
+  else if (typeof url === "object" && url instanceof URL)
     Url = url;
   else {
-    try {
-      Url = new URL(url, options.origin);
-    } catch (error) {
-      throw new Error(`Invalid url ${url}`);
-    }
+    throw new Error(`Invalid url ${url}`);
   }
 
   if (options.httpVersion === 2)
