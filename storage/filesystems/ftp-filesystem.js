@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageResults, StorageError } = require("../types");
+const { StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
 const FTP = require("promise-ftp");
@@ -108,7 +108,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       await scanner(wdPath, "", options);
 
-      return new StorageResults(0, null, list);
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -126,7 +126,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let filename = this._url.pathname + schema;
       await this._ftp.delete(filename);
 
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       logger.error(err);
@@ -236,7 +236,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       // save to local file
       rs.pipe(fs.createWriteStream(dest));
 
-      return new StorageResults(resultCode);
+      return new StorageResponse(resultCode);
     }
     catch (err) {
       logger.error(err);
@@ -260,7 +260,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       await this._walkCWD(wdPath);
       await this._ftp.put(src, options.name);
 
-      return new StorageResults(resultCode);
+      return new StorageResponse(resultCode);
     }
     catch (err) {
       logger.error(err);

@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
+const { StorageResponse, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 const CSVReader = require("./csv-reader");
 const CSVWriter = require("./csv-writer");
@@ -52,7 +52,7 @@ class CSVJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (e instanceof StorageError)

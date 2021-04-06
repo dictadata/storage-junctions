@@ -2,7 +2,7 @@
 "use strict";
 
 const { typeOf } = require("../utils");
-const StorageResults = require("./storage-results");
+const StorageResponse = require("./storage-response");
 
 module.exports = exports = class StorageError extends Error {
   constructor(resultCode, ...params) {
@@ -14,7 +14,7 @@ module.exports = exports = class StorageError extends Error {
     // StorageError result information
     this.resultCode = resultCode;
     if (!this.message)
-      this.message = StorageResults.RESULT_CODES[this.resultCode] || 'unknown error';
+      this.message = StorageResponse.RESULT_CODES[this.resultCode] || 'unknown error';
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {

@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageResults, StorageError } = require("../types");
+const { StorageResponse, StorageError } = require("../types");
 const { logger, httpRequest } = require("../utils");
 
 const fs = require('fs');
@@ -120,7 +120,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       await scanner(dirpath);
 
-      return new StorageResults(0, null, list);
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -137,7 +137,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     throw new StorageError(501);
 
-    //return new StorageResults(0);
+    //return new StorageResponse(0);
   }
 
   /**
@@ -217,7 +217,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
 
-      return new StorageResults(resultCode);
+      return new StorageResponse(resultCode);
     }
     catch (err) {
       logger.error(err);
@@ -248,7 +248,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options.headers = Object.assign({}, this.headers, options.headers, form.getHeaders());
       let response = await httpRequest(this._url.pathname, options, form);
 
-      return new StorageResults(resultCode);
+      return new StorageResponse(resultCode);
     }
     catch (err) {
       logger.error(err);

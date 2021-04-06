@@ -10,7 +10,7 @@ module.exports = exports = cortex;
 const types = exports.types = require("./types");
 exports.Engram = types.Engram;
 exports.Field = types.Field;
-exports.StorageResults = types.StorageResults;
+exports.StorageResponse = types.StorageResponse;
 exports.StorageError = types.StorageError;
 
 ///// Storage utils

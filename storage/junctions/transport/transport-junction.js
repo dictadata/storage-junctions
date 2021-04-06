@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { Engram, StorageResults, StorageError } = require("../../types");
+const { Engram, StorageResponse, StorageError } = require("../../types");
 const { typeOf, httpRequest, logger } = require("../../utils");
 
 const TransportReader = require("./transport-reader");
@@ -134,7 +134,7 @@ class TransportJunction extends StorageJunction {
         throw new StorageError(500).inner(err);
     }
 
-    return new StorageResults(0, null, list);
+    return new StorageResponse(0, null, list);
   }
 
   /**
@@ -176,11 +176,11 @@ class TransportJunction extends StorageJunction {
       response.rows = response.data;  // oracledb returns rows
       sqlEncoder.decodeIndexResults(this.engram, response);
 
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return new StorageResults(404, 'table not found');
+        return new StorageResponse(404, 'table not found');
 
       logger.error(err);
       if (err instanceof StorageError)
@@ -204,7 +204,7 @@ class TransportJunction extends StorageJunction {
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResults(409, 'schema exists');
+        return new StorageResponse(409, 'schema exists');
       }
 
       // use a temporary engram
@@ -242,11 +242,11 @@ class TransportJunction extends StorageJunction {
         }
       }
 
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       if (err.errorNum === 955)
-        return new StorageResults(409, "schema exists");
+        return new StorageResponse(409, "schema exists");
       
       logger.error(err);
       if (err instanceof StorageError)
@@ -278,12 +278,12 @@ class TransportJunction extends StorageJunction {
 
       if (response.resultCode !== 0) {
         if (response.resultCode === 942)  // ER_NO_SUCH_TABLE
-          return new StorageResults(404, 'table not found');
+          return new StorageResponse(404, 'table not found');
 
         throw new StorageError(response.resultCode, response.resultText);
       }
 
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       logger.error(err);
@@ -339,7 +339,7 @@ class TransportJunction extends StorageJunction {
 
       let resultCode = response.resultCode;
       let rowsAffected = resultCode ? 0 : response.data[0].rowsAffected;
-      return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
+      return new StorageResponse(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
@@ -382,7 +382,7 @@ class TransportJunction extends StorageJunction {
         throw new StorageError(resultCode, response.resultText);
       }
       let rowsAffected = resultCode ? 0 : response.data[0].rowsAffected;
-      return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
+      return new StorageResponse(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
@@ -421,7 +421,7 @@ class TransportJunction extends StorageJunction {
         sqlEncoder.decodeResults(this.engram, rows[0]);
 
       let resultCode = rows.length > 0 ? 200 : 404;
-      return new StorageResults(resultCode, null, (rows.length > 0) ? rows[0] : null);
+      return new StorageResponse(resultCode, null, (rows.length > 0) ? rows[0] : null);
     }
     catch (err) {
       logger.error(err);
@@ -456,7 +456,7 @@ class TransportJunction extends StorageJunction {
         sqlEncoder.decodeResults(this.engram, rows[i]);
 
       let resultCode = rows.length > 0 ? 200 : 404;
-      return new StorageResults(resultCode, null, rows);
+      return new StorageResponse(resultCode, null, rows);
     }
     catch (err) {
       logger.error(err);
@@ -503,7 +503,7 @@ class TransportJunction extends StorageJunction {
 
       let resultCode = response.resultCode;
       let rowsAffected = resultCode ? 0 : response.data[0].rowsAffected;
-      return new StorageResults(resultCode, null, rowsAffected, "rowsAffected");
+      return new StorageResponse(resultCode, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);

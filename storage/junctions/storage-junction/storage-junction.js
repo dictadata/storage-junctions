@@ -1,7 +1,7 @@
 "use strict";
 
 const Cortex = require('../../cortex');
-const { Engram, StorageResults, StorageError } = require("../../types");
+const { Engram, StorageResponse, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 
 const Reader = require("./storage-reader");
@@ -83,7 +83,7 @@ module.exports = exports = class StorageJunction {
     if (!this.engram.isDefined) {
       // get encoding from source
     }
-    return new StorageResults(0, null, this.engram.encoding, "encoding");
+    return new StorageResponse(0, null, this.engram.encoding, "encoding");
   }
 
   /**
@@ -137,7 +137,7 @@ module.exports = exports = class StorageJunction {
       delete options.encoding;
     }
 
-    return new StorageResults(0);
+    return new StorageResponse(0);
   }
 
   /**

@@ -3,7 +3,7 @@
 const StorageJunction = require("../storage-junction");
 const MongoDBReader = require("./mongodb-reader");
 const MongoDBWriter = require("./mongodb-writer");
-const { StorageResults, StorageError } = require("../../types");
+const { StorageResponse, StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
 
 //const MongoDB = require('mongodb');
@@ -40,7 +40,7 @@ class MongoDBJunction extends StorageJunction {
     // junctions that don't use filesystems should override the list() method
     throw new StorageError(501);
 
-    //return new StorageResults(0, null, list);
+    //return new StorageResponse(0, null, list);
   }
 
   /**
@@ -53,7 +53,7 @@ class MongoDBJunction extends StorageJunction {
         // fetch form storage source
       }
 
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);
@@ -75,7 +75,7 @@ class MongoDBJunction extends StorageJunction {
 
       // if successful update encoding
       this.engram.encoding = encoding;
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       logger.error(err);

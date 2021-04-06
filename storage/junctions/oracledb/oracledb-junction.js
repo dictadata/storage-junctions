@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { Engram, StorageResults, StorageError } = require("../../types");
+const { Engram, StorageResponse, StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
 
 const OracleDBReader = require("./oracledb-reader");
@@ -125,7 +125,7 @@ class OracleDBJunction extends StorageJunction {
           list.push(name);
       }
 
-      return new StorageResults(0, null, list);
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -162,11 +162,11 @@ class OracleDBJunction extends StorageJunction {
       results = await connection.execute(sql);
       sqlEncoder.decodeIndexResults(this.engram, results);
 
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return new StorageResults(404, 'no such table');
+        return new StorageResponse(404, 'no such table');
 
       logger.error(err);
       throw StorageError(500).inner(err);
@@ -191,7 +191,7 @@ class OracleDBJunction extends StorageJunction {
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResults(409, 'table exists');
+        return new StorageResponse(409, 'table exists');
       }
 
       // use a temporary engram
@@ -215,11 +215,11 @@ class OracleDBJunction extends StorageJunction {
           results = await this._request(sql);
         }
       }
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       if (err.errorNum === 955)
-        return new StorageResults(409, "table exists");
+        return new StorageResponse(409, "table exists");
       
       logger.error(err);
       throw new StorageError(500).inner(err);
@@ -240,11 +240,11 @@ class OracleDBJunction extends StorageJunction {
       let sql = sqlEncoder.sqlDropTable(schema);
       let results = await this._request(sql);
 
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       if (err.errorNum === 942)  // ER_NO_SUCH_TABLE
-        return new StorageResults(404, 'no such table');
+        return new StorageResponse(404, 'no such table');
 
       logger.error(err);
       throw new StorageError(500).inner(err);
@@ -301,7 +301,7 @@ class OracleDBJunction extends StorageJunction {
         rowsAffected = await this._request(sql);
       }
 
-      return new StorageResults(0, null, rowsAffected, "rowsAffected");
+      return new StorageResponse(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
@@ -331,7 +331,7 @@ class OracleDBJunction extends StorageJunction {
 
       let rowsAffected = await this._request(sql);
 
-      return new StorageResults(0, null, rowsAffected, "rowsAffected");
+      return new StorageResponse(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);
@@ -363,7 +363,7 @@ class OracleDBJunction extends StorageJunction {
         sqlEncoder.decodeResults(this.engram, rows[0]);
 
       let resultCode = rows.length > 0 ? 200 : 404;
-      return new StorageResults(resultCode, null, (rows.length > 0) ? rows[0] : null);
+      return new StorageResponse(resultCode, null, (rows.length > 0) ? rows[0] : null);
     }
     catch (err) {
       logger.error(err);
@@ -397,7 +397,7 @@ class OracleDBJunction extends StorageJunction {
         sqlEncoder.decodeResults(this.engram, rows[i]);
 
       let resultCode = rows.length > 0 ? 200 : 404;
-      return new StorageResults(resultCode, null, rows);
+      return new StorageResponse(resultCode, null, rows);
     }
     catch (err) {
       logger.error(err);
@@ -439,7 +439,7 @@ class OracleDBJunction extends StorageJunction {
 
       let rowsAffected = await this._request(sql);
 
-      return new StorageResults(0, null, rowsAffected, "rowsAffected");
+      return new StorageResponse(0, null, rowsAffected, "rowsAffected");
     }
     catch (err) {
       logger.error(err);

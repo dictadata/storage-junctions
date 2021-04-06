@@ -6,7 +6,7 @@
 const StorageJunction = require("../storage-junction");
 const ElasticsearchReader = require("./elasticsearch-reader");
 const ElasticsearchWriter = require("./elasticsearch-writer");
-const { StorageResults, StorageError } = require("../../types");
+const { StorageResponse, StorageError } = require("../../types");
 const { logger } = require('../../utils');
 
 const encoder = require("./elasticsearch-encoder");
@@ -87,11 +87,11 @@ class ElasticsearchJunction extends StorageJunction {
           list.push(values[i]);
       }
 
-      return new StorageResults(0, null, list);
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
       if (err.statusCode === 404)
-        return new StorageResults(0, null, []); // empty list
+        return new StorageResponse(0, null, []); // empty list
       
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
@@ -112,11 +112,11 @@ class ElasticsearchJunction extends StorageJunction {
         this.engram.fields = this.encoder.mappingsToFields(mappings);
       }
 
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.statusCode === 404)  // index_not_found_exception
-        return new StorageResults(404, 'index not found');
+        return new StorageResponse(404, 'index not found');
 
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
@@ -137,7 +137,7 @@ class ElasticsearchJunction extends StorageJunction {
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResults(409, 'index exists');
+        return new StorageResponse(409, 'index exists');
       }
 
       // load the default config containing index settings
@@ -157,11 +157,11 @@ class ElasticsearchJunction extends StorageJunction {
       // if successfull update encoding
       this.engram.encoding = encoding;
 
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err.statusCode === 400 && err.message === "resource_already_exists_exception")
-        return new StorageResults(409, 'index exists' );
+        return new StorageResponse(409, 'index exists' );
 
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
@@ -180,11 +180,11 @@ class ElasticsearchJunction extends StorageJunction {
     
       let response = await this.elasticQuery.deleteIndex(schema);
 
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       if (err.statusCode === 404)  // index_not_found_exception
-        return new StorageResults( 404, 'index not found' );
+        return new StorageResponse( 404, 'index not found' );
 
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
@@ -217,7 +217,7 @@ class ElasticsearchJunction extends StorageJunction {
       }
       this.storeCount++;
 
-      return new StorageResults(response.statusCode, null, response.body.result, key);
+      return new StorageResponse(response.statusCode, null, response.body.result, key);
     }
     catch (err) {
       logger.error(err.statusCode, err.message);
@@ -243,7 +243,7 @@ class ElasticsearchJunction extends StorageJunction {
         let response = await this.elasticQuery.get(key);
         key = response.body._id || true;
 
-        return new StorageResults(response.statusCode, null, response.body._source, key);
+        return new StorageResponse(response.statusCode, null, response.body._source, key);
       }
       else if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
         // search by exact match
@@ -255,16 +255,16 @@ class ElasticsearchJunction extends StorageJunction {
         //let keys = (hits[0] && hits[0]._id);
 
         if (response.body.hits.hits.length > 0)
-          return new StorageResults(response.statusCode, null, hits[0]._source);
+          return new StorageResponse(response.statusCode, null, hits[0]._source);
         else
-          return new StorageResults(404);
+          return new StorageResponse(404);
       }
       else
-        return new StorageResults(400, 'invalid key');
+        return new StorageResponse(400, 'invalid key');
     }
     catch (err) {
       if (err.statusCode === 404) {
-        return new StorageResults(404);
+        return new StorageResponse(404);
       }
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
@@ -282,7 +282,7 @@ class ElasticsearchJunction extends StorageJunction {
       let dsl = dslEncoder.searchQuery(pattern);
       logger.verbose(JSON.stringify(dsl));
       let isKeyStore = (this.engram.keyof === 'uid' || this.engram.keyof === 'key');
-      let storageResults = new StorageResults(0);
+      let storageResults = new StorageResponse(0);
 
       if (pattern.aggregate) {
         // aggregation response
@@ -345,11 +345,11 @@ class ElasticsearchJunction extends StorageJunction {
 
       let resultCode = response.body.result === "deleted" ? 0 : 404;
       let data = response.body.result ? response.body.result : '';
-      return new StorageResults(resultCode, null, data, key);
+      return new StorageResponse(resultCode, null, data, key);
     }
     catch (err) {
       if (err.statusCode === 404)
-        return new StorageResults(404);
+        return new StorageResponse(404);
       
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);

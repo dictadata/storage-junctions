@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { Engram, StorageResults, StorageError } = require("../../types");
+const { Engram, StorageResponse, StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
 
 const MSSQLReader = require("./mssql-reader");
@@ -168,7 +168,7 @@ class MSSQLJunction extends StorageJunction {
         if (rx.test(tblname))
           list.push(tblname);
       });
-      return new StorageResults(0, null, list);
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -197,7 +197,7 @@ class MSSQLJunction extends StorageJunction {
         sqlEncoder.decodeIndexResults(this.engram, column);
       });
       
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);
@@ -219,7 +219,7 @@ class MSSQLJunction extends StorageJunction {
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResults(409, 'table exists');
+        return new StorageResponse(409, 'table exists');
       }
 
       // use temporary engram
@@ -233,7 +233,7 @@ class MSSQLJunction extends StorageJunction {
 
       // if successfull update engram
       this.engram.encoding = encoding;      
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       logger.error(err);
@@ -254,11 +254,11 @@ class MSSQLJunction extends StorageJunction {
     try {
       let sql = "DROP TABLE " + schema;
       await this._request(sql);
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       if (err.number === 3701)
-        return new StorageResults(404, "table not found");
+        return new StorageResponse(404, "table not found");
       
       logger.error(err.number, err.message);
       throw new StorageError(500).inner(err);
@@ -301,7 +301,7 @@ class MSSQLJunction extends StorageJunction {
         rowCount = await this._request(sql, null);
       }
 
-      return new StorageResults(0, null, rowCount, "rowCount");
+      return new StorageResponse(0, null, rowCount, "rowCount");
     }
     catch (err) {
       logger.error(err);
@@ -331,11 +331,11 @@ class MSSQLJunction extends StorageJunction {
       let rowCount = await this._request(sql, null);
 
       // check if rows were inserted
-      return new StorageResults(0, null, rowCount, "rowCount");
+      return new StorageResponse(0, null, rowCount, "rowCount");
     }
     catch (err) {
       if (err.number === 2627)
-        return new StorageResults(err.number, err.message);
+        return new StorageResponse(err.number, err.message);
       
       logger.error(err);
       throw new StorageError(500).inner(err);
@@ -365,7 +365,7 @@ class MSSQLJunction extends StorageJunction {
       
       logger.debug(rowCount + ' rows');
       let resultCode = rowCount > 0 ? 200 : 404;
-      return new StorageResults(resultCode, null, resultRow);
+      return new StorageResponse(resultCode, null, resultRow);
    }
     catch (err) {
       logger.error(err);
@@ -395,7 +395,7 @@ class MSSQLJunction extends StorageJunction {
         
       logger.debug(rowCount + ' rows');
       let resultCode = resultRows.length > 0 ? 200 : 404;
-      return new StorageResults(resultCode, null, resultRows);
+      return new StorageResponse(resultCode, null, resultRows);
     }
     catch (err) {
       logger.error(err);
@@ -429,7 +429,7 @@ class MSSQLJunction extends StorageJunction {
       logger.verbose(sql);
 
       let rowCount = await this._request(sql, null);
-      return new StorageResults(0, null, rowCount, "rowCount");
+      return new StorageResponse(0, null, rowCount, "rowCount");
     }
     catch (err) {
       logger.error(err);

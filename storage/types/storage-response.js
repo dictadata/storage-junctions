@@ -1,7 +1,7 @@
-// storage/types/StorageResults
+// storage/types/StorageResponse
 "use strict";
 
-class StorageResults {
+class StorageResponse {
 
   /**
    * The results type returned by storage methods. Note encoding methods return an Engram object.
@@ -13,7 +13,7 @@ class StorageResults {
     this.resultCode = resultCode || 0;
     if (this.resultCode === 200)
       this.resultCode = 0;
-    this.resultText = resultText || StorageResults.RESULT_CODES[this.resultCode] || 'unknown';
+    this.resultText = resultText || StorageResponse.RESULT_CODES[this.resultCode] || 'unknown';
 
     this.data;
     if (key) {
@@ -47,7 +47,7 @@ class StorageResults {
   
 }
 
-StorageResults.RESULT_CODES = {
+StorageResponse.RESULT_CODES = {
       0: "OK",
     100: "Continue",
     101: "Switching Protocols",
@@ -91,4 +91,4 @@ StorageResults.RESULT_CODES = {
     505: "HTTP Version not supported"
 };
 
-module.exports = exports = StorageResults;
+module.exports = exports = StorageResponse;

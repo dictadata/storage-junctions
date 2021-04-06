@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageResults, StorageError } = require("../types");
+const { StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const fs = require('fs');
@@ -73,7 +73,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
       await scanner(dirpath, "", options);
 
-      return new StorageResults(0, null, list);
+      return new StorageResponse(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -91,7 +91,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let filepath = path.join(url.fileURLToPath(this._url), schema);
       await fsp.unlink(filepath);
 
-      return new StorageResults(0);
+      return new StorageResponse(0);
     }
     catch (err) {
       logger.error(err);
@@ -186,7 +186,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
       await fsp.copyFile(src, dest);
 
-      return new StorageResults(resultCode);
+      return new StorageResponse(resultCode);
     }
     catch (err) {
       logger.error(err);
@@ -212,7 +212,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
       await fsp.copyFile(src, dest);
 
-      return new StorageResults(resultCode);
+      return new StorageResponse(resultCode);
     }
     catch (err) {
       logger.error(err);

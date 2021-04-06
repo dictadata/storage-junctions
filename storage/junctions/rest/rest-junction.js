@@ -1,7 +1,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
+const { StorageResponse, StorageError } = require("../../types");
 const { typeOf, logger, httpRequest } = require("../../utils");
 
 const RESTReader = require("./rest-reader");
@@ -45,7 +45,7 @@ class RESTJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);
@@ -148,7 +148,7 @@ class RESTJunction extends StorageJunction {
       });
 
       let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
-      return new StorageResults(resultCode, null, constructs);
+      return new StorageResponse(resultCode, null, constructs);
     }
     catch (err) {
       logger.error(err);

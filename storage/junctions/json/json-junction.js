@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
+const { StorageResponse, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 const JSONReader = require("./json-reader");
 const JSONWriter = require("./json-writer");
@@ -50,7 +50,7 @@ class JSONJunction extends StorageJunction {
         this.engram.encoding = encoding;
       }
 
-      return new StorageResults(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       if (err instanceof StorageError)

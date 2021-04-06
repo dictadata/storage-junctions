@@ -1,7 +1,7 @@
 // filesystems/storage-filesystem
 "use strict";
 
-const { StorageResults, StorageError } = require("../types");
+const { StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const path = require('path');
@@ -66,7 +66,7 @@ module.exports = exports = class StorageFileSystem {
 
     // implement directory list in overrides
 
-    //return new StorageResults(0, null, list);
+    //return new StorageResponse(0, null, list);
   }
 
   async dull(schema) {
@@ -117,7 +117,7 @@ module.exports = exports = class StorageFileSystem {
     //let schema = options.schema || this.smt.schema;
     //let result = false;
 
-    //return new StorageResults(0);
+    //return new StorageResponse(0);
   }
 
   async upload(options) {
@@ -128,7 +128,7 @@ module.exports = exports = class StorageFileSystem {
     //let schema = options.schema || this.smt.schema;
     //let result = false;
 
-    //return new StorageResults(0);
+    //return new StorageResponse(0);
   }
 
 };

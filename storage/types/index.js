@@ -3,7 +3,7 @@
 
 exports.Field = require('./field');
 exports.Engram = require('./engram');
-exports.StorageResults = require('./storage-results');
+exports.StorageResponse = require('./storage-response');
 exports.StorageError = require('./storage-error');
 
 exports.stringBreakpoints = require("./stringBreakpoints");
