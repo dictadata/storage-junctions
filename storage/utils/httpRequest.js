@@ -8,6 +8,9 @@ const logger = require('./logger');
 
 function httpRequest(url, options, data) {
 
+  if (typeof url === "undefined")
+    url = '';
+  
   let Url;
   if (typeof url === "string") {
     Url = new URL(url, (options.base || options.origin));
