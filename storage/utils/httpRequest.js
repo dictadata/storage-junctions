@@ -42,10 +42,16 @@ function http1Request(Url, options, data) {
     request.headers = Object.assign({}, options.headers);
     if (options.cookies)
       request.headers["Cookie"] = Object.entries(options.cookies).join('; ');
-    // If no Content-Length header is sent 
-    // then data is sent using chunked encoding (default )
-    //if (data)
-    //  options.headers['Content-Length'] = Buffer.byteLength(data);
+    if (options.auth) {
+      request.headers["Authorization"] = "Basic " + Buffer.from(options.auth.username + ":" + options.auth.password).toString('base64');
+    }
+    if (data) {
+      if (!request.headers['Content-Type'])
+        request.headers["Content-Type"] = "application/json; charset=utf-8";
+      
+      //request.headers['Content-Length'] = Buffer.byteLength(data);
+      // if Content-Length is not set then default is chunked encoding
+    }
     
     let _http = (Url.protocol === "https:") ? https : http;
 
@@ -104,6 +110,9 @@ function http2Request(Url, options, data) {
     );
     if (options.cookies)
       request["cookie"] = Object.entries(options.cookies).join('; ');
+    if (options.auth) {
+      request.headers["Authorization"] = "Basic " + Buffer.from(options.auth.username + ":" + options.auth.password).toString('base64');
+    }
 
     const req = client.request(request);
 
