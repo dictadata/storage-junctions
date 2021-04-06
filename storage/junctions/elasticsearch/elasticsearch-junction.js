@@ -263,6 +263,9 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(400, 'invalid key');
     }
     catch (err) {
+      if (err.statusCode === 404) {
+        return new StorageResults(404);
+      }
       logger.error(err.statusCode, err.message);
       throw new StorageError(err.statusCode).inner(err);
     }
@@ -340,7 +343,7 @@ class ElasticsearchJunction extends StorageJunction {
         response = await this.elasticQuery.truncate();
       }
 
-      let resultCode = response.body.deleted ? response.statusCode : 404;
+      let resultCode = response.body.result === "deleted" ? 0 : 404;
       let data = response.body.result ? response.body.result : '';
       return new StorageResults(resultCode, null, data, key);
     }
