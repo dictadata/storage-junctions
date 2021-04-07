@@ -282,30 +282,30 @@ class ElasticsearchJunction extends StorageJunction {
       let dsl = dslEncoder.searchQuery(pattern);
       logger.verbose(JSON.stringify(dsl));
       let isKeyStore = (this.engram.keyof === 'uid' || this.engram.keyof === 'key');
-      let storageResults = new StorageResponse(0);
+      let storageResponse = new StorageResponse(0);
 
       if (pattern.aggregate) {
         // aggregation response
         let response = await this.elasticQuery.aggregate(dsl);
         let constructs = dslEncoder.processAggregations(response.body.aggregations);
-        storageResults.add(constructs);
+        storageResponse.add(constructs);
       }
       else {
         let response = await this.elasticQuery.search(dsl);
         let hits = response.body.hits.hits;
         for (var i = 0; i < hits.length; i++) {
           if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-            storageResults.add(hits[i]._source, hits[i]._id);
+            storageResponse.add(hits[i]._source, hits[i]._id);
           else
-            storageResults.add(hits[i]._source);
+            storageResponse.add(hits[i]._source);
         }
       }
 
-      if (!storageResults.data) {
-        storageResults.resultCode = 404;
-        storageResults.resultText = "Not Found";
+      if (!storageResponse.data) {
+        storageResponse.resultCode = 404;
+        storageResponse.resultText = "Not Found";
       }
-      return storageResults;
+      return storageResponse;
     }
     catch (err) {
       let msg = (err.body && err.body.error.reason) || err.message;
@@ -343,9 +343,12 @@ class ElasticsearchJunction extends StorageJunction {
         response = await this.elasticQuery.truncate();
       }
 
-      let resultCode = response.body.result === "deleted" ? 0 : 404;
-      let data = response.body.result ? response.body.result : '';
-      return new StorageResponse(resultCode, null, data, key);
+      let storageResponse = new StorageResponse(response.statusCode);
+      if (response.body.result)
+        storageResponse.add(response.body.result, key);
+      else if (response.body.deleted)
+        storageResponse.add(response.body.deleted, "deleted");
+      return storageResponse;
     }
     catch (err) {
       if (err.statusCode === 404)
