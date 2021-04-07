@@ -4,6 +4,7 @@
 const http = require('http');
 const https = require('https');
 const http2 = require('http2');
+const querystring = require('querystring');
 const logger = require('./logger');
 
 function httpRequest(url, options, data) {
@@ -19,6 +20,10 @@ function httpRequest(url, options, data) {
     Url = url;
   else {
     throw new Error(`Invalid url ${url}`);
+  }
+
+  if (options.query) {
+    Url.search = querystring.stringify(options.query);
   }
 
   if (options.httpVersion === 2)
@@ -37,17 +42,14 @@ function http1Request(Url, options, data) {
 
     var request = {
       method: (options.method && options.method.toUpperCase()) || "GET",
-      host: Url.hostname,
-      port: Url.port,
-      path: Url.pathname,
       timeout: options.timeout || 5000
     };
     request.headers = Object.assign({}, options.headers);
     if (options.cookies)
       request.headers["Cookie"] = Object.entries(options.cookies).join('; ');
-    if (options.auth) {
-      request.headers["Authorization"] = "Basic " + Buffer.from(options.auth.username + ":" + options.auth.password).toString('base64');
-    }
+    if (options.auth)
+      request["auth"] = options.auth;
+
     if (data) {
       if (!request.headers['Content-Type'])
         request.headers["Content-Type"] = "application/json; charset=utf-8";
@@ -58,7 +60,7 @@ function http1Request(Url, options, data) {
     
     let _http = (Url.protocol === "https:") ? https : http;
 
-    const req = _http.request(request, (res) => {
+    const req = _http.request(Url, request, (res) => {
       response.statusCode = res.statusCode;
       response.headers = res.headers;
       saveCookies(options, res.headers);
@@ -113,9 +115,8 @@ function http2Request(Url, options, data) {
     );
     if (options.cookies)
       request["cookie"] = Object.entries(options.cookies).join('; ');
-    if (options.auth) {
-      request.headers["Authorization"] = "Basic " + Buffer.from(options.auth.username + ":" + options.auth.password).toString('base64');
-    }
+    if (options.auth)
+      request["auth"] = options.auth;
 
     const req = client.request(request);
 
@@ -171,8 +172,10 @@ function saveCookies(options, headers) {
 }
 
 exports.contentTypeIsJSON = (contentType) => {
+  if (!contentType)
+    return false;
+  
   let expressions = contentType.split(';');
-
   let [type, value] = expressions[0].split('/');
   if (value === 'json')
     return true;
