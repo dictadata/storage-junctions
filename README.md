@@ -1,4 +1,4 @@
-# @dictadata/storage-junctions 1.5.0
+# @dictadata/storage-junctions 1.7.x
 
 Node.js library for accessing distributed data storage, ETL transfers, analytics preparation and creating API services.
 

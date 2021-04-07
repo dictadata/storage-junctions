@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.7.2
+  - httpRequest improvements
+  - StorageResponse updates
 - version 1.7.1
   - export tests lib
 - version 1.7.0
