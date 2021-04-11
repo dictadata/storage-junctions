@@ -1,0 +1,49 @@
+{
+  "smt": {
+    "model": "oracledb",
+    "locus": "connectString=localhost/xepdb1;user=dicta;password=data",
+    "schema": "foo_schema_two",
+    "key": "*"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "text",
+      "size": 128,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 1,
+      "label": "Foo",
+      "ordinal": 1,
+      "_oracle": {
+        "COLUMN_ID": 1,
+        "COLUMN_NAME": "Foo",
+        "DATA_TYPE": "NVARCHAR2",
+        "DATA_LENGTH": 128,
+        "DATA_PRECISION": null,
+        "DATA_SCALE": null,
+        "NULLABLE": "N"
+      }
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "text",
+      "size": 128,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 2,
+      "label": "Bar",
+      "ordinal": 2,
+      "_oracle": {
+        "COLUMN_ID": 2,
+        "COLUMN_NAME": "Bar",
+        "DATA_TYPE": "NVARCHAR2",
+        "DATA_LENGTH": 128,
+        "DATA_PRECISION": null,
+        "DATA_SCALE": null,
+        "NULLABLE": "N"
+      }
+    }
+  },
+  "_SMT": "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_two|*"
+}

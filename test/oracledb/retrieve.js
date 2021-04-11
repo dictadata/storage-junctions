@@ -17,7 +17,8 @@ async function tests() {
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
-        }
+        },
+        order: { "Foo": "asc" }
       }
     },
     terminal: {

@@ -16,7 +16,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
       pattern: {
         match: {
-          Foo: 'twenty'
+          Foo: 'one'
         }
       }
     }

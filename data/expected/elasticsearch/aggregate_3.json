@@ -25,10 +25,10 @@
     },
     {
       "Foo": "twenty",
-      "count": 1,
-      "dt_max": null,
-      "dt_min": null,
-      "baz_sum": 20
+      "count": 2,
+      "dt_max": "2020-10-07T13:00:00.000Z",
+      "dt_min": "2020-10-07T13:00:00.000Z",
+      "baz_sum": 40
     },
     {
       "Foo": "eighth",

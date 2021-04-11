@@ -33,7 +33,10 @@ async function tests() {
     construct: {
       Foo: 'one',
       Bar: 'Washington',
-      Baz: 1
+      Baz: 1,
+      Fobe: 1.1,
+      "Dt Test": "10/07/2018",
+      enabled: false
     }
   })) return 1;
 
@@ -45,7 +48,10 @@ async function tests() {
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 20
+      Baz: 20,
+      Fobe: 20.20,
+      "Dt Test": "2020-10-07T08:00:00",
+      enabled: true
     }
   })) return 1;
 
@@ -57,7 +63,10 @@ async function tests() {
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 20
+      Baz: 20,
+      Fobe: 20.20,
+      "Dt Test": "2020-10-07 08:00:00",
+      enabled: true
     }
   })) return 1;
 
@@ -69,7 +78,10 @@ async function tests() {
     construct: {
       Foo: 'ten',
       Bar: 'Hamilton',
-      Baz: 10
+      Baz: 10,
+      Fobe: 0.10,
+      "Dt Test": "2020-10-07",
+      enabled: true
     }
   })) return 1;
 

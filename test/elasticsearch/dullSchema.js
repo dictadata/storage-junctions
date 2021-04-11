@@ -1,12 +1,12 @@
 /**
- * test/elasticsearch
+ * test/elasticsearch/dullSchema
  */
 "use strict";
 
 const dullSchema = require('../lib/_dullSchema');
 const { logger } = require('../../storage/utils');
 
-logger.info("===== elasticsearch getEncoding ");
+logger.info("===== elasticsearch dullSchema ");
 
 async function test(schema, encoding) {
 

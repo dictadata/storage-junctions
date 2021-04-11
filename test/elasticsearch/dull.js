@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
       pattern: {
-        key: 'twenty'
+        key: 'one'
       }
     }
   })) return 1;

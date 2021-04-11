@@ -29,7 +29,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
       pattern: {
         match: {
-          Foo: 'ten'
+          Foo: 'twenty'
         }
       }
     },

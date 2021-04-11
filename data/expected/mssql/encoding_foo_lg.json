@@ -1,0 +1,123 @@
+{
+  "smt": {
+    "model": "mssql",
+    "locus": "server=localhost;userName=dicta;password=data;database=storage_node",
+    "schema": "foo_schema_lg",
+    "key": "*"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 64,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 1,
+      "label": "Foo",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(64)"
+      }
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "text",
+      "size": 256,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Bar",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(256)"
+      }
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "keyword",
+      "size": 20,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Baz",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(20)"
+      }
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "text",
+      "size": 1200,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Fobe",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(1200)"
+      }
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "keyword",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Dt Test",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(-1)"
+      }
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "keyword",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabled",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(-1)"
+      }
+    },
+    "Str Test": {
+      "name": "Str Test",
+      "type": "keyword",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Str Test",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(-1)"
+      }
+    },
+    "enabler": {
+      "name": "enabler",
+      "type": "keyword",
+      "size": -1,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabler",
+      "_mssql": {
+        "precision": 0,
+        "scale": 0,
+        "type": "varchar(-1)"
+      }
+    }
+  },
+  "_SMT": "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_lg|*"
+}

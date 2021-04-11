@@ -1,0 +1,99 @@
+{
+  "smt": {
+    "model": "elasticsearch",
+    "locus": "http://localhost:9200",
+    "schema": "foo_schema_lg",
+    "key": "*"
+  },
+  "fields": {
+    "Bar": {
+      "name": "Bar",
+      "type": "keyword",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "keyword"
+      }
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    },
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "keyword"
+      }
+    },
+    "Str Test": {
+      "name": "Str Test",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    },
+    "enabler": {
+      "name": "enabler",
+      "type": "text",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "_elasticsearch": {
+        "type": "text"
+      }
+    }
+  },
+  "_SMT": "elasticsearch|http://localhost:9200|foo_schema_lg|*"
+}

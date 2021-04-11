@@ -3,11 +3,11 @@
   "resultText": "OK",
   "data": [
     {
-      "sum": 1725,
-      "avg": 172,
+      "sum": 1755,
+      "avg": 159,
       "min": 0,
       "max": 789,
-      "count": 10
+      "count": 11
     }
   ]
 }

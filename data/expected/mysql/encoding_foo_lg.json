@@ -1,0 +1,107 @@
+{
+  "smt": {
+    "model": "mysql",
+    "locus": "host=localhost;user=dicta;password=data;database=storage_node",
+    "schema": "foo_schema_lg",
+    "key": "*"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 64,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 1,
+      "label": "Foo",
+      "_mysql": {
+        "Type": "varchar(64)"
+      }
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "text",
+      "size": 256,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Bar",
+      "_mysql": {
+        "Type": "varchar(256)"
+      }
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "keyword",
+      "size": 20,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Baz",
+      "_mysql": {
+        "Type": "varchar(20)"
+      }
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "text",
+      "size": 1200,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Fobe",
+      "_mysql": {
+        "Type": "varchar(1200)"
+      }
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "text",
+      "size": 2500,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Dt Test",
+      "_mysql": {
+        "Type": "varchar(2500)"
+      }
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "text",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabled",
+      "_mysql": {
+        "Type": "text"
+      }
+    },
+    "Str Test": {
+      "name": "Str Test",
+      "type": "text",
+      "size": 2500,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Str Test",
+      "_mysql": {
+        "Type": "varchar(2500)"
+      }
+    },
+    "enabler": {
+      "name": "enabler",
+      "type": "text",
+      "size": null,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabler",
+      "_mysql": {
+        "Type": "text"
+      }
+    }
+  },
+  "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_lg|*"
+}

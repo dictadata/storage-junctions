@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/mssql/recall.json"
+      output: "./data/output/mssql/recall_01.json"
     }
   })) return 1;
 
@@ -34,6 +34,9 @@ async function tests() {
           Foo: 'ten'
         }
       }
+    },
+    terminal: {
+      output: "./data/output/mssql/recall_02.json"
     }
   })) return 1;
 

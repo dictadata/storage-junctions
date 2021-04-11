@@ -16,7 +16,7 @@ async function tests() {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo",
       pattern: {
         match: {
-          Foo: 'twenty'
+          Foo: 'one'
         }
       }
     }
