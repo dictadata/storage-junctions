@@ -6,10 +6,14 @@
   "license": "MIT",
   "main": "storage/index.js",
   "repository": "gitlab:dictadata/js/storage-junctions",
+  "bugs": {
+    "url": "https://gitlab.com/dictadata/js/storage-junctions/issues"
+  },
+  "homepage": "https://gitlab.com/dictadata/js/storage-junctions#readme",
   "scripts": {
     "debug": "set NODE_ENV=development&& node --inspect-brk test/lib/<some file to test>.js",
-    "lint": "eslint lib/**/*.js",
-    "lint-fix": "eslint --fix lib/**/*.js"
+    "lint": "eslint storage/**/*.js",
+    "lint-fix": "eslint --fix storage/**/*.js"
   },
   "bin": {
     "st_launcher": "./test/st_launcher.js"
