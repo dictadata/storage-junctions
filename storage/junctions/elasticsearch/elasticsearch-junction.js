@@ -105,12 +105,10 @@ class ElasticsearchJunction extends StorageJunction {
     logger.debug("ElasticJunction get encoding");
 
     try {
-      if (!this.engram.isDefined) {
-        // get encoding from elasticsearch
-        let mappings = await this.elasticQuery.getMapping();
-        // convert to encoding fields
-        this.engram.fields = this.encoder.mappingsToFields(mappings);
-      }
+      // get encoding from elasticsearch
+      let mappings = await this.elasticQuery.getMapping();
+      // convert to encoding fields
+      this.engram.fields = this.encoder.mappingsToFields(mappings);
 
       return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
@@ -200,6 +198,9 @@ class ElasticsearchJunction extends StorageJunction {
     logger.debug("ElasticJunction store");
 
     try {
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
       logger.debug(JSON.stringify(construct));
       let data = dslEncoder.encodeValues(this.engram, construct);
       let key = null;
@@ -234,6 +235,9 @@ class ElasticsearchJunction extends StorageJunction {
     const match = (pattern && pattern.match) || pattern || {};    
 
     try {
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+      
       if (this.engram.keyof === 'uid' || this.engram.keyof === 'key') {
         // get by _id
         let key = (match.key) || this.engram.get_uid(match) || null;
@@ -279,6 +283,9 @@ class ElasticsearchJunction extends StorageJunction {
     logger.debug("ElasticJunction retrieve");
 
     try {
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
       let dsl = dslEncoder.searchQuery(pattern);
       logger.verbose(JSON.stringify(dsl));
       let isKeyStore = (this.engram.keyof === 'uid' || this.engram.keyof === 'key');
@@ -322,6 +329,9 @@ class ElasticsearchJunction extends StorageJunction {
     logger.debug("ElasticJunction dull");
 
     try {
+      if (!this.engram.isDefined)
+        await this.getEncoding();
+
       const match = (pattern && pattern.match) || pattern || {};
       let response;
 
