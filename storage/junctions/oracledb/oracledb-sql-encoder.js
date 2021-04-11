@@ -324,7 +324,7 @@ exports.sqlDeleteByPattern = (engram, pattern) => {
 }
 
 exports.sqlTruncateTable = (schema) => {
-  return "TRUNCATE " + schema;
+  return "TRUNCATE TABLE " + schema;
 }
 
 /**
