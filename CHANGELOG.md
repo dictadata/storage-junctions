@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.7.4
+  - update test/st_launcher.js program
+  - update dependencies
 - version 1.7.3
   - httpRequest improvements
 - version 1.7.2
