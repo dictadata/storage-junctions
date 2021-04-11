@@ -228,17 +228,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch list",
-      "program": "${workspaceFolder}/test/elasticsearch/list.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "elasticsearch createSchema",
       "program": "${workspaceFolder}/test/elasticsearch/createSchema.js",
       "outputCapture": "std",
@@ -250,8 +239,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch getEncoding",
-      "program": "${workspaceFolder}/test/elasticsearch/getEncoding.js",
+      "name": "elasticsearch dullSchema",
+      "program": "${workspaceFolder}/test/elasticsearch/dullSchema.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -261,8 +250,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch dullSchema",
-      "program": "${workspaceFolder}/test/elasticsearch/dullSchema.js",
+      "name": "elasticsearch getEncoding",
+      "program": "${workspaceFolder}/test/elasticsearch/getEncoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -285,6 +274,17 @@
       "request": "launch",
       "name": "elasticsearch store",
       "program": "${workspaceFolder}/test/elasticsearch/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "elasticsearch dull",
+      "program": "${workspaceFolder}/test/elasticsearch/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -327,17 +327,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch dull",
-      "program": "${workspaceFolder}/test/elasticsearch/dull.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "elasticsearch codify",
       "program": "${workspaceFolder}/test/elasticsearch/codify.js",
       "outputCapture": "std",
@@ -371,8 +360,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mssql list",
-      "program": "${workspaceFolder}/test/mssql/list.js",
+      "name": "elasticsearch list",
+      "program": "${workspaceFolder}/test/elasticsearch/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -382,8 +371,38 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mssql encoding",
-      "program": "${workspaceFolder}/test/mssql/encoding.js",
+      "name": "mssql createSchema",
+      "program": "${workspaceFolder}/test/mssql/createSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      },
+      "outFiles": [
+        "${workspaceFolder}/storage/**/*.js",
+        "${workspaceFolder}/test/lib/*.js"
+      ]
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql dullSchema",
+      "program": "${workspaceFolder}/test/mssql/dullSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      },
+      "outFiles": [
+        "${workspaceFolder}/storage/**/*.js",
+        "${workspaceFolder}/test/lib/*.js"
+      ]
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql getEncoding",
+      "program": "${workspaceFolder}/test/mssql/getEncoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -399,6 +418,28 @@
       "request": "launch",
       "name": "mssql store",
       "program": "${workspaceFolder}/test/mssql/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql store bulk",
+      "program": "${workspaceFolder}/test/mssql/store_bulk.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mssql dull",
+      "program": "${workspaceFolder}/test/mssql/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -441,28 +482,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mssql dull",
-      "program": "${workspaceFolder}/test/mssql/dull.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mssql store bulk",
-      "program": "${workspaceFolder}/test/mssql/store_bulk.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "mssql codify",
       "program": "${workspaceFolder}/test/mssql/codify.js",
       "outputCapture": "std",
@@ -496,8 +515,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql list",
-      "program": "${workspaceFolder}/test/mysql/list.js",
+      "name": "mssql list",
+      "program": "${workspaceFolder}/test/mssql/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -507,8 +526,30 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql encoding",
-      "program": "${workspaceFolder}/test/mysql/encoding.js",
+      "name": "mysql createSchema",
+      "program": "${workspaceFolder}/test/mysql/createSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql dullSchema",
+      "program": "${workspaceFolder}/test/mysql/dullSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql getEncoding",
+      "program": "${workspaceFolder}/test/mysql/getEncoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -520,6 +561,28 @@
       "request": "launch",
       "name": "mysql store",
       "program": "${workspaceFolder}/test/mysql/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql store bulk",
+      "program": "${workspaceFolder}/test/mysql/store_bulk.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "mysql dull",
+      "program": "${workspaceFolder}/test/mysql/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -562,28 +625,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "mysql dull",
-      "program": "${workspaceFolder}/test/mysql/dull.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "mysql store bulk",
-      "program": "${workspaceFolder}/test/mysql/store_bulk.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "mysql codify",
       "program": "${workspaceFolder}/test/mysql/codify.js",
       "outputCapture": "std",
@@ -617,8 +658,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracledb list",
-      "program": "${workspaceFolder}/test/oracledb/list.js",
+      "name": "mysql list",
+      "program": "${workspaceFolder}/test/mysql/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -628,8 +669,30 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracledb encoding",
-      "program": "${workspaceFolder}/test/oracledb/encoding.js",
+      "name": "oracledb createSchema",
+      "program": "${workspaceFolder}/test/oracledb/createSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "oracledb dullSchema",
+      "program": "${workspaceFolder}/test/oracledb/dullSchema.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "oracledb getEncoding",
+      "program": "${workspaceFolder}/test/oracledb/getEncoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -641,6 +704,28 @@
       "request": "launch",
       "name": "oracledb store",
       "program": "${workspaceFolder}/test/oracledb/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "oracledb store bulk",
+      "program": "${workspaceFolder}/test/oracledb/store_bulk.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "oracledb dull",
+      "program": "${workspaceFolder}/test/oracledb/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -683,28 +768,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "oracledb dull",
-      "program": "${workspaceFolder}/test/oracledb/dull.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "oracledb store bulk",
-      "program": "${workspaceFolder}/test/oracledb/store_bulk.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
       "name": "oracledb codify",
       "program": "${workspaceFolder}/test/oracledb/codify.js",
       "outputCapture": "std",
@@ -729,6 +792,17 @@
       "request": "launch",
       "name": "oracledb aggregate",
       "program": "${workspaceFolder}/test/oracledb/aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "oracledb list",
+      "program": "${workspaceFolder}/test/oracledb/list.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

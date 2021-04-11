@@ -1,7 +1,19 @@
+#!/usr/bin/env node
+/**
+ * test/st_launcher.js
+ * 
+ * Read the .vscode/launch.json file and run the tests.
+ */
+"use strict";
+
 const fs = require("fs");
 const { spawn } = require('child_process');
 const colors = require('colors');
 
+// testProg is a string to match in the launch configuration.program property.
+let testProg = process.env["TEST_PROGRAM"] || "/test/";
+
+// testName is a string to match in the launch configuration.name property.
 let testName = process.argv.length > 2 ? process.argv[2] : "";
 
 (async () => {
@@ -12,13 +24,15 @@ let testName = process.argv.length > 2 ? process.argv[2] : "";
 
     for (let config of launch.configurations) {
       if (!testName || config.name.indexOf(testName) >= 0) {
-        console.log(config.name.bgBlue);
-
-        if (config.type === "pwa-node" && config.request === "launch" && config.program) {
+        if (config.type === "pwa-node"
+          && config.request === "launch"
+          && (config.program && config.program.includes(testProg))) {
+          
+          console.log(config.name.bgBlue);
           let script = config.program.replace("${workspaceFolder}", ".");
         
           let args = [script];
-          if (config.args) {r
+          if (config.args) {
             for (let arg of config.args) {
               arg = arg.replace("${workspaceFolder}", ".");
               args.push(arg);
