@@ -16,12 +16,13 @@ async function tests() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|!"
     },
     construct: {
-      Foo: 'twenty',
-      Bar: 'Jackson',
-      Baz: 20
+      Foo: '50',
+      Bar: 'Grant',
+      Baz: 50,
+      "Dt Test": "2018-10-18" 
     }
   }, keyValues)) return 1;
 
@@ -42,23 +43,15 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== elasticsearch recall !Foo");
-  if (await recall({
+  logger.info("=== elasticsearch recall uid");
+  if (await dull({
     origin: {
-      smt: {
-        model: "elasticsearch",
-        locus: "http://localhost:9200",
-        schema: "foo_schema",
-        key: "!Foo"
-      },
-      pattern: {
-        Foo: keyValues.uid
-      }
+      smt: "elasticsearch|http://localhost:9200|foo_schema|" + keyValues.uid
     }
   })) return 1;
 
 }
 
 (async () => {
-  if (await tests()) return;
+  if (await tests()) return 1;
 })();

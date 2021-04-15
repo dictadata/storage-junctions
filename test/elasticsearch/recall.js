@@ -8,7 +8,7 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: elasticsearch");
 
-async function tests() {
+async function keystore() {
 
   logger.info("=== elasticsearch recall");
   if (await recall({
@@ -22,6 +22,10 @@ async function tests() {
       output: "./data/output/elasticsearch/recall_1.json"
     }
   })) return 1;
+
+}
+
+async function primarykey() {
 
   logger.info("=== elasticsearch recall");
   if (await recall({
@@ -41,5 +45,6 @@ async function tests() {
 }
 
 (async () => {
-  if (await tests()) return;
+  if (await keystore()) return 1;
+  if (await primarykey()) return 1;
 })();
