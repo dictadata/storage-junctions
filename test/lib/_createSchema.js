@@ -5,8 +5,7 @@
 
 const _pev = require("./_process_events");
 const storage = require("../../storage");
-const { typeOf } = require("../../storage/utils");
-const { logger } = require('../../storage/utils');
+const { typeOf, logger } = require("../../storage/utils");
 const fs = require('fs');
 
 module.exports = exports = async function (tract) {

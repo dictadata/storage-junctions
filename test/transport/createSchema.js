@@ -10,7 +10,7 @@ logger.info("=== Tests: transport createSchema");
 
 async function tests() {
 
-  logger.info("=== transport createSchema foo_scheam");
+  logger.info("=== transport createSchema foo_schema");
   if (await createSchema({
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",

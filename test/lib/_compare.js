@@ -62,6 +62,7 @@ function compareJSON(object1, object2, compareValues) {
 
 module.exports = exports = function (filename1, filename2, compareValues = true) {
   logger.info(">>> compare files");
+  //return 0;
 
   let ext1 = path.extname(filename1);
   let ext2 = path.extname(filename2);
