@@ -61,6 +61,6 @@ async function tests() {
 
 }
 
-(async () => {
+exports.runTests = async () => {
   if (await tests()) return;
-})();
+};

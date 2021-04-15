@@ -8,7 +8,7 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: memory");
 
-async function tests() {
+async function keystore() {
 
   logger.info("=== memory recall");
   if (await recall({
@@ -23,6 +23,9 @@ async function tests() {
     }
   })) return 1;
 
+}
+
+async function primarykey() {
   logger.info("=== memory recall");
   if (await recall({
     origin: {
@@ -40,6 +43,7 @@ async function tests() {
 
 }
 
-(async () => {
-  if (await tests()) return;
-})();
+exports.runTests = async () => {
+  if (await keystore()) return 1;
+  //if (await primarykey()) return 1;
+};

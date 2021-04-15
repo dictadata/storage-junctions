@@ -1,0 +1,121 @@
+{
+  "smt": {
+    "model": "memory",
+    "locus": "testgroup",
+    "schema": "foo_schema_02",
+    "key": "!Foo"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 7,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Foo"
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "text",
+      "size": 13,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Bar"
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "integer",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Baz"
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "number",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Fobe"
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "date",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Dt Test"
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "boolean",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabled"
+    },
+    "tags": {
+      "name": "tags",
+      "type": "list",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "tags",
+      "_item": {
+        "name": "_item",
+        "type": "keyword",
+        "size": 8,
+        "default": null,
+        "isNullable": true,
+        "keyOrdinal": 0,
+        "label": "_item"
+      }
+    },
+    "widgets": {
+      "name": "widgets",
+      "type": "list",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "widgets",
+      "_item": {
+        "name": "_item",
+        "type": "map",
+        "size": 0,
+        "default": null,
+        "isNullable": true,
+        "keyOrdinal": 0,
+        "label": "_item",
+        "fields": {
+          "part": {
+            "name": "part",
+            "type": "keyword",
+            "size": 6,
+            "default": null,
+            "isNullable": true,
+            "keyOrdinal": 0,
+            "label": "part"
+          },
+          "count": {
+            "name": "count",
+            "type": "integer",
+            "size": 0,
+            "default": null,
+            "isNullable": true,
+            "keyOrdinal": 0,
+            "label": "count"
+          }
+        }
+      }
+    }
+  },
+  "_SMT": "any|*|*|*"
+}

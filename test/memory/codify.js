@@ -6,8 +6,6 @@
 const codify = require('../lib/_codify');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== tests: Memory Codify ");
-
 async function tests() {
 
   logger.info("=== codify foo_schema");
@@ -39,6 +37,6 @@ async function tests() {
 
 }
 
-(async () => {
-  if (await tests()) return;
-})();
+exports.runTests = async () => {
+  if (await tests()) return 1;
+};

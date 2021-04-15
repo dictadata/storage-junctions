@@ -39,6 +39,10 @@ exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
 cortex.use('*', StorageJunction, true);
 
+var MemoryJunction = require("./junctions/memory");
+exports.MemoryJunction = MemoryJunction;
+cortex.use('memory', MemoryJunction);
+
 var CSVJunction = require("./junctions/csv");
 exports.CSVJunction = CSVJunction;
 cortex.use('csv', CSVJunction, true);
@@ -50,10 +54,6 @@ cortex.use('jsons', JSONJunction, true);  // json stream
 cortex.use('jsonl', JSONJunction, true);  // json line
 cortex.use('jsona', JSONJunction, true);  // json array
 cortex.use('jsono', JSONJunction, true);  // json object
-
-var ShapesJunction = require("./junctions/shapes");
-exports.ShapesJunction = ShapesJunction;
-cortex.use('shp', ShapesJunction, true);
 
 var ParquetJunction = require("./junctions/parquet");
 exports.ParquetJunction = ParquetJunction;
@@ -83,6 +83,10 @@ cortex.use('oracledb', OracleDBJunction);
 var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
 cortex.use('rest', RESTJunction);
+
+var ShapesJunction = require("./junctions/shapes");
+exports.ShapesJunction = ShapesJunction;
+cortex.use('shp', ShapesJunction, true);
 
 var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;

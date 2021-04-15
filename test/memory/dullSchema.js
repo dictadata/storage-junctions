@@ -6,8 +6,6 @@
 const dullSchema = require('../lib/_dullSchema');
 const { logger } = require('../../storage/utils');
 
-logger.info("===== memory dullSchema ");
-
 async function test(schema, encoding) {
 
   logger.info("=== dullSchema" + schema);
@@ -17,6 +15,8 @@ async function test(schema, encoding) {
 
 }
 
-(async () => {
-  if (await test("foo_schema_x", "encoding_foo")) return;
-})();
+exports.runTests = async () => {
+  if (await test("foo_schema_x", "encoding_foo")) return 1;
+
+  return 0;
+};

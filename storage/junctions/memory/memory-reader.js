@@ -30,8 +30,7 @@ module.exports = exports = class MemoryReader extends StorageReader {
       // filter constructs using patttern
       let pattern = this.options.pattern || {};
 
-      let entry = this.junction._storage.get(this.junction.storage_key);
-      for (let construct of entry.constructs) {
+      for (let construct of this.junction._constructs.values()) {
         this.push(construct);
       }
     }

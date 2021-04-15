@@ -1,0 +1,117 @@
+{
+  "smt": {
+    "model": "memory",
+    "locus": "testgroup",
+    "schema": "foo_schema_02",
+    "key": "*"
+  },
+  "fields": {
+    "Foo": {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 64,
+      "default": null,
+      "isNullable": false,
+      "keyOrdinal": 2,
+      "label": "Foo"
+    },
+    "Bar": {
+      "name": "Bar",
+      "type": "keyword",
+      "size": 64,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Bar"
+    },
+    "Baz": {
+      "name": "Baz",
+      "type": "integer",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 1,
+      "label": "Baz"
+    },
+    "Fobe": {
+      "name": "Fobe",
+      "type": "number",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Fobe"
+    },
+    "Dt Test": {
+      "name": "Dt Test",
+      "type": "date",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "Dt Test"
+    },
+    "enabled": {
+      "name": "enabled",
+      "type": "boolean",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "enabled"
+    },
+    "tags": {
+      "name": "tags",
+      "type": "list",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "tags",
+      "_item": {
+        "name": "_item",
+        "type": "keyword",
+        "size": 64
+      }
+    },
+    "widgets": {
+      "name": "widgets",
+      "type": "list",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "widgets",
+      "_item": {
+        "name": "_item",
+        "type": "map",
+        "fields": {
+          "part": {
+            "name": "part",
+            "type": "keyword",
+            "size": 512
+          },
+          "count": {
+            "name": "count",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "_SMT": "memory|testgroup|foo_schema_02|*",
+  "indices": {
+    "foo_index_02": {
+      "unique": false,
+      "fields": [
+        {
+          "name": "Bar"
+        },
+        {
+          "name": "Fobe",
+          "order": "DESC"
+        }
+      ]
+    }
+  }
+}

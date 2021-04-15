@@ -1,7 +1,7 @@
 // storage/junctions/memory-junction
 "use strict";
 
-const StorageJunction = require("../storage-junction");
+const StorageJunction = require("../storage-junction/storage-junction");
 const { StorageResponse, StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
 
@@ -10,6 +10,8 @@ const MemoryWriter = require("./memory-writer");
 //const encoder = require('./memory-encoder');
 
 const stream = require('stream/promises');
+
+var _storage = new Map();
 
 class MemoryJunction extends StorageJunction {
 
@@ -26,27 +28,13 @@ class MemoryJunction extends StorageJunction {
     this._writerClass = MemoryWriter;
 
     this.storage_key = this.smt.locus + "_" + this.smt.schema;
-  }
-
-  async activate() {
-    this._isActive = true;
-    logger.debug("MemoryJunction activate");
-
-    try {
+    let entry = _storage.get(this.storage_key);
+    if (entry) {
+      this.engram = entry.engram;
+      this._constructs = entry.constructs;
     }
-    catch (err) {
-      logger.error(err);
-    }
-  }
-
-  async relax() {
-    this._isActive = false;
-    logger.debug("MemoryJunction relax");
-
-    try {
-    }
-    catch (err) {
-      logger.error(err);
+    else {
+      this._constructs = new Map();
     }
   }
 
@@ -71,9 +59,9 @@ class MemoryJunction extends StorageJunction {
       rx = new RegExp(rx);
 
       // fetch schema list from storage source
-      for (let name of MemoryJunction._storage.keys())
+      for (let name of _storage.keys())
       if (rx.test(name))
-        list.push(name);
+        list.push(name.substring(this.smt.locus.length + 1));
     }
     catch (err) {
       logger.error(err);
@@ -91,7 +79,7 @@ class MemoryJunction extends StorageJunction {
     logger.debug("OracleDBJunction getEncoding");
 
     try {
-      let entry = MemoryJunction._storage.get(this.storage_key);
+      let entry = _storage.get(this.storage_key);
       if (!entry)
         return new StorageResponse(404, "schema not found");
       
@@ -112,15 +100,15 @@ class MemoryJunction extends StorageJunction {
     logger.debug("MemoryJunction createSchema");
 
     try {
-      if (MemoryJunction._storage.has(this.storage_key))
+      if (_storage.has(this.storage_key))
         return new StorageResponse(409, "schema exists");
       
       if (options.encoding)
         this.engram.encoding = options.encoding;
       
-      MemoryJunction._storage.set(this.storage_key, {
+      _storage.set(this.storage_key, {
         engram: this.engram,
-        constructs: new Map()
+        constructs: this._constructs
       });
       
       return new StorageResponse(0);
@@ -142,12 +130,12 @@ class MemoryJunction extends StorageJunction {
     let schema = options.schema || this.smt.schema;
     
     try {
-      let entry = MemoryJunction._storage.get(this.smt.locus + schema);
+      let entry = _storage.get(this.smt.locus + schema);
       if (!entry)
         return new StorageResponse(404, "schema not found");
         
       entry.constructs.clear();
-      MemoryJunction._storage.delete(this.smt.locus + schema);
+      _storage.delete(this.smt.locus + schema);
 
       return new StorageResponse(0);
     }
@@ -170,15 +158,11 @@ class MemoryJunction extends StorageJunction {
       throw new StorageError(400, "Invalid parameter: construct is not an object");
     
     try {
-      let entry = MemoryJunction._storage.get(this.storage_key);
-      if (!entry)
-        return new StorageResponse(404, "schema not found");
-        
       let resultCode = 0;
       let numAffected = 0;
 
       let key = (pattern && pattern.key) || this.engram.get_uid(construct);
-      entry.constructs[key] = construct;
+      this._constructs.set(key, construct);
       
       return new StorageResponse(resultCode, null, numAffected, "numAffected");
     }
@@ -196,23 +180,19 @@ class MemoryJunction extends StorageJunction {
   async storeBulk(constructs, pattern) {
     logger.debug("MemoryJunction storeBulk");
 
-    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError( 400, "unique keys not supported");
+    if (this.engram.keyof !== 'key')
+      throw new StorageError( 400, "only keystore supported");
     if (typeOf(constructs) !== "array")
       throw new StorageError( 400, "Invalid parameter: construct is not an object");
     
     try {
-      let entry = MemoryJunction._storage.get(this.storage_key);
-      if (!entry)
-        return new StorageResponse(404, "schema not found");
-        
       let resultCode;
       let numAffected = constructs.length;
       
       // store constructs
       for (let construct of constructs) {
         let key = this.engram.get_uid(construct);
-        entry.constructs[key] = construct;
+        this._constructs.set(key, construct);
       }
 
       return new StorageResponse(resultCode, null, numAffected, "numAffected");
@@ -229,21 +209,17 @@ class MemoryJunction extends StorageJunction {
   async recall(pattern) {
     logger.debug("MemoryJunction recall");
 
-    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError( 400, "unique keys not supported");
+    if (this.engram.keyof !== 'key')
+      throw new StorageError( 400, "only keystore supported");
     
     try {
-      let entry = MemoryJunction._storage.get(this.storage_key);
-      if (!entry)
-        return new StorageResponse(404, "schema not found");
-        
       let resultCode = 0;
       let response = new StorageResponse(0);
 
       if (pattern && pattern.key) {
-        if (entry.constructs.has(pattern.key)) {
-          response.add(entry.constructs[pattern.key], pattern.key);
-        }
+        let construct = this._constructs.get(pattern.key);
+        if (construct)
+          response.add(construct, pattern.key);
         else
           resultCode = 404;
       }      
@@ -269,16 +245,12 @@ class MemoryJunction extends StorageJunction {
     logger.debug("MemoryJunction retrieve");
 
     try {
-      let entry = MemoryJunction._storage.get(this.storage_key);
-      if (!entry)
-        return new StorageResponse(404, "schema not found");
-        
       let resultCode = 0;
       let response = new StorageResponse(0);
 
       // filter constructs using pattern
       let key = pattern.key;
-      response.add(entry.constructs[key], key);
+      response.add(this._constructs.get(key), key);
 
       response.resultCode = resultCode;
       return response;
@@ -297,22 +269,16 @@ class MemoryJunction extends StorageJunction {
     logger.debug("MemoryJunction dull");
     if (!pattern) pattern = {};
 
-    if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
-      throw new StorageError( 400, "unique keys not supported");
+    if (this.engram.keyof !== 'key')
+      throw new StorageError( 400, "only keystore supported");
 
     try {
-      let entry = MemoryJunction._storage.get(this.storage_key);
-      if (!entry)
-        return new StorageResponse(404, "schema not found");
-        
       let resultCode = 0;
       let numAffected = 0;
 
       if (pattern && pattern.key) {
-        if (entry.constructs.has(pattern.key)) {
-          delete entry.constructs[pattern.key];
+        if (this._constructs.delete(pattern.key))
           numAffected = 1;
-        }
         else
           resultCode = 404;
       }
@@ -330,8 +296,8 @@ class MemoryJunction extends StorageJunction {
 
 };
 
-MemoryJunction._storage = new Map();
 
 // define module exports
 //MemoryJunction.encoder = encoder;
+MemoryJunction._storage = _storage;
 module.exports = MemoryJunction;

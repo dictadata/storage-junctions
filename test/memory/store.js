@@ -8,7 +8,7 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: memory");
 
-async function tests() {
+async function keystore() {
 
   logger.info("=== memory store");
   if (await store({
@@ -55,6 +55,10 @@ async function tests() {
     }
   })) return 1;
 
+}
+
+async function primarykey() {
+
   logger.info("=== memory store");
   if (await store({
     origin: {
@@ -87,6 +91,7 @@ async function tests() {
 
 }
 
-(async () => {
-  if (await tests()) return;
-})();
+exports.runTests = async () => {
+  if (await keystore()) return 1;
+  //if (await primarykey()) return 1;
+};

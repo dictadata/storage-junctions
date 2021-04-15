@@ -6,8 +6,6 @@
 const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: memory transforms");
-
 async function tests() {
 
   logger.verbose('=== memory/transform_1.json');
@@ -67,6 +65,6 @@ async function tests() {
 
 }
 
-(async () => {
-  if (await tests()) return;
-})();
+exports.runTests = async () => {
+  if (await tests()) return 1;
+};

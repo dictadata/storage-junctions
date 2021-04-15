@@ -4,17 +4,10 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullSchema = require('../lib/_dullSchema');
+
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Tests: memory");
-
 async function tests() {
-
-  logger.info("=== dullSchema foo_transfer");
-  if (await dullSchema({
-    smt: "memory|testgroup|foo_transfer|*"
-  })) return 1;
 
   logger.info("=== csv => memory");
   if (await transfer({
@@ -25,7 +18,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "memory|testgroup|foo_schema|*"
+      smt: "memory|testgroup|foo_schema|!Foo"
     }
   })) return 1;
 
@@ -35,7 +28,7 @@ async function tests() {
       smt: "json|./data/test/|foofile.json|*"
     },
     terminal: {
-      smt: "memory|testgroup|foo_schema_j|*"
+      smt: "memory|testgroup|foo_schema_j|!Foo"
     }
   })) return 1;
 
@@ -45,7 +38,7 @@ async function tests() {
       smt: "json|./data/test/|foofile_01.json|*"
     },
     terminal: {
-      smt: "memory|testgroup|foo_schema_01|*"
+      smt: "memory|testgroup|foo_schema_01|!Foo"
     }
   })) return 1;
 
@@ -55,24 +48,24 @@ async function tests() {
       smt: "json|./data/test/|foofile_02.json|*"
     },
     terminal: {
-      smt: "memory|testgroup|foo_schema_02|*"
+      smt: "memory|testgroup|foo_schema_02|!Foo"
     }
   })) return 1;
 
   logger.info("=== memory => memory");
   if (await transfer({
     origin: {
-      smt: "memory|testgroup|foo_schema|*"
+      smt: "memory|testgroup|foo_schema|!Foo"
     },
     terminal: {
-      smt: "memory|testgroup|foo_transfer|*"
+      smt: "memory|testgroup|foo_transfer|!Foo"
     }
   })) return 1;
 
   logger.info("=== memory => csv");
   if (await transfer({
     origin: {
-      smt: "memory|testgroup|foo_transfer|*"
+      smt: "memory|testgroup|foo_transfer|!Foo"
     },
     terminal: {
       smt: "csv|./data/output/memory/|transfer_foo.csv|*",
@@ -86,7 +79,7 @@ async function tests() {
   logger.info("=== memory => json");
   if (await transfer({
     origin: {
-      smt: "memory|testgroup|foo_schema_j|*"
+      smt: "memory|testgroup|foo_schema_j|!Foo"
     },
     terminal: {
       smt: "json|./data/output/memory/|transfer_foo_j.json|*",
@@ -98,6 +91,6 @@ async function tests() {
 
 }
 
-(async () => {
-  if (await tests()) return;
-})();
+exports.runTests = async () => {
+  if (await tests()) return 1;
+};

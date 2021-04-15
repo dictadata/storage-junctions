@@ -3,16 +3,13 @@
  */
 "use strict";
 
-const createSchema = require('../lib/_createSchema');
-const dull = require("../lib/_dull");
+const _createSchema = require('../lib/_createSchema');
 const { logger } = require('../../storage/utils');
-
-logger.info("===== memory createSchema ");
 
 async function test(schema, encoding) {
 
   logger.info("=== createSchema " + schema);
-  if (await createSchema({
+  if (await _createSchema({
     origin: {
       smt: "memory|testgroup|" + schema + "|*",
       options: {
@@ -21,19 +18,12 @@ async function test(schema, encoding) {
     }
   })) return 1;
 
-  logger.info("=== dull (truncate) " + schema);
-  if (await dull({
-    origin: {
-      smt: "memory|testgroup|" + schema + "|*"
-    }
-  })) return 1;
-
 }
 
 async function test_lg() {
 
   logger.info("=== memory large fields");
-  if (await createSchema({
+  if (await _createSchema({
     origin: {
       smt: "memory|testgroup|foo_schema_lg|*",
       options: {
@@ -48,11 +38,13 @@ async function test_lg() {
 
 }
 
-(async () => {
-  if (await test("foo_schema", "encoding_foo")) return;
-  if (await test("foo_schema_x", "encoding_foo")) return;    // for dullSchema.js
-  if (await test("foo_schema_01", "encoding_foo_01")) return;
-  if (await test("foo_schema_02", "encoding_foo_02")) return;
-  if (await test("foo_schema_two", "encoding_foo_two")) return;
-  if (await test_lg()) return;
-})();
+exports.runTests = async () => {
+  if (await test("foo_schema", "encoding_foo")) return 1;
+  if (await test("foo_schema_x", "encoding_foo")) return 1;    // for dullSchema.js
+  if (await test("foo_schema_01", "encoding_foo_01")) return 1;
+  if (await test("foo_schema_02", "encoding_foo_02")) return 1;
+  if (await test("foo_schema_two", "encoding_foo_two")) return 1;
+  if (await test_lg()) return 1;
+
+  return 0;
+};

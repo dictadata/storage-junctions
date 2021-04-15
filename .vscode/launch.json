@@ -228,13 +228,47 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "memory schemas",
+      "program": "${workspaceFolder}/test/memory/schemas.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "memory store/recall",
+      "program": "${workspaceFolder}/test/memory/store_recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "memory pipelines",
+      "program": "${workspaceFolder}/test/memory/pipelines.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "elasticsearch createSchema",
       "program": "${workspaceFolder}/test/elasticsearch/createSchema.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
-      }
+      },
+      "runtimeArgs": ["--trace-warnings"]
     },
     {
       "type": "pwa-node",
@@ -261,8 +295,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "elasticsearch keystore",
-      "program": "${workspaceFolder}/test/elasticsearch/keystore.js",
+      "name": "elasticsearch store_uid",
+      "program": "${workspaceFolder}/test/elasticsearch/store_uid.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

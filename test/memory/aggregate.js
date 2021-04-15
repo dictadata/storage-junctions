@@ -6,8 +6,6 @@
 const retrieve = require('../lib/_retrieve');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Tests: retreive");
-
 async function tests() {
 
   logger.info("=== memory aggregate");
@@ -81,6 +79,6 @@ async function tests() {
 
 }
 
-(async () => {
-  if (await tests()) return;
-})();
+exports.runTests = async () => {
+  if (await tests()) return 1;
+};
