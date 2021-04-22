@@ -80,7 +80,7 @@ exports.parseData = function (data, options, callback) {
   if (typeof data !== 'object')
     throw new Error("invalid json data");
 
-  const extract = options.extract || options || {};
+  const extract = options.extract || {};
   const names = (extract.names && data[extract.names]) || [];
   const rows = (extract.data) ? data[extract.data] : data;
 
