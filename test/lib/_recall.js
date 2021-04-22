@@ -28,7 +28,6 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.recall(tract.origin.pattern);
     
-    logger.debug(JSON.stringify(results));
     if (tract.terminal && tract.terminal.output) {
       logger.info("<<< save results to " + tract.terminal.output);
       fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
@@ -37,7 +36,9 @@ module.exports = exports = async function (tract) {
       let expected_output = tract.terminal.output.replace("output", "expected");
       retCode = _compare(tract.terminal.output, expected_output);
     }
-
+    else
+      logger.verbose(JSON.stringify(results, null, "  "));
+    
     logger.info(">>> completed");
   }
   catch (err) {

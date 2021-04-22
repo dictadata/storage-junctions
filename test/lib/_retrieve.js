@@ -30,8 +30,7 @@ module.exports = exports = async function (tract, compareValues) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.retrieve(tract.origin.pattern);
 
-    logger.debug("result: " + results.resultCode + " count: " + (results.data ? results.data.length : 0));
-    logger.debug(JSON.stringify(results));
+    logger.verbose("result: " + results.resultCode + " count: " + (results.data ? results.data.length : 0));
     if (tract.terminal && tract.terminal.output) {
       logger.info("<<< save results to " + tract.terminal.output);
       fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
@@ -40,6 +39,8 @@ module.exports = exports = async function (tract, compareValues) {
       let expected_output = tract.terminal.output.replace("output", "expected");
       retCode = _compare(tract.terminal.output, expected_output, compareValues);
     }
+    else
+      logger.verbose(JSON.stringify(results, null, "  "));      
 
     logger.info(">>> completed");
   }
