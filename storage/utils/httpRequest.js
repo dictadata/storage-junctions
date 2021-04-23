@@ -51,6 +51,11 @@ function http1Request(Url, options, data) {
       request["auth"] = options.auth;
 
     if (data) {
+      // check for web form data
+      if (request.headers["Content-Type"] == "application/x-www-form-urlencoded" && typeof data === "object")
+        data = querystring.stringify(data);
+
+      // default to json payload
       if (!request.headers['Content-Type'])
         request.headers["Content-Type"] = "application/json; charset=utf-8";
       
