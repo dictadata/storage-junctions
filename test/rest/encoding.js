@@ -10,33 +10,6 @@ logger.info("=== Test: rest encoding");
 
 async function tests() {
 
-  logger.info("=== rest getEncoding (foodusage)");
-  if (await getEncoding({
-    origin: {
-      smt: "rest|https://api.panerabread.com/iboh/food-usage/v1/|franchiseFoodUsage|*",
-      options: {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org",
-          "Authorization": "Bearer Rjzn9RAZ3BGlpEmRNxyjJbgqLbyB"
-        },
-        extract: {
-          data: "rows",     // name of property in response.data than contains the desired object or array
-          names: "headers"  // name of property in response.data containing an array of field names
-          // if names is empty then data should be a json object or array of json objects
-        }
-      },
-      pattern: {
-        "companyCode": "PANSI001",
-        "reportDate": "2021-04-20"
-      }
-    },
-    terminal: {
-      output: './data/output/rest/foodusage_encoding.json'
-    }
-  }, false)) return 1;
-
   logger.info("=== rest getEncoding (forecast)");
   if (await getEncoding({
     origin: {

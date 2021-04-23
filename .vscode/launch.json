@@ -851,8 +851,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "rest encoding",
-      "program": "${workspaceFolder}/test/rest/encoding.js",
+      "name": "rest retrieve",
+      "program": "${workspaceFolder}/test/rest/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -862,8 +862,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "rest retrieve",
-      "program": "${workspaceFolder}/test/rest/retrieve.js",
+      "name": "rest encoding",
+      "program": "${workspaceFolder}/test/rest/encoding.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
