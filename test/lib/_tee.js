@@ -34,8 +34,11 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
-    let results = await jo.getEncoding();
-    let encoding = results.data["encoding"];
+    let encoding;
+    if (jo.capabilities.encoding) {
+      let results = await jo.getEncoding();
+      encoding = results.data["encoding"];
+    }
 
     logger.info(">>> create origin pipeline");
     reader = jo.createReadStream();
@@ -56,7 +59,8 @@ module.exports = exports = async function (tract) {
         branch.terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
       }
       let jt = await storage.activate(branch.terminal.smt, branch.terminal.options);
-      await jt.createSchema();
+      if (jt.capabilities.encoding)
+        await jt.createSchema();
 
       jtlist.push(jt);  // save reference to branch junctions
 

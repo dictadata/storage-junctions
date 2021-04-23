@@ -15,6 +15,22 @@ const stream = require('stream/promises');
 
 class JSONJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: true, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = JSONReader;
+  _writerClass = JSONWriter;
+
   /**
    *
    * @param {*} SMT 'json|folder|filename|key' or an Engram object
@@ -23,9 +39,6 @@ class JSONJunction extends StorageJunction {
   constructor(SMT, options) {
     logger.debug("JSONJunction");
     super(SMT, options);
-
-    this._readerClass = JSONReader;
-    this._writerClass = JSONWriter;
 
     // check schema's extension
     if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')

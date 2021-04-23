@@ -15,6 +15,22 @@ var _storage = new Map();
 
 class MemoryJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: true,   // supports key-value storage
+
+    encoding: true,   // get encoding from source
+    store: true,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = MemoryReader;
+  _writerClass = MemoryWriter;
+
   /**
    *
    * @param {*} SMT 'memory|locus|schema|key' or an Engram object
@@ -23,9 +39,6 @@ class MemoryJunction extends StorageJunction {
   constructor(SMT, options) {
     super(SMT, options);
     logger.debug("MemoryJunction");
-
-    this._readerClass = MemoryReader;
-    this._writerClass = MemoryWriter;
 
     this.storage_key = this.smt.locus + "_" + this.smt.schema;
     let entry = _storage.get(this.storage_key);

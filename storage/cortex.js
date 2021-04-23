@@ -11,10 +11,8 @@ const { typeOf, hasOwnProperty } = require("./utils");
 
 class Cortex {
 
-  static use(model, storageJunctionClass, usesFileSystems = false) {
+  static use(model, storageJunctionClass) {
     Cortex._storageJunctions.set(model, storageJunctionClass);
-    if (usesFileSystems)
-      Cortex.FileSystems.usedBy(model);
   }
 
   static async activate(SMT, options) {
@@ -31,7 +29,8 @@ class Cortex {
     }
 
     if (Cortex._storageJunctions.has(model)) {
-      let junction = new (Cortex._storageJunctions.get(model))(SMT, options);
+      let junctionClass = Cortex._storageJunctions.get(model);
+      let junction = new junctionClass(SMT, options);
       await junction.activate();
       return junction;
     }
@@ -71,23 +70,7 @@ class Transforms {
 
 class FileSystems {
 
-  /**
-   * add junction models that use filesystems
-   * @param {string} model 
-   */
-  static usedBy(model) {
-    FileSystems._usedByModels.push(model);
-  }
-
-  /**
-   * check if junction model uses filesystems
-   * @param {string} model 
-   */
-  static isUsedBy(model) {
-    return FileSystems._usedByModels.includes(model);
-  }
-
-  /**
+ /**
    * register filesystem prefix with a filesystem class
    * @param {string} fsPrefix filesystem prefix like file, http, ftp, s3, ... 
    * @param {StorageFileSystem} FileSystemsClass 
@@ -100,8 +83,6 @@ class FileSystems {
   static async activate(smt, options) {
     if (!smt)
       throw new StorageError( 400, "invalid smt");
-    if (!FileSystems.isUsedBy(smt.model))
-      throw new StorageError( 400, "junction's model does not support a filesystem, " + smt.model);
 
     let fsPrefix = 'file';
     if (smt.locus.indexOf(':') > 1)
@@ -132,7 +113,5 @@ Transforms._transforms = new Map();
 
 // FileSystems static members
 FileSystems._fileSystems = new Map();
-// junction models that use filesystems
-FileSystems._usedByModels = [];
 
 module.exports = exports = Cortex;

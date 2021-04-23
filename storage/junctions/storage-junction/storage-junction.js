@@ -11,6 +11,23 @@ const stream = require('stream');
 
 module.exports = exports = class StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: true, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = Reader;
+  _writerClass = Writer;
+  _fileSystem = null;
+
   /**
    *
    * @param {*} SMT an SMT string 'model|locus|schema|key', object or Engram object
@@ -19,20 +36,14 @@ module.exports = exports = class StorageJunction {
   constructor(SMT, options) {
     this.engram = new Engram(SMT);
     this.smt = this.engram.smt;
+
     this.options = Object.assign({}, options);
     if (this.options.encoding) {
       this.engram.encoding = this.options.encoding;
       delete this.options.encoding;
     }
 
-    this._isActive = false;
-
-    // assign stream constructor functions, sub-class should override
-    this._readerClass = Reader;
-    this._writerClass = Writer;
-
-    // filesystem
-    this._fileSystem = null;
+    this.isActive = false;
 
     logger.debug("StorageJunction");
   }
@@ -43,7 +54,7 @@ module.exports = exports = class StorageJunction {
 
   // override to initialize junction
   async activate() {
-    this._isActive = true;
+    this.isActive = true;
   }
 
   /**
@@ -51,7 +62,7 @@ module.exports = exports = class StorageJunction {
    */
   async relax() {
     // release an resources
-    this._isActive = false;
+    this.isActive = false;
 
     if (this._fileSystem)
       await Cortex.FileSystems.relax(this._fileSystem);
@@ -72,28 +83,10 @@ module.exports = exports = class StorageJunction {
    * Get the schema's encoding.
    */
   get encoding() {
-    return this.engram.encoding;
-  }
-
-  /**
-   * Get the schema's encoding.
-   * If not defined, request encoding from the storage source.
-   */
-  async getEncoding() {
     if (!this.engram.isDefined) {
-      // get encoding from source
+      throw new StorageError(404);
     }
-    return new StorageResponse(0, null, this.engram.encoding, "encoding");
-  }
-
-  /**
-   * Sets encoding for the storage schema.
-   * Create schema at the storage locus, if it doesn't exist.
-   * @param {*} encoding
-   * @param {Boolean} overlay when true only use encoding locally for validation, default = false
-   */
-  async putEncoding(encoding) {
-    return this.createSchema({ encoding: encoding });
+    return this.engram.encoding;
   }
 
   ////////// Schema instance //////////
@@ -112,7 +105,7 @@ module.exports = exports = class StorageJunction {
     options = Object.assign({}, this.options, options);
 
     // junctions that don't use filesystems should override the list() method
-    if (!Cortex.FileSystems.isUsedBy(this.smt.model))
+    if (!this.capabilities.filesystem)
       throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
@@ -123,21 +116,25 @@ module.exports = exports = class StorageJunction {
   }
 
   /**
+   * Get the schema's encoding.
+   * If not defined, request encoding from the storage source.
+   */
+  async getEncoding() {
+    logger.debug('StorageJunction getEncoding');
+    if (!this.capabilities.encoding)
+      throw new StorageError(405);
+    return new StorageError(501);
+  }
+
+  /**
    * Create schema at the storage locus. 
    * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async createSchema(options={}) {
     logger.debug('StorageJunction createSchema');
-
-    options = Object.assign({}, this.options, options);
-    if (!options.schema)
-      options.schema = this.smt.schema;
-    if (options.encoding) {
-      this.engram.encoding = options.encoding;
-      delete options.encoding;
-    }
-
-    return new StorageResponse(0);
+    if (!this.capabilities.encoding)
+      throw new StorageError(405);
+    return new StorageError(501);
   }
 
   /**
@@ -152,7 +149,7 @@ module.exports = exports = class StorageJunction {
       options.schema = this.smt.schema;
 
     // junctions that don't use filesystems should override the dullSchema() method
-    if (!Cortex.FileSystems.isUsedBy(this.smt.model))
+    if (!this.capabilities.filesystem)
       throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
@@ -172,6 +169,8 @@ module.exports = exports = class StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("StorageJunction store");
+    if (!this.capabilities.store)
+      throw new StorageError(405);
     throw new StorageError(501);
   }
 
@@ -183,6 +182,8 @@ module.exports = exports = class StorageJunction {
    */
   async storeBulk(constructs, pattern) {
     logger.debug("StorageJunction storeBulk");
+    if (!this.capabilities.store)
+      throw new StorageError(405);
     throw new StorageError(501);
   }
 
@@ -191,6 +192,8 @@ module.exports = exports = class StorageJunction {
    */
   async recall(pattern) {
     logger.debug("StorageJunction recall");
+    if (!this.capabilities.store)
+      throw new StorageError(405);
     throw new StorageError(501);
   }
 
@@ -199,7 +202,8 @@ module.exports = exports = class StorageJunction {
    */
   async retrieve(pattern) {
     logger.debug("StorageJunction retrieve");
-
+    if (!this.capabilities.query && pattern)
+      throw new StorageError(405);
     throw new StorageError(501);
   }
 
@@ -208,6 +212,8 @@ module.exports = exports = class StorageJunction {
    */
   async dull(pattern) {
     logger.debug("StorageJunction dull");
+    if (!this.capabilities.store)
+      throw new StorageError(405);
     throw new StorageError(501);
   }
 
@@ -217,17 +223,7 @@ module.exports = exports = class StorageJunction {
   // then these methods don't need to be overriden.
   createReadStream(options) {
     options = Object.assign({}, this.options, options);
-    let pattern = options.pattern || options;
-
-    let reader = new this._readerClass(this, options);
-    // if source doesn't support queries, use filter and select transforms instead
-    if (reader.useTransforms) {
-      if (pattern.match)
-        reader = reader.pipe(this.createTransform("filter", { match: pattern.match }));
-      if (pattern.fields)
-        reader = reader.pipe(this.createTransform("select", { fields: pattern.fields }));
-    }
-    return reader;
+    return new this._readerClass(this, options);
   }
 
   createWriteStream(options) {
@@ -255,6 +251,9 @@ module.exports = exports = class StorageJunction {
    * s3: s3 bucket/prefix, options.s3.aws_profile contains the section in ~/.aws/credentials
    */
   async getFileSystem() {
+    if (!this.capabilities.filesystem)
+      throw new StorageError(405);
+    
     if (!this._fileSystem)
       this._fileSystem = await Cortex.FileSystems.activate(this.smt, this.options);
     return this._fileSystem;

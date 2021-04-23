@@ -33,15 +33,18 @@ module.exports = exports = async function (tract) {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
-    let results = await jo.getEncoding();  // load encoding from origin for validation
-    let encoding = results.data["encoding"];
+    let encoding;
+    if (jo.capabilities.encoding) {
+      let results = await jo.getEncoding();  // load encoding from origin for validation
+      encoding = results.data["encoding"];
+    }
 
     if (tract.terminal.options && typeof tract.terminal.options.encoding === "string") {
       // read encoding from file
       let filename = tract.terminal.options.encoding;
       tract.terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
-    else if (Object.keys(transforms).length > 0) {
+    else if (!encoding || Object.keys(transforms).length > 0) {
       // otherwise run some objects through any transforms to get terminal encoding
       logger.verbose(">>> codify pipeline");
       let pipes = [];
@@ -67,10 +70,12 @@ module.exports = exports = async function (tract) {
 
     logger.debug("create the terminal");
     jt = await storage.activate(tract.terminal.smt, tract.terminal.options);
-    results = await jt.createSchema();
-    if (results.resultCode !== 0)
-      logger.info("could not create storage schema: " + results.resultText);
-    
+    if (jt.capabilities.encoding) {
+      let results = await jt.createSchema();
+      if (results.resultCode !== 0)
+        logger.info("could not create storage schema: " + results.resultText);
+    }
+
     // transfer the data
     logger.info(">>> transfer pipeline");
     let pipes = [];

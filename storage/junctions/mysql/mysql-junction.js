@@ -17,6 +17,22 @@ const util = require('util');
 
 class MySQLJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: true,         // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: true,    // get encoding from source
+    store: true,       // store/recall individual constructs
+    query: true,       // select/filter data at source
+    aggregate: true    // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = MySQLReader;
+  _writerClass = MySQLWriter;
+
   /**
    *
    * @param {*} SMT 'mysql|host=address;user=name;password=xyz;database=dbname;...|table|key' or an Engram object
@@ -25,9 +41,6 @@ class MySQLJunction extends StorageJunction {
   constructor(SMT, options) {
     super(SMT, options);
     logger.debug("MySQLJunction");
-
-    this._readerClass = MySQLReader;
-    this._writerClass = MySQLWriter;
 
     // parse database connection string into options
     // "host=address;user=name;password=secret;database=name;..."
@@ -44,7 +57,7 @@ class MySQLJunction extends StorageJunction {
   }
 
   async activate() {
-    this._isActive = true;
+    this.isActive = true;
     logger.debug("MySQLJunction activate");
 
     try {
@@ -79,7 +92,7 @@ class MySQLJunction extends StorageJunction {
   }
 
   async relax() {
-    this._isActive = false;
+    this.isActive = false;
     logger.debug("MySQLJunction relax");
 
     try {

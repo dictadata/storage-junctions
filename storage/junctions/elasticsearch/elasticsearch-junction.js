@@ -18,6 +18,22 @@ const path = require('path');
 
 class ElasticsearchJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: true,   // supports key-value storage
+
+    encoding: true,   // get encoding from source
+    store: true,      // store/recall individual constructs
+    query: true,      // select/filter data at source
+    aggregate: true   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = ElasticsearchReader;
+  _writerClass = ElasticsearchWriter;
+
   /**
    *
    * @param {*} SMT 'elasticsearch|node|index|key' or an Engram object
@@ -27,15 +43,12 @@ class ElasticsearchJunction extends StorageJunction {
     super(SMT, options);
     logger.debug("ElasticsearchJunction");
 
-    this._readerClass = ElasticsearchReader;
-    this._writerClass = ElasticsearchWriter;
-
     this.encoder = encoder;
     this.storeCount = 0;
   }
 
   async activate() {
-    this._isActive = true;
+    this.isActive = true;
     this.storeCount = 0;
     this.elasticQuery = new ElasticQuery({ node: this.smt.locus, index: this.smt.schema });
   }
@@ -45,7 +58,7 @@ class ElasticsearchJunction extends StorageJunction {
    */
   async relax() {
     // release any resources
-    this._isActive = false;
+    this.isActive = false;
     try {
       if (this.storeCount) {
         await this.elasticQuery.refresh(this.smt.schema);

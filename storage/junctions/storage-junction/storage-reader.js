@@ -35,16 +35,6 @@ module.exports = exports = class StorageReader extends Readable {
     this._startms = 0;
     this.progress = this.options.progress || null;
     this.progressModula = this.options.progressModula || 1000;
-
-    // Set Capabilities of the StorageReader
-
-    // useTransforms
-    // derived classes should declare useTransforms=true if
-    //    the data source doesn't support queries
-    // then base StorageJunction.getReader function create a pipeline and
-    //   use FilterTransform for options.match
-    //   use SelectTransform for options.fields
-    //this.useTransforms = true;
   }
 
   get statistics() {

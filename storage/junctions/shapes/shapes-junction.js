@@ -16,6 +16,22 @@ const stream = require('stream/promises');
 
 class ShapesJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: true, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = ShapesReader;
+  _writerClass = ShapesWriter;
+
   /**
    *
    * @param {*} SMT 'shp|folder|filename|key' or an Engram object
@@ -24,9 +40,6 @@ class ShapesJunction extends StorageJunction {
   constructor(SMT, options) {
     logger.debug("ShapesJunction");
     super(SMT, options);
-
-    this._readerClass = ShapesReader;
-    this._writerClass = ShapesWriter;
 
     // check schema's extension
     if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')

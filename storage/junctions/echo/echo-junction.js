@@ -12,6 +12,22 @@ const { logger } = require('../../utils');
 
 class EchoJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: true, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = EchoReader;
+  _writerClass = EchoWriter;
+
   /**
    *
    * @param {*} SMT smt string or smt object
@@ -20,10 +36,6 @@ class EchoJunction extends StorageJunction {
   constructor(SMT, options) {
     logger.debug("new EchoJunction");
     super(SMT, options);
-
-    // override stream constructor functions
-    this._readerClass = EchoReader;
-    this._writerClass = EchoWriter;
   }
 
   /**

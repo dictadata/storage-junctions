@@ -15,6 +15,22 @@ const stream = require('stream/promises');
 
 class TransportJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = TransportReader;
+  _writerClass = TransportWriter;
+
   /**
    *
    * @param {*} SMT 'transport|host|endpoint|key' or an Engram object
@@ -23,9 +39,6 @@ class TransportJunction extends StorageJunction {
   constructor(SMT, options) {
     super(SMT, options);
     logger.debug("TransportJunction");
-
-    this._readerClass = TransportReader;
-    this._writerClass = TransportWriter;
 
     if (this.options.stringBreakpoints)
       Object.assign(encoder.stringBreakpoints, this.options.stringBreakpoints);
@@ -42,7 +55,7 @@ class TransportJunction extends StorageJunction {
   }
 
   async activate() {
-    this._isActive = true;
+    this.isActive = true;
     logger.debug("TransportJunction activate");
 
     try {
@@ -64,7 +77,7 @@ class TransportJunction extends StorageJunction {
   }
 
   async relax() {
-    this._isActive = false;
+    this.isActive = false;
     logger.debug("TransportJunction relax");
 
     try {

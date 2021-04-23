@@ -48,7 +48,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       secure: hasOwnProperty(options, "secure") ? options.secure : false
     });
 
-    this._isActive = true;
+    this.isActive = true;
     console.log("activated");
   }
 
@@ -56,8 +56,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    *
    */
   async relax() {
-    if (this._isActive) {
-      this._isActive = false;
+    if (this.isActive) {
+      this.isActive = false;
       await this._ftp.end();
     }
   }

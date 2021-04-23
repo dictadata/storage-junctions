@@ -12,6 +12,22 @@ const stream = require('stream/promises');
 
 class RESTJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: true,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = RESTReader;
+  _writerClass = RESTWriter;
+
   /**
    *
    * @param {*} SMT 'rest|host|endpoint|key' or an Engram object
@@ -20,9 +36,6 @@ class RESTJunction extends StorageJunction {
   constructor(SMT, options) {
     super(SMT, options);
     logger.debug("RESTJunction");
-
-    this._readerClass = RESTReader;
-    this._writerClass = RESTWriter;
 
     //this.cookies = [];
   }

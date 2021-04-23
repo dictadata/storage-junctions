@@ -26,7 +26,7 @@ async function tests() {
             }
           },
           "terminal": {
-            "smt": "jsono|./data/output/pipelines|split_*_encoding.json|=name",
+            "smt": "jsono|./data/output/pipelines/|split_*_encoding.json|=name",
             "options": {
               "formation": {
                 "opening": '{\n"fields": {\n  ',

@@ -17,6 +17,22 @@ const util = require('util');
 
 class MSSQLJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: true,         // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: true,    // get encoding from source
+    store: true,       // store/recall individual constructs
+    query: true,       // select/filter data at source
+    aggregate: true    // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = MSSQLReader;
+  _writerClass = MSSQLWriter;
+
   /**
    *
    * @param {*} SMT 'mssql|server=address;userName=name;password=xyz;database=dbname;...|table|key' or an Engram object
@@ -25,9 +41,6 @@ class MSSQLJunction extends StorageJunction {
   constructor(SMT, options) {
     super(SMT, options);
     logger.debug("MSSQLJunction");
-
-    this._readerClass = MSSQLReader;
-    this._writerClass = MSSQLWriter;
 
     // parse database connection string into options
     let pairs = this.smt.locus.split(';');
@@ -58,7 +71,7 @@ class MSSQLJunction extends StorageJunction {
           logger.error(err);
           reject(err);
         } else {
-          this._isActive = true;
+          this.isActive = true;
           if (options.bulkLoad) {
             this.connection.beginTransaction((err) => {
               if (err) {
@@ -78,7 +91,7 @@ class MSSQLJunction extends StorageJunction {
         if (err) {
           logger.error(err);
         } else {
-          this._isActive = true;
+          this.isActive = true;
         }
       });
 
@@ -97,7 +110,7 @@ class MSSQLJunction extends StorageJunction {
       logger.debug("MSSQLJunction.relax");
 
       this.connection.on('end', () => {
-        this._isActive = false;
+        this.isActive = false;
         resolve();
       });
 

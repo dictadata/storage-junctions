@@ -6,6 +6,7 @@
 const { StorageReader } = require('../storage-junction');
 const { logger, httpRequest } = require('../../utils');
 const encoder = require('./rest-encoder');
+const { StorageError } = require('../../types');
 
 module.exports = exports = class RESTReader extends StorageReader {
 
@@ -16,9 +17,6 @@ module.exports = exports = class RESTReader extends StorageReader {
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
-
-    // set capabilities of the StorageReader
-    this.useTransforms = true;  // the data source doesn't support queries, so use the base junction will use Transforms to filter and select
   }
 
   /**
@@ -54,6 +52,10 @@ module.exports = exports = class RESTReader extends StorageReader {
       }
 
       let response = await httpRequest(url, request, data);
+      if (response.statusCode !== 200) {
+        let msg = typeof response.data === "string" ? response.data : null;
+        throw new StorageError(response.statusCode, msg);
+      }
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))

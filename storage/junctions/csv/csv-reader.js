@@ -29,9 +29,6 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     // this.options.header = false;  // default value
 
-    // set capabilities of the StorageReader
-    this.useTransforms = true;  // the data source doesn't support queries, so use the base junction will use Transforms to filter and select
-
     /***** create the parser and data handlers *****/
     var reader = this;
     var encoding = this.engram;

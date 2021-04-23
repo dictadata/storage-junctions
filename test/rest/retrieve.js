@@ -11,6 +11,30 @@ logger.info("=== Test: rest retrieve");
 
 async function testRetrieve() {
 
+  logger.verbose("=== retrieve oauth token");
+  if (await retrieve({
+    origin: {
+      smt: "rest|https://api-qa.panerabread.com/oauth/v1/|token|*",
+      options: {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+        },
+        auth: "LUmqJEKNBGBjOKDmYHgNSuKGrO3NF1Ar:rmGPLedjUFu24KKS"
+      },
+      pattern: {
+        match: {
+          grant_type: "client_credentials"
+        }
+      }
+    },
+    terminal: {
+      output: './data/output/rest/foodusage_retrieve.json'
+    }
+  }, false)) return 1;
+
   logger.verbose("=== Retrieve Weather Service forecast");
   if (await retrieve({
     origin: {

@@ -17,9 +17,6 @@ module.exports = exports = class TransportReader extends StorageReader {
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
-
-    // set capabilities of the StorageReader
-    this.useTransforms = true;  // the data source doesn't support queries, so use the base junction will use Transforms to filter and select
   }
 
   /**

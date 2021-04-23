@@ -15,6 +15,22 @@ const stream = require('stream/promises');
 
 class SplitterJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: false,   // get encoding from source
+    store: false,      // store/recall individual constructs
+    query: false,      // select/filter data at source
+    aggregate: false   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  //_readerClass = SplitterReader;
+  _writerClass = SplitterWriter;
+
   /**
    *
    * @param {*} SMT 'shp|folder|filename|key' or an Engram object
@@ -38,12 +54,12 @@ class SplitterJunction extends StorageJunction {
 
   async activate() {
     logger.debug("SplitterJunction activate");
-    this._isActive = true;
+    this.isActive = true;
   }
 
   async relax() {
     logger.debug("SplitterJunction relax");
-    this._isActive = false;
+    this.isActive = false;
 
     try {
       // release any allocated storage junctions
@@ -93,7 +109,8 @@ class SplitterJunction extends StorageJunction {
     }
     // attempt to create destination schema
     let junction = this.split_junctions[sname] = await Cortex.activate(smt, terminal.options);
-    await junction.createSchema();
+    if (junction.capabilities.encoding)
+      await junction.createSchema();
 
     pipes.push(await junction.createWriteStream());
 

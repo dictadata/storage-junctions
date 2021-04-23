@@ -29,7 +29,7 @@ module.exports = exports = class StorageFileSystem {
       this._url = new URL("file:" + path.resolve(this.smt.locus));
     logger.debug("filesystem: " + JSON.stringify(this._url));
 
-    this._isActive = false;
+    this.isActive = false;
     this._isNewFile = false;  // set by createWriteStream()
 
     logger.debug("StorageFileSystem");
@@ -40,7 +40,7 @@ module.exports = exports = class StorageFileSystem {
    */
   async activate() {
     // optional, implement filesystem initialization
-    this._isActive = true;
+    this.isActive = true;
   }
 
   /**
@@ -48,7 +48,7 @@ module.exports = exports = class StorageFileSystem {
    */
   async relax() {
     // optional, implement filesystem cleanup
-    this._isActive = false;
+    this.isActive = false;
   }
 
   /**

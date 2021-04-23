@@ -21,9 +21,6 @@ module.exports = exports = class ShapesReader extends StorageReader {
     if (this.options.schema && path.extname(this.options.schema) === '')
       this.options.schema = this.options.schema + '.shp';
 
-    // set capabilities of the StorageReader
-    this.useTransforms = true;  // the data source doesn't support queries, so use the base junction will use Transforms to filter and select
-
     /***** create the parser and data handlers *****/
     var reader = this;
     var encoding = this.engram;

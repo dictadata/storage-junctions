@@ -19,6 +19,22 @@ oracledb.fetchAsBuffer = [oracledb.BLOB];
 
 class OracleDBJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: true,         // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: true,    // get encoding from source
+    store: true,       // store/recall individual constructs
+    query: true,       // select/filter data at source
+    aggregate: true    // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = OracleDBReader;
+  _writerClass = OracleDBWriter;
+
   /**
    *
    * @param {*} SMT 'oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo' or an Engram object
@@ -29,9 +45,6 @@ class OracleDBJunction extends StorageJunction {
     logger.debug("OracleDBJunction");
 
     //this.engram.caseInsensitive = true;
-
-    this._readerClass = OracleDBReader;
-    this._writerClass = OracleDBWriter;
 
     // parse database connection string into options
     // "host=address;user=name;password=secret;database=name;..."
@@ -48,7 +61,7 @@ class OracleDBJunction extends StorageJunction {
   }
 
   async activate() {
-    this._isActive = true;
+    this.isActive = true;
     logger.debug("OracleDBJunction activate");
 
     try {
@@ -72,7 +85,7 @@ class OracleDBJunction extends StorageJunction {
   }
 
   async relax() {
-    this._isActive = false;
+    this.isActive = false;
     logger.debug("OracleDBJunction relax");
 
     try {

@@ -10,6 +10,22 @@ const { typeOf, logger } = require("../../utils");
 
 class MongoDBJunction extends StorageJunction {
 
+  // storage capabilities, sub-class must override
+  capabilities = {
+    filesystem: false, // storage source is filesystem
+    sql: false,        // storage source is SQL
+    keystore: false,   // supports key-value storage
+
+    encoding: true,   // get encoding from source
+    store: true,      // store/recall individual constructs
+    query: true,      // select/filter data at source
+    aggregate: true   // aggregate data at source
+  }
+
+  // assign stream constructor functions, sub-class must override
+  _readerClass = MongoDBReader;
+  _writerClass = MongoDBWriter;
+
   /**
    *
    * @param {*} SMT 'mongodb|host|collection|key' or an Engram object
@@ -19,9 +35,6 @@ class MongoDBJunction extends StorageJunction {
     super(SMT, options);
 
     logger.debug("MongoDBJunction");
-
-    this._readerClass = MongoDBReader;
-    this._writerClass = MongoDBWriter;
   }
 
   /**

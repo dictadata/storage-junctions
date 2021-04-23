@@ -37,7 +37,7 @@ var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
-cortex.use('*', StorageJunction, true);
+cortex.use('*', StorageJunction);
 
 var MemoryJunction = require("./junctions/memory");
 exports.MemoryJunction = MemoryJunction;
@@ -45,19 +45,19 @@ cortex.use('memory', MemoryJunction);
 
 var CSVJunction = require("./junctions/csv");
 exports.CSVJunction = CSVJunction;
-cortex.use('csv', CSVJunction, true);
+cortex.use('csv', CSVJunction);
 
 var JSONJunction = require("./junctions/json");
 exports.JSONJunction = JSONJunction;
-cortex.use('json', JSONJunction, true);   // defaults to json array
-cortex.use('jsons', JSONJunction, true);  // json stream
-cortex.use('jsonl', JSONJunction, true);  // json line
-cortex.use('jsona', JSONJunction, true);  // json array
-cortex.use('jsono', JSONJunction, true);  // json object
+cortex.use('json', JSONJunction);   // defaults to json array
+cortex.use('jsons', JSONJunction);  // json stream
+cortex.use('jsonl', JSONJunction);  // json line
+cortex.use('jsona', JSONJunction);  // json array
+cortex.use('jsono', JSONJunction);  // json object
 
 var ParquetJunction = require("./junctions/parquet");
 exports.ParquetJunction = ParquetJunction;
-cortex.use('parquet', ParquetJunction, true);
+cortex.use('parquet', ParquetJunction);
 
 var ElasticsearchJunction = require("./junctions/elasticsearch");
 exports.ElasticsearchJunction = ElasticsearchJunction;
@@ -86,7 +86,7 @@ cortex.use('rest', RESTJunction);
 
 var ShapesJunction = require("./junctions/shapes");
 exports.ShapesJunction = ShapesJunction;
-cortex.use('shp', ShapesJunction, true);
+cortex.use('shp', ShapesJunction);
 
 var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
