@@ -104,7 +104,44 @@ class RESTJunction extends StorageJunction {
     }
 
     try {
-      throw new StorageError(501);
+      let url = this.options.url || this.engram.smt.schema || '';
+
+      let request = {
+        method: this.options.method || "GET",
+        base: this.options.base || this.smt.locus,
+        headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
+        timeout: this.options.timeout || 10000
+      };
+      if (this.options.auth)
+        request["auth"] = this.options.auth;
+      if (this.options.query)
+        request["query"] = this.options.query;  // a pattern will override query
+      
+      let data = this.options.data;  // a pattern will override data
+      if (pattern) {
+        // pattern will override options.data
+        let match = pattern.match || pattern;
+        if (request.method === "GET")
+          request.query = match  // querystring
+        else
+          data = match;
+      }
+
+      let response = await httpRequest(url, request, data);
+
+      let results;
+      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
+        results = JSON.parse(response.data);
+      else
+        results = response.data;
+
+      let constructs = [];
+      encoder.parseData(results, this.options, (construct) => {
+        constructs.push(construct);
+      });
+
+      let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
+      return new StorageResponse(resultCode, null, constructs);
     }
     catch (err) {
       logger.error(err);
@@ -120,11 +157,7 @@ class RESTJunction extends StorageJunction {
 
     try {
       let url = this.options.url || this.engram.smt.schema || '';
-      if (pattern) {
-        // querystring parameters
-        // url += ???
-      }
-      
+
       let request = {
         method: this.options.method || "GET",
         base: this.options.base || this.smt.locus,
@@ -133,17 +166,29 @@ class RESTJunction extends StorageJunction {
       };
       if (this.options.auth)
         request["auth"] = this.options.auth;
+      if (this.options.query)
+        request["query"] = this.options.query;  // a pattern will override query
+      
+      let data = this.options.data;  // a pattern will override data
+      if (pattern) {
+        // pattern will override options.data
+        let match = pattern.match || pattern;
+        if (request.method === "GET")
+          request.query = match  // querystring
+        else
+          data = match;
+      }
 
-      let response = await httpRequest(url, request);
+      let response = await httpRequest(url, request, data);
 
-      let data;
+      let results;
       if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
-        data = JSON.parse(response.data);
+        results = JSON.parse(response.data);
       else
-        data = response.data;
+        results = response.data;
 
       let constructs = [];
-      encoder.parseData(data, this.options, (construct) => {
+      encoder.parseData(results, this.options, (construct) => {
         constructs.push(construct);
       });
 

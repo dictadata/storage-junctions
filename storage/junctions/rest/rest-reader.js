@@ -31,10 +31,6 @@ module.exports = exports = class RESTReader extends StorageReader {
 
     try {
       let url = this.options.url || this.engram.smt.schema || '';
-      //if (this.options.pattern) {
-        // querystring parameters
-        // url += ???
-      //}
 
       let request = {
         method: this.options.method || 'GET',
@@ -44,16 +40,28 @@ module.exports = exports = class RESTReader extends StorageReader {
       };
       if (this.options.auth)
         request["auth"] = this.options.auth;
+      if (this.options.query)
+        request["query"] = this.options.query;  // a pattern will override query
+            
+      let data = this.options.data;  // a pattern will override data
+      if (this.options.pattern) {
+        // pattern will override options.data
+        let match = this.options.pattern.match || this.options.pattern;
+        if (request.method === "GET")
+          request.query = match  // querystring
+        else
+          data = match;
+      }
 
-      let response = await httpRequest(url, request);
+      let response = await httpRequest(url, request, data);
 
-      let data;
+      let results;
       if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
-        data = JSON.parse(response.data);
+        results = JSON.parse(response.data);
       else
-        data = response.data;
+        results = response.data;
 
-      encoder.parseData(data, this.options, (construct) => {
+      encoder.parseData(results, this.options, (construct) => {
         this.push(construct);
       });
 
