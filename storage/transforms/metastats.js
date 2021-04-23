@@ -88,7 +88,7 @@ module.exports = exports = class MetaStatsTransform extends Transform {
    * @param {*} callback
    */
   _transform(construct, encoding, callback) {
-    logger.debug("codify _transform");
+    logger.debug("metastats _transform");
 
     try {
       // loop through construct fields
@@ -99,14 +99,14 @@ module.exports = exports = class MetaStatsTransform extends Transform {
 
     }
     catch (err) {
-      logger.error("codify error", err);
+      logger.error("metastats error", err);
     }
 
     callback();
   }
 
   _final(callback) {
-    logger.debug("codify _final");
+    logger.debug("metastats _final");
 
     this.push(this.engram.fields);
     callback();
