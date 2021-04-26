@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.7.5
+  - implement junction capabilities
+  - improvements to REST junction and httpRequest for querystring and web form parameters
 - version 1.7.4
   - update test/st_launcher.js program
   - update dependencies
