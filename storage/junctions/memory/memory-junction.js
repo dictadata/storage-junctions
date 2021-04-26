@@ -22,6 +22,8 @@ class MemoryJunction extends StorageJunction {
     keystore: true,   // supports key-value storage
 
     encoding: true,   // get encoding from source
+    reader: true,     // stream reader
+    writer: true,     // stream writer
     store: true,      // store/recall individual constructs
     query: false,      // select/filter data at source
     aggregate: false   // aggregate data at source

@@ -19,6 +19,8 @@ class RESTJunction extends StorageJunction {
     keystore: false,   // supports key-value storage
 
     encoding: false,   // get encoding from source
+    reader: true,     // stream reader
+    writer: false,     // stream writer
     store: false,      // store/recall individual constructs
     query: true,      // select/filter data at source
     aggregate: false   // aggregate data at source

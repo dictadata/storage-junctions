@@ -22,6 +22,8 @@ class CSVJunction extends StorageJunction {
     keystore: false,   // supports key-value storage
     
     encoding: false,   // get encoding from source
+    reader: true,     // stream reader
+    writer: true,     // stream writer
     store: false,      // store/recall individual constructs
     query: false,      // select/filter data at source
     aggregate: false   // aggregate data at source

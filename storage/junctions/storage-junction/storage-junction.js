@@ -13,14 +13,16 @@ module.exports = exports = class StorageJunction {
 
   // storage capabilities, sub-class must override
   capabilities = {
-    filesystem: true, // storage source is filesystem
-    sql: false,        // storage source is SQL
-    keystore: false,   // supports key-value storage
-
     encoding: false,   // get encoding from source
+    reader: false,     // stream reader
+    writer: false,     // stream writer
     store: false,      // store/recall individual constructs
     query: false,      // select/filter data at source
-    aggregate: false   // aggregate data at source
+    aggregate: false,  // aggregate data at source
+
+    filesystem: true,  // storage source is filesystem, default true
+    keystore: false,   // supports key-value storage
+    sql: false,        // storage source is SQL
   }
 
   // assign stream constructor functions, sub-class must override
@@ -222,11 +224,17 @@ module.exports = exports = class StorageJunction {
   // If sub-class sets the _readerClass and _writerClass members in constructor
   // then these methods don't need to be overriden.
   createReadStream(options) {
+    if (!this.capabilities.reader)
+      throw new StorageError(405);
+    
     options = Object.assign({}, this.options, options);
     return new this._readerClass(this, options);
   }
 
   createWriteStream(options) {
+    if (!this.capabilities.writer)
+      throw new StorageError(405);
+    
     options = Object.assign({}, this.options, options);
     return new this._writerClass(this, options);
   }

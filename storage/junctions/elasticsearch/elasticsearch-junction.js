@@ -25,6 +25,8 @@ class ElasticsearchJunction extends StorageJunction {
     keystore: true,   // supports key-value storage
 
     encoding: true,   // get encoding from source
+    reader: true,     // stream reader
+    writer: true,     // stream writer
     store: true,      // store/recall individual constructs
     query: true,      // select/filter data at source
     aggregate: true   // aggregate data at source
