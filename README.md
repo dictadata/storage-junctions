@@ -22,16 +22,16 @@ npm install @dictadata/storage-junctions
 | csv           |   yes    |  no   |   no   |    -     |  no   |    yes     |    no     |    no     |  yes   |
 | json          |   yes    |  no   |   no   |    -     |  no   |    yes     |    no     |    yes    |  yes   |
 | parquet       |   yes    |  no   |   no   |    -     |  no   |    yes     |    no     |    yes    |  yes   |
-| xlsx (Excel)  |   yes    |   -   |   -    |    -     |   -   |    yes     |    no     |    no     |  yes   |
-| rest          |   yes    |   -   |   -    |   yes    |   -   |    yes     |     -     |     -     |  yes   |
 | elasticsearch |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    yes    |    yes    |  yes   |
+| memory        |          |       |        |          |       |            |    yes    |    no     |   no   |
 | mssql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | mysql         |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | oracledb      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | redshift      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
-| \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
+| rest          |   yes    |   -   |   -    |   yes    |   -   |    yes     |     -     |     -     |  yes   |
+| xlsx (Excel)  |   yes    |   -   |   -    |    -     |   -   |    yes     |    no     |    no     |  yes   |
 | \*mongodb     |          |       |        |          |       |            |    yes    |    yes    |  yes   |
-| -memcache     |          |       |        |          |       |            |    yes    |    no     |   no   |
+| \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
 
 \* In the plans for future development.
 &dash; Not planned, but will be developed as needed.
@@ -41,14 +41,15 @@ npm install @dictadata/storage-junctions
 File Storage systems provide read and write streams to objects (files) on local and cloud storage systems.
 GZip compression is handled seemlessly based on filename extension .gz.
 
-| model        | list  | read  | write | scan  |
-| ------------ | :---: | :---: | :---: | :---: |
-| local        |  yes  |  yes  |  yes  |  yes  |
-| FTP          |  yes  |  yes  |  yes  |  yes  |
-| AWS S3       |  yes  |  yes  |  yes  |  yes  |
-| \*scp        |   -   |   -   |   -   |   -   |
-| \*Azure ADLS |   -   |   -   |   -   |   -   |
-| \*Google CS  |   -   |   -   |   -   |   -   |
+| model        | list  | read  | write | scan  | upload | download |
+| ------------ | :---: | :---: | :---: | :---: | :---:  |   :---:  |
+| local        |  yes  |  yes  |  yes  |  yes  |   -    |     -    |
+| FTP          |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
+| HTTP         |  yes  |  yes  |  \*no |  yes  |  yes   |   \*no   |
+| AWS S3       |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
+| \*scp        |   -   |   -   |   -   |   -   |   -    |     -    |
+| \*Azure ADLS |   -   |   -   |   -   |   -   |   -    |     -    |
+| \*Google CS  |   -   |   -   |   -   |   -   |   -    |     -    |
 
 \* Not currently in plans for development.
 &dash; Not planned, but will be developed as needed.
