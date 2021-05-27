@@ -221,6 +221,39 @@
       }
     },
     {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "zip list",
+      "program": "${workspaceFolder}/test/zip/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "zip transfer",
+      "program": "${workspaceFolder}/test/zip/transfers.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "zip download",
+      "program": "${workspaceFolder}/test/zip/up_download.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
       "type": "node-terminal",
       "name": "--- db junctions",
       "request": "launch"
@@ -886,6 +919,17 @@
       "request": "launch",
       "name": "rest conjoin",
       "program": "${workspaceFolder}/test/rest/conjoin.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "shapefile transfer",
+      "program": "${workspaceFolder}/test/shapefile/transfer.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

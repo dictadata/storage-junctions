@@ -22,7 +22,7 @@
 * [MySQLJunction](mysql-junction.md)
 * [OracleDBJunction](oracledb-junction.md)
 * [RESTJunction](rest-junction.md)
-* [ShapesJunction](shapes-junction.md)
+* [ShapeFileJunction](shapes-junction.md)
 * [XlsxJunction](xlsx-junction.md)
 
 ## File Systems
@@ -31,6 +31,7 @@
 * [FTPFileSystem](ftp-filesystem.md)
 * [HTTPFileSystem](http-filesystem.md)
 * [S3FileSystem](s3-filesystem.md)
+* [ZipFileSystem](zip-filesystem.md)
 
 ---
 

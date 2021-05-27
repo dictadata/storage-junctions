@@ -32,6 +32,9 @@ exports.HTTPFileSystem = require("./filesystems/http-filesystem");
 cortex.FileSystems.use('http', exports.HTTPFileSystem);
 cortex.FileSystems.use('https', exports.HTTPFileSystem);
 
+exports.ZipFileSystem = require("./filesystems/zip-filesystem");
+cortex.FileSystems.use('zip', exports.ZipFileSystem);
+
 ///// register Storage Junctions
 var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
@@ -84,9 +87,9 @@ var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
 cortex.use('rest', RESTJunction);
 
-var ShapesJunction = require("./junctions/shapes");
-exports.ShapesJunction = ShapesJunction;
-cortex.use('shp', ShapesJunction);
+var ShapeFileJunction = require("./junctions/shapefile");
+exports.ShapeFileJunction = ShapeFileJunction;
+cortex.use('shp', ShapeFileJunction);
 
 var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
