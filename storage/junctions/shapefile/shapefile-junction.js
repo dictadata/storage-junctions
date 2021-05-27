@@ -18,7 +18,7 @@ class ShapeFileJunction extends StorageJunction {
 
   // storage capabilities, sub-class must override
   capabilities = {
-    filesystem: false,  // storage source is filesystem
+    filesystem: true,  // storage source is filesystem
     sql: false,        // storage source is SQL
     keystore: false,   // supports key-value storage
 
@@ -42,10 +42,6 @@ class ShapeFileJunction extends StorageJunction {
   constructor(SMT, options) {
     logger.debug("ShapeFileJunction");
     super(SMT, options);
-
-    // check schema's extension
-    if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
-      this.options.schema = this.smt.schema + '.shp';
   }
 
   /**

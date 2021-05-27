@@ -16,11 +16,8 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
-    // check schema's extension
-    if (this.options.schema && path.extname(this.options.schema) === '')
-      this.options.schema = this.options.schema + '.shp';
+    this.filename = this.options.schema || this.smt.schema;
 
-    this.filename = path.join(this.smt.locus, this.options.schema || this.smt.schema);
     this.started = false;
     this.done = false;
     this.source = null;
@@ -37,8 +34,12 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
 
     if (!this.started) {
       // start the reader
+      this.stfs = await this.junction.getFileSystem();
+      this.shp = await this.stfs.createReadStream({ schema: this.filename + '.shp' });
+      this.dbf = await this.stfs.createReadStream({ schema: this.filename + '.dbf' });
+
       this.started = true;
-      this.source = await shapefile.open(this.filename);
+      this.source = await shapefile.open(this.shp, this.dbf);
       this.bbox = this.source.bbox;
     }
 
