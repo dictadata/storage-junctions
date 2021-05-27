@@ -46,12 +46,13 @@ async function test_2() {
 
 async function test_3() {
   logger.info("=== download shape files");
+// smt: "*|ftp://dicta:data@localhost/shapefiles/|*.*|*",
 
   if (await download({
     origin: {
-      smt: "*|ftp://dicta:data@localhost/shapefiles/|*.*|*",
+      smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
       options: {
-        recursive: true
+        recursive: false
       }
     },
     terminal: {
@@ -64,7 +65,7 @@ async function test_3() {
 }
 
 (async () => {
-  if (await test_1()) return;
-  if (await test_2()) return;
+  //if (await test_1()) return;
+  //if (await test_2()) return;
   if (await test_3()) return;
 })();

@@ -7,6 +7,7 @@ const { hasOwnProperty, logger } = require("../utils");
 
 const FTP = require("promise-ftp");
 const { PassThrough } = require('stream');
+const { finished } = require('stream/promises');
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
@@ -234,7 +235,11 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let rs = await this._ftp.get(options.name);
 
       // save to local file
-      rs.pipe(fs.createWriteStream(dest));
+      let ws = fs.createWriteStream(dest);
+
+      rs.pipe(ws);
+      await finished(rs);
+      await finished(ws);
 
       return new StorageResponse(resultCode);
     }

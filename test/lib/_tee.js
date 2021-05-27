@@ -9,7 +9,7 @@ const { typeOf } = require("../../storage/utils");
 const { logger } = require('../../storage/utils');
 
 const fs = require('fs');
-const stream = require('stream/promises');
+const { finished } = require('stream/promises');
 
 /**
  * tee function
@@ -79,9 +79,9 @@ module.exports = exports = async function (tract) {
     }
 
     logger.info(">>> wait on pipelines");
-    await stream.finished(reader);
+    await finished(reader);
     for (let writer of writers)
-      await stream.finished(writer);
+      await finished(writer);
 
     logger.info(">>> completed");
   }

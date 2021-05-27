@@ -9,7 +9,7 @@ const { logger } = require('../../storage/utils');
 logger.info("=== tests: FTP list");
 
 async function test_1() {
-
+/*
   logger.info("=== list ftp directory (forEach)");
   if (await list({
     origin: {
@@ -44,7 +44,21 @@ async function test_1() {
       output: "./data/output/ftp/list_2.json"
     }
   })) return 1;
+*/
 
+  logger.info("=== list census");
+  if (await list({
+    origin: {
+      smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
+      options: {
+        recursive: false
+      }
+    },
+    terminal: {
+      output: "./data/output/ftp/list_census.json"
+    }
+  })) return 1;
+    
 }
 
 (async () => {
