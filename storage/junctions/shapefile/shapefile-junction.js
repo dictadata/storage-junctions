@@ -1,5 +1,5 @@
 /**
- * ShapesJunction
+ * ShapeFileJunction
  */
 "use strict";
 
@@ -7,32 +7,32 @@ const StorageJunction = require("../storage-junction");
 const { StorageResponse, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 
-const ShapesReader = require("./shapes-reader");
-const ShapesWriter = require("./shapes-writer");
+const ShapeFileReader = require("./shapefile-reader");
+const ShapeFileWriter = require("./shapefile-writer");
 
 const path = require('path');
 const stream = require('stream/promises');
+const shapefile = require('shapefile');
 
-
-class ShapesJunction extends StorageJunction {
+class ShapeFileJunction extends StorageJunction {
 
   // storage capabilities, sub-class must override
   capabilities = {
-    filesystem: true, // storage source is filesystem
+    filesystem: false,  // storage source is filesystem
     sql: false,        // storage source is SQL
     keystore: false,   // supports key-value storage
 
     encoding: false,   // get encoding from source
-    reader: true,     // stream reader
-    writer: true,     // stream writer
+    reader: true,      // stream reader
+    writer: true,      // stream writer
     store: false,      // store/recall individual constructs
     query: false,      // select/filter data at source
     aggregate: false   // aggregate data at source
   }
 
   // assign stream constructor functions, sub-class must override
-  _readerClass = ShapesReader;
-  _writerClass = ShapesWriter;
+  _readerClass = ShapeFileReader;
+  _writerClass = ShapeFileWriter;
 
   /**
    *
@@ -40,7 +40,7 @@ class ShapesJunction extends StorageJunction {
    * @param {*} options
    */
   constructor(SMT, options) {
-    logger.debug("ShapesJunction");
+    logger.debug("ShapeFileJunction");
     super(SMT, options);
 
     // check schema's extension
@@ -86,7 +86,7 @@ class ShapesJunction extends StorageJunction {
    * @param {*} construct
    */
   async store(construct, pattern) {
-    logger.debug("ShapesJunction store");
+    logger.debug("ShapeFileJunction store");
     throw new StorageError(501);
   }
 
@@ -114,4 +114,4 @@ class ShapesJunction extends StorageJunction {
 
 };
 
-module.exports = ShapesJunction;
+module.exports = ShapeFileJunction;

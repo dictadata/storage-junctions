@@ -4,10 +4,9 @@ const { StorageReader } = require('../storage-junction');
 const { logger } = require('../../utils');
 
 const path = require('path');
+const shapefile = require('shapefile');
 
-// import shapefiles reader
-
-module.exports = exports = class ShapesReader extends StorageReader {
+module.exports = exports = class ShapeFileReader extends StorageReader {
 
   /**
    *
@@ -21,17 +20,11 @@ module.exports = exports = class ShapesReader extends StorageReader {
     if (this.options.schema && path.extname(this.options.schema) === '')
       this.options.schema = this.options.schema + '.shp';
 
-    /***** create the parser and data handlers *****/
-    var reader = this;
-    var encoding = this.engram;
-
-    let parser = null;
-
-    var max = this.options.max_read || -1;
-
-    reader.push(null);
-
+    this.filename = path.join(this.smt.locus, this.options.schema || this.smt.schema);
     this.started = false;
+    this.done = false;
+    this.source = null;
+    this.bbox = null;
   }
 
   /**
@@ -39,21 +32,28 @@ module.exports = exports = class ShapesReader extends StorageReader {
    * @param {*} size <number> Number of constructs to read asynchronously
    */
   async _read(_size) {
-    logger.debug('ShapesReader _read');
+    logger.debug('ShapeFileReader _read');
+    let cnt = 0;
 
     if (!this.started) {
       // start the reader
-      let stfs = await this.junction.getFileSystem();
-      var rs = await stfs.createReadStream(this.options);
-      rs.pipe(this.parser);
       this.started = true;
+      this.source = await shapefile.open(this.filename);
+      this.bbox = this.source.bbox;
     }
-    else if (this.parser.isPaused()) {
-      // resume reading
-      this.parser.resume();
+
+    while (!this.done) {
+      let record = await this.source.read();
+      if (record.value)
+        this.push(record.value);  // geoJSON feature
+      if (record.done) {
+        this.done = true;
+        this.push(null);
+      }
+
+      if (++cnt >= _size)
+        break;
     }
-    else if (this.parser.destroyed || !this.parser.readable)
-      this.push(null);
   }
 
 };

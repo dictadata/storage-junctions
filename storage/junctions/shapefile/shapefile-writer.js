@@ -9,7 +9,7 @@ const path = require('path');
 // import shapefiles reader
 
 
-module.exports = exports = class ShapesWriter extends StorageWriter {
+module.exports = exports = class ShapeFileWriter extends StorageWriter {
 
   /**
    *
@@ -36,7 +36,7 @@ module.exports = exports = class ShapesWriter extends StorageWriter {
    * @param {*} callback
    */
   async _write(construct, encoding, callback) {
-    logger.debug("ShapesWriter._write");
+    logger.debug("ShapeFileWriter._write");
     logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
@@ -93,7 +93,7 @@ module.exports = exports = class ShapesWriter extends StorageWriter {
    * @param {*} callback
    */
   async _writev(chunks, callback) {
-    logger.debug("ShapesWriter._write");
+    logger.debug("ShapeFileWriter._write");
 
     try {
       for (var i = 0; i < chunks.length; i++) {
@@ -116,7 +116,7 @@ module.exports = exports = class ShapesWriter extends StorageWriter {
    * @param {*} callback
    */
   async _final(callback) {
-    logger.debug("ShapesWriter._final");
+    logger.debug("ShapeFileWriter._final");
 
     try {
       if (this.ws) {
