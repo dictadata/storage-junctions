@@ -46,11 +46,11 @@ async function test_2() {
 
 async function test_3() {
   logger.info("=== download shape files");
-// smt: "*|ftp://dicta:data@localhost/shapefiles/|*.*|*",
+//      smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/STATE/|*.zip|*",
 
   if (await download({
     origin: {
-      smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
+      smt: "*|ftp://dicta:data@localhost/data/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
       options: {
         recursive: false
       }
@@ -58,14 +58,14 @@ async function test_3() {
     terminal: {
       options: {
         downloads: "./data/output/ftp/shapefiles/",
-        useRPath: true
+        keep_rpath: true
       }
     }
   })) return 1;
 }
 
 (async () => {
-  //if (await test_1()) return;
-  //if (await test_2()) return;
+  if (await test_1()) return;
+  if (await test_2()) return;
   if (await test_3()) return;
 })();

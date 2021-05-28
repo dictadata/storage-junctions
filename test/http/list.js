@@ -30,7 +30,7 @@ async function testIIS() {
   logger.info("=== list http directory - recursive");
   if (await list({
     origin: {
-      smt: "json|http://localhost/data/|*.json|*",
+      smt: "json|http://localhost/data/test/|*.json|*",
       options: {
         recursive: true,
         http: 1.1
@@ -48,10 +48,10 @@ async function testNGINX() {
   logger.info("=== list http directory - forEach");
   if (await list({
     origin: {
-      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/United States/Iowa/Iowa City/|*.shp|*",
+      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/data/sos.iowa.gov/shapefiles/City Precincts/|*.zip|*",
       options: {
         origin: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
-        dirname: '/shapefiles/United States/Iowa/Iowa City/',
+        dirname: '/data/sos.iowa.gov/shapefiles/City Precincts/',
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -74,10 +74,10 @@ async function testNGINX() {
   logger.info("=== list http directory - recursive");
   if (await list({
     origin: {
-      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*|*",
+      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/data/sos.iowa.gov/shapefiles/|*|*",
       options: {
         origin: 'http://ec2-3-208-205-6.compute-1.amazonaws.com',
-        dirname: '/shapefiles/',
+        dirname: '/data/sos.iowa.gov/shapefiles/',
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
           'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',

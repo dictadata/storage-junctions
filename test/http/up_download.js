@@ -38,7 +38,7 @@ async function test_2() {
 
   if (await download({
     origin: {
-      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/shapefiles/|*.*|*",
+      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/data/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.*|*",
       options: {
         recursive: true
       }
@@ -46,7 +46,7 @@ async function test_2() {
     terminal: {
       options: {
         downloads: "./data/output/http/shapefiles/",
-        useRPath: true
+        keep_rpath: true
       }
     }
   })) return 1;

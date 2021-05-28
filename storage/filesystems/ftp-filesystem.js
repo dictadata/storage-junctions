@@ -75,7 +75,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let list = [];
 
-      let wdPath = this._url.pathname;
+      let wdPath = decodeURI(this._url.pathname);
 
       let filespec = schema || '*';
       let rx = '^' + filespec + '$';
@@ -124,7 +124,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let schema = options.schema || this.smt.schema;
 
-      let filename = this._url.pathname + schema;
+      let filename = decodeURI(this._url.pathname + schema);
       await this._ftp.delete(filename);
 
       return new StorageResponse(0);
@@ -149,7 +149,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let filename = schema;
 
       // create the read stream
-      await this._ftp.cwd(this._url.pathname);
+      await this._ftp.cwd(decodeURI(this._url.pathname));
 
       rs = await this._ftp.get(filename);
 
@@ -182,7 +182,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let filename = schema;
 
       // create the read stream
-      await this._walkCWD(this._url.pathname);
+      await this._walkCWD(decodeURI(this._url.pathname));
 
       // create the write stream
       ws = new PassThrough(); // app writes to passthrough and ftp reads from passthrough
@@ -220,9 +220,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let wdPath = this._url.pathname + (options.recursive ? path.dirname(options.rpath) : '');
+      let wdPath = decodeURI(this._url.pathname + (options.recursive ? path.dirname(options.rpath) : ''));
       let src = wdPath + (options.recursive ? options.rpath : options.name);
-      let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
+      let dest = path.join(options.downloads, (options.keep_rpath ? options.rpath : options.name));
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
         await fsp.mkdir(dirname, { recursive: true });
@@ -257,7 +257,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let resultCode = 0;
 
       let src = path.join(options.uploadPath, options.rpath);
-      let dest = this._url.pathname + (options.useRPath ? options.rpath : options.name).split(path.sep).join(path.posix.sep);
+      let dest = decodeURI(this._url.pathname + (options.keep_rpath ? options.rpath : options.name).split(path.sep).join(path.posix.sep));
       logger.verbose("  " + src + " >> " + dest);
 
       // upload file

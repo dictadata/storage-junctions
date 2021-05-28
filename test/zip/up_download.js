@@ -39,7 +39,7 @@ async function test_2() {
     terminal: {
       options: {
         downloads: "./data/output/zip/downloads/",
-        useRPath: true
+        keep_rpath: true
       }
     }
   })) return 1;

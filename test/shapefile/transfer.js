@@ -11,7 +11,7 @@ logger.info("=== Test: shapefile transfer");
 
 async function testTransfer1() {
 
-  logger.verbose("=== Transfer shapefile to geoJSON");
+  logger.verbose("=== Transfer polygons to geoJSON");
   if (await transfer({
     origin: {
       smt: "shp|./data/test/shapefile/|polygons|*",
@@ -27,7 +27,7 @@ async function testTransfer1() {
 
 async function testTransfer2() {
 
-  logger.verbose("=== Transfer shapefile to geoJSON");
+  logger.verbose("=== Transfer points.zip to geoJSON");
   if (await transfer({
     origin: {
       smt: "shp|zip:./data/test/shapefile/points.zip|points|*",

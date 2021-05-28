@@ -203,7 +203,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let resultCode = 0;
 
       let src = options.dirname + options.rpath;
-      let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
+      let dest = path.join(options.downloads, (options.keep_rpath ? options.rpath : options.name));
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
         fs.mkdirSync(dirname, { recursive: true });
@@ -235,7 +235,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let resultCode = 0;
 
       let src = path.join(options.uploadPath, options.rpath);
-      let filename = (options.useRPath ? options.rpath : options.name);
+      let filename = (options.keep_rpath ? options.rpath : options.name);
       let dest = this._url.pathname + filename.split(path.sep).join(path.posix.sep);
       logger.verbose("  " + src + " >> " + dest);
 

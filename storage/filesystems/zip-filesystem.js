@@ -173,7 +173,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let resultCode = 0;
 
       let src = options.rpath || options.name;
-      let dest = path.join(options.downloads, (options.useRPath ? options.rpath : options.name));
+      let dest = path.join(options.downloads, (options.keep_rpath ? options.rpath : options.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
@@ -201,7 +201,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let resultCode = 0;
 
       let src = path.join(options.uploadPath, options.rpath);
-      let dest = path.join(url.fileURLToPath(this._url), (options.useRPath ? options.rpath : options.name));
+      let dest = path.join(url.fileURLToPath(this._url), (options.keep_rpath ? options.rpath : options.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
