@@ -187,7 +187,10 @@ module.exports = exports = class CodifyTransform extends Transform {
       if (stype !== "list") {
         // assume individual item instead of array of item
         if (field._list) {
-          if (stype !== field._list.type)
+          if (stype !== field._list.type
+            && !(stype === "integer" && field._list.type === "number")
+            && !(stype === "keyword" && field._list.type === "text")
+          )
             field.type = "variable";
         }
       }

@@ -196,7 +196,7 @@
               "label": "_list",
               "_list": {
                 "name": "_list",
-                "type": "variable",
+                "type": "list",
                 "size": 0,
                 "default": null,
                 "isNullable": true,
