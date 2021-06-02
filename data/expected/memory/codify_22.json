@@ -68,14 +68,14 @@
       "isNullable": true,
       "keyOrdinal": 0,
       "label": "tags",
-      "_item": {
-        "name": "_item",
+      "_list": {
+        "name": "_list",
         "type": "keyword",
         "size": 8,
         "default": null,
         "isNullable": true,
         "keyOrdinal": 0,
-        "label": "_item"
+        "label": "_list"
       }
     },
     "widgets": {
@@ -86,14 +86,14 @@
       "isNullable": true,
       "keyOrdinal": 0,
       "label": "widgets",
-      "_item": {
-        "name": "_item",
+      "_list": {
+        "name": "_list",
         "type": "map",
         "size": 0,
         "default": null,
         "isNullable": true,
         "keyOrdinal": 0,
-        "label": "_item",
+        "label": "_list",
         "fields": {
           "part": {
             "name": "part",

@@ -73,7 +73,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback();
       return;
     }
-    logger.debug(JSON.stringify(construct));    
+    //logger.debug(JSON.stringify(construct));    
 
     try {
       // save construct to .schema

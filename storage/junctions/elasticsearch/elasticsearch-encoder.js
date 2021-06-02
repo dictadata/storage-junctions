@@ -139,7 +139,7 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
         fields[name] = {
           "name": name,
           "type": "list",
-          "_item": storageField(name, property)
+          "_list": storageField(name, property)
         };
       }
       else {
@@ -182,11 +182,11 @@ exports.fieldsToMappings = function fieldsToMappings(fields) {
       mappings.properties[name] = fieldsToMappings(field.fields);
     }
     else if (ftype === "list") {
-      if (!field._item)
-        throw new StorageError(400, "invalid list, _item not defined");
+      if (!field._list)
+        throw new StorageError(400, "invalid list, _list not defined");
       // elasticsearch/lucene supports arrays for all basic types
-      let mapping = fieldsToMappings({ "_item": field._item });
-      mappings.properties[name] = mapping.properties._item;
+      let mapping = fieldsToMappings({ "_list": field._list });
+      mappings.properties[name] = mapping.properties._list;
     }
     else if (ftype !== "undefined") {
       mappings.properties[name] = { "type": elasticType(field) };

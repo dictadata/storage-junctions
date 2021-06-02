@@ -30,7 +30,7 @@ async function test_01() {
       }
     }
   })) return 1;
-/*
+
   logger.verbose('=== ftp: csv_output.csv.gz');
   if (await transfer({
     origin: {
@@ -46,7 +46,7 @@ async function test_01() {
       }
     }
   })) return 1;
-*/
+
   logger.verbose('=== ftp: json_output.json');
   if (await transfer({
     origin: {
@@ -57,7 +57,7 @@ async function test_01() {
       options: {}
     }
   })) return 1;
-/*
+
   logger.verbose('=== ftp: json_output.json.gz');
   if (await transfer({
     origin: {
@@ -68,7 +68,7 @@ async function test_01() {
       options: {}
     }
   })) return 1;
-*/
+
 }
 
 

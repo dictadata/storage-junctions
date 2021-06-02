@@ -11,7 +11,7 @@ exports.parseValue = require('./parseValue');
 exports.storageType = require('./storageType');
 
 // storage types
-//  "null"
+//  "unknown"
 //  "boolean"
 //  "integer"
 //  "number"
@@ -20,3 +20,4 @@ exports.storageType = require('./storageType');
 //  "date"
 //  "uuid"
 //  "binary"
+//  "variable"

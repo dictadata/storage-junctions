@@ -1,0 +1,78 @@
+{
+  "smt": {
+    "model": "shp",
+    "locus": "zip:./data/test/shapefile/points.zip",
+    "schema": "points",
+    "key": "*"
+  },
+  "fields": {
+    "type": {
+      "name": "type",
+      "type": "keyword",
+      "size": 7,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "type"
+    },
+    "properties": {
+      "name": "properties",
+      "type": "map",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "properties",
+      "fields": {
+        "FID": {
+          "name": "FID",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "FID"
+        }
+      }
+    },
+    "geometry": {
+      "name": "geometry",
+      "type": "map",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "geometry",
+      "fields": {
+        "type": {
+          "name": "type",
+          "type": "keyword",
+          "size": 5,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "type"
+        },
+        "coordinates": {
+          "name": "coordinates",
+          "type": "list",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "coordinates",
+          "_list": {
+            "name": "_list",
+            "type": "integer",
+            "size": 0,
+            "default": null,
+            "isNullable": true,
+            "keyOrdinal": 0,
+            "label": "_list"
+          }
+        }
+      }
+    }
+  },
+  "_SMT": "any|*|*|*"
+}

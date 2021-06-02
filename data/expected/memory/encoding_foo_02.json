@@ -68,8 +68,8 @@
       "isNullable": true,
       "keyOrdinal": 0,
       "label": "tags",
-      "_item": {
-        "name": "_item",
+      "_list": {
+        "name": "_list",
         "type": "keyword",
         "size": 64
       }
@@ -82,8 +82,8 @@
       "isNullable": true,
       "keyOrdinal": 0,
       "label": "widgets",
-      "_item": {
-        "name": "_item",
+      "_list": {
+        "name": "_list",
         "type": "map",
         "fields": {
           "part": {

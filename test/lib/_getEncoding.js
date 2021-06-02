@@ -23,7 +23,7 @@ module.exports = exports = async function (tract, compareValues = true) {
     let encoding = results.data["encoding"];
 
     if (typeOf(encoding) === 'object') {
-      logger.debug(JSON.stringify(encoding));
+      //logger.debug(JSON.stringify(encoding));
       if (tract.terminal && tract.terminal.output) {
         logger.verbose("<<< " + tract.terminal.output);
         fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });

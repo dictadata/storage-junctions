@@ -11,7 +11,7 @@ const ynBoolean = require('yn');
  */
 function storageType (value) {
   if (value === null)
-    return "null";
+    return "unknown";
 
   let jtype = typeOf(value);
 
@@ -22,7 +22,7 @@ function storageType (value) {
   }
   else if (jtype === "string") {
     //if (value.length === 0)
-    //  return "null";
+    //  return "unknown";
     if (isDate(value))
       return "date";
     if (isUUID(value))

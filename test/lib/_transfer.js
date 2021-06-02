@@ -66,7 +66,7 @@ module.exports = exports = async function (tract) {
       throw new Error("invalid encoding");
     
     logger.debug(">>> encoding results");
-    logger.debug(JSON.stringify(tract.terminal.options.encoding.fields, null, " "));
+    //logger.debug(JSON.stringify(tract.terminal.options.encoding.fields, null, " "));
 
     logger.debug("create the terminal");
     jt = await storage.activate(tract.terminal.smt, tract.terminal.options);

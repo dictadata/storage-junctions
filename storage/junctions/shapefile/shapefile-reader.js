@@ -34,6 +34,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
 
     if (!this.started) {
       // start the reader
+      logger.debug('ShapeFileReader start');
       this.stfs = await this.junction.getFileSystem();
       this.shp = await this.stfs.createReadStream({ schema: this.filename + '.shp' });
       this.dbf = await this.stfs.createReadStream({ schema: this.filename + '.dbf' });
@@ -44,6 +45,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
     }
 
     while (!this.done) {
+      logger.debug('ShapeFileReader source.read');
       let record = await this.source.read();
       if (record.value)
         this.push(record.value);  // geoJSON feature
@@ -53,6 +55,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
       }
 
       if (++cnt >= _size)
+        logger.debug('ShapeFileReader break');
         break;
     }
   }

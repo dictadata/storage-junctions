@@ -61,7 +61,7 @@ class ShapeFileJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse(0, null, this.engram.encoding, "encodign");
+      return new StorageResponse(0, null, this.engram.encoding, "encoding");
     }
     catch (err) {
       logger.error(err);

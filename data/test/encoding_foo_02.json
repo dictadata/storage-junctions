@@ -49,8 +49,8 @@
     "tags": {
       "name": "tags",
       "type": "list",
-      "_item": {
-        "name": "_item",
+      "_list": {
+        "name": "_list",
         "type": "keyword",
         "size": 64
       }
@@ -58,8 +58,8 @@
     "widgets": {
       "name": "widgets",
       "type": "list",
-      "_item": {
-        "name": "_item",
+      "_list": {
+        "name": "_list",
         "type": "map",
         "fields": {
           "part": {

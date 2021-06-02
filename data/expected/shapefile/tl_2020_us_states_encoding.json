@@ -1,0 +1,222 @@
+{
+  "smt": {
+    "model": "shp",
+    "locus": "zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip",
+    "schema": "tl_2020_us_state",
+    "key": "*"
+  },
+  "fields": {
+    "type": {
+      "name": "type",
+      "type": "keyword",
+      "size": 7,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "type"
+    },
+    "properties": {
+      "name": "properties",
+      "type": "map",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "properties",
+      "fields": {
+        "REGION": {
+          "name": "REGION",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "REGION"
+        },
+        "DIVISION": {
+          "name": "DIVISION",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "DIVISION"
+        },
+        "STATEFP": {
+          "name": "STATEFP",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "STATEFP"
+        },
+        "STATENS": {
+          "name": "STATENS",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "STATENS"
+        },
+        "GEOID": {
+          "name": "GEOID",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "GEOID"
+        },
+        "STUSPS": {
+          "name": "STUSPS",
+          "type": "keyword",
+          "size": 2,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "STUSPS"
+        },
+        "NAME": {
+          "name": "NAME",
+          "type": "text",
+          "size": 44,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "NAME"
+        },
+        "LSAD": {
+          "name": "LSAD",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "LSAD"
+        },
+        "MTFCC": {
+          "name": "MTFCC",
+          "type": "keyword",
+          "size": 5,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "MTFCC"
+        },
+        "FUNCSTAT": {
+          "name": "FUNCSTAT",
+          "type": "keyword",
+          "size": 1,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "FUNCSTAT"
+        },
+        "ALAND": {
+          "name": "ALAND",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "ALAND"
+        },
+        "AWATER": {
+          "name": "AWATER",
+          "type": "integer",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "AWATER"
+        },
+        "INTPTLAT": {
+          "name": "INTPTLAT",
+          "type": "number",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "INTPTLAT"
+        },
+        "INTPTLON": {
+          "name": "INTPTLON",
+          "type": "number",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "INTPTLON"
+        }
+      }
+    },
+    "geometry": {
+      "name": "geometry",
+      "type": "map",
+      "size": 0,
+      "default": null,
+      "isNullable": true,
+      "keyOrdinal": 0,
+      "label": "geometry",
+      "fields": {
+        "type": {
+          "name": "type",
+          "type": "keyword",
+          "size": 12,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "type"
+        },
+        "coordinates": {
+          "name": "coordinates",
+          "type": "list",
+          "size": 0,
+          "default": null,
+          "isNullable": true,
+          "keyOrdinal": 0,
+          "label": "coordinates",
+          "_list": {
+            "name": "_list",
+            "type": "list",
+            "size": 0,
+            "default": null,
+            "isNullable": true,
+            "keyOrdinal": 0,
+            "label": "_list",
+            "_list": {
+              "name": "_list",
+              "type": "list",
+              "size": 0,
+              "default": null,
+              "isNullable": true,
+              "keyOrdinal": 0,
+              "label": "_list",
+              "_list": {
+                "name": "_list",
+                "type": "variable",
+                "size": 0,
+                "default": null,
+                "isNullable": true,
+                "keyOrdinal": 0,
+                "label": "_list",
+                "_list": {
+                  "name": "_list",
+                  "type": "number",
+                  "size": 0,
+                  "default": null,
+                  "isNullable": true,
+                  "keyOrdinal": 0,
+                  "label": "_list"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "_SMT": "any|*|*|*"
+}

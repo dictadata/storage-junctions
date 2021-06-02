@@ -928,12 +928,23 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "shapefile encoding",
+      "program": "${workspaceFolder}/test/shapefile/encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "debug"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "shapefile transfer",
       "program": "${workspaceFolder}/test/shapefile/transfer.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
+        "LOG_LEVEL": "debug"
       }
     },
     {

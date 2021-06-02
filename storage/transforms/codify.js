@@ -130,14 +130,14 @@ module.exports = exports = class CodifyTransform extends Transform {
     let stype = storageType(value);
 
     // check if field needs an initial type
-    if (field.type === "undefined" && stype !== "null") {
+    if (field.type === "undefined" && stype !== "unknown") {
       field.type = stype;
       //if (stype === "integer" && (value === 0 || value === 1))
       //  field.type = "boolean";
     }
 
     // check if a field's type should be more generalized
-    if (stype === "null") {
+    if (stype === "unknown") {
       // skip the type checks
     }
     else if (field.type === "boolean") {
@@ -159,25 +159,50 @@ module.exports = exports = class CodifyTransform extends Transform {
     else if (field.type === "keyword") {
       if (stype === "text")
         field.type = stype;
+      else if (stype !== "keyword") {
+        // leave as keyword for numbers, etc.
+      }
       if (field.size < value.length)
         field.size = value.length;
     }
     else if (field.type === "text" || field.type === "string") {
+      if (stype !== "text" && stype !== "string") {
+         // leave as text for numbers, etc.
+      }
       if (field.size < value.length)
         field.size = value.length;
     }
     else if (field.type === "map") {
-      // process nested fields
-      if (!field.fields)
-        field.fields = {};
-      this.processConstruct(value, field.fields);
+      if (stype !== "map") {
+        field.type = "variable";  // item can hold any type
+      }
+      else {
+        // process nested fields
+        if (!field.fields)
+          field.fields = {};
+        this.processConstruct(value, field.fields);
+      }
     }
     else if (field.type === "list") {
-      // assume it is an array AND all values must be the same type
-      if (!field._item)
-        field._item = new Field("_item");
-      for (let item of value)
-        this.processValue(item, field._item);
+      if (stype !== "list") {
+        // assume individual item instead of array of item
+        if (field._list) {
+          if (stype !== field._list.type)
+            field.type = "variable";
+        }
+      }
+      else {
+        // process array values
+        if (!field._list)
+          field._list = new Field("_list");
+        try {
+          for (let item of value)
+            this.processValue(item, field._list);
+        }
+        catch (err) {
+          logger.error(err);
+        }
+      }
     }
     else {
       // leave as "undefined"
@@ -196,8 +221,8 @@ module.exports = exports = class CodifyTransform extends Transform {
       if (field.type === "undefined")
         field.type = default_type;
       else if (field.type === "list") {
-        if (field._item && field._item.type === "undefined")
-          field._item.type = default_type;
+        if (field._list && field._list.type === "undefined")
+          field._list.type = default_type;
       }
       else if (field.type === "map") {
         if (field.fields)
