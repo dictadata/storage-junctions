@@ -9,90 +9,42 @@
     "type": {
       "name": "type",
       "type": "keyword",
-      "size": 7,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "type"
+      "size": 7
     },
     "properties": {
       "name": "properties",
       "type": "map",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "properties",
       "fields": {
         "FID": {
           "name": "FID",
-          "type": "integer",
-          "size": 0,
-          "default": null,
-          "isNullable": true,
-          "keyOrdinal": 0,
-          "label": "FID"
+          "type": "integer"
         }
       }
     },
     "geometry": {
       "name": "geometry",
       "type": "map",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "geometry",
       "fields": {
         "type": {
           "name": "type",
           "type": "keyword",
-          "size": 12,
-          "default": null,
-          "isNullable": true,
-          "keyOrdinal": 0,
-          "label": "type"
+          "size": 12
         },
         "coordinates": {
           "name": "coordinates",
           "type": "list",
-          "size": 0,
-          "default": null,
-          "isNullable": true,
-          "keyOrdinal": 0,
-          "label": "coordinates",
           "_list": {
             "name": "_list",
             "type": "list",
-            "size": 0,
-            "default": null,
-            "isNullable": true,
-            "keyOrdinal": 0,
-            "label": "_list",
             "_list": {
               "name": "_list",
               "type": "list",
-              "size": 0,
-              "default": null,
-              "isNullable": true,
-              "keyOrdinal": 0,
-              "label": "_list",
               "_list": {
                 "name": "_list",
                 "type": "list",
-                "size": 0,
-                "default": null,
-                "isNullable": true,
-                "keyOrdinal": 0,
-                "label": "_list",
                 "_list": {
                   "name": "_list",
-                  "type": "integer",
-                  "size": 0,
-                  "default": null,
-                  "isNullable": true,
-                  "keyOrdinal": 0,
-                  "label": "_list"
+                  "type": "integer"
                 }
               }
             }

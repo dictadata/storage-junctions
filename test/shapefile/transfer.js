@@ -23,6 +23,18 @@ async function testTransfer1() {
     }
   })) return 1;
 
+  logger.verbose("=== Transfer polygons to elasticsearch");
+  if (await transfer({
+    origin: {
+      smt: "shp|./data/test/shapefile/|polygons|*",
+      options: {}
+    },
+    terminal: {
+      smt: "elastic|http://localhost:9200/|shapes|*",
+      options: {}
+    }
+  })) return 1;
+
 }
 
 async function testTransfer2() {
@@ -39,17 +51,29 @@ async function testTransfer2() {
     }
   })) return 1;
 
+  logger.verbose("=== Transfer points.zip to elasticsearch");
+  if (await transfer({
+    origin: {
+      smt: "shp|zip:./data/test/shapefile/points.zip|points|*",
+      options: {}
+    },
+    terminal: {
+      smt: "elastic|http://localhost:9200/|shapes|*",
+      options: {}
+    }
+  })) return 1;
+
 }
 
 async function testTransfer3() {
 
-  logger.verbose("=== Transfer tl_2020_us_state.zip to geoJSON");
+  logger.verbose("=== Transfer elastic to geoJSON");
   if (await transfer({
     "origin": {
-      "smt": "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
+      "smt": "elastic|http://localhost:9200/|shapes|*"
     },
     "terminal": {
-      "smt": "json|./data/output/shapefile/|tl_2020_us_state.json|*"
+      "smt": "json|./data/output/shapefile/|shapes.json|*"
     }
   })) return 1;
 

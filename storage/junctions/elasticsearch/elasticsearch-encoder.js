@@ -50,6 +50,12 @@ var storageType = exports.storageType = function (elasticType) {
       fldType = 'binary';
       break;
 
+    case 'geo_shape':
+      // GeoJSON geometry object
+      // coordinates member can actually be nested arrays
+      fldType = 'map';
+      break;
+    
     case 'nested':
       // won't get here, have not implemented nested objects
       // need to use codify transfrom to identify arrays
@@ -92,6 +98,9 @@ var elasticType = exports.elasticType = function (field) {
         break;
       case "binary":
         elasticType = "binary";
+        break;
+      case "Geometry":
+        elasticType = "geo_shape";
         break;
     }
   }

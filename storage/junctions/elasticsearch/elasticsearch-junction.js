@@ -108,8 +108,8 @@ class ElasticsearchJunction extends StorageJunction {
       if (err.statusCode === 404)
         return new StorageResponse(0, null, []); // empty list
       
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 
@@ -131,8 +131,8 @@ class ElasticsearchJunction extends StorageJunction {
       if (err.statusCode === 404)  // index_not_found_exception
         return new StorageResponse(404, 'index not found');
 
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 
@@ -176,8 +176,8 @@ class ElasticsearchJunction extends StorageJunction {
       if (err.statusCode === 400 && err.message === "resource_already_exists_exception")
         return new StorageResponse(409, 'index exists' );
 
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 
@@ -199,8 +199,8 @@ class ElasticsearchJunction extends StorageJunction {
       if (err.statusCode === 404)  // index_not_found_exception
         return new StorageResponse( 404, 'index not found' );
 
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 
@@ -236,8 +236,8 @@ class ElasticsearchJunction extends StorageJunction {
       return new StorageResponse(response.statusCode, null, response.body.result, key);
     }
     catch (err) {
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 
@@ -282,11 +282,11 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResponse(400, 'invalid key');
     }
     catch (err) {
-      if (err.statusCode === 404) {
+      if (err.statusCode === 404)
         return new StorageResponse(404);
-      }
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 
@@ -333,7 +333,7 @@ class ElasticsearchJunction extends StorageJunction {
       let msg = (err.body && err.body.error.reason) || err.message;
       logger.debug(msg);
       logger.error(err);
-      throw new StorageError(err.statusCode, msg).inner(err);
+      throw new StorageError(err.statusCode || 500, msg).inner(err);
     }
   }
 
@@ -379,8 +379,8 @@ class ElasticsearchJunction extends StorageJunction {
       if (err.statusCode === 404)
         return new StorageResponse(404);
       
-      logger.error(err.statusCode, err.message);
-      throw new StorageError(err.statusCode).inner(err);
+      logger.error(err.message);
+      throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
 

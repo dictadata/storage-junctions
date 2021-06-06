@@ -14,7 +14,7 @@ module.exports = exports = class Field {
    */
   constructor(definition) {
     if (typeof definition === 'string') {
-      definition = { name: definition, label: definition };
+      definition = { name: definition };
     }
     if (!(definition && definition.name))
       throw new StorageError( 400, "Invalid field definition");
@@ -22,11 +22,12 @@ module.exports = exports = class Field {
     // set defaults
     this.name = definition.name;
     this.type = 'undefined';
-    this.size = 0;
-    this.default = null;
-    this.isNullable = true;
-    this.keyOrdinal = 0;
-    this.label = definition.name;
+    //this.size = 0;
+    //this.default = null;
+    //this.isNullable = true;
+    //this.keyOrdinal = 0;
+    //this.label = definition.name;
+    //this.description = "";
 
     // shallow copy
     for (let [prop,value] of Object.entries(definition))

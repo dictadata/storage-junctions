@@ -9,7 +9,7 @@
     "type": {
       "name": "type",
       "type": "keyword",
-      "size": 7
+      "size": 18
     },
     "properties": {
       "name": "properties",
@@ -79,34 +79,7 @@
     },
     "geometry": {
       "name": "geometry",
-      "type": "map",
-      "fields": {
-        "type": {
-          "name": "type",
-          "type": "keyword",
-          "size": 12
-        },
-        "coordinates": {
-          "name": "coordinates",
-          "type": "list",
-          "_list": {
-            "name": "_list",
-            "type": "list",
-            "_list": {
-              "name": "_list",
-              "type": "list",
-              "_list": {
-                "name": "_list",
-                "type": "list",
-                "_list": {
-                  "name": "_list",
-                  "type": "number"
-                }
-              }
-            }
-          }
-        }
-      }
+      "type": "Geometry"
     }
   },
   "_SMT": "any|*|*|*"

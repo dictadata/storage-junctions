@@ -21,3 +21,5 @@ exports.storageType = require('./storageType');
 //  "uuid"
 //  "binary"
 //  "variable"
+
+//  "Geometry" - GeoJSON geometry object

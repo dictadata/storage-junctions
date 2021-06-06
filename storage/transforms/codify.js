@@ -162,14 +162,14 @@ module.exports = exports = class CodifyTransform extends Transform {
       else if (stype !== "keyword") {
         // leave as keyword for numbers, etc.
       }
-      if (field.size < value.length)
+      if (!field.size || field.size < value.length)
         field.size = value.length;
     }
     else if (field.type === "text" || field.type === "string") {
       if (stype !== "text" && stype !== "string") {
          // leave as text for numbers, etc.
       }
-      if (field.size < value.length)
+      if (!field.size || field.size < value.length)
         field.size = value.length;
     }
     else if (field.type === "map") {
