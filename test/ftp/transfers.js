@@ -7,7 +7,6 @@ const transfer = require('../lib/_transfer');
 const dullSchema = require('../lib/_dullSchema');
 const { logger } = require('../../storage/utils');
 
-
 logger.info("=== Test: ftp transfers");
 
 async function test_01() {
@@ -71,7 +70,6 @@ async function test_01() {
 
 }
 
-
 async function test_02() {
   logger.verbose("=== ftp to fs");
 
@@ -130,6 +128,6 @@ async function test_02() {
 }
 
 (async () => {
-  if (await test_01()) return;
-  if (await test_02()) return;
+  if (await test_01()) return 1;
+  if (await test_02()) return 1;
 })();

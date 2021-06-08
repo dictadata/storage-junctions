@@ -137,7 +137,8 @@ module.exports = exports = class CodifyTransform extends Transform {
     }
 
     // check if a field's type should be more generalized
-    if (stype === "unknown") {
+    if (stype === "undefined" || stype === "unknown") {
+      // values is undefined or null
       // skip the type checks
     }
     else if (field.type === "boolean") {

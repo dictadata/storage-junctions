@@ -123,11 +123,6 @@
     "tags": {
       "name": "tags",
       "type": "list",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "tags",
       "_list": {
         "name": "_list",
         "type": "keyword",
