@@ -1,0 +1,30 @@
+{
+  "smt": {
+    "model": "shp",
+    "locus": "./data/test/shapefile",
+    "schema": "points",
+    "key": "*"
+  },
+  "fields": {
+    "type": {
+      "name": "type",
+      "type": "keyword",
+      "size": 7
+    },
+    "properties": {
+      "name": "properties",
+      "type": "map",
+      "fields": {
+        "FID": {
+          "name": "FID",
+          "type": "integer"
+        }
+      }
+    },
+    "geometry": {
+      "name": "geometry",
+      "type": "Geometry"
+    }
+  },
+  "_SMT": "any|*|*|*"
+}

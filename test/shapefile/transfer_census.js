@@ -10,7 +10,7 @@ const { logger } = require('../../storage/utils');
 logger.info("=== Test: census transfer");
 
 
-async function transferState() {
+async function transfer1() {
 
   logger.verbose("=== Transfer tl_2020_us_state.zip to geoJSON");
   if (await transfer({
@@ -18,30 +18,35 @@ async function transferState() {
       "smt": "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
-      "smt": "json|./data/output/shapefile/|tl_2020_us_state.json|*"
+      "smt": "json|./data/output/shapefile/|tl_2020_us_state.json|!properties.STUSPS+'_'+properties.GEOID+'_state'"
     }
   })) return 1;
+
+}
+
+async function transfer2() {
 
   logger.verbose("=== Transfer tl_2020_us_state.zip to Elasticsearch");
   if (await transfer({
     "origin": {
-      "smt": "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
+      "smt": "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
+    },
+    "terminal": {
+      "smt": "elastic|http://localhost:9200/|census_2020|!properties.STUSPS+'_'+properties.GEOID+'_state'",
       "options": {
         "encoding": "./data/test/shapefile/encoding_tl_2020_us_state.json"
       }
-    },
-    "terminal": {
-      "smt": "elastic|http://localhost:9200/|census2020|*"
     }
   })) return 1;
+
+}
+
+async function transfer3() {
 
   logger.verbose("=== Transfer Elasticsearch to tl_2020_us_state.zip");
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://localhost:9200/|census2020|*",
-      "options": {
-        "encoding": "./data/test/shapefile/encoding_tl_2020_us_state.json"
-      }
+      "smt": "elastic|http://localhost:9200/|census_2020|!properties.STUSPS+'_'+properties.GEOID+'_state'"
     },
     "terminal": {
       "smt": "json|./data/output/shapefile/|tl_2020_us_state_elastic.json|*"
@@ -51,6 +56,8 @@ async function transferState() {
 }
 
 (async () => {
-  if (await transferState()) return;
+  //if (await transfer1()) return 1;
+  if (await transfer2()) return 1;
+  //if (await transfer3()) return 1;
 
 })();

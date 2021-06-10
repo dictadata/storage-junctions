@@ -3,7 +3,7 @@
     "model": "shp",
     "locus": "zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip",
     "schema": "tl_2020_us_state",
-    "key": "*"
+    "key": "!id"
   },
   "fields": {
     "type": {
@@ -61,11 +61,17 @@
         },
         "ALAND": {
           "name": "ALAND",
-          "type": "integer"
+          "type": "integer",
+          "_elasticsearch": {
+            "type": "long"
+          }
         },
         "AWATER": {
           "name": "AWATER",
-          "type": "integer"
+          "type": "integer",
+          "_elasticsearch": {
+            "type": "long"
+          }
         },
         "INTPTLAT": {
           "name": "INTPTLAT",

@@ -22,13 +22,13 @@ module.exports = exports = class ElasticQuery {
    **/
   constructor(options) {
     if (typeOf(options) !== "object")
-      throw new StorageError( 400, "Invalid parameter: options");
+      throw new StorageError(400, "Invalid parameter: options");
     if (!options.node)
-      throw new StorageError( 400, "Missing options: node");
+      throw new StorageError(400, "Missing options: node");
     if (!options.index)
-      throw new StorageError( 400, "Missing options: index");
+      throw new StorageError(400, "Missing options: index");
 
-    this.options = Object.assign({},options);
+    this.options = Object.assign({}, options);
 
     this.elasticOptions = {
       node: options.node,
@@ -61,13 +61,14 @@ module.exports = exports = class ElasticQuery {
       var params = Object.assign({
         body: document
       }, this.elasticParams);
-      logger.debug(JSON.stringify(params));
+      //logger.debug(JSON.stringify(params));
 
       this.client.index(params)
         .then((response) => {
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
 
@@ -89,12 +90,13 @@ module.exports = exports = class ElasticQuery {
       }, this.elasticParams);
 
       this.client.index(params)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
 
     });
   }
@@ -115,7 +117,8 @@ module.exports = exports = class ElasticQuery {
         .then((response) => {
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
 
@@ -135,12 +138,13 @@ module.exports = exports = class ElasticQuery {
       }, this.elasticParams);
 
       this.client.delete(params)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
     });
   }
 
@@ -172,7 +176,8 @@ module.exports = exports = class ElasticQuery {
           //var hits = response.body.hits.hits;
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -182,18 +187,19 @@ module.exports = exports = class ElasticQuery {
    * Search for documents in ElasticSearch.
    * @param query Elasticsearch query document with query, filters, field list, etc.
    **/
-  search(query, params={}) {
+  search(query, params = {}) {
     logger.debug("elasticQuery search");
     return new Promise((resolve, reject) => {
 
-      var _params = Object.assign({}, this.elasticParams, params, {body: query});
+      var _params = Object.assign({}, this.elasticParams, params, { body: query });
 
       this.client.search(_params)
         .then((response) => {
           //var hits = response.body.hits.hits;
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -214,7 +220,8 @@ module.exports = exports = class ElasticQuery {
         .then((response) => {
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -246,7 +253,8 @@ module.exports = exports = class ElasticQuery {
         .then((response) => {
           resolve(response); // body: { aggregations: [] }
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -268,7 +276,8 @@ module.exports = exports = class ElasticQuery {
         .then((response) => {
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -290,7 +299,8 @@ module.exports = exports = class ElasticQuery {
         .then((response) => {
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -310,7 +320,8 @@ module.exports = exports = class ElasticQuery {
         .then((response) => {
           resolve(response);
         })
-        .catch( (error) => {
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -327,13 +338,14 @@ module.exports = exports = class ElasticQuery {
       var params = Object.assign({
         body: config // {settings:..., mappings:...}
       }, this.elasticParams);
-      logger.debug(JSON.stringify(params));
+      //logger.debug(JSON.stringify(params));
 
       this.client.indices.create(params)
         .then((response) => {
           resolve(response);
         })
         .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
           reject(error);
         });
     });
@@ -350,13 +362,14 @@ module.exports = exports = class ElasticQuery {
       if (indexName) params.index = indexName;
 
       this.client.indices.delete(params)
-      .then((response) => {
-        logger.debug("deleteIndex", response);
-        resolve(response);
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          logger.debug("deleteIndex", response);
+          resolve(response);
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
     });
   }
 
@@ -371,14 +384,15 @@ module.exports = exports = class ElasticQuery {
       //params.type = "_doc";
 
       this.client.indices.getMapping(params)
-      .then((response) => {
-        logger.debug("getTemplate", response);
-        let mappings = response.body[params.index].mappings._doc || response.body[params.index].mappings;
-        resolve(mappings);  // {mappings:{}}
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          logger.debug("getTemplate", response);
+          let mappings = response.body[params.index].mappings._doc || response.body[params.index].mappings;
+          resolve(mappings);  // {mappings:{}}
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
 
     });
   }
@@ -396,12 +410,13 @@ module.exports = exports = class ElasticQuery {
       }, this.elasticParams);
 
       this.client.indices.putMapping(params)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
 
     });
   }
@@ -418,13 +433,14 @@ module.exports = exports = class ElasticQuery {
       };
 
       this.client.indices.getTemplate(params)
-      .then((response) => {
-        logger.debug("getTemplate", response);
-        resolve(response[template_name]);
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          logger.debug("getTemplate", response);
+          resolve(response[template_name]);
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
 
     });
   }
@@ -445,12 +461,13 @@ module.exports = exports = class ElasticQuery {
       };
 
       this.client.indices.putTemplate(params)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch( (error) => {
-        reject(error);
-      });
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          logger.debug(JSON.stringify(error.meta.body));
+          reject(error);
+        });
     });
   }
 

@@ -31,7 +31,9 @@ async function testTransfer1() {
     },
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
-      options: {}
+      options: {
+        encoding: "./data/test/shapefile/encoding_shapes.json"
+      }
     }
   })) return 1;
 
@@ -59,7 +61,9 @@ async function testTransfer2() {
     },
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
-      options: {}
+      options: {
+        encoding: "./data/test/shapefile/encoding_shapes.json"
+      }
     }
   })) return 1;
 

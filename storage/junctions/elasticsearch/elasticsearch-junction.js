@@ -90,7 +90,7 @@ class ElasticsearchJunction extends StorageJunction {
       // get Lucene catalog list of indexes
       let response = await this.elasticQuery.cat(schema);
       // response is a table in one long string
-      logger.debug(response);
+      //logger.debug(response);
 
       let lines = response.body.split('\n');
       let headers = lines[0].split(/\s+/);
@@ -211,19 +211,19 @@ class ElasticsearchJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     logger.debug("ElasticJunction store");
+    //logger.debug(JSON.stringify(construct));
 
     try {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      logger.debug(JSON.stringify(construct));
       let data = dslEncoder.encodeValues(this.engram, construct);
       let key = null;
       let response = null;
       if (this.engram.keyof === 'uid' || this.engram.keyof === 'key') {
         // store by _id
         key = (pattern && pattern.key) || this.engram.get_uid(construct) || null;
-        logger.debug(key + " " + JSON.stringify(data));
+        //logger.debug(key + " " + JSON.stringify(data));
         response = await this.elasticQuery.put(key, data);
         key = response.body._id;
       }

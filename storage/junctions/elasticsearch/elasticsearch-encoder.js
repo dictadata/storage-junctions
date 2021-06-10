@@ -165,7 +165,7 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
     }
   }
 
-  logger.debug(JSON.stringify(fields));
+  //logger.debug(JSON.stringify(fields));
   return fields;
 };
 

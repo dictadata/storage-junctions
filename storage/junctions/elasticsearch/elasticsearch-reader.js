@@ -43,7 +43,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
         this.started = true;
         let dsl = dslEncoder.searchQuery(this.options);
         let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams, { body: dsl, size: size, sort: ["_doc"] });
-        logger.debug(JSON.stringify(params));
+        //logger.debug(JSON.stringify(params));
         response = await this.elasticQuery.client.search(params);
       }
       else {
