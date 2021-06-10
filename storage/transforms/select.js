@@ -13,12 +13,12 @@ const dot = require('dot-object');
 
 // example select transform
 /*
-  transforms: {
+  transform: {
     "select": {
       // inject new fields or set defaults in case of missing values
       inject_before: {
-        "newField": <value>
-        "existingField": <default value>
+        "new-field-name": <value>
+        "existing-field-name": <default value>
       },
 
       // select fields
@@ -36,8 +36,8 @@ const dot = require('dot-object');
 
       // inject new fields or override existing values
       inject_after: {
-        "newField": <value>,
-        "existingField": <override value>
+        "new-field-name": <value>,
+        "existing-field-name": <override value>
       }
 
     }
@@ -61,6 +61,27 @@ module.exports = exports = class SelectTransform extends Transform {
   }
 
   /**
+   * Assign field value from existing field(s) and/or literal values
+   * @param {*} stmt in the form "=dot.fieldname+'literal'+..."
+   * @param {*} obj object to pick values from
+   */
+  assignment(stmt, obj) {
+    let result = "";
+
+    let parts = stmt.substr(1, stmt.length - 1).split('+');
+    for (let p of parts) {
+      if (p && p[0] === "'")
+        // literal string
+        result += p.substr(1, p.length - 2);
+      else
+        // field in construct
+        result += dot.pick(p, obj);
+    }
+
+    return result;
+  }
+
+  /**
    * Internal call from streamWriter to process an object
    * @param {*} construct
    * @param {*} encoding
@@ -70,7 +91,12 @@ module.exports = exports = class SelectTransform extends Transform {
     let newConstruct = {};
 
     if (this.options.inject_before)
-      Object.assign(newConstruct, this.options.inject_before);
+      for (let [name, value] of Object.entries(this.options.inject_before)) {
+        if (value && value[0] === '=')
+          newConstruct[name] = this.assignment(value, construct)
+        else
+          newConstruct[name] = value;
+      }
 
     if (Array.isArray(this.options.fields)) {
       // select fields
@@ -91,7 +117,12 @@ module.exports = exports = class SelectTransform extends Transform {
         delete newConstruct[fldname];
 
     if (this.options.inject_after)
-      Object.assign(newConstruct, this.options.inject_after);
+      for (let [name, value] of Object.entries(this.options.inject_after)) {
+        if (value && value[0] === '=')
+          newConstruct[name] = this.assignment(value, construct)
+        else
+          newConstruct[name] = value;
+      }
 
     this.push(newConstruct);
     callback();

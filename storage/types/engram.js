@@ -15,6 +15,8 @@ const Field = require('./field');
 const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty, getCI } = require("../utils");
 
+const dot = require('dot-object');
+
 module.exports = exports = class Engram {
 
   /**
@@ -206,12 +208,25 @@ module.exports = exports = class Engram {
         return null;
 
       // generate uid from !keys or =primary keys
+      // in the form "!dot.fieldname+'literal'+..."
       let uid = '';
       for (let kname of this.keys) {
-        let value = (this.caseInsensitive) ? getCI(construct, kname) : construct[kname];
-        if (value !== undefined)
-          uid += value;
+        if (kname && kname[0] === "'") {
+          // strip quotes
+          uid += kname.substr(1, kname.length - 2);
+        }
+        else {
+          let value;
+          if (this.caseInsensitive)
+            value = getCI(construct, kname);
+          else
+            value = dot.pick(kname, construct);
+
+          if (value !== undefined)
+            uid += value;
+        }
       }
+
       return uid ? uid : null;
     }
     //return null;
