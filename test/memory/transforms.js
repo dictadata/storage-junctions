@@ -30,7 +30,7 @@ async function tests() {
     origin: {
       smt: "memory|testgroup|foo_schema_01|*"
     },
-    transforms: {
+    transform: {
       "filter": {
         "match": {
           "Bar": "row"

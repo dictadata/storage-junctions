@@ -35,7 +35,7 @@
 ```json
   // example filter transform
 
-  transforms: {
+  transform: {
     "filter": {
       // match all expressions to forward
       match: {
@@ -57,7 +57,7 @@
 ```json
   // example fields transform
 
-  transforms: {
+  transform: {
     "select": {
       // inject new fields or set defaults in case of missing values
       "inject_before": {
@@ -103,7 +103,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
   // summary totals for field1
   // format "newField: { "function": "field name" }
   {
-    "transforms": {
+    "transform": {
       "aggregate": {
         "mySum": {"sum": "myField"},
         "myMin": {"min": "myField"},
@@ -117,7 +117,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
   // Example aggregate Group By transform
   // format: "group by field": { "newField": { "function": "field name" }}
   {
-    "transforms": {
+    "transform": {
       "aggregate": {
         "field1": {
           "subTotal": { "sum": "field2" } },

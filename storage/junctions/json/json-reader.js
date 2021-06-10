@@ -89,7 +89,7 @@ module.exports = exports = class JSONReader extends StorageReader {
     pipeline.on('data', (data) => {
       if (data.value) {
         let c = cast(data.value);
-        logger.debug(JSON.stringify(data.value));
+        //logger.debug(JSON.stringify(data.value));
         if (data.value && !reader.push(c))
           myParser.pause();  // If push() returns false stop reading from source.
 

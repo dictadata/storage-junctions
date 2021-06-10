@@ -6,7 +6,7 @@
 const _pev = require("./_process_events");
 const _compare = require("./_compare");
 const storage = require("../../storage");
-const { logger } = require('../../storage/utils');
+const { logger, hasOwnProperty } = require('../../storage/utils');
 
 const fs = require('fs');
 const path = require('path');
@@ -15,7 +15,13 @@ const stream = require('stream/promises');
 
 module.exports = exports = async function (tract) {
   logger.info(">>> create junction");
-  if (!tract.transforms) tract.transforms = {};
+
+  if (!hasOwnProperty(tract, "transform")) {
+    if (hasOwnProperty(tract, "transforms"))
+      tract.transform = tract.transforms;  // tract.transforms is deprecated
+    else
+      tract.transform = {};
+  }
   let retCode = 0;
 
   var jo;
@@ -27,7 +33,7 @@ module.exports = exports = async function (tract) {
     let results = await jo.getEncoding();
     let encoding1 = results.data["encoding"];
 
-    logger.debug(JSON.stringify(encoding1, null, "  "));
+    //logger.debug(JSON.stringify(encoding1, null, "  "));
     if (tract.outputFile1) {
       logger.info("<<< save encoding to " + tract.outputFile1);
       fs.mkdirSync(path.dirname(tract.outputFile1), { recursive: true });
@@ -42,7 +48,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> build pipeline");
     let pipes = [];
     pipes.push(jo.createReadStream({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
-    for (let [tfType, tfOptions] of Object.entries(tract.transforms))
+    for (let [tfType, tfOptions] of Object.entries(tract.transform))
       pipes.push(jo.createTransform(tfType, tfOptions));
     let codify = jo.createTransform('codify', tract.origin);
     pipes.push(codify);
@@ -54,7 +60,7 @@ module.exports = exports = async function (tract) {
     // save the codify results
     let encoding2 = codify.encoding;
 
-    logger.debug(JSON.stringify(encoding2, null, "  "));
+    //logger.debug(JSON.stringify(encoding2, null, "  "));
     if (tract.outputFile2) {
       logger.info("<<< save encoding to " + tract.outputFile2);
       fs.mkdirSync(path.dirname(tract.outputFile1), { recursive: true });

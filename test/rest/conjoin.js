@@ -22,7 +22,7 @@ async function testTransfer() {
         fields: ["cwa","gridX","gridY"]
       }
     },
-    transforms: {
+    transform: {
       conjoin: {
         smt: "rest|https://api.weather.gov/gridpoints/${cwa}/${gridX},${gridY}/|forecast|=*",
         options: {

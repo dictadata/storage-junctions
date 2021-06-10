@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "json|./data/test/|foofile.json|*"
     },
-    "transforms": {
+    "transform": {
       filter: {
         match: {
           "Bar": "row",
@@ -37,7 +37,7 @@ async function tests() {
     origin: {
       smt: "json|./data/test/|foofile.json|*",
     },
-    "transforms": {
+    "transform": {
       filter: {
         match: {
           "Bar": "row",
@@ -62,7 +62,7 @@ async function tests() {
     origin: {
       smt: "json|./data/test/|foofile.json|*"
     },
-    transforms: {
+    transform: {
       filter: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

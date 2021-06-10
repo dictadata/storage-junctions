@@ -242,7 +242,7 @@ module.exports = exports = class StorageJunction {
   // should not need to be overriden, generic transform of JSON objects
   createTransform(tfType, options) {
     options = Object.assign({}, this.options, options);
-    let transform_options = options.transform || options;
+    let transform_options = options.transform || options.transforms || options || {};
     let transform = Cortex.Transforms.create(tfType, transform_options);
     return transform;
   }

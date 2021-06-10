@@ -90,8 +90,9 @@ class SplitterJunction extends StorageJunction {
     let pipes = [];
 
     // add transforms, if any
-    if (hasOwnProperty(this.split_tract, "transforms")) {
-      for (let [tfType, tfOptions] of Object.entries(this.split_tract.transforms)) {
+    if (hasOwnProperty(this.split_tract, "transform") || hasOwnProperty(this.split_tract, "transforms")) {
+      let transforms = this.split_tract.transform || this.split_tract.transforms || {};
+      for (let [tfType, tfOptions] of Object.entries(transforms)) {
         pipes.push(await this.createTransform(tfType, tfOptions));
       }
     }

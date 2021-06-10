@@ -35,7 +35,7 @@ async function tests() {
     origin: {
       smt: "json|./data/test/|foofile_01.json|*"
     },
-    transforms: {
+    transform: {
       "filter": {
         "match": {
           "Bar": "row"
@@ -74,7 +74,7 @@ async function tests() {
     origin: {
       smt: "json|./data/test/|foofile_02.json|*"
     },
-    transforms: {
+    transform: {
       filter: {
         match: {
           "Bar": /row/,

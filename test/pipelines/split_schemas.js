@@ -20,7 +20,7 @@ async function tests() {
       "options": {
         "splitOn": "TABLE_NAME",
         "tract": {
-          "transforms": {
+          "transform": {
             "encoder": {
               "junction": "OracleDBJunction"
             }

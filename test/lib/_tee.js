@@ -24,7 +24,7 @@ module.exports = exports = async function (tract) {
     let writers = [];
 
     logger.info(">>> create origin junction");
-    const origin_transforms = tract.transforms || {};
+    const origin_transforms = tract.transform || tract.transforms || {};
 
     if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
       // read encoding from file
@@ -50,7 +50,7 @@ module.exports = exports = async function (tract) {
       throw new StorageError( 400, "tract.terminal not an Array");
 
     for (const branch of tract.terminal) {
-      const transforms = branch.transforms || {};
+      const transforms = branch.transform || branch.transforms || {};
 
       logger.info(">>> create branch junction");
       if (branch.terminal.options && typeof branch.terminal.options.encoding === "string") {

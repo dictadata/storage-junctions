@@ -39,7 +39,7 @@ async function tests() {
         header: true
       }
     },
-    transforms: {
+    transform: {
       "filter": {
         "match": {
           "Bar": "row"
@@ -80,7 +80,7 @@ async function tests() {
         header: true
       }
     },
-    transforms: {
+    transform: {
       filter: {
         match: {
           "Bar": /row/,

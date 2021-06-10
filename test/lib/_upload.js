@@ -36,7 +36,7 @@ module.exports = exports = async function (tract) {
     let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
-      logger.debug(JSON.stringify(entry, null, 2));
+      //logger.debug(JSON.stringify(entry, null, 2));
 
       let options = Object.assign({ uploadPath: uploads.dir + '\\' }, tract.origin.options, entry);
       let results = await stfs.upload(options);

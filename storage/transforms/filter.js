@@ -6,7 +6,7 @@ const { typeOf, hasOwnProperty, logger } = require("../utils");
 
 // example filter transform
 /*
-  transforms: {
+  transform: {
     "filter": {
       // match all expressions to forward
       match: {

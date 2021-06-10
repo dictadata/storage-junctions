@@ -18,7 +18,7 @@ async function tests() {
         encoding: "./data/test/encoding_foo.json"
       }
     },
-    transforms: {
+    transform: {
       filter: {
         match: {
           "Baz": { "lte": 500 }
@@ -33,7 +33,7 @@ async function tests() {
             encoding: "./data/test/encoding_foo.json"
           }
         },
-        transforms: {
+        transform: {
         }
       },
       {
@@ -43,7 +43,7 @@ async function tests() {
             encoding: "./data/test/encoding_foo_transform.json"
           }
         },
-        transforms: {
+        transform: {
           select: {
             fields: ["Dt Test", "Foo", "Baz"]
           }

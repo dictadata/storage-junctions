@@ -21,7 +21,7 @@ async function testDBTransform1(tract) {
       "options": {}
     },
     "terminal": tract.terminal,
-    "transforms": {
+    "transform": {
       "filter": {
         "match": {
           "Bar": "row"
@@ -60,7 +60,7 @@ async function testDBTransform2() {
       "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
-    "transforms": {
+    "transform": {
       "filter": {
         "match": {
           "Bar": { "eq": "row" }
@@ -112,7 +112,7 @@ async function forecastTransform(tract) {
         }
       }
     },
-    "transforms": {
+    "transform": {
       "select": {
         "inject_after": {
           "Fie": "It's always sunny in Philadelphia?"

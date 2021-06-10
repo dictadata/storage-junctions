@@ -24,7 +24,7 @@ const dot = require('dot-object');
   // example aggregate transform
   // - newField1 = summary total for field1
   // - newField2 = [] grouped on field2 and calculate sum of field3 for each unique value of field2
-  transforms: {
+  transform: {
     aggregate: {
       "newField1": {"sum": "field1},
       "field2": {"newField2": { "sum": "field3" } }

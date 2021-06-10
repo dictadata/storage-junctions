@@ -76,7 +76,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
     parser.on('data', (data) => {
       if (data.value) {
         let c = cast(data.value);
-        logger.debug(JSON.stringify(data.value));
+        //logger.debug(JSON.stringify(data.value));
         if (data.value && !reader.push(c))
           parser.pause();  // If push() returns false stop reading from source.
 

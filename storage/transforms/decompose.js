@@ -9,7 +9,7 @@ const { typeOf, logger } = require("../utils");
 
 // example decompose transform
 /*
-  transforms: {
+  transform: {
     "flatten": {
       // field names for hierarchy properties
       // in hierarchical order

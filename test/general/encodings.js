@@ -26,7 +26,7 @@ async function tests() {
     jo.encoding = encoding;
     logger.verbose("<<< encoding_foo_full.json")
     encoding = jo.encoding;
-    logger.debug(JSON.stringify(encoding, null, 2));
+    //logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./data/output/encoding_foo_full.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_types.json');
@@ -36,7 +36,7 @@ async function tests() {
     jo.encoding = encoding;
     logger.verbose("<<< encoding_foo_types.json");
     encoding = jo.encoding;
-    logger.debug(JSON.stringify(encoding, null, 2));
+    //logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./data/output/encoding_foo_types.json", JSON.stringify(encoding, null, 2), "utf8");
 
     logger.verbose('=== read encoding_foo_typesonly');
@@ -46,7 +46,7 @@ async function tests() {
     jo.encoding = encoding;
     logger.verbose("<<< encoding_foo_typesonly.json");
     encoding = jo.encoding;
-    logger.debug(JSON.stringify(encoding, null, 2));
+    //logger.debug(JSON.stringify(encoding, null, 2));
     fs.writeFileSync("./data/output/encoding_foo_typesonly.json", JSON.stringify(encoding, null, 2), "utf8");
   }
   catch (err) {

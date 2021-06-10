@@ -13,7 +13,7 @@ const { Transform } = require('stream');
 
 // example encoder transform
 /*
-  transforms: {
+  transform: {
     "encoder": {
       "junction": "OracleDBJunction"
     }

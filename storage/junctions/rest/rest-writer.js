@@ -18,7 +18,7 @@ module.exports = exports = class RESTWriter extends StorageWriter {
 
   async _write(construct, encoding, callback) {
     logger.debug("RESTWriter._write");
-    logger.debug(JSON.stringify(construct));
+    //logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();
@@ -28,7 +28,7 @@ module.exports = exports = class RESTWriter extends StorageWriter {
     try {
       // save construct to .schema
       this._count(1);
-      logger.debug(JSON.stringify(construct));
+      //logger.debug(JSON.stringify(construct));
     }
     catch (err) {
       logger.error(err);

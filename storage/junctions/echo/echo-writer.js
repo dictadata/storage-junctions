@@ -18,7 +18,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
 
   async _write(construct, encoding, callback) {
     logger.debug("EchoWriter._write");
-    logger.debug(JSON.stringify(construct));    
+    //logger.debug(JSON.stringify(construct));    
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();

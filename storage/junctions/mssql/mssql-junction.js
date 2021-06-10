@@ -295,7 +295,7 @@ class MSSQLJunction extends StorageJunction {
     try {
       if (!this.engram.isDefined) {
         let results = await this.getEncoding();
-        logger.debug(JSON.stringify(results));
+        //logger.debug(JSON.stringify(results));
       }
 
       // INSERT/UPDATE logic

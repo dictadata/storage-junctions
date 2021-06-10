@@ -18,7 +18,7 @@ async function tests() {
         header: true
       }
     },
-    "transforms": {
+    "transform": {
       filter: {
         match: {
           "Bar": "row",
@@ -46,7 +46,7 @@ async function tests() {
         header: true
       }
     },
-    "transforms": {
+    "transform": {
       filter: {
         match: {
           "Bar": "row",
@@ -77,7 +77,7 @@ async function tests() {
         header: true
       }
     },
-    transforms: {
+    transform: {
       filter: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

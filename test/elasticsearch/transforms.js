@@ -32,7 +32,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
     },
-    transforms: {
+    transform: {
       "filter": {
         "match": {
           "Bar": "row"

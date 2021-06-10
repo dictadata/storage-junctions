@@ -8,7 +8,7 @@ const { typeOf, hasOwnProperty, logger } = require("../utils");
 
 /*
   // example conjoin transform
-  transforms: {
+  transform: {
     conjoin: {
       smt: "rest|url/{tfield1}/|{tfield2}",
       options: {
@@ -96,13 +96,13 @@ module.exports = exports = class ConjoinTransform extends Transform {
 
       // create origin junction
       logger.debug("conjoin activate jo");
-      logger.debug(JSON.stringify(smt,null,2));
+      //logger.debug(JSON.stringify(smt,null,2));
       jo = await cortex.activate(smt, options);
 
       // retrieve
       logger.debug("conjoin retrieve");
       let results = await jo.retrieve(options);
-      logger.debug(JSON.stringify(results,null,2));
+      //logger.debug(JSON.stringify(results,null,2));
 
       for (let rcon of results.data) {
         // join results

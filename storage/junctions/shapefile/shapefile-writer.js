@@ -37,7 +37,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
    */
   async _write(construct, encoding, callback) {
     logger.debug("ShapeFileWriter._write");
-    logger.debug(JSON.stringify(construct));
+    //logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();

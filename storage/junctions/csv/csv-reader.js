@@ -95,7 +95,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     parser.on('data', (data) => {
       if (data.value) {
         let construct = cast(data.value);
-        logger.debug(JSON.stringify(construct));
+        //logger.debug(JSON.stringify(construct));
         if (data.value && !reader.push(construct))
           parser.pause();  // If push() returns false stop reading from source.
 

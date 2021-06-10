@@ -95,7 +95,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         if (pre.length === 0)
           return;
         var directory = that._parseHtmlDir(response, pre[0].rawText);
-        logger.debug(JSON.stringify(directory, null, 2));
+        //logger.debug(JSON.stringify(directory, null, 2));
 
         for (let entry of directory) {
           if (entry.isDir && that.options.recursive) {
@@ -105,7 +105,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
             await scanner(subpath);
           }
           else if (!entry.isDir && rx.test(entry.name)) {
-            logger.debug(JSON.stringify(entry, null, 2));
+            //logger.debug(JSON.stringify(entry, null, 2));
 
             entry.rpath = dirpath + entry.name;
             if (entry.rpath.startsWith(that.options.dirname))

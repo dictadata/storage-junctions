@@ -21,7 +21,7 @@ module.exports = exports = async function (tract) {
   try {
     if (!tract.origin.options) tract.origin.options = {};
     if (!tract.terminal.options) tract.terminal.options = {};
-    const transforms = tract.transforms || {};
+    const transforms = tract.transform || tract.transforms || {};
 
     if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
       // read encoding from file

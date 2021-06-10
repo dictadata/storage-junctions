@@ -15,7 +15,7 @@ async function tests() {
     "origin": {
       "smt": "json|./data/test/|foofile_01.json|*"
     },
-    "transforms": {
+    "transform": {
       "filter": {
         "match": {
           "Bar": "row"
@@ -74,7 +74,7 @@ async function tests() {
         encoding: "./data/test/encoding_foo_01.json"
       }
     },
-    transforms: {
+    transform: {
       "filter": {
         "match": {
           "Bar": "row"
@@ -114,7 +114,7 @@ async function tests() {
         encoding: "./data/test/encoding_foo_02.json"
       }
     },
-    transforms: {
+    transform: {
       "filter": {
         "match": {
           "Bar": "row"

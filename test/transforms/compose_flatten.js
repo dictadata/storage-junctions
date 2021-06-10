@@ -18,7 +18,7 @@ async function tests() {
         encoding: "./data/test/table_schemas_encoding.json"
       }      
     },
-    "transforms": {
+    "transform": {
       compose: {
         path: ["SCHEMA_NAME", "TABLE_NAME", "COLUMN_NAME"]
       }
@@ -35,7 +35,7 @@ async function tests() {
       smt: "json|./data/output/transforms/|compose_schemas.json|*",
       options: {}
     },
-    "transforms": {
+    "transform": {
       flatten: {
         path: ["SCHEMA_NAME", "TABLE_NAME", "COLUMN_NAME"]
       }
