@@ -21,13 +21,15 @@ module.exports = exports = class Field {
 
     // set defaults
     this.name = definition.name;
-    this.type = 'undefined';
+    this.type = 'unknown';
     //this.size = 0;
+    //this.nullable = true;
     //this.default = null;
-    //this.isNullable = true;
-    //this.keyOrdinal = 0;
+    //this.key = 0; // key ordinal position
+
+    //this.ordinal = 0;  // structure ordinal position
     //this.label = definition.name;
-    //this.description = "";
+    //this.text = "";
 
     // shallow copy
     for (let [prop,value] of Object.entries(definition))
@@ -35,11 +37,26 @@ module.exports = exports = class Field {
         this[prop] = definition[prop];
   }
 
+  get defaultValue() {
+    return (typeof this.default !== "undefined") ? this.default : null;
+  }
+  set defaultValue(value) {
+    if (typeof value !== "undefined")
+      this.default = value;
+  }
+
+  get isNullable() {
+    return (typeof this.nullable !== "undefined") ? this.nullable : true;
+  }
+  set isNullable(value) {
+    this.nullable = value ? true : false;
+  }
+
   get isKey() {
-    return (this.keyOrdinal > 0);
+    return (this.key > 0);
   }
   set isKey(value) {
-    this.keyOrdinal = value ? 1 : 0;
+    this.key = value ? 1 : 0;
   }
 
   /**

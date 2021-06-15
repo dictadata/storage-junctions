@@ -132,7 +132,7 @@ exports.sqlTypeDB = (field) => {
  */
 var storageTypeDB = exports.storageTypeDB = (column) => {
  
-  let fldType = 'undefined';
+  let fldType = 'unknown';
   switch (column.dbType) {
     case oracledb.DB_TYPE_BOOLEAN:
       fldType = 'boolean';
@@ -206,9 +206,9 @@ exports.storageFieldDB = (column) => {
     name: column["name"],
     type: storageTypeDB(column),
     size: (column["byteSize"]) ? column["byteSize"] : 0,
-    isNullable: column["nullable"],
+    nullable: column["nullable"],
     //default: null,
-    //keyOrdinal: set from constraints,
+    //key: set from constraints,
 
     // add additional Oracle fields
     _oracle: column
@@ -238,7 +238,7 @@ var storageType = exports.storageType = (sqlType, sqlSize) => {
   }
   let size = sqlSize || parseInt(sz);
 
-  let fldType = 'undefined';
+  let fldType = 'unknown';
   switch (sqlType.toUpperCase()) {
     case 'BOOLEAN':
       fldType = 'CHAR';
@@ -311,15 +311,15 @@ let storageField = exports.storageField = (column) => {
   // COLUMN_ID, COLUMN_NAME, DATA_TYPE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE, NULLABLE, DATA_DEFAULT
 
   let fldType, size;
-  [fldType, size] = storageType(column["DATA_TYPE"], column["DATA_LENGTH"]);
+  [fldType, size] = storageType(column["DATA_TYPE"], column["CHAR_LENGTH"] || column["DATA_LENGTH"]);
 
   let field = {
     name: column["COLUMN_NAME"],
     type: fldType,
     size: size,
-    isNullable: (column["NULLABLE"] === 'Y'),
-    ordinal: column["COLUMN_ID"]
-    // keyOrdinal: set from constraints
+    nullable: (column["NULLABLE"] === 'Y'),
+    //ordinal: column["COLUMN_ID"]
+    //key: set from constraints
   }
   if (column["DATA_DEFAULT"])
     field['default'] = column["DATA_DEFAULT"];
@@ -348,14 +348,14 @@ let storageFieldSQL = exports.storageFieldSQL = (column) => {
     name: column["Name"] || column["NAME"],
     type: fldType,
     size: size,
-    isNullable: !(column["Null?"] === "NOT NULL") || column["NULLABLE"] || true,
-    // keyOrdinal: set from constraints
+    nullable: !(column["Null?"] === "NOT NULL") || column["NULLABLE"] || true,
+    //key: set from constraints
   }
 
   if (hasOwnProperty(column, "DEFAULT"))
-    field.default = column["DEFAULT"];
-  if (hasOwnProperty(column, "ORDINAL"))
-    field.ordinal = column["ORDINAL"] || null;
+    field.defaultValue = column["DEFAULT"];
+  //if (hasOwnProperty(column, "ORDINAL"))
+  //  field.ordinal = column["ORDINAL"] || null;
 
   // add additional Oracle fields
   field._oracle = column;

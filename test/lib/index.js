@@ -10,7 +10,6 @@ exports.dull = require("./_dull.js");
 exports.dullSchema = require("./_dullSchema.js");
 exports.getEncoding = require("./_getEncoding.js");
 exports.list = require("./_list");
-exports.process_events = require("./_process_events.js");
 exports.recall = require("./_recall.js");
 exports.retrieve = require("./_retrieve.js");
 exports.store = require("./_store.js");

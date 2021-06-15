@@ -223,7 +223,7 @@ module.exports = exports = class StorageJunction {
 
   // If sub-class sets the _readerClass and _writerClass members in constructor
   // then these methods don't need to be overriden.
-  createReadStream(options) {
+  createReader(options) {
     if (!this.capabilities.reader)
       throw new StorageError(405);
     
@@ -231,7 +231,7 @@ module.exports = exports = class StorageJunction {
     return new this._readerClass(this, options);
   }
 
-  createWriteStream(options) {
+  createWriter(options) {
     if (!this.capabilities.writer)
       throw new StorageError(405);
     

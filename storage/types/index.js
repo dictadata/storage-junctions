@@ -10,8 +10,7 @@ exports.stringBreakpoints = require("./stringBreakpoints");
 exports.parseValue = require('./parseValue');
 exports.storageType = require('./storageType');
 
-// storage types
-//  "unknown"
+// dicta storage types
 //  "boolean"
 //  "integer"
 //  "number"
@@ -22,4 +21,8 @@ exports.storageType = require('./storageType');
 //  "binary"
 //  "variable"
 
+// well known JSON object types
 //  "Geometry" - GeoJSON geometry object
+
+// other types 
+//  "unknown"  - used for values that are null

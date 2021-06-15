@@ -14,7 +14,7 @@ var excludeProperties = [ "@timestamp", "_meta" ];
 var storageType = exports.storageType = function (elasticType) {
 
   // convert to storage type
-  let fldType = 'undefined';
+  let fldType = 'unknown';
   switch (elasticType) {
     case 'integer':
     case 'long':
@@ -116,13 +116,15 @@ var storageField = exports.storageField = function (name, property) {
   let field = {
     name: property.name || name,
     type: storageType(property.type),
-    size: 0,
-    default: property.null_value || null,
-    isNullable: true,
-    keyOrdinal: 0,
+    //size: 0,
+    //nullable: true,
+    //key: 0,
     // add additional elasticsearch fields
     _elasticsearch: property
   };
+
+  if (hasOwnProperty(property, "null_value"))  // default if value is null
+    field.defaultValue = property["null_value"];
 
   return field;
 };
@@ -141,7 +143,7 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
       continue;
 
     // check for Elasticsearch object  fields
-    if (property.properties) {
+    if (hasOwnProperty(property, "properties")) {
       if (property.type && property.type === "nested") {
         // won't get here, nested not implemented
         // need to use codify tranform to identify arrays
@@ -197,11 +199,11 @@ exports.fieldsToMappings = function fieldsToMappings(fields) {
       let mapping = fieldsToMappings({ "_list": field._list });
       mappings.properties[name] = mapping.properties._list;
     }
-    else if (ftype !== "undefined") {
+    else if (ftype !== "unknown") {
       mappings.properties[name] = { "type": elasticType(field) };
 
       if (hasOwnProperty(field, "default") && field.type !== 'text') {
-        mappings.properties[name].null_value = field.default;
+        mappings.properties[name].null_value = field.defaultValue;
       }
 
       if (field._elasticsearch) {

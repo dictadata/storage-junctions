@@ -36,5 +36,5 @@ async function tests() {
 }
 
 (async () => {
-  if (await tests()) return;
+  if (await tests()) return 1;
 })();

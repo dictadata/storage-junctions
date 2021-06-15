@@ -130,16 +130,15 @@ module.exports = exports = class CodifyTransform extends Transform {
     let stype = storageType(value);
 
     // check if field needs an initial type
-    if (field.type === "undefined" && stype !== "unknown") {
+    if (field.type === "unknown" && stype !== "unknown") {
       field.type = stype;
       //if (stype === "integer" && (value === 0 || value === 1))
       //  field.type = "boolean";
     }
 
     // check if a field's type should be more generalized
-    if (stype === "undefined" || stype === "unknown") {
-      // values is undefined or null
-      // skip the type checks
+    if (stype === "unknown") {
+      // null value, skip the type checks
     }
     else if (field.type === "boolean") {
       if (stype !== "boolean")
@@ -209,7 +208,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       }
     }
     else {
-      // leave as "undefined"
+      // leave as "unknown"
     }
   }
 
@@ -222,10 +221,10 @@ module.exports = exports = class CodifyTransform extends Transform {
   checkDefaults(fields, default_type) {
 
     for (let field of Object.values(fields)) {
-      if (field.type === "undefined")
+      if (field.type === "unknown")
         field.type = default_type;
       else if (field.type === "list") {
-        if (field._list && field._list.type === "undefined")
+        if (field._list && field._list.type === "unknown")
           field._list.type = default_type;
       }
       else if (field.type === "map") {

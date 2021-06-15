@@ -30,8 +30,8 @@ async function testStream() {
     });
 
     logger.info(">>> create streams");
-    var reader = jo.createReadStream();
-    var writer = jo.createWriteStream();
+    var reader = jo.createReader();
+    var writer = jo.createWriter();
 
     logger.info(">>> start pipe");
     await stream.pipeline(reader, writer);

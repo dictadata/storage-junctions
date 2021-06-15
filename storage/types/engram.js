@@ -175,8 +175,8 @@ module.exports = exports = class Engram {
     else if (this.keyof === 'all') {
       // look for key fields in the encoding
       for (let [name,field] of Object.entries(this.fields)) {
-        if (field.keyOrdinal)
-          keys[field.keyOrdinal-1] = name;
+        if (field.key)
+          keys[field.key-1] = name;
       }
     }
 
@@ -243,8 +243,10 @@ module.exports = exports = class Engram {
     if (!field) {
       field = new Field({
         name: name,
-        keyOrdinal: this.keys.findIndex((name) => name === kname) + 1
       });
+      let key = this.keys.findIndex((name) => name === kname) + 1;
+      if (key)
+        field.key = key;
     }
     return field;
   }
@@ -261,7 +263,7 @@ module.exports = exports = class Engram {
     let kname = (this.caseInsensitive) ? newField.name.toUpperCase() : field.name;
 
     let i = this.keys.findIndex((name) => name === kname);
-    if (i >= 0) newField.keyOrdinal = i+1;
+    if (i >= 0) newField.key = i+1;
     
     this.fields[kname] = newField;
     return newField;

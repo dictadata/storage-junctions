@@ -29,6 +29,9 @@ function escapeString(value) {
     value = value.replace(/'/g, "''");
     return "'" + value + "'";
   }
+  else if (typeof value === "undefined") {
+    return "NULL";
+  }
   else
     return value;
 }
@@ -107,7 +110,7 @@ exports.sqlListTables = () => {
 
 exports.sqlDescribeTable = (schema) => {
   //return `SELECT * FROM ${schema.toUpperCase()} FETCH FIRST 1 ROW ONLY`;
-  return `select column_id, column_name, data_type, data_length, data_precision, data_scale, nullable 
+  return `select column_id, column_name, data_type, data_length, data_precision, data_scale, nullable, char_length 
 from user_tab_columns 
 where table_name = '${schema.toUpperCase()}' 
 order by column_id`;
@@ -128,7 +131,7 @@ exports.decodeIndexResults = (engram, results) => {
     if (column["CONSTRAINT_TYPE"] === "P") {
       // primary key index
       let field = engram.find(column["COLUMN_NAME"]);
-      field["keyOrdinal"] = column["COLUMN_POSITION"];
+      field["key"] = column["COLUMN_POSITION"];
     }
     else {
       // other index
@@ -168,15 +171,15 @@ exports.sqlCreateTable = (engram, options) => {
     sql += " " + encoder.sqlType(field);
 
     if (field.isKey) {
-      primaryKeys[field.keyOrdinal-1] = escapeId(name);
+      primaryKeys[field.key-1] = escapeId(name);
       field.isNullable = false;
     }
     if (field.isNullable)
       sql += " NULL";
     else
       sql += " NOT NULL";
-    if (field.default)
-      sql += " DEFAULT " + escapeString(field.default);
+    if (field.defaultValue)
+      sql += " DEFAULT " + escapeString(field.defaultValue);
   }
 
   if (primaryKeys.length > 0) {

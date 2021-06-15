@@ -83,7 +83,7 @@ module.exports = exports = class ElasticMappings {
     logger.debug("translate encoding");
     let properties = this.mappings.properties;
     for (let [name, field] of Object.entries(this.engram.fields)) {
-      if (typeof field.type !== "undefined") {
+      if (typeof field.type !== "unknown") {
         properties[name] = {
           "type": field.type      // should translate storage types to elasticsearch types
         };

@@ -53,7 +53,7 @@ class RESTJunction extends StorageJunction {
         // read the stream to infer data types
         // default to 1000 constructs unless overridden in options
         let options = Object.assign({ max_read: 100 }, this.options);
-        let reader = this.createReadStream(options);
+        let reader = this.createReader(options);
         let codify = this.createTransform('codify', options);
 
         await stream.pipeline(reader, codify);

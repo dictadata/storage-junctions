@@ -41,7 +41,7 @@ module.exports = exports = async function (tract) {
     }
 
     logger.info(">>> create origin pipeline");
-    reader = jo.createReadStream();
+    reader = jo.createReader();
     for (let [tfType, tfOptions] of Object.entries(origin_transforms))
       reader = reader.pipe(jo.createTransform(tfType, tfOptions));
 
@@ -72,7 +72,7 @@ module.exports = exports = async function (tract) {
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
       // add terminal
-      let w = jt.createWriteStream();
+      let w = jt.createWriter();
       writer = (writer) ? writer.pipe(w) : reader.pipe(w);
 
       writers.push(writer);

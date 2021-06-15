@@ -61,7 +61,7 @@ exports.decodeIndexResults = (engram, columns) => {
     if (column["Key_name"] === "PRIMARY") {
       // primary key's index
       let field = engram.find(column["Column_name"]);
-      field.keyOrdinal = column["Seq_in_index"];
+      field.key = column["Seq_in_index"];
     }
     else {
       // other index
@@ -89,7 +89,7 @@ exports.sqlCreateTable = function (engram, options) {
     sql += " " + encoder.mysqlType(field);
 
     if (field.isKey) {
-      primaryKeys[field.keyOrdinal-1] = sqlString.escapeId(name);
+      primaryKeys[field.key-1] = sqlString.escapeId(name);
       field.isNullable = false;
     }
 
@@ -98,8 +98,8 @@ exports.sqlCreateTable = function (engram, options) {
     else
       sql += " NOT NULL";
 
-    if (field.default)
-      sql += " DEFAULT " + sqlString.escape(field.default);
+    if (field.defaultValue)
+      sql += " DEFAULT " + sqlString.escape(field.defaultValue);
   }
 
   if (primaryKeys.length > 0) {

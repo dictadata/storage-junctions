@@ -87,7 +87,7 @@ exports.decodeIndexResults = (engram, column) => {
   if (hasOwnProperty(column, "is_primary_key") && column["is_primary_key"].value) {
     // primary key index
     let field = engram.find(column["column_name"].value);
-    field.keyOrdinal = column["key_ordinal"].value;
+    field.key = column["key_ordinal"].value;
   }
   else {
     // other index
@@ -131,15 +131,15 @@ exports.sqlCreateTable = (engram, options) => {
     sql += " " + encoder.mssqlType(field);
 
     if (field.isKey) {
-      primaryKeys[field.keyOrdinal-1] = sqlString.escapeId(name);
+      primaryKeys[field.key-1] = sqlString.escapeId(name);
       field.isNullable = false;
     }
     if (field.isNullable)
       sql += " NULL";
     else
       sql += " NOT NULL";
-    if (field.default)
-      sql += " DEFAULT " + sqlString.escape(field.default);
+    if (field.defaultValue)
+      sql += " DEFAULT " + sqlString.escape(field.defaultValue);
   }
 
   if (primaryKeys.length > 0) {

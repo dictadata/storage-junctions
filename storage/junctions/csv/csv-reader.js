@@ -41,35 +41,35 @@ module.exports = exports = class CSVReader extends StorageReader {
         let field = encoding.find(name);
 
         if (value === "" || value === null) {     // current parser generates "" instead of null
-          newValue = field.default;
+          newValue = field.defaultValue;
         }
         else if (field.type === 'boolean') {
           newValue = ynBoolean(value);
           if (typeof newValue === "undefined")
-            newValue = field.default;
+            newValue = field.defaultValue;
         }
         else if (field.type === 'integer') {
           newValue = Number.parseInt(value, 10);
           if (Number.isNaN(newValue))
-            newValue = field.default;
+            newValue = field.defaultValue;
         }
         else if (field.type === 'float') {
           newValue = Number.parseFloat(value);
           if (!Number.isFinite(newValue))
-            newValue = field.default;
+            newValue = field.defaultValue;
         }
         else if (field.type === 'date') {
           newValue = new Date(value);
           if (isNaN(newValue))
-            newValue = field.default;
+            newValue = field.defaultValue;
         }
         else if (field.type === 'keyword') {
           if (value === null)
-            newValue = field.default;
+            newValue = field.defaultValue;
         }
         else if (field.type === 'text') {
           if (value === null)
-            newValue = field.default;
+            newValue = field.defaultValue;
         }
         else {
           newValue = parseValue(value);

@@ -101,8 +101,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
         for (let [name, field] of Object.entries(this.engram.fields)) {
           if (hasOwnProperty(construct, name) && construct[name] !== null)
             ordered[name] = construct[name];
-          else if (field.default)
-            ordered[name] = field.default;
+          else if (field.defaultValue)
+            ordered[name] = field.defaultValue;
           // else don't copy field
         }
       }
@@ -156,12 +156,19 @@ module.exports = exports = class JSONWriter extends StorageWriter {
     try {
       if (this.ws) {
         // write close tag
-        if (this.formation.closing) await this.ws.end(this.formation.closing);
+        if (this.formation.closing)
+          await this.ws.write(this.formation.closing);
+
+        await this.ws.end();
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
         else
-          await new Promise((fulfill) => this.ws.on("finish", fulfill));
+          await new Promise(
+            (fulfill) => {
+              this.ws.on("finish", fulfill);
+            }
+          );
       }
       this._count(null);
       callback();

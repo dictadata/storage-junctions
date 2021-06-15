@@ -8,7 +8,7 @@ const dullSchema = require("../lib/_dullSchema");
 const Engram = require('../../storage/types/engram');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: transform");
+logger.info("=== Test: db2db_transforms");
 
 async function testDBTransform1(tract) {
   let engram = new Engram(tract.terminal.smt);

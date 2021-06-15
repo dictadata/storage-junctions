@@ -37,25 +37,25 @@ module.exports = exports = class JSONReader extends StorageReader {
         let newValue = value;
 
         if (value === null) {
-          newValue = field.default;
+          newValue = field.defaultValue;
         }
         else if (field.type === 'integer') {
           newValue = Number.parseInt(value, 10);
-          if (Number.isNaN(newValue)) newValue = field.default;
+          if (Number.isNaN(newValue)) newValue = field.defaultValue;
         }
         else if (field.type === 'float') {
           newValue = Number.parseFloat(value);
-          if (!Number.isFinite(newValue)) newValue = field.default;
+          if (!Number.isFinite(newValue)) newValue = field.defaultValue;
         }
         else if (field.type === 'date') {
           newValue = new Date(value);
-          if (isNaN(newValue)) newValue = field.default;
+          if (isNaN(newValue)) newValue = field.defaultValue;
         }
         else if (field.type === 'keyword') {
-          if (value === null) newValue = field.default;
+          if (value === null) newValue = field.defaultValue;
         }
         else if (field.type === 'text') {
-          if (value === null) newValue = field.default;
+          if (value === null) newValue = field.defaultValue;
         }
 
         if (newValue !== value)

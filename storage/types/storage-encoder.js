@@ -25,7 +25,7 @@ module.exports = exports = class StorageEncoder {
    */
   storageType(srcType) {
 
-    let fldType = 'undefined';
+    let fldType = 'unknown';
     switch (srcType.toUpperCase()) {
       case 'INT':
       case 'INTEGER':
@@ -72,15 +72,19 @@ module.exports = exports = class StorageEncoder {
       name: srcdef.Name,
       type: srcdef.Type,
       size: srcdef.Size,
-      default: srcdef.Default || null,
-      isNullable: ynBoolean(srcdef.Null) || false,
-      keyORder: srcdef.Key,
       // add additional source fields
       _source: {
         Type: srcdef.Type,
         _Extra: srcdef.Extra
       }
     };
+
+    if (hasOwnProperty(srcdef, "Default"))
+      field.defaultValue = srcdef["Default"];
+    if (hasOwnProperty(srcdef, "Null"))
+      field.nullable = ynBoolean(srcdef["Null"]);
+    if (hasOwnProperty(srcdef, "Key"))
+      field.key = srcdef["Key"];
 
     return field;
   };

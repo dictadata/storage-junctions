@@ -76,7 +76,7 @@ module.exports = exports = class StorageSQLEncoder {
     if (hasOwnProperty(column, "is_primary_key") && column["is_primary_key"].value) {
       // primary key index
       let field = engram.find(column["column_name"].value);
-      field.keyOrdinal = column["key_ordinal"].value;
+      field.key = column["key_ordinal"].value;
     }
     else {
       // other index
@@ -120,15 +120,15 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       sql += " " + encoder.mssqlType(field);
 
       if (field.isKey) {
-        primaryKeys[field.keyOrdinal - 1] = this.escapeId(name);
+        primaryKeys[field.key - 1] = this.escapeId(name);
         field.isNullable = false;
       }
       if (field.isNullable)
         sql += " NULL";
       else
         sql += " NOT NULL";
-      if (field.default)
-        sql += " DEFAULT " + this.escapeValue(field.default);
+      if (field.defaultValue)
+        sql += " DEFAULT " + this.escapeValue(field.defaultValue);
     }
 
     if (primaryKeys.length > 0) {

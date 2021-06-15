@@ -115,7 +115,7 @@ class SplitterJunction extends StorageJunction {
     if (junction.capabilities.encoding)
       await junction.createSchema();
 
-    pipes.push(await junction.createWriteStream());
+    pipes.push(await junction.createWriter());
 
     // pipeline is ready
     this.split_streams[sname] = {
@@ -159,7 +159,7 @@ class SplitterJunction extends StorageJunction {
     throw new StorageError(501);
   }
 
-  createReadStream(options) {
+  createReader(options) {
     throw new StorageError(501);
   }
 

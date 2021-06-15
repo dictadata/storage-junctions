@@ -113,7 +113,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new StorageError(err.code, err.message).inner(err);
     }
   }
 
@@ -123,15 +123,16 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options.schema || this.smt.schema;
+      let filename = schema;
 
-      let filename = decodeURI(this._url.pathname + schema);
+      await this._ftp.cwd(decodeURI(this._url.pathname));
       await this._ftp.delete(filename);
 
       return new StorageResponse(0);
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new StorageError(err.code, err.message).inner(err);
     }
   }
 
@@ -164,7 +165,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new StorageError(err.code, err.message).inner(err);
     }
   }
 
@@ -209,7 +210,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new StorageError(err.code, err.message).inner(err);
     }
   }
 
@@ -245,7 +246,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new StorageError(err.code, err.message).inner(err);
     }
   }
 
@@ -269,7 +270,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new StorageError(err.code, err.message).inner(err);
     }
   }
 

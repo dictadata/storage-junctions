@@ -5,8 +5,7 @@
 
 const _pev = require("./_process_events");
 const storage = require("../../storage");
-const { typeOf } = require("../../storage/utils");
-const { logger } = require('../../storage/utils');
+const { typeOf, logger } = require("../../storage/utils");
 
 const fs = require('fs');
 const stream = require('stream/promises');
@@ -48,7 +47,7 @@ module.exports = exports = async function (tract) {
       // otherwise run some objects through any transforms to get terminal encoding
       logger.verbose(">>> codify pipeline");
       let pipes = [];
-      pipes.push(jo.createReadStream({ max_read: 100 }));
+      pipes.push(jo.createReader({ max_read: 100 }));
 
       for (let [tfType, tfOptions] of Object.entries(transforms))
         pipes.push(jo.createTransform(tfType, tfOptions));
@@ -79,12 +78,12 @@ module.exports = exports = async function (tract) {
     // transfer the data
     logger.info(">>> transfer pipeline");
     let pipes = [];
-    pipes.push(jo.createReadStream());
+    pipes.push(jo.createReader());
 
     for (let [tfType, tfOptions] of Object.entries(transforms))
       pipes.push(jo.createTransform(tfType, tfOptions));
     
-    let tws = jt.createWriteStream({
+    let tws = jt.createWriter({
       progress: (stats) => {
         console.log(stats.count);
       }

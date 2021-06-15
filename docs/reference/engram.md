@@ -16,8 +16,8 @@
       "type": "keyword",
       "size": 0,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
+      "nullable": false,
+      "key": 1,
       "label": "Foo"
     },
     "Bar": {
@@ -25,8 +25,8 @@
       "type": "integer",
       "size": 0,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Bar"
     },```
     ...

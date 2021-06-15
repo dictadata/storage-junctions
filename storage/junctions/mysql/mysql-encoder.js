@@ -6,6 +6,7 @@
 var { stringBreakpoints } = require('../../types');
 const { Types } = require('mysql');
 const ynBoolean = require('yn');
+const hasOwnProperty = require('../../utils/hasOwnProperty');
 
 stringBreakpoints = exports.stringBreakpoints = Object.assign({}, stringBreakpoints);
 // short text use storage default
@@ -35,7 +36,7 @@ var storageType = exports.storageType = function (mysqlType) {
   let size = parseInt(sz);
 
   // convert to storage type
-  let fldType = 'undefined';
+  let fldType = 'unknown';
   switch (mst.toUpperCase()) {
     case 'TINYINT':
       if (size === 1) {
@@ -115,22 +116,25 @@ exports.storageField = function (column) {
     name: column.Field,
     type: fldType,
     size: size,
-    default: column.Default || null,
-    isNullable: ynBoolean(column.Null) || false,
-    keyOrdinal: (column.Key) ? 1 : 0,
     // add additional MySQL fields
     _mysql: {
       Type: column.Type
     }
   };
 
+  if (hasOwnProperty(column, "Default"))
+    field.defaultValue = column["Default"];
+  if (hasOwnProperty(column, "Null"))
+    field.nullable = ynBoolean(column.Null);
+  if (column.Key)
+    field.key = 1;
   if (column.Extra) {
     field._mysql.Extra = column.Extra
   }
 
   // make sure isNullable and default are valid
-  //if ((field.type === 'keyword' || field.type === 'text') && !field.isNullable && field.default === null)
-  //    field.default = '';
+  //if ((field.type === 'keyword' || field.type === 'text') && !field.isNullable && field.defaultValue === null)
+  //    field.defaultValue = '';
 
   return field;
 };

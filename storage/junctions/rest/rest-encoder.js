@@ -9,6 +9,7 @@
 "use strict";
 
 const ynBoolean = require('yn');
+const hasOwnProperty = require('../../utils/hasOwnProperty');
 
 /**
  * convert a REST type to a storage field type
@@ -18,11 +19,11 @@ const ynBoolean = require('yn');
  */
 var storageType = exports.storageType = function (srcType) {
 
-  let fldType = 'undefined';
+  let fldType = 'unknown';
 
   switch (srcType.toUpperCase()) {
     default:
-      fldType = 'undefined';
+      fldType = 'unknown';
       break;
   }
 
@@ -44,7 +45,7 @@ var srcType = exports.srcType = function (field) {
   else {
     switch (field.type) {
       default:
-        srcType = "undefined";
+        srcType = "unknown";
         break;
     }
   }
@@ -63,15 +64,19 @@ var storageField = exports.storageField = function (srcdef) {
     name: srcdef.Name,
     type: storageType(srcdef.Type),
     size: srcdef.Size,
-    default: srcdef.Default || null,
-    isNullable: ynBoolean(srcdef.Null) || false,
-    keyOrdinal: ynBoolean(srcdef.Key) || false,
     // add additional REST fields
     _rest: {
       Type: srcdef.Type,
       Extra: srcdef.Extra
     }
   };
+
+  if (hasOwnProperty(srcdef, "Default"))
+    field.defaultValue = srcdef["Default"];
+  if (hasOwnProperty(srcdef, "Null"))
+    field.nullable = ynBoolean(srcdef["Null"]);
+  if (hasOwnProperty(srcdef, "Key"))
+    field.key = srcdef["Key"];
 
   return field;
 };

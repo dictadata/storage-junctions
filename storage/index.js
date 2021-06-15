@@ -16,9 +16,6 @@ exports.StorageError = types.StorageError;
 ///// Storage utils
 exports.utils = require("./utils");
 
-///// Storage tests
-exports.tests = require("../test/lib");
-
 ///// register Storage FileSystems
 exports.StorageFileSystem = require("./filesystems/storage-filesystem");
 

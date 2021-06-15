@@ -64,8 +64,8 @@ module.exports = exports = class CSVWriter extends StorageWriter {
         (first) ? first = false : data += ',';
 
         let value = construct[name];
-        if ((typeof value === "undefined" || value === null) && field.default)
-          value = field.default;
+        if ((typeof value === "undefined" || value === null) && field.defaultValue)
+          value = field.defaultValue;
 
         if (typeof value !== "undefined" && value !== null) {
           switch (field.type) {

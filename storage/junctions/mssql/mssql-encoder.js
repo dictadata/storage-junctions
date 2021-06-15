@@ -16,7 +16,7 @@ if (stringBreakpoints.text > 8000)
  * convert a mssql type to a storage type
  */
 var storageType = exports.storageType = (mssqlType, size=0) => {
-  let fldType = 'undefined';
+  let fldType = 'unknown';
 
   switch (mssqlType.toUpperCase()) {
     case 'BIT':
@@ -99,15 +99,19 @@ exports.storageField = (column) => {
     name: column["name"].value,
     type: storageType(sqlType,size),
     size: column["size"].value,
-    default: column["default"].value || null,
-    isNullable: ynBoolean(column["is_nullable"].value) || false,
-    keyOrdinal: hasOwnProperty(column, "key_ordinal") ? column["key_ordinal"].value : 0,
     // add additional MSSQL fields
     _mssql: {
       precision: column["precision"].value,
       scale: column["scale"].value
     }
   };
+
+  if (hasOwnProperty(column, "default"))
+    field.defaultValue = column["default"].value;
+  if (hasOwnProperty(column, "is_nullable"))
+    field.nullable = ynBoolean(column["is_nullable"].value);
+  if (hasOwnProperty(column, "key_ordinal"))
+    field.key = column["key_ordinal"].value;
 
   let strTypes = ['varchar', 'char', 'text', 'nvarchar', 'nchar', 'ntext'];
   if (strTypes.includes(sqlType))

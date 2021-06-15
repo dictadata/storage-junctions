@@ -28,7 +28,7 @@ module.exports = exports = async function (tract) {
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
-    retCode = 1;
+    retCode = 0;
   }
   finally {
     if (jo)
