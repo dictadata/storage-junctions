@@ -11,8 +11,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
+      "nullable": false,
+      "key": 1,
       "label": "Foo"
     },
     "Bar": {
@@ -20,8 +20,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 2,
+      "nullable": true,
+      "key": 2,
       "label": "Bar"
     }
   },

@@ -11,9 +11,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Foo",
+      "nullable": false,
+      "key": 1,
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -25,9 +24,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 2,
-      "label": "Bar",
+      "nullable": false,
+      "key": 2,
       "_mssql": {
         "precision": 0,
         "scale": 0,

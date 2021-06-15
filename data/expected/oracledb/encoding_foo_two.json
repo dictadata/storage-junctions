@@ -10,10 +10,7 @@
       "name": "Foo",
       "type": "text",
       "size": 128,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Foo",
+      "nullable": false,
       "ordinal": 1,
       "_oracle": {
         "COLUMN_ID": 1,
@@ -23,16 +20,14 @@
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
         "NULLABLE": "N"
-      }
+      },
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
       "type": "text",
       "size": 128,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 2,
-      "label": "Bar",
+      "nullable": false,
       "ordinal": 2,
       "_oracle": {
         "COLUMN_ID": 2,
@@ -42,7 +37,8 @@
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
         "NULLABLE": "N"
-      }
+      },
+      "key": 2
     }
   },
   "_SMT": "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_two|*"

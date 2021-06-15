@@ -11,8 +11,8 @@
       "type": "keyword",
       "size": 10,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Foo"
     },
     "Bar": {
@@ -20,8 +20,8 @@
       "type": "text",
       "size": 13,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Bar"
     },
     "Baz": {
@@ -29,8 +29,8 @@
       "type": "integer",
       "size": 0,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Baz"
     },
     "Fobe": {
@@ -38,8 +38,8 @@
       "type": "number",
       "size": 0,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Fobe"
     },
     "Dt Test": {
@@ -47,8 +47,8 @@
       "type": "date",
       "size": 0,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Dt Test"
     },
     "enabled": {
@@ -56,8 +56,8 @@
       "type": "boolean",
       "size": 0,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "enabled"
     }
   },

@@ -10,97 +10,84 @@
       "name": "Foo",
       "type": "keyword",
       "size": 64,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 2,
-      "label": "Foo",
       "_mysql": {
         "Type": "varchar(64)"
-      }
+      },
+      "default": null,
+      "nullable": false,
+      "key": 2
     },
     "Bar": {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 1,
-      "label": "Bar",
       "_mysql": {
         "Type": "varchar(64)"
-      }
+      },
+      "default": null,
+      "nullable": true,
+      "key": 1
     },
     "Baz": {
       "name": "Baz",
       "type": "integer",
       "size": null,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Baz",
       "_mysql": {
         "Type": "int"
-      }
+      },
+      "default": null,
+      "nullable": false,
+      "key": 1
     },
     "Fobe": {
       "name": "Fobe",
       "type": "float",
       "size": null,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Fobe",
       "_mysql": {
         "Type": "double"
-      }
+      },
+      "default": null,
+      "nullable": true
     },
     "Dt Test": {
       "name": "Dt Test",
       "type": "date",
       "size": null,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Dt Test",
       "_mysql": {
         "Type": "datetime"
-      }
+      },
+      "default": null,
+      "nullable": true
     },
     "enabled": {
       "name": "enabled",
       "type": "boolean",
       "size": 1,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "enabled",
       "_mysql": {
         "Type": "tinyint(1)"
-      }
+      },
+      "default": null,
+      "nullable": true
     },
     "tags": {
       "name": "tags",
       "type": "map",
       "size": null,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "tags",
       "_mysql": {
         "Type": "json"
-      }
+      },
+      "default": null,
+      "nullable": true
     },
     "widgets": {
       "name": "widgets",
       "type": "map",
       "size": null,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "widgets",
       "_mysql": {
         "Type": "json"
-      }
+      },
+      "default": null,
+      "nullable": true
     }
   },
   "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",

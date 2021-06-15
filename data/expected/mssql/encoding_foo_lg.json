@@ -11,9 +11,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Foo",
+      "nullable": false,
+      "key": 1,
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -25,9 +24,8 @@
       "type": "text",
       "size": 256,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Bar",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -39,9 +37,8 @@
       "type": "keyword",
       "size": 20,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Baz",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -53,9 +50,8 @@
       "type": "text",
       "size": 1200,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Fobe",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -67,9 +63,8 @@
       "type": "keyword",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Dt Test",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -81,9 +76,8 @@
       "type": "keyword",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "enabled",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -95,9 +89,8 @@
       "type": "keyword",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Str Test",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -109,9 +102,8 @@
       "type": "keyword",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "enabler",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,

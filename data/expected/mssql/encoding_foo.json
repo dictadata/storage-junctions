@@ -11,9 +11,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Foo",
+      "nullable": false,
+      "key": 1,
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -25,9 +24,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Bar",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 0,
         "scale": 0,
@@ -39,9 +37,8 @@
       "type": "integer",
       "size": 4,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Baz",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 10,
         "scale": 0,
@@ -53,9 +50,8 @@
       "type": "number",
       "size": 8,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Fobe",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 53,
         "scale": 0,
@@ -67,9 +63,8 @@
       "type": "date",
       "size": 8,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Dt Test",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 23,
         "scale": 3,
@@ -81,9 +76,8 @@
       "type": "boolean",
       "size": 1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "enabled",
+      "nullable": true,
+      
       "_mssql": {
         "precision": 1,
         "scale": 0,

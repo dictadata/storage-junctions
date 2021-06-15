@@ -9,10 +9,6 @@
     "Bar": {
       "name": "Bar",
       "type": "keyword",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
       "_elasticsearch": {
         "type": "keyword"
       }
@@ -20,10 +16,6 @@
     "Baz": {
       "name": "Baz",
       "type": "integer",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
       "_elasticsearch": {
         "type": "integer"
       }
@@ -31,10 +23,6 @@
     "Dt Test": {
       "name": "Dt Test",
       "type": "date",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
       "_elasticsearch": {
         "type": "date"
       }
@@ -42,10 +30,6 @@
     "Fobe": {
       "name": "Fobe",
       "type": "float",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
       "_elasticsearch": {
         "type": "double"
       }
@@ -53,10 +37,6 @@
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
       "_elasticsearch": {
         "type": "keyword"
       }
@@ -64,10 +44,6 @@
     "enabled": {
       "name": "enabled",
       "type": "boolean",
-      "size": 0,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
       "_elasticsearch": {
         "type": "boolean"
       }

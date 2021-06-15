@@ -11,8 +11,8 @@
       "type": "keyword",
       "size": 7,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
+      "nullable": false,
+      "key": 1,
       "label": "Foo",
       "_mssql": {
         "precision": 0,
@@ -25,8 +25,8 @@
       "type": "keyword",
       "size": 13,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Bar",
       "_mssql": {
         "precision": 0,
@@ -39,8 +39,8 @@
       "type": "integer",
       "size": 4,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Baz",
       "_mssql": {
         "precision": 10,
@@ -53,8 +53,8 @@
       "type": "number",
       "size": 8,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Fobe",
       "_mssql": {
         "precision": 53,
@@ -67,8 +67,8 @@
       "type": "date",
       "size": 8,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Dt Test",
       "_mssql": {
         "precision": 23,
@@ -81,8 +81,8 @@
       "type": "boolean",
       "size": 1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "enabled",
       "_mssql": {
         "precision": 1,
@@ -95,8 +95,8 @@
       "type": "text",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "subObj1",
       "_mssql": {
         "precision": 0,
@@ -109,8 +109,8 @@
       "type": "text",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "subObj2",
       "_mssql": {
         "precision": 0,
@@ -123,8 +123,8 @@
       "type": "text",
       "size": -1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "tags",
       "_mssql": {
         "precision": 0,

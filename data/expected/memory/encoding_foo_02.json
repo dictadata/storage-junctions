@@ -11,40 +11,40 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 2
+      "nullable": false,
+      "key": 2
     },
     "Bar": {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": true
+      "nullable": true
     },
     "Baz": {
       "name": "Baz",
       "type": "integer",
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 1
+      "nullable": true,
+      "key": 1
     },
     "Fobe": {
       "name": "Fobe",
       "type": "number",
       "default": null,
-      "isNullable": true
+      "nullable": true
     },
     "Dt Test": {
       "name": "Dt Test",
       "type": "date",
       "default": null,
-      "isNullable": true
+      "nullable": true
     },
     "enabled": {
       "name": "enabled",
       "type": "boolean",
       "default": null,
-      "isNullable": true
+      "nullable": true
     },
     "tags": {
       "name": "tags",

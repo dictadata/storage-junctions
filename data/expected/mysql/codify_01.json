@@ -11,8 +11,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
+      "nullable": false,
+      "key": 1,
       "label": "Foo",
       "_mysql": {
         "Type": "varchar(64)"
@@ -23,8 +23,8 @@
       "type": "keyword",
       "size": 64,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Bar",
       "_mysql": {
         "Type": "varchar(64)"
@@ -35,8 +35,8 @@
       "type": "integer",
       "size": 11,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Baz",
       "_mysql": {
         "Type": "int(11)"
@@ -47,8 +47,8 @@
       "type": "float",
       "size": null,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Fobe",
       "_mysql": {
         "Type": "double"
@@ -59,8 +59,8 @@
       "type": "date",
       "size": null,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Dt Test",
       "_mysql": {
         "Type": "datetime"
@@ -71,8 +71,8 @@
       "type": "boolean",
       "size": 1,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "enabled",
       "_mysql": {
         "Type": "tinyint(1)"

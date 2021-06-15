@@ -11,8 +11,8 @@
       "type": "text",
       "size": 128,
       "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
+      "nullable": false,
+      "key": 1,
       "label": "Foo",
       "ordinal": 1,
       "_oracle": {
@@ -30,8 +30,8 @@
       "type": "text",
       "size": 512,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Bar",
       "ordinal": 2,
       "_oracle": {
@@ -49,8 +49,8 @@
       "type": "keyword",
       "size": 40,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Baz",
       "ordinal": 3,
       "_oracle": {
@@ -68,8 +68,8 @@
       "type": "text",
       "size": 2400,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Fobe",
       "ordinal": 4,
       "_oracle": {
@@ -87,8 +87,8 @@
       "type": "text",
       "size": 4000,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Dt Test",
       "ordinal": 5,
       "_oracle": {
@@ -106,8 +106,8 @@
       "type": "text",
       "size": 4000,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "enabled",
       "ordinal": 6,
       "_oracle": {
@@ -125,8 +125,8 @@
       "type": "text",
       "size": 4000,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "Str Test",
       "ordinal": 7,
       "_oracle": {
@@ -144,8 +144,8 @@
       "type": "text",
       "size": 4000,
       "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
+      "nullable": true,
+      
       "label": "enabler",
       "ordinal": 8,
       "_oracle": {

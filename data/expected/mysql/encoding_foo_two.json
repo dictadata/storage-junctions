@@ -10,25 +10,23 @@
       "name": "Foo",
       "type": "keyword",
       "size": 64,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Foo",
       "_mysql": {
         "Type": "varchar(64)"
-      }
+      },
+      "default": null,
+      "nullable": false,
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 2,
-      "label": "Bar",
       "_mysql": {
         "Type": "varchar(64)"
-      }
+      },
+      "default": null,
+      "nullable": false,
+      "key": 2
     }
   },
   "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*"

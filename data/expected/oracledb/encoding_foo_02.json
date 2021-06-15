@@ -10,10 +10,7 @@
       "name": "Foo",
       "type": "text",
       "size": 128,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 2,
-      "label": "Foo",
+      "nullable": false,
       "ordinal": 1,
       "_oracle": {
         "COLUMN_ID": 1,
@@ -23,16 +20,14 @@
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
         "NULLABLE": "N"
-      }
+      },
+      "key": 2
     },
     "Bar": {
       "name": "Bar",
       "type": "text",
       "size": 128,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Bar",
+      "nullable": true,
       "ordinal": 2,
       "_oracle": {
         "COLUMN_ID": 2,
@@ -48,10 +43,7 @@
       "name": "Baz",
       "type": "number",
       "size": 22,
-      "default": null,
-      "isNullable": false,
-      "keyOrdinal": 1,
-      "label": "Baz",
+      "nullable": false,
       "ordinal": 3,
       "_oracle": {
         "COLUMN_ID": 3,
@@ -61,16 +53,14 @@
         "DATA_PRECISION": null,
         "DATA_SCALE": 0,
         "NULLABLE": "N"
-      }
+      },
+      "key": 1
     },
     "Fobe": {
       "name": "Fobe",
-      "type": "undefined",
+      "type": "unknown",
       "size": 22,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Fobe",
+      "nullable": true,
       "ordinal": 4,
       "_oracle": {
         "COLUMN_ID": 4,
@@ -86,10 +76,7 @@
       "name": "Dt Test",
       "type": "date",
       "size": 7,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "Dt Test",
+      "nullable": true,
       "ordinal": 5,
       "_oracle": {
         "COLUMN_ID": 5,
@@ -105,10 +92,7 @@
       "name": "enabled",
       "type": "boolean",
       "size": 1,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "enabled",
+      "nullable": true,
       "ordinal": 6,
       "_oracle": {
         "COLUMN_ID": 6,
@@ -124,10 +108,7 @@
       "name": "tags",
       "type": "text",
       "size": 4000,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "tags",
+      "nullable": true,
       "ordinal": 7,
       "_oracle": {
         "COLUMN_ID": 7,
@@ -143,10 +124,7 @@
       "name": "widgets",
       "type": "text",
       "size": 4000,
-      "default": null,
-      "isNullable": true,
-      "keyOrdinal": 0,
-      "label": "widgets",
+      "nullable": true,
       "ordinal": 8,
       "_oracle": {
         "COLUMN_ID": 8,
