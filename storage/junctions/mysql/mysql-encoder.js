@@ -128,14 +128,13 @@ exports.storageField = function (column) {
     field.nullable = ynBoolean(column.Null);
   if (column.Key)
     field.key = 1;
-  if (column.Extra) {
-    field._mysql.Extra = column.Extra
-  }
 
   // make sure isNullable and default are valid
   //if ((field.type === 'keyword' || field.type === 'text') && !field.isNullable && field.defaultValue === null)
   //    field.defaultValue = '';
 
+  // add MySQL definition
+  field._mysql = column;
   return field;
 };
 

@@ -324,8 +324,8 @@ let storageField = exports.storageField = (column) => {
   if (column["DATA_DEFAULT"])
     field['default'] = column["DATA_DEFAULT"];
 
-  // add additional Oracle fields
-  field._oracle = column;
+  // add OracleDB definition
+  field._oracledb = column;
 
   return field;
 }

@@ -120,12 +120,13 @@ var storageField = exports.storageField = function (name, property) {
     //nullable: true,
     //key: 0,
     // add additional elasticsearch fields
-    _elasticsearch: property
   };
 
   if (hasOwnProperty(property, "null_value"))  // default if value is null
     field.defaultValue = property["null_value"];
 
+  // add elasticsearch definition
+  field._elasticsearch = property;
   return field;
 };
 

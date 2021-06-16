@@ -99,11 +99,6 @@ exports.storageField = (column) => {
     name: column["name"].value,
     type: storageType(sqlType,size),
     size: column["size"].value,
-    // add additional MSSQL fields
-    _mssql: {
-      precision: column["precision"].value,
-      scale: column["scale"].value
-    }
   };
 
   if (hasOwnProperty(column, "default"))
@@ -119,6 +114,8 @@ exports.storageField = (column) => {
   else
     field._mssql["type"] = sqlType;
 
+  // add MSSQL definition
+  field._mssql = column;
   return field;
 };
 
