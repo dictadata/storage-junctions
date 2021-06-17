@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|" + schema + "|*"
     },
     terminal: {
-      output: "./data/output/oracledb/" + encoding + ".json"
+      output: "./test/data/output/oracledb/" + encoding + ".json"
     }
   })) return 1;
   

@@ -47,7 +47,7 @@ async function tests() {
   logger.verbose('=== timeseries.csv > oracledb');
   if (await transfer({
     origin: {
-      smt: "csv|./data/test/|timeseries.csv|*",
+      smt: "csv|./test/data/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {

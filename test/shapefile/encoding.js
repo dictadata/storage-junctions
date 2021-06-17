@@ -13,11 +13,11 @@ async function test1() {
   logger.info("=== rest getEncoding polygons");
   if (await getEncoding({
     origin: {
-      smt: "shp|./data/test/shapefile/|polygons|*",
+      smt: "shp|../test/data/shapes/|polygons|*",
       options: {}
     },
     terminal: {
-      output: './data/output/shapefile/polygons_encoding.json'
+      output: './test/data/output/shapefile/polygons_encoding.json'
     }
   }, false)) return 1;
 
@@ -28,11 +28,11 @@ async function test2() {
   logger.info("=== rest getEncoding points");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:./data/test/shapefile/points.zip|points|*",
+      smt: "shp|zip:../test/data/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
-      output: './data/output/shapefile/points_encoding.json'
+      output: './test/data/output/shapefile/points_encoding.json'
     }
   }, false)) return 1;
 
@@ -47,7 +47,7 @@ async function test3() {
       options: {}
     },
     terminal: {
-      output: './data/output/shapefile/tl_2020_us_states_encoding.json'
+      output: './test/data/output/shapefile/tl_2020_us_states_encoding.json'
     }
   }, false)) return 1;
 

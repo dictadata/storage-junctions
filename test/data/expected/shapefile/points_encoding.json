@@ -1,7 +1,7 @@
 {
   "smt": {
     "model": "shp",
-    "locus": "zip:./data/test/shapefile/points.zip",
+    "locus": "zip:../test/data/shapes/points.zip",
     "schema": "points",
     "key": "*"
   },

@@ -1,8 +1,8 @@
 {
   "smt": {
-    "model": "json",
-    "locus": "./data/test/",
-    "schema": "foofile.json",
+    "model": "csv",
+    "locus": "./test/data/",
+    "schema": "foofile.csv",
     "key": "*"
   },
   "fields": {

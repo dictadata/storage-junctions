@@ -14,11 +14,11 @@ async function testTransfer1() {
   logger.verbose("=== Transfer polygons to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|./data/test/shapefile/|polygons|*",
+      smt: "shp|../test/data/shapes/|polygons|*",
       options: {}
     },
     terminal: {
-      smt: "json|./data/output/shapefile/|polygons.json|*",
+      smt: "json|./test/data/output/shapefile/|polygons.json|*",
       options: {}
     }
   })) return 1;
@@ -26,13 +26,13 @@ async function testTransfer1() {
   logger.verbose("=== Transfer polygons to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|./data/test/shapefile/|polygons|*",
+      smt: "shp|../test/data/shapes/|polygons|*",
       options: {}
     },
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
       options: {
-        encoding: "./data/test/shapefile/encoding_shapes.json"
+        encoding: "../test/data/shapes/encoding_shapes.json"
       }
     }
   })) return 1;
@@ -44,11 +44,11 @@ async function testTransfer2() {
   logger.verbose("=== Transfer points.zip to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|zip:./data/test/shapefile/points.zip|points|*",
+      smt: "shp|zip:../test/data/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
-      smt: "json|./data/output/shapefile/|points.json|*",
+      smt: "json|./test/data/output/shapefile/|points.json|*",
       options: {}
     }
   })) return 1;
@@ -56,13 +56,13 @@ async function testTransfer2() {
   logger.verbose("=== Transfer points.zip to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|zip:./data/test/shapefile/points.zip|points|*",
+      smt: "shp|zip:../test/data/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
       options: {
-        encoding: "./data/test/shapefile/encoding_shapes.json"
+        encoding: "../test/data/shapes/encoding_shapes.json"
       }
     }
   })) return 1;
@@ -77,7 +77,7 @@ async function testTransfer3() {
       "smt": "elastic|http://localhost:9200/|shapes|*"
     },
     "terminal": {
-      "smt": "json|./data/output/shapefile/|shapes.json|*"
+      "smt": "json|./test/data/output/shapefile/|shapes.json|*"
     }
   })) return 1;
 

@@ -14,14 +14,14 @@ async function test_1() {
 
   if (await download({
     origin: {
-      smt: "*|ftp://dicta:data@localhost/data/test/|*.csv|*",
+      smt: "*|ftp://dicta:data@localhost/test/data/|*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
       options: {
-        downloads: "./data/output/ftp/downloads/"
+        downloads: "./test/data/output/ftp/downloads/"
       }
     }
   })) return 1;
@@ -33,7 +33,7 @@ async function test_2() {
   if (await upload({
     origin: {
       options: {
-        uploads: "./data/test/*.csv",
+        uploads: "./test/data/*.csv",
         recursive: false
       }
     },
@@ -57,7 +57,7 @@ async function test_3() {
     },
     terminal: {
       options: {
-        downloads: "./data/output/ftp/shapefiles/",
+        downloads: "./test/data/output/ftp/shapefiles/",
         keep_rpath: true
       }
     }

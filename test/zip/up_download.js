@@ -13,14 +13,14 @@ async function test_1() {
 
   if (await download({
     origin: {
-      smt: "json|zip:./data/test/foofile.zip|*.json|*",
+      smt: "json|zip:./test/data/foofile.zip|*.json|*",
       options: {     
         recursive: false
       }
     },
     terminal: {
       options: {
-        downloads: "./data/output/zip/downloads/"
+        downloads: "./test/data/output/zip/downloads/"
       }
     }
   })) return 1;
@@ -31,14 +31,14 @@ async function test_2() {
 
   if (await download({
     origin: {
-      smt: "json|zip:./data/test/foofile.zip|subfolder/*|*",
+      smt: "json|zip:./test/data/foofile.zip|subfolder/*|*",
       options: {
         recursive: true
       }
     },
     terminal: {
       options: {
-        downloads: "./data/output/zip/downloads/",
+        downloads: "./test/data/output/zip/downloads/",
         keep_rpath: true
       }
     }

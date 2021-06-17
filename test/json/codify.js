@@ -13,37 +13,37 @@ async function tests() {
   logger.info("=== codify foofile.json");
   if (await codify({
     origin: {
-      smt: "json|./data/test/|foofile.json|*"
+      smt: "json|./test/data/|foofile.json|*"
     },
-    outputFile1: './data/output/json/encoding_1.json',
-    outputFile2: './data/output/json/encoding_2.json'
+    outputFile1: './test/data/output/json/encoding_1.json',
+    outputFile2: './test/data/output/json/encoding_2.json'
   })) return 1;
 
   logger.info("=== codify foofile.json.gz");
   if (await codify({
     origin: {
-      smt: "json|./data/test/|foofile.json.gz|*"
+      smt: "json|./test/data/|foofile.json.gz|*"
     },
-    outputFile1: './data/output/json/encoding_g1.json',
-    outputFile2: './data/output/json/encoding_g2.json'
+    outputFile1: './test/data/output/json/encoding_g1.json',
+    outputFile2: './test/data/output/json/encoding_g2.json'
   })) return 1;
 
   logger.info("=== codify foofile__01.json");
   if (await codify({
     origin: {
-      smt: "json|./data/test/|foofile_01.json|*"
+      smt: "json|./test/data/|foofile_01.json|*"
     },
-    outputFile1: './data/output/json/encoding_m1.json',
-    outputFile2: './data/output/json/encoding_m2.json'
+    outputFile1: './test/data/output/json/encoding_m1.json',
+    outputFile2: './test/data/output/json/encoding_m2.json'
   })) return 1;
 
   logger.info("=== codify foofile__02.json");
   if (await codify({
     origin: {
-      smt: "json|./data/test/|foofile_02.json|*"
+      smt: "json|./test/data/|foofile_02.json|*"
     },
-    outputFile1: './data/output/json/encoding_l1.json',
-    outputFile2: './data/output/json/encoding_l2.json'
+    outputFile1: './test/data/output/json/encoding_l1.json',
+    outputFile2: './test/data/output/json/encoding_l2.json'
   })) return 1;
 }
 

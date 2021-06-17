@@ -1,7 +1,7 @@
 {
   "smt": {
     "model": "shp",
-    "locus": "./data/test/shapefile/",
+    "locus": "../test/data/shapes/",
     "schema": "polygons",
     "key": "*"
   },

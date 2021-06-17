@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|" + schema + "|*"
     },
     terminal: {
-      output: "./data/output/mssql/" + encoding + ".json"
+      output: "./test/data/output/mssql/" + encoding + ".json"
     }
   })) return 1;
   

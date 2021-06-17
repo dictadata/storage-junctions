@@ -1,7 +1,8 @@
 node_modules/
+# test generated data
 data/output
-
+test/data/output
+# debug logs
 log/
 *.log
-
-# Editor directories and files
+# editor directories and files

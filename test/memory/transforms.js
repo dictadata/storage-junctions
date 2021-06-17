@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/memory/|transform_1.json|*"
+      smt: "json|./test/data/output/memory/|transform_1.json|*"
     }
   })) return 1;
 
@@ -59,7 +59,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/memory/|transform_2.json|*"
+      smt: "json|./test/data/output/memory/|transform_2.json|*"
     }
   })) return 1;
 

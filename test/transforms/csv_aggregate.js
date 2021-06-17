@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== csv aggregate");
   if (await transfer({
     origin: {
-      smt: "csv|./data/test/|foofile.csv|*",
+      smt: "csv|./test/data/|foofile.csv|*",
       options: {
         header: true
       }
@@ -31,7 +31,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./data/output/transforms/|csv_aggregate_1.csv|*',
+      "smt": 'csv|./test/data/output/transforms/|csv_aggregate_1.csv|*',
       options: {
         header: true
       }
@@ -41,7 +41,7 @@ async function tests() {
   logger.info("=== csv aggregate summary");
   if (await transfer({
     origin: {
-      smt: "csv|./data/test/|foofile.csv|*",
+      smt: "csv|./test/data/|foofile.csv|*",
       options: {
         header: true
       }
@@ -62,7 +62,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./data/output/transforms/|csv_aggregate_2.csv|*',
+      "smt": 'csv|./test/data/output/transforms/|csv_aggregate_2.csv|*',
       options: {
         header: true
       }
@@ -72,7 +72,7 @@ async function tests() {
   logger.info("=== csv aggregate w/ groupby");
   if (await transfer({
     origin: {
-      smt: "csv|./data/test/|foofile.csv|*",
+      smt: "csv|./test/data/|foofile.csv|*",
       options: {
         header: true
       }
@@ -93,7 +93,7 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'csv|./data/output/transforms/|csv_aggregate_3.csv|*',
+      "smt": 'csv|./test/data/output/transforms/|csv_aggregate_3.csv|*',
       options: {
         header: true
       }

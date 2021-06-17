@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== foofile.csv > mssql");
   if (await transfer({
     origin: {
-      smt: "csv|./data/test/|foofile.csv|*",
+      smt: "csv|./test/data/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,12 +32,12 @@ async function tests() {
   logger.info("=== foofile_01.json > mssql");
   if (await transfer({
     origin: {
-      smt: "json|./data/test/|foofile_01.json|*" 
+      smt: "json|./test/data/|foofile_01.json|*" 
     },
     terminal: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./data/test/encoding_foo_01.json"
+        encoding: "./test/data/encoding_foo_01.json"
       }
     }
   })) return 1;
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== foofile_02.json > mssql");
   if (await transfer({
     origin: {
-      smt: "json|./data/test/|foofile_02.json|*" 
+      smt: "json|./test/data/|foofile_02.json|*" 
     },
     terminal: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./data/test/encoding_foo_02.json"
+        encoding: "./test/data/encoding_foo_02.json"
       }
     }
   })) return 1;
@@ -71,7 +71,7 @@ async function tests() {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|=Foo"
     },
     terminal: {
-      smt: "csv|./data/output/mssql/|transfer.csv|*",
+      smt: "csv|./test/data/output/mssql/|transfer.csv|*",
       options: {
         header: true
       }

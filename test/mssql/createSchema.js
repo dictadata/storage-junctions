@@ -16,7 +16,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|" + schema + "|*",
       options: {
-        encoding: "./data/test/" + encoding + ".json"
+        encoding: "./test/data/" + encoding + ".json"
       }
     }
   })) return 1;
@@ -37,7 +37,7 @@ async function test_lg() {
     origin: {
       smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_lg|*",
       options: {
-        encoding: "./data/test/encoding_foo_lg.json",
+        encoding: "./test/data/encoding_foo_lg.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

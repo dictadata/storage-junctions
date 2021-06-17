@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== json > transport foo_schema_etl2');
   if (await transfer({
     "origin": {
-      "smt": "json|./data/test/|foofile.json|*"
+      "smt": "json|./test/data/|foofile.json|*"
     },
     "transform": {
       "filter": {
@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "transport|http://localhost:8089/transport/storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./data/test/foo_encoding_t.json"
+        "encoding": "./test/data/foo_encoding_t.json"
       }
     }
   })) return 1;
@@ -62,7 +62,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/transport/|transform_0.json|*"
+      smt: "json|./test/data/output/transport/|transform_0.json|*"
     }
   })) return 1;
 
@@ -71,7 +71,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
       options: {
-        encoding: "./data/test/encoding_foo_01.json"
+        encoding: "./test/data/encoding_foo_01.json"
       }
     },
     transform: {
@@ -102,7 +102,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/transport/|transform_1.json|*"
+      smt: "json|./test/data/output/transport/|transform_1.json|*"
     }
   })) return 1;
 
@@ -111,7 +111,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
       options: {
-        encoding: "./data/test/encoding_foo_02.json"
+        encoding: "./test/data/encoding_foo_02.json"
       }
     },
     transform: {
@@ -142,7 +142,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/transport/|transform_2.json|*"
+      smt: "json|./test/data/output/transport/|transform_2.json|*"
     }
   })) return 1;
 

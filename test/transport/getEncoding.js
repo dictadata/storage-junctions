@@ -16,7 +16,7 @@ async function tests() {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo.json'
+      output: './test/data/output/transport/encoding_foo.json'
     }
   })) return 1;
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo_01.json'
+      output: './test/data/output/transport/encoding_foo_01.json'
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo_02.json'
+      output: './test/data/output/transport/encoding_foo_02.json'
     }
   })) return 1;
 
@@ -46,7 +46,7 @@ async function tests() {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_lg|*"
     },
     terminal: {
-      output: './data/output/transport/encoding_foo_lg.json'
+      output: './test/data/output/transport/encoding_foo_lg.json'
     }
   })) return 1;
 

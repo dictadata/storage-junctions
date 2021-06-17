@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
     },
     terminal: {
-      output: "./data/output/elasticsearch/" + encoding + ".json"
+      output: "./test/data/output/elasticsearch/" + encoding + ".json"
     }
   })) return 1;
   

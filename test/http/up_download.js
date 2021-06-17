@@ -13,7 +13,7 @@ async function test_1() {
 
   if (await download({
     origin: {
-      smt: "*|http://localhost/data/test/|*.csv|*",
+      smt: "*|http://localhost/test/data/|*.csv|*",
       options: {
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
@@ -27,7 +27,7 @@ async function test_1() {
     },
     terminal: {
       options: {
-        downloads: "./data/output/http/downloads/"
+        downloads: "./test/data/output/http/downloads/"
       }
     }
   })) return 1;
@@ -45,7 +45,7 @@ async function test_2() {
     },
     terminal: {
       options: {
-        downloads: "./data/output/http/shapefiles/",
+        downloads: "./test/data/output/http/shapefiles/",
         keep_rpath: true
       }
     }

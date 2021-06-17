@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./data/output/elasticsearch/recall_1.json"
+      output: "./test/data/output/elasticsearch/recall_1.json"
     }
   })) return 1;
 
@@ -38,7 +38,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./data/output/elasticsearch/recall_2.json"
+      output: "./test/data/output/elasticsearch/recall_2.json"
     }
   })) return 1;
 

@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== foofile.csv > mysql.foo_schema");
   if (await transfer({
     origin: {
-      smt: "csv|./data/test/|foofile.csv|*",
+      smt: "csv|./test/data/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,12 +32,12 @@ async function tests() {
   logger.info("=== foofile_01.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./data/test/|foofile_01.json|*" 
+      smt: "json|./test/data/|foofile_01.json|*" 
     },
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./data/test/encoding_foo_01.json"
+        encoding: "./test/data/encoding_foo_01.json"
       }
     }
   })) return 1;
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== foofile_02.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./data/test/|foofile_02.json|*" 
+      smt: "json|./test/data/|foofile_02.json|*" 
     },
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./data/test/encoding_foo_02.json"
+        encoding: "./test/data/encoding_foo_02.json"
       }
     }
   })) return 1;
@@ -58,12 +58,12 @@ async function tests() {
   logger.info("=== foofile_two.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./data/test/|foofile_two.json|*" 
+      smt: "json|./test/data/|foofile_two.json|*" 
     },
     terminal: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_two|*",
       options: {
-        encoding: "./data/test/encoding_foo_two.json"
+        encoding: "./test/data/encoding_foo_two.json"
       }
     }
   })) return 1;
@@ -84,7 +84,7 @@ async function tests() {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./data/output/mysql/|transfer.csv|*",
+      smt: "csv|./test/data/output/mysql/|transfer.csv|*",
       options: {
         header: true
       }

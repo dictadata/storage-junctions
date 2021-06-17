@@ -15,8 +15,8 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
-    outputFile1: './data/output/elasticsearch/codify_01.json',
-    outputFile2: './data/output/elasticsearch/codify_02.json'
+    outputFile1: './test/data/output/elasticsearch/codify_01.json',
+    outputFile2: './test/data/output/elasticsearch/codify_02.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
@@ -24,8 +24,8 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|!Foo"
     },
-    outputFile1: './data/output/elasticsearch/codify_11.json',
-    outputFile2: './data/output/elasticsearch/codify_12.json'
+    outputFile1: './test/data/output/elasticsearch/codify_11.json',
+    outputFile2: './test/data/output/elasticsearch/codify_12.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
@@ -33,8 +33,8 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_02|!Foo"
     },
-    outputFile1: './data/output/elasticsearch/codify_21.json',
-    outputFile2: './data/output/elasticsearch/codify_22.json'
+    outputFile1: './test/data/output/elasticsearch/codify_21.json',
+    outputFile2: './test/data/output/elasticsearch/codify_22.json'
   })) return 1;
 
 }

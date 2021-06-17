@@ -15,8 +15,8 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema|=Foo"
     },
-    outputFile1: './data/output/oracledb/codify_01.json',
-    outputFile2: './data/output/oracledb/codify_02.json'
+    outputFile1: './test/data/output/oracledb/codify_01.json',
+    outputFile2: './test/data/output/oracledb/codify_02.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
@@ -24,8 +24,8 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|=Foo"
     },
-    outputFile1: './data/output/oracledb/codify_11.json',
-    outputFile2: './data/output/oracledb/codify_12.json'
+    outputFile1: './test/data/output/oracledb/codify_11.json',
+    outputFile2: './test/data/output/oracledb/codify_12.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
@@ -33,8 +33,8 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|=Foo"
     },
-    outputFile1: './data/output/oracledb/codify_21.json',
-    outputFile2: './data/output/oracledb/codify_22.json'
+    outputFile1: './test/data/output/oracledb/codify_21.json',
+    outputFile2: './test/data/output/oracledb/codify_22.json'
   })) return 1;
 
 }

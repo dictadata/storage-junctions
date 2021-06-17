@@ -14,14 +14,14 @@ async function test_1() {
 
   if (await download({
     origin: {
-      smt: "*|./data/test/|*.csv|*",
+      smt: "*|./test/data/|*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
       options: {
-        downloads: "./data/output/fs/downloads/"
+        downloads: "./test/data/output/fs/downloads/"
       }
     }
   })) return 1;
@@ -33,12 +33,12 @@ async function test_2() {
   if (await upload({
     origin: {
       options: {
-        uploads: "./data/test/*.json",
+        uploads: "./test/data/*.json",
         recursive: true
       }
     },
     terminal: {
-      smt: "*|./data/output/fs/uploads/|*|*",
+      smt: "*|./test/data/output/fs/uploads/|*|*",
       options: {
         keep_rpath: true
       }

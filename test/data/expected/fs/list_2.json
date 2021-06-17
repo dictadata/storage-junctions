@@ -1,0 +1,44 @@
+[
+  {
+    "name": "encoding_foo.json",
+    "rpath": "elasticsearch\\encoding_foo.json",
+    "size": 974,
+    "date": "2021-06-15T01:23:55.054Z"
+  },
+  {
+    "name": "encoding_foo.json",
+    "rpath": "fs\\uploads\\encoding_foo.json",
+    "size": 1163,
+    "date": "2021-06-14T19:17:01.176Z"
+  },
+  {
+    "name": "encoding_foo.json",
+    "rpath": "memory\\encoding_foo.json",
+    "size": 1154,
+    "date": "2021-06-14T19:17:01.175Z"
+  },
+  {
+    "name": "encoding_foo.json",
+    "rpath": "mssql\\encoding_foo.json",
+    "size": 1711,
+    "date": "2021-06-14T19:17:01.175Z"
+  },
+  {
+    "name": "encoding_foo.json",
+    "rpath": "mysql\\encoding_foo.json",
+    "size": 1413,
+    "date": "2021-06-15T14:43:43.673Z"
+  },
+  {
+    "name": "encoding_foo.json",
+    "rpath": "oracledb\\encoding_foo.json",
+    "size": 2404,
+    "date": "2021-06-14T19:17:42.951Z"
+  },
+  {
+    "name": "encoding_foo.json",
+    "rpath": "transportdb\\encoding_foo.json",
+    "size": 2698,
+    "date": "2021-06-14T19:17:01.175Z"
+  }
+]
