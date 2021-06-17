@@ -20,9 +20,9 @@
 
 ### retrieve(pattern)
 
-### createReadStream(options)
+### createReader(options)
 
-### createWriteStream(options)
+### createWriter(options)
 
 ### createTransform(tfType, options)
 
