@@ -14,7 +14,7 @@ async function test_1() {
 
   if (await download({
     origin: {
-      smt: "*|ftp://dicta:data@localhost/test/data/|*.csv|*",
+      smt: "*|ftp://dicta:data@localhost/data/test/|*.csv|*",
       options: {
         recursive: false
       }

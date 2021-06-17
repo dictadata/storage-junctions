@@ -13,7 +13,7 @@ async function test1() {
   logger.info("=== rest getEncoding polygons");
   if (await getEncoding({
     origin: {
-      smt: "shp|../test/data/shapes/|polygons|*",
+      smt: "shp|./test/data/shapes/|polygons|*",
       options: {}
     },
     terminal: {
@@ -28,7 +28,7 @@ async function test2() {
   logger.info("=== rest getEncoding points");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:../test/data/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/data/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {

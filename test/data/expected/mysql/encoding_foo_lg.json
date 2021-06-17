@@ -11,7 +11,12 @@
       "type": "keyword",
       "size": 64,
       "_mysql": {
-        "Type": "varchar(64)"
+        "Field": "Foo",
+        "Type": "varchar(64)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": false,
@@ -22,7 +27,12 @@
       "type": "text",
       "size": 256,
       "_mysql": {
-        "Type": "varchar(256)"
+        "Field": "Bar",
+        "Type": "varchar(256)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -32,7 +42,12 @@
       "type": "keyword",
       "size": 20,
       "_mysql": {
-        "Type": "varchar(20)"
+        "Field": "Baz",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -42,7 +57,12 @@
       "type": "text",
       "size": 1200,
       "_mysql": {
-        "Type": "varchar(1200)"
+        "Field": "Fobe",
+        "Type": "varchar(1200)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -52,7 +72,12 @@
       "type": "text",
       "size": 2500,
       "_mysql": {
-        "Type": "varchar(2500)"
+        "Field": "Dt Test",
+        "Type": "varchar(2500)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -62,7 +87,12 @@
       "type": "text",
       "size": null,
       "_mysql": {
-        "Type": "text"
+        "Field": "enabled",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -72,7 +102,12 @@
       "type": "text",
       "size": 2500,
       "_mysql": {
-        "Type": "varchar(2500)"
+        "Field": "Str Test",
+        "Type": "varchar(2500)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -82,7 +117,12 @@
       "type": "text",
       "size": null,
       "_mysql": {
-        "Type": "text"
+        "Field": "enabler",
+        "Type": "text",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true

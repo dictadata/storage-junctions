@@ -8,35 +8,35 @@
   "fields": {
     "Foo": {
       "name": "Foo",
-      "type": "text",
-      "size": 128,
+      "type": "keyword",
+      "size": 64,
       "nullable": false,
-      "ordinal": 1,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 1,
         "COLUMN_NAME": "Foo",
         "DATA_TYPE": "NVARCHAR2",
         "DATA_LENGTH": 128,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "N"
+        "NULLABLE": "N",
+        "CHAR_LENGTH": 64
       },
       "key": 1
     },
     "Bar": {
       "name": "Bar",
-      "type": "text",
-      "size": 128,
+      "type": "keyword",
+      "size": 64,
       "nullable": false,
-      "ordinal": 2,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 2,
         "COLUMN_NAME": "Bar",
         "DATA_TYPE": "NVARCHAR2",
         "DATA_LENGTH": 128,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "N"
+        "NULLABLE": "N",
+        "CHAR_LENGTH": 64
       },
       "key": 2
     }

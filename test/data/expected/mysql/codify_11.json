@@ -10,109 +10,137 @@
       "name": "Foo",
       "type": "keyword",
       "size": 7,
+      "_mysql": {
+        "Field": "Foo",
+        "Type": "varchar(7)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
+      },
       "default": null,
       "nullable": false,
-      "key": 1,
-      "label": "Foo",
-      "_mysql": {
-        "Type": "varchar(7)"
-      }
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
       "type": "keyword",
       "size": 13,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Bar",
       "_mysql": {
-        "Type": "varchar(13)"
-      }
+        "Field": "Bar",
+        "Type": "varchar(13)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "Baz": {
       "name": "Baz",
       "type": "integer",
-      "size": 11,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Baz",
+      "size": null,
       "_mysql": {
-        "Type": "int(11)"
-      }
+        "Field": "Baz",
+        "Type": "int",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "Fobe": {
       "name": "Fobe",
       "type": "float",
       "size": null,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Fobe",
       "_mysql": {
-        "Type": "double"
-      }
+        "Field": "Fobe",
+        "Type": "double",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "Dt Test": {
       "name": "Dt Test",
       "type": "date",
       "size": null,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Dt Test",
       "_mysql": {
-        "Type": "datetime"
-      }
+        "Field": "Dt Test",
+        "Type": "datetime",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "enabled": {
       "name": "enabled",
       "type": "boolean",
       "size": 1,
-      "default": null,
-      "nullable": true,
-      
-      "label": "enabled",
       "_mysql": {
-        "Type": "tinyint(1)"
-      }
+        "Field": "enabled",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "subObj1": {
       "name": "subObj1",
       "type": "map",
       "size": null,
-      "default": null,
-      "nullable": true,
-      
-      "label": "subObj1",
       "_mysql": {
-        "Type": "json"
-      }
+        "Field": "subObj1",
+        "Type": "json",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "subObj2": {
       "name": "subObj2",
       "type": "map",
       "size": null,
-      "default": null,
-      "nullable": true,
-      
-      "label": "subObj2",
       "_mysql": {
-        "Type": "json"
-      }
+        "Field": "subObj2",
+        "Type": "json",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     },
     "tags": {
       "name": "tags",
       "type": "map",
       "size": null,
-      "default": null,
-      "nullable": true,
-      
-      "label": "tags",
       "_mysql": {
-        "Type": "json"
-      }
+        "Field": "tags",
+        "Type": "json",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
     }
   },
   "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo"

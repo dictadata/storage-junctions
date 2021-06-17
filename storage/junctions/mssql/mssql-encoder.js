@@ -108,14 +108,12 @@ exports.storageField = (column) => {
   if (hasOwnProperty(column, "key_ordinal"))
     field.key = column["key_ordinal"].value;
 
-  let strTypes = ['varchar', 'char', 'text', 'nvarchar', 'nchar', 'ntext'];
-  if (strTypes.includes(sqlType))
-    field._mssql["type"] = sqlType + '(' + size + ')';
-  else
-    field._mssql["type"] = sqlType;
-
   // add MSSQL definition
-  field._mssql = column;
+  field._mssql = {};
+  for (let [name, def] of Object.entries(column)) {
+    field._mssql[name] = def.value;
+  }
+
   return field;
 };
 
@@ -124,7 +122,11 @@ exports.storageField = (column) => {
  */
 exports.mssqlType = (field) => {
   if (field._mssql) {
-    return field._mssql.type;
+    let strTypes = ['varchar', 'char', 'text', 'nvarchar', 'nchar', 'ntext'];
+    if (strTypes.includes(field._mssql.type))
+      return field._mssql.type + '(' + field._mssql.size + ')';
+    else
+      return field._mssql.type;
   }
 
   let mssqlType = "varchar(256)";  // default type

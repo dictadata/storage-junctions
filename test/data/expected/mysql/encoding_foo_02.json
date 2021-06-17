@@ -11,7 +11,12 @@
       "type": "keyword",
       "size": 64,
       "_mysql": {
-        "Type": "varchar(64)"
+        "Field": "Foo",
+        "Type": "varchar(64)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": false,
@@ -22,7 +27,12 @@
       "type": "keyword",
       "size": 64,
       "_mysql": {
-        "Type": "varchar(64)"
+        "Field": "Bar",
+        "Type": "varchar(64)",
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true,
@@ -33,7 +43,12 @@
       "type": "integer",
       "size": null,
       "_mysql": {
-        "Type": "int"
+        "Field": "Baz",
+        "Type": "int",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": false,
@@ -44,7 +59,12 @@
       "type": "float",
       "size": null,
       "_mysql": {
-        "Type": "double"
+        "Field": "Fobe",
+        "Type": "double",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -54,7 +74,12 @@
       "type": "date",
       "size": null,
       "_mysql": {
-        "Type": "datetime"
+        "Field": "Dt Test",
+        "Type": "datetime",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -64,7 +89,12 @@
       "type": "boolean",
       "size": 1,
       "_mysql": {
-        "Type": "tinyint(1)"
+        "Field": "enabled",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -74,7 +104,12 @@
       "type": "map",
       "size": null,
       "_mysql": {
-        "Type": "json"
+        "Field": "tags",
+        "Type": "json",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true
@@ -84,7 +119,12 @@
       "type": "map",
       "size": null,
       "_mysql": {
-        "Type": "json"
+        "Field": "widgets",
+        "Type": "json",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": true

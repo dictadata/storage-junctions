@@ -9,172 +9,146 @@
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 14,
-      "default": null,
+      "size": 7,
       "nullable": false,
-      "key": 1,
-      "label": "Foo",
-      "ordinal": 1,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 1,
         "COLUMN_NAME": "Foo",
         "DATA_TYPE": "NVARCHAR2",
         "DATA_LENGTH": 14,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "N"
-      }
+        "NULLABLE": "N",
+        "CHAR_LENGTH": 7
+      },
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
       "type": "keyword",
-      "size": 26,
-      "default": null,
+      "size": 13,
       "nullable": true,
-      
-      "label": "Bar",
-      "ordinal": 2,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 2,
         "COLUMN_NAME": "Bar",
         "DATA_TYPE": "NVARCHAR2",
         "DATA_LENGTH": 26,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 13
       }
     },
     "Baz": {
       "name": "Baz",
       "type": "number",
       "size": 22,
-      "default": null,
       "nullable": true,
-      
-      "label": "Baz",
-      "ordinal": 3,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 3,
         "COLUMN_NAME": "Baz",
         "DATA_TYPE": "NUMBER",
         "DATA_LENGTH": 22,
         "DATA_PRECISION": null,
         "DATA_SCALE": 0,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 0
       }
     },
     "Fobe": {
       "name": "Fobe",
       "type": "unknown",
       "size": 22,
-      "default": null,
       "nullable": true,
-      
-      "label": "Fobe",
-      "ordinal": 4,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 4,
         "COLUMN_NAME": "Fobe",
         "DATA_TYPE": "FLOAT",
         "DATA_LENGTH": 22,
         "DATA_PRECISION": 126,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 0
       }
     },
     "Dt Test": {
       "name": "Dt Test",
       "type": "date",
       "size": 7,
-      "default": null,
       "nullable": true,
-      
-      "label": "Dt Test",
-      "ordinal": 5,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 5,
         "COLUMN_NAME": "Dt Test",
         "DATA_TYPE": "DATE",
         "DATA_LENGTH": 7,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 0
       }
     },
     "enabled": {
       "name": "enabled",
       "type": "boolean",
       "size": 1,
-      "default": null,
       "nullable": true,
-      
-      "label": "enabled",
-      "ordinal": 6,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 6,
         "COLUMN_NAME": "enabled",
         "DATA_TYPE": "CHAR",
         "DATA_LENGTH": 1,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 1
       }
     },
     "subObj1": {
       "name": "subObj1",
       "type": "text",
       "size": 4000,
-      "default": null,
       "nullable": true,
-      
-      "label": "subObj1",
-      "ordinal": 7,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 7,
         "COLUMN_NAME": "subObj1",
         "DATA_TYPE": "CLOB",
         "DATA_LENGTH": 4000,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 0
       }
     },
     "subObj2": {
       "name": "subObj2",
       "type": "text",
       "size": 4000,
-      "default": null,
       "nullable": true,
-      
-      "label": "subObj2",
-      "ordinal": 8,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 8,
         "COLUMN_NAME": "subObj2",
         "DATA_TYPE": "CLOB",
         "DATA_LENGTH": 4000,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 0
       }
     },
     "tags": {
       "name": "tags",
       "type": "text",
       "size": 4000,
-      "default": null,
       "nullable": true,
-      
-      "label": "tags",
-      "ordinal": 9,
-      "_oracle": {
+      "_oracledb": {
         "COLUMN_ID": 9,
         "COLUMN_NAME": "tags",
         "DATA_TYPE": "CLOB",
         "DATA_LENGTH": 4000,
         "DATA_PRECISION": null,
         "DATA_SCALE": null,
-        "NULLABLE": "Y"
+        "NULLABLE": "Y",
+        "CHAR_LENGTH": 0
       }
     }
   },

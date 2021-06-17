@@ -12,12 +12,16 @@
       "size": 7,
       "default": null,
       "nullable": false,
-      "key": 1,
       "_mssql": {
+        "name": "Foo",
+        "type": "varchar",
+        "size": 7,
         "precision": 0,
         "scale": 0,
-        "type": "varchar(7)"
-      }
+        "is_nullable": false,
+        "default": null
+      },
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
@@ -25,11 +29,14 @@
       "size": 13,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "Bar",
+        "type": "varchar",
+        "size": 13,
         "precision": 0,
         "scale": 0,
-        "type": "varchar(13)"
+        "is_nullable": true,
+        "default": null
       }
     },
     "Baz": {
@@ -38,11 +45,14 @@
       "size": 4,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "Baz",
+        "type": "int",
+        "size": 4,
         "precision": 10,
         "scale": 0,
-        "type": "int"
+        "is_nullable": true,
+        "default": null
       }
     },
     "Fobe": {
@@ -51,11 +61,14 @@
       "size": 8,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "Fobe",
+        "type": "float",
+        "size": 8,
         "precision": 53,
         "scale": 0,
-        "type": "float"
+        "is_nullable": true,
+        "default": null
       }
     },
     "Dt Test": {
@@ -64,11 +77,14 @@
       "size": 8,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "Dt Test",
+        "type": "datetime",
+        "size": 8,
         "precision": 23,
         "scale": 3,
-        "type": "datetime"
+        "is_nullable": true,
+        "default": null
       }
     },
     "enabled": {
@@ -77,11 +93,14 @@
       "size": 1,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "enabled",
+        "type": "bit",
+        "size": 1,
         "precision": 1,
         "scale": 0,
-        "type": "bit"
+        "is_nullable": true,
+        "default": null
       }
     },
     "subObj1": {
@@ -90,11 +109,14 @@
       "size": -1,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "subObj1",
+        "type": "nvarchar",
+        "size": -1,
         "precision": 0,
         "scale": 0,
-        "type": "nvarchar(-1)"
+        "is_nullable": true,
+        "default": null
       }
     },
     "subObj2": {
@@ -103,11 +125,14 @@
       "size": -1,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "subObj2",
+        "type": "nvarchar",
+        "size": -1,
         "precision": 0,
         "scale": 0,
-        "type": "nvarchar(-1)"
+        "is_nullable": true,
+        "default": null
       }
     },
     "tags": {
@@ -116,11 +141,14 @@
       "size": -1,
       "default": null,
       "nullable": true,
-      
       "_mssql": {
+        "name": "tags",
+        "type": "nvarchar",
+        "size": -1,
         "precision": 0,
         "scale": 0,
-        "type": "nvarchar(-1)"
+        "is_nullable": true,
+        "default": null
       }
     }
   },

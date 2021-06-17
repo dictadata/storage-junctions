@@ -14,7 +14,7 @@ async function testTransfer1() {
   logger.verbose("=== Transfer polygons to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|../test/data/shapes/|polygons|*",
+      smt: "shp|./test/data/shapes/|polygons|*",
       options: {}
     },
     terminal: {
@@ -26,13 +26,13 @@ async function testTransfer1() {
   logger.verbose("=== Transfer polygons to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|../test/data/shapes/|polygons|*",
+      smt: "shp|./test/data/shapes/|polygons|*",
       options: {}
     },
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
       options: {
-        encoding: "../test/data/shapes/encoding_shapes.json"
+        encoding: "./test/data/shapes/encoding_shapes.json"
       }
     }
   })) return 1;
@@ -44,7 +44,7 @@ async function testTransfer2() {
   logger.verbose("=== Transfer points.zip to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|zip:../test/data/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/data/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
@@ -56,13 +56,13 @@ async function testTransfer2() {
   logger.verbose("=== Transfer points.zip to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|zip:../test/data/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/data/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
       options: {
-        encoding: "../test/data/shapes/encoding_shapes.json"
+        encoding: "./test/data/shapes/encoding_shapes.json"
       }
     }
   })) return 1;

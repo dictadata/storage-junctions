@@ -12,12 +12,16 @@
       "size": 64,
       "default": null,
       "nullable": false,
-      "key": 1,
       "_mssql": {
+        "name": "Foo",
+        "type": "varchar",
+        "size": 64,
         "precision": 0,
         "scale": 0,
-        "type": "varchar(64)"
-      }
+        "is_nullable": false,
+        "default": null
+      },
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
@@ -25,12 +29,16 @@
       "size": 64,
       "default": null,
       "nullable": false,
-      "key": 2,
       "_mssql": {
+        "name": "Bar",
+        "type": "varchar",
+        "size": 64,
         "precision": 0,
         "scale": 0,
-        "type": "varchar(64)"
-      }
+        "is_nullable": false,
+        "default": null
+      },
+      "key": 2
     }
   },
   "_SMT": "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_two|*"

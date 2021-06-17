@@ -11,7 +11,12 @@
       "type": "keyword",
       "size": 64,
       "_mysql": {
-        "Type": "varchar(64)"
+        "Field": "Foo",
+        "Type": "varchar(64)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": false,
@@ -22,7 +27,12 @@
       "type": "keyword",
       "size": 64,
       "_mysql": {
-        "Type": "varchar(64)"
+        "Field": "Bar",
+        "Type": "varchar(64)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": ""
       },
       "default": null,
       "nullable": false,
