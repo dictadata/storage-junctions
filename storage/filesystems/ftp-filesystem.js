@@ -37,7 +37,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    *
    */
   async activate() {
-    console.log("activate");
+    //console.log("activate");
     const options = this.options.ftp || {};
 
     // connect to host
@@ -50,7 +50,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     });
 
     this.isActive = true;
-    console.log("activated");
+    //console.log("activated");
   }
 
   /**
