@@ -13,7 +13,7 @@ async function test() {
   logger.info("=== list zip directory - forEach");
   if (await list({
     origin: {
-      smt: "json|zip:./test/data/foofile.zip|*.json|*",
+      smt: "json|zip:./test/data/input/foofile.zip|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -29,7 +29,7 @@ async function test() {
   logger.info("=== list zip directory - recursive");
   if (await list({
     origin: {
-      smt: "json|zip:./test/data/foofile.zip|*.json|*",
+      smt: "json|zip:./test/data/input/foofile.zip|*.json|*",
       options: {
         recursive: true
       }

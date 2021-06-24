@@ -1,9 +1,9 @@
 /**
- * test/zip/download
+ * test/zip/copy
  */
 "use strict";
 
-const download = require('../lib/_download');
+const getFile = require('../lib/_getFile');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== tests: zip downloads");
@@ -11,16 +11,16 @@ logger.info("=== tests: zip downloads");
 async function test_1() {
   logger.info("=== extract from zip file");
 
-  if (await download({
+  if (await getFile({
     origin: {
-      smt: "json|zip:./test/data/foofile.zip|*.json|*",
+      smt: "*|zip:./test/data/input/foofile.zip|*.json|*",
       options: {     
         recursive: false
       }
     },
     terminal: {
+      smt: "*|./test/data/output/zip/downloads/|*|*",
       options: {
-        downloads: "./test/data/output/zip/downloads/"
       }
     }
   })) return 1;
@@ -29,16 +29,16 @@ async function test_1() {
 async function test_2() {
   logger.info("=== download shape files");
 
-  if (await download({
+  if (await getFile({
     origin: {
-      smt: "json|zip:./test/data/foofile.zip|subfolder/*|*",
+      smt: "*|zip:./test/data/input/foofile.zip|subfolder/*|*",
       options: {
         recursive: true
       }
     },
     terminal: {
+      smt: "*|./test/data/output/zip/downloads/|*|*",
       options: {
-        downloads: "./test/data/output/zip/downloads/",
         keep_rpath: true
       }
     }

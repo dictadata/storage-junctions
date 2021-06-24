@@ -15,7 +15,7 @@ async function test_01() {
   logger.verbose('=== zip foofile.json');
   if (await transfer({
     origin: {
-      smt: "json|zip:./test/data/foofile.zip|foofile.json|*",
+      smt: "json|zip:./test/data/input/foofile.zip|foofile.json|*",
       options: {}
     },
     terminal: {
@@ -26,7 +26,7 @@ async function test_01() {
   logger.verbose('=== zip foofile_01.json');
   if (await transfer({
     origin: {
-      smt: "json|zip:./test/data/foofile.zip|subfolder/foofile_01.json|*",
+      smt: "json|zip:./test/data/input/foofile.zip|subfolder/foofile_01.json|*",
       options: {}
     },
     terminal: {
