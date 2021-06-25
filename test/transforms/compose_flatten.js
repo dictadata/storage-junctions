@@ -13,9 +13,9 @@ async function tests() {
   logger.info("=== compose");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|table_schemas.json|*",
+      smt: "json|./test/data/input/|table_schemas.json|*",
       options: {
-        encoding: "./test/data/table_schemas_encoding.json"
+        encoding: "./test/data/input/table_schemas_encoding.json"
       }      
     },
     "transform": {

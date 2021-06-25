@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose("=== json => mysql foo_schema_etl2");
   if (await transfer({
     "origin": {
-      "smt": "json|./test/data/|foofile.json|*"
+      "smt": "json|./test/data/input/|foofile.json|*"
     },
     "transform": {
       "filter": {
@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./test/data/foo_encoding_t.json"
+        "encoding": "./test/data/input/foo_encoding_t.json"
       }
     }
   })) return 1;
@@ -71,7 +71,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./test/data/input/encoding_foo_01.json"
       }
     },
     transform: {
@@ -111,7 +111,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./test/data/input/encoding_foo_02.json"
       }
     },
     transform: {

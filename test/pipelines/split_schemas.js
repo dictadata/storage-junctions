@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== table_schemas => ./test/data/output/split_*_encoding');
   if (await transfer({
     "origin": {
-      "smt": "json|./test/data/|table_schemas.json|*"
+      "smt": "json|./test/data/input/|table_schemas.json|*"
     },
     "terminal": {
       "smt": "split|*|*|*",

@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./test/data/input/encoding_foo_01.json"
       },
       pattern: {
         match: {
@@ -49,7 +49,7 @@ async function tests() {
     origin: {
       smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./test/data/input/encoding_foo_02.json"
       },
       pattern: {
         match: {

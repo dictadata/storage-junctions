@@ -12,7 +12,7 @@ async function tests() {
   logger.verbose("=== csv > csv_encoding_x");
   if (await codify({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -24,7 +24,7 @@ async function tests() {
   logger.verbose("=== csv.gz > csv_encoding_gz")
   if (await codify({
     origin: {
-      smt: "csv|./test/data/|foofile.csv.gz|*",
+      smt: "csv|./test/data/input/|foofile.csv.gz|*",
       options: {
         header: true
       }

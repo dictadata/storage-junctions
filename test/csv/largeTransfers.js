@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== fueltrim.csv > csv_fueltrim.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|fueltrim.csv|*",
+      smt: "csv|./test/data/input/|fueltrim.csv|*",
       options: {
         header: true
       }

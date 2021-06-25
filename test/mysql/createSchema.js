@@ -16,7 +16,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|" + schema + "|*",
       options: {
-        encoding: "./test/data/" + encoding + ".json"
+        encoding: "./test/data/input/" + encoding + ".json"
       }
     }
   })) return 1;
@@ -37,7 +37,7 @@ async function test_lg() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/encoding_foo_lg.json",
+        encoding: "./test/data/input/encoding_foo_lg.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

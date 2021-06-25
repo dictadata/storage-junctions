@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== json aggregate");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     "transform": {
       filter: {
@@ -35,7 +35,7 @@ async function tests() {
   logger.info("=== json aggregate summary");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*",
+      smt: "json|./test/data/input/|foofile.json|*",
     },
     "transform": {
       filter: {
@@ -60,7 +60,7 @@ async function tests() {
   logger.info("=== json aggregate w/ groupby");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     transform: {
       filter: {

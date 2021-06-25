@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== json extract results.0.items');
   if (await transfer({
     "origin": {
-      "smt": "json|./test/data/|extract_data.json|*",
+      "smt": "json|./test/data/input/|extract_data.json|*",
       "options": {
         "extract": "results.0.items"
       }

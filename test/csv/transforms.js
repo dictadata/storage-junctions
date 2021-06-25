@@ -15,7 +15,7 @@ async function tests() {
 
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true,
         match: {
@@ -34,7 +34,7 @@ async function tests() {
 
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -75,7 +75,7 @@ async function tests() {
 
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }

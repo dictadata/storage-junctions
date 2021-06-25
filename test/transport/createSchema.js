@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema|*",
       options: {
-        encoding: "./test/data/encoding_foo.json"
+        encoding: "./test/data/input/encoding_foo.json"
       }
     }
   })) return 1;
@@ -26,7 +26,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_x|*",
       options: {
-        encoding: "./test/data/encoding_foo.json"
+        encoding: "./test/data/input/encoding_foo.json"
       }
     }
   })) return 1;
@@ -36,7 +36,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./test/data/input/encoding_foo_01.json"
       }
     }
   })) return 1;
@@ -46,7 +46,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./test/data/input/encoding_foo_02.json"
       }
     }
   })) return 1;
@@ -60,7 +60,7 @@ async function tests() {
           keyword: 120,
           text: 2000
         },
-        encoding: "./test/data/encoding_foo_lg.json"
+        encoding: "./test/data/input/encoding_foo_lg.json"
       }
     }
   })) return 1;

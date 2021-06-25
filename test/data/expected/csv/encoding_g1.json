@@ -1,7 +1,7 @@
 {
   "smt": {
     "model": "csv",
-    "locus": "./test/data/",
+    "locus": "./test/data/input/",
     "schema": "foofile.csv.gz",
     "key": "*"
   },

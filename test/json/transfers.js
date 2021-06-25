@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== json_output.json');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "json|./test/data/output/json/|output.json|*"
@@ -23,7 +23,7 @@ async function tests() {
   logger.verbose('=== json_output.csv');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "csv|./test/data/output/json/|output.csv|*",
@@ -36,7 +36,7 @@ async function tests() {
   logger.verbose('=== json_output_o.json');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "jsono|./test/data/output/json/|output_o.json|*"
@@ -46,7 +46,7 @@ async function tests() {
   logger.verbose('=== json_output_l.log');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "jsonl|./test/data/output/json/|output_l.log|*"
@@ -56,7 +56,7 @@ async function tests() {
   logger.verbose('=== json_output_s.txt');
   await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "jsons|./test/data/output/json/|output_s.txt|*"

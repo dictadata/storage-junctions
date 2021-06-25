@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== foofile.csv > transport.foo_schema");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,12 +32,12 @@ async function tests() {
   logger.info("=== foofile_01.json > transport");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_01.json|*" 
+      smt: "json|./test/data/input/|foofile_01.json|*" 
     },
     terminal: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./test/data/input/encoding_foo_01.json"
       }
     }
   })) return 1;
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== foofile_02.json > transport");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile_02.json|*" 
+      smt: "json|./test/data/input/|foofile_02.json|*" 
     },
     terminal: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./test/data/input/encoding_foo_02.json"
       }
     }
   })) return 1;

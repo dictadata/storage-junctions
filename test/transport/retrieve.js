@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/encoding_foo_01.json"
+        encoding: "./test/data/input/encoding_foo_01.json"
       },
       pattern: {
         match: {
@@ -50,7 +50,7 @@ async function tests() {
     origin: {
       smt: "transport|http://localhost:8089/transport/storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/encoding_foo_02.json"
+        encoding: "./test/data/input/encoding_foo_02.json"
       },
       pattern: {
         match: {

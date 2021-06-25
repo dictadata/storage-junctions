@@ -74,7 +74,7 @@ async function test_write() {
   
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv.gz|*",
+      smt: "csv|./test/data/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
@@ -90,7 +90,7 @@ async function test_write() {
   logger.verbose('=== ftp output.csv.gz');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -106,7 +106,7 @@ async function test_write() {
   logger.verbose('=== ftp output.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json.gz|*"
+      smt: "json|./test/data/input/|foofile.json.gz|*"
     },
     terminal: {
       smt: "json|ftp://dicta:data@localhost/data/output/json/|output.json|*",
@@ -120,7 +120,7 @@ async function test_write() {
   logger.verbose('=== ftp output.json.gz');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "json|ftp://dicta:data@localhost/data/output/json/|output.json.gz|*",
