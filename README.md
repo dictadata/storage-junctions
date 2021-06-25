@@ -1,4 +1,4 @@
-# @dictadata/storage-junctions 1.7.x
+# @dictadata/storage-junctions 1.8.x
 
 Node.js library for accessing distributed data storage, ETL transfers, analytics preparation and creating API services.
 
@@ -29,6 +29,7 @@ npm install @dictadata/storage-junctions
 | oracledb      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | redshift      |   yes    |  yes  |  yes   |   yes    |  yes  |    yes     |    no     |     -     |  yes   |
 | rest          |   yes    |   -   |   -    |   yes    |   -   |    yes     |     -     |     -     |  yes   |
+| shape files   |   yes    |  no   |  no    |   no     |  no   | read-only  |    no     |    no     |  yes   |
 | xlsx (Excel)  |   yes    |   -   |   -    |    -     |   -   |    yes     |    no     |    no     |  yes   |
 | \*mongodb     |          |       |        |          |       |            |    yes    |    yes    |  yes   |
 | \*postgresql  |          |       |        |          |       |            |    no     |     -     |  yes   |
@@ -47,6 +48,7 @@ GZip compression is handled seemlessly based on filename extension .gz.
 | FTP          |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
 | HTTP         |  yes  |  yes  |  \*no |  yes  |  yes   |   \*no   |
 | AWS S3       |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
+| ZIP file     |  yes  |  yes  |  no   |  yes  |  no    |    yes   |
 | \*scp        |   -   |   -   |   -   |   -   |   -    |     -    |
 | \*Azure ADLS |   -   |   -   |   -   |   -   |   -    |     -    |
 | \*Google CS  |   -   |   -   |   -   |   -   |   -    |     -    |

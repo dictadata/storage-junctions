@@ -1,5 +1,16 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.8.0
+  - filesystem getFile/putFile methods, replaces download/upload methods
+  - ZipFileSystem read-only implemention
+  - ShapeFileJunction read-only implemention
+  - add new Geometry storage type
+  - Elasticsearch geoJSON support
+  - updated project index pages for /types and / utils
+  - optimized schema encodings by reducing default member fields in .json encoding files
+  - enhanced dot notation for keys and select fields
+  - new utils method parseSMT()
+  - updated test data and scripts
 - version 1.7.5
   - implement junction capabilities
   - improvements to REST junction and httpRequest for querystring and web form parameters
