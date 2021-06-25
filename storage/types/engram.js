@@ -12,6 +12,7 @@
 "use strict";
 
 const Field = require('./field');
+const parseSMT = require('./parseSMT');
 const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty, getCI } = require("../utils");
 
@@ -24,24 +25,7 @@ module.exports = exports = class Engram {
    * @param {*} SMT is a SMT string or SMT object
    */
   constructor(SMT) {
-    if (typeof SMT === "string") {
-      let smt = SMT.split("|");
-      this.smt = {
-        model: smt[0] || '',
-        locus: smt[1] || '',
-        schema: smt[2] || '',
-        key: smt[3] || ''
-      };
-    }
-    else if (typeOf(SMT) === "object") {
-      if (SMT.smt)
-        this._copy(this, SMT);
-      else
-        this.smt = SMT;
-    };
-
-    if (!hasOwnProperty(this, "smt"))
-      throw new StorageError( 400, "Invalid Parameter: SMT");
+    this.smt = parseSMT(SMT);
 
     if (!hasOwnProperty(this, "fields"))
       this.fields = {};

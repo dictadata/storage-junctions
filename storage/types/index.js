@@ -6,9 +6,10 @@ exports.Engram = require('./engram');
 exports.StorageResponse = require('./storage-response');
 exports.StorageError = require('./storage-error');
 
-exports.stringBreakpoints = require("./stringBreakpoints");
+exports.parseSMT = require('./parseSMT');
 exports.parseValue = require('./parseValue');
 exports.storageType = require('./storageType');
+exports.stringBreakpoints = require("./stringBreakpoints");
 
 // dicta storage types
 //  "boolean"

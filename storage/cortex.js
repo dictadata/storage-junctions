@@ -6,7 +6,7 @@
  */
 "use strict";
 
-const { StorageError } = require("./types");
+const { parseSMT, StorageError } = require("./types");
 const { typeOf, hasOwnProperty } = require("./utils");
 
 class Cortex {
@@ -16,20 +16,10 @@ class Cortex {
   }
 
   static async activate(SMT, options) {
-    let model = "";
-    if (typeof SMT === "string") {
-      let a = SMT.split("|");
-      model = a[0];
-    }
-    else if (typeOf(SMT) === "object") {
-      model = SMT.model || (SMT.smt && SMT.smt.model);
-    }
-    else {
-      throw new StorageError(400, "Invalid parameter: smt");
-    }
+    let smt = parseSMT(SMT);
 
-    if (Cortex._storageJunctions.has(model)) {
-      let junctionClass = Cortex._storageJunctions.get(model);
+    if (Cortex._storageJunctions.has(smt.model)) {
+      let junctionClass = Cortex._storageJunctions.get(smt.model);
       let junction = new junctionClass(SMT, options);
       await junction.activate();
       return junction;
