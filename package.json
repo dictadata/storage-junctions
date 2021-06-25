@@ -3,6 +3,7 @@
   "version": "1.7.5",
   "description": "Node.js library for distributed data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
+  "keywords": ["data management"],
   "license": "MIT",
   "main": "storage/index.js",
   "repository": "gitlab:dictadata/js/storage-junctions",
