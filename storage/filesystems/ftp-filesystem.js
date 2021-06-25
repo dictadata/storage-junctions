@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageResponse, StorageError } = require("../types");
+const { parseSMT, StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
 const FTP = require("promise-ftp");
@@ -214,8 +214,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 
-  async download(options) {
-    logger.debug("ftp-fileSystem download");
+  async getFile(options) {
+    logger.debug("ftp-fileSystem getFile");
 
     try {
       options = Object.assign({}, this.options, options);
@@ -223,7 +223,11 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       let wdPath = decodeURI(this._url.pathname + (options.recursive ? path.dirname(options.rpath) : ''));
       let src = wdPath + (options.recursive ? options.rpath : options.name);
-      let dest = path.join(options.downloads, (options.keep_rpath ? options.rpath : options.name));
+
+      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let dest = path.join(folder, (options.keep_rpath ? options.rpath : options.name));
+
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
         await fsp.mkdir(dirname, { recursive: true });
@@ -250,14 +254,17 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 
-  async upload(options) {
-    logger.debug("ftp-fileSystem upload");
+  async putFile(options) {
+    logger.debug("ftp-fileSystem putFile");
 
     try {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let src = path.join(options.uploadPath, options.rpath);
+      let smt = parseSMT(options.smt); // smt.locus is source folder
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let src = path.join(folder, options.rpath);
+
       let dest = decodeURI(this._url.pathname + (options.keep_rpath ? options.rpath : options.name).split(path.sep).join(path.posix.sep));
       logger.verbose("  " + src + " >> " + dest);
 

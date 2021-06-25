@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageResponse, StorageError } = require("../types");
+const { parseSMT, StorageResponse, StorageError } = require("../types");
 const { logger, httpRequest } = require("../utils");
 
 const fs = require('fs');
@@ -192,8 +192,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     //return ws;
   }
 
-  async download(options) {
-    logger.debug("HTTPFileSystem download");
+  async getFile(options) {
+    logger.debug("HTTPFileSystem getFile");
 
     try {
       options = Object.assign({}, this.options, options);
@@ -203,7 +203,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let resultCode = 0;
 
       let src = options.dirname + options.rpath;
-      let dest = path.join(options.downloads, (options.keep_rpath ? options.rpath : options.name));
+
+      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let dest = path.join(folder, (options.keep_rpath ? options.rpath : options.name));
+
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
         fs.mkdirSync(dirname, { recursive: true });
@@ -225,8 +229,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
   }
 
-  async upload(options) {
-    logger.debug("HTTPFileSystem upload")
+  async putFile(options) {
+    logger.debug("HTTPFileSystem putFile")
 
     try {
       options = Object.assign({}, this.options, options);
@@ -234,7 +238,10 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options.method = 'PUT';
       let resultCode = 0;
 
-      let src = path.join(options.uploadPath, options.rpath);
+      let smt = parseSMT(options.smt); // smt.locus is source folder
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let src = path.join(folder, options.rpath);
+
       let filename = (options.keep_rpath ? options.rpath : options.name);
       let dest = this._url.pathname + filename.split(path.sep).join(path.posix.sep);
       logger.verbose("  " + src + " >> " + dest);

@@ -1,5 +1,5 @@
 /**
- * test/lib/upload
+ * test/lib/putFile
  * 
  * upload file(s) from local folder directly to a filesystem.
  */
@@ -38,10 +38,10 @@ module.exports = exports = async function (tract) {
     for (let entry of list) {
       //logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({ uploadPath: uploads.dir + '\\' }, tract.origin.options, entry);
-      let results = await stfs.upload(options);
+      let options = Object.assign({ smt: tract.origin.smt }, tract.origin.options, entry);
+      let results = await stfs.putFile(options);
       if (results.resultCode !== 0) {
-        logger.error("!!! upload failed: " + results.resultCode);
+        logger.error("!!! putFile failed: " + results.resultCode);
         retCode = 1;
         break;
       }

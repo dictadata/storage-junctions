@@ -1,5 +1,5 @@
 /**
- * test/lib/download
+ * test/lib/getFile
  * 
  * download file(s) from filesystem directly to a local folder.
  */
@@ -27,16 +27,16 @@ module.exports = exports = async function (tract) {
     let { data: list } = results;
 
     logger.info(">>> download files");
-    // download is a filesystem level method
+    // getFile is a filesystem level method
     let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
       //logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({}, tract.terminal.options, entry);
-      let results = await stfs.download(options);
+      let options = Object.assign({ smt: tract.terminal.smt }, tract.terminal.options, entry);
+      let results = await stfs.getFile(options);
       if (results.resultCode !== 0) {
-        logger.error("!!! download failed: " + entry.name);
+        logger.error("!!! getFile failed: " + entry.name);
         retCode = 1;
         break;
       }
