@@ -5,7 +5,8 @@
   "author": "Drew O. Letcher",
   "keywords": ["data management"],
   "license": "MIT",
-  "main": "storage/index.js",
+  "main": "index.js",
+  "directories": {},
   "repository": "gitlab:dictadata/js/storage-junctions",
   "bugs": {
     "url": "https://gitlab.com/dictadata/js/storage-junctions/issues"
