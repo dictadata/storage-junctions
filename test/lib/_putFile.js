@@ -17,8 +17,7 @@ module.exports = exports = async function (tract) {
   var junction;
   try {
     logger.info(">>> create generic junction for local files");
-    let uploads = path.parse(tract.origin.options.uploads);
-    let smt = "*|" + uploads.dir + "/|" + uploads.base + "|*";
+    let smt = tract.origin.smt;
     logger.verbose("smt:" + JSON.stringify(smt, null, 2));
     local = await storage.activate(smt, tract.origin.options);
 
