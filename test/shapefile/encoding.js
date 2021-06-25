@@ -13,7 +13,7 @@ async function test1() {
   logger.info("=== rest getEncoding polygons");
   if (await getEncoding({
     origin: {
-      smt: "shp|./test/data/shapes/|polygons|*",
+      smt: "shp|./test/data/input/shapes/|polygons|*",
       options: {}
     },
     terminal: {
@@ -28,7 +28,7 @@ async function test2() {
   logger.info("=== rest getEncoding points");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:./test/data/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
@@ -51,10 +51,14 @@ async function test3() {
     }
   }, false)) return 1;
 
+}
+
+async function test4() {
+
   logger.info("=== rest getEncoding tl_2020_us_county");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_state|*",
+      smt: "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
       options: {}
     },
     terminal: {
@@ -65,7 +69,8 @@ async function test3() {
 }
 
 (async () => {
-  if (await test1()) return;
-  if (await test2()) return;
-  if (await test3()) return;
+  //if (await test1()) return;
+  //if (await test2()) return;
+  //if (await test3()) return;
+  if (await test4()) return;
 })();
