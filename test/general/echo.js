@@ -21,12 +21,10 @@ async function testStream() {
 
     logger.info(">>> create junction");
     jo = await storage.activate({
-      smt: {
-        model: "echo",
-        locus: "somewhere",
-        schema: "container",
-        key: "*"
-      }
+      model: "echo",
+      locus: "somewhere",
+      schema: "container",
+      key: "*"
     });
 
     logger.info(">>> create streams");

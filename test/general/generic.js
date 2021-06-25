@@ -15,13 +15,11 @@ async function test_1() {
   try {
     logger.info(">>> create junction");
     junction = await storage.activate({
-      smt: {
-        model: "*",
-        locus: "./test/data/input/",
-        schema: "*",
-        key: "*"
-      }
-    });
+      model: "*",
+      locus: "./test/data/input/",
+      schema: "*",
+      key: "*"
+   });
 
     logger.info(">>> create filesystem");
     var stfs = await junction.getFileSystem();
