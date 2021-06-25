@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { StorageResponse, StorageError } = require("../types");
+const { parseSMT, StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const fs = require('fs');
@@ -10,6 +10,7 @@ const fsp = require('fs/promises');
 const path = require('path');
 const url = require('url');
 const zlib = require('zlib');
+
 
 const StreamZip = require('node-stream-zip');
 
@@ -165,15 +166,24 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     }
   }
 
-  async download(options) {
-    logger.debug("fs-fileSystem download");
+  /**
+   * get file(s) from zip filesystem, save to local folder
+   * @param {Object} options 
+   * @param {string} options.smt the smt.locus provides the destination folder
+   * @returns 
+   */
+  async getFile(options) {
+    logger.debug("zip-fileSystem getFile");
 
     try {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
       let src = options.rpath || options.name;
-      let dest = path.join(options.downloads, (options.keep_rpath ? options.rpath : options.name));
+
+      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let dest = path.join(folder, (options.keep_rpath ? options.rpath : options.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
@@ -191,8 +201,14 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     }
   }
 
-  async upload(options) {
-    logger.debug("fs-fileSystem upload");
+  /**
+   * read file(s) from local folder, add to zip filesystem
+   * @param {Object} options 
+   * @param {string} options.smt smt.locus provides the source folder and smt.schema the filespec
+   * @returns 
+   */
+  async putFile(options) {
+    logger.debug("zip-fileSystem putFile");
 
     throw new StorageError(501);
      
@@ -200,7 +216,10 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let src = path.join(options.uploadPath, options.rpath);
+      let smt = parseSMT(options.smt); // smt.locus is source folder
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let src = path.join(folder, options.rpath);
+
       let dest = path.join(url.fileURLToPath(this._url), (options.keep_rpath ? options.rpath : options.name));
 
       let dirname = path.dirname(dest);
