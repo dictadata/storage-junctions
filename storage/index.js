@@ -7,14 +7,14 @@ var cortex = require("./cortex");
 module.exports = exports = cortex;
 
 ///// Storage types
-const types = exports.types = require("./types");
+const types = require("./types");
 exports.Engram = types.Engram;
 exports.Field = types.Field;
 exports.StorageResponse = types.StorageResponse;
 exports.StorageError = types.StorageError;
 
 ///// Storage utils
-exports.utils = require("./utils");
+//const utils = require("./utils");
 
 ///// register Storage FileSystems
 exports.StorageFileSystem = require("./filesystems/storage-filesystem");
