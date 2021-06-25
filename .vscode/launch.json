@@ -146,8 +146,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "fs up/download",
-      "program": "${workspaceFolder}/test/fs/up_download.js",
+      "name": "fs copy",
+      "program": "${workspaceFolder}/test/fs/copy.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -179,8 +179,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "ftp up/download",
-      "program": "${workspaceFolder}/test/ftp/up_download.js",
+      "name": "ftp copy",
+      "program": "${workspaceFolder}/test/ftp/copy.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -212,8 +212,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "http download",
-      "program": "${workspaceFolder}/test/http/up_download.js",
+      "name": "http copy",
+      "program": "${workspaceFolder}/test/http/copy.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -245,8 +245,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "zip download",
-      "program": "${workspaceFolder}/test/zip/up_download.js",
+      "name": "zip copy",
+      "program": "${workspaceFolder}/test/zip/copy.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
