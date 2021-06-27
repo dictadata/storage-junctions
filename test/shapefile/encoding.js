@@ -69,8 +69,8 @@ async function test4() {
 }
 
 (async () => {
-  if (await test1()) return;
-  if (await test2()) return;
-  if (await test3()) return;
-  if (await test4()) return;
+  if (await test1()) return 1;
+  if (await test2()) return 1;
+  if (await test3()) return 1;
+  if (await test4()) return 1;
 })();

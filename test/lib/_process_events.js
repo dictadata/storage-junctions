@@ -29,4 +29,6 @@ process.on('exit', (code) => {
   console.log('Process exit event with code: ', code);
   for (let [promise, reason] of unhandledRejections)
     console.log(`unhandledPromise ${promise}: ${reason}`);
+  if (unhandledRejections.size > 0)
+    process.exitCode = 1;
 });
