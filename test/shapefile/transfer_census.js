@@ -56,8 +56,8 @@ async function transfer3() {
 }
 
 (async () => {
-  //if (await transfer1()) return 1;
+  if (await transfer1()) return 1;
   if (await transfer2()) return 1;
-  //if (await transfer3()) return 1;
+  if (await transfer3()) return 1;
 
 })();
