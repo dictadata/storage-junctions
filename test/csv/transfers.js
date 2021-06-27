@@ -55,7 +55,7 @@ async function tests() {
   logger.verbose('=== timeseries.csv > csv_timeseries.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|timeseries.csv|*",
+      smt: "csv|/var/data/test/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {

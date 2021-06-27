@@ -47,7 +47,7 @@ async function tests() {
   logger.verbose('=== timeseries.csv > transport');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|timeseries.csv|*",
+      smt: "csv|/var/data/test/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {
