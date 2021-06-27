@@ -1,58 +1,66 @@
 [
   {
-    "href": "/test/data/input/foo_encoding.json",
+    "href": "/data/test/foo_encoding.json",
     "name": "foo_encoding.json",
     "isDir": false,
     "date": null,
     "size": 1229,
-    "rpath": "test/foo_encoding.json"
+    "rpath": "foo_encoding.json"
   },
   {
-    "href": "/test/data/input/foo_encoding_2.json",
+    "href": "/data/test/foo_encoding_2.json",
     "name": "foo_encoding_2.json",
     "isDir": false,
     "date": null,
     "size": 1968,
-    "rpath": "test/foo_encoding_2.json"
+    "rpath": "foo_encoding_2.json"
   },
   {
-    "href": "/test/data/input/foofile.json",
+    "href": "/data/test/foofile.json",
     "name": "foofile.json",
     "isDir": false,
     "date": "2020-03-30T05:53:00.000Z",
     "size": 1692,
-    "rpath": "test/foofile.json"
+    "rpath": "foofile.json"
   },
   {
-    "href": "/test/data/input/foofile_01.json",
+    "href": "/data/test/foofile_01.json",
     "name": "foofile_01.json",
     "isDir": false,
     "date": "2020-03-30T05:54:00.000Z",
     "size": 1729,
-    "rpath": "test/foofile_01.json"
+    "rpath": "foofile_01.json"
   },
   {
-    "href": "/test/data/input/foofile_02.json",
+    "href": "/data/test/foofile_02.json",
     "name": "foofile_02.json",
     "isDir": false,
     "date": "2020-03-30T05:55:00.000Z",
     "size": 1729,
-    "rpath": "test/foofile_02.json"
+    "rpath": "foofile_02.json"
   },
   {
-    "href": "/test/data/input/foofile_03.json",
+    "href": "/data/test/foofile_03.json",
     "name": "foofile_03.json",
     "isDir": false,
     "date": "2020-03-30T05:55:00.000Z",
     "size": 1729,
-    "rpath": "test/foofile_03.json"
+    "rpath": "foofile_03.json"
   },
   {
-    "href": "/test/data/input/transforms.json",
+    "href": "/data/test/shakespeare_6.0.json",
+    "name": "shakespeare_6.0.json",
+    "isDir": false,
+    "date": "2021-06-18T15:34:00.000Z",
+    "size": 25327465,
+    "rpath": "shakespeare_6.0.json"
+  },
+  {
+    "href": "/data/test/transforms.json",
     "name": "transforms.json",
     "isDir": false,
     "date": null,
     "size": 369,
-    "rpath": "test/transforms.json"
+    "rpath": "transforms.json"
   }
 ]
