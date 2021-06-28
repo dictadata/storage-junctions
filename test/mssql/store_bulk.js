@@ -34,7 +34,7 @@ async function tests() {
   logger.verbose('=== timeseries.csv > mssql');
   if (await transfer({
     origin: {
-      smt: "csv|/var/data/test/|timeseries.csv|*",
+      smt: "csv|/var/data/dictadata.org/test/input/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {

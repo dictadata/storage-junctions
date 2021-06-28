@@ -15,7 +15,7 @@ async function test_01() {
   logger.verbose('=== http_output.csv');
   if (await transfer({
     origin: {
-      smt: "csv|http://localhost/data/test/|foofile.csv.gz|*",
+      smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
@@ -31,7 +31,7 @@ async function test_01() {
   logger.verbose('=== http_output.csv.gz');
   if (await transfer({
     origin: {
-      smt: "csv|http://localhost/data/test/|foofile.csv|*",
+      smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -47,7 +47,7 @@ async function test_01() {
   logger.verbose('=== http_output.json');
   if (await transfer({
     origin: {
-      smt: "json|http://localhost/data/test/|foofile.json.gz|*",
+      smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json.gz|*",
       options: {
       }
     },
@@ -59,7 +59,7 @@ async function test_01() {
   logger.verbose('=== http_output.json.gz');
   if (await transfer({
     origin: {
-      smt: "json|http://localhost/data/test/|foofile.json|*",
+      smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json|*",
       options: {
       }
     },

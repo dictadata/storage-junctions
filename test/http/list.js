@@ -13,7 +13,7 @@ async function testIIS() {
   logger.info("=== list http directory - forEach");
   if (await list({
     origin: {
-      smt: "json|http://localhost/data/test/|*.json|*",
+      smt: "json|http://localhost/data/dictadata.org/test/input/|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -30,7 +30,7 @@ async function testIIS() {
   logger.info("=== list http directory - recursive");
   if (await list({
     origin: {
-      smt: "json|http://localhost/data/test/|*.json|*",
+      smt: "json|http://localhost/data/dictadata.org/test/input/|*.json|*",
       options: {
         recursive: true,
         http: 1.1

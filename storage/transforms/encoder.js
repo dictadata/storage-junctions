@@ -15,7 +15,7 @@ const { Transform } = require('stream');
 /*
   transform: {
     "encoder": {
-      "junction": "OracleDBJunction"
+      "junction": "MySQLJunction"
     }
   };
 */

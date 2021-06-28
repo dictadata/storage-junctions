@@ -13,7 +13,7 @@ async function test_1() {
 
   if (await getFile({
     origin: {
-      smt: "*|http://localhost/data/test/|*.csv|*",
+      smt: "*|http://localhost/data/dictadata.org/test/input/|*.csv|*",
       options: {
         headers: {
           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',

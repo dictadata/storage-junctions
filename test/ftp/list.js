@@ -13,7 +13,7 @@ async function test_1() {
   logger.info("=== list ftp directory (forEach)");
   if (await list({
     origin: {
-      smt: "json|ftp://dicta:data@localhost/data/test/|*.json|*",
+      smt: "json|ftp://dicta:data@localhost/data/dictadata.org/test/input/|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {

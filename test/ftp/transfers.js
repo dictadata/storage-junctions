@@ -15,7 +15,7 @@ async function test_read() {
   logger.verbose('=== local output.csv');
   if (await transfer({
     origin: {
-      smt: "csv|ftp://dicta:data@localhost/data/test/|foofile.csv.gz|*",
+      smt: "csv|ftp://dicta:data@localhost/data/dictadata.org/test/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
@@ -31,7 +31,7 @@ async function test_read() {
   logger.verbose('=== local output.csv.gz');
   if (await transfer({
     origin: {
-      smt: "csv|ftp://dicta:data@localhost/data/test/|foofile.csv|*",
+      smt: "csv|ftp://dicta:data@localhost/data/dictadata.org/test/input/|foofile.csv|*",
       options: {}
     },
     terminal: {
@@ -45,7 +45,7 @@ async function test_read() {
   logger.verbose('=== local output.json');
   if (await transfer({
     origin: {
-      smt: "json|ftp://dicta:data@localhost/data/test/|foofile.json.gz|*",
+      smt: "json|ftp://dicta:data@localhost/data/dictadata.org/test/input/|foofile.json.gz|*",
       options: {}
     },
     terminal: {
@@ -56,7 +56,7 @@ async function test_read() {
   logger.verbose('=== local output.json.gz');
   if (await transfer({
     origin: {
-      smt: "json|ftp://dicta:data@localhost/data/test/|foofile.json|*",
+      smt: "json|ftp://dicta:data@localhost/data/dictadata.org/test/input/|foofile.json|*",
       options: {}
     },
     terminal: {
@@ -70,7 +70,7 @@ async function test_write() {
   logger.verbose("=== fs to ftp");
 
   logger.verbose('=== ftp output.csv');
-  if (await dullSchema({ smt: "csv|ftp://dicta:data@localhost/data/output/csv/|output.csv|*" })) return 1;
+  if (await dullSchema({ smt: "csv|ftp://dicta:data@localhost/data/dictadata.org/test/output/csv/|output.csv|*" })) return 1;
   
   if (await transfer({
     origin: {
@@ -80,13 +80,13 @@ async function test_write() {
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/data/output/csv/|output.csv|*",
+      smt: "csv|ftp://dicta:data@localhost/data/dictadata.org/test/output/csv/|output.csv|*",
       options: {
         header: true
       }
     }
   })) return 1;
-
+/*
   logger.verbose('=== ftp output.csv.gz');
   if (await transfer({
     origin: {
@@ -96,34 +96,31 @@ async function test_write() {
       }
     },
     terminal: {
-      smt: "csv|ftp://dicta:data@localhost/data/output/csv/|output.csv.gz|*",
+      smt: "csv|ftp://dicta:data@localhost/data/dictadata.org/test/output/csv/|output.csv.gz|*",
       options: {
         header: true
       }
     }
   })) return 1;
-
+*/
   logger.verbose('=== ftp output.json');
   if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/data/output/json/|output.json|*",
+      smt: "json|ftp://dicta:data@localhost/data/dictadata.org/test/output/json/|output.json|*",
       options: {}
     }
   })) return 1;
 /*
-  !!! there is a sporadic prolem with this test
-  !!! maybe some kind of race condition or stream ending issue
-
   logger.verbose('=== ftp output.json.gz');
   if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "json|ftp://dicta:data@localhost/data/output/json/|output.json.gz|*",
+      smt: "json|ftp://dicta:data@localhost/data/dictadata.org/test/output/json/|output.json.gz|*",
       options: {}
     }
   })) return 1;

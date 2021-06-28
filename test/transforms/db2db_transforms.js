@@ -138,12 +138,6 @@ async function forecastTransform(tract) {
     }
   })) return;
 
-  if (await testDBTransform1({
-    terminal: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|foo_dbtransform|*"
-    }
-  })) return;
-
   if (await testDBTransform2())
     return 1;
 
@@ -165,10 +159,4 @@ async function forecastTransform(tract) {
     }
   })) return;
 
-  if (await forecastTransform({
-    terminal: {
-      smt: "oracledb|connectString=localhost/xepdb1;user=dicta;password=data|weather_forecast|*"
-    }
-  })) return;
-  
 })();

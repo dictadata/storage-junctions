@@ -84,24 +84,6 @@
     "date": "2021-03-07T22:18:53.235Z"
   },
   {
-    "name": "shakespeare_6.0.json",
-    "rpath": "shakespeare_6.0.json",
-    "size": 25327465,
-    "date": "2017-12-07T00:55:25.491Z"
-  },
-  {
-    "name": "table_schemas.json",
-    "rpath": "table_schemas.json",
-    "size": 2817,
-    "date": "2021-03-30T00:27:02.006Z"
-  },
-  {
-    "name": "table_schemas_encoding.json",
-    "rpath": "table_schemas_encoding.json",
-    "size": 363,
-    "date": "2021-02-19T02:16:30.833Z"
-  },
-  {
     "name": "transforms_01.json",
     "rpath": "transforms_01.json",
     "size": 368,

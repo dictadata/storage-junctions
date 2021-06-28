@@ -91,7 +91,7 @@ class MemoryJunction extends StorageJunction {
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
   async getEncoding() {
-    logger.debug("OracleDBJunction getEncoding");
+    logger.debug("MemoryJunction getEncoding");
 
     try {
       let entry = _storage.get(this.storage_key);
@@ -140,7 +140,7 @@ class MemoryJunction extends StorageJunction {
    * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async dullSchema(options) {
-    logger.debug('OracleDBJunction dullSchema');
+    logger.debug('MemoryJunction dullSchema');
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
     
