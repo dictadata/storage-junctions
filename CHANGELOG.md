@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.8.1
+  - reduce package size by removing uneeded test files
+  - move oracledb-junction to it's own plugin project
 - version 1.8.0
   - filesystem getFile/putFile methods, replaces download/upload methods
   - ZipFileSystem read-only implemention
