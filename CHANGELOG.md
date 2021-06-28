@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.8.2
+  - update to encoder transform initialization
 - version 1.8.1
   - reduce package size by removing uneeded test files
   - move oracledb-junction to it's own plugin project
