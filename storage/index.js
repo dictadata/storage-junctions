@@ -64,10 +64,6 @@ exports.ElasticsearchJunction = ElasticsearchJunction;
 cortex.use('elastic', ElasticsearchJunction);
 cortex.use('elasticsearch', ElasticsearchJunction);
 
-var MongoDBJunction = require("./junctions/mongodb");
-exports.MongoDBJunction = MongoDBJunction;
-cortex.use('mongodb', MongoDBJunction);
-
 var MSSQLJunction = require("./junctions/mssql");
 exports.MSSQLJunction = MSSQLJunction;
 cortex.use('mssql', MSSQLJunction);
@@ -75,10 +71,6 @@ cortex.use('mssql', MSSQLJunction);
 var MySQLJunction = require("./junctions/mysql");
 exports.MySQLJunction = MySQLJunction;
 cortex.use('mysql', MySQLJunction);
-
-var OracleDBJunction = require("./junctions/oracledb");
-exports.OracleDBJunction = OracleDBJunction;
-cortex.use('oracledb', OracleDBJunction);
 
 var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
@@ -92,10 +84,6 @@ var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
 cortex.use('splitter', SplitterJunction);
 cortex.use('split', SplitterJunction);
-
-var TransportJunction = require("./junctions/transport");
-exports.TransportJunction = TransportJunction;
-cortex.use('transport', TransportJunction);
 
 ///// register Storage Transforms
 exports.FilterTransform = require("./transforms/filter");
