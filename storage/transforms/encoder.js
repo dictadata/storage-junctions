@@ -15,7 +15,7 @@ const { Transform } = require('stream');
 /*
   transform: {
     "encoder": {
-      "junction": "MySQLJunction"
+      "junction": "mysql"
     }
   };
 */
@@ -38,11 +38,12 @@ module.exports = exports = class EncoderTransform extends Transform {
     if (!hasOwnProperty(options, "junction"))
       throw new StorageError( 400, "options.junction not defined");
 
-    if (options && hasOwnProperty(cortex, options.junction))
-      if (hasOwnProperty(cortex[options.junction], "encoder"))
-        this.encoder = cortex[options.junction].encoder;
+    let junction = cortex._storageJunctions.get(options.junction);
+    if (junction)
+      if (hasOwnProperty(junction, "encoder"))
+        this.encoder = junction.encoder;
       else
-        throw new StorageError( 400, "Junction does not have encoder " + options.junction);
+        throw new StorageError(400, "Junction does not have encoder " + options.junction);
     else
       throw new StorageError( 404, "Junction not found " + options.junction);
   }
