@@ -16,6 +16,6 @@ exports.putFile = require("./lib/_putFile.js");
 exports.recall = require("./lib/_recall.js");
 exports.retrieve = require("./lib/_retrieve.js");
 exports.store = require("./lib/_store.js");
-exports.store_bulk = require("./lib/_store_bulk.js");
+exports.storeBulk = exports.store_bulk = require("./lib/_store_bulk.js");
 exports.tee = require("./lib/_tee.js");
 exports.transfer = require("./lib/_transfer.js");
