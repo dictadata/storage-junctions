@@ -10,9 +10,8 @@ process.on('rejectionHandled', (promise) => {
 });
 
 process.on('multipleResolves', (type, promise, reason) => {
-  console.log("multipleResolves");
-  console.error(type + ", " + JSON.stringify(promise) + ", " + reason);
-  setImmediate(() => process.exit(1));
+  console.error("multipleResolves ", type, promise, reason);
+  //setImmediate(() => process.exit(1));
 });
 
 process.on('warning', (warning) => {
