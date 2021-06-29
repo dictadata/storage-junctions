@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list fs directory (forEach)");
   if (await list({
     origin: {
-      smt: "json|./test/data/input/|*.json|*",
+      smt: "json|./test/data/input/|foo*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -31,12 +31,12 @@ async function tests() {
     origin: {
       smt: {
         model: "json",
-        locus: "./test/data/expected",
+        locus: "./test/data/input/",
         schema: "*.json",
         key: "*"
       },
       options: {
-        schema: "encoding_foo.json",
+        schema: "enc*.json",
         recursive: true
       }
     },

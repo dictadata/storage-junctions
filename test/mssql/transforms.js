@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./test/data/input/foo_encoding_t.json"
+        "encoding": "./test/data/input/encoding_foo_t.json"
       }
     }
   })) return 1;

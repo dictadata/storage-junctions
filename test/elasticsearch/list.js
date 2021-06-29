@@ -21,7 +21,7 @@ async function tests() {
     terminal: {
       output: "./test/data/output/elasticsearch/list.json"
     }
-  })) return 1;
+  }, false)) return 1;
 
 }
 

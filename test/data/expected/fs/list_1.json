@@ -1,92 +1,26 @@
 [
   {
-    "name": "encoding_foo.json",
-    "rpath": "encoding_foo.json",
-    "size": 1262,
-    "date": "2021-02-18T13:26:13.871Z"
-  },
-  {
-    "name": "encoding_foo_01.json",
-    "rpath": "encoding_foo_01.json",
-    "size": 2862,
-    "date": "2021-02-05T04:47:31.357Z"
-  },
-  {
-    "name": "encoding_foo_02.json",
-    "rpath": "encoding_foo_02.json",
-    "size": 1718,
-    "date": "2021-02-18T16:52:26.938Z"
-  },
-  {
-    "name": "encoding_foo_lg.json",
-    "rpath": "encoding_foo_lg.json",
-    "size": 1272,
-    "date": "2021-02-18T13:24:49.283Z"
-  },
-  {
-    "name": "encoding_foo_short.json",
-    "rpath": "encoding_foo_short.json",
-    "size": 475,
-    "date": "2021-02-18T13:25:07.282Z"
-  },
-  {
-    "name": "encoding_foo_transform.json",
-    "rpath": "encoding_foo_transform.json",
-    "size": 278,
-    "date": "2021-02-18T13:25:28.505Z"
-  },
-  {
-    "name": "encoding_foo_two.json",
-    "rpath": "encoding_foo_two.json",
-    "size": 503,
-    "date": "2021-02-18T13:25:46.906Z"
-  },
-  {
-    "name": "encoding_foo_typesonly.json",
-    "rpath": "encoding_foo_typesonly.json",
-    "size": 197,
-    "date": "2021-02-05T04:47:31.357Z"
-  },
-  {
-    "name": "extract_data.json",
-    "rpath": "extract_data.json",
-    "size": 1279,
-    "date": "2021-03-30T00:05:44.463Z"
-  },
-  {
     "name": "foofile.json",
     "rpath": "foofile.json",
     "size": 1156,
-    "date": "2021-02-10T04:12:58.685Z"
+    "date": "2021-06-23T13:55:41.533Z"
   },
   {
     "name": "foofile_01.json",
     "rpath": "foofile_01.json",
     "size": 2057,
-    "date": "2021-02-10T04:10:34.006Z"
+    "date": "2021-06-23T13:55:41.104Z"
   },
   {
     "name": "foofile_02.json",
     "rpath": "foofile_02.json",
     "size": 2599,
-    "date": "2021-02-10T04:33:25.241Z"
+    "date": "2021-06-23T13:55:41.182Z"
   },
   {
     "name": "foofile_two.json",
     "rpath": "foofile_two.json",
     "size": 452,
-    "date": "2021-02-11T15:33:54.527Z"
-  },
-  {
-    "name": "foo_encoding_t.json",
-    "rpath": "foo_encoding_t.json",
-    "size": 1224,
-    "date": "2021-03-07T22:18:53.235Z"
-  },
-  {
-    "name": "transforms_01.json",
-    "rpath": "transforms_01.json",
-    "size": 368,
-    "date": "2021-01-21T18:59:39.538Z"
+    "date": "2021-06-23T13:55:41.253Z"
   }
 ]

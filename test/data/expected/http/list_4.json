@@ -1,66 +1,90 @@
 [
   {
-    "href": "IOWA CITY PRECINCTS.DBF",
-    "name": "IOWA CITY PRECINCTS.DBF",
+    "href": "encoding_shapes.json",
+    "name": "encoding_shapes.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 3654,
-    "rpath": "United States/Iowa/Iowa City/IOWA CITY PRECINCTS.DBF"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 504,
+    "rpath": "shapes/encoding_shapes.json"
   },
   {
-    "href": "Iowa City Precincts.dat",
-    "name": "Iowa City Precincts.dat",
+    "href": "encoding_tl_2020_us_county.json",
+    "name": "encoding_tl_2020_us_county.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 2048,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.dat"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 2079,
+    "rpath": "shapes/encoding_tl_2020_us_county.json"
   },
   {
-    "href": "Iowa City Precincts.dbd",
-    "name": "Iowa City Precincts.dbd",
+    "href": "encoding_tl_2020_us_state.json",
+    "name": "encoding_tl_2020_us_state.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 416,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.dbd"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 1929,
+    "rpath": "shapes/encoding_tl_2020_us_state.json"
   },
   {
-    "href": "Iowa City Precincts.json",
-    "name": "Iowa City Precincts.json",
+    "href": "encoding_foo.json",
+    "name": "encoding_foo.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 4319745,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.json"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 1099,
+    "rpath": "encoding_foo.json"
   },
   {
-    "href": "Iowa City Precincts.key",
-    "name": "Iowa City Precincts.key",
+    "href": "encoding_foo_01.json",
+    "name": "encoding_foo_01.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 4096,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.key"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 2523,
+    "rpath": "encoding_foo_01.json"
   },
   {
-    "href": "Iowa City Precincts.prj",
-    "name": "Iowa City Precincts.prj",
+    "href": "encoding_foo_02.json",
+    "name": "encoding_foo_02.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 141,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.prj"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 1603,
+    "rpath": "encoding_foo_02.json"
   },
   {
-    "href": "Iowa City Precincts.shp",
-    "name": "Iowa City Precincts.shp",
+    "href": "encoding_foo_lg.json",
+    "name": "encoding_foo_lg.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 464072,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.shp"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 1109,
+    "rpath": "encoding_foo_lg.json"
   },
   {
-    "href": "Iowa City Precincts.shx",
-    "name": "Iowa City Precincts.shx",
+    "href": "encoding_foo_short.json",
+    "name": "encoding_foo_short.json",
     "isDir": false,
-    "date": "2020-08-19T06:14:00.000Z",
-    "size": 300,
-    "rpath": "United States/Iowa/Iowa City/Iowa City Precincts.shx"
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 437,
+    "rpath": "encoding_foo_short.json"
+  },
+  {
+    "href": "encoding_foo_transform.json",
+    "name": "encoding_foo_transform.json",
+    "isDir": false,
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 263,
+    "rpath": "encoding_foo_transform.json"
+  },
+  {
+    "href": "encoding_foo_two.json",
+    "name": "encoding_foo_two.json",
+    "isDir": false,
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 457,
+    "rpath": "encoding_foo_two.json"
+  },
+  {
+    "href": "encoding_foo_typesonly.json",
+    "name": "encoding_foo_typesonly.json",
+    "isDir": false,
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 180,
+    "rpath": "encoding_foo_typesonly.json"
   }
 ]

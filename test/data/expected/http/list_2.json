@@ -1,66 +1,90 @@
 [
   {
-    "href": "/data/test/foo_encoding.json",
-    "name": "foo_encoding.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo.json",
+    "name": "encoding_foo.json",
     "isDir": false,
-    "date": null,
-    "size": 1229,
-    "rpath": "foo_encoding.json"
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 1163,
+    "rpath": "encoding_foo.json"
   },
   {
-    "href": "/data/test/foo_encoding_2.json",
-    "name": "foo_encoding_2.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_01.json",
+    "name": "encoding_foo_01.json",
     "isDir": false,
-    "date": null,
-    "size": 1968,
-    "rpath": "foo_encoding_2.json"
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 2655,
+    "rpath": "encoding_foo_01.json"
   },
   {
-    "href": "/data/test/foofile.json",
-    "name": "foofile.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_02.json",
+    "name": "encoding_foo_02.json",
     "isDir": false,
-    "date": "2020-03-30T05:53:00.000Z",
+    "date": "2021-06-23T13:55:00.000Z",
     "size": 1692,
-    "rpath": "foofile.json"
+    "rpath": "encoding_foo_02.json"
   },
   {
-    "href": "/data/test/foofile_01.json",
-    "name": "foofile_01.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_lg.json",
+    "name": "encoding_foo_lg.json",
     "isDir": false,
-    "date": "2020-03-30T05:54:00.000Z",
-    "size": 1729,
-    "rpath": "foofile_01.json"
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 1173,
+    "rpath": "encoding_foo_lg.json"
   },
   {
-    "href": "/data/test/foofile_02.json",
-    "name": "foofile_02.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_short.json",
+    "name": "encoding_foo_short.json",
     "isDir": false,
-    "date": "2020-03-30T05:55:00.000Z",
-    "size": 1729,
-    "rpath": "foofile_02.json"
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 468,
+    "rpath": "encoding_foo_short.json"
   },
   {
-    "href": "/data/test/foofile_03.json",
-    "name": "foofile_03.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_transform.json",
+    "name": "encoding_foo_transform.json",
     "isDir": false,
-    "date": "2020-03-30T05:55:00.000Z",
-    "size": 1729,
-    "rpath": "foofile_03.json"
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 278,
+    "rpath": "encoding_foo_transform.json"
   },
   {
-    "href": "/data/test/shakespeare_6.0.json",
-    "name": "shakespeare_6.0.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_two.json",
+    "name": "encoding_foo_two.json",
     "isDir": false,
-    "date": "2021-06-18T15:34:00.000Z",
-    "size": 25327465,
-    "rpath": "shakespeare_6.0.json"
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 485,
+    "rpath": "encoding_foo_two.json"
   },
   {
-    "href": "/data/test/transforms.json",
-    "name": "transforms.json",
+    "href": "/data/dictadata.org/test/input/encoding_foo_typesonly.json",
+    "name": "encoding_foo_typesonly.json",
+    "isDir": false,
+    "date": "2021-06-23T13:55:00.000Z",
+    "size": 190,
+    "rpath": "encoding_foo_typesonly.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/shapes/encoding_shapes.json",
+    "name": "encoding_shapes.json",
+    "isDir": false,
+    "date": "2021-06-25T13:26:00.000Z",
+    "size": 504,
+    "rpath": "shapes/encoding_shapes.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/shapes/encoding_tl_2020_us_county.json",
+    "name": "encoding_tl_2020_us_county.json",
+    "isDir": false,
+    "date": "2021-06-28T12:30:00.000Z",
+    "size": 2177,
+    "rpath": "shapes/encoding_tl_2020_us_county.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/shapes/encoding_tl_2020_us_state.json",
+    "name": "encoding_tl_2020_us_state.json",
     "isDir": false,
     "date": null,
-    "size": 369,
-    "rpath": "transforms.json"
+    "size": 2020,
+    "rpath": "shapes/encoding_tl_2020_us_state.json"
   }
 ]
