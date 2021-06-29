@@ -4,7 +4,16 @@
   "description": "Node.js library for distributed data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "keywords": [
-    "data management"
+    "dictadata",
+    "storage",
+    "junction",
+    "filesystem",
+    "transform",
+    "data management",
+    "smt",
+    "engram",
+    "encoding",
+    "codex"
   ],
   "license": "MIT",
   "main": "index.js",
