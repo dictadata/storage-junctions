@@ -22,7 +22,8 @@ module.exports = exports = async function (tract, compareValues = true) {
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     logger.info(">>> list");
-    let { data: list } = await jo.list();
+    let response = await jo.list();
+    let list = response.data;
 
     logger.verbose(JSON.stringify(list, null, "  "));
     if (tract.terminal && tract.terminal.output) {
