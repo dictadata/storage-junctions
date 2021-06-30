@@ -43,7 +43,7 @@ async function test3() {
   logger.info("=== rest getEncoding tl_2020_us_state");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
+      smt: "shp|zip:/var/data/www.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
       options: {}
     },
     terminal: {
@@ -58,7 +58,7 @@ async function test4() {
   logger.info("=== rest getEncoding tl_2020_us_county");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
+      smt: "shp|zip:/var/data/www.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
       options: {}
     },
     terminal: {

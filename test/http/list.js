@@ -49,7 +49,7 @@ async function testNGINX() {
   logger.info("=== list NGINX http directory - forEach");
   if (await list({
     origin: {
-      smt: "json|http://ec2-3-208-205-6.compute-1.amazonaws.com/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "json|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -66,7 +66,7 @@ async function testNGINX() {
   logger.info("=== list NGINX http directory - recursive");
   if (await list({
     origin: {
-      smt: "json|http://ec2-3-208-205-6.compute-1.amazonaws.com/data/dictadata.org/test/input/|*.json|*",
+      smt: "json|https://cda.dictadata.org/data/dictadata.org/test/input/|*.json|*",
       options: {
         schema: "enc*.json",
         recursive: true,

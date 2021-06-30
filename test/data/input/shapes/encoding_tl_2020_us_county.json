@@ -1,7 +1,7 @@
 {
   "smt": {
     "model": "shp",
-    "locus": "zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip",
+    "locus": "zip:/var/data/www.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip",
     "schema": "tl_2020_us_county",
     "key": "*"
   },

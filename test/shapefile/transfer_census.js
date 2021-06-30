@@ -15,7 +15,7 @@ async function transfer1() {
   logger.verbose("=== Transfer tl_2020_us_state.zip to geoJSON");
   if (await transfer({
     "origin": {
-      "smt": "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
+      "smt": "shp|zip:/var/data/www.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
       "smt": "json|./test/data/output/shapefile/|tl_2020_us_state.json|!properties.STUSPS+'_'+properties.GEOID+'_state'"
@@ -29,7 +29,7 @@ async function transfer2() {
   logger.verbose("=== Transfer tl_2020_us_state.zip to Elasticsearch");
   if (await transfer({
     "origin": {
-      "smt": "shp|zip:/var/data/www2.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
+      "smt": "shp|zip:/var/data/www.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
       "smt": "elastic|http://localhost:9200/|census_2020|!properties.STUSPS+'_'+properties.GEOID+'_state'",

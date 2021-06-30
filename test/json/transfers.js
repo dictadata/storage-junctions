@@ -6,7 +6,7 @@
 const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: json transfers");
+logger.info("=== Tests: json data transfers");
 
 async function tests() {
 

@@ -38,7 +38,7 @@ async function test_2() {
 
   if (await getFile({
     origin: {
-      smt: "shp|http://ec2-3-208-205-6.compute-1.amazonaws.com/data/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.*|*",
+      smt: "shp|https://cda.dictadata.org/data/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.*|*",
       options: {
         recursive: true
       }

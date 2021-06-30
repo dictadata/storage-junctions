@@ -6,7 +6,7 @@
 const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: csv transfers");
+logger.info("=== Tests: csv data transfers");
 
 async function tests() {
 

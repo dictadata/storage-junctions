@@ -24,6 +24,14 @@
     "rpath": "foofile_02.json"
   },
   {
+    "href": "foofile_03.json",
+    "name": "foofile_03.json",
+    "isDir": false,
+    "date": "2021-06-30T21:45:00.000Z",
+    "size": 1729,
+    "rpath": "foofile_03.json"
+  },
+  {
     "href": "foofile_two.json",
     "name": "foofile_two.json",
     "isDir": false,
