@@ -7,69 +7,67 @@ const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
 
-logger.info("=== Test: http transfers");
+logger.info("=== Test: http data transfers");
 
-async function test_01() {
-  logger.verbose("=== http source");
+async function test_transfers() {
 
-  logger.verbose('=== http_output.csv');
+  logger.verbose('=== http json to local csv');
   if (await transfer({
     origin: {
-      smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv.gz|*",
-      options: {
-        header: true
-      }
+      smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json|*",
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|output.csv|*",
+      smt: "csv|./test/data/output/http/|foofile.csv|*",
       options: {
         header: true
       }
     }
   })) return 1;
 
-  logger.verbose('=== http_output.csv.gz');
+  logger.verbose('=== http csv to local json');
   if (await transfer({
     origin: {
       smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/data/input/encoding_foo.json"
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|output.csv.gz|*",
-      options: {
-        header: true
-      }
+      smt: "json|./test/data/output/http/|foofile.json|*"
     }
   })) return 1;
 
-  logger.verbose('=== http_output.json');
+}
+
+async function test_uncompress() {
+
+  logger.verbose('=== http .gz to local json');
   if (await transfer({
     origin: {
-      smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json.gz|*",
-      options: {
-      }
+      smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|./test/data/output/http/|output.json|*"
+      smt: "json|./test/data/output/http/|foofile_ungz.json|*"
     }
   })) return 1;
 
-  logger.verbose('=== http_output.json.gz');
+  logger.verbose('=== http .gz to local csv');
   if (await transfer({
     origin: {
-      smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json|*",
-      options: {
-      }
+      smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv.gz|*"
     },
     terminal: {
-      smt: "json|./test/data/output/http/|output.json.gz|*"
+      smt: "csv|./test/data/output/http/|foofile_ungz.csv|*",
+      options: {
+        header: true
+      }
     }
   })) return 1;
 
 }
 
 (async () => {
-  if (await test_01()) return;
+  if (await test_transfers()) return 1;
+  if (await test_uncompress()) return 1;
 })();
