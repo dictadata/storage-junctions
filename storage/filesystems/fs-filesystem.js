@@ -175,7 +175,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let src = path.join(url.fileURLToPath(this._url), options.name);
+      let src = path.join(url.fileURLToPath(this._url), options.rpath);
 
       let smt = parseSMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
