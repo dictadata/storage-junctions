@@ -6,53 +6,70 @@
 const getFile = require('../lib/_getFile');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== tests: http downloads");
+logger.info("=== Tests: http file downloads");
 
-async function test_1() {
-  logger.info("=== download from HTML directory page");
+async function downloads_IIS() {
 
+  logger.info("=== IIS download foo files");
   if (await getFile({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|*.csv|*",
-      options: {
-        headers: {
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
-          'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-          'accept-language': 'en-US,en;q=0.5',
-          'accept-encoding': 'gzip, deflate',
-          'cache-control': 'max-age=0'
-        },        
-        recursive: false
-      }
+      smt: "*|http://localhost/data/dictadata.org/test/input/|foo*.json|*",
     },
     terminal: {
-      smt: "*|./test/data/output/http/downloads/|*|*",
-      options: {
-      }
+      smt: "*|./test/data/output/http/IIS/|*|*",
     }
   })) return 1;
-}
 
-async function test_2() {
-  logger.info("=== download shape files");
-
+  logger.info("=== IIS download encoding files");
   if (await getFile({
     origin: {
-      smt: "shp|https://cda.dictadata.org/data/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.*|*",
+      smt: "*|http://localhost/data/dictadata.org/test/input/|enc*.json|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      smt: "*|./test/data/output/http/shapefiles/|*|*",
+      smt: "*|./test/data/output/http/IIS/|*|*",
       options: {
         keep_rpath: true
       }
     }
   })) return 1;
+
+}
+
+async function downloads_NGINX() {
+
+  logger.info("=== NGINX download foo files");
+  if (await getFile({
+    origin: {
+      smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
+    },
+    terminal: {
+      smt: "*|./test/data/output/http/NGINX/|*|*",
+    }
+  })) return 1;
+
+  logger.info("=== NGINX download encoding files");
+  if (await getFile({
+    origin: {
+      smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|enc*.json|*",
+      options: {
+        recursive: true
+      }
+    },
+    terminal: {
+      smt: "*|./test/data/output/http/NGINX/|*|*",
+      options: {
+        keep_rpath: true
+      }
+    }
+  })) return 1;
+
 }
 
 (async () => {
-  if (await test_1()) return;
-  if (await test_2()) return;
+  if (await downloads_IIS()) return;
+  if (await downloads_NGINX()) return;
+  //if (await test_uploads()) return;
 })();
