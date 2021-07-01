@@ -10,16 +10,14 @@ logger.info("=== tests: HTTP list");
 
 async function testIIS() {
 
-  logger.info("=== list IIS http directory - forEach");
+  logger.info("=== IIS get list of foo files (forEach)");
   if (await list({
     origin: {
-      smt: "json|http://localhost/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "*|http://localhost/data/dictadata.org/test/input/|foo*.json|*",
       options: {
-        recursive: false,
         forEach: (entry) => {
           logger.info("- " + entry.name);
-        },
-        http: 1.1
+        }
       }
     },
     terminal: {
@@ -27,14 +25,26 @@ async function testIIS() {
     }
   })) return 1;
 
-  logger.info("=== list IIS http directory - recursive");
+  logger.info("=== IIS get list of encoding files (recursive)");
   if (await list({
     origin: {
-      smt: "json|http://localhost/data/dictadata.org/test/input/|*.json|*",
+      smt: {
+        model: "*",
+        locus: "http://localhost/data/dictadata.org/test/input/",
+        schema: "*.json",
+        key: "*"
+      },
       options: {
         schema: "enc*.json",
         recursive: true,
-        http: 1.1
+        http: 1.1,
+        headers: {
+          'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.5',
+          'accept-encoding': 'gzip, deflate',
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
+          'cache-control': "max-age=0"
+        }
       }
     },
     terminal: {
@@ -46,16 +56,14 @@ async function testIIS() {
 
 async function testNGINX() {
 
-  logger.info("=== list NGINX http directory - forEach");
+  logger.info("=== NGINX get list of foo files - forEach");
   if (await list({
     origin: {
-      smt: "json|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
       options: {
-        recursive: false,
         forEach: (entry) => {
           logger.info("- " + entry.name);
-        },
-        http: 1.1
+        }
       }
     },
     terminal: {
@@ -63,14 +71,26 @@ async function testNGINX() {
     }
   })) return 1;
 
-  logger.info("=== list NGINX http directory - recursive");
+  logger.info("=== NGINX get list of encoding files (recursive)");
   if (await list({
     origin: {
-      smt: "json|https://cda.dictadata.org/data/dictadata.org/test/input/|*.json|*",
+      smt: {
+        model: "*",
+        locus: "https://cda.dictadata.org/data/dictadata.org/test/input/",
+        schema: "*.json",
+        key: "*"
+      },
       options: {
         schema: "enc*.json",
         recursive: true,
-        http: 1.1
+        http: 1.1,
+        headers: {
+          'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.5',
+          'accept-encoding': 'gzip, deflate',
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
+          'cache-control': "max-age=0"
+        }
       }
     },
     terminal: {

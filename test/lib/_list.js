@@ -14,9 +14,11 @@ module.exports = exports = async function (tract, compareValues = true) {
   logger.info(">>> create junction");
   let retCode = 0;
 
-  logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
-  if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
-  if (!tract.terminal) tract.terminal = {};
+  logger.verbose("smt:" + JSON.stringify(tract.origin.smt));
+  if (tract.origin.options)
+    logger.verbose("options:" + JSON.stringify(tract.origin.options));
+  if (!tract.terminal)
+    tract.terminal = {};
 
   var jo;
   try {
@@ -25,7 +27,7 @@ module.exports = exports = async function (tract, compareValues = true) {
     let response = await jo.list();
     let list = response.data;
 
-    logger.verbose(JSON.stringify(list, null, "  "));
+    //logger.verbose(JSON.stringify(list, null, "  "));
     if (tract.terminal && tract.terminal.output) {
       logger.info("<<< saving list to " + tract.terminal.output);
       fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });

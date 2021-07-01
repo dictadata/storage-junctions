@@ -32,10 +32,10 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // set some default request headers, if not defined in options
     this.headers = Object.assign({
-      'accept': '*/*',
-      'accept-encoding': 'gzip, deflate, br',
-      "user-agent": "storage-junctions/1.2 (dictadata.org)",
-      'cache-control': 'max-age=0'
+      'accept': "*/*",
+      'accept-encoding': "gzip, deflate, br",
+      'user-agent': "@dictadata/storage-junctions/http-filesystem (dictadata.org)",
+      'cache-control': "max-age=0"
     },
       this.options.headers);
     delete this.options.headers;  // beware shallow copies
