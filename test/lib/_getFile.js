@@ -33,7 +33,12 @@ module.exports = exports = async function (tract) {
     for (let entry of list) {
       //logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({ smt: tract.terminal.smt }, tract.terminal.options, entry);
+      let options = Object.assign({
+          smt: tract.terminal.smt,
+          entry: entry,
+        },
+        tract.terminal.options);
+      
       let results = await stfs.getFile(options);
       if (results.resultCode !== 0) {
         logger.error("!!! getFile failed: " + entry.name);

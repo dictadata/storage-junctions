@@ -221,12 +221,12 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let wdPath = decodeURI(this._url.pathname + (options.recursive ? path.dirname(options.rpath) : ''));
-      let src = wdPath + (options.recursive ? options.rpath : options.name);
+      let wdPath = decodeURI(this._url.pathname + (options.recursive ? path.dirname(options.entry.rpath) : ''));
+      let src = wdPath + (options.recursive ? options.entry.rpath : options.entry.name);
 
       let smt = parseSMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
-      let dest = path.join(folder, (options.keep_rpath ? options.rpath : options.name));
+      let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
@@ -237,7 +237,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       // create the read stream
       await this._ftp.cwd(wdPath);
-      let rs = await this._ftp.get(options.name);
+      let rs = await this._ftp.get(options.entry.name);
 
       // save to local file
       let ws = fs.createWriteStream(dest);
@@ -263,15 +263,15 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       let smt = parseSMT(options.smt); // smt.locus is source folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
-      let src = path.join(folder, options.rpath);
+      let src = path.join(folder, options.entry.rpath);
 
-      let dest = decodeURI(this._url.pathname + (options.keep_rpath ? options.rpath : options.name).split(path.sep).join(path.posix.sep));
+      let dest = decodeURI(this._url.pathname + (options.keep_rpath ? options.entry.rpath : options.entry.name).split(path.sep).join(path.posix.sep));
       logger.verbose("  " + src + " >> " + dest);
 
       // upload file
       let wdPath = path.dirname(dest);
       await this._walkCWD(wdPath);
-      await this._ftp.put(src, options.name);
+      await this._ftp.put(src, options.entry.name);
 
       return new StorageResponse(resultCode);
     }

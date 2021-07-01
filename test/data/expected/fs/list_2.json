@@ -62,13 +62,13 @@
   {
     "name": "encoding_tl_2020_us_county.json",
     "rpath": "shapes\\encoding_tl_2020_us_county.json",
-    "size": 2177,
-    "date": "2021-06-28T12:30:53.224Z"
+    "size": 2176,
+    "date": "2021-06-30T17:03:41.689Z"
   },
   {
     "name": "encoding_tl_2020_us_state.json",
     "rpath": "shapes\\encoding_tl_2020_us_state.json",
-    "size": 2020,
-    "date": "2021-06-09T20:52:27.605Z"
+    "size": 2019,
+    "date": "2021-06-30T17:03:41.689Z"
   }
 ]

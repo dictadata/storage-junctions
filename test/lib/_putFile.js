@@ -37,7 +37,12 @@ module.exports = exports = async function (tract) {
     for (let entry of list) {
       //logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({ smt: tract.origin.smt }, tract.origin.options, entry);
+      let options = Object.assign({
+          smt: tract.origin.smt,
+          entry: entry
+        },
+        tract.origin.options);
+
       let results = await stfs.putFile(options);
       if (results.resultCode !== 0) {
         logger.error("!!! putFile failed: " + results.resultCode);

@@ -202,11 +202,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options.responseType = 'stream';
       let resultCode = 0;
 
-      let src = options.dirname + options.rpath;
+      let src = options.dirname + options.entry.rpath;
 
       let smt = parseSMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
-      let dest = path.join(folder, (options.keep_rpath ? options.rpath : options.name));
+      let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
@@ -240,9 +240,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       let smt = parseSMT(options.smt); // smt.locus is source folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
-      let src = path.join(folder, options.rpath);
+      let src = path.join(folder, options.entry.rpath);
 
-      let filename = (options.keep_rpath ? options.rpath : options.name);
+      let filename = (options.keep_rpath ? options.entry.rpath : options.entry.name);
       let dest = this._url.pathname + filename.split(path.sep).join(path.posix.sep);
       logger.verbose("  " + src + " >> " + dest);
 
