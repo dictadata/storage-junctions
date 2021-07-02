@@ -1,12 +1,12 @@
-// filesystems/storage-filesystem
+/**
+ * dictadata/storage/filesystems/storage-filesystem
+ */
 "use strict";
 
 const { parseSMT, StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const path = require('path');
-const url = require('url');
-
 
 module.exports = exports = class StorageFileSystem {
 

@@ -10,7 +10,6 @@ const { hasOwnProperty, logger } = require("../utils");
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
-const url = require('url');
 const zlib = require('zlib');
 
 const FTP = require("promise-ftp");

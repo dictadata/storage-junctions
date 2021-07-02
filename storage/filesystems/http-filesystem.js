@@ -1,4 +1,6 @@
-// filesystems/http-filesystem
+/**
+ * dictadata/storage/filesystems/http-filesystem
+ */
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
