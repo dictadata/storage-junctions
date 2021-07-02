@@ -1,27 +1,29 @@
-// filesystems/ftp-filesystem
+/**
+ * dictadata/storage/filesystems/ftp-filesystem
+ */
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
 const { parseSMT, StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
-const FTP = require("promise-ftp");
-const { PassThrough } = require('stream');
-const { finished } = require('stream/promises');
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const url = require('url');
-const util = require('util');
 const zlib = require('zlib');
+
+const FTP = require("promise-ftp");
+const { PassThrough } = require('stream');
+const { finished } = require('stream/promises');
 
 
 module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
   /**
-   *
+   * construct a StorageFileSystem object
    * @param {*} SMT  example "model|ftp://username:password@host/directory/|filespec|*"
-   * @param {*} options  ftp-ts connection options
+   * @param {*} options  filesystem options
    */
   constructor(SMT, options) {
     super(SMT, options);
@@ -34,7 +36,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   }
 
   /**
-   *
+   * Connect to FTP server.
    */
   async activate() {
     //console.log("activate");
@@ -54,7 +56,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   }
 
   /**
-   *
+   * End FTP session and disconnect from server.
    */
   async relax() {
     if (this.isActive) {
@@ -64,8 +66,12 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   }
 
   /**
-   *
-   * @param {*} options
+   * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
+   * @param {object} options Specify any options use when querying the filesystem.
+   * @param {string} options.schema Override smt.schema, my contain wildcard characters.
+   * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
+   * @param {function} options.forEach Function to execute with each entry object, optional.
+   * @returns StorageResponse object where data is an array of directory entry objects.
    */
   async list(options) {
     logger.debug('ftp-filesystem list');
@@ -117,6 +123,13 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 
+  /**
+   * Remove schema, i.e. file(s), on the filesystem.
+   * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @returns StorageResponse object with resultCode.
+   */
   async dull(options) {
     logger.debug('ftp-filesystem dull');
 
@@ -137,7 +150,10 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   }
 
   /**
-  * createReadStream
+   * Create an object mode readstream from the filesystem file.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @returns a node.js readstream based object if successful.
   */
   async createReadStream(options) {
     logger.debug("FTPFileSystem createReadStream");
@@ -170,7 +186,11 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   }
 
   /**
-  * createWriteStream
+   * Create an object mode writestream to the filesystem file.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with filename at the same locus.
+   * @param {*} options.append Flag used indicate overwrite or append destination file. Default is overwrite.
+   * @returns a node.js writestream based object if successful.
   */
   async createWriteStream(options) {
     logger.debug("FTPFileSystem createWriteStream");
@@ -214,6 +234,14 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 
+  /**
+   * Download a file from remote filesystem to local filesystem.
+   * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
+   * @param {object} options.entry Directory entry object containing the file information.
+   * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
+   * @param {boolean} options.keep_rpath If true replicate folder structure of remote filesystem in local filesystem.
+   * @returns StorageResponse object with resultCode;
+   */
   async getFile(options) {
     logger.debug("ftp-fileSystem getFile");
 
@@ -254,6 +282,14 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 
+  /**
+   * Upload a local file to the remote filesystem.
+   * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
+   * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
+   * @param {object} options.entry Directory entry object containing the file information.
+   * @param {boolean} options.keep_rpath If true replicate folder structure of local filesystem in remote filesystem.
+   * @returns StorageResponse object with resultCode.
+   */
   async putFile(options) {
     logger.debug("ftp-fileSystem putFile");
 

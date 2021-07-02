@@ -8,6 +8,7 @@ const { logger, httpRequest } = require("../utils");
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
+
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
 
@@ -15,7 +16,7 @@ const FormData = require('form-data');
 module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
   /**
-   *
+   * construct a HTTPFileSystem object
    * @param {*} SMT  example "model|url folder|filename|*"
    * @param {*} options  http connection options, headers and cookies
    */
@@ -44,8 +45,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   }
 
   /**
-   *
-   * @param {*} options
+   * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
+   * @param {object} options Specify any options use when querying the filesystem.
+   * @param {string} options.schema Override smt.schema, my contain wildcard characters.
+   * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
+   * @param {function} options.forEach Function to execute with each entry object, optional.
+   * @returns StorageResponse object where data is an array of directory entry objects.
    */
   async list(options) {
     logger.debug('http-filesystem list');
@@ -128,6 +133,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
   }
 
+  /**
+   * Remove schema, i.e. file(s), on the filesystem.
+   * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @returns StorageResponse object with resultCode.
+   */
   async dull(options) {
     logger.debug('http-filesystem dull');
 
@@ -141,7 +153,10 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   }
 
   /**
-  * createReadStream
+   * Create an object mode readstream from the filesystem file.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @returns a node.js readstream based object if successful.
   */
   async createReadStream(options) {
     logger.debug("HTTPFileSystem createReadStream");
@@ -175,7 +190,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
   }
 
   /**
-  * createWriteStream
+   * Create an object mode writestream to the filesystem file.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with filename at the same locus.
+   * @param {*} options.append Flag used indicate overwrite or append destination file. Default is overwrite.
+   * @returns a node.js writestream based object if successful.
   */
   async createWriteStream(options) {
     logger.debug("HTTPFileSystem createWriteStream");
@@ -192,6 +211,14 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     //return ws;
   }
 
+  /**
+   * Download a file from remote filesystem to local filesystem.
+   * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
+   * @param {object} options.entry Directory entry object containing the file information.
+   * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
+   * @param {boolean} options.keep_rpath If true replicate folder structure of remote filesystem in local filesystem.
+   * @returns StorageResponse object with resultCode;
+   */
   async getFile(options) {
     logger.debug("HTTPFileSystem getFile");
 
@@ -229,6 +256,14 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
   }
 
+  /**
+   * Upload a local file to the remote filesystem.
+   * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
+   * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
+   * @param {object} options.entry Directory entry object containing the file information.
+   * @param {boolean} options.keep_rpath If true replicate folder structure of local filesystem in remote filesystem.
+   * @returns StorageResponse object with resultCode.
+   */
   async putFile(options) {
     logger.debug("HTTPFileSystem putFile")
 
@@ -265,6 +300,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
   /////// parse HTML directory page
 
+  /**
+   * 
+   * @param {*} response the full HTTP response
+   * @param {*} dirText rawText of the inner HTML content to process for directory entries
+   * @returns an array of directory entries
+   */
   _parseHtmlDir(response, dirText) {
     let server = response.headers["server"];
 
@@ -303,6 +344,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     return entries;
   }
 
+  /**
+   * decode HTML text entities that may be in the directory entry string
+   * @param {*} encodedString 
+   * @returns 
+   */
   _decodeEntities(encodedString) {
     var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
     var translate = {

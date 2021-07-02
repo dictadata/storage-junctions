@@ -1,4 +1,6 @@
-// filesystems/zip-filesystem
+/**
+ * dictadata/storage/filesystems/zip-filesystem
+ */
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
@@ -11,15 +13,14 @@ const path = require('path');
 const url = require('url');
 const zlib = require('zlib');
 
-
 const StreamZip = require('node-stream-zip');
 
 module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
   /**
-   *
-   * @param {*} SMT
-   * @param {*} options
+   * construct a StorageFileSystem object
+   * @param {*} SMT storage memory trace
+   * @param {*} options filesystem options
    */
   constructor(SMT, options) {
     super(SMT, options);
@@ -28,25 +29,31 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     this.zipname = this._url.pathname;
   }
 
-    /**
-   * Initialize or connect to the file storage system
+  /**
+   * Open the .zip file.
    */
   async activate() {
-    // optional, implement filesystem initialization
     this.isActive = true;
     this.zip = new StreamZip.async({ file: this.zipname });
   }
 
   /**
-   * Diconnect and/or cleanup resources
+   * Close the .zip file
    */
   async relax() {
-    // optional, implement filesystem cleanup
     this.isActive = false;
     if (this.zip)
       this.zip.close();
   }
 
+  /**
+   * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
+   * @param {object} options Specify any options use when querying the filesystem.
+   * @param {string} options.schema Override smt.schema, my contain wildcard characters.
+   * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
+   * @param {function} options.forEach Function to execute with each entry object, optional.
+   * @returns StorageResponse object where data is an array of directory entry objects.
+   */
   async list(options) {
     logger.debug('zip-filesystem list');
 
@@ -91,6 +98,13 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     }
   }
 
+  /**
+   * Remove schema, i.e. file(s), on the filesystem.
+   * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @returns StorageResponse object with resultCode.
+   */
   async dull(options) {
     logger.debug('zip-filesystem dull');
 
@@ -104,7 +118,10 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
   }
 
   /**
-  * createReadStream
+   * Create an object mode readstream from the filesystem file.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @returns a node.js readstream based object if successful.
   */
   async createReadStream(options) {
     logger.debug("ZipFileSystem createReadStream");
@@ -134,7 +151,11 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
   }
 
   /**
-  * createWriteStream
+   * Create an object mode writestream to the filesystem file.
+   * @param {*} options Specify any options use when querying the filesystem.
+   * @param {*} options.schema Override smt.schema with filename at the same locus.
+   * @param {*} options.append Flag used indicate overwrite or append destination file. Default is overwrite.
+   * @returns a node.js writestream based object if successful.
   */
   async createWriteStream(options) {
     logger.debug("ZipFileSystem createWriteStream");
@@ -167,10 +188,12 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
   }
 
   /**
-   * get file(s) from zip filesystem, save to local folder
-   * @param {Object} options 
-   * @param {string} options.smt the smt.locus provides the destination folder
-   * @returns 
+   * Download a file from remote filesystem to local filesystem.
+   * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
+   * @param {object} options.entry Directory entry object containing the file information.
+   * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
+   * @param {boolean} options.keep_rpath If true replicate folder structure of remote filesystem in local filesystem.
+   * @returns StorageResponse object with resultCode;
    */
   async getFile(options) {
     logger.debug("zip-fileSystem getFile");
@@ -202,10 +225,12 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
   }
 
   /**
-   * read file(s) from local folder, add to zip filesystem
-   * @param {Object} options 
-   * @param {string} options.smt smt.locus provides the source folder and smt.schema the filespec
-   * @returns 
+   * Upload a local file to the remote filesystem.
+   * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
+   * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
+   * @param {object} options.entry Directory entry object containing the file information.
+   * @param {boolean} options.keep_rpath If true replicate folder structure of local filesystem in remote filesystem.
+   * @returns StorageResponse object with resultCode.
    */
   async putFile(options) {
     logger.debug("zip-fileSystem putFile");
