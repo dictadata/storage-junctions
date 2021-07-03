@@ -5,7 +5,7 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { parseSMT, StorageResponse, StorageError } = require("../types");
-const { logger, httpRequest } = require("../utils");
+const { logger, httpRequest, htmlParseDir } = require("../utils");
 
 const fs = require('fs');
 const path = require('path');
@@ -13,26 +13,20 @@ const zlib = require('zlib');
 
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
-
+const { runInThisContext } = require("vm");
+const { URLSearchParams } = require("url");
 
 module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
   /**
    * construct a HTTPFileSystem object
    * @param {*} SMT  example "model|url folder|filename|*"
-   * @param {*} options  http connection options, headers and cookies
+   * @param {*} options  http filesystem options
    * @param {*} options.headers set default HTTP headers
    */
   constructor(SMT, options) {
     super(SMT, options);
     logger.debug("HTTPFileSystem");
-
-    if (!this.options.origin)
-      this.options.origin = this.url.origin;
-    if (!this.options.dirname)
-      this.options.dirname = this.url.pathname;
-    if (!this.options.dirname.endsWith('/'))
-      this.options.dirname += '/';
 
     // set some default request headers, if not defined in options
     this.headers = Object.assign({
@@ -42,7 +36,6 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       'cache-control': "max-age=0"
     },
       this.options.headers);
-    delete this.options.headers;  // beware shallow copies
 
     this._dirname = '';
   }
@@ -62,12 +55,23 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      options.method = 'GET';
-      options.headers = Object.assign({}, this.headers, options.headers, {
-        accept: 'text/html,application/xhtml+xml'
-      });
       let schema = options.schema || this.smt.schema;
-      let dirpath = this.options.dirname || "/";
+      let pathname = this.url.pathname || "/";
+      let params = {
+        method: options.method || 'GET',
+        base: options.base || this.url.origin,
+        query: options.query,
+        headers: Object.assign({},
+          this.headers,
+          options.headers, {
+          accept: 'text/html,application/xhtml+xml'
+        }),
+        http: options.http,
+        timeout: options.timeout,
+        cookies: options.cookies,
+        auth: options.auth,
+        responseType: options.responseType
+      };
       let list = [];
         
       // regex for filespec match
@@ -85,7 +89,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         logger.debug('scanner');
 
         // HTTP GET
-        let response = await httpRequest(dirpath, options);
+        let response = await httpRequest(dirpath, params);
         logger.debug(response);
 
         if (!response.headers['content-type'].startsWith('text/html'))
@@ -104,7 +108,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         var pre = root.querySelectorAll('pre');
         if (pre.length === 0)
           return;
-        var directory = that._parseHtmlDir(response, pre[0].rawText);
+        var directory = htmlParseDir(response, pre[0].rawText);
         //logger.debug(JSON.stringify(directory, null, 2));
 
         for (let entry of directory) {
@@ -118,8 +122,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
             //logger.debug(JSON.stringify(entry, null, 2));
 
             entry.rpath = dirpath + entry.name;
-            if (entry.rpath.startsWith(that.options.dirname))
-              entry.rpath = entry.rpath.substring(that.options.dirname.length);
+            if (entry.rpath.startsWith(that.url.pathname))
+              entry.rpath = entry.rpath.substring(that.url.pathname.length);
 
             if (that.options.forEach)
               await that.options.forEach(entry);
@@ -128,7 +132,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         }
       }
 
-      await scanner(dirpath);
+      await scanner(pathname);
 
       return new StorageResponse(0, null, list);
     }
@@ -150,7 +154,6 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug('http-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    options.headers = Object.assign({}, this.headers, options.headers);
     let schema = options.schema || this.smt.schema;
 
     throw new StorageError(501);
@@ -170,16 +173,28 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      options.headers = Object.assign({}, this.headers, options.headers);
-      options.method = 'GET'
-      options.responseType = 'stream';
-
-      let rs = null;
       let schema = options.schema || this.smt.schema;
-      let filename = this.options.dirname + schema;
+      let filename = schema;
+
+      let params = {
+        method: options.method || 'GET',
+        base: options.base,
+        query: options.query,
+        headers: Object.assign({},
+          this.headers,
+          options.headers, {
+          accept: 'text/html,application/xhtml+xml'
+        }),
+        http: options.http,
+        timeout: options.timeout,
+        cookies: options.cookies,
+        auth: options.auth,
+        responseType: "stream"
+      };
+      let rs = null;
 
       // create read stream
-      rs = await httpRequest(filename, options);
+      rs = await httpRequest(filename, params);
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -210,7 +225,6 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // implement writestream creation in overrides
     //options = Object.assign({}, this.options, options);
-    //options.headers = Object.assign({}, this.headers, options.headers);
     //let schema = options.schema || this.smt.schema;
     //let ws = false;
 
@@ -233,14 +247,27 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      options.headers = Object.assign({}, this.headers, options.headers);
-      options.method = 'GET'
-      options.responseType = 'stream';
+      let params = {
+        method: options.method || 'GET',
+        base: options.base,
+        query: options.query,
+        headers: Object.assign({},
+          this.headers,
+          options.headers, {
+          accept: 'text/html,application/xhtml+xml'
+        }),
+        http: options.http,
+        timeout: options.timeout,
+        cookies: options.cookies,
+        auth: options.auth,
+        responseType: "stream"
+      };
       let resultCode = 0;
 
-      let src = options.dirname + options.entry.rpath;
+      let src = options.entry.rpath;
 
-      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      // smt.locus is destination folder
+      let smt = parseSMT(options.smt);
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
@@ -252,7 +279,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
 
       // get file
-      let rs = await httpRequest(src, options);
+      let rs = await httpRequest(src, params);
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
@@ -280,11 +307,25 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      options.headers = Object.assign({}, this.headers, options.headers);
-      options.method = 'PUT';
+      let params = {
+        method: options.method || 'PUT',
+        base: options.base,
+        query: options.query,
+        headers: Object.assign({},
+          this.headers,
+          options.headers, {
+          accept: 'text/html,application/xhtml+xml'
+        }),
+        http: options.http,
+        timeout: options.timeout,
+        cookies: options.cookies,
+        auth: options.auth,
+        responseType: "stream"
+      };
       let resultCode = 0;
 
-      let smt = parseSMT(options.smt); // smt.locus is source folder
+      // smt.locus is source folder
+      let smt = parseSMT(options.smt); 
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
@@ -298,8 +339,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       form.append(filename, fs.createReadStream(src));
 
       // send the file
-      options.headers = Object.assign({}, this.headers, options.headers, form.getHeaders());
-      let response = await httpRequest(this.url.pathname, options, form);
+      params.headers = Object.assign({}, this.headers, options.headers, form.getHeaders());
+      let response = await httpRequest(this.url.pathname, params, form);
 
       return new StorageResponse(resultCode);
     }
@@ -307,75 +348,6 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       logger.error(err);
       throw new StorageError(500).inner(err);
     }
-  }
-
-  /////// parse HTML directory page
-
-  /**
-   * 
-   * @param {*} response the full HTTP response
-   * @param {*} dirText rawText of the inner HTML content to process for directory entries
-   * @returns an array of directory entries
-   */
-  _parseHtmlDir(response, dirText) {
-    let server = response.headers["server"];
-
-    let direxp = null;
-    if (this.options.direxp)
-      direxp = this.options.direxp;
-    if (server.indexOf("IIS") >= 0)
-      direxp = /(?<date>.*AM|PM) +(?<size>[0-9]+|<dir>) <A HREF="(?<href>.*)">(?<name>.*)<\/A>/;
-    else if (server.indexOf("nginx") >= 0)
-      direxp = /<a href="(?<href>.*)">(?<name>.*)<\/a> +(?<date>[0-z,\-]+ [0-9,:]+) +(?<size>.*)/;
-
-    dirText = decodeURI(dirText);
-    var lines = dirText.split(/(?:<br>|\n|\r)+/);
-    var entries = [];
-
-    for (var i = 0; i < lines.length; i++) {
-      var line = this._decodeEntities(lines[i]);
-
-      var m = direxp.exec(line);
-      if (m && m.length === 5) {
-        let d = m.groups;
-        var isDir = Number.isNaN(Number.parseInt(d['size']));
-
-        var direntry = {
-          href: d['href'],
-          name: d['name'],
-          isDir: isDir,
-          date: new Date(d['date']),
-          size: isDir ? 0 : parseInt(d['size'])
-        };
-
-        entries.push(direntry);
-      }
-    }
-
-    return entries;
-  }
-
-  /**
-   * decode HTML text entities that may be in the directory entry string
-   * @param {*} encodedString 
-   * @returns 
-   */
-  _decodeEntities(encodedString) {
-    var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
-    var translate = {
-      "nbsp": " ",
-      "amp": "&",
-      "quot": "\"",
-      "lt": "<",
-      "gt": ">"
-    };
-
-    return encodedString.replace(translate_re, function (match, entity) {
-      return translate[entity];
-    }).replace(/&#(\d+);/gi, function (match, numStr) {
-      var num = parseInt(numStr, 10);
-      return String.fromCharCode(num);
-    });
   }
 
 };

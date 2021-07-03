@@ -7,6 +7,22 @@ const http2 = require('http2');
 const querystring = require('querystring');
 const logger = require('./logger');
 
+/**
+ * 
+ * @param {*} url The absolute or relative input URL to request.
+ * @param {*} options HTTP request parameters.
+ * @param {*} options.base URL to use as base for requests if url is relative.
+ * @param {*} options.query object containing URL querystring parameters.
+ * @param {*} options.http HTTP version to use 1.0, 1.1, 2
+ * @param {*} options.method HTTP request method, default is GET
+ * @param {*} options.timeout request timeout ms, default 5000ms
+ * @param {*} options.headers HTTP request headers
+ * @param {*} options.cookies array of HTTP cookies strings
+ * @param {*} options.auth Basic authentication i.e. 'user:password' to compute an Authorization header.
+ * @param {*} options.responseType If set to 'stream' the response will be returned when headers are received.
+ * @param {*} data 
+ * @returns 
+ */
 function httpRequest(url, options, data) {
 
   if (typeof url === "undefined")
@@ -14,7 +30,7 @@ function httpRequest(url, options, data) {
   
   let Url;
   if (typeof url === "string") {
-    Url = new URL(url, (options.base || options.origin));
+    Url = new URL(url, options.base);
   }
   else if (typeof url === "object" && url instanceof URL)
     Url = url;
@@ -26,7 +42,7 @@ function httpRequest(url, options, data) {
     Url.search = querystring.stringify(options.query);
   }
 
-  if (options.httpVersion === 2)
+  if (options.http === 2)
     return http2Request(Url, options, data);
   else
     return http1Request(Url, options, data);
@@ -34,6 +50,13 @@ function httpRequest(url, options, data) {
 
 module.exports = exports = httpRequest;
 
+/**
+ * 
+ * @param {*} Url 
+ * @param {*} options 
+ * @param {*} data 
+ * @returns 
+ */
 function http1Request(Url, options, data) {
   return new Promise((resolve, reject) => {
     let response = {
@@ -101,6 +124,13 @@ function http1Request(Url, options, data) {
   });
 }
 
+/**
+ * 
+ * @param {*} Url 
+ * @param {*} options 
+ * @param {*} data 
+ * @returns 
+ */
 function http2Request(Url, options, data) {
   return new Promise((resolve, reject) => {
     response = {};
@@ -150,6 +180,11 @@ function http2Request(Url, options, data) {
 
 ////////////////////////////////
 
+/**
+ * 
+ * @param {*} options 
+ * @param {*} headers 
+ */
 function saveCookies(options, headers) {
   // parse cookies
   for (const name in headers) {
@@ -176,6 +211,11 @@ function saveCookies(options, headers) {
   }
 }
 
+/**
+ * 
+ * @param {*} contentType 
+ * @returns 
+ */
 exports.contentTypeIsJSON = (contentType) => {
   if (!contentType)
     return false;

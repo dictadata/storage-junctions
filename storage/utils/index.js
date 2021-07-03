@@ -13,5 +13,6 @@ exports.getCI = require('./getCI');
 exports.ifOptions = require('./ifOptions');
 
 exports.httpRequest = require('./httpRequest');
+exports.htmlParseDir = require('./htmlParseDir');
 
 exports.logger = require('./logger');
