@@ -43,7 +43,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       var list = [];
 
-      let dirpath = url.fileURLToPath(this._url);
+      let dirpath = url.fileURLToPath(this.url);
 
       let filespec = schema || '*';
       let rx = '^' + filespec + '$';
@@ -105,7 +105,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let schema = options.schema || this.smt.schema;
 
-      let filepath = path.join(url.fileURLToPath(this._url), schema);
+      let filepath = path.join(url.fileURLToPath(this.url), schema);
       await fsp.unlink(filepath);
 
       return new StorageResponse(0);
@@ -130,7 +130,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let rs = null;
 
-      let filename = path.join(url.fileURLToPath(this._url), schema);
+      let filename = path.join(url.fileURLToPath(this.url), schema);
       rs = fs.createReadStream(filename);
 
       ///// check for zip
@@ -163,7 +163,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let ws = false;
 
-      let filename = path.join(url.fileURLToPath(this._url), schema);
+      let filename = path.join(url.fileURLToPath(this.url), schema);
       let append = this.options.append || false;
 
       let dirname = path.dirname(filename);
@@ -172,7 +172,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         this._dirname = dirname;
       }
 
-      this._isNewFile = !(append && fs.existsSync(filename));
+      this.isNewFile = !(append && fs.existsSync(filename));
 
       let flags = append ? 'a' : 'w';
       ws = fs.createWriteStream(filename, { flags: flags });
@@ -207,7 +207,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let src = path.join(url.fileURLToPath(this._url), options.entry.rpath);
+      let src = path.join(url.fileURLToPath(this.url), options.entry.rpath);
 
       let smt = parseSMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
@@ -248,7 +248,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
-      let dest = path.join(url.fileURLToPath(this._url), (options.keep_rpath ? options.entry.rpath : options.entry.name));
+      let dest = path.join(url.fileURLToPath(this.url), (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {

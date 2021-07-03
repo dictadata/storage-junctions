@@ -26,7 +26,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     super(SMT, options);
     logger.debug("ZipFileSystem");
 
-    this.zipname = this._url.pathname;
+    this.zipname = this.url.pathname;
   }
 
   /**
@@ -131,7 +131,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let rs = null;
 
-      let filename = schema; // path.join(url.fileURLToPath(this._url), schema);
+      let filename = schema; // path.join(url.fileURLToPath(this.url), schema);
 
       rs = await this.zip.stream(filename);
 
@@ -167,7 +167,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let ws = false;
 
-      let filename = path.join(url.fileURLToPath(this._url), schema);
+      let filename = path.join(url.fileURLToPath(this.url), schema);
       let append = this.options.append || false;
 
       ws = fs.createWriteStream(filename, { flags: flags });
@@ -245,7 +245,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
-      let dest = path.join(url.fileURLToPath(this._url), (options.keep_rpath ? options.entry.rpath : options.entry.name));
+      let dest = path.join(url.fileURLToPath(this.url), (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {

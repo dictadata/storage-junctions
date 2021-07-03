@@ -32,11 +32,11 @@ module.exports = exports = class StorageFileSystem {
     else if (this.smt.locus.indexOf(':') <= 1)
       locus = "file:" + path.resolve(locus);
     
-    this._url = new URL(locus);
-    logger.debug("filesystem: " + JSON.stringify(this._url));
+    this.url = new URL(locus);
+    logger.debug("filesystem: " + JSON.stringify(this.url));
 
     this.isActive = false;
-    this._isNewFile = false;  // set by createWriteStream()
+    this.isNewFile = false;  // set by createWriteStream()
   }
 
   /**
@@ -125,7 +125,7 @@ module.exports = exports = class StorageFileSystem {
     //let ws = false;
 
     // implement writestream creation in overrides
-    //this._isNewFile = true | false
+    //this.isNewFile = true | false
 
     //return ws;
   }

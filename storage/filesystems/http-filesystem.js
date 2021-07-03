@@ -27,9 +27,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug("HTTPFileSystem");
 
     if (!this.options.origin)
-      this.options.origin = this._url.origin;
+      this.options.origin = this.url.origin;
     if (!this.options.dirname)
-      this.options.dirname = this._url.pathname;
+      this.options.dirname = this.url.pathname;
     if (!this.options.dirname.endsWith('/'))
       this.options.dirname += '/';
 
@@ -208,7 +208,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     //let schema = options.schema || this.smt.schema;
     //let ws = false;
 
-    //this._isNewFile = true | false
+    //this.isNewFile = true | false
 
     //return ws;
   }
@@ -280,7 +280,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let src = path.join(folder, options.entry.rpath);
 
       let filename = (options.keep_rpath ? options.entry.rpath : options.entry.name);
-      let dest = this._url.pathname + filename.split(path.sep).join(path.posix.sep);
+      let dest = this.url.pathname + filename.split(path.sep).join(path.posix.sep);
       logger.verbose("  " + src + " >> " + dest);
 
       const form = new FormData();
@@ -290,7 +290,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       // send the file
       options.headers = Object.assign({}, this.headers, options.headers, form.getHeaders());
-      let response = await httpRequest(this._url.pathname, options, form);
+      let response = await httpRequest(this.url.pathname, options, form);
 
       return new StorageResponse(resultCode);
     }

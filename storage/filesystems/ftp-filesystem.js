@@ -43,10 +43,10 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     // connect to host
     await this._ftp.connect({
-      host: this._url.host || "127.0.0.1",
-      port: this._url.port || 21,
-      user: this._url.username || (this.smt.credentials && this.smt.credentials.user) || 'anonymous',
-      password: this._url.password || (this.smt.credentials && this.smt.credentials.password) || 'anonymous@dictadata',
+      host: this.url.host || "127.0.0.1",
+      port: this.url.port || 21,
+      user: this.url.username || (this.smt.credentials && this.smt.credentials.user) || 'anonymous',
+      password: this.url.password || (this.smt.credentials && this.smt.credentials.password) || 'anonymous@dictadata',
       secure: hasOwnProperty(options, "secure") ? options.secure : false
     });
 
@@ -80,7 +80,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let list = [];
 
-      let wdPath = decodeURI(this._url.pathname);
+      let wdPath = decodeURI(this.url.pathname);
 
       let filespec = schema || '*';
       let rx = '^' + filespec + '$';
@@ -137,7 +137,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let filename = schema;
 
-      await this._ftp.cwd(decodeURI(this._url.pathname));
+      await this._ftp.cwd(decodeURI(this.url.pathname));
       await this._ftp.delete(filename);
 
       return new StorageResponse(0);
@@ -165,7 +165,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let filename = schema;
 
       // create the read stream
-      await this._ftp.cwd(decodeURI(this._url.pathname));
+      await this._ftp.cwd(decodeURI(this.url.pathname));
 
       rs = await this._ftp.get(filename);
 
@@ -202,17 +202,17 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let filename = schema;
 
       // create the read stream
-      await this._walkCWD(decodeURI(this._url.pathname));
+      await this._walkCWD(decodeURI(this.url.pathname));
 
       // create the write stream
       ws = new PassThrough(); // app writes to passthrough and ftp reads from passthrough
 
       if (options.append) {
-        this._isNewFile = false;  // should check for existence
+        this.isNewFile = false;  // should check for existence
         ws.fs_ws_promise = this._ftp.append(ws, filename);
       }
       else {
-        this._isNewFile = true;
+        this.isNewFile = true;
         ws.fs_ws_promise = this._ftp.put(ws, filename);
       }
       // ws.fs_ws_promise is an added property. Used so that StorageWriters 
@@ -248,7 +248,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let wdPath = decodeURI(this._url.pathname + (options.recursive ? path.dirname(options.entry.rpath) : ''));
+      let wdPath = decodeURI(this.url.pathname + (options.recursive ? path.dirname(options.entry.rpath) : ''));
       let src = wdPath + (options.recursive ? options.entry.rpath : options.entry.name);
 
       let smt = parseSMT(options.smt); // smt.locus is destination folder
@@ -300,7 +300,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
-      let dest = decodeURI(this._url.pathname + (options.keep_rpath ? options.entry.rpath : options.entry.name).split(path.sep).join(path.posix.sep));
+      let dest = decodeURI(this.url.pathname + (options.keep_rpath ? options.entry.rpath : options.entry.name).split(path.sep).join(path.posix.sep));
       logger.verbose("  " + src + " >> " + dest);
 
       // upload file
