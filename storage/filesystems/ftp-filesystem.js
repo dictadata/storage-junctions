@@ -23,6 +23,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * construct a StorageFileSystem object
    * @param {*} SMT  example "model|ftp://username:password@host/directory/|filespec|*"
    * @param {*} options  filesystem options
+   * @param {*} options.ftp ftp options
+   * @param {boolean} options.ftp.secure use secure connection
    */
   constructor(SMT, options) {
     super(SMT, options);
@@ -39,7 +41,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    */
   async activate() {
     //console.log("activate");
-    const options = this.options.ftp || {};
+    const ftpOptions = this.options.ftp || {};
 
     // connect to host
     await this._ftp.connect({
@@ -47,7 +49,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       port: this.url.port || 21,
       user: this.url.username || (this.smt.credentials && this.smt.credentials.user) || 'anonymous',
       password: this.url.password || (this.smt.credentials && this.smt.credentials.password) || 'anonymous@dictadata',
-      secure: hasOwnProperty(options, "secure") ? options.secure : false
+      secure: hasOwnProperty(options, "secure") ? ftpOptions.secure : false
     });
 
     this.isActive = true;

@@ -11,9 +11,9 @@ const path = require('path');
 module.exports = exports = class StorageFileSystem {
 
   /**
-   *
-   * @param {*} SMT
-   * @param {*} options
+   * construct a StorageFileSystem object
+   * @param {*} SMT storage memory trace
+   * @param {*} options filesystem options
    */
   constructor(SMT, options) {
     logger.debug("StorageFileSystem");

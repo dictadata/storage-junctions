@@ -18,7 +18,7 @@ const StreamZip = require('node-stream-zip');
 module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
   /**
-   * construct a StorageFileSystem object
+   * construct a ZipFileSystem object
    * @param {*} SMT storage memory trace
    * @param {*} options filesystem options
    */
@@ -109,7 +109,6 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug('zip-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    options.headers = Object.assign({}, this.headers, options.headers);
     let schema = options.schema || this.smt.schema;
 
     throw new StorageError(501);
