@@ -9,17 +9,15 @@
  * @param {*} html rawText of the inner HTML content to process for directory entries
  * @returns an array of directory entries
  */
-module.exports = exports = function (response, html, direxp) {
+module.exports = exports = function (serverType, html, direxp) {
   
   if (!direxp) {
-    let server = response.headers["server"];
 
-    if (server.indexOf("IIS") >= 0)
+    if (serverType.indexOf("IIS") >= 0)
       //direxp = /(?<date>.*AM|PM) +(?<size>[0-9]+|<dir>) <A HREF="(?<href>.*)">(?<name>.*)<\/A>/;
       direxp = /(?<date>.*AM |.*PM ) +(?<size>[0-9]+|<dir>) <a href="(?<href>.*)">(?<name>.*)<\/a>/i;
-    else if (server.indexOf("nginx") >= 0)
+    else if (serverType.indexOf("nginx") >= 0)
       direxp = /<a href="(?<href>.*)">(?<name>.*)<\/a> +(?<date>[0-z,\-]+ [0-9,:]+) +(?<size>.*)/;
-
 
   }
 

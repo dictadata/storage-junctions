@@ -13,8 +13,8 @@ const zlib = require('zlib');
 
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
-const { runInThisContext } = require("vm");
-const { URLSearchParams } = require("url");
+//const { runInThisContext } = require("vm");
+//const { URLSearchParams } = require("url");
 
 module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
@@ -101,7 +101,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         var pre = root.querySelectorAll('pre');
         if (pre.length === 0)
           return;
-        var directory = htmlParseDir(response, pre[0].rawText);
+        var directory = htmlParseDir(response.headers["server"], pre[0].rawText);
         //logger.debug(JSON.stringify(directory, null, 2));
 
         for (let entry of directory) {
