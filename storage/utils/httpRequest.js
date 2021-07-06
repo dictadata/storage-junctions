@@ -13,7 +13,7 @@ const logger = require('./logger');
  * @param {*} options HTTP request parameters.
  * @param {*} options.base URL to use as base for requests if url is relative.
  * @param {*} options.query object containing URL querystring parameters.
- * @param {*} options.http HTTP version to use 1.0, 1.1, 2
+ * @param {*} options.httpVersion HTTP version to use 1.0, 1.1, 2
  * @param {*} options.method HTTP request method, default is GET
  * @param {*} options.timeout request timeout ms, default 5000ms
  * @param {*} options.headers HTTP request headers
@@ -42,7 +42,7 @@ function httpRequest(url, options, data) {
     Url.search = querystring.stringify(options.query);
   }
 
-  if (options.http === 2)
+  if (options.httpVersion === 2)
     return http2Request(Url, options, data);
   else
     return http1Request(Url, options, data);
