@@ -23,7 +23,11 @@ module.exports = exports = async function (tract) {
     junction = await storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.info(">>> get list of desired files");
-    let results = await junction.list();
+    let results = await junction.list({
+      forEach: (entry) => {
+
+      }
+    });
     let { data: list } = results;
 
     logger.info(">>> download files");
