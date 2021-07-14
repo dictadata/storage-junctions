@@ -55,10 +55,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       async function readFolder(dirpath, relpath, options) {
 
         let dirname = path.join(dirpath, relpath);
-        let dir = await fsp.opendir(dirname);
         logger.debug("opendir ", dirname);
-
         // process files in current folder
+        let dir = await fsp.opendir(dirname);
         for await (let dirent of dir) {
           if (dirent.isFile() && rx.test(dirent.name)) {
             let info = fs.statSync(path.join(dirpath, relpath, dirent.name));
@@ -77,6 +76,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
         // process subfolders
         if (options.recursive) {
+          dir = await fsp.opendir(dirname);
           for await (let dirent of dir) {
             logger.debug(dirent.name);
             if (dirent.isDirectory()) {
