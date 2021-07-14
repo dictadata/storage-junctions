@@ -1,29 +1,5 @@
 [
   {
-    "href": "encoding_shapes.json",
-    "name": "encoding_shapes.json",
-    "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
-    "size": 504,
-    "rpath": "shapes/encoding_shapes.json"
-  },
-  {
-    "href": "encoding_tl_2020_us_county.json",
-    "name": "encoding_tl_2020_us_county.json",
-    "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
-    "size": 2079,
-    "rpath": "shapes/encoding_tl_2020_us_county.json"
-  },
-  {
-    "href": "encoding_tl_2020_us_state.json",
-    "name": "encoding_tl_2020_us_state.json",
-    "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
-    "size": 1929,
-    "rpath": "shapes/encoding_tl_2020_us_state.json"
-  },
-  {
     "href": "encoding_foo.json",
     "name": "encoding_foo.json",
     "isDir": false,
@@ -86,5 +62,29 @@
     "date": "2021-06-29T19:49:00.000Z",
     "size": 180,
     "rpath": "encoding_foo_typesonly.json"
+  },
+  {
+    "href": "encoding_shapes.json",
+    "name": "encoding_shapes.json",
+    "isDir": false,
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 504,
+    "rpath": "shapes/encoding_shapes.json"
+  },
+  {
+    "href": "encoding_tl_2020_us_county.json",
+    "name": "encoding_tl_2020_us_county.json",
+    "isDir": false,
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 2079,
+    "rpath": "shapes/encoding_tl_2020_us_county.json"
+  },
+  {
+    "href": "encoding_tl_2020_us_state.json",
+    "name": "encoding_tl_2020_us_state.json",
+    "isDir": false,
+    "date": "2021-06-29T19:49:00.000Z",
+    "size": 1929,
+    "rpath": "shapes/encoding_tl_2020_us_state.json"
   }
 ]
