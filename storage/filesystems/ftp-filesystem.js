@@ -49,7 +49,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       port: this.url.port || 21,
       user: this.url.username || (this.smt.credentials && this.smt.credentials.user) || 'anonymous',
       password: this.url.password || (this.smt.credentials && this.smt.credentials.password) || 'anonymous@dictadata',
-      secure: hasOwnProperty(options, "secure") ? ftpOptions.secure : false
+      secure: hasOwnProperty(ftpOptions, "secure") ? ftpOptions.secure : false
     });
 
     this.isActive = true;
@@ -93,18 +93,16 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       // recursive scanner function
       // eslint-disable-next-line no-inner-declarations
       let ftp = this._ftp;
-      async function scanner(dirpath, relpath, options) {
-        logger.debug('scanner');
+      async function readFolder(dirpath, relpath, options) {
+        logger.debug('readFolder');
 
         // get list
         await ftp.cwd(dirpath + relpath);
         let dirList = await ftp.list();
+
+        // process files in current folder
         for (let entry of dirList) {
-          if (entry.type === 'd' && options.recursive) {
-            let subpath = relpath + entry.name + '/';
-            await scanner(dirpath, subpath, options);
-          }
-          else if (entry.type === '-' && rx.test(entry.name)) {
+          if (entry.type === '-' && rx.test(entry.name)) {
             entry.rpath = relpath + entry.name;
             if (options.forEach)
               await options.forEach(entry);
@@ -112,9 +110,21 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
             list.push(entry);
           }
         }
+
+        // process sub-folders
+        if (options.recursive) {
+          for (let entry of dirList) {
+            if (entry.type === 'd') {
+              let subpath = relpath + entry.name + '/';
+              await readFolder(dirpath, subpath, options);
+            }
+          }
+        }
+
       }
 
-      await scanner(wdPath, "", options);
+      // start scanning FTP directory
+      await readFolder(wdPath, "", options);
 
       return new StorageResponse(0, null, list);
     }

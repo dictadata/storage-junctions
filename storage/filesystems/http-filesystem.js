@@ -78,8 +78,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       // recursive scanner function
       // eslint-disable-next-line no-inner-declarations
-      async function scanner(dirpath) {
-        logger.debug('scanner');
+      async function readFolder(dirpath) {
+        logger.debug('readFolder');
 
         // HTTP GET
         let response = await httpRequest(dirpath, params);
@@ -104,28 +104,38 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         var directory = htmlParseDir(response.headers["server"], pre[0].rawText);
         //logger.debug(JSON.stringify(directory, null, 2));
 
+        // process file entries in current directory
         for (let entry of directory) {
-          if (entry.isDir && that.options.recursive) {
-            let subpath = dirpath + entry.href;
-            if (entry.href.startsWith('/'))
-              subpath = entry.href;
-            await scanner(subpath);
-          }
-          else if (!entry.isDir && rx.test(entry.name)) {
+          if (!entry.isDir && rx.test(entry.name)) {
             //logger.debug(JSON.stringify(entry, null, 2));
 
+            // calculate relative path
             entry.rpath = dirpath + entry.name;
             if (entry.rpath.startsWith(that.url.pathname))
               entry.rpath = entry.rpath.substring(that.url.pathname.length);
 
-            if (that.options.forEach)
-              await that.options.forEach(entry);
+            if (options.forEach)
+              await options.forEach(entry);
             list.push(entry);
           }
         }
+
+        // process subdirectories
+        if (options.recursive) {
+          for (let entry of directory) {
+            if (entry.isDir) {
+              let subpath = dirpath + entry.href;
+              if (entry.href.startsWith('/'))
+                subpath = entry.href;
+              await readFolder(subpath);
+            }
+          }
+        }
+
       }
 
-      await scanner(pathname);
+      // start scanning HTTP directory
+      await readFolder(pathname);
 
       return new StorageResponse(0, null, list);
     }

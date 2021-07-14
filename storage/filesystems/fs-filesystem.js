@@ -52,19 +52,15 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       rx = new RegExp(rx);
 
       // recursive scanner function
-      async function scanner(dirpath, relpath, options) {
+      async function readFolder(dirpath, relpath, options) {
 
         let dirname = path.join(dirpath, relpath);
         let dir = await fsp.opendir(dirname);
         logger.debug("opendir ", dirname);
 
+        // process files in current folder
         for await (let dirent of dir) {
-          logger.debug(dirent.name);
-          if (dirent.isDirectory() && options.recursive) {
-            let subpath = relpath + dirent.name + "/";
-            await scanner(dirpath, subpath, options);
-          }
-          else if (dirent.isFile() && rx.test(dirent.name)) {
+          if (dirent.isFile() && rx.test(dirent.name)) {
             let info = fs.statSync(path.join(dirpath, relpath, dirent.name));
             let entry = {
               name: dirent.name,
@@ -78,10 +74,23 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
             list.push(entry);
           }
         }
+
+        // process subfolders
+        if (options.recursive) {
+          for await (let dirent of dir) {
+            logger.debug(dirent.name);
+            if (dirent.isDirectory()) {
+              let subpath = relpath + dirent.name + "/";
+              await readFolder(dirpath, subpath, options);
+            }
+          }
+        }
+
         //await dir.close();
       }
 
-      await scanner(dirpath, "", options);
+      // start scanning directory
+      await readFolder(dirpath, "", options);
 
       return new StorageResponse(0, null, list);
     }
