@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const getFile = require('../lib/_getFile');
-const putFile = require('../lib/_putFile');
+const getFiles = require('../lib/_getFiles');
+const putFiles = require('../lib/_putFiles');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== tests: fs file copy");
@@ -12,7 +12,7 @@ logger.info("=== tests: fs file copy");
 async function test_1() {
   logger.info("=== download files");
 
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|file:./test/data/input/|*.csv|*",
       options: {
@@ -30,7 +30,7 @@ async function test_1() {
 async function test_2() {
   logger.info("=== upload files");
 
-  if (await putFile({
+  if (await putFiles({
     origin: {
       smt: "*|./test/data/input/|*.json|*",
       options: {

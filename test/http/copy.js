@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getFile = require('../lib/_getFile');
+const getFiles = require('../lib/_getFiles');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: http file downloads");
@@ -11,7 +11,7 @@ logger.info("=== Tests: http file downloads");
 async function downloads_IIS() {
 
   logger.info("=== IIS download foo files");
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|http://localhost/data/dictadata.org/test/input/|foo*.json|*",
     },
@@ -21,7 +21,7 @@ async function downloads_IIS() {
   })) return 1;
 
   logger.info("=== IIS download encoding files");
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|http://localhost/data/dictadata.org/test/input/|enc*.json|*",
       options: {
@@ -41,7 +41,7 @@ async function downloads_IIS() {
 async function downloads_NGINX() {
 
   logger.info("=== NGINX download foo files");
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
     },
@@ -51,7 +51,7 @@ async function downloads_NGINX() {
   })) return 1;
 
   logger.info("=== NGINX download encoding files");
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|enc*.json|*",
       options: {

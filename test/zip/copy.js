@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getFile = require('../lib/_getFile');
+const getFiles = require('../lib/_getFiles');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== tests: zip downloads");
@@ -11,7 +11,7 @@ logger.info("=== tests: zip downloads");
 async function test_1() {
   logger.info("=== extract from zip file");
 
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|zip:./test/data/input/foofile.zip|*.json|*",
       options: {     
@@ -29,7 +29,7 @@ async function test_1() {
 async function test_2() {
   logger.info("=== download shape files");
 
-  if (await getFile({
+  if (await getFiles({
     origin: {
       smt: "*|zip:./test/data/input/foofile.zip|subfolder/*|*",
       options: {
