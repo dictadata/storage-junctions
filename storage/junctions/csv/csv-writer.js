@@ -49,7 +49,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       if (!this.ws) {
         let stfs = await this.junction.getFileSystem();
         this.ws = await stfs.createWriteStream(this.options);
-        if (stfs._isNewFile && this.options.header) {
+        if (stfs.isNewFile && this.options.header) {
           // new file, write header line
           let keys = Object.keys(this.engram.fields);
           let headers = '"' + keys.join('","') + '"\n';
