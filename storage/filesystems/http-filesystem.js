@@ -194,7 +194,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       rs = await httpRequest(filename, params);
 
       ///// check for zip
-      if (filename.endsWith('.gz')) {
+      if (rs.headers["content-encoding"] === 'gzip' || filename.endsWith('.gz')) {
         var gzip = zlib.createUnzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
         rs.pipe(gzip);
         return gzip;
