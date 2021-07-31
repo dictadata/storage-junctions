@@ -1,7 +1,9 @@
 /**
  * test/lib/getFiles
  * 
- * download file(s) from filesystem directly to a local folder.
+ * Download file(s) from filesystem directly to a local folder.
+ * Reads directory of remote file system before download(s).
+ * getFile is a filesystem method.
  */
 "use strict";
 
@@ -37,7 +39,6 @@ module.exports = exports = async function (tract) {
         },
           tract.terminal.options);
       
-        // getFile is a filesystem level method
         let results = await stfs.getFile(options);
         if (results.resultCode !== 0) {
           logger.error("!!! getFile failed: " + entry.name);
@@ -58,7 +59,6 @@ module.exports = exports = async function (tract) {
         },
           tract.terminal.options);
       
-        // getFile is a filesystem level method
         let results = await stfs.getFile(options);
         if (results.resultCode !== 0) {
           logger.error("!!! getFile failed: " + entry.name);

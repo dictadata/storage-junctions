@@ -1,7 +1,8 @@
 /**
  * test/lib/putFile
  * 
- * upload file(s) from local folder directly to a filesystem.
+ * Upload file(s) from local folder directly to a filesystem.
+ * putFile is a filesystem method.
  */
 "use strict";
 
@@ -31,7 +32,6 @@ module.exports = exports = async function (tract) {
     junction = await storage.activate(tract.terminal.smt, tract.terminal.options);
 
     logger.info(">>> upload files");
-    // download is a filesystem level method
     let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
