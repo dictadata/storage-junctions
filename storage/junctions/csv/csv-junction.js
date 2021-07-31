@@ -43,8 +43,8 @@ class CSVJunction extends StorageJunction {
     logger.debug("CSVJunction");
 
     // check schema's extension
-    if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
-      this.options.schema = this.smt.schema + '.csv';
+    //if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
+    //  this.options.schema = this.smt.schema + '.csv';
     
     // this.options.header = false;  // default value
   }
@@ -104,16 +104,16 @@ class CSVJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} pattern
    */
-  async retrieve(pattern) {
+  async dull(pattern) {
     throw new StorageError(501);
   }
 
   /**
    *
+   * @param {*} pattern
    */
-  async dull(pattern) {
+  async retrieve(pattern) {
     throw new StorageError(501);
   }
 

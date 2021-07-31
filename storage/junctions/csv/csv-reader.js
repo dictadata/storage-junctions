@@ -24,8 +24,8 @@ module.exports = exports = class CSVReader extends StorageReader {
     super(storageJunction, options);
 
     // check schema's extension
-    if (this.options.schema && path.extname(this.options.schema) === '')
-      this.options.schema = this.options.schema + '.csv';
+    //if (this.options.schema && path.extname(this.options.schema) === '')
+    //  this.options.schema = this.options.schema + '.csv';
 
     // this.options.header = false;  // default value
 

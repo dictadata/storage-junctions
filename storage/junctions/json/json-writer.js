@@ -18,8 +18,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
     super(storageJunction, options);
 
     // check schema's extension
-    if (this.options.schema && path.extname(this.options.schema) === '')
-      this.options.schema = this.options.schema + '.json';
+    //if (this.options.schema && path.extname(this.options.schema) === '')
+    //  this.options.schema = this.options.schema + '.json';
 
     this.ws = null;
 

@@ -43,8 +43,8 @@ class JSONJunction extends StorageJunction {
     super(SMT, options);
 
     // check schema's extension
-    if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
-      this.options.schema = this.smt.schema + '.json';
+    //if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
+    //  this.options.schema = this.smt.schema + '.json';
   }
 
   /**
@@ -103,16 +103,16 @@ class JSONJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} options options.pattern
    */
-  async retrieve(options) {
+  async dull(options) {
     throw new StorageError(501);
   }
 
   /**
    *
+   * @param {*} options options.pattern
    */
-  async dull(options) {
+  async retrieve(options) {
     throw new StorageError(501);
   }
 

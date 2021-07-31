@@ -23,8 +23,8 @@ module.exports = exports = class JSONReader extends StorageReader {
     super(storageJunction, options);
 
     // check schema's extension
-    if (this.options.schema && path.extname(this.options.schema) === '')
-      this.options.schema = this.options.schema + '.json';
+    //if (this.options.schema && path.extname(this.options.schema) === '')
+    //  this.options.schema = this.options.schema + '.json';
 
     /***** create the parser and data handlers *****/
     var reader = this;
