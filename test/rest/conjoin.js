@@ -1,23 +1,25 @@
 /**
- * test/rest
+ * test/rest/conjoin
  */
 "use strict";
 
 const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: rest transfer");
+logger.info("=== Test: rest conjoin");
 
-async function testTransfer() {
+async function testConjoin() {
 
   logger.verbose("=== conjoin weather forecast");
   if (await transfer({
     origin: {
       smt: "rest|https://api.weather.gov/points/39.7456,-97.0892||=*",
       options: {
-        headers: {
-          "Accept": "application/ld+json",
-          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+        http: {
+          headers: {
+            "Accept": "application/ld+json",
+            "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+          }
         },
         fields: ["cwa","gridX","gridY"]
       }
@@ -26,28 +28,24 @@ async function testTransfer() {
       conjoin: {
         smt: "rest|https://api.weather.gov/gridpoints/${cwa}/${gridX},${gridY}/|forecast|=*",
         options: {
-          headers: {
-            "Accept": "application/ld+json",
-            "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+          http: {
+            headers: {
+              "Accept": "application/ld+json",
+              "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+            }
           },
-          extract: {
-            data: "periods",  // name of property in response.data than contains the desired object or array
-            names: ""         // name of property in response.data containing an array of field names
-            // if names is empty then data should be a json object or array of json objects
-          }
+          extract: "periods"
         }
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/rest/|weather_forecast_conjoin.csv|*",
-      options: {
-        header: true
-      }
+      smt: "json|./test/data/output/rest/|weather_forecast_conjoin.json|*",
+      options: {}
     }
   })) return 1;
 
 }
 
 (async () => {
-  if (await testTransfer()) return;
+  if (await testConjoin()) return;
 })();
