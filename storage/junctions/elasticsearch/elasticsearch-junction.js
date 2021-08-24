@@ -107,7 +107,7 @@ class ElasticsearchJunction extends StorageJunction {
     catch (err) {
       if (err.statusCode === 404)
         return new StorageResponse(0, null, []); // empty list
-      
+
       logger.error(err.message);
       throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
@@ -146,7 +146,7 @@ class ElasticsearchJunction extends StorageJunction {
     // try to create new index
     try {
       let encoding = options.encoding || this.engram.encoding;
-    
+
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
@@ -190,7 +190,7 @@ class ElasticsearchJunction extends StorageJunction {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options.schema || this.smt.schema;
-    
+
       let response = await this.elasticQuery.deleteIndex(schema);
 
       return new StorageResponse(0);
@@ -247,12 +247,12 @@ class ElasticsearchJunction extends StorageJunction {
    */
   async recall(pattern) {
     logger.debug("ElasticJunction recall");
-    const match = (pattern && pattern.match) || pattern || {};    
+    const match = (pattern && pattern.match) || pattern || {};
 
     try {
       if (!this.engram.isDefined)
         await this.getEncoding();
-      
+
       if (this.engram.keyof === 'uid' || this.engram.keyof === 'key') {
         // get by _id
         let key = (match.key) || this.engram.get_uid(match) || null;
@@ -363,9 +363,11 @@ class ElasticsearchJunction extends StorageJunction {
         // delete by query
         let dsl = dslEncoder.matchQuery(this.engram.keys, pattern);
         response = await this.elasticQuery.deleteByQuery(dsl);
+        logger.debug(response);
       }
       else {
         response = await this.elasticQuery.truncate();
+        logger.debug(response);
       }
 
       let storageResponse = new StorageResponse(response.statusCode);
@@ -378,7 +380,7 @@ class ElasticsearchJunction extends StorageJunction {
     catch (err) {
       if (err.statusCode === 404)
         return new StorageResponse(404);
-      
+
       logger.error(err.message);
       throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
