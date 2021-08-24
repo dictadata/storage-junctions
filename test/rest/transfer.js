@@ -19,9 +19,9 @@ async function testTransfer() {
           headers: {
             "Accept": "application/ld+json",
             "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
-          }
+          },
+          //auth: "username:password"
         },
-        //auth: "username:password",
         extract: "periods"
       }
     },

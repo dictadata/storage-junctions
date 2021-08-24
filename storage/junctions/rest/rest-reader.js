@@ -30,17 +30,17 @@ module.exports = exports = class RESTReader extends StorageReader {
     try {
       let url = this.options.url || this.engram.smt.schema || '';
 
-      let request = {
-        method: this.options.method || 'GET',
-        base: this.options.base || this.smt.locus,
-        headers: Object.assign({ 'Accept': 'application/json', 'User-Agent': '@dictadata.org/storage' }, this.options.headers),
-        timeout: this.options.timeout || 10000
-      };
-      if (this.options.auth)
-        request["auth"] = this.options.auth;
-      if (this.options.query)
-        request["query"] = this.options.query;  // a pattern will override query
-            
+      let request = Object.assign({
+        method: "GET",
+        base: this.smt.locus,
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': '@dictadata.org/storage'
+        },
+        timeout: 10000
+      }, this.options.http || {});
+      // note, a pattern will override request["query"]
+
       let data = this.options.data;  // a pattern will override data
       if (this.options.pattern) {
         // pattern will override options.data

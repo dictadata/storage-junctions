@@ -46,7 +46,7 @@ async function test_2() {
 
 async function test_3() {
   logger.info("=== download shape files");
-//      smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/STATE/|*.zip|*",
+  // smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/STATE/|*.zip|*",
 
   if (await getFiles({
     origin: {

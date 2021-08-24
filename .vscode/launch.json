@@ -784,7 +784,6 @@
     {
       "type": "pwa-node",
       "request": "launch",
-
       "name": "shapefile encoding",
       "program": "${workspaceFolder}/test/shapefile/encoding.js",
       "outputCapture": "std",

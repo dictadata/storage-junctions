@@ -1,10 +1,9 @@
 /**
  * rest/encoder
  *
- * Example functions that handle the conversion of types
+ * Functions that handle the conversion of types
  * and queries between the junction and the source library.
  *
- * Intended for internal use by junction developers only.
  */
 "use strict";
 
@@ -85,6 +84,24 @@ exports.parseData = function (data, options, callback) {
   if (typeof data !== 'object')
     throw new Error("invalid json data");
 
+  const constructs = (options.extract && data[options.extract]) || data;
+
+  if (!Array.isArray(constructs)) {
+    callback(constructs);
+    return;
+  }
+
+  for (let construct of constructs) {
+    if (callback)
+      callback(construct);
+  }
+};
+
+/*
+exports.parseData = function (data, options, callback) {
+  if (typeof data !== 'object')
+    throw new Error("invalid json data");
+
   const extract = options.extract || {};
   const names = (extract.names && data[extract.names]) || [];
   const rows = (extract.data) ? data[extract.data] : data;
@@ -109,3 +126,4 @@ exports.parseData = function (data, options, callback) {
       callback(construct);
   }
 };
+*/

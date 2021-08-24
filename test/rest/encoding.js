@@ -15,11 +15,13 @@ async function tests() {
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
       options: {
-        headers: {
-          "Accept": "application/ld+json",
-          "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+        http: {
+          headers: {
+            "Accept": "application/ld+json",
+            "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+          },
+          //auth: "username:password"
         },
-        //auth: "username:password",
         extract: "periods"
       }
     },
