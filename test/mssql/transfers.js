@@ -37,7 +37,7 @@ async function tests() {
     terminal: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./test/data/input/foo_schema_01-encoding.json"
+        encoding: "./test/data/input/foo_schema_01.encoding.json"
       }
     }
   })) return 1;
@@ -50,7 +50,7 @@ async function tests() {
     terminal: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./test/data/input/foo_schema_02-encoding.json"
+        encoding: "./test/data/input/foo_schema_02.encoding.json"
       }
     }
   })) return 1;

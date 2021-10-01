@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*",
       options: {
-        encoding: "./test/data/input/foo_schema-encoding.json"
+        encoding: "./test/data/input/foo_schema.encoding.json"
       }
     },
     transform: {
@@ -30,7 +30,7 @@ async function tests() {
         terminal: {
           smt: "json|./test/data/output/pipelines/|tee_1.json|*",
           options: {
-            encoding: "./test/data/input/foo_schema-encoding.json"
+            encoding: "./test/data/input/foo_schema.encoding.json"
           }
         },
         transform: {
@@ -40,7 +40,7 @@ async function tests() {
         terminal: {
           smt: "json|./test/data/output/pipelines/|tee_2.json|*",
           options: {
-            encoding: "./test/data/input/foo_transform-encoding.json"
+            encoding: "./test/data/input/foo_transform.encoding.json"
           }
         },
         transform: {

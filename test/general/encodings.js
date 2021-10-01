@@ -17,11 +17,11 @@ async function test(schema) {
   try {
     logger.verbose('=== ' + schema);
     jo = await storage.activate("*|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + "-encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + ".encoding.json", "utf8"));
     jo.encoding = encoding;
     encoding = jo.encoding;
     //logger.debug(JSON.stringify(encoding, null, 2));
-    fs.writeFileSync("./test/data/output/" + schema + "-encoding.json", JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync("./test/data/output/" + schema + ".encoding.json", JSON.stringify(encoding, null, 2), "utf8");
   }
   catch (err) {
     logger.error(err);

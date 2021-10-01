@@ -13,7 +13,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "memory|testgroup|" + schema + "|*",
       options: {
-        encoding: "./test/data/input/" + encoding + ".json"
+        encoding: "./test/data/input/" + encoding + ".encoding.json"
       }
     }
   })) return 1;
@@ -27,7 +27,7 @@ async function test_lg() {
     origin: {
       smt: "memory|testgroup|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/foo_schema_lg-encoding.json",
+        encoding: "./test/data/input/foo_schema_lg.encoding.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000
@@ -39,11 +39,11 @@ async function test_lg() {
 }
 
 exports.runTests = async () => {
-  if (await test("foo_schema", "foo_schema-encoding")) return 1;
-  if (await test("foo_schema_x", "foo_schema-encoding")) return 1;    // for dullSchema.js
-  if (await test("foo_schema_01", "foo_schema_01-encoding")) return 1;
-  if (await test("foo_schema_02", "foo_schema_02-encoding")) return 1;
-  if (await test("foo_schema_two", "foo_schema_two-encoding")) return 1;
+  if (await test("foo_schema", "foo_schema")) return 1;
+  if (await test("foo_schema_x", "foo_schema")) return 1;    // for dullSchema.js
+  if (await test("foo_schema_01", "foo_schema_01")) return 1;
+  if (await test("foo_schema_02", "foo_schema_02")) return 1;
+  if (await test("foo_schema_two", "foo_schema_two")) return 1;
   if (await test_lg()) return 1;
 
   return 0;

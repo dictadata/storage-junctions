@@ -30,7 +30,7 @@ async function test_transfers() {
       smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv|*",
       options: {
         header: true,
-        encoding: "./test/data/input/foo_schema-encoding.json"
+        encoding: "./test/data/input/foo_schema.encoding.json"
       }
     },
     terminal: {

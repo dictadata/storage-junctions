@@ -1,5 +1,77 @@
 [
   {
+    "href": "/data/dictadata.org/test/input/foo_schema.encoding.json",
+    "name": "foo_schema.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:30:00.000Z",
+    "size": 1163,
+    "rpath": "foo_schema.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_01.encoding.json",
+    "name": "foo_schema_01.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:29:00.000Z",
+    "size": 2655,
+    "rpath": "foo_schema_01.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_02.encoding.json",
+    "name": "foo_schema_02.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:29:00.000Z",
+    "size": 1692,
+    "rpath": "foo_schema_02.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_lg.encoding.json",
+    "name": "foo_schema_lg.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:29:00.000Z",
+    "size": 1173,
+    "rpath": "foo_schema_lg.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_short.encoding.json",
+    "name": "foo_schema_short.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:29:00.000Z",
+    "size": 468,
+    "rpath": "foo_schema_short.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_t.encoding.json",
+    "name": "foo_schema_t.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:30:00.000Z",
+    "size": 1212,
+    "rpath": "foo_schema_t.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_two.encoding.json",
+    "name": "foo_schema_two.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:30:00.000Z",
+    "size": 485,
+    "rpath": "foo_schema_two.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_schema_typesonly.encoding.json",
+    "name": "foo_schema_typesonly.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:30:00.000Z",
+    "size": 180,
+    "rpath": "foo_schema_typesonly.encoding.json"
+  },
+  {
+    "href": "/data/dictadata.org/test/input/foo_transform.encoding.json",
+    "name": "foo_transform.encoding.json",
+    "isDir": false,
+    "date": "2021-10-01T23:30:00.000Z",
+    "size": 278,
+    "rpath": "foo_transform.encoding.json"
+  },
+  {
     "href": "/data/dictadata.org/test/input/foofile.json",
     "name": "foofile.json",
     "isDir": false,
