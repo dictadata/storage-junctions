@@ -16,7 +16,7 @@ async function test(schema, encoding) {
 }
 
 exports.runTests = async () => {
-  if (await test("foo_schema_x", "encoding_foo")) return 1;
+  if (await test("foo_schema_x", "foo_schema-encoding")) return 1;
 
   return 0;
 };

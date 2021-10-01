@@ -32,7 +32,7 @@ async function testTransfer1() {
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
       options: {
-        encoding: "./test/data/input/shapes/encoding_shapes.json"
+        encoding: "./test/data/input/shapes/polygons-encoding.json"
       }
     }
   })) return 1;
@@ -62,7 +62,7 @@ async function testTransfer2() {
     terminal: {
       smt: "elastic|http://localhost:9200/|shapes|*",
       options: {
-        encoding: "./test/data/input/shapes/encoding_shapes.json"
+        encoding: "./test/data/input/shapes/points-encoding.json"
       }
     }
   })) return 1;

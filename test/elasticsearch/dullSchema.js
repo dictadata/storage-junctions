@@ -18,5 +18,5 @@ async function test(schema, encoding) {
 }
 
 (async () => {
-  if (await test("foo_schema_x", "encoding_foo")) return;
+  if (await test("foo_schema_x", "foo_schema-encoding")) return;
 })();

@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./test/data/input/encoding_foo_t.json"
+        "encoding": "./test/data/input/foo_schema_t-encoding.json"
       }
     }
   })) return 1;
@@ -71,7 +71,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/encoding_foo_01.json"
+        encoding: "./test/data/input/foo_schema_01-encoding.json"
       }
     },
     transform: {
@@ -111,7 +111,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/input/encoding_foo_02.json"
+        encoding: "./test/data/input/foo_schema_02-encoding.json"
       }
     },
     transform: {

@@ -34,7 +34,7 @@ async function transfer2() {
     "terminal": {
       "smt": "elastic|http://localhost:9200/|census_2020|!properties.STUSPS+'_'+properties.GEOID+'_state'",
       "options": {
-        "encoding": "./test/data/input/shapes/encoding_tl_2020_us_state.json"
+        "encoding": "./test/data/input/shapes/tl_2020_us_state-encoding.json"
       }
     }
   })) return 1;

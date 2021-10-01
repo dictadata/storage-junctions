@@ -37,7 +37,7 @@ async function test_lg() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/encoding_foo_lg.json",
+        encoding: "./test/data/input/foo_schema_lg-encoding.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000
@@ -49,10 +49,10 @@ async function test_lg() {
 }
 
 (async () => {
-  if (await test("foo_schema", "encoding_foo")) return;
-  if (await test("foo_schema_x", "encoding_foo")) return;    // for dullSchema.js
-  if (await test("foo_schema_01", "encoding_foo_01")) return;
-  if (await test("foo_schema_02", "encoding_foo_02")) return;
-  if (await test("foo_schema_two", "encoding_foo_two")) return;
+  if (await test("foo_schema", "foo_schema-encoding")) return;
+  if (await test("foo_schema_x", "foo_schema-encoding")) return;    // for dullSchema.js
+  if (await test("foo_schema_01", "foo_schema_01-encoding")) return;
+  if (await test("foo_schema_02", "foo_schema_02-encoding")) return;
+  if (await test("foo_schema_two", "foo_schema_two-encoding")) return;
   if (await test_lg()) return;
 })();

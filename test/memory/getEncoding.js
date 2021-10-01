@@ -17,13 +17,13 @@ async function test(schema, encoding) {
       output: "./test/data/output/memory/" + encoding + ".json"
     }
   })) return 1;
-  
+
 }
 
 exports.runTests = async () => {
-  if (await test("foo_schema", "encoding_foo")) return 1;
-  if (await test("foo_schema_01", "encoding_foo_01")) return 1;
-  if (await test("foo_schema_02", "encoding_foo_02")) return 1;
-  if (await test("foo_schema_lg", "encoding_foo_lg")) return 1;
-  if (await test("foo_schema_two", "encoding_foo_two")) return 1;
+  if (await test("foo_schema", "foo_schema-encoding")) return 1;
+  if (await test("foo_schema_01", "foo_schema_01-encoding")) return 1;
+  if (await test("foo_schema_02", "foo_schema_02-encoding")) return 1;
+  if (await test("foo_schema_lg", "foo_schema_lg-encoding")) return 1;
+  if (await test("foo_schema_two", "foo_schema_two-encoding")) return 1;
 };

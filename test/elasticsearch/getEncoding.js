@@ -19,13 +19,13 @@ async function test(schema, encoding) {
       output: "./test/data/output/elasticsearch/" + encoding + ".json"
     }
   })) return 1;
-  
+
 }
 
 (async () => {
-  if (await test("foo_schema", "encoding_foo")) return;
-  if (await test("foo_schema_01", "encoding_foo_01")) return;
-  if (await test("foo_schema_02", "encoding_foo_02")) return;
-  if (await test("foo_schema_lg", "encoding_foo_lg")) return;
-  if (await test("foo_schema_two", "encoding_foo_two")) return;
+  if (await test("foo_schema", "foo_schema-encoding")) return;
+  if (await test("foo_schema_01", "foo_schema_01-encoding")) return;
+  if (await test("foo_schema_02", "foo_schema_02-encoding")) return;
+  if (await test("foo_schema_lg", "foo_schema_lg-encoding")) return;
+  if (await test("foo_schema_two", "foo_schema_two-encoding")) return;
 })();

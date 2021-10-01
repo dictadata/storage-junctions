@@ -17,7 +17,7 @@ async function test1() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/polygons_encoding.json'
+      output: './test/data/output/shapefile/polygons-encoding.json'
     }
   }, false)) return 1;
 
@@ -32,7 +32,7 @@ async function test2() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/points_encoding.json'
+      output: './test/data/output/shapefile/points-encoding.json'
     }
   }, false)) return 1;
 
@@ -47,7 +47,7 @@ async function test3() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_state_encoding.json'
+      output: './test/data/output/shapefile/tl_2020_us_state-encoding.json'
     }
   }, false)) return 1;
 
@@ -62,7 +62,7 @@ async function test4() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_county_encoding.json'
+      output: './test/data/output/shapefile/tl_2020_us_county-encoding.json'
     }
   }, false)) return 1;
 

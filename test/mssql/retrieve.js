@@ -30,7 +30,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/encoding_foo_01.json"
+        encoding: "./test/data/input/foo_schema_01-encoding.json"
       },
       pattern: {
         match: {
@@ -48,7 +48,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/input/encoding_foo_02.json"
+        encoding: "./test/data/input/foo_schema_02-encoding.json"
       },
       pattern: {
         match: {
