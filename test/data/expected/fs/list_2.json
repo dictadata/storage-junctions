@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "name": "foo_schema.encoding.json",
+    "rpath": "foo_schema.encoding.json",
+    "size": 1163,
+    "date": "2021-10-01T23:30:33.650Z"
+  },
+  {
+    "name": "foo_schema_01.encoding.json",
+    "rpath": "foo_schema_01.encoding.json",
+    "size": 2655,
+    "date": "2021-10-01T23:29:23.914Z"
+  },
+  {
+    "name": "foo_schema_02.encoding.json",
+    "rpath": "foo_schema_02.encoding.json",
+    "size": 1692,
+    "date": "2021-10-01T23:29:34.914Z"
+  },
+  {
+    "name": "foo_schema_lg.encoding.json",
+    "rpath": "foo_schema_lg.encoding.json",
+    "size": 1173,
+    "date": "2021-10-01T23:29:44.543Z"
+  },
+  {
+    "name": "foo_schema_short.encoding.json",
+    "rpath": "foo_schema_short.encoding.json",
+    "size": 468,
+    "date": "2021-10-01T23:29:54.578Z"
+  },
+  {
+    "name": "foo_schema_t.encoding.json",
+    "rpath": "foo_schema_t.encoding.json",
+    "size": 1212,
+    "date": "2021-10-01T23:30:06.809Z"
+  },
+  {
+    "name": "foo_schema_two.encoding.json",
+    "rpath": "foo_schema_two.encoding.json",
+    "size": 485,
+    "date": "2021-10-01T23:30:16.124Z"
+  },
+  {
+    "name": "foo_schema_typesonly.encoding.json",
+    "rpath": "foo_schema_typesonly.encoding.json",
+    "size": 180,
+    "date": "2021-10-01T23:30:24.887Z"
+  },
+  {
+    "name": "foo_transform.encoding.json",
+    "rpath": "foo_transform.encoding.json",
+    "size": 278,
+    "date": "2021-10-01T23:30:42.652Z"
+  },
+  {
+    "name": "shapes.encoding.json",
+    "rpath": "shapes\\shapes.encoding.json",
+    "size": 504,
+    "date": "2021-10-01T23:30:53.215Z"
+  },
+  {
+    "name": "tl_2020_us_county.encoding.json",
+    "rpath": "shapes\\tl_2020_us_county.encoding.json",
+    "size": 2176,
+    "date": "2021-10-01T23:43:55.376Z"
+  },
+  {
+    "name": "tl_2020_us_state.encoding.json",
+    "rpath": "shapes\\tl_2020_us_state.encoding.json",
+    "size": 2019,
+    "date": "2021-10-01T23:44:02.284Z"
+  }
+]

@@ -1,37 +1,42 @@
 [
   {
+    "href": "/data/dictadata.org/test/input/foofile.json",
     "name": "foofile.json",
-    "type": "-",
-    "size": 1156,
+    "isDir": false,
     "date": "2021-06-23T13:55:00.000Z",
+    "size": 1156,
     "rpath": "foofile.json"
   },
   {
+    "href": "/data/dictadata.org/test/input/foofile_01.json",
     "name": "foofile_01.json",
-    "type": "-",
-    "size": 2057,
+    "isDir": false,
     "date": "2021-06-23T13:55:00.000Z",
+    "size": 2057,
     "rpath": "foofile_01.json"
   },
   {
+    "href": "/data/dictadata.org/test/input/foofile_02.json",
     "name": "foofile_02.json",
-    "type": "-",
-    "size": 2599,
+    "isDir": false,
     "date": "2021-06-23T13:55:00.000Z",
+    "size": 2599,
     "rpath": "foofile_02.json"
   },
   {
+    "href": "/data/dictadata.org/test/input/foofile_03.json",
     "name": "foofile_03.json",
-    "type": "-",
-    "size": 1729,
+    "isDir": false,
     "date": "2020-03-30T05:55:00.000Z",
+    "size": 1729,
     "rpath": "foofile_03.json"
   },
   {
+    "href": "/data/dictadata.org/test/input/foofile_two.json",
     "name": "foofile_two.json",
-    "type": "-",
-    "size": 452,
+    "isDir": false,
     "date": "2021-06-23T13:55:00.000Z",
+    "size": 452,
     "rpath": "foofile_two.json"
   }
 ]

@@ -1,0 +1,98 @@
+[
+  {
+    "href": "foo_schema.encoding.json",
+    "name": "foo_schema.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 1099,
+    "rpath": "foo_schema.encoding.json"
+  },
+  {
+    "href": "foo_schema_01.encoding.json",
+    "name": "foo_schema_01.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 2523,
+    "rpath": "foo_schema_01.encoding.json"
+  },
+  {
+    "href": "foo_schema_02.encoding.json",
+    "name": "foo_schema_02.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 1603,
+    "rpath": "foo_schema_02.encoding.json"
+  },
+  {
+    "href": "foo_schema_lg.encoding.json",
+    "name": "foo_schema_lg.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 1109,
+    "rpath": "foo_schema_lg.encoding.json"
+  },
+  {
+    "href": "foo_schema_short.encoding.json",
+    "name": "foo_schema_short.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 437,
+    "rpath": "foo_schema_short.encoding.json"
+  },
+  {
+    "href": "foo_schema_t.encoding.json",
+    "name": "foo_schema_t.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 1150,
+    "rpath": "foo_schema_t.encoding.json"
+  },
+  {
+    "href": "foo_schema_two.encoding.json",
+    "name": "foo_schema_two.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 457,
+    "rpath": "foo_schema_two.encoding.json"
+  },
+  {
+    "href": "foo_schema_typesonly.encoding.json",
+    "name": "foo_schema_typesonly.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 180,
+    "rpath": "foo_schema_typesonly.encoding.json"
+  },
+  {
+    "href": "foo_transform.encoding.json",
+    "name": "foo_transform.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 263,
+    "rpath": "foo_transform.encoding.json"
+  },
+  {
+    "href": "shapes.encoding.json",
+    "name": "shapes.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 504,
+    "rpath": "shapes/shapes.encoding.json"
+  },
+  {
+    "href": "tl_2020_us_county.encoding.json",
+    "name": "tl_2020_us_county.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 2078,
+    "rpath": "shapes/tl_2020_us_county.encoding.json"
+  },
+  {
+    "href": "tl_2020_us_state.encoding.json",
+    "name": "tl_2020_us_state.encoding.json",
+    "isDir": false,
+    "date": "2021-10-02T19:03:00.000Z",
+    "size": 1928,
+    "rpath": "shapes/tl_2020_us_state.encoding.json"
+  }
+]

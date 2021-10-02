@@ -13,7 +13,7 @@ async function testIIS() {
   logger.info("=== IIS get list of foo files (forEach)");
   if (await list({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "*|http://localhost/data/dictadata.org/test/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -21,7 +21,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/list_1.json"
+      output: "./test/data/output/http/IIS/list_1.json"
     }
   })) return 1;
 
@@ -35,7 +35,7 @@ async function testIIS() {
         key: "*"
       },
       options: {
-        schema: "enc*.json",
+        schema: "*.encoding.json",
         recursive: true,
         http: {
           httpVersion: 1.1,
@@ -50,7 +50,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/list_2.json"
+      output: "./test/data/output/http/IIS/list_2.json"
     }
   })) return 1;
 
@@ -61,7 +61,7 @@ async function testNGINX() {
   logger.info("=== NGINX get list of foo files - forEach");
   if (await list({
     origin: {
-      smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "*|https://data.dictadata.net/data/dictadata.org/test/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -69,7 +69,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/list_3.json"
+      output: "./test/data/output/http/NGINX/list_1.json"
     }
   })) return 1;
 
@@ -78,12 +78,12 @@ async function testNGINX() {
     origin: {
       smt: {
         model: "*",
-        locus: "https://cda.dictadata.org/data/dictadata.org/test/input/",
+        locus: "https://data.dictadata.net/data/dictadata.org/test/input/",
         schema: "*.json",
         key: "*"
       },
       options: {
-        schema: "enc*.json",
+        schema: "*.encoding.json",
         recursive: true,
         http: {
           httpVersion: 1.1,
@@ -98,7 +98,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/list_4.json"
+      output: "./test/data/output/http/NGINX/list_2.json"
     }
   })) return 1;
 

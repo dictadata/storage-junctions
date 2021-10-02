@@ -13,7 +13,7 @@ async function downloads_IIS() {
   logger.info("=== IIS download foo files");
   if (await getFiles({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "*|http://localhost/data/dictadata.org/test/input/|foofile*.json|*",
     },
     terminal: {
       smt: "*|./test/data/output/http/IIS/|*|*",
@@ -23,7 +23,7 @@ async function downloads_IIS() {
   logger.info("=== IIS download encoding files");
   if (await getFiles({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|enc*.json|*",
+      smt: "*|http://localhost/data/dictadata.org/test/input/|*.encoding.json|*",
       options: {
         recursive: true
       }
@@ -43,7 +43,7 @@ async function downloads_NGINX() {
   logger.info("=== NGINX download foo files");
   if (await getFiles({
     origin: {
-      smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|foo*.json|*",
+      smt: "*|https://data.dictadata.net/data/dictadata.org/test/input/|foofile*.json|*",
     },
     terminal: {
       smt: "*|./test/data/output/http/NGINX/|*|*",
@@ -53,7 +53,7 @@ async function downloads_NGINX() {
   logger.info("=== NGINX download encoding files");
   if (await getFiles({
     origin: {
-      smt: "*|https://cda.dictadata.org/data/dictadata.org/test/input/|enc*.json|*",
+      smt: "*|https://data.dictadata.net/data/dictadata.org/test/input/|*.encoding.json|*",
       options: {
         recursive: true
       }

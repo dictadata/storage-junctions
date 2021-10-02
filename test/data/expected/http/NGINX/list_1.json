@@ -3,7 +3,7 @@
     "href": "foofile.json",
     "name": "foofile.json",
     "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
+    "date": "2021-10-02T19:03:00.000Z",
     "size": 1090,
     "rpath": "foofile.json"
   },
@@ -11,7 +11,7 @@
     "href": "foofile_01.json",
     "name": "foofile_01.json",
     "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
+    "date": "2021-10-02T19:03:00.000Z",
     "size": 1941,
     "rpath": "foofile_01.json"
   },
@@ -19,7 +19,7 @@
     "href": "foofile_02.json",
     "name": "foofile_02.json",
     "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
+    "date": "2021-10-02T19:03:00.000Z",
     "size": 2451,
     "rpath": "foofile_02.json"
   },
@@ -35,7 +35,7 @@
     "href": "foofile_two.json",
     "name": "foofile_two.json",
     "isDir": false,
-    "date": "2021-06-29T19:49:00.000Z",
+    "date": "2021-10-02T19:03:00.000Z",
     "size": 418,
     "rpath": "foofile_two.json"
   }
