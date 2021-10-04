@@ -1,9 +1,10 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
 - version 1.8.4
-  - standardize file naming for encoding as abc123.encoding.json
-  - use data.dictadata.net for testing
   - update dependencies
+  - testing updates:
+    - standardize file name convention for encoding as abc123.encoding.json
+    - use data.dictadata.net (NGINX) for ftp and http testing
 - version 1.8.3
   - extensive testing and bug fixes
 - version 1.8.2
