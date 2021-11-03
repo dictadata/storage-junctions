@@ -6,11 +6,11 @@
 const getEncoding = require('../lib/_getEncoding');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: rest encoding");
+logger.info("=== Test: shapefile encoding");
 
 async function test1() {
 
-  logger.info("=== rest getEncoding polygons");
+  logger.info("=== shapefile getEncoding polygons");
   if (await getEncoding({
     origin: {
       smt: "shp|./test/data/input/shapes/|polygons|*",
@@ -25,7 +25,7 @@ async function test1() {
 
 async function test2() {
 
-  logger.info("=== rest getEncoding points");
+  logger.info("=== shapefile getEncoding points");
   if (await getEncoding({
     origin: {
       smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
@@ -40,10 +40,10 @@ async function test2() {
 
 async function test3() {
 
-  logger.info("=== rest getEncoding tl_2020_us_state");
+  logger.info("=== shapefile getEncoding tl_2020_us_state");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/www.census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
+      smt: "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
       options: {}
     },
     terminal: {
@@ -55,10 +55,10 @@ async function test3() {
 
 async function test4() {
 
-  logger.info("=== rest getEncoding tl_2020_us_county");
+  logger.info("=== shapefile getEncoding tl_2020_us_county");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/www.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
+      smt: "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
       options: {}
     },
     terminal: {
