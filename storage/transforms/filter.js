@@ -1,8 +1,9 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { StorageError } = require("../types");
-const { typeOf, hasOwnProperty, logger } = require("../utils");
+const { typeOf } = require("../utils");
+
+const dot = require('dot-object');
 
 // example filter transform
 /*
@@ -57,25 +58,27 @@ module.exports = exports = class FilterTransform extends Transform {
     // match all expessions to forward
     let forward = true;
     for (let [fldname,criteria] of Object.entries(match)) {
-      let exists = hasOwnProperty(construct,fldname);
+      let cvalue = dot.pick(fldname, construct);
+      let exists = typeof (cvalue) !== "undefined";
+      //let exists = hasOwnProperty(construct,fldname);
 
       if (Array.isArray(criteria)) {
-        forward = exists && criteria.includes(construct[fldname]);
+        forward = exists && criteria.includes(cvalue);
       }
       else if (criteria instanceof RegExp) {
-        forward = exists && criteria.test(construct[fldname]);
+        forward = exists && criteria.test(cvalue);
       }
       else if (typeOf(criteria) === 'object') {
         // expression(s) { op: value, ...}
         for (let [op,value] of Object.entries(criteria)) {
           switch (op) {
-            case 'eq':  forward = exists && (construct[fldname] === value); break;
-            case 'neq': forward = !exists || (construct[fldname] !== value); break;
-            case 'lt':  forward = exists && (construct[fldname] < value); break;
-            case 'lte': forward = exists && (construct[fldname] <= value); break;
-            case 'gt':  forward = exists && (construct[fldname] > value); break;
-            case 'gte': forward = exists && (construct[fldname] >= value); break;
-            case 'wc': forward = exists && wildcard(construct[fldname], value); break;
+            case 'eq':  forward = exists && (cvalue === value); break;
+            case 'neq': forward = !exists || (cvalue !== value); break;
+            case 'lt':  forward = exists && (cvalue < value); break;
+            case 'lte': forward = exists && (cvalue <= value); break;
+            case 'gt':  forward = exists && (cvalue > value); break;
+            case 'gte': forward = exists && (cvalue >= value); break;
+            case 'wc': forward = exists && wildcard(cvalue, value); break;
             case 'exists': forward = exists; break;
             default: break;  // ignore bad operators
           }
@@ -83,7 +86,7 @@ module.exports = exports = class FilterTransform extends Transform {
       }
       else {
         // single property { field: value }
-        forward = exists && (construct[fldname] === criteria);
+        forward = exists && (cvalue === criteria);
       }
 
       // check short-circuit
@@ -95,25 +98,27 @@ module.exports = exports = class FilterTransform extends Transform {
       // do some drop filterin'
       // match all expressions to drop
       for (let [fldname,criteria] of Object.entries(drop)) {
-        let exists = hasOwnProperty(construct,fldname);
+        let cvalue = dot.pick(fldname, construct);
+        let exists = typeof (cvalue) !== "undefined";
+        //let exists = hasOwnProperty(construct,fldname);
 
         if (Array.isArray(criteria)) {
-          dropit = exists && criteria.includes(construct[fldname]);
+          dropit = exists && criteria.includes(cvalue);
         }
         else if (criteria instanceof RegExp) {
-          dropit = exists && criteria.test(construct[fldname]);
+          dropit = exists && criteria.test(cvalue);
         }
         else if (typeOf(criteria) === 'object') {
           // expression(s) { op: value, ...}
           for (let [op,value] of Object.entries(criteria)) {
             switch (op) {
-              case 'eq':  dropit = exists && (construct[fldname] === value); break;
-              case 'neq': dropit = !exists || (construct[fldname] !== value); break;
-              case 'lt':  dropit = exists && (construct[fldname] < value); break;
-              case 'lte': dropit = exists && (construct[fldname] <= value); break;
-              case 'gt':  dropit = exists && (construct[fldname] > value); break;
-              case 'gte': dropit = exists && (construct[fldname] >= value); break;
-              case 'wc':  dropit = exists && wildcard(construct[fldname], value); break;
+              case 'eq':  dropit = exists && (cvalue === value); break;
+              case 'neq': dropit = !exists || (cvalue !== value); break;
+              case 'lt':  dropit = exists && (cvalue < value); break;
+              case 'lte': dropit = exists && (cvalue <= value); break;
+              case 'gt':  dropit = exists && (cvalue > value); break;
+              case 'gte': dropit = exists && (cvalue >= value); break;
+              case 'wc':  dropit = exists && wildcard(cvalue, value); break;
               case 'exists': dropit = exists; break;
               default: break;  // ignore bad operators
             }
@@ -121,7 +126,7 @@ module.exports = exports = class FilterTransform extends Transform {
         }
         else {
           // single property { field: value }
-          dropit = exists && (construct[fldname] === criteria);
+          dropit = exists && (cvalue === criteria);
         }
 
         // check short-circuit
