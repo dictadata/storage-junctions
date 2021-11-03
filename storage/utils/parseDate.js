@@ -10,7 +10,7 @@
 function parseDate (isoString) {
   if (isoString.indexOf('/') >= 0)
     return isoString; // not ISO string
-  
+
   if (isoString.length === 10)
     isoString += "T00:00:00";
 
@@ -72,6 +72,6 @@ function parseDate (isoString) {
   jsDate.setUTCMinutes(jsDate.getMinutes() + minutes);
 
   return jsDate;
-};
+}
 
 module.exports = exports = parseDate;
