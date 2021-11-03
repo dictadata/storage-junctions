@@ -72,7 +72,10 @@ async function tests() {
 
   await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foofile_02.json|*",
+      options: {
+        encoding: "./test/data/input/foo_schema_02.encoding.json"
+      }
     },
     transform: {
       filter: {
@@ -89,6 +92,26 @@ async function tests() {
       smt: smt3,
       options: {
         header: true
+      }
+    }
+  });
+
+  logger.verbose('=== json_transform_4.json');
+  let smt4 = "json|./test/data/output/json/|transform_4.json|*";
+
+  await transfer({
+    origin: {
+      smt: "json|./test/data/input/|foofile_01.json|*"
+    },
+    terminal: {
+      smt: smt4
+    },
+    transform: {
+      filter: {
+        match: {
+          "subObj2.subsub.izze": 33
+        },
+        fields: ["Foo", "Bar", "Baz", "Dt Test", "tags", "subObj2"]
       }
     }
   });
