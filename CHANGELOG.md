@@ -1,5 +1,11 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.8.5
+  - implement dot notation for filter transform
+  - testing:
+    - fix issue with date comparisons
+    - refactoring of /var/data/country/state directory naming convention
+  - code cleanup
 - version 1.8.4
   - update dependencies
   - testing updates:
