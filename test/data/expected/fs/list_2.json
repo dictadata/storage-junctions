@@ -44,7 +44,7 @@
   {
     "name": "foo_schema_typesonly.encoding.json",
     "rpath": "foo_schema_typesonly.encoding.json",
-    "size": 180,
+    "size": 190,
     "date": "2021-10-01T23:30:24.887Z"
   },
   {
@@ -56,7 +56,7 @@
   {
     "name": "shapes.encoding.json",
     "rpath": "shapes\\shapes.encoding.json",
-    "size": 504,
+    "size": 533,
     "date": "2021-10-01T23:30:53.215Z"
   },
   {

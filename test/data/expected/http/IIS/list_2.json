@@ -60,7 +60,7 @@
     "name": "foo_schema_typesonly.encoding.json",
     "isDir": false,
     "date": "2021-10-01T23:30:00.000Z",
-    "size": 180,
+    "size": 190,
     "rpath": "foo_schema_typesonly.encoding.json"
   },
   {
@@ -76,7 +76,7 @@
     "name": "shapes.encoding.json",
     "isDir": false,
     "date": "2021-10-01T23:30:00.000Z",
-    "size": 504,
+    "size": 533,
     "rpath": "shapes/shapes.encoding.json"
   },
   {

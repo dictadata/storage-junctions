@@ -50,7 +50,7 @@ async function test_3() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dicta:data@localhost/data/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
+      smt: "*|ftp://dicta:data@localhost/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
       options: {
         recursive: false
       }
