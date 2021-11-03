@@ -10,7 +10,7 @@ const { logger } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = exports = async function (tract) {
+module.exports = exports = async function (tract, compareValues = 2) {
   logger.info(">>> create junction");
   let retCode = 0;
 
@@ -27,18 +27,18 @@ module.exports = exports = async function (tract) {
     }
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.recall(tract.origin.pattern);
-    
+
     if (tract.terminal && tract.terminal.output) {
       logger.info("<<< save results to " + tract.terminal.output);
       fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
       fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
 
       let expected_output = tract.terminal.output.replace("output", "expected");
-      retCode = _compare(tract.terminal.output, expected_output);
+      retCode = _compare(tract.terminal.output, expected_output, compareValues);
     }
     else
       logger.verbose(JSON.stringify(results, null, "  "));
-    
+
     logger.info(">>> completed");
   }
   catch (err) {

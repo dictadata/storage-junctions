@@ -11,7 +11,7 @@ const { logger } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = exports = async function (tract, compareValues = true) {
+module.exports = exports = async function (tract, compareValues = 1) {
   logger.info(">>> create junction");
   if (!tract.terminal) tract.terminal = {};
   let retCode = 0;

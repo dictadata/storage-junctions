@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { logger } = require('../../storage/utils');
+const { logger, isDate } = require('../../storage/utils');
 
 const fs = require('fs');
 const path = require('path');
@@ -11,16 +11,17 @@ const { unzipSync } = require('zlib');
 const { typeOf, hasOwnProperty } = require("../../storage/utils");
 
 
-function compareJSON(output1, output2, compareValues) {
+function compareCSV(output1, output2, compareValues) {
 
   return 0;
 }
 
+
 function compareJSON(object1, object2, compareValues) {
 
   if (compareValues && typeOf(object1) !== typeOf(object2)) {
-      logger.error(`objects are different types: ${typeOf(object1)} <> ${typeOf(object2)}`);
-      return 1;
+    logger.error(`objects are different types: ${typeOf(object1)} <> ${typeOf(object2)}`);
+    return 1;
   }
 
   // walk the output1 object and compare to object2
@@ -52,22 +53,25 @@ function compareJSON(object1, object2, compareValues) {
         return 1;
     }
   }
+  else if (compareValues === 2 && (object1 instanceof Date || (typeof object1 === "string" && isDate(object1)))) {
+    return 0; // don't compare
+  }
   else if (compareValues && object1 !== object2) {
-    logger.error(`compare value mismatch: ${object1} <> ${object2}`)
+    logger.error(`compare value mismatch: ${object1} <> ${object2}`);
     return 1;
   }
 
   return 0;  // values match
 }
 
-module.exports = exports = function (filename1, filename2, compareValues = true) {
+module.exports = exports = function (filename1, filename2, compareValues = 1) {
   logger.info(">>> compare files");
   //return 0;
 
   let ext1 = path.extname(filename1);
   let ext2 = path.extname(filename2);
   logger.info(">>> " + filename1 + " === " + filename2);
-  
+
   // unzip, if needed
   if (ext1 === ".gz")
     ext1 = path.extname(filename1.substring(0,filename1.length-3))
@@ -92,10 +96,10 @@ module.exports = exports = function (filename1, filename2, compareValues = true)
   if (ext1 === '.json')
     return compareJSON(JSON.parse(output1), JSON.parse(output2), compareValues);
   else if (ext1 === '.csv')
-    return compareCSV(output1, output2, compareValues)
+    return compareCSV(output1, output2, compareValues);
   else {
     logger.error("compare unknown file extension");
     return 1;
   }
-  
+
 }

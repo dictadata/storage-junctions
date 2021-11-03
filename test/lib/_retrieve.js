@@ -10,7 +10,7 @@ const { logger } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = exports = async function (tract, compareValues) {
+module.exports = exports = async function (tract, compareValues = 2) {
   logger.info(">>> create junction");
   let retCode = 0;
 
@@ -40,7 +40,7 @@ module.exports = exports = async function (tract, compareValues) {
       retCode = _compare(tract.terminal.output, expected_output, compareValues);
     }
     else
-      logger.verbose(JSON.stringify(results, null, "  "));      
+      logger.verbose(JSON.stringify(results, null, "  "));
 
     logger.info(">>> completed");
   }
