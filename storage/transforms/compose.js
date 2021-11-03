@@ -5,7 +5,6 @@
  */
 
 const { Transform } = require('stream');
-const { StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
 // example compose transform

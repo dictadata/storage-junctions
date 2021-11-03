@@ -1,7 +1,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { typeOf, hasOwnProperty, logger } = require("../utils");
+const { typeOf, hasOwnProperty } = require("../utils");
 
 const dot = require('dot-object');
 

@@ -1,13 +1,10 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { StorageError } = require("../types");
 const { typeOf, hasOwnProperty, logger } = require("../utils");
 
-const dot = require('dot-object');
-
 /*
- TBD 
+ TBD
    fix issue with csv and json aggregate group by. Not accumulating on other fields.
 
    aggregate: {

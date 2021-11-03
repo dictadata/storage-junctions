@@ -2,7 +2,6 @@
 
 const { Transform } = require('stream');
 const cortex = require("../cortex");
-const { StorageError } = require("../types");
 const { typeOf, hasOwnProperty, logger } = require("../utils");
 
 
