@@ -2,7 +2,7 @@
  * storage/codex
  *
  * Codex is a data management storage source.
- * 
+ *
  */
 "use strict";
 
@@ -10,36 +10,48 @@ const Engram = require('./types/engram');
 const Field = require('./types/field');
 const Types = require("./types");
 
-/* Example codex entry
+/* Example schema entry
 "smt_name": {
   "smt": {},
+  "description": {},
   "fields": {},
-  "options": 
+  "options": {},
   "tags": {}
 }
 */
 
+/* example tract entry
+"tract_name": {
+  "description": "",
+  "origin": {},
+  "transform": {},
+  "terminal": {}
+}
+*/
 
 module.exports = exports = class Codex {
 
   constructor(SMT) {
     this._engram = new Engram(SMT);
-  
+
     this._schemas = new Map();
     this._tracts = new Map();
 
   }
 
-  add(name, encoding) {
-    this._codex.set(name, encoding);
+  store(name, encoding) {
+    this._schemas.set(name, encoding);
   }
 
-  find(name) {
-    if (this._codex.has(name))
-      return this._codex.get(name);
+  recall(name) {
+    if (this._schemas.has(name))
+      return this._schemas.get(name);
     else
       return null;
   }
 
-  load()
-}
+  dull(name) {
+    if (this._schemas.has(name))
+      return this._schemas.delete(name);
+  }
+};
