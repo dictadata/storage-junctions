@@ -1,28 +1,34 @@
 /**
  * storage/codex
  *
- * Codex is a data management storage source.
+ * Codex is a general purpose data directory and data manager.
  *
  */
 "use strict";
 
-const Engram = require('./types/engram');
-const Field = require('./types/field');
-const Types = require("./types");
+//const Engram = require('./types/engram');
+//const Field = require('./types/field');
+//const Types = require("./types");
 
-/* Example schema entry
-"smt_name": {
-  "smt": {},
-  "description": {},
-  "fields": {},
-  "options": {},
-  "tags": {}
+/* example smt entry
+{
+  "codex_name": "",
+  "codex_type": "smt",
+  "description": "",
+  "tags": [],
+
+  "smt": "" | {},
+  "fields": "" | {},
 }
 */
 
 /* example tract entry
-"tract_name": {
+{
+  "codex_name": "",
+  "codex_type": "tract",
   "description": "",
+  "tags": [],
+
   "origin": {},
   "transform": {},
   "terminal": {}
@@ -31,27 +37,27 @@ const Types = require("./types");
 
 module.exports = exports = class Codex {
 
-  constructor(SMT) {
-    this._engram = new Engram(SMT);
+  constructor(options) {
+    //this._engram = new Engram(options.smt);
 
-    this._schemas = new Map();
+    this._engrams = new Map();
     this._tracts = new Map();
-
   }
 
-  store(name, encoding) {
-    this._schemas.set(name, encoding);
+  store(codex_name, entry) {
+    this._engrams.set(codex_name, entry);
   }
 
-  recall(name) {
-    if (this._schemas.has(name))
-      return this._schemas.get(name);
+  recall(codex_name) {
+    if (this._engrams.has(codex_name))
+      return this._engrams.get(codex_name);
     else
       return null;
   }
 
-  dull(name) {
-    if (this._schemas.has(name))
-      return this._schemas.delete(name);
+  dull(codex_name) {
+    if (this._engrams.has(codex_name))
+      return this._engrams.delete(codex_name);
   }
+
 };

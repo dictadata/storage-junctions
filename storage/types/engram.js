@@ -1,13 +1,13 @@
 /**
  * storage/types/Engram
  *
- * An Engram is a desciptor for a storage memory locus (locus)
- * and the information needed to encode and decode constructs for storage.
+ * An Engram is an encoding for a storage memory trace
+ * and the field information needed to encode and decode constructs for storage.
  *
- * Storage Memory Trace (SMT) is a string representing a storage memory locus.
  * SMT and Engram represent the same concept and are interchangable as parameters.
  *
- * smt: 'model|locus|schema|key'
+ * Storage Memory Trace (SMT) is a string representing a storage memory locus.
+ *   smt: 'model|locus|schema|key'
  */
 "use strict";
 
