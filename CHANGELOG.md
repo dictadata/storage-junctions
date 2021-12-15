@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 1.8.6
+  - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint  
 - version 1.8.5
   - implement dot notation for filter transform
   - testing:
