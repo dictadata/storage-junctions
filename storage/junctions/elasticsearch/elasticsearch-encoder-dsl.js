@@ -104,24 +104,24 @@ function match(dsl, pattern) {
   for (const [fldname, value] of entries) {
     if (typeOf(value) === 'object') {
       // a complex expression
+      let keys = Object.keys(value);
 
-      if ('contains' in value) {
+      if (['contains', 'within', 'intersect', 'disjoint'].includes(keys[0]) ) {
         // geo_shape query
         let q = {
-          "geo_shape": {
-            "geometry": {
-              "shape": {
-                "type": "point",
-                "coordinates": value.contains
-              },
-              "relation": "contains"
-            }
-          }
+          "geo_shape": {}
+        };
+        q.geo_shape[ fldname ] = {
+          "shape": {
+            "type": keys[0] === "contains" ? "point" : "polygon",
+            "coordinates": value[keys[0]]
+          },
+          "relation": keys[0]
         };
 
         filter.push(q);
       }
-      else if ('wc' in value) {
+      else if (keys[0] === 'wc') {
         // wildcard query
         let q = {
           wildcard: {}
