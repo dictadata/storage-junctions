@@ -806,8 +806,19 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "shapefile census",
-      "program": "${workspaceFolder}/test/shapefile/transfer_census.js",
+      "name": "shapefile transfer tiger2020",
+      "program": "${workspaceFolder}/test/shapefile/transfer_tiger2020.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "shapefile retrieve tiger2020",
+      "program": "${workspaceFolder}/test/shapefile/retrieve_tiger2020.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

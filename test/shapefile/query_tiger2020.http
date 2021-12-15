@@ -1,0 +1,67 @@
+POST http://localhost:9200/tiger2020/_search
+content-type: application/json; charset=UTF-8
+
+{
+  "query": {
+    "bool": {
+      "filter": [{
+        "term": {
+          "properties.STUSPS": "NY"
+        }
+      }]
+    }
+  }
+}
+
+###
+POST http://localhost:9200/tiger2020/_search
+content-type: application/json; charset=UTF-8
+
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "geometry": {
+            "shape": {
+              "type": "point",
+              "coordinates": [ -73.985428, 40.748817 ]
+            },
+            "relation": "contains"
+          }
+        }
+      }
+    }
+  }
+}
+
+### find county for coordinates
+POST http://localhost:9200/us_census.gov_geo_tiger2020/_search
+content-type: application/json; charset=UTF-8
+
+{
+  "query": {
+    "bool": {
+      "filter": [{
+        "term": {
+          "properties.LSAD": "06"
+        }
+      },
+      {
+        "geo_shape": {
+          "geometry": {
+            "shape": {
+              "type": "point",
+              "coordinates": [ -73.985428, 40.748817 ]
+            },
+            "relation": "contains"
+          }
+        }
+      }]
+    }
+  }
+}
+

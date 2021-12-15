@@ -45,7 +45,7 @@ async function test_1() {
     }
   })) return 1;
 
-  logger.info("=== list census.gov");
+  logger.info("=== list tiger2020");
   if (await list({
     origin: {
       smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
@@ -54,7 +54,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_census.json"
+      output: "./test/data/output/ftp/list_tiger2020.json"
     }
   })) return 1;
 

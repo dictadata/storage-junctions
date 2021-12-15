@@ -103,30 +103,49 @@ function match(dsl, pattern) {
 
   for (const [fldname, value] of entries) {
     if (typeOf(value) === 'object') {
-      if ('wc' in value) {
+      // a complex expression
+
+      if ('contains' in value) {
+        // geo_shape query
+        let q = {
+          "geo_shape": {
+            "geometry": {
+              "shape": {
+                "type": "point",
+                "coordinates": value.contains
+              },
+              "relation": "contains"
+            }
+          }
+        };
+
+        filter.push(q);
+      }
+      else if ('wc' in value) {
         // wildcard query
         let q = {
           wildcard: {}
-        }
-        q.wildcard[fldname] = { "value": value.wc };
+        };
+        q.wildcard[ fldname ] = { "value": value.wc };
         filter.push(q);
       }
+      else {
+        // expression(s) { op: value, ...}
+        let q = {
+          range: {}
+        };
 
-      // expression(s) { op: value, ...}
-      let q = {
-        range: {}
-      };
+        let rf = q.range[ fldname ] = {};
+        if ('gt' in value) rf[ "gt" ] = value.gt;
+        if ('gte' in value) rf[ "gte" ] = value.gte;
+        if ('lt' in value) rf[ "lt" ] = value.lt;
+        if ('lte' in value) rf[ "lte" ] = value.lte;
+        if ('eq' in value) rf[ "eq" ] = value.eq;
+        if ('neq' in value) rf[ "neq" ] = value.neq;
 
-      let rf = q.range[fldname] = {};
-      if ('gt' in value) rf["gt"] = value.gt;
-      if ('gte' in value) rf["gte"] = value.gte;
-      if ('lt' in value) rf["lt"] = value.lt;
-      if ('lte' in value) rf["lte"] = value.lte;
-      if ('eq' in value) rf["eq"] = value.eq;
-      if ('neq' in value) rf["neq"] = value.neq;
-
-      if (Object.keys(rf).length > 0)
-        filter.push(q);
+        if (Object.keys(rf).length > 0)
+          filter.push(q);
+      }
     }
     else {
       // single property { field: value }
