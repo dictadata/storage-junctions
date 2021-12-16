@@ -13,7 +13,7 @@ content-type: application/json; charset=UTF-8
   }
 }
 
-###
+### geojson documents containing point
 POST http://localhost:9200/tiger2020/_search
 content-type: application/json; charset=UTF-8
 
@@ -38,7 +38,7 @@ content-type: application/json; charset=UTF-8
   }
 }
 
-### find county for coordinates
+### find county for geojson coordinates
 POST http://localhost:9200/us_census.gov_geo_tiger2020/_search
 content-type: application/json; charset=UTF-8
 
