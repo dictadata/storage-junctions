@@ -21,7 +21,7 @@ async function tests() {
     terminal: {
       output: "./test/data/output/mysql/list.json"
     }
-  }, false)) return 1;
+  }, 1)) return 1;
 
 }
 

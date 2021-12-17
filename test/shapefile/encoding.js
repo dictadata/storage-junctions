@@ -19,7 +19,7 @@ async function test1() {
     terminal: {
       output: './test/data/output/shapefile/polygons.encoding.json'
     }
-  }, false)) return 1;
+  })) return 1;
 
 }
 
@@ -34,7 +34,7 @@ async function test2() {
     terminal: {
       output: './test/data/output/shapefile/points.encoding.json'
     }
-  }, false)) return 1;
+  })) return 1;
 
 }
 
@@ -49,7 +49,7 @@ async function test3() {
     terminal: {
       output: './test/data/output/shapefile/tl_2020_us_state.encoding.json'
     }
-  }, false)) return 1;
+  })) return 1;
 
 }
 
@@ -64,7 +64,7 @@ async function test4() {
     terminal: {
       output: './test/data/output/shapefile/tl_2020_us_county.encoding.json'
     }
-  }, false)) return 1;
+  })) return 1;
 
 }
 
