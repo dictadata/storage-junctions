@@ -1,4 +1,8 @@
 {
+  "name": "foo_schema",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "memory",
     "locus": "testgroup",
@@ -10,56 +14,29 @@
       "name": "Foo",
       "type": "keyword",
       "size": 7,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Foo"
+      "key": 1
     },
     "Bar": {
       "name": "Bar",
       "type": "text",
-      "size": 13,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Bar"
+      "size": 13
     },
     "Baz": {
       "name": "Baz",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Baz"
+      "type": "integer"
     },
     "Fobe": {
       "name": "Fobe",
-      "type": "number",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Fobe"
+      "type": "number"
     },
     "Dt Test": {
       "name": "Dt Test",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Dt Test"
+      "type": "date"
     },
     "enabled": {
       "name": "enabled",
-      "type": "boolean",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "enabled"
+      "type": "boolean"
     }
   },
-  "_SMT": "any|*|*|*"
+  "_SMT": "memory|testgroup|foo_schema|!Foo"
 }

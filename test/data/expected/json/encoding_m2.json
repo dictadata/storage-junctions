@@ -1,4 +1,8 @@
 {
+  "name": "*",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "any",
     "locus": "*",
@@ -9,112 +13,56 @@
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Foo"
+      "size": 7
     },
     "Bar": {
       "name": "Bar",
       "type": "text",
-      "size": 13,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Bar"
+      "size": 13
     },
     "Baz": {
       "name": "Baz",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Baz"
+      "type": "integer"
     },
     "Fobe": {
       "name": "Fobe",
-      "type": "number",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Fobe"
+      "type": "number"
     },
     "Dt Test": {
       "name": "Dt Test",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Dt Test"
+      "type": "date"
     },
     "enabled": {
       "name": "enabled",
-      "type": "boolean",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "enabled"
+      "type": "boolean"
     },
     "subObj1": {
       "name": "subObj1",
       "type": "map",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "subObj1",
       "fields": {
         "state": {
           "name": "state",
           "type": "keyword",
-          "size": 7,
-          "default": null,
-          "nullable": true,
-          
-          "label": "state"
+          "size": 7
         },
         "ex-state": {
           "name": "ex-state",
           "type": "keyword",
-          "size": 4,
-          "default": null,
-          "nullable": true,
-          
-          "label": "ex-state"
+          "size": 4
         }
       }
     },
     "subObj2": {
       "name": "subObj2",
       "type": "map",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "subObj2",
       "fields": {
         "subsub": {
           "name": "subsub",
           "type": "map",
-          "size": 0,
-          "default": null,
-          "nullable": true,
-          
-          "label": "subsub",
           "fields": {
             "izze": {
               "name": "izze",
-              "type": "integer",
-              "size": 0,
-              "default": null,
-              "nullable": true,
-              
-              "label": "izze"
+              "type": "integer"
             }
           }
         }
@@ -123,19 +71,10 @@
     "tags": {
       "name": "tags",
       "type": "list",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "tags",
       "_list": {
         "name": "_list",
         "type": "keyword",
-        "size": 6,
-        "default": null,
-        "nullable": true,
-        
-        "label": "_list"
+        "size": 6
       }
     }
   },

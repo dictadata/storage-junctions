@@ -1,7 +1,11 @@
 {
+  "name": "polygons",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "shp",
-    "locus": "/data/shapes/",
+    "locus": "./test/data/input/shapes/",
     "schema": "polygons",
     "key": "*"
   },
@@ -53,5 +57,5 @@
       }
     }
   },
-  "_SMT": "any|*|*|*"
+  "_SMT": "shp|./test/data/input/shapes/|polygons|*"
 }

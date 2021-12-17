@@ -2,8 +2,8 @@
   {
     "name": "foo_schema.encoding.json",
     "rpath": "foo_schema.encoding.json",
-    "size": 1163,
-    "date": "2021-10-01T23:30:33.650Z"
+    "size": 1156,
+    "date": "2021-12-17T16:31:52.286Z"
   },
   {
     "name": "foo_schema_01.encoding.json",
@@ -45,7 +45,7 @@
     "name": "foo_schema_typesonly.encoding.json",
     "rpath": "foo_schema_typesonly.encoding.json",
     "size": 190,
-    "date": "2021-10-01T23:30:24.887Z"
+    "date": "2021-12-15T22:14:53.155Z"
   },
   {
     "name": "foo_transform.encoding.json",
@@ -57,7 +57,7 @@
     "name": "shapes.encoding.json",
     "rpath": "shapes\\shapes.encoding.json",
     "size": 533,
-    "date": "2021-10-01T23:30:53.215Z"
+    "date": "2021-12-15T22:19:34.297Z"
   },
   {
     "name": "tl_2020_us_county.encoding.json",

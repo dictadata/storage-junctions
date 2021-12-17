@@ -1,4 +1,8 @@
 {
+  "name": "foo_schema_02",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "memory",
     "locus": "testgroup",
@@ -75,19 +79,5 @@
       }
     }
   },
-  "_SMT": "memory|testgroup|foo_schema_02|*",
-  "indices": {
-    "foo_index_02": {
-      "unique": false,
-      "fields": [
-        {
-          "name": "Bar"
-        },
-        {
-          "name": "Fobe",
-          "order": "DESC"
-        }
-      ]
-    }
-  }
+  "_SMT": "memory|testgroup|foo_schema_02|*"
 }

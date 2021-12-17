@@ -1,4 +1,8 @@
 {
+  "name": "foo_schema_02",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "elasticsearch",
     "locus": "http://localhost:9200",
@@ -9,10 +13,6 @@
     "Bar": {
       "name": "Bar",
       "type": "keyword",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "keyword"
       }
@@ -20,10 +20,6 @@
     "Baz": {
       "name": "Baz",
       "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "integer"
       }
@@ -31,10 +27,6 @@
     "Dt Test": {
       "name": "Dt Test",
       "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "date"
       }
@@ -42,10 +34,6 @@
     "Fobe": {
       "name": "Fobe",
       "type": "float",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "double"
       }
@@ -53,10 +41,6 @@
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "keyword"
       }
@@ -64,10 +48,6 @@
     "enabled": {
       "name": "enabled",
       "type": "boolean",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "boolean"
       }
@@ -75,10 +55,6 @@
     "tags": {
       "name": "tags",
       "type": "keyword",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
       "_elasticsearch": {
         "type": "keyword"
       }
@@ -90,10 +66,6 @@
         "count": {
           "name": "count",
           "type": "integer",
-          "size": 0,
-          "default": null,
-          "nullable": true,
-          
           "_elasticsearch": {
             "type": "integer"
           }
@@ -101,10 +73,6 @@
         "part": {
           "name": "part",
           "type": "keyword",
-          "size": 0,
-          "default": null,
-          "nullable": true,
-          
           "_elasticsearch": {
             "type": "keyword"
           }

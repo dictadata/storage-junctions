@@ -1,4 +1,8 @@
 {
+  "name": "foo_schema_two",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "memory",
     "locus": "testgroup",

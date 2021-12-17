@@ -1,4 +1,8 @@
 {
+  "name": "tl_2020_us_county",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "shp",
     "locus": "zip:/var/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip",
@@ -122,5 +126,5 @@
       }
     }
   },
-  "_SMT": "any|*|*|*"
+  "_SMT": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*"
 }

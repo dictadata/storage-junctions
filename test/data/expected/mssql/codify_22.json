@@ -1,4 +1,8 @@
 {
+  "name": "*",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "any",
     "locus": "*",
@@ -9,74 +13,38 @@
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Foo"
+      "size": 7
     },
     "Bar": {
       "name": "Bar",
       "type": "text",
-      "size": 13,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Bar"
+      "size": 13
     },
     "Baz": {
       "name": "Baz",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Baz"
+      "type": "integer"
     },
     "Fobe": {
       "name": "Fobe",
-      "type": "number",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Fobe"
+      "type": "number"
     },
     "Dt Test": {
       "name": "Dt Test",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Dt Test"
+      "type": "date"
     },
     "enabled": {
       "name": "enabled",
-      "type": "boolean",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "enabled"
+      "type": "boolean"
     },
     "tags": {
       "name": "tags",
       "type": "keyword",
-      "size": 30,
-      "default": null,
-      "nullable": true,
-      
-      "label": "tags"
+      "size": 30
     },
     "widgets": {
       "name": "widgets",
       "type": "text",
-      "size": 87,
-      "default": null,
-      "nullable": true,
-      
-      "label": "widgets"
+      "size": 87
     }
   },
   "_SMT": "any|*|*|*"

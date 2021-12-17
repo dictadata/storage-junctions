@@ -1,4 +1,8 @@
 {
+  "name": "tl_2020_us_state",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "shp",
     "locus": "zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip",
@@ -109,5 +113,5 @@
       }
     }
   },
-  "_SMT": "any|*|*|*"
+  "_SMT": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
 }

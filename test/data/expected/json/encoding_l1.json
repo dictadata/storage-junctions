@@ -1,4 +1,8 @@
 {
+  "name": "foofile_02.json",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "json",
     "locus": "./test/data/input/",
@@ -9,113 +13,57 @@
     "Foo": {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Foo"
+      "size": 7
     },
     "Bar": {
       "name": "Bar",
       "type": "text",
-      "size": 13,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Bar"
+      "size": 13
     },
     "Baz": {
       "name": "Baz",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Baz"
+      "type": "integer"
     },
     "Fobe": {
       "name": "Fobe",
-      "type": "number",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Fobe"
+      "type": "number"
     },
     "Dt Test": {
       "name": "Dt Test",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "Dt Test"
+      "type": "date"
     },
     "enabled": {
       "name": "enabled",
-      "type": "boolean",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "enabled"
+      "type": "boolean"
     },
     "tags": {
       "name": "tags",
       "type": "list",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "tags",
       "_list": {
         "name": "_list",
         "type": "keyword",
-        "size": 8,
-        "default": null,
-        "nullable": true,
-        
-        "label": "_list"
+        "size": 8
       }
     },
     "widgets": {
       "name": "widgets",
       "type": "list",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "widgets",
       "_list": {
         "name": "_list",
         "type": "map",
-        "size": 0,
-        "default": null,
-        "nullable": true,
-        
-        "label": "_list",
         "fields": {
           "part": {
             "name": "part",
             "type": "keyword",
-            "size": 6,
-            "default": null,
-            "nullable": true,
-            
-            "label": "part"
+            "size": 6
           },
           "count": {
             "name": "count",
-            "type": "integer",
-            "size": 0,
-            "default": null,
-            "nullable": true,
-            
-            "label": "count"
+            "type": "integer"
           }
         }
       }
     }
   },
-  "_SMT": "any|*|*|*"
+  "_SMT": "json|./test/data/input/|foofile_02.json|*"
 }
