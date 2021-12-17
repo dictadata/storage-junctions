@@ -11,7 +11,7 @@ const { logger } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = exports = async function (tract, compareValues = 1) {
+module.exports = exports = async function (tract, compareValues = 2) {
   logger.info(">>> create junction");
   if (!tract.terminal) tract.terminal = {};
   let retCode = 0;
@@ -20,7 +20,7 @@ module.exports = exports = async function (tract, compareValues = 1) {
   try {
     jo = await storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.getEncoding();
-    let encoding = results.data["encoding"];
+    let encoding = results.data[ "encoding" ];
 
     if (typeOf(encoding) === 'object') {
       //logger.debug(JSON.stringify(encoding));
@@ -30,7 +30,7 @@ module.exports = exports = async function (tract, compareValues = 1) {
         fs.writeFileSync(tract.terminal.output, JSON.stringify(encoding, null, "  "));
 
         let expected_output = tract.terminal.output.replace("output", "expected");
-        retCode = _compare(tract.terminal.output, expected_output, compareValues);
+        retCode = _compare(expected_output, tract.terminal.output, compareValues);
       }
     }
     else

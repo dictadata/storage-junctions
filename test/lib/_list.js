@@ -34,7 +34,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       fs.writeFileSync(tract.terminal.output, JSON.stringify(list, null, 2), "utf8");
 
       let expected_output = tract.terminal.output.replace("output", "expected");
-      retCode = _compare(tract.terminal.output, expected_output, compareValues);
+      retCode = _compare(expected_output, tract.terminal.output, compareValues);
     }
 
     logger.info(">>> completed");

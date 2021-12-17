@@ -13,7 +13,7 @@ const path = require('path');
 //const stream = require('stream/promises');
 const stream = require('stream').promises;
 
-module.exports = exports = async function (tract) {
+module.exports = exports = async function (tract, compareValues = 2) {
   logger.info(">>> create junction");
 
   if (!hasOwnProperty(tract, "transform")) {
@@ -31,7 +31,7 @@ module.exports = exports = async function (tract) {
     // *** get encoding for junction's schema
     logger.info(">>> get encoding");
     let results = await jo.getEncoding();
-    let encoding1 = results.data["encoding"];
+    let encoding1 = results.data[ "encoding" ];
 
     //logger.debug(JSON.stringify(encoding1, null, "  "));
     if (tract.outputFile1) {
@@ -40,7 +40,7 @@ module.exports = exports = async function (tract) {
       fs.writeFileSync(tract.outputFile1, JSON.stringify(encoding1, null, 2), "utf8");
 
       let expected_output = tract.outputFile1.replace("output", "expected");
-      if (_compare(tract.outputFile1, expected_output, false))
+      if (_compare(expected_output, tract.outputFile1, compareValues))
         return process.exitCode = 1;
     }
 
@@ -48,7 +48,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> build pipeline");
     let pipes = [];
     pipes.push(jo.createReader({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
-    for (let [tfType, tfOptions] of Object.entries(tract.transform))
+    for (let [ tfType, tfOptions ] of Object.entries(tract.transform))
       pipes.push(jo.createTransform(tfType, tfOptions));
     let codify = jo.createTransform('codify', tract.origin);
     pipes.push(codify);
@@ -67,7 +67,7 @@ module.exports = exports = async function (tract) {
       fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2, null, "  "), "utf8");
 
       let expected_output = tract.outputFile2.replace("output", "expected");
-      retCode = _compare(tract.outputFile2, expected_output, false);
+      retCode = _compare(expected_output, tract.outputFile2, compareValues);
     }
 
     logger.info(">>> completed");

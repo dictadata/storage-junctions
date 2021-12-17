@@ -11,72 +11,88 @@ const { unzipSync } = require('zlib');
 const { typeOf, hasOwnProperty } = require("../../storage/utils");
 
 
-function compareCSV(output1, output2, compareValues) {
+function compareCSV(expected, output, compareValues) {
 
   return 0;
 }
 
+/**
+ *
+ * @param {*} var1 expected value
+ * @param {*} var2 test output value
+ * @param {*} compareValues
+ * @returns 0 if OK, 1 if different
+ */
+function compareJSON(var1, var2, compareValues) {
+  if (!compareValues)
+    return 0;
 
-function compareJSON(object1, object2, compareValues) {
-
-  if (compareValues && typeOf(object1) !== typeOf(object2)) {
-    logger.error(`objects are different types: ${typeOf(object1)} <> ${typeOf(object2)}`);
+  // objects must be of same type
+  if (typeOf(var2) !== typeOf(var1)) {
+    logger.error(`objects are different types: ${typeOf(var2)} <> ${typeOf(var1)}`);
     return 1;
   }
 
-  // walk the output1 object and compare to object2
-  if (Array.isArray(object1)) {
-    if (compareValues && object1.length !== object2.length) {
+  if (Array.isArray(var1)) {
+    // check array lengths
+    if (compareValues > 1 ? var2.length !== var1.length : var2.length < var1.length) {
       logger.error("arrays have different lengths");
       return 1;
     }
 
-    for (let i = 0; i < object1.length; i++) {
-      if (compareJSON(object1[i], object2[i], compareValues))
-        return 1;
+    if (compareValues > 1) {
+      // check array elements
+      for (let i = 0; i < var1.length; i++) {
+        if (compareJSON(var1[ i ], var2[ i ], compareValues))
+          return 1;
+      }
     }
   }
-  else if (typeOf(object1) === 'object') {
-    let keys1 = Object.keys(object1);
-    let keys2 = Object.keys(object2);
-    if (compareValues && keys1.length != keys2.length) {
+  else if (typeOf(var1) === 'object') {
+    // walk var2 and compare to var1
+    let keys1 = Object.keys(var1);
+    let keys2 = Object.keys(var2);
+    if (compareValues > 1 ? keys2.length != keys1.length : keys2.length < keys1.length) {
       logger.error("compare object maps have different lengths");
       return 1;
     }
 
-    for (let key of Object.keys(object1)) {
-      if (!hasOwnProperty(object2, key)) {
+    for (let key of keys1) {
+      if (!hasOwnProperty(var2, key)) {
         logger.error("compare object2 does not contain property: " + key);
         return 1;
       }
-      if (compareJSON(object1[key], object2[key], compareValues))
+
+      if (compareJSON(var1[ key ], var2[ key ], compareValues))
         return 1;
     }
   }
-  else if (compareValues === 2 && (object1 instanceof Date || (typeof object1 === "string" && isDate(object1)))) {
-    return 0; // don't compare
+  // don't compare values of dates
+  else if (compareValues > 1 && (var1 instanceof Date || (typeof var1 === "string" && isDate(var1)))) {
+    return 0;
   }
-  else if (compareValues && object1 !== object2) {
-    logger.error(`compare value mismatch: ${object1} <> ${object2}`);
+  // check values of basic types
+  else if (compareValues > 1 && var1 !== var2) {
+    logger.error(`compare value mismatch: ${var1} <> ${var2}`);
     return 1;
   }
 
   return 0;  // values match
 }
 
-module.exports = exports = function (filename1, filename2, compareValues = 1) {
+module.exports = exports = function (filename_expected, filename_output, compareValues = 1) {
   logger.info(">>> compare files");
   //return 0;
 
-  let ext1 = path.extname(filename1);
-  let ext2 = path.extname(filename2);
-  logger.info(">>> " + filename1 + " === " + filename2);
+  let ext1 = path.extname(filename_expected);
+  let ext2 = path.extname(filename_output);
+  logger.info(">>> " + filename_expected + " === " + filename_output);
 
   // unzip, if needed
   if (ext1 === ".gz")
-    ext1 = path.extname(filename1.substring(0,filename1.length-3))
+    ext1 = path.extname(filename_expected.substring(0, filename_expected.length - 3));
   if (ext2 === ".gz")
-    ext2 = path.extname(filename2.substring(0,filename2.length-3))
+    ext2 = path.extname(filename_output.substring(0, filename_output.length - 3));
 
   // compare file extensions
   if (ext1 !== ext2) {
@@ -85,18 +101,18 @@ module.exports = exports = function (filename1, filename2, compareValues = 1) {
   }
 
   // read files
-  let output1 = fs.readFileSync(filename1);
-  if (path.extname(filename1) === '.gz')
-    output1 = unzipSync(output1);
-  let output2 = fs.readFileSync(filename2);
-  if (path.extname(filename2) === '.gz')
-    output2 = unzipSync(output2);
+  let expected = fs.readFileSync(filename_expected);
+  if (path.extname(filename_expected) === '.gz')
+    expected = unzipSync(expected);
+  let output = fs.readFileSync(filename_output);
+  if (path.extname(filename_output) === '.gz')
+    output = unzipSync(output);
 
   // choose parser
   if (ext1 === '.json')
-    return compareJSON(JSON.parse(output1), JSON.parse(output2), compareValues);
+    return compareJSON(JSON.parse(expected), JSON.parse(output), compareValues);
   else if (ext1 === '.csv')
-    return compareCSV(output1, output2, compareValues);
+    return compareCSV(expected, output, compareValues);
   else {
     logger.error("compare unknown file extension");
     return 1;
