@@ -1,0 +1,61 @@
+{
+  "name": "codex_entry",
+  "type": "engram",
+  "description": "encoding of a codex entry",
+  "tags": [
+    "codex",
+    "encoding"
+  ],
+  "smt": {
+    "model": "*",
+    "locus": "*",
+    "schema": "codex_entry",
+    "key": "!"
+  },
+  "fields": {
+    "name": {
+      "type": "keyword",
+      "nullable": false,
+      "key": 1
+    },
+    "type": {
+      "type": "keyword"
+    },
+    "description": {
+      "type": "text"
+    },
+    "tags": {
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword"
+      }
+    },
+    "smt": {
+      "type": "map",
+      "fields": {
+        "model": "keyword",
+        "locus": "text",
+        "schema": "keyword",
+        "key": "keyword"
+      }
+    },
+    "fields": {
+      "type": "map"
+    },
+    "tract": {
+      "type": "map",
+      "fields": {
+        "origin": {
+          "type": "map"
+        },
+        "terminal": {
+          "type": "map"
+        },
+        "transform": {
+          "type": "map"
+        }
+      }
+    }
+  }
+}
