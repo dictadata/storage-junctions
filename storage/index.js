@@ -3,19 +3,24 @@
  */
 "use strict";
 
-var cortex = require("./cortex");
-module.exports = exports = cortex;
+// this module is a "superset" of Cortex
+var Cortex = require("./cortex");
+module.exports = exports = Cortex;
+
+///// Codex class
+exports.Codex = require("./codex/codex");
 
 ///// Storage types
-const types = require("./types");
-exports.Engram = types.Engram;
-exports.Field = types.Field;
-exports.StorageResponse = types.StorageResponse;
-exports.StorageError = types.StorageError;
+//const types = require("./types");
+//exports.Engram = types.Engram;
+//exports.Field = types.Field;
+//exports.StorageResponse = types.StorageResponse;
+//exports.StorageError = types.StorageError;
 
 ///// Storage utils
 //const utils = require("./utils");
 
+//////////
 ///// register Storage FileSystems
 exports.StorageFileSystem = require("./filesystems/storage-filesystem");
 
@@ -32,6 +37,7 @@ cortex.FileSystems.use('https', exports.HTTPFileSystem);
 exports.ZipFileSystem = require("./filesystems/zip-filesystem");
 cortex.FileSystems.use('zip', exports.ZipFileSystem);
 
+//////////
 ///// register Storage Junctions
 var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
@@ -85,6 +91,7 @@ exports.SplitterJunction = SplitterJunction;
 cortex.use('splitter', SplitterJunction);
 cortex.use('split', SplitterJunction);
 
+//////////
 ///// register Storage Transforms
 exports.FilterTransform = require("./transforms/filter");
 cortex.Transforms.use('filter', exports.FilterTransform);

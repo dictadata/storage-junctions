@@ -889,6 +889,22 @@
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
       }
+    },
+    {
+      "type": "node-terminal",
+      "name": "--- pipelines",
+      "request": "launch"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex encodings",
+      "program": "${workspaceFolder}/test/codex/encodings.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
     }
   ]
 }

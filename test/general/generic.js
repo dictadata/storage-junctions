@@ -1,5 +1,5 @@
 /**
- * test/junctions
+ * test/general/generic
  */
 "use strict";
 
@@ -19,7 +19,7 @@ async function test_1() {
       locus: "./test/data/input/",
       schema: "*",
       key: "*"
-   });
+    });
 
     logger.info(">>> create filesystem");
     var stfs = await junction.getFileSystem();

@@ -3,7 +3,7 @@
     "model": "*",
     "locus": "*",
     "schema": "foo_schema_lg",
-    "key": "*"
+    "key": "=Foo"
   },
   "fields": {
     "Foo": {
@@ -21,7 +21,6 @@
       "size": 256,
       "default": null,
       "nullable": true,
-      
       "label": "Bar"
     },
     "Baz": {
@@ -30,7 +29,6 @@
       "size": 20,
       "default": null,
       "nullable": true,
-      
       "label": "Baz"
     },
     "Fobe": {
@@ -39,7 +37,6 @@
       "size": 1200,
       "default": null,
       "nullable": true,
-      
       "label": "Fobe"
     },
     "Dt Test": {
@@ -48,7 +45,6 @@
       "size": 2500,
       "default": null,
       "nullable": true,
-      
       "label": "Str Test"
     },
     "enabled": {
@@ -57,7 +53,6 @@
       "size": 200000,
       "default": null,
       "nullable": true,
-      
       "label": "enabler"
     }
   }

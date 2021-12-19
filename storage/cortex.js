@@ -25,7 +25,7 @@ class Cortex {
       return junction;
     }
     else
-      throw new StorageError(400, "Unknown smt.model: " + model);
+      throw new StorageError(400, "Unknown smt.model: " + smt.model);
   }
 
   static async relax(junction) {
@@ -46,7 +46,7 @@ class Transforms {
 
   static create(tfType, options) {
     if (!tfType)
-      throw new StorageError( 400, "invalid transform type");
+      throw new StorageError(400, "invalid transform type");
 
     if (Transforms._transforms.has(tfType)) {
       let transform = new (Transforms._transforms.get(tfType))(options);
@@ -60,10 +60,10 @@ class Transforms {
 
 class FileSystems {
 
- /**
+  /**
    * register filesystem prefix with a filesystem class
-   * @param {string} fsPrefix filesystem prefix like file, http, ftp, s3, ... 
-   * @param {StorageFileSystem} FileSystemsClass 
+   * @param {string} fsPrefix filesystem prefix like file, http, ftp, s3, ...
+   * @param {StorageFileSystem} FileSystemsClass
    */
   static use(fsPrefix, FileSystemsClass) {
     // need to do some validation
@@ -72,11 +72,11 @@ class FileSystems {
 
   static async activate(smt, options) {
     if (!smt)
-      throw new StorageError( 400, "invalid smt");
+      throw new StorageError(400, "invalid smt");
 
     let fsPrefix = 'file';
     if (smt.locus.indexOf(':') > 1)
-      fsPrefix = smt.locus.split(':')[0].toLowerCase();
+      fsPrefix = smt.locus.split(':')[ 0 ].toLowerCase();
 
     if (FileSystems._fileSystems.has(fsPrefix)) {
       let stfs = new (FileSystems._fileSystems.get(fsPrefix))(smt, options);

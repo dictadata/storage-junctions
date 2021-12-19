@@ -1,8 +1,8 @@
 {
   "smt": {
-    "model": "json",
+    "model": "*",
     "locus": "",
-    "schema": "foofile_01.json",
+    "schema": "foo_schema_01",
     "key": "=Foo"
   },
   "fields": {
@@ -21,7 +21,6 @@
       "size": 13,
       "default": null,
       "nullable": true,
-      
       "label": "Bar"
     },
     "Baz": {
@@ -30,7 +29,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-      
       "label": "Baz"
     },
     "Fobe": {
@@ -39,7 +37,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-      
       "label": "Fobe"
     },
     "Dt Test": {
@@ -48,7 +45,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-      
       "label": "Dt Test"
     },
     "enabled": {
@@ -57,7 +53,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-      
       "label": "enabled"
     },
     "subObj1": {
@@ -66,7 +61,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-      
       "label": "subObj1",
       "fields": {
         "state": {
@@ -75,7 +69,6 @@
           "size": 7,
           "default": null,
           "nullable": true,
-          
           "label": "state"
         },
         "ex-state": {
@@ -84,7 +77,6 @@
           "size": 4,
           "default": null,
           "nullable": true,
-          
           "label": "ex-state"
         }
       }
@@ -95,7 +87,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-      
       "label": "subObj2",
       "fields": {
         "subsub": {
@@ -104,7 +95,6 @@
           "size": 0,
           "default": null,
           "nullable": true,
-          
           "label": "subsub",
           "fields": {
             "izze": {
@@ -113,7 +103,6 @@
               "size": 0,
               "default": null,
               "nullable": true,
-              
               "label": "izze"
             }
           }

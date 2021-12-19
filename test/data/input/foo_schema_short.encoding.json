@@ -2,7 +2,7 @@
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "foo_schema",
+    "schema": "foo_schema_short",
     "key": "*"
   },
   "fields": {

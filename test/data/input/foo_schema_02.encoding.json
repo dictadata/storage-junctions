@@ -2,8 +2,8 @@
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "encoding_template",
-    "key": "=foo"
+    "schema": "foo_schema_02",
+    "key": "=Foo"
   },
   "fields": {
     "Foo": {
@@ -78,12 +78,15 @@
   "indices": {
     "foo_index_02": {
       "unique": false,
-      "fields": [{
-        "name": "Bar"
-      },{
-        "name": "Fobe",
-        "order": "DESC"
-      }]
+      "fields": [
+        {
+          "name": "Bar"
+        },
+        {
+          "name": "Fobe",
+          "order": "DESC"
+        }
+      ]
     }
   }
 }

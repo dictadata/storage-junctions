@@ -1,5 +1,5 @@
 /**
- * test/junctions
+ * test/general/echo
  */
 "use strict";
 
