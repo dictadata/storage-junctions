@@ -1,5 +1,10 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.0.0
+  - implement Codex class
+  - change encoding fields to an array
+  - define codex storage: codex.encoding.json
+  - store codex entries in Elasticsearch
 - version 1.8.6
   - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint  
 - version 1.8.5
@@ -24,7 +29,7 @@
   - filesystem getFile/putFile methods, replaces download/upload methods
   - ZipFileSystem read-only implemention
   - ShapeFileJunction read-only implemention
-  - add new Geometry storage type
+  - add new geometry storage type
   - Elasticsearch geoJSON support
   - updated project index pages for /types and / utils
   - optimized schema encodings by reducing default member fields in .json encoding files
@@ -168,7 +173,7 @@
   - other code cleanup
   - Breaking changes:
   - StorageJunction.activate() is now asynchronous and returns a promise
-  - removed '_' prefix from properties of StorageJunction, StorageReader, StorageWriter base classes unless it truly is a private member
+  - removed '_' prefix from properties of StorageJunction, StorageReader, StorageWriter base classes unless it truly is a private property
   - rename StorageJunction.scan() to list()
   - refactor codifyWriter to codifyTransform
 - version 1.0.5
