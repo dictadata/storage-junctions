@@ -5,8 +5,8 @@
     "schema": "foo_schema_01",
     "key": "=Foo"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 7,
@@ -15,7 +15,7 @@
       "key": 1,
       "label": "Foo"
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "text",
       "size": 13,
@@ -23,7 +23,7 @@
       "nullable": true,
       "label": "Bar"
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "size": 0,
@@ -31,7 +31,7 @@
       "nullable": true,
       "label": "Baz"
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number",
       "size": 0,
@@ -39,7 +39,7 @@
       "nullable": true,
       "label": "Fobe"
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "size": 0,
@@ -47,7 +47,7 @@
       "nullable": true,
       "label": "Dt Test"
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "size": 0,
@@ -55,15 +55,15 @@
       "nullable": true,
       "label": "enabled"
     },
-    "subObj1": {
+    {
       "name": "subObj1",
       "type": "map",
       "size": 0,
       "default": null,
       "nullable": true,
       "label": "subObj1",
-      "fields": {
-        "state": {
+      "fields": [
+        {
           "name": "state",
           "type": "keyword",
           "size": 7,
@@ -71,7 +71,7 @@
           "nullable": true,
           "label": "state"
         },
-        "ex-state": {
+        {
           "name": "ex-state",
           "type": "keyword",
           "size": 4,
@@ -79,25 +79,25 @@
           "nullable": true,
           "label": "ex-state"
         }
-      }
+      ]
     },
-    "subObj2": {
+    {
       "name": "subObj2",
       "type": "map",
       "size": 0,
       "default": null,
       "nullable": true,
       "label": "subObj2",
-      "fields": {
-        "subsub": {
+      "fields": [
+        {
           "name": "subsub",
           "type": "map",
           "size": 0,
           "default": null,
           "nullable": true,
           "label": "subsub",
-          "fields": {
-            "izze": {
+          "fields": [
+            {
               "name": "izze",
               "type": "integer",
               "size": 0,
@@ -105,11 +105,11 @@
               "nullable": true,
               "label": "izze"
             }
-          }
+          ]
         }
-      }
+      ]
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "list",
       "_list": {
@@ -118,5 +118,5 @@
         "size": 64
       }
     }
-  }
+  ]
 }

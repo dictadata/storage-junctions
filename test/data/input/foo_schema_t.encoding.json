@@ -3,8 +3,8 @@
   "locus": "*",
   "schema": "foo_schema_t",
   "key": "*",
-  "fields": {
-    "fie": {
+  "fields": [
+    {
       "name": "fie",
       "type": "text",
       "size": 64,
@@ -13,7 +13,7 @@
       "isKey": false,
       "label": "Fie"
     },
-    "dt_test": {
+    {
       "name": "dt_test",
       "type": "date",
       "size": 0,
@@ -22,7 +22,7 @@
       "isKey": false,
       "label": "Dt Test"
     },
-    "foo": {
+    {
       "name": "foo",
       "type": "keyword",
       "size": 64,
@@ -31,7 +31,7 @@
       "isKey": true,
       "label": "Foo"
     },
-    "bar": {
+    {
       "name": "bar",
       "type": "keyword",
       "size": 64,
@@ -40,7 +40,7 @@
       "isKey": false,
       "label": "Bar"
     },
-    "baz": {
+    {
       "name": "baz",
       "type": "integer",
       "size": 0,
@@ -49,7 +49,7 @@
       "isKey": false,
       "label": "Baz"
     },
-    "state": {
+    {
       "name": "state",
       "type": "keyword",
       "size": 64,
@@ -58,5 +58,5 @@
       "isKey": false,
       "label": "State"
     }
-  }
+  ]
 }

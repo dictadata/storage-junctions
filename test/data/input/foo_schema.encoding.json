@@ -11,8 +11,8 @@
     "schema": "foo_schema",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 64,
@@ -21,7 +21,7 @@
       "key": 1,
       "label": "Foo"
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
@@ -29,7 +29,7 @@
       "nullable": true,
       "label": "Bar"
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "size": 0,
@@ -37,7 +37,7 @@
       "nullable": true,
       "label": "Baz"
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number",
       "size": 0,
@@ -45,7 +45,7 @@
       "nullable": true,
       "label": "Fobe"
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "size": 0,
@@ -53,7 +53,7 @@
       "nullable": true,
       "label": "Dt Test"
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "size": 0,
@@ -61,5 +61,5 @@
       "nullable": true,
       "label": "enabled"
     }
-  }
+  ]
 }

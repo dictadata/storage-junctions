@@ -92,7 +92,7 @@
     },
     "geometry": {
       "name": "geometry",
-      "type": "Geometry"
+      "type": "geometry"
     }
   },
   "_SMT": "any|*|*|*"

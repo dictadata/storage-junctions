@@ -5,8 +5,8 @@
     "schema": "foo_schema_02",
     "key": "=Foo"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 64,
@@ -14,39 +14,39 @@
       "nullable": false,
       "key": 2
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
       "default": null,
       "nullable": true
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "default": null,
       "nullable": true,
       "key": 1
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number",
       "default": null,
       "nullable": true
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "default": null,
       "nullable": true
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "default": null,
       "nullable": true
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "list",
       "_list": {
@@ -55,7 +55,7 @@
         "size": 64
       }
     },
-    "widgets": {
+    {
       "name": "widgets",
       "type": "list",
       "_list": {
@@ -74,7 +74,7 @@
         }
       }
     }
-  },
+  ],
   "indices": {
     "foo_index_02": {
       "unique": false,

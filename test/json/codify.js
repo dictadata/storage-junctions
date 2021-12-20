@@ -28,7 +28,7 @@ async function tests() {
     outputFile2: './test/data/output/json/encoding_g2.json'
   })) return 1;
 
-  logger.info("=== codify foofile__01.json");
+  logger.info("=== codify foofile_01.json");
   if (await codify({
     origin: {
       smt: "json|./test/data/input/|foofile_01.json|*"
@@ -37,7 +37,7 @@ async function tests() {
     outputFile2: './test/data/output/json/encoding_m2.json'
   })) return 1;
 
-  logger.info("=== codify foofile__02.json");
+  logger.info("=== codify foofile_02.json");
   if (await codify({
     origin: {
       smt: "json|./test/data/input/|foofile_02.json|*"
