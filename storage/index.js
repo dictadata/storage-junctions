@@ -25,17 +25,17 @@ exports.Codex = require("./codex/codex");
 exports.StorageFileSystem = require("./filesystems/storage-filesystem");
 
 exports.FSFileSystem = require("./filesystems/fs-filesystem");
-cortex.FileSystems.use('file', exports.FSFileSystem);
+Cortex.FileSystems.use('file', exports.FSFileSystem);
 
 exports.FTPFileSystem = require("./filesystems/ftp-filesystem");
-cortex.FileSystems.use('ftp', exports.FTPFileSystem);
+Cortex.FileSystems.use('ftp', exports.FTPFileSystem);
 
 exports.HTTPFileSystem = require("./filesystems/http-filesystem");
-cortex.FileSystems.use('http', exports.HTTPFileSystem);
-cortex.FileSystems.use('https', exports.HTTPFileSystem);
+Cortex.FileSystems.use('http', exports.HTTPFileSystem);
+Cortex.FileSystems.use('https', exports.HTTPFileSystem);
 
 exports.ZipFileSystem = require("./filesystems/zip-filesystem");
-cortex.FileSystems.use('zip', exports.ZipFileSystem);
+Cortex.FileSystems.use('zip', exports.ZipFileSystem);
 
 //////////
 ///// register Storage Junctions
@@ -43,80 +43,80 @@ var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
-cortex.use('*', StorageJunction);
+Cortex.use('*', StorageJunction);
 
 var MemoryJunction = require("./junctions/memory");
 exports.MemoryJunction = MemoryJunction;
-cortex.use('memory', MemoryJunction);
+Cortex.use('memory', MemoryJunction);
 
 var CSVJunction = require("./junctions/csv");
 exports.CSVJunction = CSVJunction;
-cortex.use('csv', CSVJunction);
+Cortex.use('csv', CSVJunction);
 
 var JSONJunction = require("./junctions/json");
 exports.JSONJunction = JSONJunction;
-cortex.use('json', JSONJunction);   // defaults to json array
-cortex.use('jsons', JSONJunction);  // json stream
-cortex.use('jsonl', JSONJunction);  // json line
-cortex.use('jsona', JSONJunction);  // json array
-cortex.use('jsono', JSONJunction);  // json object
+Cortex.use('json', JSONJunction);   // defaults to json array
+Cortex.use('jsons', JSONJunction);  // json stream
+Cortex.use('jsonl', JSONJunction);  // json line
+Cortex.use('jsona', JSONJunction);  // json array
+Cortex.use('jsono', JSONJunction);  // json object
 
 var ParquetJunction = require("./junctions/parquet");
 exports.ParquetJunction = ParquetJunction;
-cortex.use('parquet', ParquetJunction);
+Cortex.use('parquet', ParquetJunction);
 
 var ElasticsearchJunction = require("./junctions/elasticsearch");
 exports.ElasticsearchJunction = ElasticsearchJunction;
-cortex.use('elastic', ElasticsearchJunction);
-cortex.use('elasticsearch', ElasticsearchJunction);
+Cortex.use('elastic', ElasticsearchJunction);
+Cortex.use('elasticsearch', ElasticsearchJunction);
 
 var MSSQLJunction = require("./junctions/mssql");
 exports.MSSQLJunction = MSSQLJunction;
-cortex.use('mssql', MSSQLJunction);
+Cortex.use('mssql', MSSQLJunction);
 
 var MySQLJunction = require("./junctions/mysql");
 exports.MySQLJunction = MySQLJunction;
-cortex.use('mysql', MySQLJunction);
+Cortex.use('mysql', MySQLJunction);
 
 var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
-cortex.use('rest', RESTJunction);
+Cortex.use('rest', RESTJunction);
 
 var ShapeFileJunction = require("./junctions/shapefile");
 exports.ShapeFileJunction = ShapeFileJunction;
-cortex.use('shp', ShapeFileJunction);
+Cortex.use('shp', ShapeFileJunction);
 
 var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
-cortex.use('splitter', SplitterJunction);
-cortex.use('split', SplitterJunction);
+Cortex.use('splitter', SplitterJunction);
+Cortex.use('split', SplitterJunction);
 
 //////////
 ///// register Storage Transforms
 exports.FilterTransform = require("./transforms/filter");
-cortex.Transforms.use('filter', exports.FilterTransform);
+Cortex.Transforms.use('filter', exports.FilterTransform);
 
 exports.SelectTransform = require("./transforms/select");
-cortex.Transforms.use('select', exports.SelectTransform);
+Cortex.Transforms.use('select', exports.SelectTransform);
 
 exports.ComposeTransform = require("./transforms/compose");
-cortex.Transforms.use('compose', exports.ComposeTransform);
+Cortex.Transforms.use('compose', exports.ComposeTransform);
 
 exports.DecomposeTransform = require("./transforms/decompose");
-cortex.Transforms.use('decompose', exports.DecomposeTransform);
-cortex.Transforms.use('flatten', exports.DecomposeTransform);
+Cortex.Transforms.use('decompose', exports.DecomposeTransform);
+Cortex.Transforms.use('flatten', exports.DecomposeTransform);
 
 exports.ConjoinTransform = require("./transforms/conjoin");
-cortex.Transforms.use('conjoin', exports.ConjoinTransform);
+Cortex.Transforms.use('conjoin', exports.ConjoinTransform);
 
 exports.AggregateTransform = require("./transforms/aggregate");
-cortex.Transforms.use('aggregate', exports.AggregateTransform);
+Cortex.Transforms.use('aggregate', exports.AggregateTransform);
 
 exports.CodifyTransform = require("./transforms/codify");
-cortex.Transforms.use('codify', exports.CodifyTransform);
+Cortex.Transforms.use('codify', exports.CodifyTransform);
 
 exports.EncoderTransform = require("./transforms/encoder");
-cortex.Transforms.use('encoder', exports.EncoderTransform);
+Cortex.Transforms.use('encoder', exports.EncoderTransform);
 
 exports.MetaStatsTransform = require("./transforms/metastats");
-cortex.Transforms.use('metastats', exports.MetaStatsTransform);
+Cortex.Transforms.use('metastats', exports.MetaStatsTransform);

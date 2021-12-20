@@ -1,0 +1,111 @@
+{
+  "name": "codex_entry",
+  "type": "engram",
+  "description": "encoding of a codex entry",
+  "tags": [
+    "codex",
+    "encoding"
+  ],
+  "smt": {
+    "model": "*",
+    "locus": "*",
+    "schema": "codex_entry",
+    "key": "!name"
+  },
+  "fields": [
+    {
+      "name": "name",
+      "type": "keyword",
+      "nullable": false,
+      "key": 1
+    },
+    {
+      "name": "type",
+      "type": "keyword"
+    },
+    {
+      "name": "description",
+      "type": "text"
+    },
+    {
+      "name": "tags",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword"
+      }
+    },
+    {
+      "name": "smt",
+      "type": "map",
+      "fields": {
+        "model": "keyword",
+        "locus": "text",
+        "schema": "keyword",
+        "key": "keyword"
+      }
+    },
+    {
+      "name": "fields",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "map",
+        "fields": [
+          {
+            "name": "name",
+            "type": "keyword",
+            "nullable": false
+          },
+          {
+            "name": "type",
+            "type": "keyword",
+            "default": "unknown",
+            "nullable": false
+          },
+          {
+            "name": "size",
+            "type": "integer",
+            "default": 0
+          },
+          {
+            "name": "nullable",
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "default",
+            "type": "variable",
+            "default": null
+          },
+          {
+            "name": "key",
+            "type": "integer",
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "tract",
+      "type": "map",
+      "fields": [
+        {
+          "name": "origin",
+          "type": "map",
+          "fields": []
+        },
+        {
+          "name": "terminal",
+          "type": "map",
+          "fields": []
+        },
+        {
+          "name": "transform",
+          "type": "map",
+          "fields": []
+        }
+      ]
+    }
+  ]
+}

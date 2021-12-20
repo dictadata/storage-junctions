@@ -93,15 +93,15 @@ class FileSystems {
 
 }
 
-// Cortex static members
+// Cortex static properties
 Cortex._storageJunctions = new Map();
 Cortex.Transforms = Transforms;
 Cortex.FileSystems = FileSystems;
 
-// Transforms static members
+// Transforms static properties
 Transforms._transforms = new Map();
 
-// FileSystems static members
+// FileSystems static properties
 FileSystems._fileSystems = new Map();
 
 module.exports = exports = Cortex;
