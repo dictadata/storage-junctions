@@ -14,7 +14,7 @@ const { hasOwnProperty, logger } = require("../utils");
       // hierarchical order
       path: ['field1', 'field2', ...]
 
-      // all other fields will become members of the lowest node object
+      // all other fields will become properties of the lowest node object
     }
   };
 */
@@ -54,16 +54,16 @@ module.exports = exports = class ComposeTransform extends Transform {
     // walk the heirarchy
     let node = this._composition;
     for (let name of this.options.path) {
-      let cname = construct[name];
+      let cname = construct[ name ];
       if (!hasOwnProperty(node, cname))
-        node[cname] = {};
-      node = node[cname];
+        node[ cname ] = {};
+      node = node[ cname ];
     }
 
     // add the node
-    for (let [name, value] of Object.entries(construct)) {
+    for (let [ name, value ] of Object.entries(construct)) {
       if (!this.options.path.includes(name))
-        node[name] = value;
+        node[ name ] = value;
     }
 
 
@@ -79,7 +79,7 @@ module.exports = exports = class ComposeTransform extends Transform {
     callback();
   }
 
-    async _final(callback) {
+  async _final(callback) {
     logger.debug("compose _final");
 
     // push some final object(s)

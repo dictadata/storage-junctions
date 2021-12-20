@@ -51,11 +51,11 @@ module.exports = exports = class ElasticTemplate {
     let names = Object.keys(properties);
 
     for (let i = 0; i < names.length; i++) {
-      let name = names[i];
+      let name = names[ i ];
       if (name in exclude === false) {
         let field = {
           "name": name,
-          "type": properties[name].type
+          "type": properties[ name ].type
         };
         this.engram.add(field);
       }
@@ -78,18 +78,19 @@ module.exports = exports = class ElasticTemplate {
       if (!this.template)
         await this.getEncoding();
       this.engram.encoding = encoding;
-    } else {
+    }
+    else {
       this.read(false); // read default template
-      this.engram.fields = encoding.fields;
+      this.engram.encoding = encoding.fields;
 
       // remove fields from template
       let exclude = { "@timestamp": 0, "tags": 0, "_meta": 0 };
       let properties = this.indexdoc.mappings.properties;
       let keys = Object.keys(properties);
       for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
+        let key = keys[ i ];
         if (key in exclude === false)
-          delete properties[key];
+          delete properties[ key ];
       }
     }
 
@@ -98,8 +99,8 @@ module.exports = exports = class ElasticTemplate {
     // note, if properties weren't deleted above then this will merge fields
     let properties = this.indexdoc.mappings.properties;
 
-    for (let [name, field] of Object.entries(this.engram.fields)) {
-      properties[name] = {
+    for (let field of this.engram.fields) {
+      properties[ name ] = {
         "type": field.type
       };
     }

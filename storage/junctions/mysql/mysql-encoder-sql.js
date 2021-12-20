@@ -33,45 +33,45 @@ exports.decodeResults = function (engram, construct) {
   logger.debug("mysql decodeResults");
   if (typeOf(construct) !== "object") return;
 
-  for (let [name, value] of Object.entries(construct)) {
+  for (let [ name, value ] of Object.entries(construct)) {
     let field = engram.find(name);
     switch (field.type) {
       case "date":
         if (typeof value === "string" && value.startsWith("0000"))
-          construct[name] = null;
+          construct[ name ] = null;
         break;
       case "boolean":
-        construct[name] = (value) ? true : false;
+        construct[ name ] = (value) ? true : false;
         break;
       case "list":
       case "map":
         // stored as json string
-        construct[name] = JSON.parse(value);
+        construct[ name ] = JSON.parse(value);
         break;
       case "binary":
-        break;   // to do figure out how to pass buffers      
+        break;   // to do figure out how to pass buffers
       default:
-        // retrieved value should be good
+      // retrieved value should be good
     }
   }
 };
 
 exports.decodeIndexResults = (engram, columns) => {
   for (let column of columns) {
-    if (column["Key_name"] === "PRIMARY") {
+    if (column[ "Key_name" ] === "PRIMARY") {
       // primary key's index
-      let field = engram.find(column["Column_name"]);
-      field.key = column["Seq_in_index"];
+      let field = engram.find(column[ "Column_name" ]);
+      field.key = column[ "Seq_in_index" ];
     }
     else {
       // other index
       if (!hasOwnProperty(engram, "indices")) engram.indices = {};
-      if (!hasOwnProperty(engram.indices, column["Key_name"])) engram.indices[column["Key_name"]] = {fields: []};
-      let index = engram.indices[column["Key_name"]];
-      index.unique = !column["Non_unique"];
-      index.fields[column["Seq_in_index"] - 1] = {
-        "name": column["Column_name"],
-        "order": column["Collation"] === 'D' ? "DESC" : "ASC"
+      if (!hasOwnProperty(engram.indices, column[ "Key_name" ])) engram.indices[ column[ "Key_name" ] ] = { fields: [] };
+      let index = engram.indices[ column[ "Key_name" ] ];
+      index.unique = !column[ "Non_unique" ];
+      index.fields[ column[ "Seq_in_index" ] - 1 ] = {
+        "name": column[ "Column_name" ],
+        "order": column[ "Collation" ] === 'D' ? "DESC" : "ASC"
       }
     }
   }
@@ -82,14 +82,14 @@ exports.sqlCreateTable = function (engram, options) {
   let primaryKeys = [];
 
   let first = true;
-  for (let [name, field] of Object.entries(engram.fields)) {
+  for (let field of engram.fields) {
     (first) ? first = false : sql += ',';
 
-    sql += " " + sqlString.escapeId(name);
+    sql += " " + sqlString.escapeId(field.name);
     sql += " " + encoder.mysqlType(field);
 
     if (field.isKey) {
-      primaryKeys[field.key-1] = sqlString.escapeId(name);
+      primaryKeys[ field.key - 1 ] = sqlString.escapeId(field.name);
       field.isNullable = false;
     }
 
@@ -108,7 +108,7 @@ exports.sqlCreateTable = function (engram, options) {
 
   // other indexes
   if (!options.bulkLoad && engram.indices) {
-    for (let [name, index] of Object.entries(engram.indices)) {
+    for (let [ name, index ] of Object.entries(engram.indices)) {
       sql += ","
       if (index.unique) sql += " UNIQUE "
       sql += "INDEX " + sqlString.escapeId(name) + "(";
@@ -140,11 +140,11 @@ exports.sqlInsertUpdate = function (engram, construct) {
   sql += ") VALUES (";
   first = true;
   for (let i = 0; i < names.length; i++) {
-    let name = names[i];
-    let value = values[i];
+    let name = names[ i ];
+    let value = values[ i ];
     let field = engram.find(name);
     (first) ? first = false : sql += ",";
-    sql += encodeValue(field,value);
+    sql += encodeValue(field, value);
   }
   sql += ")";
 
@@ -153,10 +153,10 @@ exports.sqlInsertUpdate = function (engram, construct) {
 
     first = true;
     for (let i = 0; i < names.length; i++) {
-      let name = names[i];
+      let name = names[ i ];
       if (!engram.keys.includes(name)) {
         let field = engram.find(name);
-        let value = values[i];
+        let value = values[ i ];
         (first) ? first = false : sql += ",";
         sql += sqlString.escapeId(name) + "=" + encodeValue(field, value);
       }
@@ -170,7 +170,7 @@ exports.sqlInsertUpdate = function (engram, construct) {
 exports.sqlBulkInsert = function (engram, constructs) {
 
   // all constructs MUST have the same fields
-  let names = Object.keys(constructs[0]);
+  let names = Object.keys(constructs[ 0 ]);
 
   let sql = "INSERT INTO " + engram.smt.schema + " (";
   let first = true;
@@ -179,7 +179,7 @@ exports.sqlBulkInsert = function (engram, constructs) {
     sql += sqlString.escapeId(name);
   }
   sql += ") VALUES ";
-  
+
   first = true;
   for (let construct of constructs) {
     (first) ? first = false : sql += ",";
@@ -187,8 +187,8 @@ exports.sqlBulkInsert = function (engram, constructs) {
 
     let vfirst = true;
     for (let i = 0; i < names.length; i++) {
-      let name = names[i];
-      let value = construct[name];
+      let name = names[ i ];
+      let value = construct[ name ];
       let field = engram.find(name);
       (vfirst) ? vfirst = false : sql += ",";
       sql += encodeValue(field, value);
@@ -212,7 +212,7 @@ exports.sqlWhereByKey = (engram, pattern) => {
 
     let first = true;
     for (let key of engram.keys) {
-      let value = match[key];
+      let value = match[ key ];
       (first) ? first = false : sql += " AND ";
       sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), value);
     }
@@ -224,7 +224,7 @@ exports.sqlWhereByKey = (engram, pattern) => {
 
 /**
  * Pattern for aggregation
- * 
+ *
  * filter constructs:
  *   match: {<field>: value, ...}
  *   match: {<field>: {"op": value, ...}}
@@ -248,8 +248,8 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   }
   else if (pattern.aggregate) {
     // find all the {"func": "field"} expressions
-    for (let [name,exp] of Object.entries(pattern.aggregate)) {
-      for (let [func,value] of Object.entries(exp)) {
+    for (let [ name, exp ] of Object.entries(pattern.aggregate)) {
+      for (let [ func, value ] of Object.entries(exp)) {
         if (typeOf(value) === "object") {
           // the field to GROUPBY
           let groupby = sqlString.escapeId(name);
@@ -257,7 +257,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
             columns.push(groupby);
           // aggregate columns for GROUP BY
           let asfld = func;
-          for (let [func,fld] of Object.entries(value)) {
+          for (let [ func, fld ] of Object.entries(value)) {
             let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
             columns.push(exp + " as " + sqlString.escapeId(asfld));
           }
@@ -286,10 +286,10 @@ exports.sqlSelectByPattern = function (engram, pattern) {
     sql += " WHERE ";
 
     let first = true;
-    for (let [fldname,value] of Object.entries(pattern.match)) {
+    for (let [ fldname, value ] of Object.entries(pattern.match)) {
       if (typeOf(value) === 'object') {
         // expression(s) { op: value, ...}
-        for (let [op,val] of Object.entries(value)) {
+        for (let [ op, val ] of Object.entries(value)) {
           (first) ? first = false : sql += " AND ";
 
           sql += sqlString.escapeId(fldname);
@@ -320,8 +320,8 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   if (pattern.aggregate) {
     let f = true;
     // find group by fields of aggregate: {"group_by_field": {"func": "field"} }
-    for (let [groupby,exp] of Object.entries(pattern.aggregate)) {
-      for (let [fld,funcfld] of Object.entries(exp)) {
+    for (let [ groupby, exp ] of Object.entries(pattern.aggregate)) {
+      for (let [ fld, funcfld ] of Object.entries(exp)) {
         if (typeOf(funcfld) === "object") {
           // group by field
           if (f) sql += " GROUP BY ";
@@ -339,7 +339,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   if (pattern.order) {
     sql += " ORDER BY ";
     let f = true;
-    for (const [name, direction] of Object.entries(pattern.order)) {
+    for (const [ name, direction ] of Object.entries(pattern.order)) {
       (f) ? f = false : sql += ",";
       sql += sqlString.escapeId(name) + " " + direction;
     }

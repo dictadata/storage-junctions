@@ -17,24 +17,28 @@ module.exports = exports = class Field {
       definition = { name: definition };
     }
     if (!(definition && definition.name))
-      throw new StorageError( 400, "Invalid field definition");
+      throw new StorageError(400, "Invalid field definition");
 
-    // set defaults
+    // required properties
     this.name = definition.name;
     this.type = 'unknown';
+
+    // common properties
     //this.size = 0;
     //this.nullable = true;
     //this.default = null;
     //this.key = 0; // key ordinal position
 
-    //this.ordinal = 0;  // structure ordinal position
+    // additional properties
     //this.label = definition.name;
-    //this.text = "";
+    //this.ordinal = 0;  // structure ordinal position
+    //this.text = ""; ???
+    //this._<model>  // source properties
 
     // shallow copy
-    for (let [prop,value] of Object.entries(definition))
+    for (let [ prop, value ] of Object.entries(definition))
       if (typeof value !== "function")
-        this[prop] = definition[prop];
+        this[ prop ] = definition[ prop ];
   }
 
   get defaultValue() {

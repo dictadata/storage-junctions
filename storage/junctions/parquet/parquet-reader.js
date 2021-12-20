@@ -22,13 +22,12 @@ module.exports = exports = class ParquetReader extends StorageReader {
 
     var reader = this;
     var encoding = this.engram;
-    //var names = Object.keys(this.engram.fields);
 
     /***** create the parser *****/
 
     function cast(construct) {
 
-      for (let [name, value] of Object.entries(construct)) {
+      for (let [ name, value ] of Object.entries(construct)) {
         let field = encoding.find(name);
         let newValue = value;
 
@@ -55,7 +54,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
         }
 
         if (newValue !== value)
-          construct[name] = newValue;
+          construct[ name ] = newValue;
       }
 
       return construct;

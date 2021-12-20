@@ -11,24 +11,24 @@ const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../uti
 exports.connectionConfig = (options) => {
 
   var config = {
-      server: options.server || 'localhost',
-      authentication: {
-        type: "default",
-        options: {
-          userName: options.userName || options.username || 'root',
-          password: options.password || ''
-        }
-      },
+    server: options.server || 'localhost',
+    authentication: {
+      type: "default",
       options: {
-        encrypt: false,
-        appName: options.appName || 'mssql-junction',
-        database: options.database || '',
-        useColumnNames: true,
-        validateBulkLoadParameters: true
-       // should look for other connection options
-      },
+        userName: options.userName || options.username || 'root',
+        password: options.password || ''
+      }
+    },
+    options: {
+      encrypt: false,
+      appName: options.appName || 'mssql-junction',
+      database: options.database || '',
+      useColumnNames: true,
+      validateBulkLoadParameters: true
+      // should look for other connection options
+    },
   };
-  
+
   return config;
 }
 
@@ -57,25 +57,25 @@ exports.decodeResults = (engram, columns) => {
   if (typeOf(columns) !== "object") return {};
 
   let construct = {};
-  for (let [name, colProps] of Object.entries(columns)) {
+  for (let [ name, colProps ] of Object.entries(columns)) {
     let value = colProps.value;
     let field = engram.find(name);
     switch (field.type) {
       case "date":
-        construct[name] = value;
+        construct[ name ] = value;
         break;
       case "boolean":
-        construct[name] = (value) ? true : false;
+        construct[ name ] = (value) ? true : false;
         break;
       case "list":
       case "map":
         // unstuff the stored json representation
-        construct[name] = JSON.parse(value);
+        construct[ name ] = JSON.parse(value);
         break;
       case "binary":
-        break;   // to do figure out how to pass buffers      
+        break;   // to do figure out how to pass buffers
       default:
-        construct[name] = value;
+        construct[ name ] = value;
     }
   }
 
@@ -83,21 +83,21 @@ exports.decodeResults = (engram, columns) => {
 };
 
 exports.decodeIndexResults = (engram, column) => {
-  let index_name = column["index_name"].value;
-  if (hasOwnProperty(column, "is_primary_key") && column["is_primary_key"].value) {
+  let index_name = column[ "index_name" ].value;
+  if (hasOwnProperty(column, "is_primary_key") && column[ "is_primary_key" ].value) {
     // primary key index
-    let field = engram.find(column["column_name"].value);
-    field.key = column["key_ordinal"].value;
+    let field = engram.find(column[ "column_name" ].value);
+    field.key = column[ "key_ordinal" ].value;
   }
   else {
     // other index
     if (!hasOwnProperty(engram, "indices")) engram.indices = {};
-    if (!hasOwnProperty(engram.indices, index_name)) engram.indices[index_name] = {fields: []};
-    let index = engram.indices[index_name];
-    index.unique = column["is_unique"].value;
-    index.fields[column["key_ordinal"].value - 1] = {
-      "name": column["column_name"].value,
-      "order": column["is_descending_key"].value ? "DESC" : "ASC"
+    if (!hasOwnProperty(engram.indices, index_name)) engram.indices[ index_name ] = { fields: [] };
+    let index = engram.indices[ index_name ];
+    index.unique = column[ "is_unique" ].value;
+    index.fields[ column[ "key_ordinal" ].value - 1 ] = {
+      "name": column[ "column_name" ].value,
+      "order": column[ "is_descending_key" ].value ? "DESC" : "ASC"
     }
   }
 }
@@ -113,7 +113,7 @@ WHERE sc.object_id = OBJECT_ID('${tblname}')`;
 
 exports.sqlDescribeIndexes = (tblname) => {
   let sql = `SELECT si.name as 'index_name', si.is_unique, si.is_primary_key, ic.key_ordinal, ic.is_descending_key, sc.name as 'column_name'
-FROM sys.indexes si 
+FROM sys.indexes si
 JOIN sys.index_columns ic ON ic.object_id = si.object_id AND ic.index_id = si.index_id
 JOIN sys.columns sc ON sc.object_id = si.object_id AND sc.column_id = ic.column_id
 WHERE si.object_id = OBJECT_ID('${tblname}')`;
@@ -125,13 +125,13 @@ exports.sqlCreateTable = (engram, options) => {
   let primaryKeys = [];
 
   let first = true;
-  for (let [name, field] of Object.entries(engram.fields)) {
+  for (let field of engram.fields) {
     (first) ? first = false : sql += ",";
-    sql += " " + sqlString.escapeId(name);
+    sql += " " + sqlString.escapeId(field.name);
     sql += " " + encoder.mssqlType(field);
 
     if (field.isKey) {
-      primaryKeys[field.key-1] = sqlString.escapeId(name);
+      primaryKeys[ field.key - 1 ] = sqlString.escapeId(field.name);
       field.isNullable = false;
     }
     if (field.isNullable)
@@ -148,10 +148,10 @@ exports.sqlCreateTable = (engram, options) => {
 
   // other indices
   if (!options.bulkLoad && engram.indices) {
-    for (let [name, index] of Object.entries(engram.indices)) {
+    for (let [ name, index ] of Object.entries(engram.indices)) {
       sql += ", INDEX " + sqlString.escapeId(name);
       if (index.unique) sql += " UNIQUE ";
-      sql += "("
+      sql += "(";
       let cfirst = true;
       for (let col of index.fields) {
         (cfirst) ? cfirst = false : sql += ",";
@@ -169,12 +169,12 @@ exports.sqlCreateTable = (engram, options) => {
 exports.sqlAddIndices = (engram, options) => {
   if (!engram.indices)
     throw new StorageError(400, "No indices defined");
-  
+
   let sql = "ALTER TABLE " + engram.smt.schema + " (";
 
   // non-primary indices
   let ifirst = true;
-  for (let [name, index] of Object.entries(engram.indices)) {
+  for (let [ name, index ] of Object.entries(engram.indices)) {
     (ifirst) ? ifirst = false : sql += ",";
     sql += "ADD INDEX " + sqlString.escapeId(name);
     if (index.unique) sql += "UNIQUE ";
@@ -196,7 +196,7 @@ exports.sqlAddIndices = (engram, options) => {
 exports.sqlDropIndices = (engram, options) => {
   if (!engram.indices)
     throw new StorageError(400, "No indices defined");
-  
+
   let sql = "ALTER TABLE " + engram.smt.schema + " (";
 
   // non-primary indices
@@ -224,11 +224,11 @@ exports.sqlInsert = (engram, construct) => {
   sql += ") VALUES (";
   first = true;
   for (let i = 0; i < names.length; i++) {
-    let name = names[i];
-    let value = values[i];
+    let name = names[ i ];
+    let value = values[ i ];
     let field = engram.find(name);
     (first) ? first = false : sql += ",";
-    sql += encodeValue(field,value);
+    sql += encodeValue(field, value);
   }
   sql += ")";
 
@@ -239,7 +239,7 @@ exports.sqlInsert = (engram, construct) => {
 exports.sqlBulkInsert = (engram, constructs) => {
 
   // all constructs MUST have the same fields
-  let names = Object.keys(constructs[0]);
+  let names = Object.keys(constructs[ 0 ]);
 
   let sql = "INSERT INTO " + engram.smt.schema + " (";
   let first = true;
@@ -248,7 +248,7 @@ exports.sqlBulkInsert = (engram, constructs) => {
     sql += sqlString.escapeId(name);
   }
   sql += ") VALUES ";
-  
+
   first = true;
   for (let construct of constructs) {
     (first) ? first = false : sql += ",";
@@ -256,8 +256,8 @@ exports.sqlBulkInsert = (engram, constructs) => {
 
     let vfirst = true;
     for (let i = 0; i < names.length; i++) {
-      let name = names[i];
-      let value = construct[name];
+      let name = names[ i ];
+      let value = construct[ name ];
       let field = engram.find(name);
       (vfirst) ? vfirst = false : sql += ",";
       sql += encodeValue(field, value);
@@ -279,8 +279,8 @@ exports.sqlUpdate = (engram, construct) => {
   // non-key fields
   let first = true;
   for (let i = 0; i < names.length; i++) {
-    let name = names[i];
-    let value = values[i];
+    let name = names[ i ];
+    let value = values[ i ];
     let field = engram.find(name);
     if (!field.isKey) {
       (first) ? first = false : sql += ", ";
@@ -295,7 +295,7 @@ exports.sqlUpdate = (engram, construct) => {
     first = true;
     for (let name of engram.keys) {
       let field = engram.find(name);
-      let value = construct[name];
+      let value = construct[ name ];
       if (typeof value === "undefined")
         throw "key value undefined " + name;
       (first) ? first = false : sql += " AND ";
@@ -319,7 +319,7 @@ exports.sqlWhereByKey = (engram, pattern) => {
 
     let first = true;
     for (let key of engram.keys) {
-      let value = match[key];
+      let value = match[ key ];
       if (typeof value === "undefined")
         throw "key value undefined " + key;
       (first) ? first = false : sql += " AND ";
@@ -333,7 +333,7 @@ exports.sqlWhereByKey = (engram, pattern) => {
 
 /**
  * Pattern for aggregation
- * 
+ *
  * filter constructs:
  *   match: {<field>: value, ...}
  *   match: {<field>: {"op": value, ...}}
@@ -361,8 +361,8 @@ exports.sqlSelectByPattern = (engram, pattern) => {
   }
   else if (pattern.aggregate) {
     // find all the {"func": "field"} expressions
-    for (let [name,exp] of Object.entries(pattern.aggregate)) {
-      for (let [func,value] of Object.entries(exp)) {
+    for (let [ name, exp ] of Object.entries(pattern.aggregate)) {
+      for (let [ func, value ] of Object.entries(exp)) {
         if (typeOf(value) === "object") {
           // the field to group by
           let groupby = sqlString.escapeId(name);
@@ -370,7 +370,7 @@ exports.sqlSelectByPattern = (engram, pattern) => {
             columns.push(groupby);
           // aggregate columns for GROUP BY
           let asfld = func;
-          for (let [func,fld] of Object.entries(value)) {
+          for (let [ func, fld ] of Object.entries(value)) {
             let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
             columns.push(exp + " as " + sqlString.escapeId(asfld));
           }
@@ -398,10 +398,10 @@ exports.sqlSelectByPattern = (engram, pattern) => {
     sql += " WHERE ";
 
     let first = true;
-    for (let [fldname,value] of Object.entries(pattern.match)) {
+    for (let [ fldname, value ] of Object.entries(pattern.match)) {
       if (typeOf(value) === 'object') {
         // expression(s) { op: value, ...}
-        for (let [op,val] of Object.entries(value)) {
+        for (let [ op, val ] of Object.entries(value)) {
           (first) ? first = false : sql += " AND ";
 
           sql += sqlString.escapeId(fldname);
@@ -432,8 +432,8 @@ exports.sqlSelectByPattern = (engram, pattern) => {
   if (pattern.aggregate) {
     let f = true;
     // find group by fields of aggregate: {"group_by_field": {"func": "field"} }
-    for (let [groupby,exp] of Object.entries(pattern.aggregate)) {
-      for (let [fld,funcfld] of Object.entries(exp)) {
+    for (let [ groupby, exp ] of Object.entries(pattern.aggregate)) {
+      for (let [ fld, funcfld ] of Object.entries(exp)) {
         if (typeOf(funcfld) === "object") {
           // group by field
           if (f) sql += " GROUP BY ";
@@ -451,7 +451,7 @@ exports.sqlSelectByPattern = (engram, pattern) => {
   if (pattern.order) {
     sql += " ORDER BY ";
     let f = true;
-    for (const [name, direction] of Object.entries(pattern.order)) {
+    for (const [ name, direction ] of Object.entries(pattern.order)) {
       (f) ? f = false : sql += ",";
       sql += sqlString.escapeId(name) + " " + direction;
     }

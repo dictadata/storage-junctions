@@ -27,7 +27,7 @@ module.exports = exports = class Engram {
   constructor(SMT) {
     let smt = parseSMT(SMT);
 
-    // codex fields
+    // codex properties
     this.name = smt.schema;
     this.type = "engram";
     this.description = "";
@@ -37,8 +37,8 @@ module.exports = exports = class Engram {
     this.smt = smt;
 
     // fields encoding
-    if (!hasOwnProperty(this, "fields"))
-      this.fields = {};
+    this.fields = [];
+    this.fieldsMap = {};
 
     if (process.env.NODE_ENV === 'development')
       this._SMT = SMT;
@@ -59,7 +59,11 @@ module.exports = exports = class Engram {
    * Returns an object with engram properties, but without any functions.
    */
   get encoding() {
-    return Engram._copy({}, this);
+    let encoding = Engram._copy({}, this);
+    delete encoding.fieldsMap;
+    if (process.env.NODE_ENV === 'development')
+      delete encoding._SMT;
+    return encoding;
   }
 
   /**
@@ -72,7 +76,7 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Replaces the engram's fields map.
+   * Replaces the engram's fields.
    * DEPRECATED Use the encoding setter method.
    * @param {Engram|encoding|fields} encoding is an engram, encoding or fields object
    */
@@ -81,8 +85,8 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Copy all src members to dst object.
-   * Deep copy of object members.
+   * Copy all src properties to dst object.
+   * Deep copy of object properties.
    * Shallow copy of reference types like array, Date, etc.
    * Does not copy functions.
    * Note, recursive function.
@@ -95,7 +99,7 @@ module.exports = exports = class Engram {
         dst[ key ] = {};
         Engram._copy(dst[ key ], value);
       }
-      else if (typeof value !== "function") {
+      else if (typeOf(value) !== "function") {
         dst[ key ] = value;
       }
     }
@@ -108,21 +112,21 @@ module.exports = exports = class Engram {
    * True if at least one field encoding is defined.
    */
   get isDefined() {
-    return Object.keys(this.fields).length > 0;
+    return this.fields.length > 0;
   }
 
   /**
    * Number of fields in the fields map.
    */
   get fieldsLength() {
-    return Object.keys(this.fields).length;
+    return this.fields.length;
   }
 
   /**
    * Array of field names.
    */
   get names() {
-    return Object.keys(this.fields);
+    return Object.keys(this.fieldsMap);
   }
 
   /**
@@ -150,16 +154,16 @@ module.exports = exports = class Engram {
     let keys = [];
 
     if (this.keyof === 'primary' || this.keyof === 'key') {
-      // get keys from smt key
+      // get keys froms in smt.key definition
       //   |.|.|.|=name1+name2+...
       //   |.|.|.|!name1+name2+...
       keys = this.smt.key.substring(1).split('+');
     }
     else if (this.keyof === 'all') {
       // look for key fields in the encoding
-      for (let [ name, field ] of Object.entries(this.fields)) {
+      for (let field of this.fields) {
         if (field.key)
-          keys[ field.key - 1 ] = name;
+          keys[ field.key - 1 ] = field.name;
       }
     }
 
@@ -216,18 +220,27 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Find a field object in the fields map.
+   * Sets all properties that are objects to {} such as fields.
+   * smt and other primitive properties added to the engram remain unchanged.
+   */
+  dull() {
+    this.fields = [];
+    this.fieldsMap = {};
+  }
+
+  /**
+   * Find a field object in the fields.
    * @param {String} name
    */
   find(name) {
-    let kname = (this.caseInsensitive) ? name.toUpperCase() : name;
+    let fname = (this.caseInsensitive) ? name.toUpperCase() : name;
 
-    let field = this.fields[ kname ];
+    let field = this.fieldsMap[ fname ];
     if (!field) {
       field = new Field({
         name: name,
       });
-      let key = this.keys.findIndex((name) => name === kname) + 1;
+      let key = this.keys.findIndex((name) => name === fname) + 1;
       if (key)
         field.key = key;
     }
@@ -235,7 +248,7 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Add or replace a field in the fields map.
+   * Add or replace a field in fields.
    * @param {Field} field the field definition
    */
   add(field) {
@@ -243,49 +256,63 @@ module.exports = exports = class Engram {
     if (!(newField && newField.name))
       throw new StorageError(400, "Invalid field definition");
 
-    let kname = (this.caseInsensitive) ? newField.name.toUpperCase() : field.name;
+    let fname = (this.caseInsensitive) ? newField.name.toUpperCase() : field.name;
 
-    let i = this.keys.findIndex((name) => name === kname);
+    // check if field is part of primary index
+    let i = this.keys.findIndex((name) => name === fname);
     if (i >= 0) newField.key = i + 1;
 
-    this.fields[ kname ] = newField;
+    // save in array
+    let p = this.fields.findIndex((fld) => fld.name === fname);
+    if (p >= 0)
+      this.fields[ p ] = newField;
+    else
+      this.fields.push(newField);
+
+    // save in map
+    this.fieldsMap[ fname ] = newField;
+
     return newField;
   }
 
   /**
-   * Add / replace fields in the field map.
+   * Add / replace fields in fields.
    * @param {Engram|encoding|fields} encoding is an engram, encoding or fields object
    */
   merge(encoding) {
-    let fields = encoding.fields || encoding;  // could do some more type checking
-    if (typeOf(fields) !== "object")
+    let newFields = encoding.fields || encoding;
+
+    if (typeOf(newFields) === "object")
+      newFields = Engram.convert(newFields);
+
+    if (typeOf(newFields) !== "array")
       throw new StorageError(400, "invalid parameter");
 
-    for (let [ kname, field ] of Object.entries(fields)) {
-      let name = field.name || kname;
-      if (typeof field === "string") {
-        // field value is the data type
-        this.add({ "name": name, "type": field });
-      }
-      else {
-        // complex data type or unknown data type (???)
-        if (!field.name)
-          field.name = name;
-        this.add(field);
-      }
-    }
+    for (let field of newFields)
+      this.add(field);
   }
 
-  /**
-   * Sets all properties that are objects to {} such as fields.
-   * smt and other primitive properties added to the engram remain unchanged.
-   */
-  dull() {
-    for (let [ key, value ] of Object.entries(this)) {
-      if (key !== "smt" && typeOf(value) === "object") {
-        this[ key ] = {};
-      }
-    }
-  }
+  static convert(fieldsMap) {
+    let fields = [];
 
+    for (let [ name, field ] of Object.entries(fieldsMap)) {
+      if (typeOf(field) === "string") {
+        // convert to object
+        field = {
+          "name": name,
+          "type": field
+        };
+      }
+
+      if (!field.name)
+        field.name = name;
+
+      if ((field.type === "list" || field.type === "map") && typeOf(field.fields) === "object")
+        field.fields = Engram.convert(field.fields);
+
+      fields.push(field);
+    }
+
+    return fields;
+  }
 };

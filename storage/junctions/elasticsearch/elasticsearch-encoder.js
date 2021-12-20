@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const { StorageError } = require("../../types");
-const { hasOwnProperty, logger } = require("../../utils");
+const { Engram, StorageError } = require("../../types");
+const { hasOwnProperty, typeOf, logger } = require("../../utils");
 
 var excludeProperties = [ "@timestamp", "_meta" ];
 
@@ -55,7 +55,7 @@ var storageType = exports.storageType = function (elasticType) {
       // coordinates member can actually be nested arrays
       fldType = 'map';
       break;
-    
+
     case 'nested':
       // won't get here, have not implemented nested objects
       // need to use codify transfrom to identify arrays
@@ -99,7 +99,7 @@ var elasticType = exports.elasticType = function (field) {
       case "binary":
         elasticType = "binary";
         break;
-      case "Geometry":
+      case "geometry":
         elasticType = "geo_shape";
         break;
     }
@@ -123,7 +123,7 @@ var storageField = exports.storageField = function (name, property) {
   };
 
   if (hasOwnProperty(property, "null_value"))  // default if value is null
-    field.defaultValue = property["null_value"];
+    field.defaultValue = property[ "null_value" ];
 
   // add elasticsearch definition
   field._elasticsearch = property;
@@ -136,10 +136,10 @@ var storageField = exports.storageField = function (name, property) {
 exports.mappingsToFields = function mappingsToFields(mappings) {
   logger.debug('mappingsToFields');
 
-  let fields = {};
+  let fields = [];
 
   // map mappings properties to encoding fields
-  for (let [name, property] of Object.entries(mappings.properties)) {
+  for (let [ name, property ] of Object.entries(mappings.properties)) {
     if (excludeProperties.includes(name))
       continue;
 
@@ -148,23 +148,23 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
       if (property.type && property.type === "nested") {
         // won't get here, nested not implemented
         // need to use codify tranform to identify arrays
-        fields[name] = {
+        fields.push({
           "name": name,
           "type": "list",
           "_list": storageField(name, property)
-        };
+        });
       }
       else {
         // property.type "object", the elasticsearch default
-        fields[name] = {
+        fields.push({
           "name": name,
           "type": "map",
           "fields": mappingsToFields(property)
-        };
+        });
       }
     }
     else {
-      fields[name] = storageField(name, property);
+      fields.push(storageField(name, property));
     }
   }
 
@@ -179,36 +179,40 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
 exports.fieldsToMappings = function fieldsToMappings(fields) {
   logger.debug('fieldsToMappings');
 
+  if (typeOf(fields) === "object") {
+    fields = Engram.convert(fields);
+  }
+
   let mappings = {
     properties: {}
   };
 
   // map encoding to mappings
   logger.debug("translate encoding");
-  for (let [name, field] of Object.entries(fields)) {
+  for (let field of fields) {
     let ftype = field.type;
 
     if (ftype === "map") {
       if (!field.fields)
         throw new StorageError(400, "invalid map, fields not defined");
-      mappings.properties[name] = fieldsToMappings(field.fields);
+      mappings.properties[ field.name ] = fieldsToMappings(field.fields);
     }
     else if (ftype === "list") {
       if (!field._list)
         throw new StorageError(400, "invalid list, _list not defined");
       // elasticsearch/lucene supports arrays for all basic types
-      let mapping = fieldsToMappings({ "_list": field._list });
-      mappings.properties[name] = mapping.properties._list;
+      let mapping = fieldsToMappings([ field._list ]);
+      mappings.properties[ field.name ] = mapping.properties._list;
     }
     else if (ftype !== "unknown") {
-      mappings.properties[name] = { "type": elasticType(field) };
+      mappings.properties[ field.name ] = { "type": elasticType(field) };
 
       if (hasOwnProperty(field, "default") && field.type !== 'text') {
-        mappings.properties[name].null_value = field.defaultValue;
+        mappings.properties[ field.name ].null_value = field.defaultValue;
       }
 
       if (field._elasticsearch) {
-        Object.assign(mappings.properties[name], field._elasticsearch);
+        Object.assign(mappings.properties[ field.name ], field._elasticsearch);
       }
     }
   }

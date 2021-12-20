@@ -33,12 +33,8 @@ module.exports = exports = class CodifyTransform extends Transform {
     // engram for storing encoding
     this.engram = new Engram('any|*|*|*');
 
-    if (typeOf(this.options.encoding) === 'object') {
-      this.engram.fields = this.options.encoding.fields || this.options.encoding;
-      // Note at this point engram.fields will point to the same object as:
-      //    options.encoding.fields (precedence)
-      // This can be used by scan functionality to preserve encodings between processing each schema.
-    }
+    if (this.options.encoding)
+      this.engram.merge(this.options.encoding);
   }
 
   /**
@@ -47,7 +43,7 @@ module.exports = exports = class CodifyTransform extends Transform {
   get encoding() {
     try {
       if (this.options.notation === "dot")
-        return flatten();
+        return this.flatten();
       else
         return this.engram.encoding;
     }
@@ -72,7 +68,7 @@ module.exports = exports = class CodifyTransform extends Transform {
 
   /**
    * Construe the encoding by examining sample construct(s).
-   * Updates field encodings in this.engram.fields.
+   * Updates field encodings in this.engram.
    *
    * @param {*} construct
    * @param {*} encoding
@@ -99,7 +95,7 @@ module.exports = exports = class CodifyTransform extends Transform {
     let default_type = this.options.default_type || "text";
     this.checkDefaults(this.engram.fields, default_type);
 
-    this.push(this.engram.fields)
+    this.push(this.engram.fields);
     callback();
   }
 
@@ -114,12 +110,13 @@ module.exports = exports = class CodifyTransform extends Transform {
     logger.debug("processConstruct");
 
     // loop through the construct
-    for (let [name, value] of Object.entries(construct)) {
+    for (let [ name, value ] of Object.entries(construct)) {
       // get field definition
-      if (!fields[name]) {
-        fields[name] = new Field(name);
+      let field = fields.find((f) => f.name === name);
+      if (!field) {
+        field = new Field(name);
+        fields.push(field);
       }
-      let field = fields[name];
 
       this.processValue(value, field);
     }
@@ -167,7 +164,7 @@ module.exports = exports = class CodifyTransform extends Transform {
     }
     else if (field.type === "text" || field.type === "string") {
       if (stype !== "text" && stype !== "string") {
-         // leave as text for numbers, etc.
+        // leave as text for numbers, etc.
       }
       if (!field.size || field.size < value.length)
         field.size = value.length;
@@ -179,7 +176,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       else {
         // process nested fields
         if (!field.fields)
-          field.fields = {};
+          field.fields = [];
         this.processConstruct(value, field.fields);
       }
     }
@@ -220,7 +217,7 @@ module.exports = exports = class CodifyTransform extends Transform {
    */
   checkDefaults(fields, default_type) {
 
-    for (let field of Object.values(fields)) {
+    for (let field of fields) {
       if (field.type === "unknown")
         field.type = default_type;
       else if (field.type === "list") {
@@ -236,6 +233,6 @@ module.exports = exports = class CodifyTransform extends Transform {
   }
 
   flatten() {
-      
+
   }
 };

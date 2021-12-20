@@ -34,7 +34,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
    */
   async _write(construct, encoding, callback) {
     logger.debug("CSVWriter._write");
-    //logger.debug(JSON.stringify(construct));    
+    //logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();
@@ -51,8 +51,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
         this.ws = await stfs.createWriteStream(this.options);
         if (stfs.isNewFile && this.options.header) {
           // new file, write header line
-          let keys = Object.keys(this.engram.fields);
-          let headers = '"' + keys.join('","') + '"\n';
+          let headers = '"' + this.engram.names.join('","') + '"\n';
           await this.ws.write(headers);
         }
       }
@@ -60,10 +59,10 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       // create data line
       var data = '';
       var first = true;
-      for (let [name, field] of Object.entries(this.engram.fields)) {
+      for (let field of this.engram.fields) {
         (first) ? first = false : data += ',';
 
-        let value = construct[name];
+        let value = construct[ field.name ];
         if ((typeof value === "undefined" || value === null) && field.defaultValue)
           value = field.defaultValue;
 
@@ -114,11 +113,11 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
     try {
       for (var i = 0; i < chunks.length; i++) {
-        let construct = chunks[i].chunk;
-        let encoding = chunks[i].encoding;
+        let construct = chunks[ i ].chunk;
+        let encoding = chunks[ i ].encoding;
 
         // save construct to .schema
-        await this._write(construct, encoding, () => {});
+        await this._write(construct, encoding, () => { });
       }
       callback();
     }

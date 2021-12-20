@@ -23,7 +23,7 @@ exports.stringBreakpoints = require("./stringBreakpoints");
 //  "variable"
 
 // well known JSON object types
-//  "Geometry" - GeoJSON geometry object
+//  "geometry" - GeoJSON geometry object
 
-// other types 
+// other types
 //  "unknown"  - used for values that are null

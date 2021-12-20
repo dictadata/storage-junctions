@@ -63,11 +63,11 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       let ordered;
       if (this.options.orderFields) {
         let ordered = {};
-        for (let [name, field] of Object.entries(this.engram.fields)) {
-          if (hasOwnProperty(construct, name) && construct[name] !== null)
-            ordered[name] = construct[name];
+        for (let field of this.engram.fields) {
+          if (hasOwnProperty(construct, name) && construct[ name ] !== null)
+            ordered[ name ] = construct[ name ];
           else if (field.defaultValue)
-            ordered[name] = field.defaultValue;
+            ordered[ name ] = field.defaultValue;
           // else don't copy field
         }
       }
@@ -97,11 +97,11 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
 
     try {
       for (var i = 0; i < chunks.length; i++) {
-        let construct = chunks[i].chunk;
-        let encoding = chunks[i].encoding;
+        let construct = chunks[ i ].chunk;
+        let encoding = chunks[ i ].encoding;
 
         // save construct to .schema
-        await this._write(construct, encoding, () => {});
+        await this._write(construct, encoding, () => { });
       }
       callback();
     }

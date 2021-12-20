@@ -41,7 +41,7 @@ module.exports = exports = class ElasticMappings {
     }
 
     logger.debug("translate encoding")
-    // replace engram.fields
+    // replace engram fields
     this.engram.dull();
 
     // map mappings properties to encoding fields
@@ -49,13 +49,13 @@ module.exports = exports = class ElasticMappings {
     let properties = this.mappings.properties;
     let names = Object.keys(properties);
     for (let i = 0; i < names.length; i++) {
-      let name = names[i];
+      let name = names[ i ];
       if (name in exclude === false) {
         let field = {
           "name": name,
-          "type": properties[name].type    // should translate from elasticsearch types to storage types
+          "type": properties[ name ].type    // should translate from elasticsearch types to storage types
         };
-        this.engram.fields[name] = field;
+        this.engram.add(field);
       }
     }
 
@@ -82,9 +82,9 @@ module.exports = exports = class ElasticMappings {
     // map encoding to mappings
     logger.debug("translate encoding");
     let properties = this.mappings.properties;
-    for (let [name, field] of Object.entries(this.engram.fields)) {
+    for (let field of this.engram.fields) {
       if (typeof field.type !== "unknown") {
-        properties[name] = {
+        properties[ field.name ] = {
           "type": field.type      // should translate storage types to elasticsearch types
         };
       }

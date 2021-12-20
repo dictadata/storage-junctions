@@ -50,7 +50,7 @@ module.exports = exports = class StorageJunction {
     logger.debug("StorageJunction");
   }
 
-  static [Symbol.hasInstance](obj) {
+  static [ Symbol.hasInstance ](obj) {
     if (obj.engram) return true;
   }
 
@@ -80,7 +80,7 @@ module.exports = exports = class StorageJunction {
   set encoding(encoding) {
     this.engram.encoding = encoding;
   }
-  
+
   /**
    * Get the schema's encoding.
    */
@@ -129,10 +129,10 @@ module.exports = exports = class StorageJunction {
   }
 
   /**
-   * Create schema at the storage locus. 
+   * Create schema at the storage locus.
    * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
    */
-  async createSchema(options={}) {
+  async createSchema(options = {}) {
     logger.debug('StorageJunction createSchema');
     if (!this.capabilities.encoding)
       throw new StorageError(405);
@@ -140,7 +140,7 @@ module.exports = exports = class StorageJunction {
   }
 
   /**
-   * Dull schema at the storage locus. 
+   * Dull schema at the storage locus.
    * Junction implementations will translate to delete file, DROP TABLE, delete index, etc.
    * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
    */
@@ -221,12 +221,12 @@ module.exports = exports = class StorageJunction {
 
   ////////// object streaming //////////
 
-  // If sub-class sets the _readerClass and _writerClass members in constructor
+  // If sub-class sets the _readerClass and _writerClass propertiess in constructor
   // then these methods don't need to be overriden.
   createReader(options) {
     if (!this.capabilities.reader)
       throw new StorageError(405);
-    
+
     options = Object.assign({}, this.options, options);
     return new this._readerClass(this, options);
   }
@@ -234,7 +234,7 @@ module.exports = exports = class StorageJunction {
   createWriter(options) {
     if (!this.capabilities.writer)
       throw new StorageError(405);
-    
+
     options = Object.assign({}, this.options, options);
     return new this._writerClass(this, options);
   }
@@ -261,7 +261,7 @@ module.exports = exports = class StorageJunction {
   async getFileSystem() {
     if (!this.capabilities.filesystem)
       throw new StorageError(405);
-    
+
     if (!this._fileSystem)
       this._fileSystem = await Cortex.FileSystems.activate(this.smt, this.options);
     return this._fileSystem;
