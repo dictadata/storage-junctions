@@ -1,128 +1,74 @@
 {
+  "name": "forecast",
+  "type": "engram",
+  "description": "",
+  "tags": [],
   "smt": {
     "model": "rest",
     "locus": "https://api.weather.gov/gridpoints/DVN/34,71/",
     "schema": "forecast",
     "key": "=*"
   },
-  "fields": {
-    "number": {
+  "fields": [
+    {
       "name": "number",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "number"
+      "type": "integer"
     },
-    "name": {
+    {
       "name": "name",
       "type": "text",
-      "size": 15,
-      "default": null,
-      "nullable": true,
-      
-      "label": "name"
+      "size": 15
     },
-    "startTime": {
+    {
       "name": "startTime",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "startTime"
+      "type": "date"
     },
-    "endTime": {
+    {
       "name": "endTime",
-      "type": "date",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "endTime"
+      "type": "date"
     },
-    "isDaytime": {
+    {
       "name": "isDaytime",
-      "type": "boolean",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "isDaytime"
+      "type": "boolean"
     },
-    "temperature": {
+    {
       "name": "temperature",
-      "type": "integer",
-      "size": 0,
-      "default": null,
-      "nullable": true,
-      
-      "label": "temperature"
+      "type": "integer"
     },
-    "temperatureUnit": {
+    {
       "name": "temperatureUnit",
       "type": "keyword",
-      "size": 1,
-      "default": null,
-      "nullable": true,
-      
-      "label": "temperatureUnit"
+      "size": 1
     },
-    "temperatureTrend": {
+    {
       "name": "temperatureTrend",
       "type": "keyword",
-      "size": 7,
-      "default": null,
-      "nullable": true,
-      
-      "label": "temperatureTrend"
+      "size": 7
     },
-    "windSpeed": {
+    {
       "name": "windSpeed",
       "type": "text",
-      "size": 12,
-      "default": null,
-      "nullable": true,
-      
-      "label": "windSpeed"
+      "size": 12
     },
-    "windDirection": {
+    {
       "name": "windDirection",
       "type": "keyword",
-      "size": 2,
-      "default": null,
-      "nullable": true,
-      
-      "label": "windDirection"
+      "size": 2
     },
-    "icon": {
+    {
       "name": "icon",
-      "type": "text",
-      "size": 67,
-      "default": null,
-      "nullable": true,
-      
-      "label": "icon"
+      "type": "keyword",
+      "size": 56
     },
-    "shortForecast": {
+    {
       "name": "shortForecast",
       "type": "text",
-      "size": 44,
-      "default": null,
-      "nullable": true,
-      
-      "label": "shortForecast"
+      "size": 24
     },
-    "detailedForecast": {
+    {
       "name": "detailedForecast",
       "type": "text",
-      "size": 138,
-      "default": null,
-      "nullable": true,
-      
-      "label": "detailedForecast"
+      "size": 135
     }
-  },
-  "_SMT": "any|*|*|*"
+  ]
 }

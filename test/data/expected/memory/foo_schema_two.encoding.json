@@ -9,8 +9,8 @@
     "schema": "foo_schema_two",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 64,
@@ -19,7 +19,7 @@
       "key": 1,
       "label": "Foo"
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
@@ -28,6 +28,5 @@
       "key": 2,
       "label": "Bar"
     }
-  },
-  "_SMT": "memory|testgroup|foo_schema_two|*"
+  ]
 }

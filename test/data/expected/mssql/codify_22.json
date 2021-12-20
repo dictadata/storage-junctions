@@ -9,43 +9,42 @@
     "schema": "*",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 7
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "text",
       "size": 13
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer"
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number"
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date"
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean"
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "keyword",
       "size": 30
     },
-    "widgets": {
+    {
       "name": "widgets",
       "type": "text",
       "size": 87
     }
-  },
-  "_SMT": "any|*|*|*"
+  ]
 }

@@ -9,95 +9,95 @@
     "schema": "foo_schema_01",
     "key": "!Foo"
   },
-  "fields": {
-    "Bar": {
+  "fields": [
+    {
       "name": "Bar",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "_elasticsearch": {
         "type": "integer"
       }
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "_elasticsearch": {
         "type": "date"
       }
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "float",
       "_elasticsearch": {
         "type": "double"
       }
     },
-    "Foo": {
+    {
       "name": "Foo",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
-      }
+      },
+      "key": 1
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "_elasticsearch": {
         "type": "boolean"
       }
     },
-    "subObj1": {
+    {
       "name": "subObj1",
       "type": "map",
-      "fields": {
-        "ex-state": {
+      "fields": [
+        {
           "name": "ex-state",
           "type": "keyword",
           "_elasticsearch": {
             "type": "keyword"
           }
         },
-        "state": {
+        {
           "name": "state",
           "type": "keyword",
           "_elasticsearch": {
             "type": "keyword"
           }
         }
-      }
+      ]
     },
-    "subObj2": {
+    {
       "name": "subObj2",
       "type": "map",
-      "fields": {
-        "subsub": {
+      "fields": [
+        {
           "name": "subsub",
           "type": "map",
-          "fields": {
-            "izze": {
+          "fields": [
+            {
               "name": "izze",
               "type": "integer",
               "_elasticsearch": {
                 "type": "integer"
               }
             }
-          }
+          ]
         }
-      }
+      ]
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     }
-  },
-  "_SMT": "elasticsearch|http://localhost:9200|foo_schema_01|!Foo"
+  ]
 }

@@ -1,12 +1,12 @@
 {
-  "name": "foo_schema_lg",
+  "name": "foo_schema",
   "type": "engram",
   "description": "",
   "tags": [],
   "smt": {
-    "model": "memory",
-    "locus": "testgroup",
-    "schema": "foo_schema_lg",
+    "model": "*",
+    "locus": "*",
+    "schema": "foo_schema",
     "key": "*"
   },
   "fields": [
@@ -22,42 +22,42 @@
     {
       "name": "Bar",
       "type": "keyword",
-      "size": 256,
+      "size": 64,
       "default": null,
       "nullable": true,
       "label": "Bar"
     },
     {
       "name": "Baz",
-      "type": "text",
-      "size": 20,
+      "type": "integer",
+      "size": 0,
       "default": null,
       "nullable": true,
       "label": "Baz"
     },
     {
       "name": "Fobe",
-      "type": "text",
-      "size": 1200,
+      "type": "number",
+      "size": 0,
       "default": null,
       "nullable": true,
       "label": "Fobe"
     },
     {
-      "name": "Str Test",
-      "type": "text",
-      "size": 2500,
+      "name": "Dt Test",
+      "type": "date",
+      "size": 0,
       "default": null,
       "nullable": true,
-      "label": "Str Test"
+      "label": "Dt Test"
     },
     {
-      "name": "enabler",
-      "type": "text",
-      "size": 200000,
+      "name": "enabled",
+      "type": "boolean",
+      "size": 0,
       "default": null,
       "nullable": true,
-      "label": "enabler"
+      "label": "enabled"
     }
   ]
 }

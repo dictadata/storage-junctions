@@ -5,26 +5,22 @@
     "schema": "points",
     "key": "*"
   },
-  "fields": {
-    "type": {
+  "fields": [
+    {
       "name": "type",
       "type": "keyword",
       "size": 7
     },
-    "properties": {
+    {
       "name": "properties",
       "type": "map",
       "fields": {
-        "FID": {
-          "name": "FID",
-          "type": "integer"
-        }
+        "FID": "integer"
       }
     },
-    "geometry": {
+    {
       "name": "geometry",
       "type": "geometry"
     }
-  },
-  "_SMT": "any|*|*|*"
+  ]
 }

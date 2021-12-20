@@ -2,73 +2,73 @@
   {
     "name": "foo_schema.encoding.json",
     "rpath": "foo_schema.encoding.json",
-    "size": 1156,
-    "date": "2021-12-17T16:31:52.286Z"
+    "size": 1105,
+    "date": "2021-12-20T17:02:32.754Z"
   },
   {
     "name": "foo_schema_01.encoding.json",
     "rpath": "foo_schema_01.encoding.json",
-    "size": 2655,
-    "date": "2021-10-01T23:29:23.914Z"
+    "size": 2302,
+    "date": "2021-12-20T17:09:17.147Z"
   },
   {
     "name": "foo_schema_02.encoding.json",
     "rpath": "foo_schema_02.encoding.json",
-    "size": 1692,
-    "date": "2021-10-01T23:29:34.914Z"
+    "size": 1564,
+    "date": "2021-12-20T17:11:17.362Z"
   },
   {
     "name": "foo_schema_lg.encoding.json",
     "rpath": "foo_schema_lg.encoding.json",
-    "size": 1173,
-    "date": "2021-10-01T23:29:44.543Z"
+    "size": 1077,
+    "date": "2021-12-19T00:41:47.200Z"
   },
   {
     "name": "foo_schema_short.encoding.json",
     "rpath": "foo_schema_short.encoding.json",
-    "size": 468,
-    "date": "2021-10-01T23:29:54.578Z"
+    "size": 443,
+    "date": "2021-12-19T00:41:54.807Z"
   },
   {
     "name": "foo_schema_t.encoding.json",
     "rpath": "foo_schema_t.encoding.json",
-    "size": 1212,
-    "date": "2021-10-01T23:30:06.809Z"
+    "size": 1102,
+    "date": "2021-12-20T17:05:57.615Z"
   },
   {
     "name": "foo_schema_two.encoding.json",
     "rpath": "foo_schema_two.encoding.json",
-    "size": 485,
-    "date": "2021-10-01T23:30:16.124Z"
+    "size": 443,
+    "date": "2021-12-20T17:05:06.250Z"
   },
   {
     "name": "foo_schema_typesonly.encoding.json",
     "rpath": "foo_schema_typesonly.encoding.json",
     "size": 190,
-    "date": "2021-12-15T22:14:53.155Z"
+    "date": "2021-12-18T15:17:11.224Z"
   },
   {
     "name": "foo_transform.encoding.json",
     "rpath": "foo_transform.encoding.json",
     "size": 278,
-    "date": "2021-10-01T23:30:42.652Z"
+    "date": "2021-12-18T15:17:11.224Z"
   },
   {
     "name": "shapes.encoding.json",
     "rpath": "shapes\\shapes.encoding.json",
-    "size": 533,
-    "date": "2021-12-15T22:19:34.297Z"
+    "size": 393,
+    "date": "2021-12-20T19:43:32.605Z"
   },
   {
     "name": "tl_2020_us_county.encoding.json",
     "rpath": "shapes\\tl_2020_us_county.encoding.json",
-    "size": 2176,
-    "date": "2021-10-01T23:43:55.376Z"
+    "size": 1844,
+    "date": "2021-12-20T19:46:27.524Z"
   },
   {
     "name": "tl_2020_us_state.encoding.json",
     "rpath": "shapes\\tl_2020_us_state.encoding.json",
-    "size": 2019,
-    "date": "2021-10-01T23:44:02.284Z"
+    "size": 1729,
+    "date": "2021-12-20T19:49:04.511Z"
   }
 ]

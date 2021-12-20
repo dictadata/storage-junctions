@@ -9,8 +9,8 @@
     "schema": "foo_schema",
     "key": "=Foo"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 64,
@@ -26,7 +26,7 @@
       "nullable": false,
       "key": 1
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "keyword",
       "size": 64,
@@ -41,7 +41,7 @@
       "default": null,
       "nullable": true
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "size": null,
@@ -56,7 +56,7 @@
       "default": null,
       "nullable": true
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "float",
       "size": null,
@@ -71,7 +71,7 @@
       "default": null,
       "nullable": true
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "size": null,
@@ -86,7 +86,7 @@
       "default": null,
       "nullable": true
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "size": 1,
@@ -101,6 +101,5 @@
       "default": null,
       "nullable": true
     }
-  },
-  "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"
+  ]
 }

@@ -9,8 +9,8 @@
     "schema": "foo_schema_01",
     "key": "=Foo"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 7,
@@ -26,7 +26,7 @@
       "nullable": false,
       "key": 1
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "keyword",
       "size": 13,
@@ -41,7 +41,7 @@
       "default": null,
       "nullable": true
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "size": null,
@@ -56,7 +56,7 @@
       "default": null,
       "nullable": true
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "float",
       "size": null,
@@ -71,7 +71,7 @@
       "default": null,
       "nullable": true
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "size": null,
@@ -86,7 +86,7 @@
       "default": null,
       "nullable": true
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "size": 1,
@@ -101,7 +101,7 @@
       "default": null,
       "nullable": true
     },
-    "subObj1": {
+    {
       "name": "subObj1",
       "type": "map",
       "size": null,
@@ -116,7 +116,7 @@
       "default": null,
       "nullable": true
     },
-    "subObj2": {
+    {
       "name": "subObj2",
       "type": "map",
       "size": null,
@@ -131,7 +131,7 @@
       "default": null,
       "nullable": true
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "map",
       "size": null,
@@ -146,6 +146,5 @@
       "default": null,
       "nullable": true
     }
-  },
-  "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|=Foo"
+  ]
 }

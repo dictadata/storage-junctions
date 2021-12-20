@@ -9,21 +9,20 @@
     "schema": "foo_schema_two",
     "key": "*"
   },
-  "fields": {
-    "Bar": {
+  "fields": [
+    {
       "name": "Bar",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     },
-    "Foo": {
+    {
       "name": "Foo",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     }
-  },
-  "_SMT": "elasticsearch|http://localhost:9200|foo_schema_two|*"
+  ]
 }

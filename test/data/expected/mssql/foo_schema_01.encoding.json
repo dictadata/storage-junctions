@@ -9,8 +9,8 @@
     "schema": "foo_schema_01",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 7,
@@ -27,7 +27,7 @@
       },
       "key": 1
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "keyword",
       "size": 13,
@@ -43,7 +43,7 @@
         "default": null
       }
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "size": 4,
@@ -59,7 +59,7 @@
         "default": null
       }
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number",
       "size": 8,
@@ -75,7 +75,7 @@
         "default": null
       }
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "size": 8,
@@ -91,7 +91,7 @@
         "default": null
       }
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "size": 1,
@@ -107,7 +107,7 @@
         "default": null
       }
     },
-    "subObj1": {
+    {
       "name": "subObj1",
       "type": "text",
       "size": -1,
@@ -123,7 +123,7 @@
         "default": null
       }
     },
-    "subObj2": {
+    {
       "name": "subObj2",
       "type": "text",
       "size": -1,
@@ -139,7 +139,7 @@
         "default": null
       }
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "text",
       "size": -1,
@@ -155,6 +155,5 @@
         "default": null
       }
     }
-  },
-  "_SMT": "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*"
+  ]
 }

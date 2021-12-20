@@ -9,76 +9,75 @@
     "schema": "foo_schema_02",
     "key": "*"
   },
-  "fields": {
-    "Bar": {
+  "fields": [
+    {
       "name": "Bar",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer",
       "_elasticsearch": {
         "type": "integer"
       }
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date",
       "_elasticsearch": {
         "type": "date"
       }
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "float",
       "_elasticsearch": {
         "type": "double"
       }
     },
-    "Foo": {
+    {
       "name": "Foo",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean",
       "_elasticsearch": {
         "type": "boolean"
       }
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     },
-    "widgets": {
+    {
       "name": "widgets",
       "type": "map",
-      "fields": {
-        "count": {
+      "fields": [
+        {
           "name": "count",
           "type": "integer",
           "_elasticsearch": {
             "type": "integer"
           }
         },
-        "part": {
+        {
           "name": "part",
           "type": "keyword",
           "_elasticsearch": {
             "type": "keyword"
           }
         }
-      }
+      ]
     }
-  },
-  "_SMT": "elasticsearch|http://localhost:9200|foo_schema_02|*"
+  ]
 }

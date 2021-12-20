@@ -1,25 +1,25 @@
 {
-  "name": "foo_schema",
+  "name": "foo_schema_short",
   "type": "engram",
   "description": "",
   "tags": [],
   "smt": {
-    "model": "memory",
-    "locus": "testgroup",
-    "schema": "foo_schema",
-    "key": "!Foo"
+    "model": "*",
+    "locus": "*",
+    "schema": "foo_schema_short",
+    "key": "*"
   },
   "fields": [
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
+      "size": 64,
       "key": 1
     },
     {
       "name": "Bar",
-      "type": "text",
-      "size": 13
+      "type": "keyword",
+      "size": 64
     },
     {
       "name": "Baz",

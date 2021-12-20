@@ -9,8 +9,8 @@
     "schema": "foo_schema_lg",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 64,
@@ -27,7 +27,7 @@
       },
       "key": 1
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "text",
       "size": 256,
@@ -43,7 +43,7 @@
         "default": null
       }
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "keyword",
       "size": 20,
@@ -59,7 +59,7 @@
         "default": null
       }
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "text",
       "size": 1200,
@@ -75,7 +75,7 @@
         "default": null
       }
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "keyword",
       "size": -1,
@@ -91,7 +91,7 @@
         "default": null
       }
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "keyword",
       "size": -1,
@@ -107,7 +107,7 @@
         "default": null
       }
     },
-    "Str Test": {
+    {
       "name": "Str Test",
       "type": "keyword",
       "size": -1,
@@ -123,7 +123,7 @@
         "default": null
       }
     },
-    "enabler": {
+    {
       "name": "enabler",
       "type": "keyword",
       "size": -1,
@@ -139,6 +139,5 @@
         "default": null
       }
     }
-  },
-  "_SMT": "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_lg|*"
+  ]
 }

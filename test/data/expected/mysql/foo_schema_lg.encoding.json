@@ -9,8 +9,8 @@
     "schema": "foo_schema_lg",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 64,
@@ -26,7 +26,7 @@
       "nullable": false,
       "key": 1
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "text",
       "size": 256,
@@ -41,7 +41,7 @@
       "default": null,
       "nullable": true
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "keyword",
       "size": 20,
@@ -56,7 +56,7 @@
       "default": null,
       "nullable": true
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "text",
       "size": 1200,
@@ -71,7 +71,7 @@
       "default": null,
       "nullable": true
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "text",
       "size": 2500,
@@ -86,7 +86,7 @@
       "default": null,
       "nullable": true
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "text",
       "size": null,
@@ -101,7 +101,7 @@
       "default": null,
       "nullable": true
     },
-    "Str Test": {
+    {
       "name": "Str Test",
       "type": "text",
       "size": 2500,
@@ -116,7 +116,7 @@
       "default": null,
       "nullable": true
     },
-    "enabler": {
+    {
       "name": "enabler",
       "type": "text",
       "size": null,
@@ -131,6 +131,5 @@
       "default": null,
       "nullable": true
     }
-  },
-  "_SMT": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_lg|*"
+  ]
 }

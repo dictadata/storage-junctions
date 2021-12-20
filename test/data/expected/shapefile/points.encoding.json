@@ -9,32 +9,32 @@
     "schema": "points",
     "key": "*"
   },
-  "fields": {
-    "type": {
+  "fields": [
+    {
       "name": "type",
       "type": "keyword",
       "size": 7
     },
-    "properties": {
+    {
       "name": "properties",
       "type": "map",
-      "fields": {
-        "FID": {
+      "fields": [
+        {
           "name": "FID",
           "type": "integer"
         }
-      }
+      ]
     },
-    "geometry": {
+    {
       "name": "geometry",
       "type": "map",
-      "fields": {
-        "type": {
+      "fields": [
+        {
           "name": "type",
           "type": "keyword",
           "size": 5
         },
-        "coordinates": {
+        {
           "name": "coordinates",
           "type": "list",
           "_list": {
@@ -42,8 +42,7 @@
             "type": "integer"
           }
         }
-      }
+      ]
     }
-  },
-  "_SMT": "shp|zip:./test/data/input/shapes/points.zip|points|*"
+  ]
 }

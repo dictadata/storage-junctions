@@ -9,66 +9,66 @@
     "schema": "foofile_01.json",
     "key": "*"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 7
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "text",
       "size": 13
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer"
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number"
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date"
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean"
     },
-    "subObj1": {
+    {
       "name": "subObj1",
       "type": "map",
-      "fields": {
-        "state": {
+      "fields": [
+        {
           "name": "state",
           "type": "keyword",
           "size": 7
         },
-        "ex-state": {
+        {
           "name": "ex-state",
           "type": "keyword",
           "size": 4
         }
-      }
+      ]
     },
-    "subObj2": {
+    {
       "name": "subObj2",
       "type": "map",
-      "fields": {
-        "subsub": {
+      "fields": [
+        {
           "name": "subsub",
           "type": "map",
-          "fields": {
-            "izze": {
+          "fields": [
+            {
               "name": "izze",
               "type": "integer"
             }
-          }
+          ]
         }
-      }
+      ]
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "list",
       "_list": {
@@ -77,6 +77,5 @@
         "size": 6
       }
     }
-  },
-  "_SMT": "json|./test/data/input/|foofile_01.json|*"
+  ]
 }

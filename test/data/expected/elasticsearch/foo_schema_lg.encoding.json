@@ -9,63 +9,62 @@
     "schema": "foo_schema_lg",
     "key": "*"
   },
-  "fields": {
-    "Bar": {
+  "fields": [
+    {
       "name": "Bar",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
-    "Foo": {
+    {
       "name": "Foo",
       "type": "keyword",
       "_elasticsearch": {
         "type": "keyword"
       }
     },
-    "Str Test": {
+    {
       "name": "Str Test",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
-    "enabler": {
+    {
       "name": "enabler",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     }
-  },
-  "_SMT": "elasticsearch|http://localhost:9200|foo_schema_lg|*"
+  ]
 }

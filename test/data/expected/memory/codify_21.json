@@ -9,35 +9,35 @@
     "schema": "foo_schema_02",
     "key": "!Foo"
   },
-  "fields": {
-    "Foo": {
+  "fields": [
+    {
       "name": "Foo",
       "type": "keyword",
       "size": 7,
       "key": 1
     },
-    "Bar": {
+    {
       "name": "Bar",
       "type": "text",
       "size": 13
     },
-    "Baz": {
+    {
       "name": "Baz",
       "type": "integer"
     },
-    "Fobe": {
+    {
       "name": "Fobe",
       "type": "number"
     },
-    "Dt Test": {
+    {
       "name": "Dt Test",
       "type": "date"
     },
-    "enabled": {
+    {
       "name": "enabled",
       "type": "boolean"
     },
-    "tags": {
+    {
       "name": "tags",
       "type": "list",
       "_list": {
@@ -46,25 +46,24 @@
         "size": 8
       }
     },
-    "widgets": {
+    {
       "name": "widgets",
       "type": "list",
       "_list": {
         "name": "_list",
         "type": "map",
-        "fields": {
-          "part": {
+        "fields": [
+          {
             "name": "part",
             "type": "keyword",
             "size": 6
           },
-          "count": {
+          {
             "name": "count",
             "type": "integer"
           }
-        }
+        ]
       }
     }
-  },
-  "_SMT": "memory|testgroup|foo_schema_02|!Foo"
+  ]
 }

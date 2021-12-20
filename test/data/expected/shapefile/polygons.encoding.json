@@ -9,32 +9,32 @@
     "schema": "polygons",
     "key": "*"
   },
-  "fields": {
-    "type": {
+  "fields": [
+    {
       "name": "type",
       "type": "keyword",
       "size": 7
     },
-    "properties": {
+    {
       "name": "properties",
       "type": "map",
-      "fields": {
-        "FID": {
+      "fields": [
+        {
           "name": "FID",
           "type": "integer"
         }
-      }
+      ]
     },
-    "geometry": {
+    {
       "name": "geometry",
       "type": "map",
-      "fields": {
-        "type": {
+      "fields": [
+        {
           "name": "type",
           "type": "keyword",
           "size": 12
         },
-        "coordinates": {
+        {
           "name": "coordinates",
           "type": "list",
           "_list": {
@@ -54,8 +54,7 @@
             }
           }
         }
-      }
+      ]
     }
-  },
-  "_SMT": "shp|./test/data/input/shapes/|polygons|*"
+  ]
 }
