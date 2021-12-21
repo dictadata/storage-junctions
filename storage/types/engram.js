@@ -22,16 +22,23 @@ module.exports = exports = class Engram {
 
   /**
    * Engram class
-   * @param {*} SMT is a SMT string or SMT object
+   * @param {encoding|SMT|string} SMT is a SMT string, SMT object or encoding object
    */
-  constructor(SMT) {
-    let smt = parseSMT(SMT);
+  constructor(encoding) {
+    let smt = {};
+    if (typeOf(encoding) === "object" && hasOwnProperty(encoding, "smt")) {
+      smt = parseSMT(encoding.smt);
+    }
+    else {
+      smt = parseSMT(encoding);
+      encoding = { smt: smt };
+    }
 
     // codex properties
-    this.name = smt.schema;
-    this.type = "engram";
-    this.description = "";
-    this.tags = [];
+    this.name = encoding.name || smt.schema;
+    this.type = encoding.type || "engram";
+    this.description = encoding.description || "";
+    this.tags = encoding.tags || [];
 
     // SMT
     this.smt = smt;
@@ -39,9 +46,8 @@ module.exports = exports = class Engram {
     // fields encoding
     this.fields = [];
     this.fieldsMap = {};
-
-    if (process.env.NODE_ENV === 'development')
-      this._SMT = SMT;
+    if (hasOwnProperty(encoding, "fields"))
+      this.encoding = encoding;
 
     // Other properties related to the engram's storage source can be added as needed.
     //this.caseInsensitive = false;
@@ -61,8 +67,6 @@ module.exports = exports = class Engram {
   get encoding() {
     let encoding = Engram._copy({}, this);
     delete encoding.fieldsMap;
-    if (process.env.NODE_ENV === 'development')
-      delete encoding._SMT;
     return encoding;
   }
 
@@ -73,6 +77,11 @@ module.exports = exports = class Engram {
   set encoding(encoding) {
     this.dull();
     this.merge(encoding);
+
+    if (encoding && encoding.indices) {
+      this.indices = {};
+      Engram._copy(this.indices, encoding.indices);
+    }
   }
 
   /**
@@ -98,6 +107,14 @@ module.exports = exports = class Engram {
       if (typeOf(value) === "object") { // fields, ...
         dst[ key ] = {};
         Engram._copy(dst[ key ], value);
+      }
+      else if (typeOf(value) === "array") {
+        dst[ key ] = [];
+        for (let item of value)
+          if (typeOf(item) === "object")
+            dst[ key ].push(Engram._copy({}, item));
+          else
+            dst[ key ].push(item);
       }
       else if (typeOf(value) !== "function") {
         dst[ key ] = value;
