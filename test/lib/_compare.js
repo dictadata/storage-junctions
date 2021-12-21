@@ -35,7 +35,7 @@ function compareJSON(var1, var2, compareValues) {
 
   if (Array.isArray(var1)) {
     // check array lengths
-    if (compareValues > 1 ? var2.length !== var1.length : var2.length < var1.length) {
+    if (compareValues > 1 && var2.length !== var1.length) {
       logger.error("arrays have different lengths");
       return 1;
     }

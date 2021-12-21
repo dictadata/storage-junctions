@@ -10,7 +10,7 @@ const { logger } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = exports = async function (tract, compareValues = 2) {
+module.exports = exports = async function (tract, compareValues = 1) {
   logger.info(">>> create junction");
   let retCode = 0;
 

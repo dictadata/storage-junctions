@@ -76,38 +76,6 @@
       }
     },
     {
-      "name": "Dt Test",
-      "type": "keyword",
-      "size": -1,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "Dt Test",
-        "type": "varchar",
-        "size": -1,
-        "precision": 0,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
-      "name": "enabled",
-      "type": "keyword",
-      "size": -1,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "enabled",
-        "type": "varchar",
-        "size": -1,
-        "precision": 0,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
       "name": "Str Test",
       "type": "keyword",
       "size": -1,

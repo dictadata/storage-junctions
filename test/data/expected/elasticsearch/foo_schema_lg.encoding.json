@@ -25,13 +25,6 @@
       }
     },
     {
-      "name": "Dt Test",
-      "type": "text",
-      "_elasticsearch": {
-        "type": "text"
-      }
-    },
-    {
       "name": "Fobe",
       "type": "text",
       "_elasticsearch": {
@@ -47,13 +40,6 @@
     },
     {
       "name": "Str Test",
-      "type": "text",
-      "_elasticsearch": {
-        "type": "text"
-      }
-    },
-    {
-      "name": "enabled",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
