@@ -87,7 +87,7 @@ module.exports = exports = class StorageSQLEncoder {
       index.fields[ column[ "key_ordinal" ].value - 1 ] = {
         "name": column[ "column_name" ].value,
         "order": column[ "is_descending_key" ].value ? "DESC" : "ASC"
-      }
+      };
     }
   }
 
@@ -140,7 +140,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       for (let [ name, index ] of Object.entries(engram.indices)) {
         sql += ", INDEX " + this.escapeId(name);
         if (index.unique) sql += " UNIQUE ";
-        sql += "("
+        sql += "(";
         let cfirst = true;
         for (let col of index.fields) {
           (cfirst) ? cfirst = false : sql += ",";
@@ -168,11 +168,11 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       sql += "ADD INDEX " + this.escapeId(name);
       if (index.unique) sql += "UNIQUE ";
 
-      sql += "("
+      sql += "(";
       let cfirst = true;
       for (let col of index.fields) {
         (cfirst) ? cfirst = false : sql += ",";
-        sql += escapeId(col.name);
+        sql += this.escapeId(col.name);
         if (col.order) sql += " " + col.order;
       }
       sql += ")";
@@ -460,4 +460,4 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
     }
   }
 
-}
+};

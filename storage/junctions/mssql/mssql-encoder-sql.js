@@ -183,7 +183,7 @@ exports.sqlAddIndices = (engram, options) => {
     let cfirst = true;
     for (let col of index.fields) {
       (cfirst) ? cfirst = false : sql += ",";
-      sql += escapeId(col.name);
+      sql += sqlString.escapeId(col.name);
       if (col.order) sql += " " + col.order;
     }
     sql += ")";

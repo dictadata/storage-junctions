@@ -1,7 +1,7 @@
 /**
  * storage/codex
  *
- * Codex is a general purpose data directory and data manager.
+ * Codex is a general purpose data directory and catalog.
  *
  */
 "use strict";
