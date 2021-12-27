@@ -22,7 +22,7 @@ module.exports = exports = class Engram {
 
   /**
    * Engram class
-   * @param {encoding|SMT|string} SMT is a SMT string, SMT object or encoding object
+   * @param {encoding|SMT} SMT is a SMT string, SMT object or encoding object
    */
   constructor(encoding) {
     let smt = {};
@@ -300,7 +300,7 @@ module.exports = exports = class Engram {
     let newFields = encoding.fields || encoding;
 
     if (typeOf(newFields) === "object")
-      newFields = Engram.convert(newFields);
+      newFields = Engram._convert(newFields);
 
     if (typeOf(newFields) !== "array")
       throw new StorageError(400, "invalid parameter");
@@ -309,7 +309,7 @@ module.exports = exports = class Engram {
       this.add(field);
   }
 
-  static convert(fieldsMap) {
+  static _convert(fieldsMap) {
     let fields = [];
 
     for (let [ name, field ] of Object.entries(fieldsMap)) {
@@ -325,7 +325,7 @@ module.exports = exports = class Engram {
         field.name = name;
 
       if ((field.type === "list" || field.type === "map") && typeOf(field.fields) === "object")
-        field.fields = Engram.convert(field.fields);
+        field.fields = Engram._convert(field.fields);
 
       fields.push(field);
     }
