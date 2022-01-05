@@ -180,7 +180,7 @@ exports.fieldsToMappings = function fieldsToMappings(fields) {
   logger.debug('fieldsToMappings');
 
   if (typeOf(fields) === "object") {
-    fields = Engram.convert(fields);
+    fields = Engram._convert(fields);
   }
 
   let mappings = {

@@ -22,7 +22,7 @@ module.exports = exports = class Engram {
 
   /**
    * Engram class
-   * @param {encoding|SMT} SMT is a SMT string, SMT object or encoding object
+   * @param {encoding|SMT} Encoding/Engram object, SMT object or SMT string
    */
   constructor(encoding) {
     let smt = {};
@@ -30,11 +30,13 @@ module.exports = exports = class Engram {
       smt = parseSMT(encoding.smt);
     }
     else {
+      // assume the parameter is an SMT object or SMT string
       smt = parseSMT(encoding);
+      // convert to empty Encoding object
       encoding = { smt: smt };
     }
 
-    // codex properties
+    // codex entry properties
     this.name = encoding.name || smt.schema;
     this.type = encoding.type || "engram";
     this.description = encoding.description || "";
@@ -49,7 +51,7 @@ module.exports = exports = class Engram {
     if (hasOwnProperty(encoding, "fields"))
       this.encoding = encoding;
 
-    // Other properties related to the engram's storage source can be added as needed.
+    // other Engram properties
     //this.caseInsensitive = false;
 
   }
@@ -62,7 +64,7 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Returns an object with engram properties, but without any functions.
+   * Returns an object with Engram properties, but without any functions.
    */
   get encoding() {
     let encoding = Engram._copy({}, this);
@@ -72,12 +74,18 @@ module.exports = exports = class Engram {
 
   /**
    * Replace fields definitions.
-   * @param {Engram|encoding|fields} encoding is an engram, encoding or fields object
+   * Replace indices, if defined in parameter object.
+   * @param {Engram|encoding|fields} encoding is an Encoding/Engram object or Fields array/object
    */
   set encoding(encoding) {
     this.dull();
     this.merge(encoding);
-
+    /*
+        if (encoding && encoding.smt) {
+          let smt = parseSMT(encoding.smt);
+          this.smt.key = smt.key;
+        }
+    */
     if (encoding && encoding.indices) {
       this.indices = {};
       Engram._copy(this.indices, encoding.indices);
@@ -94,9 +102,37 @@ module.exports = exports = class Engram {
   }
 
   /**
+   * Sets fields and indices to empty
+   * smt and other primitive properties added to the engram remain unchanged.
+   */
+  dull() {
+    this.fields = [];
+    this.fieldsMap = {};
+    if (this.indices)
+      this.indices = {};
+  }
+
+  /**
+   * Add or replace fields.
+   * @param {Engram|encoding|fields} encoding is an Encoding/Engram object Fields object
+   */
+  merge(encoding) {
+    let newFields = encoding.fields || encoding;
+
+    if (typeOf(newFields) === "object")
+      newFields = Engram._convert(newFields);
+
+    if (typeOf(newFields) !== "array")
+      throw new StorageError(400, "invalid parameter");
+
+    for (let field of newFields)
+      this.add(field);
+  }
+
+  /**
    * Copy all src properties to dst object.
-   * Deep copy of object properties.
-   * Shallow copy of reference types like array, Date, etc.
+   * Deep copy of object properties and top level arrays.
+   * Shallow copy of reference types like Date, sub-arrays, etc.
    * Does not copy functions.
    * Note, recursive function.
    * @param {Engram} dst
@@ -237,15 +273,6 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Sets all properties that are objects to {} such as fields.
-   * smt and other primitive properties added to the engram remain unchanged.
-   */
-  dull() {
-    this.fields = [];
-    this.fieldsMap = {};
-  }
-
-  /**
    * Find a field object in the fields.
    * @param {String} name
    */
@@ -266,7 +293,7 @@ module.exports = exports = class Engram {
 
   /**
    * Add or replace a field in fields.
-   * @param {Field} field the field definition
+   * @param {field} field is the Field definition
    */
   add(field) {
     let newField = new Field(field);
@@ -293,22 +320,10 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Add / replace fields in fields.
-   * @param {Engram|encoding|fields} encoding is an engram, encoding or fields object
+   * Convert fields map to an array of fields.
+   * @param {*} fieldsMap are fields as an object (map) wherein each field is a named property
+   * @returns fields as an array of Field objects
    */
-  merge(encoding) {
-    let newFields = encoding.fields || encoding;
-
-    if (typeOf(newFields) === "object")
-      newFields = Engram._convert(newFields);
-
-    if (typeOf(newFields) !== "array")
-      throw new StorageError(400, "invalid parameter");
-
-    for (let field of newFields)
-      this.add(field);
-  }
-
   static _convert(fieldsMap) {
     let fields = [];
 
