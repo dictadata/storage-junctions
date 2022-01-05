@@ -72,42 +72,12 @@
       "nullable": true
     },
     {
-      "name": "Dt Test",
-      "type": "text",
-      "size": 2500,
-      "_mysql": {
-        "Field": "Dt Test",
-        "Type": "varchar(2500)",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
-    },
-    {
-      "name": "enabled",
+      "name": "Str Test",
       "type": "text",
       "size": null,
       "_mysql": {
-        "Field": "enabled",
-        "Type": "text",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
-    },
-    {
-      "name": "Str Test",
-      "type": "text",
-      "size": 2500,
-      "_mysql": {
         "Field": "Str Test",
-        "Type": "varchar(2500)",
+        "Type": "text",
         "Null": "YES",
         "Key": "",
         "Default": null,
