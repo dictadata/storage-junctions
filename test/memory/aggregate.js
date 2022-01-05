@@ -11,7 +11,7 @@ async function tests() {
   logger.info("=== memory aggregate");
   if (await retrieve({
     origin: {
-      smt: "memory|testgroup|foo_schema|*",
+      smt: "memory|testgroup|foo_schema|!Foo",
       pattern: {
         match: {
           "Bar": "row",

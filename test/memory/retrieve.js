@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== memory retrieve");
   if (await retrieve({
     origin: {
-      smt: "memory|testgroup|foo_schema|*",
+      smt: "memory|testgroup|foo_schema|!Foo",
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
@@ -51,7 +51,7 @@ async function tests() {
         },
         count: 3,
         order: { "Dt Test": "asc" },
-        fields: ["Foo", "Baz", "tags", "widgets"]
+        fields: [ "Foo", "Baz", "tags", "widgets" ]
       }
     },
     terminal: {

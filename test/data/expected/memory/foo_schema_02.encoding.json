@@ -78,5 +78,19 @@
         }
       }
     }
-  ]
+  ],
+  "indices": {
+    "foo_index_02": {
+      "unique": false,
+      "fields": [
+        {
+          "name": "Bar"
+        },
+        {
+          "name": "Fobe",
+          "order": "DESC"
+        }
+      ]
+    }
+  }
 }

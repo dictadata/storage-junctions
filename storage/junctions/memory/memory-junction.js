@@ -75,8 +75,8 @@ class MemoryJunction extends StorageJunction {
 
       // fetch schema list from storage source
       for (let name of _storage.keys())
-      if (rx.test(name))
-        list.push(name.substring(this.smt.locus.length + 1));
+        if (rx.test(name))
+          list.push(name.substring(this.smt.locus.length + 1));
     }
     catch (err) {
       logger.error(err);
@@ -97,7 +97,7 @@ class MemoryJunction extends StorageJunction {
       let entry = _storage.get(this.storage_key);
       if (!entry)
         return new StorageResponse(404, "schema not found");
-      
+
       return new StorageResponse(0, null, entry.engram.encoding, "encoding");
     }
     catch (err) {
@@ -111,21 +111,21 @@ class MemoryJunction extends StorageJunction {
    * Possibly sending the encoding definitions to the source.
    * @param {*} encoding
    */
-  async createSchema(options={}) {
+  async createSchema(options = {}) {
     logger.debug("MemoryJunction createSchema");
 
     try {
       if (_storage.has(this.storage_key))
         return new StorageResponse(409, "schema exists");
-      
+
       if (options.encoding)
         this.engram.encoding = options.encoding;
-      
+
       _storage.set(this.storage_key, {
         engram: this.engram,
         constructs: this._constructs
       });
-      
+
       return new StorageResponse(0);
     }
     catch (err) {
@@ -135,7 +135,7 @@ class MemoryJunction extends StorageJunction {
   }
 
   /**
-   * Dull a schema at the locus. 
+   * Dull a schema at the locus.
    * Junction implementations will translate to delete file, DROP TABLE, delete index, etc.
    * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
    */
@@ -143,12 +143,12 @@ class MemoryJunction extends StorageJunction {
     logger.debug('MemoryJunction dullSchema');
     options = Object.assign({}, this.options, options);
     let schema = options.schema || this.smt.schema;
-    
+
     try {
       let entry = _storage.get(this.smt.locus + schema);
       if (!entry)
         return new StorageResponse(404, "schema not found");
-        
+
       entry.constructs.clear();
       _storage.delete(this.smt.locus + schema);
 
@@ -167,18 +167,18 @@ class MemoryJunction extends StorageJunction {
   async store(construct, pattern) {
     logger.debug("Memory store");
 
-    if (this.engram.keyof !== 'key')
-      throw new StorageError( 400, "only keystore supported");
+    if (this.engram.keyof === 'primary')
+      throw new StorageError(400, "only keystore supported");
     if (typeOf(construct) !== "object")
       throw new StorageError(400, "Invalid parameter: construct is not an object");
-    
+
     try {
       let resultCode = 0;
       let numAffected = 0;
 
       let key = (pattern && pattern.key) || this.engram.get_uid(construct);
       this._constructs.set(key, construct);
-      
+
       return new StorageResponse(resultCode, null, numAffected, "numAffected");
     }
     catch (err) {
@@ -195,15 +195,15 @@ class MemoryJunction extends StorageJunction {
   async storeBulk(constructs, pattern) {
     logger.debug("MemoryJunction storeBulk");
 
-    if (this.engram.keyof !== 'key')
-      throw new StorageError( 400, "only keystore supported");
+    if (this.engram.keyof === 'primary')
+      throw new StorageError(400, "only keystore supported");
     if (typeOf(constructs) !== "array")
-      throw new StorageError( 400, "Invalid parameter: construct is not an object");
-    
+      throw new StorageError(400, "Invalid parameter: construct is not an object");
+
     try {
       let resultCode;
       let numAffected = constructs.length;
-      
+
       // store constructs
       for (let construct of constructs) {
         let key = this.engram.get_uid(construct);
@@ -224,9 +224,9 @@ class MemoryJunction extends StorageJunction {
   async recall(pattern) {
     logger.debug("MemoryJunction recall");
 
-    if (this.engram.keyof !== 'key')
-      throw new StorageError( 400, "only keystore supported");
-    
+    if (this.engram.keyof === 'primary')
+      throw new StorageError(400, "only keystore supported");
+
     try {
       let resultCode = 0;
       let response = new StorageResponse(0);
@@ -237,11 +237,11 @@ class MemoryJunction extends StorageJunction {
           response.add(construct, pattern.key);
         else
           resultCode = 404;
-      }      
+      }
       else {
         // find construct using pattern
       }
-      
+
       response.resultCode = resultCode;
       return response;
     }
@@ -284,8 +284,8 @@ class MemoryJunction extends StorageJunction {
     logger.debug("MemoryJunction dull");
     if (!pattern) pattern = {};
 
-    if (this.engram.keyof !== 'key')
-      throw new StorageError( 400, "only keystore supported");
+    if (this.engram.keyof === 'primary')
+      throw new StorageError(400, "only keystore supported");
 
     try {
       let resultCode = 0;
@@ -300,7 +300,7 @@ class MemoryJunction extends StorageJunction {
       else {
         // delete constructs according to pattern
       }
-      
+
       return new StorageResponse(resultCode, null, numAffected, "numAffected");
     }
     catch (err) {
