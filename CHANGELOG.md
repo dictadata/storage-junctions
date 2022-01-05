@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.0.1
+  - improve logic in Engram.encoding setter
 - version 2.0.0
   - implement Codex class
   - change encoding fields to an array
