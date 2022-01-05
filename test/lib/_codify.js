@@ -63,7 +63,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     //logger.debug(JSON.stringify(encoding2, null, "  "));
     if (tract.outputFile2) {
       logger.info("<<< save encoding to " + tract.outputFile2);
-      fs.mkdirSync(path.dirname(tract.outputFile1), { recursive: true });
+      fs.mkdirSync(path.dirname(tract.outputFile2), { recursive: true });
       fs.writeFileSync(tract.outputFile2, JSON.stringify(encoding2, null, "  "), "utf8");
 
       let expected_output = tract.outputFile2.replace("output", "expected");

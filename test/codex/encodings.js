@@ -7,7 +7,9 @@ const storage = require("../../storage");
 const { Codex } = require("../../storage/codex");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
-const fs = require("fs");
+
+const fs = require('fs');
+const path = require('path');
 
 logger.info("=== Tests: codex encodings");
 
@@ -34,6 +36,7 @@ async function test(schema) {
     encoding = await codex.recall(schema);
     let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
+    fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
   }
   catch (err) {
