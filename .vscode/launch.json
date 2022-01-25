@@ -892,13 +892,13 @@
     },
     {
       "type": "node-terminal",
-      "name": "--- pipelines",
+      "name": "--- codex",
       "request": "launch"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "codex encodings",
+      "name": "store/recall encodings",
       "program": "${workspaceFolder}/test/codex/encodings.js",
       "outputCapture": "std",
       "env": {

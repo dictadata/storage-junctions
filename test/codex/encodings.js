@@ -13,6 +13,11 @@ const path = require('path');
 
 logger.info("=== Tests: codex encodings");
 
+// Test Outline:
+// read encoding(s) from file
+// store to local elasticsearch codex
+// recall encoding from codex
+
 async function test(schema) {
   let retCode = 0;
 
