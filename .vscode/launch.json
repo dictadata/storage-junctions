@@ -898,8 +898,96 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "store/recall encodings",
-      "program": "${workspaceFolder}/test/codex/encodings.js",
+      "name": "codex in-memory",
+      "program": "${workspaceFolder}/test/codex/memory_codex.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex store",
+      "program": "${workspaceFolder}/test/codex/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex recall",
+      "program": "${workspaceFolder}/test/codex/recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex dull",
+      "program": "${workspaceFolder}/test/codex/dull.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex retrieve",
+      "program": "${workspaceFolder}/test/codex/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex elasticsearch",
+      "program": "${workspaceFolder}/test/codex/elasticsearch.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex json file",
+      "program": "${workspaceFolder}/test/codex/jsonfile.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex mssql",
+      "program": "${workspaceFolder}/test/codex/mssql.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex mysql",
+      "program": "${workspaceFolder}/test/codex/mysql.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

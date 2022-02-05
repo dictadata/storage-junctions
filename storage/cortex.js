@@ -7,16 +7,34 @@
 "use strict";
 
 const { parseSMT, StorageError } = require("./types");
-const { typeOf, hasOwnProperty } = require("./utils");
+//const { typeOf, hasOwnProperty } = require("./utils");
+//const { Codex } = require("./codex");
 
 class Cortex {
+
+  /**
+
+   */
+  static set codex(codex) {
+    Cortex._codex = codex;
+  }
+
+  static get codex() {
+    return Cortex._codex;
+  }
 
   static use(model, storageJunctionClass) {
     Cortex._storageJunctions.set(model, storageJunctionClass);
   }
 
   static async activate(SMT, options) {
-    let smt = parseSMT(SMT);
+    let smt = {};
+    if (typeof SMT === "string" && SMT.indexOf('|') < 0 && Cortex._codex) {
+      let entry = Cortex._codex.recall(SMT);
+      smt = entry.smt;
+    }
+    else
+      smt = parseSMT(SMT);
 
     if (Cortex._storageJunctions.has(smt.model)) {
       let junctionClass = Cortex._storageJunctions.get(smt.model);
@@ -94,14 +112,16 @@ class FileSystems {
 }
 
 // Cortex static properties
+Cortex._codex = null;
+
 Cortex._storageJunctions = new Map();
-Cortex.Transforms = Transforms;
-Cortex.FileSystems = FileSystems;
 
 // Transforms static properties
 Transforms._transforms = new Map();
+Cortex.Transforms = Transforms;
 
 // FileSystems static properties
 FileSystems._fileSystems = new Map();
+Cortex.FileSystems = FileSystems;
 
 module.exports = exports = Cortex;

@@ -18,6 +18,12 @@ module.exports = exports = class Codex {
     this.options = options || {};
 
     this._entries = new Map();
+    this._active = false;
+    this._junction = null;
+  }
+
+  get isActive() {
+    return this._active;
   }
 
   async activate(options = {}) {
@@ -26,10 +32,10 @@ module.exports = exports = class Codex {
     try {
       if (options.smt) {
         let encoding = options.encoding || codexEncoding;
-        this.codexNode = await storage.activate(options.smt, { encoding: encoding });
+        this._junction = await storage.activate(options.smt, { encoding: encoding });
 
         // attempt to create accounts schema
-        let results = await this.codexNode.createSchema();
+        let results = await this._junction.createSchema();
         if (results.resultCode === 0) {
           logger.info("created codex schema");
         }
@@ -39,22 +45,26 @@ module.exports = exports = class Codex {
         else {
           throw new StorageError(500, "unable to create codex schema");
         }
+        this._active = true;
       }
     }
     catch (err) {
       logger.error('codex activate failed: ', err);
     }
+
+    return this._active;
   }
 
   async relax() {
-    if (this.codexNode)
-      await this.codexNode.relax();
+    this._active = false;
+    if (this._junction)
+      await this._junction.relax();
   }
 
   async store(entry) {
     this._entries.set(entry.name, entry);
-    if (this.codexNode) {
-      let results = await this.codexNode.store(entry);
+    if (this._junction) {
+      let results = await this._junction.store(entry);
       logger.verbose(results.resultCode);
     }
   }
@@ -64,8 +74,8 @@ module.exports = exports = class Codex {
     if (this._entries.has(name)) {
       return this._entries.get(name);
     }
-    else if (this.codexNode) {
-      let results = await this.codexNode.recall(name);
+    else if (this._junction) {
+      let results = await this._junction.recall(name);
       logger.verbose(results.resultCode);
       return results.data[ name ];
     }
@@ -76,8 +86,8 @@ module.exports = exports = class Codex {
   async dull(options) {
     let name = options.name || options;
     let deleted = false;
-    if (this.codexNode) {
-      //
+    if (this._junction) {
+      this._junction.dull(name);
     }
     if (this._entries.has(name))
       deleted = this._entries.delete(name);
@@ -86,8 +96,8 @@ module.exports = exports = class Codex {
   }
 
   async retrieve(pattern) {
-    if (this.codexNode) {
-      let results = await this.codexNode.retrieve(pattern);
+    if (this._junction) {
+      let results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
       return results.data;
     }
