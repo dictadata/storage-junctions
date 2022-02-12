@@ -1,10 +1,11 @@
 /**
- * test/codex/recall
+ * test/codex/use_smt
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
- *   recall entry for foo_schema
- *   compare results to expected foo_schema encoding
+ *   create junction using SMT name(s)
+ *   use junction to retrieve data
+ *   compare results with expected output
  */
 "use strict";
 
@@ -15,7 +16,7 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex recall");
+logger.info("=== Tests: codex store");
 
 async function init() {
   try {
@@ -32,22 +33,34 @@ async function init() {
   }
 }
 
-async function test(schema) {
+async function test(smt_name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== ' + smt_name);
 
-    // recall codex entry
-    let encoding = await storage.codex.recall(schema);
-    let outputfile = "./test/data/output/codex/recall_" + schema + ".encoding.json";
+    // create junction
+    let junction = await storage.activate(smt_name);
+
+    // retrieve codex entries
+    let results = await junction.retrieve({
+      match: {
+        "Bar": {
+          wc: "row*"
+        }
+      }
+    });
+
+    let outputfile = "./test/data/output/codex/" + smt_name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-    fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
 
     // compare to expected output
     let expected_output = outputfile.replace("output", "expected");
     retCode = _compare(expected_output, outputfile, 2);
+
+    await junction.relax();
   }
   catch (err) {
     logger.error(err);
@@ -60,8 +73,10 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema")) return 1;
+  //if (await test("jsonfile-foo_schema")) return 1;
+  if (await test("elasticsearch-foo_schema")) return 1;
+  if (await test("mssql-foo_schema")) return 1;
+  if (await test("mysql-foo_schema")) return 1;
 
   await storage.codex.relax();
 })();
-

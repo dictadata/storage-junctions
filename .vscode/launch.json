@@ -899,7 +899,7 @@
       "type": "pwa-node",
       "request": "launch",
       "name": "codex in-memory",
-      "program": "${workspaceFolder}/test/codex/memory_codex.js",
+      "program": "${workspaceFolder}/test/codex/codex_in-memory.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -953,8 +953,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "codex elasticsearch",
-      "program": "${workspaceFolder}/test/codex/elasticsearch.js",
+      "name": "codex add smt",
+      "program": "${workspaceFolder}/test/codex/codex_add_smt.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -964,30 +964,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "codex json file",
-      "program": "${workspaceFolder}/test/codex/jsonfile.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex mssql",
-      "program": "${workspaceFolder}/test/codex/mssql.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex mysql",
-      "program": "${workspaceFolder}/test/codex/mysql.js",
+      "name": "codex use smt",
+      "program": "${workspaceFolder}/test/codex/codex_use_smt.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

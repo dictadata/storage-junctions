@@ -1,5 +1,9 @@
 /**
  * test/codex/dull
+ *
+ * Test Outline:
+ *   use codex with Elasticsearch junction
+ *   dull entry for "foo_schema_two" in codex
  */
 "use strict";
 
@@ -9,22 +13,29 @@ const { logger } = require("../../storage/utils");
 
 logger.info("=== Tests: codex dull");
 
-// Test Outline:
-// use codex in Elasticsearch index
-// dull entries for foo_schema in dummy source
+async function init() {
+  try {
+    // activate codex
+    let codex = new storage.Codex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+    });
+
+    await codex.activate();
+    storage.codex = codex;
+  }
+  catch (err) {
+    logger.error(err);
+  }
+}
 
 async function test(schema) {
   let retCode = 0;
 
-  storage.codex = new storage.Codex({
-    smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
-  });
-
   try {
-    logger.verbose('=== dummy_' + schema);
+    logger.verbose('=== ' + schema);
 
     // dull encoding
-    let result = await storage.codex.dull("dummy_" + schema);
+    let result = await storage.codex.dull(schema);
     logger.info(result);
 
     // compare to expected output
@@ -34,14 +45,15 @@ async function test(schema) {
     logger.error(err);
     retCode = 1;
   }
-  finally {
-    await storage.codex.relax();
-  }
 
   return process.exitCode = retCode;
 }
 
 (async () => {
-  if (await test("foo_schema")) return 1;
+  await init();
+
+  if (await test("foo_schema_two")) return 1;
+
+  await storage.codex.relax();
 })();
 

@@ -6,6 +6,7 @@
  */
 "use strict";
 
+const { ERROR_CODES } = require("promise-ftp");
 const { parseSMT, StorageError } = require("./types");
 //const { typeOf, hasOwnProperty } = require("./utils");
 //const { Codex } = require("./codex");
@@ -28,17 +29,21 @@ class Cortex {
   }
 
   static async activate(SMT, options) {
+    if (!options) options = {};
     let smt = {};
+    let entry;
+
     if (typeof SMT === "string" && SMT.indexOf('|') < 0 && Cortex._codex) {
-      let entry = Cortex._codex.recall(SMT);
+      entry = await Cortex._codex.recall(SMT);
       smt = entry.smt;
+      if (!options.encoding) options.encoding = entry;
     }
     else
       smt = parseSMT(SMT);
 
     if (Cortex._storageJunctions.has(smt.model)) {
       let junctionClass = Cortex._storageJunctions.get(smt.model);
-      let junction = new junctionClass(SMT, options);
+      let junction = new junctionClass(smt, options);
       await junction.activate();
       return junction;
     }

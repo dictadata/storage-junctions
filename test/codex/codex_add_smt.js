@@ -1,20 +1,21 @@
 /**
- * test/codex/store
+ * test/codex/add_smt
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
- *   read encoding(s) from file
- *   store entry(s) in codex
+ *   add entries for test data sources:
+ *     Elasticsearch, MySQL, MSSQL, JSON file
  */
 "use strict";
 
 const storage = require("../../storage");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
-
 const fs = require('fs');
 
 logger.info("=== Tests: codex store");
+
+var encoding;
 
 async function init() {
   try {
@@ -25,24 +26,25 @@ async function init() {
 
     await codex.activate();
     storage.codex = codex;
+
+    // read foo_schema encoding
+    encoding = JSON.parse(fs.readFileSync("./test/data/input/foo_schema.encoding.json", "utf8"));
   }
   catch (err) {
     logger.error(err);
   }
 }
 
-async function test(schema) {
+async function test(smt_name, smt) {
   let retCode = 0;
 
-  let encoding;
+
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== ' + smt_name);
 
     // store encoding
-    encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + ".encoding.json", "utf8"));
-
-    let engram = new Engram(encoding.smt || "*|*|*|*");
-    engram.name = schema;
+    let engram = new Engram(smt);
+    engram.name = smt_name;
     engram.encoding = encoding;
     await storage.codex.store(engram.encoding);
   }
@@ -57,10 +59,10 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema")) return 1;
-  if (await test("foo_schema_short")) return 1;
-  if (await test("foo_schema_typesonly")) return 1;
-  if (await test("foo_schema_two")) return 1;
+  if (await test("jsonfile-foo_schema", "json|./test/data/input/|foofile.json|*")) return 1;
+  if (await test("elasticsearch-foo_schema", "elasticsearch|http://localhost:9200|foo_schema|!Foo")) return 1;
+  if (await test("mssql-foo_schema", "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo")) return 1;
+  if (await test("mysql-foo_schema", "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo")) return 1;
 
   await storage.codex.relax();
 })();

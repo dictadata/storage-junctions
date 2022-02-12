@@ -75,7 +75,7 @@ module.exports = exports = class Codex {
       return this._entries.get(name);
     }
     else if (this._junction) {
-      let results = await this._junction.recall(name);
+      let results = await this._junction.recall({ key: name });
       logger.verbose(results.resultCode);
       return results.data[ name ];
     }
@@ -85,12 +85,16 @@ module.exports = exports = class Codex {
 
   async dull(options) {
     let name = options.name || options;
-    let deleted = false;
-    if (this._junction) {
-      this._junction.dull(name);
+    let deleted = 404; // not found
+
+    if (this._entries.has(name)) {
+      deleted = this._entries.delete(name) ? 0 : 500;
     }
-    if (this._entries.has(name))
-      deleted = this._entries.delete(name);
+
+    if (this._junction) {
+      let results = await this._junction.dull({ key: name });
+      deleted = results.resultCode;
+    }
 
     return deleted;
   }
