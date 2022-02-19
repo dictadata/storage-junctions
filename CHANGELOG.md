@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.0.2
+  - cortex/codex integration testing and updates
 - version 2.0.1
   - improve logic in Engram.encoding setter
 - version 2.0.0
