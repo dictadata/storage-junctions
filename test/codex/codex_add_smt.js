@@ -59,10 +59,20 @@ async function test(smt_name, smt) {
 (async () => {
   await init();
 
-  if (await test("jsonfile-foo_schema", "json|./test/data/input/|foofile.json|*")) return 1;
-  if (await test("elasticsearch-foo_schema", "elasticsearch|http://localhost:9200|foo_schema|!Foo")) return 1;
-  if (await test("mssql-foo_schema", "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo")) return 1;
-  if (await test("mysql-foo_schema", "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo")) return 1;
+  if (await test(
+    "jsonfile-foo_schema",
+    "json|./test/data/input/|foofile.json|*"))
+    return 1;
+  if (await test(
+    "elasticsearch-foo_schema",
+    "elasticsearch|http://localhost:9200|foo_schema|!Foo"))
+    return 1;
+  if (await test("mssql-foo_schema",
+    "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo"))
+    return 1;
+  if (await test("mysql-foo_schema",
+    "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"))
+    return 1;
 
   await storage.codex.relax();
 })();
