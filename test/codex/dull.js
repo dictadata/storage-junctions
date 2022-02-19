@@ -8,7 +8,6 @@
 "use strict";
 
 const storage = require("../../storage");
-const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 
 logger.info("=== Tests: codex dull");
@@ -55,5 +54,7 @@ async function test(schema) {
   if (await test("foo_schema_two")) return 1;
 
   await storage.codex.relax();
-})();
 
+  // give Elasticsearch time to refresh its index
+  await new Promise((r) => setTimeout(r, 2000));
+})();
