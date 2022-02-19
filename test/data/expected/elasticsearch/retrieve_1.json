@@ -15,15 +15,7 @@
       "Bar": "row",
       "Baz": 456,
       "Fobe": 2.1,
-      "Dt Test": "2018-10-07T05:00:00.000Z",
-      "enabled": false
-    },
-    {
-      "Foo": "second",
-      "Bar": "row",
-      "Baz": 456,
-      "Fobe": 2.1,
-      "Dt Test": "2018-10-07T05:00:00.000Z",
+      "Dt Test": "2018-10-07T07:00:00.000Z",
       "enabled": false
     },
     {
@@ -31,7 +23,7 @@
       "Bar": "row your boat",
       "Baz": 789,
       "Fobe": 3,
-      "Dt Test": "2018-10-18T05:00:00.000Z",
+      "Dt Test": "2018-10-18T07:00:00.000Z",
       "enabled": true
     }
   ]

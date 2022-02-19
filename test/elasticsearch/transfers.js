@@ -25,7 +25,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     }
   })) return 1;
 
@@ -35,7 +35,7 @@ async function tests() {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_j|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema_j|!Foo"
     }
   })) return 1;
 
@@ -45,7 +45,7 @@ async function tests() {
       smt: "json|./test/data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema_01|!Foo"
     }
   })) return 1;
 
@@ -55,7 +55,7 @@ async function tests() {
       smt: "json|./test/data/input/|foofile_02.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_02|*"
+      smt: "elasticsearch|http://localhost:9200|foo_schema_02|!Foo"
     }
   })) return 1;
 
@@ -65,7 +65,7 @@ async function tests() {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
+      smt: "elasticsearch|http://localhost:9200|foo_transfer|!Foo"
     }
   })) return 1;
 

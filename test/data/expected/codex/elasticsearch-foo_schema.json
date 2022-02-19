@@ -2,6 +2,14 @@
   "resultCode": 0,
   "resultText": "OK",
   "data": {
+    "first": {
+      "Foo": "first",
+      "Bar": "row",
+      "Baz": 123,
+      "Fobe": 1,
+      "Dt Test": "2018-10-07T00:00:00.000Z",
+      "enabled": true
+    },
     "second": {
       "Foo": "second",
       "Bar": "row",
@@ -10,23 +18,7 @@
       "Dt Test": "2018-10-07T07:00:00.000Z",
       "enabled": false
     },
-    "FrBOon4BdR9U5BpWDfhp": {
-      "Foo": "first",
-      "Bar": "row",
-      "Baz": 123,
-      "Fobe": 1,
-      "Dt Test": "2018-10-07T00:00:00.000Z",
-      "enabled": true
-    },
-    "F7BOon4BdR9U5BpWDfh5": {
-      "Foo": "second",
-      "Bar": "row",
-      "Baz": 456,
-      "Fobe": 2.1,
-      "Dt Test": "2018-10-07T07:00:00.000Z",
-      "enabled": false
-    },
-    "GLBOon4BdR9U5BpWDfiJ": {
+    "third": {
       "Foo": "third",
       "Bar": "row your boat",
       "Baz": 789,
