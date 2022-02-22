@@ -46,7 +46,8 @@ async function test(smt_name, smt) {
     let engram = new Engram(smt);
     engram.name = smt_name;
     engram.encoding = encoding;
-    await storage.codex.store(engram.encoding);
+    let results = await storage.codex.store(engram.encoding);
+    logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
     logger.error(err);

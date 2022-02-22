@@ -62,50 +62,79 @@ module.exports = exports = class Codex {
   }
 
   async store(entry) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
+
     this._entries.set(entry.name, entry);
     if (this._junction) {
-      let results = await this._junction.store(entry);
+      results = await this._junction.store(entry);
       logger.verbose(results.resultCode);
     }
-  }
 
-  async recall(options) {
-    let name = options.name || options;
-    if (this._entries.has(name)) {
-      return this._entries.get(name);
-    }
-    else if (this._junction) {
-      let results = await this._junction.recall({ key: name });
-      logger.verbose(results.resultCode);
-      return results.data[ name ];
-    }
-    else
-      return null;
+    return results;
   }
 
   async dull(options) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
+
     let name = options.name || options;
-    let deleted = 404; // not found
 
     if (this._entries.has(name)) {
-      deleted = this._entries.delete(name) ? 0 : 500;
+      if (!this._entries.delete(name)) {
+        results.resultCode = 500;
+        results.resultText = "map delete error";
+      }
     }
 
     if (this._junction) {
-      let results = await this._junction.dull({ key: name });
-      deleted = results.resultCode;
+      results = await this._junction.dull({ key: name });
     }
 
-    return deleted;
+    return results;
+  }
+
+  async recall(options) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
+
+    let name = options.name || options;
+    if (this._entries.has(name)) {
+      results.data = this._entries.get(name);
+    }
+    else if (this._junction) {
+      results = await this._junction.recall({ key: name });
+      logger.verbose(results.resultCode);
+    }
+    else {
+      results.resultCode = 404;
+      results.resultText = "Not Found";
+    }
+
+    return results;
   }
 
   async retrieve(pattern) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
+
     if (this._junction) {
-      let results = await this._junction.retrieve(pattern);
+      results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
-      return results.data;
     }
-    else
-      return null;
+    else {
+      results.resultCode = 503;
+      results.resultText = "Codex Unavailable";
+    }
+
+    return results;
   }
 };

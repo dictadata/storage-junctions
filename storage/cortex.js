@@ -34,7 +34,8 @@ class Cortex {
     let entry;
 
     if (typeof SMT === "string" && SMT.indexOf('|') < 0 && Cortex._codex) {
-      entry = await Cortex._codex.recall(SMT);
+      let results = await Cortex._codex.recall(SMT);
+      entry = results.data[ SMT ];
       smt = entry.smt;
       if (!options.encoding) options.encoding = entry;
     }

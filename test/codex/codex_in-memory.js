@@ -51,10 +51,14 @@ async function test(schema) {
     let engram = new Engram(encoding.smt || "*|*|*|*");
     engram.name = schema;
     engram.encoding = encoding;
-    await storage.codex.store(engram.encoding);
+    let results = await storage.codex.store(engram.encoding);
+    logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding
-    encoding = await storage.codex.recall(schema);
+    results = await storage.codex.recall(schema);
+    logger.verbose(JSON.stringify(results, null, "  "));
+    encoding = results.data;
+
     let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
@@ -67,9 +71,6 @@ async function test(schema) {
   catch (err) {
     logger.error(err);
     retCode = 1;
-  }
-  finally {
-    //await storage.codex.relax();
   }
 
   return process.exitCode = retCode;

@@ -34,8 +34,8 @@ async function test(schema) {
     logger.verbose('=== ' + schema);
 
     // dull encoding
-    let result = await storage.codex.dull(schema);
-    logger.info(result);
+    let results = await storage.codex.dull(schema);
+    logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
 

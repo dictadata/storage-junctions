@@ -39,11 +39,14 @@ async function test(schema) {
     logger.verbose('=== ' + schema);
 
     // recall codex entry
-    let encoding = await storage.codex.recall(schema);
+    let results = await storage.codex.recall(schema);
+    logger.verbose(JSON.stringify(results, null, "  "));
+    let encoding = results.data;
+
     let outputfile = "./test/data/output/codex/recall_" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-    fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+    fs.writeFileSync(outputfile, JSON.stringify(encoding[ schema ], null, 2), "utf8");
 
     // compare to expected output
     let expected_output = outputfile.replace("output", "expected");
