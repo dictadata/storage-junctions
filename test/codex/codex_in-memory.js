@@ -57,7 +57,7 @@ async function test(schema) {
     // recall encoding
     results = await storage.codex.recall(schema);
     logger.verbose(JSON.stringify(results, null, "  "));
-    encoding = results.data;
+    encoding = results.data[ schema ];
 
     let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);

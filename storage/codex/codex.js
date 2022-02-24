@@ -67,8 +67,11 @@ module.exports = exports = class Codex {
       resultText: "OK"
     };
 
+    // save in cache
     this._entries.set(entry.name, entry);
+
     if (this._junction) {
+      // save in source codex
       results = await this._junction.store(entry);
       logger.verbose(results.resultCode);
     }
@@ -85,6 +88,7 @@ module.exports = exports = class Codex {
     let name = options.name || options;
 
     if (this._entries.has(name)) {
+      // delete from cache
       if (!this._entries.delete(name)) {
         results.resultCode = 500;
         results.resultText = "map delete error";
@@ -92,6 +96,7 @@ module.exports = exports = class Codex {
     }
 
     if (this._junction) {
+      // delete from source codex
       results = await this._junction.dull({ key: name });
     }
 
@@ -101,16 +106,24 @@ module.exports = exports = class Codex {
   async recall(options) {
     let results = {
       resultCode: 0,
-      resultText: "OK"
+      resultText: "OK",
+      data: {}
     };
 
     let name = options.name || options;
     if (this._entries.has(name)) {
-      results.data = this._entries.get(name);
+      // entry has been cached
+      let entry = this._entries.get(name);
+      results.data[ name ] = entry;
     }
     else if (this._junction) {
+      // go to the source codex
       results = await this._junction.recall({ key: name });
       logger.verbose(results.resultCode);
+
+      // cache entry
+      let entry = results.data[ name ];
+      this._entries.set(name, entry);
     }
     else {
       results.resultCode = 404;
@@ -127,8 +140,11 @@ module.exports = exports = class Codex {
     };
 
     if (this._junction) {
+      // retrieve list from source codex
       results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
+
+      // current design does not caching entries from retrieved list
     }
     else {
       results.resultCode = 503;
