@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.0.6
+  - bug fix: MySQL create new StorageError()
 - version 2.0.5
   - bug fixes: stream error handling; use of field.name property
 - version 2.0.4
