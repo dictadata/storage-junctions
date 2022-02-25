@@ -38,7 +38,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       callback();
       return;
     }
-    
+
     try {
       // save construct to .schema
 
@@ -46,6 +46,11 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       if (this.ws === null) {
         let stfs = await this.junction.getFileSystem();
         this.ws = await stfs.createWriteStream(this.options);
+        this.ws.on("error",
+          (err) => {
+            this.destroy(err);
+          });
+
         // write opening, if any
         await this.ws.write(this.open);
       }
@@ -77,8 +82,8 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
 
     try {
       for (var i = 0; i < chunks.length; i++) {
-        let construct = chunks[i].chunk;
-        let encoding = chunks[i].encoding;
+        let construct = chunks[ i ].chunk;
+        let encoding = chunks[ i ].encoding;
 
         // save construct to schema
         await this._write(construct, encoding, () => { });

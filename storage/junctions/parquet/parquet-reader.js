@@ -110,6 +110,11 @@ module.exports = exports = class ParquetReader extends StorageReader {
       // start the reader
       let stfs = await this.junction.getFileSystem();
       var rs = await stfs.createReadStream(this.options);
+      rs.on("error",
+        (err) => {
+          this.destroy(err);
+        }
+      );
       rs.pipe(this.parser);
       this.started = true;
     }

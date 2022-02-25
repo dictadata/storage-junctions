@@ -49,6 +49,11 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       if (!this.ws) {
         let stfs = await this.junction.getFileSystem();
         this.ws = await stfs.createWriteStream(this.options);
+        this.ws.on("error",
+          (err) => {
+            this.destroy(err);
+          });
+
         if (stfs.isNewFile && this.options.header) {
           // new file, write header line
           let headers = '"' + this.engram.names.join('","') + '"\n';
@@ -140,10 +145,10 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
-        else
-          await new Promise((fulfill) => this.ws.on("finish", fulfill));
+        //else
+        //  await new Promise((fulfill) => this.ws.on("finish", fulfill));
       }
-      this._count(null);
+      //this._count(null);
       callback();
     }
     catch (err) {

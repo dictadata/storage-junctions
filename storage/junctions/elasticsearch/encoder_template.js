@@ -100,7 +100,7 @@ module.exports = exports = class ElasticTemplate {
     let properties = this.indexdoc.mappings.properties;
 
     for (let field of this.engram.fields) {
-      properties[ name ] = {
+      properties[ field.name ] = {
         "type": field.type
       };
     }

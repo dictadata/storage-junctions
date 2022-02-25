@@ -36,7 +36,7 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     function cast(construct) {
 
-      for (let [name, value] of Object.entries(construct)) {
+      for (let [ name, value ] of Object.entries(construct)) {
         let newValue = value;
         let field = encoding.find(name);
 
@@ -76,7 +76,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         }
 
         if (newValue !== value)
-          construct[name] = newValue;
+          construct[ name ] = newValue;
       }
 
       return construct;
@@ -131,6 +131,11 @@ module.exports = exports = class CSVReader extends StorageReader {
       // start the reader
       let stfs = await this.junction.getFileSystem();
       var rs = await stfs.createReadStream(this.options);
+      rs.on("error",
+        (err) => {
+          this.destroy(err);
+        }
+      );
       rs.pipe(this.parser);
       this.started = true;
     }

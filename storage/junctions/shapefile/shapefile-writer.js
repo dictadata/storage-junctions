@@ -51,6 +51,11 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       if (this.ws === null) {
         let stfs = await this.junction.getFileSystem();
         this.ws = await stfs.createWriteStream(this.options);
+        this.ws.on("error",
+          (err) => {
+            this.destroy(err);
+          });
+
         // write opening, if any
         await this.ws.write(this.openTag);
       }
@@ -64,10 +69,10 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       if (this.options.orderFields) {
         let ordered = {};
         for (let field of this.engram.fields) {
-          if (hasOwnProperty(construct, name) && construct[ name ] !== null)
-            ordered[ name ] = construct[ name ];
+          if (hasOwnProperty(construct, field.name) && construct[ field.name ] !== null)
+            ordered[ field.name ] = construct[ field.name ];
           else if (field.defaultValue)
-            ordered[ name ] = field.defaultValue;
+            ordered[ field.name ] = field.defaultValue;
           // else don't copy field
         }
       }

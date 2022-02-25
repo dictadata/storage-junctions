@@ -32,7 +32,7 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     function cast(construct) {
 
-      for (let [name, value] of Object.entries(construct)) {
+      for (let [ name, value ] of Object.entries(construct)) {
         let field = encoding.find(name);
         let newValue = value;
 
@@ -59,7 +59,7 @@ module.exports = exports = class JSONReader extends StorageReader {
         }
 
         if (newValue !== value)
-          construct[name] = newValue;
+          construct[ name ] = newValue;
       }
 
       return construct;
@@ -67,8 +67,8 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     // create the parser chain pipeline
     let myParser = this.myParser = parser();
-    let pipes = [myParser];
-    
+    let pipes = [ myParser ];
+
     if (this.options.extract) {
       pipes.push(pick({ filter: this.options.extract }));
     }
@@ -76,12 +76,12 @@ module.exports = exports = class JSONReader extends StorageReader {
     if (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl')
       pipes.push(streamValues());
     else if (this.engram.smt.model === 'jsono')
-      pipes.push( streamObject());
+      pipes.push(streamObject());
     else  // default json array
       pipes.push(streamArray());
 
     let pipeline = this.pipeline = chain(pipes);
-    
+
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
 
@@ -125,6 +125,11 @@ module.exports = exports = class JSONReader extends StorageReader {
       // start the reader
       let stfs = await this.junction.getFileSystem();
       var rs = await stfs.createReadStream(this.options);
+      rs.on("error",
+        (err) => {
+          this.destroy(err);
+        }
+      );
       rs.pipe(this.pipeline);
       this.started = true;
     }

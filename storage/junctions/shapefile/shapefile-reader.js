@@ -3,7 +3,6 @@
 const { StorageReader } = require('../storage-junction');
 const { logger } = require('../../utils');
 
-const path = require('path');
 const shapefile = require('shapefile');
 
 module.exports = exports = class ShapeFileReader extends StorageReader {
@@ -30,7 +29,6 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
    */
   async _read(_size) {
     logger.debug('ShapeFileReader _read');
-    let cnt = 0;
 
     if (!this.started) {
       // start the reader
@@ -44,7 +42,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
       this.bbox = this.source.bbox;
     }
 
-    while (!this.done) {
+    if (!this.done) {
       logger.debug('ShapeFileReader source.read');
       let record = await this.source.read();
       if (record.value)
@@ -53,10 +51,6 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
         this.done = true;
         this.push(null);
       }
-
-      if (++cnt >= _size)
-        logger.debug('ShapeFileReader break');
-        break;
     }
   }
 
