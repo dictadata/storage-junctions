@@ -122,8 +122,10 @@ module.exports = exports = class Codex {
       logger.verbose(results.resultCode);
 
       // cache entry
-      let entry = results.data[ name ];
-      this._entries.set(name, entry);
+      if (results.resultCode === 0) {
+        let entry = results.data[ name ];
+        this._entries.set(name, entry);
+      }
     }
     else {
       results.resultCode = 404;
