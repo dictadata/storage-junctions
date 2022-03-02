@@ -31,8 +31,10 @@ module.exports = exports = class Codex {
 
     try {
       if (options.smt) {
-        let encoding = options.encoding || codexEncoding;
-        this._junction = await storage.activate(options.smt, { encoding: encoding });
+        let junctionOptions = Object.assign({}, options.options);
+        if (!junctionOptions.encoding)
+          junctionOptions.encoding = codexEncoding;
+        this._junction = await storage.activate(options.smt, junctionOptions);
 
         // attempt to create accounts schema
         let results = await this._junction.createSchema();
