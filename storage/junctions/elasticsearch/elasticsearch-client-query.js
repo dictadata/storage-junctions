@@ -61,6 +61,8 @@ module.exports = exports = class ElasticQuery {
       var params = Object.assign({
         body: document
       }, this.elasticParams);
+      if (this.options.refresh)
+        params[ "refresh" ] = this.options.refresh;
       //logger.debug(JSON.stringify(params));
 
       this.client.index(params)
@@ -88,6 +90,8 @@ module.exports = exports = class ElasticQuery {
         id: uid ? uid : null,
         body: document
       }, this.elasticParams);
+      if (this.options.refresh)
+        params[ "refresh" ] = this.options.refresh;
 
       this.client.index(params)
         .then((response) => {
@@ -136,6 +140,8 @@ module.exports = exports = class ElasticQuery {
       var params = Object.assign({
         id: uid
       }, this.elasticParams);
+      if (this.options.refresh)
+        params[ "refresh" ] = this.options.refresh;
 
       this.client.delete(params)
         .then((response) => {
@@ -168,7 +174,7 @@ module.exports = exports = class ElasticQuery {
       let pairs = querystring.split('&');
       for (let pair of pairs) {
         let kv = pair.split('=');
-        params.body.query.match[kv[0]] = kv[1];
+        params.body.query.match[ kv[ 0 ] ] = kv[ 1 ];
       }
 
       this.client.search(params)
@@ -215,6 +221,8 @@ module.exports = exports = class ElasticQuery {
       var params = Object.assign({
         body: query
       }, this.elasticParams);
+      if (this.options.refresh)
+        params[ "refresh" ] = this.options.refresh;
 
       this.client.deleteByQuery(params)
         .then((response) => {
@@ -329,14 +337,14 @@ module.exports = exports = class ElasticQuery {
 
   /**
    * Create Index
-   * @param {config} index settings and mappings
+   * @param {options} index settings and mappings
    */
-  createIndex(config) {
+  createIndex(options) {
     logger.debug("elasticQuery createIndex");
     return new Promise((resolve, reject) => {
 
       var params = Object.assign({
-        body: config // {settings:..., mappings:...}
+        body: options // {settings:..., mappings:...}
       }, this.elasticParams);
       //logger.debug(JSON.stringify(params));
 
@@ -386,7 +394,7 @@ module.exports = exports = class ElasticQuery {
       this.client.indices.getMapping(params)
         .then((response) => {
           logger.debug("getTemplate", response);
-          let mappings = response.body[params.index].mappings._doc || response.body[params.index].mappings;
+          let mappings = response.body[ params.index ].mappings._doc || response.body[ params.index ].mappings;
           resolve(mappings);  // {mappings:{}}
         })
         .catch((error) => {
@@ -435,7 +443,7 @@ module.exports = exports = class ElasticQuery {
       this.client.indices.getTemplate(params)
         .then((response) => {
           logger.debug("getTemplate", response);
-          resolve(response[template_name]);
+          resolve(response[ template_name ]);
         })
         .catch((error) => {
           logger.debug(JSON.stringify(error.meta.body));

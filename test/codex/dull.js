@@ -56,5 +56,5 @@ async function test(schema) {
   await storage.codex.relax();
 
   // give Elasticsearch time to refresh its index
-  await new Promise((r) => setTimeout(r, 2000));
+  await new Promise((r) => setTimeout(r, 1100));
 })();

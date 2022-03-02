@@ -28,7 +28,10 @@ async function keystore() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
+      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
+      options: {
+        refresh: true
+      }
     },
     construct: {
       Foo: 'one',

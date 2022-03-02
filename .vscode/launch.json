@@ -393,6 +393,17 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "elasticsearch refresh",
+      "program": "${workspaceFolder}/test/elasticsearch/refresh.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "elasticsearch codify",
       "program": "${workspaceFolder}/test/elasticsearch/codify.js",
       "outputCapture": "std",

@@ -52,7 +52,18 @@ class ElasticsearchJunction extends StorageJunction {
   async activate() {
     this.isActive = true;
     this.storeCount = 0;
-    this.elasticQuery = new ElasticQuery({ node: this.smt.locus, index: this.smt.schema });
+
+    let queryOptions = {
+      node: this.smt.locus,
+      index: this.smt.schema
+    };
+    if (this.options.refresh) {
+      // refresh index on inserts
+      // note, slows down elasticsearch
+      queryOptions[ "refresh" ] = 'true';
+    }
+
+    this.elasticQuery = new ElasticQuery(queryOptions);
   }
 
   /**
