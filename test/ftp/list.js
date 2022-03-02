@@ -48,7 +48,7 @@ async function test_1() {
   logger.info("=== list tiger2020");
   if (await list({
     origin: {
-      smt: "json|ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
+      smt: "json|ftp://dicta:data@localhost/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
       options: {
         recursive: false
       }
