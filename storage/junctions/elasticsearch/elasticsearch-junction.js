@@ -99,18 +99,11 @@ class ElasticsearchJunction extends StorageJunction {
       let list = [];
 
       // get Lucene catalog list of indexes
-      let response = await this.elasticQuery.cat(schema);
-      // response is a table in one long string
+      let catalog = await this.elasticQuery.cat(schema);
       //logger.debug(response);
 
-      let lines = response.body.split('\n');
-      let headers = lines[ 0 ].split(/\s+/);
-      let i = headers.indexOf('index');
-
-      for (let n = 1; n < lines.length; n++) {
-        let values = lines[ n ].split(/\s+/);
-        if (values.length > i) // check for blank line
-          list.push(values[ i ]);
+      for (let entry of catalog) {
+        list.push(entry[ 'index' ]);
       }
 
       return new StorageResponse(0, null, list);
@@ -236,15 +229,15 @@ class ElasticsearchJunction extends StorageJunction {
         key = (pattern && pattern.key) || this.engram.get_uid(construct) || null;
         //logger.debug(key + " " + JSON.stringify(data));
         response = await this.elasticQuery.put(key, data);
-        key = response.body._id;
+        key = response._id;
       }
       else {
         response = await this.elasticQuery.insert(data);
-        key = response.body._id;
+        key = response._id;
       }
       this.storeCount++;
 
-      return new StorageResponse(response.statusCode, null, response.body.result, key);
+      return new StorageResponse(0, null, response.result, key);
     }
     catch (err) {
       logger.error(err.message);
@@ -271,9 +264,9 @@ class ElasticsearchJunction extends StorageJunction {
           throw new StorageError(400, "no storage key specified");
 
         let response = await this.elasticQuery.get(key);
-        key = response.body._id || true;
+        key = response._id || true;
 
-        return new StorageResponse(response.statusCode, null, response.body._source, key);
+        return new StorageResponse(0, null, response._source, key);
       }
       else if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
         // search by exact match
@@ -281,11 +274,11 @@ class ElasticsearchJunction extends StorageJunction {
 
         logger.verbose(JSON.stringify(dsl));
         let response = await this.elasticQuery.search(dsl);
-        let hits = response.body.hits.hits;
+        let hits = response.hits.hits;
         //let keys = (hits[0] && hits[0]._id);
 
-        if (response.body.hits.hits.length > 0)
-          return new StorageResponse(response.statusCode, null, hits[ 0 ]._source);
+        if (response.hits.hits.length > 0)
+          return new StorageResponse(0, null, hits[ 0 ]._source);
         else
           return new StorageResponse(404);
       }
@@ -320,12 +313,12 @@ class ElasticsearchJunction extends StorageJunction {
       if (pattern.aggregate) {
         // aggregation response
         let response = await this.elasticQuery.aggregate(dsl);
-        let constructs = dslEncoder.processAggregations(response.body.aggregations);
+        let constructs = dslEncoder.processAggregations(response.aggregations);
         storageResponse.add(constructs);
       }
       else {
         let response = await this.elasticQuery.search(dsl);
-        let hits = response.body.hits.hits;
+        let hits = response.hits.hits;
         for (var i = 0; i < hits.length; i++) {
           if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
             storageResponse.add(hits[ i ]._source, hits[ i ]._id);
@@ -381,11 +374,11 @@ class ElasticsearchJunction extends StorageJunction {
         logger.debug(response);
       }
 
-      let storageResponse = new StorageResponse(response.statusCode);
-      if (response.body.result)
-        storageResponse.add(response.body.result, key);
-      else if (response.body.deleted)
-        storageResponse.add(response.body.deleted, "deleted");
+      let storageResponse = new StorageResponse(0);
+      if (response.result)
+        storageResponse.add(response.result, key);
+      else if (response.hasOwnProperty("deleted"))
+        storageResponse.add(response.deleted, "deleted");
       return storageResponse;
     }
     catch (err) {

@@ -54,10 +54,10 @@ module.exports = exports = class ElasticQuery {
    * Insert a document into an index.
    * @param document The JSON document to index.
    **/
-  insert(document) {
+  async insert(document) {
     logger.debug("elasticQuery insert");
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({
         body: document
       }, this.elasticParams);
@@ -65,16 +65,13 @@ module.exports = exports = class ElasticQuery {
         params[ "refresh" ] = this.options.refresh;
       //logger.debug(JSON.stringify(params));
 
-      this.client.index(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-
-    });
+      let response = await this.client.index(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
@@ -82,10 +79,10 @@ module.exports = exports = class ElasticQuery {
    * @param uid Elastticseach document id
    * @param document The JSON document to index.
    **/
-  put(uid, document) {
+  async put(uid, document) {
     logger.debug("elasticQuery put " + uid);
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({
         id: uid ? uid : null,
         body: document
@@ -93,65 +90,57 @@ module.exports = exports = class ElasticQuery {
       if (this.options.refresh)
         params[ "refresh" ] = this.options.refresh;
 
-      this.client.index(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-
-    });
+      let response = await this.client.index(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Retrieve a document from ElasticSearch.
    * @param uid ElasticSearch document id.
    **/
-  get(uid) {
+  async get(uid) {
     logger.debug("elasticQuery get " + JSON.stringify(uid));
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({
         id: uid
       }, this.elasticParams);
 
-      this.client.get(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-
-    });
+      let response = await this.client.get(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Delete a document from ElasticSearch.
    * @param uid The ElasticSearch document id
    **/
-  delete(uid) {
+  async delete(uid) {
     logger.debug("elasticQuery delete");
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({
         id: uid
       }, this.elasticParams);
       if (this.options.refresh)
         params[ "refresh" ] = this.options.refresh;
 
-      this.client.delete(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.delete(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
@@ -159,10 +148,10 @@ module.exports = exports = class ElasticQuery {
    * @param querystring HTTP style querystring e.g. "field1=value1&field2=value2"
    * @returns Only returns the first hit without sorting
    **/
-  find(querystring) {
+  async find(querystring) {
     logger.debug("elasticQuery find");
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({
         body: {
           "query": {
@@ -177,69 +166,62 @@ module.exports = exports = class ElasticQuery {
         params.body.query.match[ kv[ 0 ] ] = kv[ 1 ];
       }
 
-      this.client.search(params)
-        .then((response) => {
-          //var hits = response.body.hits.hits;
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.search(params);
+      //var hits = response.body.hits.hits;
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Search for documents in ElasticSearch.
    * @param query Elasticsearch query document with query, filters, field list, etc.
    **/
-  search(query, params = {}) {
+  async search(query, params = {}) {
     logger.debug("elasticQuery search");
-    return new Promise((resolve, reject) => {
 
+    try {
       var _params = Object.assign({}, this.elasticParams, params, { body: query });
 
-      this.client.search(_params)
-        .then((response) => {
-          //var hits = response.body.hits.hits;
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.search(_params);
+      //var hits = response.hits.hits;
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Search for documents in ElasticSearch.
    * @param query Elasticsearch query document with query, filters, field list, etc.
    **/
-  deleteByQuery(query) {
-    return new Promise((resolve, reject) => {
-
+  async deleteByQuery(query) {
+    try {
       var params = Object.assign({
         body: query
       }, this.elasticParams);
       if (this.options.refresh)
         params[ "refresh" ] = this.options.refresh;
 
-      this.client.deleteByQuery(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.deleteByQuery(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * short-cut for deleteByQuery match_all
    */
-  truncate() {
-    return this.deleteByQuery({
+  async truncate() {
+    return await this.deleteByQuery({
       "query": {
         "match_all": {}
       }
@@ -250,22 +232,19 @@ module.exports = exports = class ElasticQuery {
    * Search for documents in ElasticSearch.
    * @param query Elasticsearch query document with query, filters, field list, etc.
    **/
-  aggregate(query) {
-    return new Promise((resolve, reject) => {
-
+  async aggregate(query) {
+    try {
       var params = Object.assign({
         body: query
       }, this.elasticParams);
 
-      this.client.search(params)
-        .then((response) => {
-          resolve(response); // body: { aggregations: [] }
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.search(params);
+      return response; // body: { aggregations: [] }
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /* ----------- Index and Server level functions --------- */
@@ -273,184 +252,164 @@ module.exports = exports = class ElasticQuery {
   /**
    * Ping elasticsearch service.
    **/
-  status() {
-    return new Promise((resolve, reject) => {
-
+  async status() {
+    try {
       var params = {
         requestTimeout: 5000
       };
 
-      this.client.ping()
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.ping(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Return of list of indices in the Lucene catalog
    * @param {*} indexes comma-separated list or wildcard expression of index names
    */
-  cat(index) {
-    return new Promise((resolve, reject) => {
+  async cat(index) {
 
+    try {
       var params = {
         index: index || '*',
+        format: 'json',
         v: true
       };
 
-      this.client.cat.indices(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.cat.indices(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
+
   }
 
   /**
    * Refresh all indices.
    **/
-  refresh(index) {
-    return new Promise((resolve, reject) => {
-
+  async refresh(index) {
+    try {
       var params = {
         index: index || "_all"
       };
 
-      this.client.indices.refresh(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.indices.refresh(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Create Index
    * @param {options} index settings and mappings
    */
-  createIndex(options) {
+  async createIndex(options) {
     logger.debug("elasticQuery createIndex");
-    return new Promise((resolve, reject) => {
+    try {
 
       var params = Object.assign({
         body: options // {settings:..., mappings:...}
       }, this.elasticParams);
       //logger.debug(JSON.stringify(params));
 
-      this.client.indices.create(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.indices.create(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Delete Index
    */
-  deleteIndex(indexName) {
+  async deleteIndex(indexName) {
     logger.debug("elasticQuery deleteIndex");
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({}, this.elasticParams);
       if (indexName) params.index = indexName;
 
-      this.client.indices.delete(params)
-        .then((response) => {
-          logger.debug("deleteIndex", response);
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.indices.delete(params);
+      logger.debug("deleteIndex", response);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Get Mappings
    */
-  getMapping() {
+  async getMapping() {
     logger.debug("elasticQuery getMapping");
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({}, this.elasticParams);
       //params.type = "_doc";
 
-      this.client.indices.getMapping(params)
-        .then((response) => {
-          logger.debug("getTemplate", response);
-          let mappings = response.body[ params.index ].mappings._doc || response.body[ params.index ].mappings;
-          resolve(mappings);  // {mappings:{}}
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-
-    });
+      let response = await this.client.indices.getMapping(params);
+      logger.debug("getTemplate", response);
+      let mappings = response[ params.index ].mappings._doc || response[ params.index ].mappings;
+      return mappings;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Put Mappings
    * @param mappings template name
    */
-  putMapping(mappings) {
+  async putMapping(mappings) {
     logger.debug("elasticQuery putMapping");
-    return new Promise((resolve, reject) => {
 
+    try {
       var params = Object.assign({
         body: mappings
       }, this.elasticParams);
 
-      this.client.indices.putMapping(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-
-    });
+      let response = await this.client.indices.putMapping(params);
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
    * Get template
    * @param template_name template name
    */
-  getTemplate(template_name) {
-    return new Promise((resolve, reject) => {
-
+  async getTemplate(template_name) {
+    try {
       var params = {
         name: template_name
       };
 
-      this.client.indices.getTemplate(params)
-        .then((response) => {
-          logger.debug("getTemplate", response);
-          resolve(response[ template_name ]);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-
-    });
+      let response = await this.client.indices.getTemplate(params);
+      logger.debug("getTemplate", response);
+      return response[ template_name ];
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
   /**
@@ -458,8 +417,8 @@ module.exports = exports = class ElasticQuery {
    * @param template_name template name
    * @param template_doc template document
    */
-  putTemplate(template_name, template_doc) {
-    return new Promise((resolve, reject) => {
+  async putTemplate(template_name, template_doc) {
+    try {
 
       var params = {
         order: 1,
@@ -468,15 +427,14 @@ module.exports = exports = class ElasticQuery {
         body: template_doc
       };
 
-      this.client.indices.putTemplate(params)
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          logger.debug(JSON.stringify(error.meta.body));
-          reject(error);
-        });
-    });
+      let response = await this.client.indices.putTemplate(params);
+
+      return response;
+    }
+    catch (error) {
+      logger.debug(JSON.stringify(error.meta.body));
+      throw error;
+    }
   }
 
 };

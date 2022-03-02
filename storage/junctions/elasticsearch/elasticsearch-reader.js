@@ -42,7 +42,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
       if (!this.started) {
         this.started = true;
         let dsl = dslEncoder.searchQuery(this.options);
-        let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams, { body: dsl, size: size, sort: ["_doc"] });
+        let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams, { body: dsl, size: size, sort: [ "_doc" ] });
         //logger.debug(JSON.stringify(params));
         response = await this.elasticQuery.client.search(params);
       }
@@ -50,17 +50,17 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
         response = await this.elasticQuery.client.scroll(this.scrollParams);
       }
 
-      this.scrollParams.scrollId = response.body._scroll_id;
-      const hits = response.body.hits.hits;
+      this.scrollParams.scroll_id = response._scroll_id;
+      const hits = response.hits.hits;
 
       for (const hit of hits) {
         this.push(hit._source);
       }
 
-      if (hits.length === 0 || !response.body._scroll_id) {
+      if (hits.length === 0 || !response._scroll_id) {
         // release scroll resources on the elasticsearch node
-        this.elasticQuery.client.clearScroll({ scrollId: this.scrollParams.scrollId });
-        delete this.scrollParams.scrollId;
+        this.elasticQuery.client.clearScroll({ scroll_id: this.scrollParams.scroll_id });
+        delete this.scrollParams.scroll_id;
         this.push(null); // done
       }
     }

@@ -21,7 +21,7 @@ async function noRefresh() {
 
     let construct = {
       Foo: 'hundred',
-      Bar: 'Washington',
+      Bar: 'buckaroos',
       Baz: 1,
       Fobe: 1.1,
       "Dt Test": "10/07/2018",
@@ -34,7 +34,7 @@ async function noRefresh() {
     logger.info("=== elasticsearch retrieve");
     results = await junction.retrieve({
       match: {
-        "Bar": { 'wc': 'Wash*' }
+        "Bar": { 'wc': 'Buck*' }
       },
       order: { "Foo": "asc" }
     });
@@ -57,7 +57,7 @@ async function noRefresh() {
     retCode = 1;
   }
   finally {
-    junction.relax();
+    await junction.relax();
   }
 
   return retCode;
@@ -74,7 +74,7 @@ async function withRefresh() {
 
     let construct = {
       Foo: 'hundred',
-      Bar: 'Washington',
+      Bar: 'Buckaroos',
       Baz: 1,
       Fobe: 1.1,
       "Dt Test": "10/07/2018",
@@ -87,7 +87,7 @@ async function withRefresh() {
     logger.info("=== elasticsearch retrieve");
     results = await junction.retrieve({
       match: {
-        "Bar": { 'wc': 'Wash*' }
+        "Bar": { 'wc': 'Buck*' }
       },
       order: { "Foo": "asc" }
     });
@@ -110,7 +110,7 @@ async function withRefresh() {
     retCode = 1;
   }
   finally {
-    junction.relax();
+    await junction.relax();
   }
 
   return retCode;

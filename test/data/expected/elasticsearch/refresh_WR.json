@@ -4,15 +4,7 @@
   "data": {
     "hundred": {
       "Foo": "hundred",
-      "Bar": "Washington",
-      "Baz": 1,
-      "Fobe": 1.1,
-      "Dt Test": "2018-10-07T07:00:00.000Z",
-      "enabled": false
-    },
-    "one": {
-      "Foo": "one",
-      "Bar": "Washington",
+      "Bar": "Buckaroos",
       "Baz": 1,
       "Fobe": 1.1,
       "Dt Test": "2018-10-07T07:00:00.000Z",
