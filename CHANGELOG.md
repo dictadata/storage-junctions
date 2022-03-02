@@ -1,5 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.0.7
+  - bug fix: check results before caching during recall()
+  - add automatic index refresh option to elasticsearch junction
+  - only test local ftp site
 - version 2.0.6
   - bug fix: MySQL create new StorageError()
 - version 2.0.5
