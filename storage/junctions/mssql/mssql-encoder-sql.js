@@ -24,7 +24,8 @@ exports.connectionConfig = (options) => {
       appName: options.appName || 'mssql-junction',
       database: options.database || '',
       useColumnNames: true,
-      validateBulkLoadParameters: true
+      validateBulkLoadParameters: true,
+      trustServerCertificate: false
       // should look for other connection options
     },
   };
