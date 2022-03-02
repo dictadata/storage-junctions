@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.0.8
+  - bug fix: passing options thru codex to underlying junction
 - version 2.0.7
   - bug fix: check results before caching during recall()
   - add automatic index refresh option to elasticsearch junction
