@@ -130,22 +130,23 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Copy all src properties to dst object.
+   * Copy/replace src properties in dst object.
    * Deep copy of object properties and top level arrays.
    * Shallow copy of reference types like Date, sub-arrays, etc.
+   * Objects and arrays will be replaced not merged!
    * Does not copy functions.
-   * Note, recursive function.
+   * Note, this is a recursive function.
    * @param {Engram} dst
    * @param {Engram} src
    */
   static _copy(dst, src) {
     for (let [ key, value ] of Object.entries(src)) {
       if (typeOf(value) === "object") { // fields, ...
-        dst[ key ] = {};
+        dst[ key ] = {};  // replace
         Engram._copy(dst[ key ], value);
       }
       else if (typeOf(value) === "array") {
-        dst[ key ] = [];
+        dst[ key ] = [];  // replace
         for (let item of value)
           if (typeOf(item) === "object")
             dst[ key ].push(Engram._copy({}, item));
