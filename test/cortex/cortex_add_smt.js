@@ -1,8 +1,8 @@
 /**
- * test/codex/add_smt
+ * test/cortex/add_smt
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
+ *   use cortex with Elasticsearch junction
  *   add entries for test data sources:
  *     Elasticsearch, MySQL, MSSQL, JSON file
  */
@@ -13,19 +13,19 @@ const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
-logger.info("=== Tests: codex store");
+logger.info("=== Tests: cortex store");
 
 var encoding;
 
 async function init() {
   try {
-    // activate codex
-    let codex = new storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+    // activate cortex
+    let cortex = new storage.Cortex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_cortex|!name"
     });
 
-    await codex.activate();
-    storage.codex = codex;
+    await cortex.activate();
+    storage.cortex = cortex;
 
     // read foo_schema encoding
     encoding = JSON.parse(fs.readFileSync("./test/data/input/foo_schema.encoding.json", "utf8"));
@@ -46,7 +46,7 @@ async function test(smt_name, smt) {
     let engram = new Engram(smt);
     engram.name = smt_name;
     engram.encoding = encoding;
-    let results = await storage.codex.store(engram.encoding);
+    let results = await storage.cortex.store(engram.encoding);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
@@ -75,5 +75,5 @@ async function test(smt_name, smt) {
     "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"))
     return 1;
 
-  await storage.codex.relax();
+  await storage.cortex.relax();
 })();

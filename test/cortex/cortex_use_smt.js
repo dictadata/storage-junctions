@@ -1,8 +1,8 @@
 /**
- * test/codex/use_smt
+ * test/cortex/use_smt
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
+ *   use cortex with Elasticsearch junction
  *   create junction using SMT name(s)
  *   use junction to retrieve data
  *   compare results with expected output
@@ -16,17 +16,17 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex store");
+logger.info("=== Tests: cortex store");
 
 async function init() {
   try {
-    // activate codex
-    let codex = new storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+    // activate cortex
+    let cortex = new storage.Cortex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_cortex|!name"
     });
 
-    await codex.activate();
-    storage.codex = codex;
+    await cortex.activate();
+    storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -42,7 +42,7 @@ async function test(smt_name) {
     // create junction
     let junction = await storage.activate(smt_name);
 
-    // retrieve codex entries
+    // retrieve cortex entries
     let results = await junction.retrieve({
       match: {
         "Bar": {
@@ -51,7 +51,7 @@ async function test(smt_name) {
       }
     });
 
-    let outputfile = "./test/data/output/codex/" + smt_name + ".json";
+    let outputfile = "./test/data/output/cortex/" + smt_name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");
@@ -78,5 +78,5 @@ async function test(smt_name) {
   if (await test("mssql-foo_schema")) return 1;
   if (await test("mysql-foo_schema")) return 1;
 
-  await storage.codex.relax();
+  await storage.cortex.relax();
 })();

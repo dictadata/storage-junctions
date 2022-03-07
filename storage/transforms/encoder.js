@@ -5,7 +5,7 @@
  * into storage field encodings.
  */
 
-const cortex = require("../cortex");
+const Storage = require("../storage");
 const { StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
@@ -36,16 +36,16 @@ module.exports = exports = class EncoderTransform extends Transform {
     this.options = Object.assign({}, options);
 
     if (!hasOwnProperty(options, "junction"))
-      throw new StorageError( 400, "options.junction not defined");
+      throw new StorageError(400, "options.junction not defined");
 
-    let junction = cortex._storageJunctions.get(options.junction);
+    let junction = Storage._storageJunctions.get(options.junction);
     if (junction)
       if (hasOwnProperty(junction, "encoder"))
         this.encoder = junction.encoder;
       else
         throw new StorageError(400, "Junction does not have encoder " + options.junction);
     else
-      throw new StorageError( 404, "Junction not found " + options.junction);
+      throw new StorageError(404, "Junction not found " + options.junction);
   }
 
   /**
@@ -74,7 +74,7 @@ module.exports = exports = class EncoderTransform extends Transform {
     callback();
   }
 
-    async _final(callback) {
+  async _final(callback) {
     logger.debug("encoder _final");
 
     // push some final object(s)

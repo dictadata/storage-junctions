@@ -1,26 +1,26 @@
 /**
- * test/codex/dull
+ * test/cortex/dull
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
- *   dull entry for "foo_schema_two" in codex
+ *   use cortex with Elasticsearch junction
+ *   dull entry for "foo_schema_two" in cortex
  */
 "use strict";
 
 const storage = require("../../storage");
 const { logger } = require("../../storage/utils");
 
-logger.info("=== Tests: codex dull");
+logger.info("=== Tests: cortex dull");
 
 async function init() {
   try {
-    // activate codex
-    let codex = new storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+    // activate cortex
+    let cortex = new storage.Cortex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_cortex|!name"
     });
 
-    await codex.activate();
-    storage.codex = codex;
+    await cortex.activate();
+    storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -34,7 +34,7 @@ async function test(schema) {
     logger.verbose('=== ' + schema);
 
     // dull encoding
-    let results = await storage.codex.dull(schema);
+    let results = await storage.cortex.dull(schema);
     logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
@@ -53,7 +53,7 @@ async function test(schema) {
 
   if (await test("foo_schema_two")) return 1;
 
-  await storage.codex.relax();
+  await storage.cortex.relax();
 
   // give Elasticsearch time to refresh its index
   await new Promise((r) => setTimeout(r, 1100));

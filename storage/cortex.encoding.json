@@ -1,15 +1,15 @@
 {
-  "name": "codex_entry",
+  "name": "cortex_entry",
   "type": "engram",
-  "description": "encoding of a codex entry",
+  "description": "encoding of a cortex entry",
   "tags": [
-    "codex",
+    "cortex",
     "encoding"
   ],
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "codex_entry",
+    "schema": "cortex_entry",
     "key": "!name"
   },
   "fields": [

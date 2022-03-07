@@ -1,7 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
 - version 2.0.8
-  - bug fix: passing options thru codex to underlying junction
+  - bug fix: passing options thru cortex to underlying junction
   - update dependencies for tedious and elasticsearch client
 - version 2.0.7
   - bug fix: check results before caching during recall()
@@ -12,18 +12,18 @@
 - version 2.0.5
   - bug fixes: stream error handling; use of field.name property
 - version 2.0.4
-  - fix bug in recall codex entry from cache
+  - fix bug in recall cortex entry from cache
 - version 2.0.3
-  - fix codex methods to return results object
+  - fix cortex methods to return results object
 - version 2.0.2
-  - cortex/codex integration testing and updates
+  - cortex/storage integration testing and updates
 - version 2.0.1
   - improve logic in Engram.encoding setter
 - version 2.0.0
-  - implement Codex class
+  - implement Cortex class
   - change encoding fields to an array
-  - define codex storage: codex.encoding.json
-  - store codex entries in Elasticsearch
+  - define cortex storage: cortex.encoding.json
+  - store cortex entries in Elasticsearch
 - version 1.8.6
   - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint  
 - version 1.8.5

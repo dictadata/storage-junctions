@@ -1,133 +1,161 @@
 /**
  * storage/cortex
  *
- * A strategy for creating a storage node given a storage path.
- *
+ * Cortex is a data directory and catalog.
+ * An underlying StorageJunction is used for permanent storage.
+ * A simple memory cache (Map) is implemented.
  */
 "use strict";
 
-const { ERROR_CODES } = require("promise-ftp");
-const { parseSMT, StorageError } = require("./types");
-//const { typeOf, hasOwnProperty } = require("./utils");
-//const { Codex } = require("./codex");
+const storage = require("./index");
+const { StorageError } = require("./types");
+const logger = require("./utils/logger");
 
-class Cortex {
+const cortexEncoding = require("./cortex.encoding.json");
 
-  /**
+module.exports = exports = class Cortex {
 
-   */
-  static set codex(codex) {
-    Cortex._codex = codex;
+  constructor(options = {}) {
+    this.options = options || {};
+
+    this._entries = new Map();
+    this._active = false;
+    this._junction = null;
   }
 
-  static get codex() {
-    return Cortex._codex;
+  get isActive() {
+    return this._active;
   }
 
-  static use(model, storageJunctionClass) {
-    Cortex._storageJunctions.set(model, storageJunctionClass);
-  }
+  async activate(options = {}) {
+    options = Object.assign({}, this.options, options);
 
-  static async activate(SMT, options) {
-    if (!options) options = {};
-    let smt = {};
-    let entry;
+    try {
+      if (options.smt) {
+        let junctionOptions = Object.assign({}, options.options);
+        if (!junctionOptions.encoding)
+          junctionOptions.encoding = cortexEncoding;
+        this._junction = await storage.activate(options.smt, junctionOptions);
 
-    if (typeof SMT === "string" && SMT.indexOf('|') < 0 && Cortex._codex) {
-      let results = await Cortex._codex.recall(SMT);
-      entry = results.data[ SMT ];
-      smt = entry.smt;
-      if (!options.encoding) options.encoding = entry;
+        // attempt to create accounts schema
+        let results = await this._junction.createSchema();
+        if (results.resultCode === 0) {
+          logger.info("created cortex schema");
+        }
+        else if (results.resultCode === 409) {
+          logger.verbose("cortex schema exists");
+        }
+        else {
+          throw new StorageError(500, "unable to create cortex schema");
+        }
+        this._active = true;
+      }
     }
-    else
-      smt = parseSMT(SMT);
-
-    if (Cortex._storageJunctions.has(smt.model)) {
-      let junctionClass = Cortex._storageJunctions.get(smt.model);
-      let junction = new junctionClass(smt, options);
-      await junction.activate();
-      return junction;
+    catch (err) {
+      logger.error('cortex activate failed: ', err);
     }
-    else
-      throw new StorageError(400, "Unknown smt.model: " + smt.model);
+
+    return this._active;
   }
 
-  static async relax(junction) {
-    // developers should call this instead of junction.relax()
-    // could implement some pool or tracking or something here
-
-    if (junction && junction.relax) await junction.relax();
+  async relax() {
+    this._active = false;
+    if (this._junction)
+      await this._junction.relax();
   }
 
-}
+  async store(entry) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
 
-class Transforms {
+    // save in cache
+    this._entries.set(entry.name, entry);
 
-  static use(tfType, transformClass) {
-    // need to do some validation
-    Transforms._transforms.set(tfType, transformClass);
-  }
-
-  static create(tfType, options) {
-    if (!tfType)
-      throw new StorageError(400, "invalid transform type");
-
-    if (Transforms._transforms.has(tfType)) {
-      let transform = new (Transforms._transforms.get(tfType))(options);
-      return transform;
+    if (this._junction) {
+      // save in source cortex
+      results = await this._junction.store(entry);
+      logger.verbose(results.resultCode);
     }
-    else
-      throw new StorageError(400, "Unknown transform type: " + tfType);
+
+    return results;
   }
 
-}
+  async dull(options) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
 
-class FileSystems {
+    let name = options.name || options;
 
-  /**
-   * register filesystem prefix with a filesystem class
-   * @param {string} fsPrefix filesystem prefix like file, http, ftp, s3, ...
-   * @param {StorageFileSystem} FileSystemsClass
-   */
-  static use(fsPrefix, FileSystemsClass) {
-    // need to do some validation
-    FileSystems._fileSystems.set(fsPrefix, FileSystemsClass);
-  }
-
-  static async activate(smt, options) {
-    if (!smt)
-      throw new StorageError(400, "invalid smt");
-
-    let fsPrefix = 'file';
-    if (smt.locus.indexOf(':') > 1)
-      fsPrefix = smt.locus.split(':')[ 0 ].toLowerCase();
-
-    if (FileSystems._fileSystems.has(fsPrefix)) {
-      let stfs = new (FileSystems._fileSystems.get(fsPrefix))(smt, options);
-      await stfs.activate();
-      return stfs;
+    if (this._entries.has(name)) {
+      // delete from cache
+      if (!this._entries.delete(name)) {
+        results.resultCode = 500;
+        results.resultText = "map delete error";
+      }
     }
-    else
-      throw new StorageError(400, "Unknown FileSystem type: " + fsPrefix);
+
+    if (this._junction) {
+      // delete from source cortex
+      results = await this._junction.dull({ key: name });
+    }
+
+    return results;
   }
 
-  static async relax(stfs) {
-    if (stfs && stfs.relax) await stfs.relax();
+  async recall(options) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK",
+      data: {}
+    };
+
+    let name = options.name || options;
+    if (this._entries.has(name)) {
+      // entry has been cached
+      let entry = this._entries.get(name);
+      results.data[ name ] = entry;
+    }
+    else if (this._junction) {
+      // go to the source cortex
+      results = await this._junction.recall({ key: name });
+      logger.verbose(results.resultCode);
+
+      // cache entry
+      if (results.resultCode === 0) {
+        let entry = results.data[ name ];
+        this._entries.set(name, entry);
+      }
+    }
+    else {
+      results.resultCode = 404;
+      results.resultText = "Not Found";
+    }
+
+    return results;
   }
 
-}
+  async retrieve(pattern) {
+    let results = {
+      resultCode: 0,
+      resultText: "OK"
+    };
 
-// Cortex static properties
-Cortex._codex = null;
+    if (this._junction) {
+      // retrieve list from source cortex
+      results = await this._junction.retrieve(pattern);
+      logger.verbose(results.resultCode);
 
-Cortex._storageJunctions = new Map();
+      // current design does not caching entries from retrieved list
+    }
+    else {
+      results.resultCode = 503;
+      results.resultText = "Cortex Unavailable";
+    }
 
-// Transforms static properties
-Transforms._transforms = new Map();
-Cortex.Transforms = Transforms;
-
-// FileSystems static properties
-FileSystems._fileSystems = new Map();
-Cortex.FileSystems = FileSystems;
-
-module.exports = exports = Cortex;
+    return results;
+  }
+};

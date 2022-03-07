@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const Cortex = require("../../cortex");
+const Storage = require("../../storage");
 const { Engram, StorageError } = require("../../types");
 const { hasOwnProperty, logger } = require("../../utils");
 
@@ -45,10 +45,10 @@ class SplitterJunction extends StorageJunction {
     this._writerClass = SplitterWriter;
 
     if (!hasOwnProperty(this.options, "tract"))
-      throw new StorageError( 400, "tract not defined in terminal.options");
+      throw new StorageError(400, "tract not defined in terminal.options");
     this.split_tract = this.options.tract;
     if (!hasOwnProperty(this.split_tract, "terminal"))
-      throw new StorageError( 400, "terminal not defined in terminal.options.tract");
+      throw new StorageError(400, "terminal not defined in terminal.options.tract");
 
     this.split_junctions = {};
     this.split_streams = {};
@@ -76,15 +76,15 @@ class SplitterJunction extends StorageJunction {
 
   async endTractStream() {
     for (let ss of Object.values(this.split_streams)) {
-      await ss.pipes[0].end(null);
+      await ss.pipes[ 0 ].end(null);
     }
   }
 
   async getTractStream(sname) {
     logger.debug("SplitterJunction createTract");
 
-    if (hasOwnProperty(this.split_junctions,sname))
-      return this.split_streams[sname].pipes[0];
+    if (hasOwnProperty(this.split_junctions, sname))
+      return this.split_streams[ sname ].pipes[ 0 ];
 
     // create pipeline
     let pipes = [];
@@ -92,7 +92,7 @@ class SplitterJunction extends StorageJunction {
     // add transforms, if any
     if (hasOwnProperty(this.split_tract, "transform") || hasOwnProperty(this.split_tract, "transforms")) {
       let transforms = this.split_tract.transform || this.split_tract.transforms || {};
-      for (let [tfType, tfOptions] of Object.entries(transforms)) {
+      for (let [ tfType, tfOptions ] of Object.entries(transforms)) {
         pipes.push(await this.createTransform(tfType, tfOptions));
       }
     }
@@ -111,18 +111,18 @@ class SplitterJunction extends StorageJunction {
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
     // attempt to create destination schema
-    let junction = this.split_junctions[sname] = await Cortex.activate(smt, terminal.options);
+    let junction = this.split_junctions[ sname ] = await Storage.activate(smt, terminal.options);
     if (junction.capabilities.encoding)
       await junction.createSchema();
 
     pipes.push(await junction.createWriter());
 
     // pipeline is ready
-    this.split_streams[sname] = {
+    this.split_streams[ sname ] = {
       pipes: pipes,
       pipeline: stream.pipeline(pipes)
     }
-    return pipes[0];
+    return pipes[ 0 ];
   }
 
   /**

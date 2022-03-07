@@ -1,10 +1,10 @@
 /**
- * test/codex/retrieve
+ * test/cortex/recall
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
- *   retreive all entries starting with foo_schema*
- *   compare results to expected codex entries
+ *   use cortex with Elasticsearch junction
+ *   recall entry for foo_schema
+ *   compare results to expected foo_schema encoding
  */
 "use strict";
 
@@ -15,17 +15,17 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex retrieve");
+logger.info("=== Tests: cortex recall");
 
 async function init() {
   try {
-    // activate codex
-    let codex = new storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+    // activate cortex
+    let cortex = new storage.Cortex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_cortex|!name"
     });
 
-    await codex.activate();
-    storage.codex = codex;
+    await cortex.activate();
+    storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -38,19 +38,15 @@ async function test(schema) {
   try {
     logger.verbose('=== ' + schema);
 
-    // retrieve codex entries
-    let results = await storage.codex.retrieve({
-      match: {
-        "name": {
-          wc: "foo_schema*"
-        }
-      }
-    });
+    // recall cortex entry
+    let results = await storage.cortex.recall(schema);
+    logger.verbose(JSON.stringify(results, null, "  "));
+    let encoding = results.data[ schema ];
 
-    let outputfile = "./test/data/output/codex/retrieve_" + schema + ".encoding.json";
+    let outputfile = "./test/data/output/cortex/recall_" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-    fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");
+    fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
 
     // compare to expected output
     let expected_output = outputfile.replace("output", "expected");
@@ -69,5 +65,6 @@ async function test(schema) {
 
   if (await test("foo_schema")) return 1;
 
-  await storage.codex.relax();
+  await storage.cortex.relax();
 })();
+
