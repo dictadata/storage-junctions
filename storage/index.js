@@ -3,10 +3,10 @@
  *
  * This module is a "superset" of Storage module.
  *
- * Exposes class types for:
- *   Cortex, StorageJunction, Transform, FileSystem
+ * Exposes additional class types for:
+ *   Cortex, StorageJunction, Transforms, FileSystems
  *
- * Exposes registeries for standard implementations for
+ * Registers standard class implementations of:
  *   StorageJunctions, Transforms, FileSystems
  */
 "use strict";

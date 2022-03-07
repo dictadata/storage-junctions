@@ -1,7 +1,8 @@
 /**
  * storage/cortex
  *
- * Cortex is a data directory and catalog.
+ * Cortex is a data directory and catalog for SMT cords.
+ *
  * An underlying StorageJunction is used for permanent storage.
  * A simple memory cache (Map) is implemented.
  */
@@ -18,7 +19,7 @@ module.exports = exports = class Cortex {
   constructor(options = {}) {
     this.options = options || {};
 
-    this._entries = new Map();
+    this._cords = new Map();
     this._active = false;
     this._junction = null;
   }
@@ -71,7 +72,7 @@ module.exports = exports = class Cortex {
     };
 
     // save in cache
-    this._entries.set(entry.name, entry);
+    this._cords.set(entry.name, entry);
 
     if (this._junction) {
       // save in source cortex
@@ -90,9 +91,9 @@ module.exports = exports = class Cortex {
 
     let name = options.name || options;
 
-    if (this._entries.has(name)) {
+    if (this._cords.has(name)) {
       // delete from cache
-      if (!this._entries.delete(name)) {
+      if (!this._cords.delete(name)) {
         results.resultCode = 500;
         results.resultText = "map delete error";
       }
@@ -114,9 +115,9 @@ module.exports = exports = class Cortex {
     };
 
     let name = options.name || options;
-    if (this._entries.has(name)) {
+    if (this._cords.has(name)) {
       // entry has been cached
-      let entry = this._entries.get(name);
+      let entry = this._cords.get(name);
       results.data[ name ] = entry;
     }
     else if (this._junction) {
@@ -127,7 +128,7 @@ module.exports = exports = class Cortex {
       // cache entry
       if (results.resultCode === 0) {
         let entry = results.data[ name ];
-        this._entries.set(name, entry);
+        this._cords.set(name, entry);
       }
     }
     else {
@@ -149,7 +150,7 @@ module.exports = exports = class Cortex {
       results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
 
-      // current design does not caching entries from retrieved list
+      // current design does not caching cords from retrieved list
     }
     else {
       results.resultCode = 503;
