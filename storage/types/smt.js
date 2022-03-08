@@ -1,4 +1,8 @@
-// storage/types/smt
+/** storage/types/smt
+ *
+ * Storage Memory Trace (SMT) is a string representing a storage memory locus.
+ *   smt: 'model|locus|schema|key'
+ */
 "use strict";
 
 const StorageError = require('./storage-error');
