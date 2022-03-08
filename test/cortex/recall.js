@@ -3,7 +3,7 @@
  *
  * Test Outline:
  *   use cortex with Elasticsearch junction
- *   recall entry for foo_schema
+ *   recall engram definition for foo_schema
  *   compare results to expected foo_schema encoding
  */
 "use strict";
@@ -38,7 +38,7 @@ async function test(schema) {
   try {
     logger.verbose('=== ' + schema);
 
-    // recall cortex entry
+    // recall engram definition
     let results = await storage.cortex.recall(schema);
     logger.verbose(JSON.stringify(results, null, "  "));
     let encoding = results.data[ schema ];

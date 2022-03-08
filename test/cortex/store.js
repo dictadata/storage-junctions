@@ -4,7 +4,7 @@
  * Test Outline:
  *   use cortex with Elasticsearch junction
  *   read encoding(s) from file
- *   store entry(s) in cortex
+ *   store engram(s) in cortex
  */
 "use strict";
 

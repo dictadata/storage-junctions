@@ -2,8 +2,8 @@
  * test/cortex/add_smt
  *
  * Test Outline:
- *   use cortex with Elasticsearch junction
- *   add entries for test data sources:
+ *   use cortex with underlying Elasticsearch junction
+ *   add engram definitions for test data sources:
  *     Elasticsearch, MySQL, MSSQL, JSON file
  */
 "use strict";

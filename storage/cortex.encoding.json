@@ -1,5 +1,5 @@
 {
-  "name": "cortex_entry",
+  "name": "cortex_engram",
   "type": "engram",
   "description": "cortex SMT encoding",
   "tags": [
@@ -9,7 +9,7 @@
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "cortex_entry",
+    "schema": "cortex_engram",
     "key": "!name"
   },
   "fields": [

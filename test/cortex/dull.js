@@ -3,7 +3,7 @@
  *
  * Test Outline:
  *   use cortex with Elasticsearch junction
- *   dull entry for "foo_schema_two" in cortex
+ *   dull engram definition for "foo_schema_two" in cortex
  */
 "use strict";
 

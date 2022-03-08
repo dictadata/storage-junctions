@@ -4,9 +4,9 @@
  * Test Outline:
  *   Uses cortex with Memory Junction
  *   read encoding(s) from file
- *   store encoding(s) in cortex
- *   recall encoding(s) from cortex
- *   compare results with expected SMT encoding
+ *   store engram definition(s) in cortex
+ *   recall engrams(s) from cortex
+ *   compare results with expected SMT engram definitions
  */
 "use strict";
 

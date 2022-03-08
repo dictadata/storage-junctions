@@ -1,10 +1,10 @@
 /**
  * storage/cortex
  *
- * Cortex is a data directory and catalog for SMT encodings.
+ * Cortex is a data directory and dictionary of SMT engram definitions.
  *
- * An underlying StorageJunction is used for permanent storage.
- * A simple memory cache (Map) is implemented.
+ * An underlying StorageJunction can be used for permanent storage.
+ * A simple cache is implemented with a Map.
  */
 "use strict";
 
@@ -19,7 +19,7 @@ module.exports = exports = class Cortex {
   constructor(options = {}) {
     this.options = options || {};
 
-    this._encodings = new Map();
+    this._engrams = new Map();
     this._active = false;
     this._junction = null;
   }
@@ -65,18 +65,18 @@ module.exports = exports = class Cortex {
       await this._junction.relax();
   }
 
-  async store(encoding) {
+  async store(engram) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
 
     // save in cache
-    this._encodings.set(encoding.name, encoding);
+    this._engrams.set(engram.name, engram);
 
     if (this._junction) {
       // save in source cortex
-      results = await this._junction.store(encoding);
+      results = await this._junction.store(engram);
       logger.verbose(results.resultCode);
     }
 
@@ -91,9 +91,9 @@ module.exports = exports = class Cortex {
 
     let name = options.name || options;
 
-    if (this._encodings.has(name)) {
+    if (this._engrams.has(name)) {
       // delete from cache
-      if (!this._encodings.delete(name)) {
+      if (!this._engrams.delete(name)) {
         results.resultCode = 500;
         results.resultText = "map delete error";
       }
@@ -115,20 +115,20 @@ module.exports = exports = class Cortex {
     };
 
     let name = options.name || options;
-    if (this._encodings.has(name)) {
-      // encoding has been cached
-      let encoding = this._encodings.get(name);
-      results.data[ name ] = encoding;
+    if (this._engrams.has(name)) {
+      // engram has been cached
+      let engram = this._engrams.get(name);
+      results.data[ name ] = engram;
     }
     else if (this._junction) {
       // go to the source cortex
       results = await this._junction.recall({ key: name });
       logger.verbose(results.resultCode);
 
-      // cache encoding entry
+      // cache engram definition
       if (results.resultCode === 0) {
-        let encoding = results.data[ name ];
-        this._encodings.set(name, encoding);
+        let engram = results.data[ name ];
+        this._engrams.set(name, engram);
       }
     }
     else {
@@ -150,7 +150,7 @@ module.exports = exports = class Cortex {
       results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
 
-      // current design does not caching encodings from retrieved list
+      // current design does not cache engrams from retrieved list
     }
     else {
       results.resultCode = 503;
