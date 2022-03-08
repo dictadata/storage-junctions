@@ -12,7 +12,7 @@
 "use strict";
 
 const Field = require('./field');
-const parseSMT = require('./parseSMT');
+const SMT = require('./smt');
 const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty, getCI } = require("../utils");
 
@@ -27,11 +27,11 @@ module.exports = exports = class Engram {
   constructor(encoding) {
     let smt = {};
     if (typeOf(encoding) === "object" && hasOwnProperty(encoding, "smt")) {
-      smt = parseSMT(encoding.smt);
+      smt = new SMT(encoding.smt);
     }
     else {
       // assume the parameter is an SMT object or SMT string
-      smt = parseSMT(encoding);
+      smt = new SMT(encoding);
       // convert to empty Encoding object
       encoding = { smt: smt };
     }
@@ -82,7 +82,7 @@ module.exports = exports = class Engram {
     this.merge(encoding);
     /*
         if (encoding && encoding.smt) {
-          let smt = parseSMT(encoding.smt);
+          let smt = new SMT(encoding.smt);
           this.smt.key = smt.key;
         }
     */

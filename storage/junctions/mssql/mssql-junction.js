@@ -37,11 +37,11 @@ class MSSQLJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'mssql|server=address;userName=name;password=xyz;database=dbname;...|table|key' or an Engram object
+   * @param {*} smt 'mssql|server=address;userName=name;password=xyz;database=dbname;...|table|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("MSSQLJunction");
 
     // parse database connection string into options

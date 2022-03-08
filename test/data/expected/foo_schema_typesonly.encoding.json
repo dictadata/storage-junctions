@@ -21,7 +21,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-
       "label": "Bar"
     },
     "Baz": {
@@ -30,7 +29,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-
       "label": "Baz"
     },
     "Fobe": {
@@ -39,7 +37,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-
       "label": "Fobe"
     },
     "Dt Test": {
@@ -48,7 +45,6 @@
       "size": 0,
       "default": null,
       "nullable": true,
-
       "label": "Dt Test"
     },
     "enabled": {
@@ -57,9 +53,8 @@
       "size": 0,
       "default": null,
       "nullable": true,
-
       "label": "enabled"
     }
   },
-  "_SMT": "echo|*|*|*"
+  "SMT": "echo|*|*|*"
 }

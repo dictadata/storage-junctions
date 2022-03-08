@@ -32,11 +32,11 @@ class RESTJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'rest|host|endpoint|key' or an Engram object
+   * @param {*} smt 'rest|host|endpoint|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("RESTJunction");
 
     //this.cookies = [];
@@ -99,7 +99,7 @@ class RESTJunction extends StorageJunction {
    */
   async store(construct, pattern) {
     if (typeOf(construct) !== "object")
-      throw new StorageError( 400, "Invalid parameter: construct is not an object");
+      throw new StorageError(400, "Invalid parameter: construct is not an object");
 
     try {
       throw new StorageError(501);
@@ -145,7 +145,7 @@ class RESTJunction extends StorageJunction {
       let response = await httpRequest(url, request, data);
 
       let results;
-      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
+      if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
         results = JSON.parse(response.data);
       else
         results = response.data;
@@ -197,7 +197,7 @@ class RESTJunction extends StorageJunction {
       let response = await httpRequest(url, request, data);
 
       let results;
-      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
+      if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
         results = JSON.parse(response.data);
       else
         results = response.data;

@@ -35,11 +35,11 @@ class MemoryJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'memory|locus|schema|key' or an Engram object
+   * @param {*} smt 'memory|locus|schema|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("MemoryJunction");
 
     this.storage_key = this.smt.locus + "_" + this.smt.schema;

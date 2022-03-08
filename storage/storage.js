@@ -9,7 +9,7 @@
  */
 "use strict";
 
-const { parseSMT, StorageError } = require("./types");
+const { SMT, StorageError } = require("./types");
 //const { typeOf, hasOwnProperty } = require("./utils");
 
 class Storage {
@@ -43,32 +43,35 @@ class Storage {
   /**
    * Activate a StorageJunction given an SMT.
    *
-   * @param {*} SMT an SMT name, SMT string or SMT object
+   * @param {*} smt an SMT name, SMT string or SMT object
    * @param {*} options
    * @returns
    */
-  static async activate(SMT, options) {
+  static async activate(smt, options) {
     if (!options) options = {};
-    let smt = {};
+    let _smt = {};
     let entry;
 
-    if (typeof SMT === "string" && SMT.indexOf('|') < 0 && Storage._cortex) {
-      let results = await Storage._cortex.recall(SMT);
-      entry = results.data[ SMT ];
-      smt = entry.smt;
+    if (typeof smt === "string" && smt.indexOf('|') < 0 && Storage._cortex) {
+      // SMT name
+      let results = await Storage._cortex.recall(smt);
+      entry = results.data[ smt ];
+      _smt = entry.smt;
       if (!options.encoding) options.encoding = entry;
     }
-    else
-      smt = parseSMT(SMT);
+    else {
+      // SMT string or object
+      _smt = new SMT(smt);
+    }
 
-    if (Storage._storageJunctions.has(smt.model)) {
-      let junctionClass = Storage._storageJunctions.get(smt.model);
-      let junction = new junctionClass(smt, options);
+    if (Storage._storageJunctions.has(_smt.model)) {
+      let junctionClass = Storage._storageJunctions.get(_smt.model);
+      let junction = new junctionClass(_smt, options);
       await junction.activate();
       return junction;
     }
     else
-      throw new StorageError(400, "Unknown smt.model: " + smt.model);
+      throw new StorageError(400, "Unknown smt.model: " + _smt.model);
   }
 
   /**

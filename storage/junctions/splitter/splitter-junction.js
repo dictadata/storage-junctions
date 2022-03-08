@@ -35,12 +35,12 @@ class SplitterJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'shp|folder|filename|key' or an Engram object
+   * @param {*} smt 'shp|folder|filename|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
+  constructor(smt, options) {
     logger.debug("SplitterJunction");
-    super(SMT, options);
+    super(smt, options);
 
     this._writerClass = SplitterWriter;
 

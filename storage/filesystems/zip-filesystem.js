@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { parseSMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const fs = require('fs');
@@ -19,11 +19,11 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
   /**
    * construct a ZipFileSystem object
-   * @param {*} SMT storage memory trace
+   * @param {*} smt storage memory trace
    * @param {*} options filesystem options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("ZipFileSystem");
 
     this.zipname = this.url.pathname;
@@ -85,7 +85,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
           entry.date = new Date(entry.time);
 
           if (this.options.forEach)
-              await this.options.forEach(entry);
+            await this.options.forEach(entry);
           list.push(entry);
         }
       }
@@ -203,7 +203,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
       let src = options.entry.rpath || options.entry.name;
 
-      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      let smt = new SMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
@@ -214,7 +214,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       }
       logger.verbose("  " + src + " >> " + dest);
       await this.zip.extract(src, dest);
-      
+
       return new StorageResponse(resultCode);
     }
     catch (err) {
@@ -235,12 +235,12 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug("zip-fileSystem putFile");
 
     throw new StorageError(501);
-     
+
     try {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let smt = parseSMT(options.smt); // smt.locus is source folder
+      let smt = new SMT(options.smt); // smt.locus is source folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 

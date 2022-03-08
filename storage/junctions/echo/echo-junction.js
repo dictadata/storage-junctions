@@ -32,12 +32,12 @@ class EchoJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT smt string or smt object
+   * @param {*} smt smt string or smt object
    * @param {*} options
    */
-  constructor(SMT, options) {
+  constructor(smt, options) {
     logger.debug("new EchoJunction");
-    super(SMT, options);
+    super(smt, options);
   }
 
   /**

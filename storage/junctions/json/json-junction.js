@@ -35,12 +35,12 @@ class JSONJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'json|folder|filename|key' or an Engram object
+   * @param {*} smt 'json|folder|filename|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
+  constructor(smt, options) {
     logger.debug("JSONJunction");
-    super(SMT, options);
+    super(smt, options);
 
     // check schema's extension
     //if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
@@ -79,9 +79,9 @@ class JSONJunction extends StorageJunction {
 
   /**
    * Sets the encoding for the storage node.
-   * @param {*} 
+   * @param {*}
    */
-  async createSchema(options={}) {
+  async createSchema(options = {}) {
     return super.createSchema(options);
   }
 

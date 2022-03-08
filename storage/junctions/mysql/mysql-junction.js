@@ -37,11 +37,11 @@ class MySQLJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'mysql|host=address;user=name;password=xyz;database=dbname;...|table|key' or an Engram object
+   * @param {*} smt 'mysql|host=address;user=name;password=xyz;database=dbname;...|table|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("MySQLJunction");
 
     // parse database connection string into options

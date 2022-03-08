@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { parseSMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir } = require("../utils");
 
 const fs = require('fs');
@@ -24,8 +24,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {*} options  http filesystem options
    * @param {*} options.http set default HTTP options, see httpRequest()
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("HTTPFileSystem");
 
     // set default request headers, options.http.headers will override defaults
@@ -66,7 +66,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         this._headers,
         { accept: 'text/html,application/xhtml+xml' },
         options.http && options.http.headers);
-      
+
       // regex for filespec match
       let filespec = schema || '*';
       let rx = '^' + filespec + '$';
@@ -85,7 +85,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         let response = await httpRequest(dirpath, params);
         logger.debug(response);
 
-        if (!response.headers['content-type'].startsWith('text/html'))
+        if (!response.headers[ 'content-type' ].startsWith('text/html'))
           throw new StorageError(400, 'invalid content-type');
 
         // parse the html page into a simple DOM
@@ -101,7 +101,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         var pre = root.querySelectorAll('pre');
         if (pre.length === 0)
           return;
-        var directory = htmlParseDir(response.headers["server"], pre[0].rawText);
+        var directory = htmlParseDir(response.headers[ "server" ], pre[ 0 ].rawText);
         //logger.debug(JSON.stringify(directory, null, 2));
 
         // process file entries in current directory
@@ -189,12 +189,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       params.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
-      
+
       // create read stream
       rs = await httpRequest(filename, params);
 
       ///// check for zip
-      if (rs.headers["content-encoding"] === 'gzip' || filename.endsWith('.gz')) {
+      if (rs.headers[ "content-encoding" ] === 'gzip' || filename.endsWith('.gz')) {
         var gzip = zlib.createUnzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
         rs.pipe(gzip);
         return gzip;
@@ -255,11 +255,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       params.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
-      
+
       let src = options.entry.rpath;
 
       // smt.locus is destination folder
-      let smt = parseSMT(options.smt);
+      let smt = new SMT(options.smt);
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
@@ -309,7 +309,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // headers set below from HTML form data
 
       // smt.locus is source folder
-      let smt = parseSMT(options.smt); 
+      let smt = new SMT(options.smt);
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
@@ -318,7 +318,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
 
       const form = new FormData();
-      for (let [n, v] of Object.entries(options.formdata))
+      for (let [ n, v ] of Object.entries(options.formdata))
         form.append(n, v);
       form.append(filename, fs.createReadStream(src));
 

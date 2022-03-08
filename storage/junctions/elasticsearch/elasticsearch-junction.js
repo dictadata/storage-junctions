@@ -38,11 +38,11 @@ class ElasticsearchJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'elasticsearch|node|index|key' or an Engram object
+   * @param {*} smt 'elasticsearch|node|index|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("ElasticsearchJunction");
 
     this.encoder = encoder;

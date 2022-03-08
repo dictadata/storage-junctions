@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { parseSMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const fs = require('fs');
@@ -17,11 +17,11 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
   /**
    * construct a FSFileSystem object
-   * @param {*} SMT storage memory trace
+   * @param {*} smt storage memory trace
    * @param {*} options filesystem options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("FSFileSystem");
 
     this._dirname = ''; // last dirname
@@ -218,7 +218,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
       let src = path.join(url.fileURLToPath(this.url), options.entry.rpath);
 
-      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      let smt = new SMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
@@ -253,7 +253,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let smt = parseSMT(options.smt); // smt.locus is source folder
+      let smt = new SMT(options.smt); // smt.locus is source folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 

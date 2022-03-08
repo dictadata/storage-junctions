@@ -20,7 +20,7 @@ class CSVJunction extends StorageJunction {
     filesystem: true,  // storage source is filesystem
     sql: false,        // storage source is SQL
     keystore: false,   // supports key-value storage
-    
+
     encoding: false,   // get encoding from source
     reader: true,     // stream reader
     writer: true,     // stream writer
@@ -35,17 +35,17 @@ class CSVJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'csv|folder|filename|key' or an Engram object
+   * @param {*} smt 'csv|folder|filename|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("CSVJunction");
 
     // check schema's extension
     //if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
     //  this.options.schema = this.smt.schema + '.csv';
-    
+
     // this.options.header = false;  // default value
   }
 
@@ -54,7 +54,7 @@ class CSVJunction extends StorageJunction {
    */
   async getEncoding() {
     logger.debug("CSVJunction get encoding");
-    
+
     try {
       if (!this.engram.isDefined) {
         // read the file to infer data types
@@ -79,9 +79,9 @@ class CSVJunction extends StorageJunction {
 
   /**
    * Sets the encoding for the storage node.
-   * @param {*} 
+   * @param {*}
    */
-  async createSchema(options={}) {
+  async createSchema(options = {}) {
     return super.createSchema(options);
   }
 

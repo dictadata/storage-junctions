@@ -36,12 +36,12 @@ class ParquetJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'parquet|folder|filename|key' or an Engram object
+   * @param {*} smt 'parquet|folder|filename|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
+  constructor(smt, options) {
     logger.debug("ParquetJunction");
-    super(SMT, options);
+    super(smt, options);
 
     // check schema's extension
     if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
@@ -75,9 +75,9 @@ class ParquetJunction extends StorageJunction {
 
   /**
    * Sets the encoding for the storage node.
-   * @param {*} 
+   * @param {*}
    */
-  async createSchema(options={}) {
+  async createSchema(options = {}) {
     return super.createSchema(options);
   }
 

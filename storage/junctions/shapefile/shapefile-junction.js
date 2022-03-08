@@ -36,12 +36,12 @@ class ShapeFileJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} SMT 'shp|folder|filename|key' or an Engram object
+   * @param {*} smt 'shp|folder|filename|key' or an Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
+  constructor(smt, options) {
     logger.debug("ShapeFileJunction");
-    super(SMT, options);
+    super(smt, options);
   }
 
   /**
@@ -53,7 +53,7 @@ class ShapeFileJunction extends StorageJunction {
       if (!this.engram.isDefined) {
         // read file to infer data types
         // default to 100 constructs unless overridden in options
-        let options = Object.assign({}, { max_read: 100 }, this.options);        
+        let options = Object.assign({}, { max_read: 100 }, this.options);
         let reader = this.createReader(options);
         let codify = this.createTransform('codify', options);
 
@@ -71,9 +71,9 @@ class ShapeFileJunction extends StorageJunction {
 
   /**
    * Sets the encoding for the storage node.
-   * @param {*} 
+   * @param {*}
    */
-  async createSchema(options={}) {
+  async createSchema(options = {}) {
     return super.createSchema(options);
   }
 

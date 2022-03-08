@@ -6,7 +6,7 @@ exports.Engram = require('./engram');
 exports.StorageResponse = require('./storage-response');
 exports.StorageError = require('./storage-error');
 
-exports.parseSMT = require('./parseSMT');
+exports.SMT = require('./smt');
 exports.parseValue = require('./parseValue');
 exports.storageType = require('./storageType');
 exports.stringBreakpoints = require("./stringBreakpoints");

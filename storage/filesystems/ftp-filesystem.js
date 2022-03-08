@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { parseSMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
 const fs = require('fs');
@@ -26,8 +26,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {*} options.ftp ftp options
    * @param {boolean} options.ftp.secure use secure connection
    */
-  constructor(SMT, options) {
-    super(SMT, options);
+  constructor(smt, options) {
+    super(smt, options);
     logger.debug("FTPFileSystem");
 
     this._ftp = new FTP();
@@ -227,7 +227,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
         this.isNewFile = true;
         ws.fs_ws_promise = this._ftp.put(ws, filename);
       }
-      // ws.fs_ws_promise is an added property. Used so that StorageWriters 
+      // ws.fs_ws_promise is an added property. Used so that StorageWriters
       // using filesystems know when a transfer is complete.
 
       ///// check for zip
@@ -263,7 +263,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let wdPath = decodeURI(this.url.pathname + (options.recursive ? path.dirname(options.entry.rpath) : ''));
       let src = wdPath + (options.recursive ? options.entry.rpath : options.entry.name);
 
-      let smt = parseSMT(options.smt); // smt.locus is destination folder
+      let smt = new SMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
 
@@ -308,7 +308,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let smt = parseSMT(options.smt); // smt.locus is source folder
+      let smt = new SMT(options.smt); // smt.locus is source folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 

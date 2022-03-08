@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { parseSMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const path = require('path');
@@ -12,18 +12,18 @@ module.exports = exports = class StorageFileSystem {
 
   /**
    * construct a StorageFileSystem object
-   * @param {*} SMT storage memory trace
+   * @param {*} smt storage memory trace
    * @param {*} options filesystem options
    */
-  constructor(SMT, options) {
+  constructor(smt, options) {
     logger.debug("StorageFileSystem");
 
-    this.smt = parseSMT(SMT);
+    this.smt = new SMT(smt);
     this.options = Object.assign({}, options);
 
     // convert smt.locus to a URL
     // default protocol is "file:""
-    // protocol must be at least two characters plus ':' 
+    // protocol must be at least two characters plus ':'
     // one character prefix is treated as a Windows drive letter, e.g. C:\
 
     let locus = this.smt.locus
@@ -31,7 +31,7 @@ module.exports = exports = class StorageFileSystem {
       locus = "file:" + path.resolve(locus.substr(5));
     else if (this.smt.locus.indexOf(':') <= 1)
       locus = "file:" + path.resolve(locus);
-    
+
     this.url = new URL(locus);
     logger.debug("filesystem: " + JSON.stringify(this.url));
 

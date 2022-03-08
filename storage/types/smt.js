@@ -1,0 +1,44 @@
+// storage/types/smt
+"use strict";
+
+const StorageError = require('./storage-error');
+const { typeOf, hasOwnProperty } = require("../utils");
+
+module.exports = exports = class SMT {
+  /**
+   * parse an smt string into an object.
+   * Returns an smt object.
+   */
+  constructor(smt) {
+
+    if (!smt) {
+      this.model = '';
+      this.locus = '';
+      this.schema = '';
+      this.key = '';
+    }
+    else if (typeof smt === "string") {
+      let a = smt.split("|");
+      if (a.length != 4)
+        throw new StorageError(400, "Invalid Parameter: smt");
+
+      this.model = a[ 0 ] || '';
+      this.locus = a[ 1 ] || '';
+      this.schema = a[ 2 ] || '';
+      this.key = a[ 3 ] || '';
+    }
+    else if (typeOf(smt) === "object") {
+      if (!hasOwnProperty(smt, "model") && !hasOwnProperty(smt, "locus")
+        && !hasOwnProperty(smt, "schema") && !hasOwnProperty(smt, "key"))
+        throw new StorageError(400, "Invalid Parameter: smt");
+
+      this.model = smt.model || '';
+      this.locus = smt.locus || '';
+      this.schema = smt.schema || '';
+      this.key = smt.key || '';
+    }
+    else
+      throw new StorageError(400, "Invalid Parameter: smt");
+  }
+
+};

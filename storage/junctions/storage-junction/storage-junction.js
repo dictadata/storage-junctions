@@ -32,11 +32,11 @@ module.exports = exports = class StorageJunction {
 
   /**
    *
-   * @param {*} SMT an SMT string 'model|locus|schema|key', object or Engram object
+   * @param {*} smt an smt string 'model|locus|schema|key', object or Engram object
    * @param {*} options
    */
-  constructor(SMT, options) {
-    this.engram = new Engram(SMT);
+  constructor(smt, options) {
+    this.engram = new Engram(smt);
     this.smt = this.engram.smt;
 
     this.options = Object.assign({}, options);
