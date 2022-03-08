@@ -1,7 +1,7 @@
 {
   "name": "cortex_entry",
   "type": "engram",
-  "description": "encoding of a cortex entry",
+  "description": "cortex SMT encoding",
   "tags": [
     "cortex",
     "encoding"

@@ -1,7 +1,7 @@
 /**
  * storage/cortex
  *
- * Cortex is a data directory and catalog for SMT cords.
+ * Cortex is a data directory and catalog for SMT encodings.
  *
  * An underlying StorageJunction is used for permanent storage.
  * A simple memory cache (Map) is implemented.
@@ -19,7 +19,7 @@ module.exports = exports = class Cortex {
   constructor(options = {}) {
     this.options = options || {};
 
-    this._cords = new Map();
+    this._encodings = new Map();
     this._active = false;
     this._junction = null;
   }
@@ -65,18 +65,18 @@ module.exports = exports = class Cortex {
       await this._junction.relax();
   }
 
-  async store(entry) {
+  async store(encoding) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
 
     // save in cache
-    this._cords.set(entry.name, entry);
+    this._encodings.set(encoding.name, encoding);
 
     if (this._junction) {
       // save in source cortex
-      results = await this._junction.store(entry);
+      results = await this._junction.store(encoding);
       logger.verbose(results.resultCode);
     }
 
@@ -91,9 +91,9 @@ module.exports = exports = class Cortex {
 
     let name = options.name || options;
 
-    if (this._cords.has(name)) {
+    if (this._encodings.has(name)) {
       // delete from cache
-      if (!this._cords.delete(name)) {
+      if (!this._encodings.delete(name)) {
         results.resultCode = 500;
         results.resultText = "map delete error";
       }
@@ -115,20 +115,20 @@ module.exports = exports = class Cortex {
     };
 
     let name = options.name || options;
-    if (this._cords.has(name)) {
-      // entry has been cached
-      let entry = this._cords.get(name);
-      results.data[ name ] = entry;
+    if (this._encodings.has(name)) {
+      // encoding has been cached
+      let encoding = this._encodings.get(name);
+      results.data[ name ] = encoding;
     }
     else if (this._junction) {
       // go to the source cortex
       results = await this._junction.recall({ key: name });
       logger.verbose(results.resultCode);
 
-      // cache entry
+      // cache encoding entry
       if (results.resultCode === 0) {
-        let entry = results.data[ name ];
-        this._cords.set(name, entry);
+        let encoding = results.data[ name ];
+        this._encodings.set(name, encoding);
       }
     }
     else {
@@ -150,7 +150,7 @@ module.exports = exports = class Cortex {
       results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
 
-      // current design does not caching cords from retrieved list
+      // current design does not caching encodings from retrieved list
     }
     else {
       results.resultCode = 503;

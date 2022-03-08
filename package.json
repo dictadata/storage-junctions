@@ -13,7 +13,7 @@
     "smt",
     "engram",
     "encoding",
-    "cordex"
+    "cortex"
   ],
   "license": "MIT",
   "main": "index.js",

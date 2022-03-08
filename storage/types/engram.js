@@ -36,7 +36,7 @@ module.exports = exports = class Engram {
       encoding = { smt: smt };
     }
 
-    // cortex entry properties
+    // cortex encoding properties
     this.name = encoding.name || smt.schema;
     this.type = encoding.type || "engram";
     this.description = encoding.description || "";

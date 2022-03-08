@@ -6,7 +6,7 @@
  *   read encoding(s) from file
  *   store encoding(s) in cortex
  *   recall encoding(s) from cortex
- *   compare results with expected entry
+ *   compare results with expected SMT encoding
  */
 "use strict";
 

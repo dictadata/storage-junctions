@@ -50,14 +50,14 @@ class Storage {
   static async activate(smt, options) {
     if (!options) options = {};
     let _smt = {};
-    let entry;
+    let encoding;
 
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Storage._cortex) {
       // SMT name
       let results = await Storage._cortex.recall(smt);
-      entry = results.data[ smt ];
-      _smt = entry.smt;
-      if (!options.encoding) options.encoding = entry;
+      encoding = results.data[ smt ];
+      _smt = encoding.smt;
+      if (!options.encoding) options.encoding = encoding;
     }
     else {
       // SMT string or object
