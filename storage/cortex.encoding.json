@@ -1,7 +1,7 @@
 {
-  "name": "cortex_engram",
+  "name": "dicta_cortex",
   "type": "engram",
-  "description": "cortex SMT encoding",
+  "description": "dictadata.org Storage Cortex Encodings",
   "tags": [
     "cortex",
     "encoding"
@@ -9,7 +9,7 @@
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "cortex_engram",
+    "schema": "dicta_cortex",
     "key": "!name"
   },
   "fields": [

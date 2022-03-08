@@ -1,15 +1,19 @@
 /**
  * storage/cortex
  *
- * Cortex is a data directory and dictionary of SMT engram definitions.
+ * Cortex is a data directory and dictionary of encoding definitions.
+ * Encoding definitions:
+ *   engram - SMT encoding definitions
+ *   tract - ETL tract definitions
  *
- * An underlying StorageJunction can be used for permanent storage.
+ * An underlying StorageJunction such as ElasticsearchJunction
+ * can be used for permanent storage.
  * A simple cache is implemented with a Map.
  */
 "use strict";
 
 const storage = require("./index");
-const { StorageError } = require("./types");
+const { Engram, StorageError } = require("./types");
 const logger = require("./utils/logger");
 
 const cortexEncoding = require("./cortex.encoding.json");
@@ -28,6 +32,12 @@ module.exports = exports = class Cortex {
     return this._active;
   }
 
+  /**
+   * Activate the Cortex
+   *
+   * @param {*} options
+   * @returns
+   */
   async activate(options = {}) {
     options = Object.assign({}, this.options, options);
 
@@ -65,31 +75,42 @@ module.exports = exports = class Cortex {
       await this._junction.relax();
   }
 
-  async store(engram) {
+  /**
+   *
+   * @param {*} encoding Engram or encoding object with cortex properties
+   * @returns
+   */
+  async store(encoding) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
 
+    if (encoding instanceof Engram)
+      encoding = encoding.encoding;
+
     // save in cache
-    this._engrams.set(engram.name, engram);
+    this._engrams.set(encoding.name, encoding);
 
     if (this._junction) {
       // save in source cortex
-      results = await this._junction.store(engram);
+      results = await this._junction.store(encoding);
       logger.verbose(results.resultCode);
     }
 
     return results;
   }
 
-  async dull(options) {
+  /**
+   *
+   * @param {*} name SMT name or ETL tract name
+   * @returns
+   */
+  async dull(name) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
-
-    let name = options.name || options;
 
     if (this._engrams.has(name)) {
       // delete from cache
@@ -107,14 +128,18 @@ module.exports = exports = class Cortex {
     return results;
   }
 
-  async recall(options) {
+  /**
+   *
+   * @param {*} name SMT name or ETL tract name
+   * @returns
+   */
+  async recall(name) {
     let results = {
       resultCode: 0,
       resultText: "OK",
       data: {}
     };
 
-    let name = options.name || options;
     if (this._engrams.has(name)) {
       // engram has been cached
       let engram = this._engrams.get(name);
@@ -127,8 +152,8 @@ module.exports = exports = class Cortex {
 
       // cache engram definition
       if (results.resultCode === 0) {
-        let engram = results.data[ name ];
-        this._engrams.set(name, engram);
+        let encoding = results.data[ name ];
+        this._engrams.set(name, encoding);
       }
     }
     else {
@@ -139,6 +164,11 @@ module.exports = exports = class Cortex {
     return results;
   }
 
+  /**
+   *
+   * @param {*} pattern pattern object that contians query logic
+   * @returns
+   */
   async retrieve(pattern) {
     let results = {
       resultCode: 0,

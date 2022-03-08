@@ -42,7 +42,7 @@ async function test(schema) {
     let results = await storage.cortex.retrieve({
       match: {
         "name": {
-          wc: "foo_schema*"
+          wc: schema + "*"
         }
       }
     });
