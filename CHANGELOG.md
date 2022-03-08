@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.1.2
+  - refactor cortex function parameters
 - version 2.1.1
   - refactor cortex entry is an engram definition
 - version 2.1.0
