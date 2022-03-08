@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.1.0
+  - refactor storage, cortex classes; remove codex class
+  - refactor parseSMT() to class SMT
 - version 2.0.8
   - bug fix: passing options thru cortex to underlying junction
   - update dependencies for tedious and elasticsearch client
