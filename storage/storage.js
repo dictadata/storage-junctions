@@ -55,9 +55,13 @@ class Storage {
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Storage._cortex) {
       // SMT name
       let results = await Storage._cortex.recall(smt);
+      if (results.resultCode !== 0)
+        throw new StorageError(400, "Unknown SMT name: " + smt);
+
       encoding = results.data[ smt ];
       _smt = encoding.smt;
-      if (!options.encoding) options.encoding = encoding;
+      if (!options.encoding)
+        options.encoding = encoding;
     }
     else {
       // SMT string or object
@@ -71,7 +75,7 @@ class Storage {
       return junction;
     }
     else
-      throw new StorageError(400, "Unknown smt.model: " + _smt.model);
+      throw new StorageError(400, "Unknown SMT model: " + _smt.model);
   }
 
   /**

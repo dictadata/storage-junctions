@@ -41,16 +41,22 @@ async function test(schema) {
     // recall engram definition
     let results = await storage.cortex.recall(schema);
     logger.verbose(JSON.stringify(results, null, "  "));
-    let encoding = results.data[ schema ];
 
-    let outputfile = "./test/data/output/cortex/recall_" + schema + ".encoding.json";
-    logger.verbose("output file: " + outputfile);
-    fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-    fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+    if (results.resultCode !== 0) {
+      retCode = results.resultCode;
+    }
+    else {
+      let encoding = results.data[ schema ];
 
-    // compare to expected output
-    let expected_output = outputfile.replace("output", "expected");
-    retCode = _compare(expected_output, outputfile, 2);
+      let outputfile = "./test/data/output/cortex/recall_" + schema + ".encoding.json";
+      logger.verbose("output file: " + outputfile);
+      fs.mkdirSync(path.dirname(outputfile), { recursive: true });
+      fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+
+      // compare to expected output
+      let expected_output = outputfile.replace("output", "expected");
+      retCode = _compare(expected_output, outputfile, 2);
+    }
   }
   catch (err) {
     logger.error(err);
@@ -64,6 +70,7 @@ async function test(schema) {
   await init();
 
   if (await test("foo_schema")) return 1;
+  if (!await test("bad_smt_name")) return 1;
 
   await storage.cortex.relax();
 })();
