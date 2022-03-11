@@ -1,19 +1,22 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.1.3
+  - bug fix: check return code on cortex calls
+  - testing: ftp tests use IPv4
 - version 2.1.2
-  - refactor cortex function parameters
+  - refactor: cortex function parameters
 - version 2.1.1
-  - refactor cortex entry is an engram definition
+  - refactor: cortex entry is an engram definition
 - version 2.1.0
-  - refactor storage, cortex classes; remove codex class
-  - refactor parseSMT() to class SMT
+  - refactor: storage, cortex classes; remove codex class
+  - refactor: parseSMT() to class SMT
 - version 2.0.8
   - bug fix: passing options thru cortex to underlying junction
-  - update dependencies for tedious and elasticsearch client
+  - update: dependencies for tedious and elasticsearch client
 - version 2.0.7
   - bug fix: check results before caching during recall()
-  - add automatic index refresh option to elasticsearch junction
-  - only test local ftp site
+  - enhancement: automatic index refresh option to elasticsearch junction
+  - testing: only test local ftp site
 - version 2.0.6
   - bug fix: MySQL create new StorageError()
 - version 2.0.5
