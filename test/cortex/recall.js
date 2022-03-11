@@ -69,8 +69,12 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema")) return 1;
-  if (!await test("bad_smt_name")) return 1;
+  if (await test("foo_schema"))
+    return 1;
+  if (await test("bad_smt_name"))
+    process.exitCode = 0;
+  else
+    return 1;
 
   await storage.cortex.relax();
 })();

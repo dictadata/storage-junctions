@@ -93,7 +93,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       // recursive scanner function
       // eslint-disable-next-line no-inner-declarations
       let ftp = this._ftp;
-      async function readFolder(dirpath, relpath, options) {
+      let readFolder = async (dirpath, relpath, options) => {
         logger.debug('readFolder');
 
         // get list
@@ -121,7 +121,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
           }
         }
 
-      }
+      };
 
       // start scanning FTP directory
       await readFolder(wdPath, "", options);
