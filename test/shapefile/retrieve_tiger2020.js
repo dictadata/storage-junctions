@@ -32,7 +32,7 @@ async function tests() {
       pattern: {
         match: {
           "geometry": {
-            "contains": [-73.985428, 40.748817]
+            "contains": [ -73.985428, 40.748817 ]
           }
         }
       }
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== elasticsearch retrieve w/ pattern");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|us_census.gov_geo_tiger2020|*",
+      smt: "elasticsearch|http://localhost:9200|us_census.gov_geo_tiger_tiger2020|*",
       pattern: {
         match: {
           "properties.LSAD": "06",
           "geometry": {
-            "contains": [-73.985428, 40.748817]
+            "contains": [ -73.985428, 40.748817 ]
           }
         }
       }

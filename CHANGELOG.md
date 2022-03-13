@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.1.4
+  - bug fix: type checking of storage types should be case insensitive
 - version 2.1.3
   - bug fix: check return code on cortex calls
   - testing: ftp tests use IPv4
