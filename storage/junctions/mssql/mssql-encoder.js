@@ -15,7 +15,7 @@ if (stringBreakpoints.text > 8000)
 /**
  * convert a mssql type to a storage type
  */
-var storageType = exports.storageType = (mssqlType, size=0) => {
+var storageType = exports.storageType = (mssqlType, size = 0) => {
   let fldType = 'unknown';
 
   switch (mssqlType.toUpperCase()) {
@@ -31,11 +31,11 @@ var storageType = exports.storageType = (mssqlType, size=0) => {
     case 'YEAR':
       fldType = 'integer';
       break;
-    
+
     case 'BIGINT':
       fldType = 'keyword';
       break;
-    
+
     case 'NUMERIC':
     case 'DECIMAL':
     case 'SMALLMONEY':
@@ -61,12 +61,12 @@ var storageType = exports.storageType = (mssqlType, size=0) => {
       else
         fldType = 'text';
       break;
-    
+
     case 'TEXT':
     case 'NCHAR':
     case 'NVARCHAR':
-      //note: a "list" or "map" field type could be stuff in NVARCHAR column as JSON 
-      //A person will need to manually modify the storage encoding.
+    //note: a "list" or "map" field type could be stuff in NVARCHAR column as JSON
+    //A person will need to manually modify the storage encoding.
     case 'NTEXT':
     case 'XML':
       fldType = 'text';
@@ -92,26 +92,26 @@ var storageType = exports.storageType = (mssqlType, size=0) => {
  */
 exports.storageField = (column) => {
 
-  let sqlType = column["type"].value;
-  let size = column["size"].value;
+  let sqlType = column[ "type" ].value;
+  let size = column[ "size" ].value;
 
   let field = {
-    name: column["name"].value,
-    type: storageType(sqlType,size),
-    size: column["size"].value,
+    name: column[ "name" ].value,
+    type: storageType(sqlType, size),
+    size: column[ "size" ].value,
   };
 
   if (hasOwnProperty(column, "default"))
-    field.defaultValue = column["default"].value;
+    field.defaultValue = column[ "default" ].value;
   if (hasOwnProperty(column, "is_nullable"))
-    field.nullable = ynBoolean(column["is_nullable"].value);
+    field.nullable = ynBoolean(column[ "is_nullable" ].value);
   if (hasOwnProperty(column, "key_ordinal"))
-    field.key = column["key_ordinal"].value;
+    field.key = column[ "key_ordinal" ].value;
 
   // add MSSQL definition
   field._mssql = {};
-  for (let [name, def] of Object.entries(column)) {
-    field._mssql[name] = def.value;
+  for (let [ name, def ] of Object.entries(column)) {
+    field._mssql[ name ] = def.value;
   }
 
   return field;
@@ -122,7 +122,7 @@ exports.storageField = (column) => {
  */
 exports.mssqlType = (field) => {
   if (field._mssql) {
-    let strTypes = ['varchar', 'char', 'text', 'nvarchar', 'nchar', 'ntext'];
+    let strTypes = [ 'varchar', 'char', 'text', 'nvarchar', 'nchar', 'ntext' ];
     if (strTypes.includes(field._mssql.type))
       return field._mssql.type + '(' + field._mssql.size + ')';
     else
@@ -130,7 +130,7 @@ exports.mssqlType = (field) => {
   }
 
   let mssqlType = "varchar(256)";  // default type
-  switch (field.type) {
+  switch (field.type.toLowerCase()) {
     case "boolean":
       mssqlType = "bit";
       break;
@@ -161,6 +161,6 @@ exports.mssqlType = (field) => {
       mssqlType = "binary";
       break;
   }
-  
+
   return mssqlType;
 };

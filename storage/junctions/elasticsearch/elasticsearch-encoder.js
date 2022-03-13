@@ -15,7 +15,7 @@ var storageType = exports.storageType = function (elasticType) {
 
   // convert to storage type
   let fldType = 'unknown';
-  switch (elasticType) {
+  switch (elasticType.toLowerCase()) {
     case 'integer':
     case 'long':
     case 'short':
@@ -76,7 +76,7 @@ var elasticType = exports.elasticType = function (field) {
     elasticType = field.elastic_type;
   }
   else {
-    switch (field.type) {
+    switch (field.type.toLowerCase()) {
       case "boolean":
         elasticType = "boolean";
         break;

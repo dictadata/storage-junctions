@@ -72,7 +72,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
           value = field.defaultValue;
 
         if (typeof value !== "undefined" && value !== null) {
-          switch (field.type) {
+          switch (field.type.toLowerCase()) {
             case "boolean":
               data += value ? "true" : "false";
               break;

@@ -23,14 +23,14 @@ var storageType = exports.storageType = function (mysqlType) {
   // format is usually "name(size)" e.g. "int(11)"
   let found = false;
   for (let i = 0; i < mysqlType.length; i++) {
-    if (mysqlType[i] === '(')
+    if (mysqlType[ i ] === '(')
       found = true;
-    else if (mysqlType[i] === ')')
+    else if (mysqlType[ i ] === ')')
       break;
     else if (!found)
-      mst += mysqlType[i];
+      mst += mysqlType[ i ];
     else
-      sz += mysqlType[i];
+      sz += mysqlType[ i ];
   }
 
   let size = parseInt(sz);
@@ -62,11 +62,11 @@ var storageType = exports.storageType = function (mysqlType) {
       break;
 
     case 'JSON':
-      //note: a "list" or "map" field type could be stuff in a JSON column 
+      //note: a "list" or "map" field type could be stuff in a JSON column
       //A person will need to manually modify the storage encoding.
       fldType = 'map';   // or 'list'
       break;
-    
+
     case 'CHAR':
     case 'VARCHAR':
       if (size <= stringBreakpoints.keyword)
@@ -74,7 +74,7 @@ var storageType = exports.storageType = function (mysqlType) {
       else
         fldType = 'text';
       break;
-    
+
     case 'TINYTEXT':
     case 'MEDIUMTEXT':
     case 'LONGTEXT':
@@ -102,7 +102,7 @@ var storageType = exports.storageType = function (mysqlType) {
       break;
   }
 
-  return [fldType, size];
+  return [ fldType, size ];
 };
 
 /**
@@ -110,7 +110,7 @@ var storageType = exports.storageType = function (mysqlType) {
  */
 exports.storageField = function (column) {
 
-  let [fldType,size] = storageType(column.Type);
+  let [ fldType, size ] = storageType(column.Type);
 
   let field = {
     name: column.Field,
@@ -123,7 +123,7 @@ exports.storageField = function (column) {
   };
 
   if (hasOwnProperty(column, "Default"))
-    field.defaultValue = column["Default"];
+    field.defaultValue = column[ "Default" ];
   if (hasOwnProperty(column, "Null"))
     field.nullable = ynBoolean(column.Null);
   if (column.Key)
@@ -147,7 +147,7 @@ exports.mysqlType = function (field) {
   }
 
   let mysqlType = "VARCHAR(256)";
-  switch (field.type) {
+  switch (field.type.toLowerCase()) {
     case "boolean":
       mysqlType = "TINYINT(1)";
       break;
@@ -175,7 +175,7 @@ exports.mysqlType = function (field) {
       mysqlType = "JSON";
       break;
     case "binary":
-      mysqlType ="BLOB";
+      mysqlType = "BLOB";
       break;
   }
 

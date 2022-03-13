@@ -34,7 +34,7 @@ exports.connectionConfig = (options) => {
 }
 
 function encodeValue(field, value) {
-  switch (field.type) {
+  switch (field.type.toLowerCase()) {
     case "date":
       let dt = value;
       if (typeof value === "string")
@@ -61,7 +61,7 @@ exports.decodeResults = (engram, columns) => {
   for (let [ name, colProps ] of Object.entries(columns)) {
     let value = colProps.value;
     let field = engram.find(name);
-    switch (field.type) {
+    switch (field.type.toLowerCase()) {
       case "date":
         construct[ name ] = value;
         break;
@@ -406,7 +406,7 @@ exports.sqlSelectByPattern = (engram, pattern) => {
           (first) ? first = false : sql += " AND ";
 
           sql += sqlString.escapeId(fldname);
-          switch (op) {
+          switch (op.toLowerCase()) {
             case 'gt': sql += " > "; break;
             case 'gte': sql += " >= "; break;
             case 'lt': sql += " < "; break;
@@ -462,7 +462,7 @@ exports.sqlSelectByPattern = (engram, pattern) => {
 };
 
 function sqlFunction(cfunc) {
-  switch (cfunc) {
+  switch (cfunc.toLowerCase()) {
     case 'sum': return 'SUM';
     case 'avg': return 'AVG';
     case 'min': return 'MIN';

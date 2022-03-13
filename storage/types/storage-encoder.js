@@ -80,11 +80,11 @@ module.exports = exports = class StorageEncoder {
     };
 
     if (hasOwnProperty(srcdef, "Default"))
-      field.defaultValue = srcdef["Default"];
+      field.defaultValue = srcdef[ "Default" ];
     if (hasOwnProperty(srcdef, "Null"))
-      field.nullable = ynBoolean(srcdef["Null"]);
+      field.nullable = ynBoolean(srcdef[ "Null" ]);
     if (hasOwnProperty(srcdef, "Key"))
-      field.key = srcdef["Key"];
+      field.key = srcdef[ "Key" ];
 
     return field;
   };
@@ -102,7 +102,7 @@ module.exports = exports = class StorageEncoder {
       srcType = field.src_type;
     }
     else {
-      switch (field.type) {
+      switch (field.type.toLowerCase()) {
         case "boolean":
           srcType = "bool";
           break;

@@ -42,7 +42,7 @@ var srcType = exports.srcType = function (field) {
     srcType = field.src_type;
   }
   else {
-    switch (field.type) {
+    switch (field.type.toLowerCase()) {
       default:
         srcType = "unknown";
         break;
@@ -71,11 +71,11 @@ var storageField = exports.storageField = function (srcdef) {
   };
 
   if (hasOwnProperty(srcdef, "Default"))
-    field.defaultValue = srcdef["Default"];
+    field.defaultValue = srcdef[ "Default" ];
   if (hasOwnProperty(srcdef, "Null"))
-    field.nullable = ynBoolean(srcdef["Null"]);
+    field.nullable = ynBoolean(srcdef[ "Null" ]);
   if (hasOwnProperty(srcdef, "Key"))
-    field.key = srcdef["Key"];
+    field.key = srcdef[ "Key" ];
 
   return field;
 };
@@ -84,7 +84,7 @@ exports.parseData = function (data, options, callback) {
   if (typeof data !== 'object')
     throw new Error("invalid json data");
 
-  const constructs = (options.extract && data[options.extract]) || data;
+  const constructs = (options.extract && data[ options.extract ]) || data;
 
   if (!Array.isArray(constructs)) {
     callback(constructs);

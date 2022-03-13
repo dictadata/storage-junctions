@@ -8,23 +8,23 @@ const { typeOf, isDate, parseDate, logger } = require('../../utils');
 exports.encodeValues = function (engram, construct) {
   let data = {};
 
-  for (let [name, value] of Object.entries(construct)) {
+  for (let [ name, value ] of Object.entries(construct)) {
     let field = engram.find(name);
-    switch (field.type) {
+    switch (field.type.toLowerCase()) {
       case "date":
         let dt = value;
         if (typeof value === "string")
           dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
-        data[name] = dt;
+        data[ name ] = dt;
         break;
       case "boolean":
-        data[name] = !!value;
+        data[ name ] = !!value;
         break;
       case "binary":
-        data[name] = null;   // to do figure out how to pass buffers
+        data[ name ] = null;   // to do figure out how to pass buffers
         break;
       default:
-        data[name] = value;
+        data[ name ] = value;
     }
   }
 
@@ -86,42 +86,42 @@ function match(dsl, pattern) {
   const match = (pattern && pattern.match) || {};
 
   if (Object.keys(match).length <= 0) {
-    dsl.query["match_all"] = {};
+    dsl.query[ "match_all" ] = {};
     return;
   }
 
   let entries = Object.entries(match);
   if (entries.length == 0) {
-    dsl.query["match_all"] = {};
+    dsl.query[ "match_all" ] = {};
     return;
   }
 
-  dsl.query["bool"] = {
+  dsl.query[ "bool" ] = {
     filter: []
   };
   let filter = dsl.query.bool.filter;
 
-  for (const [fldname, value] of entries) {
+  for (const [ fldname, value ] of entries) {
     if (typeOf(value) === 'object') {
       // a complex expression
       let keys = Object.keys(value);
 
-      if (['contains', 'within', 'intersect', 'disjoint'].includes(keys[0]) ) {
+      if ([ 'contains', 'within', 'intersect', 'disjoint' ].includes(keys[ 0 ])) {
         // geo_shape query
         let q = {
           "geo_shape": {}
         };
         q.geo_shape[ fldname ] = {
           "shape": {
-            "type": keys[0] === "contains" ? "point" : "polygon",
-            "coordinates": value[keys[0]]
+            "type": keys[ 0 ] === "contains" ? "point" : "polygon",
+            "coordinates": value[ keys[ 0 ] ]
           },
-          "relation": keys[0]
+          "relation": keys[ 0 ]
         };
 
         filter.push(q);
       }
-      else if (keys[0] === 'wc') {
+      else if (keys[ 0 ] === 'wc') {
         // wildcard query
         let q = {
           wildcard: {}
@@ -152,7 +152,7 @@ function match(dsl, pattern) {
       let q = {
         term: {}
       };
-      q.term[fldname] = value;
+      q.term[ fldname ] = value;
       filter.push(q);
     }
   }
@@ -163,9 +163,9 @@ function cues(dsl, pattern) {
   // count
   if (pattern.count) {
     if (pattern.aggregate)
-      dsl["size"] = 0;  // no _source in results
+      dsl[ "size" ] = 0;  // no _source in results
     else
-      dsl["size"] = pattern.count || 100;
+      dsl[ "size" ] = pattern.count || 100;
   }
 
   // fields
@@ -180,8 +180,8 @@ function cues(dsl, pattern) {
   // dsl: "sort" : { "field_name" : "desc" }
   if (pattern.order && !pattern.aggregate) {
     dsl.sort = {};
-    for (const [name, direction] of Object.entries(pattern.order)) {
-      dsl.sort[name] = direction;
+    for (const [ name, direction ] of Object.entries(pattern.order)) {
+      dsl.sort[ name ] = direction;
     }
   }
 
@@ -193,7 +193,7 @@ function aggregate(dsl, pattern) {
     return;
   }
 
-  dsl["aggregations"] = aggregateQuery(pattern.aggregate, (pattern || {}));
+  dsl[ "aggregations" ] = aggregateQuery(pattern.aggregate, (pattern || {}));
 }
 
 /*
@@ -233,28 +233,28 @@ function aggregateQuery(aggregate, cues) {
     return aggs;
   }
 
-  for (const [newName, expression] of entries) {
+  for (const [ newName, expression ] of entries) {
     if (typeOf(expression) !== 'object')
       throw "bad aggregate expression";
 
     let exp = Object.entries(expression);
-    for (let [op, fld] of exp) {
+    for (let [ op, fld ] of exp) {
       op = elasticFunction(op);
       if (typeOf(fld) === 'object') {
         // group by
-        aggs[newName + "_groupby"] = {
+        aggs[ newName + "_groupby" ] = {
           terms: { field: newName },
           aggregations: aggregateQuery(expression, cues)
         };
         if (cues.order)
-          aggs[newName + "_groupby"].terms.order = cues.order;
+          aggs[ newName + "_groupby" ].terms.order = cues.order;
         if (cues.count)
-          aggs[newName + "_groupby"].terms.size = cues.count;
+          aggs[ newName + "_groupby" ].terms.size = cues.count;
       } else {
         // summary operation
         let agg = {};
-        agg[op] = { "field": fld };
-        aggs[newName] = agg;
+        agg[ op ] = { "field": fld };
+        aggs[ newName ] = agg;
       }
     }
   }
@@ -263,7 +263,7 @@ function aggregateQuery(aggregate, cues) {
 }
 
 function elasticFunction(op) {
-  switch (op) {
+  switch (op.toLowerCase()) {
     case 'sum': return 'sum';
     case 'avg': return 'avg';
     case 'min': return 'min';
@@ -284,25 +284,25 @@ exports.processAggregations = function (aggs) {
   let summary = {};     // summary aggregate values
 
   let entries = Object.entries(aggs);
-  for (const [name, value] of entries) {
+  for (const [ name, value ] of entries) {
     if (name.includes("_groupby")) {
       // group by
       let fieldname = name.substring(0, name.length - 8);
 
       value.buckets.forEach((element) => {
         let group = {};
-        for (const [n, v] of Object.entries(element)) {
+        for (const [ n, v ] of Object.entries(element)) {
           if (n === "key_as_string")
-            group[fieldname] = element.key_as_string;
+            group[ fieldname ] = element.key_as_string;
           else if (n === "key")
-            group[fieldname] = element.key;
+            group[ fieldname ] = element.key;
           else if (n === "doc_count")
-            group["count"] = element.doc_count;
+            group[ "count" ] = element.doc_count;
           else {
             if (v.value_as_string)
-              group[n] = v.value_as_string;
+              group[ n ] = v.value_as_string;
             else
-              group[n] = v.value;
+              group[ n ] = v.value;
           }
         }
         constructs.push(group);
@@ -311,9 +311,9 @@ exports.processAggregations = function (aggs) {
     } else {
       // summary
       if (value.value_as_string)
-        summary[name] = value.value_as_string;
+        summary[ name ] = value.value_as_string;
       else
-        summary[name] = value.value;
+        summary[ name ] = value.value;
     }
   }
 
