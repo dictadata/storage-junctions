@@ -77,17 +77,16 @@ module.exports = exports = class Cortex {
 
   /**
    *
-   * @param {*} encoding Engram or encoding object with cortex properties
+   * @param {*} engram Engram or encoding object with cortex properties
    * @returns
    */
-  async store(encoding) {
+  async store(engram) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
 
-    if (encoding instanceof Engram)
-      encoding = encoding.encoding;
+    let encoding = (engram instanceof Engram) ? engram.encoding : engram;
 
     // save in cache
     this._engrams.set(encoding.name, encoding);

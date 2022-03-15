@@ -51,7 +51,7 @@ async function test(schema) {
     let engram = new Engram(encoding.smt || "*|*|*|*");
     engram.name = schema;
     engram.encoding = encoding;
-    let results = await storage.cortex.store(engram.encoding);
+    let results = await storage.cortex.store(engram);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding
