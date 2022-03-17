@@ -1,15 +1,22 @@
 {
+  "name": "tl_YYYY_us_county",
+  "type": "engram",
+  "description": "County and Equivalent Entity National Shapefile Record Layout (Current)",
+  "tags": [
+    "census.gov",
+    "tigerline"
+  ],
   "smt": {
-    "model": "shp",
-    "locus": "zip:/var/data/www.census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip",
-    "schema": "tl_2020_us_county",
-    "key": "*"
+    "model": "*",
+    "locus": "*",
+    "schema": "tl_YYYY_us_county",
+    "key": "!properties.GEOID"
   },
   "fields": [
     {
       "name": "type",
       "type": "keyword",
-      "size": 7
+      "size": 18
     },
     {
       "name": "properties",
@@ -17,82 +24,117 @@
       "fields": [
         {
           "name": "STATEFP",
-          "type": "integer"
+          "type": "keyword",
+          "size": "2",
+          "description": "Current state FIPS code"
         },
         {
           "name": "COUNTYFP",
-          "type": "integer"
+          "type": "keyword",
+          "size": "3",
+          "description": "Current county FIPS code"
         },
         {
           "name": "COUNTYNS",
-          "type": "integer"
+          "type": "keyword",
+          "size": "8",
+          "description": "ANSI feature code for the county or equivalent feature"
         },
         {
           "name": "GEOID",
-          "type": "integer"
+          "type": "keyword",
+          "size": "5",
+          "description": "County identifier; a concatenation of Current state FIPScode and county FIPS code"
         },
         {
           "name": "NAME",
-          "type": "text",
-          "size": 21
+          "type": "string",
+          "size": "100",
+          "description": "Current county name"
         },
         {
           "name": "NAMELSAD",
-          "type": "text",
-          "size": 33
+          "type": "string",
+          "size": "100",
+          "description": "Current name and the translated legal/statistical areadescription for county"
         },
         {
           "name": "LSAD",
-          "type": "integer"
+          "type": "keyword",
+          "size": "2",
+          "description": "Current legal/statistical area description code for county"
         },
         {
           "name": "CLASSFP",
           "type": "keyword",
-          "size": 2
+          "size": "2",
+          "description": "Current FIPS class code"
         },
         {
           "name": "MTFCC",
           "type": "keyword",
-          "size": 5
+          "size": "5",
+          "description": "MAF/TIGER Feature Class Code (G4020)"
         },
         {
           "name": "CSAFP",
-          "type": "integer"
+          "type": "keyword",
+          "size": "3",
+          "description": "Current combined statistical area code"
         },
         {
           "name": "CBSAFP",
-          "type": "integer"
+          "type": "keyword",
+          "size": "5",
+          "description": "Current metropolitan statistical area/micropolitanstatistical area code"
         },
         {
           "name": "METDIVFP",
-          "type": "integer"
+          "type": "keyword",
+          "size": "5",
+          "description": "Current metropolitan division code"
         },
         {
           "name": "FUNCSTAT",
           "type": "keyword",
-          "size": 1
+          "size": "1",
+          "description": "Current functional status"
         },
         {
           "name": "ALAND",
-          "type": "integer"
+          "type": "number",
+          "size": "14",
+          "description": "Current land area",
+          "_elasticsearch": {
+            "type": "long"
+          }
         },
         {
           "name": "AWATER",
-          "type": "integer"
+          "type": "number",
+          "size": "14",
+          "description": "Current water area",
+          "_elasticsearch": {
+            "type": "long"
+          }
         },
         {
           "name": "INTPTLAT",
-          "type": "number"
+          "type": "string",
+          "size": "11",
+          "description": "Current latitude of the internal point"
         },
         {
           "name": "INTPTLON",
-          "type": "number"
+          "type": "string",
+          "size": "12",
+          "description": "Current longitude of the internal point"
         }
       ]
     },
     {
       "name": "geometry",
-      "type": "geometry"
+      "type": "Geometry"
     }
   ]
 }

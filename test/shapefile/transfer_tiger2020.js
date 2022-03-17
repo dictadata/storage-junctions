@@ -7,7 +7,7 @@ const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
 
-logger.info("=== Test: transfer tiger2020");
+logger.info("=== Test: transfer tl_2020_us_state");
 
 
 async function transfer1() {
@@ -18,7 +18,7 @@ async function transfer1() {
       "smt": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|tl_2020_us_state.json|!properties.STUSPS+'_'+properties.GEOID+'_state'"
+      "smt": "json|./test/data/output/shapefile/|tl_2020_us_state.json|*"
     }
   })) return 1;
 
@@ -32,7 +32,7 @@ async function transfer2() {
       "smt": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
-      "smt": "elastic|http://localhost:9200/|tiger2020|!properties.STUSPS+'_'+properties.GEOID+'_state'",
+      "smt": "elastic|http://localhost:9200/|us-census-tl_2020_us_state|*",
       "options": {
         "encoding": "./test/data/input/shapes/tl_2020_us_state.encoding.json"
       }
@@ -46,7 +46,7 @@ async function transfer3() {
   logger.verbose("=== Transfer Elasticsearch to GeoJSON");
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://localhost:9200/|tiger2020|!properties.STUSPS+'_'+properties.GEOID+'_state'"
+      "smt": "elastic|http://localhost:9200/|us-census-tl_2020_us_state|*"
     },
     "terminal": {
       "smt": "json|./test/data/output/shapefile/|tl_2020_us_state_elastic.json|*"
