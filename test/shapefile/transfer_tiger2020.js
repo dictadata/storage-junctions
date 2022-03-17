@@ -34,7 +34,7 @@ async function transfer2() {
     "terminal": {
       "smt": "elastic|http://localhost:9200/|us-census-tl_2020_us_state|*",
       "options": {
-        "encoding": "./test/data/input/shapes/tl_2020_us_state.encoding.json"
+        "encoding": "./test/data/input/shapes/tl_YYYY_us_state.encoding.json"
       }
     }
   })) return 1;
