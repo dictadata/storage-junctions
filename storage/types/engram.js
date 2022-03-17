@@ -78,6 +78,14 @@ module.exports = exports = class Engram {
    * @param {Engram|encoding|fields} encoding is an Encoding/Engram object or Fields array/object
    */
   set encoding(encoding) {
+    // encoding.smt.key, if defined and more specific, takes precedence over engram.smt.key
+    if (encoding.smt && (!this.smt.key || this.smt.key === '*' || this.smt.key === '!')) {
+      let smt = (typeof encoding.smt === "string") ? new SMT(encoding.smt) : encoding.smt;
+      if (smt.key) {
+        this.smt.key = smt.key;
+      }
+    }
+
     this.dull();
     this.merge(encoding);
     /*

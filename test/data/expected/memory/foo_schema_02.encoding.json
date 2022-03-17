@@ -7,7 +7,7 @@
     "model": "memory",
     "locus": "testgroup",
     "schema": "foo_schema_02",
-    "key": "*"
+    "key": "=Baz+Foo"
   },
   "fields": [
     {
