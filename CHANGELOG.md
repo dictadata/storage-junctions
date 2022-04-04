@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.1.6
+  - update required node engine >= 16.4
 - version 2.1.5
   - encoding.smt.key, if defined and more specific, takes precedence over junction's engram.smt.key
   - rename tiger2020 schemas
