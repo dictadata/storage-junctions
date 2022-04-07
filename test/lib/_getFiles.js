@@ -1,6 +1,6 @@
 /**
  * test/lib/getFiles
- * 
+ *
  * Download file(s) from filesystem directly to a local folder.
  * Reads directory of remote file system before download(s).
  * getFile is a filesystem method.
@@ -8,7 +8,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 
 
@@ -23,9 +23,9 @@ module.exports = exports = async function (tract) {
   try {
     if (!tract.origin.options)
       tract.origin.options = {};
-    
+
     logger.info(">>> create junction");
-    junction = await storage.activate(tract.origin.smt, tract.origin.options);
+    junction = await Storage.activate(tract.origin.smt, tract.origin.options);
     let stfs = await junction.getFileSystem();
 
     logger.info(">>> get list of desired files");
@@ -38,7 +38,7 @@ module.exports = exports = async function (tract) {
           entry: entry,
         },
           tract.terminal.options);
-      
+
         let results = await stfs.getFile(options);
         if (results.resultCode !== 0) {
           logger.error("!!! getFile failed: " + entry.name);
@@ -58,7 +58,7 @@ module.exports = exports = async function (tract) {
           entry: entry,
         },
           tract.terminal.options);
-      
+
         let results = await stfs.getFile(options);
         if (results.resultCode !== 0) {
           logger.error("!!! getFile failed: " + entry.name);

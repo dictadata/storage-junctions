@@ -1,16 +1,16 @@
 /**
- * test/cortex/cortex_in-memory
+ * test/codex/codex_in-memory
  *
  * Test Outline:
- *   Uses cortex with Memory Junction
+ *   Uses codex with Memory Junction
  *   read encoding(s) from file
- *   store engram definition(s) in cortex
- *   recall engrams(s) from cortex
+ *   store engram definition(s) in codex
+ *   recall engrams(s) from codex
  *   compare results with expected SMT engram definitions
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
@@ -18,17 +18,17 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: cortex in-memory encodings");
+logger.info("=== Tests: codex in-memory encodings");
 
 async function init() {
   try {
-    // activate cortex
-    let cortex = new storage.Cortex({
-      smt: "memory|dictadata|cortex|!name"
+    // activate codex
+    let codex = new Storage.Codex({
+      smt: "memory|dictadata|codex|!name"
     });
 
-    await cortex.activate();
-    storage.cortex = cortex;
+    await codex.activate();
+    Storage.codex = codex;
   }
   catch (err) {
     logger.error(err);
@@ -38,8 +38,8 @@ async function init() {
 async function test(schema) {
   let retCode = 0;
 
-  storage.cortex = new storage.Cortex({
-    smt: "memory|dictadata|cortex|!name"
+  Storage.codex = new Storage.Codex({
+    smt: "memory|dictadata|codex|!name"
   });
 
   let encoding;
@@ -51,15 +51,15 @@ async function test(schema) {
     let engram = new Engram(encoding.smt || "*|*|*|*");
     engram.name = schema;
     engram.encoding = encoding;
-    let results = await storage.cortex.store(engram);
+    let results = await Storage.codex.store(engram);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding
-    results = await storage.cortex.recall(schema);
+    results = await Storage.codex.recall(schema);
     logger.verbose(JSON.stringify(results, null, "  "));
     encoding = results.data[ schema ];
 
-    let outputfile = "./test/data/output/cortex/" + schema + ".encoding.json";
+    let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
@@ -83,5 +83,5 @@ async function test(schema) {
   if (await test("foo_schema_short")) return 1;
   if (await test("foo_schema_typesonly")) return 1;
 
-  await storage.cortex.relax();
+  await Storage.codex.relax();
 })();

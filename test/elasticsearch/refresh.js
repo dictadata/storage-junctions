@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const compare = require("../lib/_compare");
 const { logger } = require('../../storage/utils');
 const fs = require('fs');
@@ -17,7 +17,7 @@ async function noRefresh() {
   try {
     logger.info("=== elasticsearch store");
     let smt = "elasticsearch|http://localhost:9200|foo_schema|!Foo";
-    junction = await storage.activate(smt);
+    junction = await Storage.activate(smt);
 
     let construct = {
       Foo: 'hundred',
@@ -70,7 +70,7 @@ async function withRefresh() {
   try {
     logger.info("=== elasticsearch store");
     let smt = "elasticsearch|http://localhost:9200|foo_schema|!Foo";
-    junction = await storage.activate(smt, { refresh: true });
+    junction = await Storage.activate(smt, { refresh: true });
 
     let construct = {
       Foo: 'hundred',

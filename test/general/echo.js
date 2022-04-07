@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const EchoJunction = require("../../storage/junctions/echo");
 const { logger } = require('../../storage/utils');
 const stream = require('stream/promises');
@@ -17,10 +17,10 @@ async function testStream() {
   var jo;
   try {
     logger.info(">>> adding EchoJunction to StorageJunctions registry");
-    storage.use("echo", EchoJunction);
+    Storage.use("echo", EchoJunction);
 
     logger.info(">>> create junction");
-    jo = await storage.activate({
+    jo = await Storage.activate({
       model: "echo",
       locus: "somewhere",
       schema: "container",

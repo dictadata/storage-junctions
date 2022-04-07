@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: Generic * Junction");
@@ -14,7 +14,7 @@ async function test_1() {
   var junction;
   try {
     logger.info(">>> create junction");
-    junction = await storage.activate({
+    junction = await Storage.activate({
       model: "*",
       locus: "./test/data/input/",
       schema: "*",

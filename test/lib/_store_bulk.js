@@ -4,7 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 
 module.exports = exports = async function (tract, keyValues) {
@@ -17,14 +17,14 @@ module.exports = exports = async function (tract, keyValues) {
 
   var jo;
   try {
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.storeBulk(tract.constructs, tract.origin.pattern);
     logger.verbose(JSON.stringify(results));
 
     logger.info(">>> completed");
     // check for a returnd keystore UniqueID value
     if (keyValues && results.data && !Array.isArray(results.data)) {
-      keyValues.uid = Object.keys(results.data)[0];
+      keyValues.uid = Object.keys(results.data)[ 0 ];
     }
   }
   catch (err) {

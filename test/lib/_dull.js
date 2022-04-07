@@ -4,7 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 
 module.exports = exports = async function (tract) {
@@ -17,7 +17,7 @@ module.exports = exports = async function (tract) {
 
   var jo;
   try {
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
 
     let results = await jo.dull(tract.origin.pattern);
     logger.verbose(JSON.stringify(results));

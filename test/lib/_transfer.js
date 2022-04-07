@@ -4,7 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { typeOf, logger } = require("../../storage/utils");
 
 const fs = require('fs');
@@ -29,13 +29,13 @@ module.exports = exports = async function (tract) {
     }
 
     logger.info(">>> origin junction");
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
     let encoding;
     if (jo.capabilities.encoding) {
       let results = await jo.getEncoding();  // load encoding from origin for validation
-      encoding = results.data["encoding"];
+      encoding = results.data[ "encoding" ];
     }
 
     if (tract.terminal.options && typeof tract.terminal.options.encoding === "string") {
@@ -49,9 +49,9 @@ module.exports = exports = async function (tract) {
       let pipes = [];
       pipes.push(jo.createReader({ max_read: 100 }));
 
-      for (let [tfType, tfOptions] of Object.entries(transforms))
+      for (let [ tfType, tfOptions ] of Object.entries(transforms))
         pipes.push(jo.createTransform(tfType, tfOptions));
-      
+
       let codify = jo.createTransform('codify');
       pipes.push(codify);
 
@@ -60,15 +60,15 @@ module.exports = exports = async function (tract) {
     }
     else
       tract.terminal.options.encoding = encoding;
- 
+
     if (typeof tract.terminal.options.encoding !== "object")
       throw new Error("invalid encoding");
-    
+
     logger.debug(">>> encoding results");
     //logger.debug(JSON.stringify(tract.terminal.options.encoding.fields, null, " "));
 
     logger.debug("create the terminal");
-    jt = await storage.activate(tract.terminal.smt, tract.terminal.options);
+    jt = await Storage.activate(tract.terminal.smt, tract.terminal.options);
     if (jt.capabilities.encoding) {
       let results = await jt.createSchema();
       if (results.resultCode !== 0)
@@ -80,9 +80,9 @@ module.exports = exports = async function (tract) {
     let pipes = [];
     pipes.push(jo.createReader());
 
-    for (let [tfType, tfOptions] of Object.entries(transforms))
+    for (let [ tfType, tfOptions ] of Object.entries(transforms))
       pipes.push(jo.createTransform(tfType, tfOptions));
-    
+
     let tws = jt.createWriter({
       progress: (stats) => {
         console.log(stats.count);

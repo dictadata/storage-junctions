@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const _compare = require("./_compare");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger, hasOwnProperty } = require('../../storage/utils');
 
 const fs = require('fs');
@@ -26,7 +26,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
   var jo;
   try {
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
 
     // *** get encoding for junction's schema
     logger.info(">>> get encoding");

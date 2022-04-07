@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const _compare = require("./_compare");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
@@ -22,7 +22,7 @@ module.exports = exports = async function (tract, compareValues = 1) {
 
   var jo;
   try {
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     logger.info(">>> list");
     let response = await jo.list();
     let list = response.data;

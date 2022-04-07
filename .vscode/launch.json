@@ -903,14 +903,14 @@
     },
     {
       "type": "node-terminal",
-      "name": "--- cortex",
+      "name": "--- codex",
       "request": "launch"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex in-memory",
-      "program": "${workspaceFolder}/test/cortex/cortex_in-memory.js",
+      "name": "codex in-memory",
+      "program": "${workspaceFolder}/test/codex/codex_in-memory.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -920,8 +920,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex store",
-      "program": "${workspaceFolder}/test/cortex/store.js",
+      "name": "codex store",
+      "program": "${workspaceFolder}/test/codex/store.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -931,8 +931,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex recall",
-      "program": "${workspaceFolder}/test/cortex/recall.js",
+      "name": "codex recall",
+      "program": "${workspaceFolder}/test/codex/recall.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -942,8 +942,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex dull",
-      "program": "${workspaceFolder}/test/cortex/dull.js",
+      "name": "codex dull",
+      "program": "${workspaceFolder}/test/codex/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -953,8 +953,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex retrieve",
-      "program": "${workspaceFolder}/test/cortex/retrieve.js",
+      "name": "codex retrieve",
+      "program": "${workspaceFolder}/test/codex/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -964,8 +964,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex add smt",
-      "program": "${workspaceFolder}/test/cortex/cortex_add_smt.js",
+      "name": "codex add smt",
+      "program": "${workspaceFolder}/test/codex/codex_add_smt.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -975,8 +975,8 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "cortex use smt",
-      "program": "${workspaceFolder}/test/cortex/cortex_use_smt.js",
+      "name": "codex use smt",
+      "program": "${workspaceFolder}/test/codex/codex_use_smt.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

@@ -4,7 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { typeOf, logger } = require("../../storage/utils");
 const fs = require('fs');
 
@@ -20,7 +20,7 @@ module.exports = exports = async function (tract) {
       tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
 
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.createSchema();
     if (results.resultCode !== 0)
       logger.warn("could not create storage schema: " + results.resultText);

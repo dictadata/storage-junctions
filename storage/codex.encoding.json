@@ -1,15 +1,15 @@
 {
-  "name": "dicta_cortex",
+  "name": "dicta_codex",
   "type": "engram",
-  "description": "dictadata.org Storage Cortex Encodings",
+  "description": "dictadata.org Storage Codex Encodings",
   "tags": [
-    "cortex",
+    "codex",
     "encoding"
   ],
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "dicta_cortex",
+    "schema": "dicta_codex",
     "key": "!name"
   },
   "fields": [

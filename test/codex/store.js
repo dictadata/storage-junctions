@@ -1,30 +1,30 @@
 /**
- * test/cortex/store
+ * test/codex/store
  *
  * Test Outline:
- *   use cortex with Elasticsearch junction
+ *   use codex with Elasticsearch junction
  *   read encoding(s) from file
- *   store engram(s) in cortex
+ *   store engram(s) in codex
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 
 const fs = require('fs');
 
-logger.info("=== Tests: cortex store");
+logger.info("=== Tests: codex store");
 
 async function init() {
   try {
-    // activate cortex
-    let cortex = new storage.Cortex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_cortex|!name"
+    // activate codex
+    let codex = new Storage.Codex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
     });
 
-    await cortex.activate();
-    storage.cortex = cortex;
+    await codex.activate();
+    Storage.codex = codex;
   }
   catch (err) {
     logger.error(err);
@@ -44,7 +44,7 @@ async function test(schema) {
     let engram = new Engram(encoding.smt || "*|*|*|*");
     engram.name = schema;
     engram.encoding = encoding;
-    let results = await storage.cortex.store(engram);
+    let results = await Storage.codex.store(engram);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
@@ -63,5 +63,5 @@ async function test(schema) {
   if (await test("foo_schema_typesonly")) return 1;
   if (await test("foo_schema_two")) return 1;
 
-  await storage.cortex.relax();
+  await Storage.codex.relax();
 })();

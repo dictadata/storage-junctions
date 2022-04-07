@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 const fs = require('fs');
 
@@ -16,7 +16,7 @@ async function test(schema) {
   var encoding;
   try {
     logger.verbose('=== ' + schema);
-    jo = await storage.activate("*|*|*|*");
+    jo = await Storage.activate("*|*|*|*");
     encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + ".encoding.json", "utf8"));
     jo.encoding = encoding;
     encoding = jo.encoding;

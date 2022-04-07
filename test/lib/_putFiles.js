@@ -1,13 +1,13 @@
 /**
  * test/lib/putFile
- * 
+ *
  * Upload file(s) from local folder directly to a filesystem.
  * putFile is a filesystem method.
  */
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 const path = require('path');
 
@@ -20,7 +20,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> create generic junction for local files");
     let smt = tract.origin.smt;
     logger.verbose("smt:" + JSON.stringify(smt, null, 2));
-    local = await storage.activate(smt, tract.origin.options);
+    local = await Storage.activate(smt, tract.origin.options);
 
     logger.info(">>> get list of local files");
     let { data: list } = await local.list();
@@ -29,7 +29,7 @@ module.exports = exports = async function (tract) {
     logger.verbose("smt:" + JSON.stringify(tract.terminal.smt, null, 2));
     if (tract.terminal.options)
       logger.verbose("options:" + JSON.stringify(tract.terminal.options));
-    junction = await storage.activate(tract.terminal.smt, tract.terminal.options);
+    junction = await Storage.activate(tract.terminal.smt, tract.terminal.options);
 
     logger.info(">>> upload files");
     let stfs = await junction.getFileSystem();
@@ -38,9 +38,9 @@ module.exports = exports = async function (tract) {
       //logger.debug(JSON.stringify(entry, null, 2));
 
       let options = Object.assign({
-          smt: tract.origin.smt,
-          entry: entry
-        },
+        smt: tract.origin.smt,
+        entry: entry
+      },
         tract.origin.options);
 
       let results = await stfs.putFile(options);

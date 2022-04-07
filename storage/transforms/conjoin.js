@@ -1,7 +1,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const Storage = require("../storage");
+const Cortex = require("../cortex");
 const { typeOf, hasOwnProperty, logger } = require("../utils");
 
 
@@ -96,7 +96,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
       // create origin junction
       logger.debug("conjoin activate jo");
       //logger.debug(JSON.stringify(smt,null,2));
-      jo = await Storage.activate(smt, options);
+      jo = await Cortex.activate(smt, options);
 
       // retrieve
       logger.debug("conjoin retrieve");

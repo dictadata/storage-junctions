@@ -4,7 +4,7 @@
 "use strict";
 
 const _pev = require("./_process_events");
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { typeOf } = require("../../storage/utils");
 const { logger } = require('../../storage/utils');
 
@@ -31,23 +31,23 @@ module.exports = exports = async function (tract) {
       let filename = tract.origin.options.encoding;
       tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
-    jo = await storage.activate(tract.origin.smt, tract.origin.options);
+    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
     let encoding;
     if (jo.capabilities.encoding) {
       let results = await jo.getEncoding();
-      encoding = results.data["encoding"];
+      encoding = results.data[ "encoding" ];
     }
 
     logger.info(">>> create origin pipeline");
     reader = jo.createReader();
-    for (let [tfType, tfOptions] of Object.entries(origin_transforms))
+    for (let [ tfType, tfOptions ] of Object.entries(origin_transforms))
       reader = reader.pipe(jo.createTransform(tfType, tfOptions));
 
     logger.info(">>> create terminal branches");
     if (!Array.isArray(tract.terminal))
-      throw new StorageError( 400, "tract.terminal not an Array");
+      throw new StorageError(400, "tract.terminal not an Array");
 
     for (const branch of tract.terminal) {
       const transforms = branch.transform || branch.transforms || {};
@@ -58,7 +58,7 @@ module.exports = exports = async function (tract) {
         let filename = branch.terminal.options.encoding;
         branch.terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
       }
-      let jt = await storage.activate(branch.terminal.smt, branch.terminal.options);
+      let jt = await Storage.activate(branch.terminal.smt, branch.terminal.options);
       if (jt.capabilities.encoding)
         await jt.createSchema();
 
@@ -67,7 +67,7 @@ module.exports = exports = async function (tract) {
       logger.info(">>> create branch pipeline");
       let writer = null;
       // add transforms
-      for (let [tfType, tfOptions] of Object.entries(transforms)) {
+      for (let [ tfType, tfOptions ] of Object.entries(transforms)) {
         let t = jt.createTransform(tfType, tfOptions);
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }

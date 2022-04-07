@@ -4,19 +4,19 @@
  * This module is a "superset" of Storage module.
  *
  * Exposes additional class types for:
- *   Cortex, StorageJunction, Transforms, FileSystems
+ *   Codex, StorageJunction, Transforms, FileSystems
  *
  * Registers standard class implementations of:
  *   StorageJunctions, Transforms, FileSystems
  */
 "use strict";
 
-var Storage = require("./storage");
+var Storage = require("./cortex");
 module.exports = exports = Storage;
 
 //////////
-///// Cortex class
-exports.Cortex = require("./cortex");
+///// Codex class
+exports.Codex = require("./codex");
 
 //////////
 ///// register Storage FileSystems

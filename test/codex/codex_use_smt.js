@@ -1,32 +1,32 @@
 /**
- * test/cortex/use_smt
+ * test/codex/use_smt
  *
  * Test Outline:
- *   use cortex with Elasticsearch junction
+ *   use codex with Elasticsearch junction
  *   create junction using SMT name(s)
  *   use junction to retrieve data
  *   compare results with expected output
  */
 "use strict";
 
-const storage = require("../../storage");
+const Storage = require("../../storage");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: cortex store");
+logger.info("=== Tests: codex store");
 
 async function init() {
   try {
-    // activate cortex
-    let cortex = new storage.Cortex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_cortex|!name"
+    // activate codex
+    let codex = new Storage.Codex({
+      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
     });
 
-    await cortex.activate();
-    storage.cortex = cortex;
+    await codex.activate();
+    Storage.codex = codex;
   }
   catch (err) {
     logger.error(err);
@@ -40,9 +40,9 @@ async function test(smt_name) {
     logger.verbose('=== ' + smt_name);
 
     // create junction
-    let junction = await storage.activate(smt_name);
+    let junction = await Storage.activate(smt_name);
 
-    // retrieve cortex entries
+    // retrieve codex entries
     let results = await junction.retrieve({
       match: {
         "Bar": {
@@ -51,7 +51,7 @@ async function test(smt_name) {
       }
     });
 
-    let outputfile = "./test/data/output/cortex/" + smt_name + ".json";
+    let outputfile = "./test/data/output/codex/" + smt_name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");
@@ -78,5 +78,5 @@ async function test(smt_name) {
   if (await test("mssql-foo_schema")) return 1;
   if (await test("mysql-foo_schema")) return 1;
 
-  await storage.cortex.relax();
+  await Storage.codex.relax();
 })();
