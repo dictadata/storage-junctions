@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.2.2
+  - add title to predefined codex properties
 - version 2.2.1
   - refactor: Storage module, Cortex and Codex classes
 - version 2.1.6
