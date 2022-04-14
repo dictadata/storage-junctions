@@ -39,6 +39,7 @@ module.exports = exports = class Engram {
     // codex encoding properties
     this.name = encoding.name || smt.schema;
     this.type = encoding.type || "engram";
+    this.title = encoding.title || "";
     this.description = encoding.description || "";
     this.tags = encoding.tags || [];
 

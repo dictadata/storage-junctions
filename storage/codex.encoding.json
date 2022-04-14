@@ -1,10 +1,11 @@
 {
   "name": "dicta_codex",
   "type": "engram",
+  "title": "dicta_codex entry",
   "description": "dictadata.org Storage Codex Encodings",
   "tags": [
-    "codex",
-    "encoding"
+    "dictadata",
+    "codex"
   ],
   "smt": {
     "model": "*",
@@ -22,6 +23,10 @@
     {
       "name": "type",
       "type": "keyword"
+    },
+    {
+      "name": "title",
+      "type": "text"
     },
     {
       "name": "description",
