@@ -1,6 +1,7 @@
 {
   "name": "foo_schema_typesonly",
   "type": "engram",
+  "title": "",
   "description": "",
   "tags": [],
   "smt": {

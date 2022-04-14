@@ -2,6 +2,7 @@
   "foo_schema_short": {
     "name": "foo_schema_short",
     "type": "engram",
+    "title": "",
     "description": "",
     "tags": [],
     "smt": {
@@ -43,6 +44,7 @@
   "foo_schema_typesonly": {
     "name": "foo_schema_typesonly",
     "type": "engram",
+    "title": "",
     "description": "",
     "tags": [],
     "smt": {
@@ -82,6 +84,7 @@
   "foo_schema": {
     "name": "foo_schema",
     "type": "engram",
+    "title": "",
     "description": "",
     "tags": [],
     "smt": {
