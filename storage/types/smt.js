@@ -24,7 +24,7 @@ module.exports = exports = class SMT {
     else if (typeof smt === "string") {
       let a = smt.split("|");
       if (a.length != 4)
-        throw new StorageError(400, "Invalid Parameter: smt");
+        throw new StorageError(400, "Invalid parameter: smt");
 
       this.model = a[ 0 ] || '';
       this.locus = a[ 1 ] || '';
@@ -34,7 +34,7 @@ module.exports = exports = class SMT {
     else if (typeOf(smt) === "object") {
       if (!hasOwnProperty(smt, "model") && !hasOwnProperty(smt, "locus")
         && !hasOwnProperty(smt, "schema") && !hasOwnProperty(smt, "key"))
-        throw new StorageError(400, "Invalid Parameter: smt");
+        throw new StorageError(400, "Invalid parameter: smt");
 
       this.model = smt.model || '';
       this.locus = smt.locus || '';
@@ -42,7 +42,7 @@ module.exports = exports = class SMT {
       this.key = smt.key || '';
     }
     else
-      throw new StorageError(400, "Invalid Parameter: smt");
+      throw new StorageError(400, "Invalid parameter: smt");
   }
 
 };

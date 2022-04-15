@@ -132,7 +132,7 @@ module.exports = exports = class Engram {
       newFields = Engram._convert(newFields);
 
     if (typeOf(newFields) !== "array")
-      throw new StorageError(400, "invalid parameter");
+      throw new StorageError(400, "Invalid parameter: encoding");
 
     for (let field of newFields)
       this.add(field);
