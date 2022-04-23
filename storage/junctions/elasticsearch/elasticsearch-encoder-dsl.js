@@ -131,21 +131,35 @@ function match(dsl, pattern) {
       }
       else {
         // expression(s) { op: value, ...}
-        let q = {
-          range: {}
-        };
+        let q = {};
 
-        let rf = q.range[ fldname ] = {};
-        if ('gt' in value) rf[ "gt" ] = value.gt;
-        if ('gte' in value) rf[ "gte" ] = value.gte;
-        if ('lt' in value) rf[ "lt" ] = value.lt;
-        if ('lte' in value) rf[ "lte" ] = value.lte;
-        if ('eq' in value) rf[ "eq" ] = value.eq;
-        if ('neq' in value) rf[ "neq" ] = value.neq;
-
-        if (Object.keys(rf).length > 0)
+        if ('eq' in value || 'neq' in value) {
+          q[ "term" ] = {};
+          if ('eq' in value) q.term[ fldname ] = value.eq;
+          if ('neq' in value) q.term[ fldname ] = value.neq;
           filter.push(q);
+        }
+        else {
+          q[ "range" ] = {};
+
+          let rf = q.range[ fldname ] = {};
+          if ('gt' in value) rf[ "gt" ] = value.gt;
+          if ('gte' in value) rf[ "gte" ] = value.gte;
+          if ('lt' in value) rf[ "lt" ] = value.lt;
+          if ('lte' in value) rf[ "lte" ] = value.lte;
+
+          if (Object.keys(rf).length > 0)
+            filter.push(q);
+        }
       }
+    }
+    else if (typeOf(value) === "array") {
+      // mulitiple property { field: [value1, value2] }
+      let q = {
+        terms: {}
+      };
+      q.terms[ fldname ] = value;
+      filter.push(q);
     }
     else {
       // single property { field: value }
