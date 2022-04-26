@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * test/st_launcher.js
- * 
+ *
  * Read the .vscode/launch.json file and run the tests.
  */
 "use strict";
@@ -11,10 +11,10 @@ const { spawn } = require('child_process');
 const colors = require('colors');
 
 // testProg is a string to match in the launch configuration.program property.
-let testProg = process.env["TEST_PROGRAM"] || "/test/";
+let testProg = process.env[ "TEST_PROGRAM" ] || "/test/";
 
 // testName is a string to match in the launch configuration.name property.
-let testName = process.argv.length > 2 ? process.argv[2] : "";
+let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
 
 (async () => {
   try {
@@ -27,11 +27,11 @@ let testName = process.argv.length > 2 ? process.argv[2] : "";
         if (config.type === "pwa-node"
           && config.request === "launch"
           && (config.program && config.program.includes(testProg))) {
-          
+
           console.log(config.name.bgBlue);
           let script = config.program.replace("${workspaceFolder}", ".");
-        
-          let args = [script];
+
+          let args = [ script ];
           if (config.args) {
             for (let arg of config.args) {
               arg = arg.replace("${workspaceFolder}", ".");
@@ -57,7 +57,7 @@ async function runTest(args) {
     const program = spawn('node', args);
 
     program.stdout.on('data', (data) => {
-      if (data[data.length - 1] === 10 && data[data.length - 2] === 13)
+      if (data[ data.length - 1 ] === 10 && data[ data.length - 2 ] === 13)
         console.log(`${data.slice(0, data.length - 2)}`);
       else
         console.log(`${data}`);
@@ -84,11 +84,11 @@ async function runTest(args) {
       console.log(`child process error ${error.message}`.bgRed);
       resolve(code);
     });
-/*
-    program.on('exit', (code) => {
-      console.log(`child process exit with code ${code}`);
-      resolve(code);
-    });
-*/
+    /*
+        program.on('exit', (code) => {
+          console.log(`child process exit with code ${code}`);
+          resolve(code);
+        });
+    */
   });
 }
