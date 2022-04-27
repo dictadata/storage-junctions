@@ -11,7 +11,7 @@ const { spawn } = require('child_process');
 const colors = require('colors');
 
 // testProg is a string to match in the launch configuration.program property.
-let testProg = process.env[ "TEST_PROGRAM" ] || "/test/";
+let testProg = process.env[ "LAUNCH_PROGRAM" ] || process.env[ "TEST_PROGRAM" ] || "/test/";
 
 // testName is a string to match in the launch configuration.name property.
 let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
@@ -77,12 +77,12 @@ async function runTest(args) {
 
     program.on('disconnect', () => {
       console.log(`child process disconnect`);
-      resolve(code);
+      resolve(0);
     });
 
     program.on('error', (error) => {
       console.log(`child process error ${error.message}`.bgRed);
-      resolve(code);
+      resolve(1);
     });
     /*
         program.on('exit', (code) => {
