@@ -1,18 +1,20 @@
 /**
  * storage/types/Engram
  *
- * An Engram is an encoding for a storage memory trace
- * and the field information needed to encode and decode constructs for storage.
+ * An Engram (encoding) is a storage memory trace (SMT) plus field definitions.
+ * Field definitions are needed to encode and decode constructs for storage.
  *
- * SMT and Engram represent the same concept and are interchangable as parameters.
+ * SMT and Engram represent the same concept, accessing a specific datasource,
+ * and can sometimes be interchangable as parameters.  For example if the field
+ * definitions are not needed to access the datasource.
  *
- * Storage Memory Trace (SMT) is a string representing a storage memory locus.
- *   smt: 'model|locus|schema|key'
+ * Extra information about the datasource may be be stored in Engram properties such
+ * as indices and source specific field properties needed to (re)create a schema.
  */
 "use strict";
 
-const Field = require('./field');
 const SMT = require('./smt');
+const Field = require('./field');
 const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty, getCI } = require("../utils");
 
@@ -22,7 +24,7 @@ module.exports = exports = class Engram {
 
   /**
    * Engram class
-   * @param {encoding|SMT} Encoding/Engram object, SMT object or SMT string
+   * @param {SMT|encoding} Engram/encoding object, SMT object or SMT string
    */
   constructor(encoding) {
     let smt = {};
@@ -32,16 +34,9 @@ module.exports = exports = class Engram {
     else {
       // assume the parameter is an SMT object or SMT string
       smt = new SMT(encoding);
-      // convert to empty Encoding object
+      // convert to encoding object with no field definitions
       encoding = { smt: smt };
     }
-
-    // codex encoding properties
-    this.name = encoding.name || smt.schema;
-    this.type = encoding.type || "engram";
-    this.title = encoding.title || "";
-    this.description = encoding.description || "";
-    this.tags = encoding.tags || [];
 
     // SMT
     this.smt = smt;
@@ -50,11 +45,16 @@ module.exports = exports = class Engram {
     this.fields = [];
     this.fieldsMap = {};
     if (hasOwnProperty(encoding, "fields"))
-      this.encoding = encoding;
+      this.encoding = encoding.fields;
 
-    // other Engram properties
-    //this.caseInsensitive = false;
-
+    // codex properties
+    this.name = encoding.name || this.smt.schema || "";
+    this.type = encoding.type || "engram";
+    if (encoding.title) this.title = encoding.title;
+    if (encoding.description) this.description = encoding.description;
+    if (encoding.tags) this.tags = encoding.tags;
+    // storage-junction options
+    if (encoding.options) this.options = encoding.options;
   }
 
   /**
@@ -65,7 +65,7 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Returns an object with Engram properties, but without any functions.
+   * Returns a simple encoding object with the Engram's properties, but without functions or fieldsMap property.
    */
   get encoding() {
     let encoding = Engram._copy({}, this);
@@ -76,10 +76,11 @@ module.exports = exports = class Engram {
   /**
    * Replace fields definitions.
    * Replace indices, if defined in parameter object.
-   * @param {Engram|encoding|fields} encoding is an Encoding/Engram object or Fields array/object
+   * @param {encoding|Engram|fields} encoding is an Encoding/Engram object or Fields array/object
    */
   set encoding(encoding) {
-    // encoding.smt.key, if defined and more specific, takes precedence over engram.smt.key
+    // check to update smt.key
+    // if defined and more specific, takes precedence over current smt.key
     if (encoding.smt && (!this.smt.key || this.smt.key === '*' || this.smt.key === '!')) {
       let smt = (typeof encoding.smt === "string") ? new SMT(encoding.smt) : encoding.smt;
       if (smt.key) {

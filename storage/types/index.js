@@ -1,14 +1,15 @@
 // storage/types
 "use strict";
 
-exports.Field = require('./field');
+exports.SMT = require('./smt');
 exports.Engram = require('./engram');
+exports.Field = require('./field');
+
 exports.StorageResponse = require('./storage-response');
 exports.StorageError = require('./storage-error');
 
-exports.SMT = require('./smt');
-exports.parseValue = require('./parseValue');
 exports.storageType = require('./storageType');
+exports.parseValue = require('./parseValue');
 exports.stringBreakpoints = require("./stringBreakpoints");
 
 // dicta storage types

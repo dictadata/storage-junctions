@@ -44,24 +44,25 @@ class Cortex {
    * Activate a StorageJunction given an SMT.
    *
    * @param {*} smt an SMT name, SMT string or SMT object
-   * @param {*} options
+   * @param {*} options options to pass to the storage-junction
    * @returns
    */
   static async activate(smt, options) {
-    if (!options) options = {};
     let _smt = {};
-    let encoding;
+    if (!options) options = {};
 
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex._codex) {
-      // SMT name
+      // lookup SMT name in codex
       let results = await Cortex._codex.recall(smt);
       if (results.resultCode !== 0)
         throw new StorageError(400, "Unknown SMT name: " + smt);
 
-      encoding = results.data[ smt ];
-      _smt = encoding.smt;
-      if (!options.encoding)
-        options.encoding = encoding;
+      let entry = results.data[ smt ];
+      _smt = entry.smt;
+      if (entry.options)
+        options = Object.assign(entry.options, options);
+      if (!options.encoding && entry.fields)
+        options.encoding = entry.fields;
     }
     else {
       // SMT string or object

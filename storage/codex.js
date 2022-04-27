@@ -4,7 +4,7 @@
  * Codex is a data directory and dictionary of encoding definitions.
  * Encoding definitions:
  *   engram - SMT encoding definitions
- *   tract - ETL tract definitions
+ *   tract  - ETL tract definitions
  *
  * An underlying StorageJunction such as ElasticsearchJunction
  * can be used for permanent storage.
@@ -77,16 +77,16 @@ module.exports = exports = class Codex {
 
   /**
    *
-   * @param {*} engram Engram or encoding object with codex properties
+   * @param {*} entry Engram or encoding object with codex properties
    * @returns
    */
-  async store(engram) {
+  async store(entry) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
 
-    let encoding = (engram instanceof Engram) ? engram.encoding : engram;
+    let encoding = (entry instanceof Engram) ? entry.encoding : entry;
 
     // save in cache
     this._engrams.set(encoding.name, encoding);
@@ -140,16 +140,16 @@ module.exports = exports = class Codex {
     };
 
     if (this._engrams.has(name)) {
-      // engram has been cached
-      let engram = this._engrams.get(name);
-      results.data[ name ] = engram;
+      // entry has been cached
+      let entry = this._engrams.get(name);
+      results.data[ name ] = entry;
     }
     else if (this._junction) {
       // go to the source codex
       results = await this._junction.recall({ key: name });
       logger.verbose(results.resultCode);
 
-      // cache engram definition
+      // cache entry definition
       if (results.resultCode === 0) {
         let encoding = results.data[ name ];
         this._engrams.set(name, encoding);
@@ -179,7 +179,7 @@ module.exports = exports = class Codex {
       results = await this._junction.retrieve(pattern);
       logger.verbose(results.resultCode);
 
-      // current design does not cache engrams from retrieved list
+      // current design does not cache entries from retrieved list
     }
     else {
       results.resultCode = 503;

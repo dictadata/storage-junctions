@@ -1,6 +1,6 @@
 /** storage/types/smt
  *
- * Storage Memory Trace (SMT) is a string representing a storage memory locus.
+ * Storage Memory Trace (SMT) is a string or object with access details for a specific data source.
  *   smt: 'model|locus|schema|key'
  */
 "use strict";
