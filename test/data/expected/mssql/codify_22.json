@@ -1,9 +1,6 @@
 {
   "name": "*",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "any",
     "locus": "*",

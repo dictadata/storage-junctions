@@ -1,9 +1,6 @@
 {
   "name": "tl_2020_us_county",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "shp",
     "locus": "zip:/var/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip",

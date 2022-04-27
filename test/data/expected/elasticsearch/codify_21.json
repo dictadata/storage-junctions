@@ -1,9 +1,6 @@
 {
   "name": "foo_schema_02",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "elasticsearch",
     "locus": "http://localhost:9200",

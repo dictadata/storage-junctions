@@ -1,9 +1,6 @@
 {
   "name": "foo_schema_01",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "mssql",
     "locus": "server=localhost;userName=dicta;password=data;database=storage_node",

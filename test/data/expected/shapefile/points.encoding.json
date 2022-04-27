@@ -1,9 +1,6 @@
 {
   "name": "points",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "shp",
     "locus": "zip:./test/data/input/shapes/points.zip",

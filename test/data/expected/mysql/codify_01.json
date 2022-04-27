@@ -1,9 +1,6 @@
 {
   "name": "foo_schema",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "mysql",
     "locus": "host=localhost;user=dicta;password=data;database=storage_node",

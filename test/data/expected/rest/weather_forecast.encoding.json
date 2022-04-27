@@ -1,9 +1,6 @@
 {
   "name": "forecast",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "rest",
     "locus": "https://api.weather.gov/gridpoints/DVN/34,71/",

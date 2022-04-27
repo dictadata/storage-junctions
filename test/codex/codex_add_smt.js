@@ -43,10 +43,10 @@ async function test(smt_name, smt) {
     logger.verbose('=== ' + smt_name);
 
     // store encoding
-    let engram = new Engram(smt);
-    engram.name = smt_name;
-    engram.encoding = encoding;
-    let results = await Storage.codex.store(engram);
+    let entry = new Engram(smt);
+    entry.name = smt_name;
+    entry.encoding = encoding;
+    let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {

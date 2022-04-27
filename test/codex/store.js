@@ -3,7 +3,7 @@
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
- *   read encoding(s) from file
+ *   read engram(s) from file
  *   store engram(s) in codex
  */
 "use strict";
@@ -41,10 +41,10 @@ async function test(schema) {
     // store encoding
     encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + ".encoding.json", "utf8"));
 
-    let engram = new Engram(encoding.smt || "*|*|*|*");
-    engram.name = schema;
-    engram.encoding = encoding;
-    let results = await Storage.codex.store(engram);
+    let entry = new Engram(encoding.smt || "*|*|*|*");
+    entry.name = schema;
+    entry.encoding = encoding;
+    let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {

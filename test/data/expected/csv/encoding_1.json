@@ -1,9 +1,6 @@
 {
   "name": "foofile.csv",
   "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "csv",
     "locus": "./test/data/input/",

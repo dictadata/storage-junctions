@@ -5,7 +5,7 @@
  *   Uses codex with Memory Junction
  *   read encoding(s) from file
  *   store engram definition(s) in codex
- *   recall engrams(s) from codex
+ *   recall engram(s) from codex
  *   compare results with expected SMT engram definitions
  */
 "use strict";
@@ -48,10 +48,10 @@ async function test(schema) {
     logger.verbose('=== ' + schema);
     encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + ".encoding.json", "utf8"));
 
-    let engram = new Engram(encoding.smt || "*|*|*|*");
-    engram.name = schema;
-    engram.encoding = encoding;
-    let results = await Storage.codex.store(engram);
+    let entry = new Engram(encoding.smt || "*|*|*|*");
+    entry.name = schema;
+    entry.encoding = encoding;
+    let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding

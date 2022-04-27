@@ -1,9 +1,4 @@
 {
-  "name": "foo_schema_short",
-  "type": "engram",
-  "title": "",
-  "description": "",
-  "tags": [],
   "smt": {
     "model": "*",
     "locus": "*",
