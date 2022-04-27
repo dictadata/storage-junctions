@@ -61,7 +61,7 @@ async function testNGINX() {
   logger.info("=== NGINX get list of foo files - forEach");
   if (await list({
     origin: {
-      smt: "*|https://data.dictadata.net/data/dictadata.org/test/input/|foofile*.json|*",
+      smt: "*|https://api.dictadata.org/data/dictadata.org/test/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -78,7 +78,7 @@ async function testNGINX() {
     origin: {
       smt: {
         model: "*",
-        locus: "https://data.dictadata.net/data/dictadata.org/test/input/",
+        locus: "https://api.dictadata.org/data/dictadata.org/test/input/",
         schema: "*.json",
         key: "*"
       },

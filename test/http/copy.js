@@ -43,7 +43,7 @@ async function downloads_NGINX() {
   logger.info("=== NGINX download foo files");
   if (await getFiles({
     origin: {
-      smt: "*|https://data.dictadata.net/data/dictadata.org/test/input/|foofile*.json|*",
+      smt: "*|https://api.dictadata.org/data/dictadata.org/test/input/|foofile*.json|*",
     },
     terminal: {
       smt: "*|./test/data/output/http/NGINX/|*|*",
@@ -53,7 +53,7 @@ async function downloads_NGINX() {
   logger.info("=== NGINX download encoding files");
   if (await getFiles({
     origin: {
-      smt: "*|https://data.dictadata.net/data/dictadata.org/test/input/|*.encoding.json|*",
+      smt: "*|https://api.dictadata.org/data/dictadata.org/test/input/|*.encoding.json|*",
       options: {
         recursive: true
       }
