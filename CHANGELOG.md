@@ -1,5 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.2.3
+  - enhancement: add options to Engram codex properties, passed to storage-junctions by cortex.activate
+  - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
+  - testing: st_launcher testing parameters
 - version 2.2.2
   - add title to predefined codex properties
 - version 2.2.1
