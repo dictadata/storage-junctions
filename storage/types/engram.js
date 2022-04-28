@@ -38,23 +38,24 @@ module.exports = exports = class Engram {
       encoding = { smt: smt };
     }
 
+    // codex properties
+    this.name = encoding.name || smt.schema || "";
+    this.type = encoding.type || "engram";
+    if (encoding.title) this.title = encoding.title;
+    if (encoding.description) this.description = encoding.description;
+    if (encoding.tags) this.tags = encoding.tags;
+
     // SMT
     this.smt = smt;
+
+    // storage-junction options (codex)
+    if (encoding.options) this.options = encoding.options;
 
     // fields encoding
     this.fields = [];
     this.fieldsMap = {};
     if (hasOwnProperty(encoding, "fields"))
       this.encoding = encoding.fields;
-
-    // codex properties
-    this.name = encoding.name || this.smt.schema || "";
-    this.type = encoding.type || "engram";
-    if (encoding.title) this.title = encoding.title;
-    if (encoding.description) this.description = encoding.description;
-    if (encoding.tags) this.tags = encoding.tags;
-    // storage-junction options
-    if (encoding.options) this.options = encoding.options;
   }
 
   /**

@@ -60,7 +60,7 @@ class Cortex {
       let entry = results.data[ smt ];
       _smt = entry.smt;
       if (entry.options)
-        options = Object.assign(entry.options, options);
+        options = Object.assign({}, entry.options, options);
       if (!options.encoding && entry.fields)
         options.encoding = entry.fields;
     }
