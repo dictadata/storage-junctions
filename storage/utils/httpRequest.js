@@ -8,7 +8,7 @@ const querystring = require('querystring');
 const logger = require('./logger');
 
 /**
- * 
+ *
  * @param {*} url The absolute or relative input URL to request.
  * @param {*} options HTTP request parameters.
  * @param {*} options.base URL to use as base for requests if url is relative.
@@ -20,14 +20,14 @@ const logger = require('./logger');
  * @param {*} options.cookies array of HTTP cookies strings
  * @param {*} options.auth Basic authentication i.e. 'user:password' to compute an Authorization header.
  * @param {*} options.responseType If set to 'stream' the response will be returned when headers are received.
- * @param {*} data 
- * @returns 
+ * @param {*} data
+ * @returns
  */
 function httpRequest(url, options, data) {
 
   if (typeof url === "undefined")
     url = '';
-  
+
   let Url;
   if (typeof url === "string") {
     Url = new URL(url, options.base);
@@ -51,11 +51,11 @@ function httpRequest(url, options, data) {
 module.exports = exports = httpRequest;
 
 /**
- * 
- * @param {*} Url 
- * @param {*} options 
- * @param {*} data 
- * @returns 
+ *
+ * @param {*} Url
+ * @param {*} options
+ * @param {*} data
+ * @returns
  */
 function http1Request(Url, options, data) {
   return new Promise((resolve, reject) => {
@@ -69,23 +69,23 @@ function http1Request(Url, options, data) {
     };
     request.headers = Object.assign({}, options.headers);
     if (options.cookies)
-      request.headers["Cookie"] = Object.entries(options.cookies).join('; ');
+      request.headers[ "Cookie" ] = Object.entries(options.cookies).join('; ');
     if (options.auth)
-      request["auth"] = options.auth;
+      request[ "auth" ] = options.auth;
 
     if (data) {
       // check for web form data
-      if (request.headers["Content-Type"] == "application/x-www-form-urlencoded" && typeof data === "object")
+      if (request.headers[ "Content-Type" ] == "application/x-www-form-urlencoded" && typeof data === "object")
         data = querystring.stringify(data);
 
       // default to json payload
-      if (!request.headers['Content-Type'])
-        request.headers["Content-Type"] = "application/json; charset=utf-8";
-      
+      if (!request.headers[ 'Content-Type' ])
+        request.headers[ "Content-Type" ] = "application/json; charset=utf-8";
+
       //request.headers['Content-Length'] = Buffer.byteLength(data);
       // if Content-Length is not set then default is chunked encoding
     }
-    
+
     let _http = (Url.protocol === "https:") ? https : http;
 
     const req = _http.request(Url, request, (res) => {
@@ -94,14 +94,22 @@ function http1Request(Url, options, data) {
       saveCookies(options, res.headers);
 
       if (options.responseType !== 'stream') {
-        res.setEncoding('utf8');
-
+        var chunks = [];
         res.on('data', (chunk) => {
-          response.data += chunk;
+          chunks.push(chunk);
         });
 
         res.on('end', () => {
-          logger.debug(`\n${response.data}`);
+          var buffer = Buffer.concat(chunks);
+
+          if (res.headers[ 'content-encoding' ]) {
+            response.data = buffer;
+          }
+          else {
+            response.data = buffer.toString();
+            logger.debug(`\n${response.data}`);
+          }
+
           resolve(response);
         });
       }
@@ -125,11 +133,11 @@ function http1Request(Url, options, data) {
 }
 
 /**
- * 
- * @param {*} Url 
- * @param {*} options 
- * @param {*} data 
- * @returns 
+ *
+ * @param {*} Url
+ * @param {*} options
+ * @param {*} data
+ * @returns
  */
 function http2Request(Url, options, data) {
   return new Promise((resolve, reject) => {
@@ -149,9 +157,9 @@ function http2Request(Url, options, data) {
       options.headers
     );
     if (options.cookies)
-      request["cookie"] = Object.entries(options.cookies).join('; ');
+      request[ "cookie" ] = Object.entries(options.cookies).join('; ');
     if (options.auth)
-      request["auth"] = options.auth;
+      request[ "auth" ] = options.auth;
 
     const req = client.request(request);
 
@@ -181,17 +189,17 @@ function http2Request(Url, options, data) {
 ////////////////////////////////
 
 /**
- * 
- * @param {*} options 
- * @param {*} headers 
+ *
+ * @param {*} options
+ * @param {*} headers
  */
 function saveCookies(options, headers) {
   // parse cookies
   for (const name in headers) {
-    logger.debug(`${name}: ${headers[name]}`);
+    logger.debug(`${name}: ${headers[ name ]}`);
     if (name === "set-cookie") {
       let cookies = [];
-      let hdval = headers[name];
+      let hdval = headers[ name ];
       if (typeof hdval === 'string')
         cookies.push(hdval);
       else
@@ -200,10 +208,10 @@ function saveCookies(options, headers) {
       for (let cookie of cookies) {
         let nvs = cookie.split(';');
         if (nvs.length > 0) {
-          let ck = nvs[0].split('=');
+          let ck = nvs[ 0 ].split('=');
           if (ck.length > 0) {
-            logger.debug(ck[0] + '=' + ck[1]);
-            options.cookies[ck[0]] = ck[1];
+            logger.debug(ck[ 0 ] + '=' + ck[ 1 ]);
+            options.cookies[ ck[ 0 ] ] = ck[ 1 ];
           }
         }
       }
@@ -212,20 +220,20 @@ function saveCookies(options, headers) {
 }
 
 /**
- * 
- * @param {*} contentType 
- * @returns 
+ *
+ * @param {*} contentType
+ * @returns
  */
 exports.contentTypeIsJSON = (contentType) => {
   if (!contentType)
     return false;
-  
+
   let expressions = contentType.split(';');
-  let [type, value] = expressions[0].split('/');
+  let [ type, value ] = expressions[ 0 ].split('/');
   if (value === 'json')
     return true;
   if (value.indexOf("+json") >= 0)
     return true;
-  
+
   return false;
 }

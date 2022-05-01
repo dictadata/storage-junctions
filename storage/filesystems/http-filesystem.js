@@ -5,7 +5,7 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
-const { logger, httpRequest, htmlParseDir } = require("../utils");
+const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
 
 const fs = require('fs');
 const path = require('path');
@@ -85,8 +85,23 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         let response = await httpRequest(dirpath, params);
         logger.debug(response);
 
-        if (!response.headers[ 'content-type' ].startsWith('text/html'))
+        if (!hasOwnProperty(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
+          logger.warn(JSON.stringify(response, null, 2));
           throw new StorageError(400, 'invalid content-type');
+        }
+
+        let encoding = response.headers[ "content-encoding" ];
+        if (encoding) {
+          if (encoding === 'gzip')
+            response.data = zlib.gunzipSync(response.data).toString();
+          else if (encoding === 'deflate')
+            response.data = zlib.deflateSync(response.data).toString();
+          else if (encoding === 'br')
+            response.data = zlib.brotliDecompressSync(response.data).toString();
+          else
+            throw new StorageError(400, "unkonwn content-encoding: " + response.headers[ "content-encoding" ]);
+
+        }
 
         // parse the html page into a simple DOM
         var root = HTMLParser.parse(response.data, {

@@ -104,7 +104,25 @@ async function testNGINX() {
 
 }
 
+async function testSOS() {
+
+  logger.info("=== get list of shapefiles from sos.iowa.gov");
+  if (await list({
+    origin: {
+      smt: "*|https://sos.iowa.gov/shapefiles/|*.zip|*",
+      options: {
+        recursive: true
+      }
+    },
+    terminal: {
+      output: "./test/data/output/http/list_sos_shapefiles.json"
+    }
+  })) return 1;
+
+}
+
 (async () => {
   if (await testIIS()) return;
   if (await testNGINX()) return;
+  if (await testSOS()) return;
 })();
