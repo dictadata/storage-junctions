@@ -30,7 +30,7 @@ module.exports = exports = class RESTReader extends StorageReader {
     try {
       let url = this.options.url || this.engram.smt.schema || '';
 
-      let request = Object.assign({
+      let req_options = Object.assign({
         method: "GET",
         base: this.smt.locus,
         headers: {
@@ -39,30 +39,32 @@ module.exports = exports = class RESTReader extends StorageReader {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override request["query"]
+      // note, a pattern will override req_options["query"]
 
       let data = this.options.data;  // a pattern will override data
       if (this.options.pattern) {
         // pattern will override options.data
         let match = this.options.pattern.match || this.options.pattern;
-        if (request.method === "GET")
-          request.query = match  // querystring
+        if (req_options.method === "GET")
+          req_options.query = match;  // querystring
         else
           data = match;
       }
 
-      let response = await httpRequest(url, request, data);
+      let results;
+      let response = await httpRequest(url, req_options, data);
+
       if (response.statusCode !== 200) {
         let msg = typeof response.data === "string" ? response.data : null;
         throw new StorageError(response.statusCode, msg);
       }
 
-      let results;
-      if (httpRequest.contentTypeIsJSON(response.headers["content-type"]))
+      if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
         results = JSON.parse(response.data);
       else
         results = response.data;
 
+      // push results to stream
       encoder.parseData(results, this.options, (construct) => {
         this.push(construct);
       });

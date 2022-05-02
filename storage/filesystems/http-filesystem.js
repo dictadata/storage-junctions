@@ -9,7 +9,6 @@ const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils"
 
 const fs = require('fs');
 const path = require('path');
-const zlib = require('zlib');
 
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
@@ -22,7 +21,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * construct a HTTPFileSystem object
    * @param {*} SMT  example "model|url folder|filename|*"
    * @param {*} options  http filesystem options
-   * @param {*} options.http set default HTTP options, see httpRequest()
+   * @param {*} options.http set default HTTP options, see httpRequest
    */
   constructor(smt, options) {
     super(smt, options);
@@ -45,7 +44,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {string} options.schema Override smt.schema, my contain wildcard characters.
    * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
    * @param {function} options.forEach Function to execute with each entry object, optional.
-   * @param {string} options.http httpRequest options, see httpRequest()
+   * @param {string} options.http httpRequest options, see httpRequest
    * @returns StorageResponse object where data is an array of directory entry objects.
    */
   async list(options) {
@@ -57,12 +56,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let pathname = this.url.pathname || "/";
       let list = [];
 
-      let params = Object.assign({
+      let req_options = Object.assign({
         method: 'GET',
         base: this.url.origin,
       }, options.http);
 
-      params.headers = Object.assign({},
+      req_options.headers = Object.assign({},
         this._headers,
         { accept: 'text/html,application/xhtml+xml' },
         options.http && options.http.headers);
@@ -82,25 +81,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         logger.debug('readFolder');
 
         // HTTP GET
-        let response = await httpRequest(dirpath, params);
+        let response = await httpRequest(dirpath, req_options);
         logger.debug(response);
 
         if (!hasOwnProperty(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
           logger.warn(JSON.stringify(response, null, 2));
           throw new StorageError(400, 'invalid content-type');
-        }
-
-        let encoding = response.headers[ "content-encoding" ];
-        if (encoding) {
-          if (encoding === 'gzip')
-            response.data = zlib.gunzipSync(response.data).toString();
-          else if (encoding === 'deflate')
-            response.data = zlib.deflateSync(response.data).toString();
-          else if (encoding === 'br')
-            response.data = zlib.brotliDecompressSync(response.data).toString();
-          else
-            throw new StorageError(400, "unkonwn content-encoding: " + response.headers[ "content-encoding" ]);
-
         }
 
         // parse the html page into a simple DOM
@@ -165,7 +151,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
-   * @param {string} options.http httpRequest options, see httpRequest()
+   * @param {string} options.http httpRequest options, see httpRequest
    * @returns StorageResponse object with resultCode.
    */
   async dull(options) {
@@ -183,7 +169,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * Create an object mode readstream from the filesystem file.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
-   * @param {string} options.http httpRequest options, see httpRequest()
+   * @param {string} options.http httpRequest options, see httpRequest
    * @returns a node.js readstream based object if successful.
   */
   async createReadStream(options) {
@@ -195,25 +181,18 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let filename = schema;
       let rs = null;
 
-      let params = Object.assign({
+      let req_options = Object.assign({
         method: 'GET',
         base: this.url.href,
         responseType: "stream"
       }, options.http);
 
-      params.headers = Object.assign({},
+      req_options.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
 
       // create read stream
-      rs = await httpRequest(filename, params);
-
-      ///// check for zip
-      if (rs.headers[ "content-encoding" ] === 'gzip' || filename.endsWith('.gz')) {
-        var gzip = zlib.createUnzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
-        rs.pipe(gzip);
-        return gzip;
-      }
+      rs = await httpRequest(filename, req_options);
 
       return rs;
     }
@@ -228,7 +207,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with filename at the same locus.
    * @param {*} options.append Flag used indicate overwrite or append destination file. Default is overwrite.
-   * @param {string} options.http httpRequest options, see httpRequest()
+   * @param {string} options.http httpRequest options, see httpRequest
    * @returns a node.js writestream based object if successful.
   */
   async createWriteStream(options) {
@@ -251,7 +230,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.keep_rpath If true replicate folder structure of remote filesystem in local filesystem.
-   * @param {string} options.http httpRequest options, see httpRequest()
+   * @param {string} options.http httpRequest options, see httpRequest
    * @returns StorageResponse object with resultCode;
    */
   async getFile(options) {
@@ -261,13 +240,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let params = Object.assign({
+      let req_options = Object.assign({
         method: 'GET',
         base: this.url.href,
         responseType: "stream"
       }, options.http);
 
-      params.headers = Object.assign({},
+      req_options.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
 
@@ -286,7 +265,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
 
       // get file
-      let rs = await httpRequest(src, params);
+      let rs = await httpRequest(src, req_options);
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
@@ -305,7 +284,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {boolean} options.keep_rpath If true replicate folder structure of local filesystem in remote filesystem.
-   * @param {string} options.http httpRequest options, see httpRequest()
+   * @param {string} options.http httpRequest options, see httpRequest
    * @param {*} options.formdata HTML formdata that specifies remote filename
    * @returns StorageResponse object with resultCode.
    */
@@ -316,7 +295,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let params = Object.assign({
+      let req_options = Object.assign({
         method: 'PUT',
         base: this.url.href,
         responseType: "stream"
@@ -338,12 +317,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       form.append(filename, fs.createReadStream(src));
 
       // send the file
-      params.headers = Object.assign({},
+      req_options.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers,
         form.getHeaders());
 
-      let response = await httpRequest(this.url.pathname, params, form);
+      let response = await httpRequest(this.url.pathname, req_options, form);
 
       resultCode = response.resultCode;
       return new StorageResponse(resultCode);

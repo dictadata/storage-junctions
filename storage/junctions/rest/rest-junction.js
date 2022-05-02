@@ -121,7 +121,7 @@ class RESTJunction extends StorageJunction {
     try {
       let url = this.options.url || this.engram.smt.schema || '';
 
-      let request = Object.assign({
+      let req_options = Object.assign({
         method: "GET",
         base: this.smt.locus,
         headers: {
@@ -130,19 +130,19 @@ class RESTJunction extends StorageJunction {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override request["query"]
+      // note, a pattern will override req_options["query"]
 
       let data = this.options.data;  // a pattern will override data
       if (pattern) {
         // pattern will override options.data
         let match = pattern.match || pattern;
-        if (request.method === "GET")
-          request.query = match  // querystring
+        if (req_options.method === "GET")
+          req_options.query = match  // querystring
         else
           data = match;
       }
 
-      let response = await httpRequest(url, request, data);
+      let response = await httpRequest(url, req_options, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
@@ -173,7 +173,7 @@ class RESTJunction extends StorageJunction {
     try {
       let url = this.options.url || this.engram.smt.schema || '';
 
-      let request = Object.assign({
+      let req_options = Object.assign({
         method: "GET",
         base: this.smt.locus,
         headers: {
@@ -182,19 +182,19 @@ class RESTJunction extends StorageJunction {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override request["query"]
+      // note, a pattern will override req_options["query"]
 
       let data = this.options.data;  // a pattern will override data
       if (pattern) {
         // pattern will override options.data
         let match = pattern.match || pattern;
-        if (request.method === "GET")
-          request.query = match  // querystring
+        if (req_options.method === "GET")
+          req_options.query = match  // querystring
         else
           data = match;
       }
 
-      let response = await httpRequest(url, request, data);
+      let response = await httpRequest(url, req_options, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))

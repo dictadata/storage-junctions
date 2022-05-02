@@ -5,6 +5,7 @@ const http = require('http');
 const https = require('https');
 const http2 = require('http2');
 const querystring = require('querystring');
+const zlib = require('zlib');
 const logger = require('./logger');
 
 /**
@@ -93,8 +94,31 @@ function http1Request(Url, options, data) {
       response.headers = res.headers;
       saveCookies(options, res.headers);
 
-      if (options.responseType !== 'stream') {
+      if (options.responseType === 'stream') {
+        // return a read stream
+
+        req.on('response', (rs) => {
+          ///// check for zip
+          let decoder;
+          if (rs.headers[ "content-encoding" ] === 'gzip')
+            decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+          else if (rs.headers[ "content-encoding" ] === 'deflate')
+            decoder = zlib.createDeflate();
+          else if (rs.headers[ "content-encoding" ] === 'br')
+            decoder = zlib.createBrotliDecompress();
+
+          if (decoder) {
+            rs.pipe(decoder);
+            resolve(decoder);
+          }
+          else
+            resolve(rs);
+        });
+      }
+      else {
+        // return response body
         var chunks = [];
+
         res.on('data', (chunk) => {
           chunks.push(chunk);
         });
@@ -102,10 +126,19 @@ function http1Request(Url, options, data) {
         res.on('end', () => {
           var buffer = Buffer.concat(chunks);
 
-          if (res.headers[ 'content-encoding' ]) {
-            response.data = buffer;
+          let encoding = response.headers[ "content-encoding" ];
+          if (encoding) {
+            if (encoding === 'gzip')
+              response.data = zlib.gunzipSync(buffer).toString();
+            else if (encoding === 'deflate')
+              response.data = zlib.deflateSync(buffer).toString();
+            else if (encoding === 'br')
+              response.data = zlib.brotliDecompressSync(buffer).toString();
+            else
+              throw new Error(`unkonwn content-encoding: ${encoding}`);
           }
           else {
+            // otherwise assume text
             response.data = buffer.toString();
             logger.debug(`\n${response.data}`);
           }
@@ -115,17 +148,12 @@ function http1Request(Url, options, data) {
       }
     });
 
-    if (options.responseType === 'stream') {
-      req.on('response', (response) => {
-        resolve(response);
-      });
-    }
-
     req.on('error', (err) => {
       logger.error(err);
       reject(err);
     });
 
+    // send the request
     if (data)
       req.write(data);
     req.end();
