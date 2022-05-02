@@ -94,28 +94,7 @@ function http1Request(Url, options, data) {
       response.headers = res.headers;
       saveCookies(options, res.headers);
 
-      if (options.responseType === 'stream') {
-        // return a read stream
-
-        req.on('response', (rs) => {
-          ///// check for zip
-          let decoder;
-          if (rs.headers[ "content-encoding" ] === 'gzip')
-            decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
-          else if (rs.headers[ "content-encoding" ] === 'deflate')
-            decoder = zlib.createDeflate();
-          else if (rs.headers[ "content-encoding" ] === 'br')
-            decoder = zlib.createBrotliDecompress();
-
-          if (decoder) {
-            rs.pipe(decoder);
-            resolve(decoder);
-          }
-          else
-            resolve(rs);
-        });
-      }
-      else {
+      if (options.responseType !== 'stream') {
         // return response body
         var chunks = [];
 
@@ -147,6 +126,28 @@ function http1Request(Url, options, data) {
         });
       }
     });
+
+    if (options.responseType === 'stream') {
+      // return a read stream
+
+      req.on('response', (rs) => {
+        ///// check for zip
+        let decoder;
+        if (rs.headers[ "content-encoding" ] === 'gzip')
+          decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+        else if (rs.headers[ "content-encoding" ] === 'deflate')
+          decoder = zlib.createDeflate();
+        else if (rs.headers[ "content-encoding" ] === 'br')
+          decoder = zlib.createBrotliDecompress();
+
+        if (decoder) {
+          rs.pipe(decoder);
+          resolve(decoder);
+        }
+        else
+          resolve(rs);
+      });
+    }
 
     req.on('error', (err) => {
       logger.error(err);
