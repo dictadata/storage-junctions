@@ -183,9 +183,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
-        var gzip = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
-        rs.pipe(gzip);
-        return gzip;
+        var decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+        rs.pipe(decoder);
+        return decoder;
       }
 
       return rs;
@@ -232,9 +232,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
-        var gzip = zlib.createGzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
-        gzip.pipe(ws);
-        return gzip;
+        var decoder = zlib.createGzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+        decoder.pipe(ws);
+        return decoder;
       }
 
       return ws;
