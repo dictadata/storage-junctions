@@ -9,9 +9,11 @@ const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils"
 
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
+const storageError = require("../types/storage-error");
 //const { runInThisContext } = require("vm");
 //const { URLSearchParams } = require("url");
 
@@ -30,7 +32,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     // set default request headers, options.http.headers will override defaults
     this._headers = Object.assign({
       'accept': "*/*",
-      'accept-encoding': "gzip, deflate, br",
+      'accept-encoding': "gzip, deflate;q=0.9, br;q=0.1",
       'user-agent': "@dictadata/storage-junctions/http-filesystem (dictadata.org)",
       'cache-control': "max-age=0"
     }, (options.http && options.http.headers) || {});
@@ -83,6 +85,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         // HTTP GET
         let response = await httpRequest(dirpath, req_options);
         logger.debug(response);
+        if (response.statusCode !== 200)
+          throw new storageError(response.statusCode);
 
         if (!hasOwnProperty(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
           logger.warn(JSON.stringify(response, null, 2));
@@ -193,6 +197,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       // create read stream
       rs = await httpRequest(filename, req_options);
+
+      ///// check for zip
+      if (filename.endsWith('.gz')) {
+        var decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+        rs.pipe(decoder);
+        return decoder;
+      }
 
       return rs;
     }

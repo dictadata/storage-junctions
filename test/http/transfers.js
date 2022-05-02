@@ -48,7 +48,7 @@ async function test_uncompress() {
       smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile_ungz.json|*"
+      smt: "json|./test/data/output/http/|foofile_gunzip.json|*"
     }
   })) return 1;
 
@@ -58,7 +58,7 @@ async function test_uncompress() {
       smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv.gz|*"
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|foofile_ungz.csv|*",
+      smt: "csv|./test/data/output/http/|foofile_gunzip.csv|*",
       options: {
         header: true
       }

@@ -71,5 +71,4 @@ async function downloads_NGINX() {
 (async () => {
   if (await downloads_IIS()) return;
   if (await downloads_NGINX()) return;
-  //if (await test_uploads()) return;
 })();
