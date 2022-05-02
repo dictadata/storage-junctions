@@ -40,7 +40,7 @@ async function test_2() {
     terminal: {
       smt: "*|file:./test/data/output/fs/uploads/|*|*",
       options: {
-        keep_rpath: true
+        use_rpath: true
       }
     }
   })) return 1;

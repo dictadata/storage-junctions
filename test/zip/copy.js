@@ -14,7 +14,7 @@ async function test_1() {
   if (await getFiles({
     origin: {
       smt: "*|zip:./test/data/input/foofile.zip|*.json|*",
-      options: {     
+      options: {
         recursive: false
       }
     },
@@ -39,7 +39,7 @@ async function test_2() {
     terminal: {
       smt: "*|./test/data/output/zip/downloads/|*|*",
       options: {
-        keep_rpath: true
+        use_rpath: true
       }
     }
   })) return 1;

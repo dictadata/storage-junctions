@@ -57,7 +57,7 @@ async function test_3() {
     terminal: {
       smt: "*|./test/data/output/ftp/shapefiles/|*|*",
       options: {
-        keep_rpath: true
+        use_rpath: true
       }
     }
   })) return 1;

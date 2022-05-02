@@ -191,7 +191,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
-   * @param {boolean} options.keep_rpath If true replicate folder structure of remote filesystem in local filesystem.
+   * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
    * @returns StorageResponse object with resultCode;
    */
   async getFile(options) {
@@ -205,7 +205,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
       let smt = new SMT(options.smt); // smt.locus is destination folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
-      let dest = path.join(folder, (options.keep_rpath ? options.entry.rpath : options.entry.name));
+      let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
@@ -228,7 +228,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
-   * @param {boolean} options.keep_rpath If true replicate folder structure of local filesystem in remote filesystem.
+   * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
    * @returns StorageResponse object with resultCode.
    */
   async putFile(options) {
@@ -244,7 +244,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
-      let dest = path.join(url.fileURLToPath(this.url), (options.keep_rpath ? options.entry.rpath : options.entry.name));
+      let dest = path.join(url.fileURLToPath(this.url), (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {

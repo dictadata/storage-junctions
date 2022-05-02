@@ -135,7 +135,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
-   * @param {boolean} options.keep_rpath If true replicate folder structure of remote filesystem in local filesystem.
+   * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
    * @returns StorageResponse object with resultCode;
    */
   async geFile(options) {
@@ -154,7 +154,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
-   * @param {boolean} options.keep_rpath If true replicate folder structure of local filesystem in remote filesystem.
+   * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
    * @returns StorageResponse object with resultCode.
    */
   async putFile(options) {

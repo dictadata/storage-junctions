@@ -31,7 +31,7 @@ async function downloads_IIS() {
     terminal: {
       smt: "*|./test/data/output/http/IIS/|*|*",
       options: {
-        keep_rpath: true
+        use_rpath: true
       }
     }
   })) return 1;
@@ -61,7 +61,7 @@ async function downloads_NGINX() {
     terminal: {
       smt: "*|./test/data/output/http/NGINX/|*|*",
       options: {
-        keep_rpath: true
+        use_rpath: true
       }
     }
   })) return 1;
