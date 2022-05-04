@@ -7,7 +7,7 @@ const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
 const { logger } = require('../../utils');
 
-module.exports = exports = class ElasticsearcWriter extends StorageWriter {
+module.exports = exports = class ElasticsearchWriter extends StorageWriter {
 
   /**
    *
@@ -32,16 +32,15 @@ module.exports = exports = class ElasticsearcWriter extends StorageWriter {
       callback();
       return;
     }
-    
+
     try {
       // save construct to .schema
       this._count(1);
-      await this.junction.store(construct);
-
+      let response = await this.junction.store(construct);
+      logger.verbose("resultCode: " + JSON.stringify(response));
       callback();
     }
     catch (err) {
-      logger.error(err);
       callback(err);
     }
 
@@ -53,18 +52,23 @@ module.exports = exports = class ElasticsearcWriter extends StorageWriter {
     try {
       this._count(chunks.length);
 
+      let response;
       for (var i = 0; i < chunks.length; i++) {
-        let construct = chunks[i].chunk;
-        let encoding = chunks[i].encoding;
+        let construct = chunks[ i ].chunk;
+        let encoding = chunks[ i ].encoding;
 
         // save construct to .schema
-        await this.junction.store(construct);
+        response = await this.junction.store(construct);
+        if (response.resultCode !== 0)
+          break;
+
+        // logger.verbose("resultCode: " + JSON.stringify(response));
       }
+
       callback();
     }
     catch (err) {
-      logger.error(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(err);
     }
   }
 
@@ -75,8 +79,7 @@ module.exports = exports = class ElasticsearcWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      callback(err);
     }
   }
 

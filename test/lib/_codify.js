@@ -47,7 +47,13 @@ module.exports = exports = async function (tract, compareValues = 2) {
     // *** use CodifyTransform to determine encoding including optional transforms
     logger.info(">>> build pipeline");
     let pipes = [];
-    pipes.push(jo.createReader({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 }));
+
+    let reader = jo.createReader({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 });
+    reader.on('error', (error) => {
+      logger.error("_codify reader: " + error.message);
+    });
+    pipes.push(reader);
+
     for (let [ tfType, tfOptions ] of Object.entries(tract.transform))
       pipes.push(jo.createTransform(tfType, tfOptions));
     let codify = jo.createTransform('codify', tract.origin);

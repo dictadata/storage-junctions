@@ -32,7 +32,7 @@ module.exports = exports = class MSSQLReader extends StorageReader {
     // read up to size constructs
     if (!this.started) {
       this.started = true;
-    
+
       try {
         let sql = sqlEncoder.sqlSelectByPattern(this.engram, this.options);
         let request = new tedious.Request(sql, (err, rowCount) => {
@@ -53,8 +53,8 @@ module.exports = exports = class MSSQLReader extends StorageReader {
         this.junction.connection.execSql(request);
       }
       catch (err) {
-        logger.error(err);
-        this.push(null);
+        logger.error("mssql reader: " + err.message);
+        this.destroy(err);
       }
     }
   }

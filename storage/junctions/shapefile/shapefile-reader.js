@@ -15,7 +15,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
-    this.filename = this.options.schema || this.smt.schema;
+    this.schemafile = this.options.schema || this.smt.schema;
 
     this.started = false;
     this.done = false;
@@ -30,27 +30,33 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
   async _read(_size) {
     logger.debug('ShapeFileReader _read');
 
-    if (!this.started) {
-      // start the reader
-      logger.debug('ShapeFileReader start');
-      this.stfs = await this.junction.getFileSystem();
-      this.shp = await this.stfs.createReadStream({ schema: this.filename + '.shp' });
-      this.dbf = await this.stfs.createReadStream({ schema: this.filename + '.dbf' });
+    try {
+      if (!this.started) {
+        // start the reader
+        logger.debug('ShapeFileReader start');
+        this.stfs = await this.junction.getFileSystem();
+        this.shp = await this.stfs.createReadStream({ schema: this.schemafile + '.shp' });
+        this.dbf = await this.stfs.createReadStream({ schema: this.schemafile + '.dbf' });
 
-      this.started = true;
-      this.source = await shapefile.open(this.shp, this.dbf);
-      this.bbox = this.source.bbox;
-    }
-
-    if (!this.done) {
-      logger.debug('ShapeFileReader source.read');
-      let record = await this.source.read();
-      if (record.value)
-        this.push(record.value);  // geoJSON feature
-      if (record.done) {
-        this.done = true;
-        this.push(null);
+        this.started = true;
+        this.source = await shapefile.open(this.shp, this.dbf);
+        this.bbox = this.source.bbox;
       }
+
+      if (!this.done) {
+        logger.debug('ShapeFileReader source.read');
+        let record = await this.source.read();
+        if (record.value)
+          this.push(record.value);  // geoJSON feature
+        if (record.done) {
+          this.done = true;
+          this.push(null);
+        }
+      }
+    }
+    catch (err) {
+      console.log("shapefile reader: " + err.message);
+      this.destroy(err);
     }
   }
 

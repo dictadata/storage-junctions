@@ -13,7 +13,7 @@ module.exports = exports = class StorageReader extends Readable {
    */
   constructor(storageJunction, options) {
     if (!hasOwnProperty(storageJunction, "engram"))
-      throw new StorageError( 400, "Invalid parameter: storageJunction");
+      throw new StorageError(400, "Invalid parameter: storageJunction");
 
     let streamOptions = {
       objectMode: true,
@@ -41,19 +41,19 @@ module.exports = exports = class StorageReader extends Readable {
     return this._statistics;
   }
 
-  push(chunk,encoding) {
+  push(chunk, encoding) {
     if (this._startms <= 0)
       this._startms = Date.now();
     if (chunk === null)
       this._statistics.elapsed = Date.now() - this._startms;
     else
       this._statistics.count++;
-    
+
     if (this.progress && (this._statistics.count % this.progressModula === 0)) {
       this._statistics.elapsed = Date.now() - this._startms;
       this.progress(this._statistics);
     }
-    
+
     super.push(chunk, encoding);
   }
 
@@ -63,7 +63,7 @@ module.exports = exports = class StorageReader extends Readable {
    */
   async _read(size) {
     logger.debug('StorageReader _read');
-    throw new StorageError( 501, "StorageReader._read method not implemented");
+    this.destroy(new StorageError(501, "StorageReader._read method not implemented"));
   }
 
 };

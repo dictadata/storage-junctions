@@ -115,7 +115,11 @@ class SplitterJunction extends StorageJunction {
     if (junction.capabilities.encoding)
       await junction.createSchema();
 
-    pipes.push(await junction.createWriter());
+    let writer = await junction.createWriter();
+    writer.on('error', (error) => {
+      logger.error("splitter-junction writer: " + error.message);
+    });
+    pipes.push(writer);
 
     // pipeline is ready
     this.split_streams[ sname ] = {

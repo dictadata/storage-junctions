@@ -42,6 +42,10 @@ module.exports = exports = async function (tract) {
 
     logger.info(">>> create origin pipeline");
     reader = jo.createReader();
+    reader.on('error', (error) => {
+      logger.error("_tee reader: " + error.message);
+    });
+
     for (let [ tfType, tfOptions ] of Object.entries(origin_transforms))
       reader = reader.pipe(jo.createTransform(tfType, tfOptions));
 
@@ -73,8 +77,11 @@ module.exports = exports = async function (tract) {
       }
       // add terminal
       let w = jt.createWriter();
-      writer = (writer) ? writer.pipe(w) : reader.pipe(w);
+      w.on('error', (error) => {
+        logger.error("_tee writer: " + error.message);
+      });
 
+      writer = (writer) ? writer.pipe(w) : reader.pipe(w);
       writers.push(writer);
     }
 

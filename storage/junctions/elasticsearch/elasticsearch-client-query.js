@@ -72,6 +72,7 @@ module.exports = exports = class ElasticQuery {
       logger.debug(JSON.stringify(error.meta.body));
       throw error;
     }
+
   }
 
   /**
@@ -97,6 +98,7 @@ module.exports = exports = class ElasticQuery {
       logger.debug(JSON.stringify(error.meta.body));
       throw error;
     }
+
   }
 
   /**

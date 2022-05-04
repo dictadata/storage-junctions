@@ -33,7 +33,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
       let rows = await this.junction.pool.query(sql);
 
       for (let i = 0; i < rows.length; i++) {
-        let construct = rows[i];
+        let construct = rows[ i ];
         sqlEncoder.decodeResults(this.engram, construct);
         this.push(construct);
       }
@@ -42,8 +42,8 @@ module.exports = exports = class MySQLReader extends StorageReader {
       this.push(null);
     }
     catch (err) {
-      logger.error(err);
-      this.push(null);
+      logger.error("mysql reader: " + err.message);
+      this.destroy(err);
     }
 
   }

@@ -29,7 +29,14 @@ async function testStream() {
 
     logger.info(">>> create streams");
     var reader = jo.createReader();
+    reader.on('error', (error) => {
+      logger.error("echo reader: " + error.message);
+    });
+
     var writer = jo.createWriter();
+    writer.on('error', (error) => {
+      logger.error("echo writer: " + error.message);
+    });
 
     logger.info(">>> start pipe");
     await stream.pipeline(reader, writer);

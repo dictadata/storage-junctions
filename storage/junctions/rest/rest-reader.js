@@ -56,7 +56,7 @@ module.exports = exports = class RESTReader extends StorageReader {
 
       if (response.statusCode !== 200) {
         let msg = typeof response.data === "string" ? response.data : null;
-        throw new StorageError(response.statusCode, msg);
+        this.destroy(new StorageError(response.statusCode, msg));
       }
 
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
@@ -72,8 +72,8 @@ module.exports = exports = class RESTReader extends StorageReader {
     }
     catch (err) {
       logger.debug(err);
-      logger.error(err);
-      throw err;
+      logger.error("rest reader: " + err.message);
+      this.destroy(err);
     }
 
     // when done reading from source

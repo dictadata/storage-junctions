@@ -47,7 +47,12 @@ module.exports = exports = async function (tract) {
       // otherwise run some objects through any transforms to get terminal encoding
       logger.verbose(">>> codify pipeline");
       let pipes = [];
-      pipes.push(jo.createReader({ max_read: 100 }));
+
+      let reader = jo.createReader({ max_read: 100 });
+      reader.on('error', (error) => {
+        logger.error("_transfer reader: " + error.message);
+      });
+      pipes.push(reader);
 
       for (let [ tfType, tfOptions ] of Object.entries(transforms))
         pipes.push(jo.createTransform(tfType, tfOptions));
@@ -78,7 +83,12 @@ module.exports = exports = async function (tract) {
     // transfer the data
     logger.info(">>> transfer pipeline");
     let pipes = [];
-    pipes.push(jo.createReader());
+
+    let reader = jo.createReader();
+    reader.on('error', (error) => {
+      logger.error("_transfer reader: " + error.message);
+    });
+    pipes.push(reader);
 
     for (let [ tfType, tfOptions ] of Object.entries(transforms))
       pipes.push(jo.createTransform(tfType, tfOptions));
@@ -88,6 +98,10 @@ module.exports = exports = async function (tract) {
         console.log(stats.count);
       }
     });
+    tws.on('error', (error) => {
+      logger.error("_transfer writer: " + error.message);
+    });
+
     pipes.push(tws);
 
     logger.verbose(">>> start transfer");

@@ -36,12 +36,31 @@ class ShapeFileJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} smt 'shp|folder|filename|key' or an Engram object
+   * @param {*} smt 'shp|folder|schema|key' or an Engram object
    * @param {*} options
    */
   constructor(smt, options) {
     logger.debug("ShapeFileJunction");
     super(smt, options);
+  }
+
+  // override to initialize junction
+  async activate() {
+    super.activate();
+
+    if (this.smt.locus.startsWith("zip:") && this.smt.schema === "~1") {
+      // find first .shp file in .zip file
+      let stfs = await this.getFileSystem();
+      let list = await stfs.list({ schema: "*.shp", recursive: true });
+      if (list.data[ "0" ]) {
+        let entry = list.data[ "0" ];
+        this.smt.schema = this.engram.name = entry.name.substring(0, entry.name.length - 4);
+
+        let pl = entry.rpath.length - entry.name.length;
+        stfs.zippath += entry.rpath.substring(0, pl);
+        this.smt.locus += "/" + stfs.zippath;
+      }
+    }
   }
 
   /**
@@ -54,10 +73,15 @@ class ShapeFileJunction extends StorageJunction {
         // read file to infer data types
         // default to 100 constructs unless overridden in options
         let options = Object.assign({}, { max_read: 100 }, this.options);
-        let reader = this.createReader(options);
-        let codify = this.createTransform('codify', options);
 
+        let reader = this.createReader(options);
+        reader.on('error', (error) => {
+          logger.error("shapefile codify reader: " + error.message);
+        });
+
+        let codify = this.createTransform('codify', options);
         await stream.pipeline(reader, codify);
+
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }

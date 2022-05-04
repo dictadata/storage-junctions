@@ -229,18 +229,18 @@ class ElasticsearchJunction extends StorageJunction {
         key = (pattern && pattern.key) || this.engram.get_uid(construct) || null;
         //logger.debug(key + " " + JSON.stringify(data));
         response = await this.elasticQuery.put(key, data);
-        key = response._id;
       }
       else {
         response = await this.elasticQuery.insert(data);
-        key = response._id;
       }
-      this.storeCount++;
 
+      this.storeCount++;
+      key = response._id;
       return new StorageResponse(0, null, response.result, key);
     }
     catch (err) {
-      logger.error(err.message);
+      logger.error("elasticsearch store: " + err.message);
+      logger.debug(err);
       throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
@@ -290,6 +290,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResponse(404);
 
       logger.error(err.message);
+      logger.debug(err);
       throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
