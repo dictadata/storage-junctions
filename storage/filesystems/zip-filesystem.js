@@ -26,7 +26,18 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     super(smt, options);
     logger.debug("ZipFileSystem");
 
-    this.zipname = this.url.pathname;
+    let pathname = decodeURI(this.url.pathname);
+
+    let z = pathname.indexOf(".zip");
+    if (z < pathname.length - 4) {
+      this.zipname = pathname.substring(0, z + 4);
+      this.zippath = pathname.substring(z + 5); // skip the '/'
+    }
+    else {
+      this.zipname = pathname;
+      this.zippath = "";
+    }
+
   }
 
   /**
@@ -62,7 +73,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       var list = [];
 
-      let filespec = schema || '*';
+      let filespec = this.zippath + schema || '*';
       let rx = '^' + filespec + '$';
       rx = rx.replace('.', '\\.');
       rx = rx.replace('*', '.*');
@@ -98,11 +109,23 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     }
   }
 
+  async findEntry(filename) {
+    const entries = await this.zip.entries();
+
+    for (const [ name, entry ] of Object.entries(entries)) {
+      if (entry.isFile && (0 === filename.localeCompare(name, undefined, { sensitivity: 'base' }))) {
+        return entry;
+      }
+    }
+
+    return null;
+  }
+
   /**
    * Remove schema, i.e. file(s), on the filesystem.
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
-   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @param {string} options.schema Override smt.schema with a filename in the same locus.
    * @returns StorageResponse object with resultCode.
    */
   async dull(options) {
@@ -119,7 +142,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
   /**
    * Create an object mode readstream from the filesystem file.
    * @param {*} options Specify any options use when querying the filesystem.
-   * @param {*} options.schema Override smt.schema with a filename in the same locus.
+   * @param {string} options.schema Override smt.schema with a filename in the same locus.
    * @returns a node.js readstream based object if successful.
   */
   async createReadStream(options) {
@@ -130,9 +153,12 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let rs = null;
 
-      let filename = schema; // path.join(url.fileURLToPath(this.url), schema);
+      let filename = this.zippath + schema;
+      let entry = await this.findEntry(filename);
+      if (!entry)
+        throw new StorageError(404);
 
-      rs = await this.zip.stream(filename);
+      rs = await this.zip.stream(entry);
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -152,8 +178,8 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
   /**
    * Create an object mode writestream to the filesystem file.
    * @param {*} options Specify any options use when querying the filesystem.
-   * @param {*} options.schema Override smt.schema with filename at the same locus.
-   * @param {*} options.append Flag used indicate overwrite or append destination file. Default is overwrite.
+   * @param {string} options.schema Override smt.schema with filename at the same locus.
+   * @param {boolean} options.append Flag used indicate overwrite or append destination file. Default is overwrite.
    * @returns a node.js writestream based object if successful.
   */
   async createWriteStream(options) {
@@ -191,7 +217,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {object} options Specify a directory entry with any option properties used when querying the filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
-   * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
+   * @param {boolean} options.use_rpath If true replicate folder structure of zip filesystem in local filesystem.
    * @returns StorageResponse object with resultCode;
    */
   async getFile(options) {
