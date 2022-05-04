@@ -1,7 +1,13 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.2.4
+  - update: shapefile junction with .zip files, use smt.schema of '~1' to find first .shp file in zip container
+  - update: zip filesystem, parse addtional path after .zip filename as prefix for accessing files in zip container
+  - refactor: filesystem copy functions options.use_rpath for making destination path
+  - bug fix: improve handling HTTP responses with content-encoding (compressed HTTP message body)
+  - bug fix: improve handling of stream errors
 - version 2.2.3
-  - enhancement: add options to Engram codex properties, passed to storage-junctions by cortex.activate
+  - update: add options to Engram codex properties, passed to storage-junctions by cortex.activate
   - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
   - testing: st_launcher testing parameters
 - version 2.2.2
@@ -30,7 +36,7 @@
   - update: dependencies for tedious and elasticsearch client
 - version 2.0.7
   - bug fix: check results before caching during recall()
-  - enhancement: automatic index refresh option to elasticsearch junction
+  - update: automatic index refresh option to elasticsearch junction
   - testing: only test local ftp site
 - version 2.0.6
   - bug fix: MySQL create new StorageError()
