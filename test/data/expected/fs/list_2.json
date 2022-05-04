@@ -60,14 +60,14 @@
     "date": "2021-12-20T19:43:32.605Z"
   },
   {
-    "name": "tl_2020_us_county.encoding.json",
-    "rpath": "shapes\\tl_2020_us_county.encoding.json",
+    "name": "geo_2020_us_county.encoding.json",
+    "rpath": "shapes\\geo_2020_us_county.encoding.json",
     "size": 1844,
     "date": "2021-12-20T19:46:27.524Z"
   },
   {
-    "name": "tl_2020_us_state.encoding.json",
-    "rpath": "shapes\\tl_2020_us_state.encoding.json",
+    "name": "geo_2020_us_state.encoding.json",
+    "rpath": "shapes\\geo_2020_us_state.encoding.json",
     "size": 1729,
     "date": "2021-12-20T19:49:04.511Z"
   }
