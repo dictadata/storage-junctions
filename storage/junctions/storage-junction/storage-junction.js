@@ -42,7 +42,7 @@ module.exports = exports = class StorageJunction {
     this.options = Object.assign({}, options);
     if (this.options.encoding) {
       this.engram.encoding = this.options.encoding;
-      delete this.options.encoding;
+      // delete this.options.encoding;
     }
 
     this.isActive = false;
