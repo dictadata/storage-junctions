@@ -31,11 +31,11 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     let z = pathname.indexOf(".zip");
     if (z < pathname.length - 4) {
       this.zipname = pathname.substring(0, z + 4);
-      this.zippath = pathname.substring(z + 5); // skip the '/'
+      this.prefix = pathname.substring(z + 5); // skip the '/'
     }
     else {
       this.zipname = pathname;
-      this.zippath = "";
+      this.prefix = "";
     }
 
   }
@@ -73,7 +73,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       var list = [];
 
-      let filespec = this.zippath + schema || '*';
+      let filespec = this.prefix + schema || '*';
       let rx = '^' + filespec + '$';
       rx = rx.replace('.', '\\.');
       rx = rx.replace('*', '.*');
@@ -153,7 +153,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let rs = null;
 
-      let filename = this.zippath + schema;
+      let filename = this.prefix + schema;
       let entry = await this.findEntry(filename);
       if (!entry)
         throw new StorageError(404);

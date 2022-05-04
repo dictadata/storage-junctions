@@ -57,8 +57,8 @@ class ShapeFileJunction extends StorageJunction {
         this.smt.schema = this.engram.name = entry.name.substring(0, entry.name.length - 4);
 
         let pl = entry.rpath.length - entry.name.length;
-        stfs.zippath += entry.rpath.substring(0, pl);
-        this.smt.locus += "/" + stfs.zippath;
+        stfs.prefix += entry.rpath.substring(0, pl);
+        this.smt.locus += "/" + stfs.prefix;
       }
     }
   }
