@@ -68,9 +68,25 @@ async function test4() {
 
 }
 
+async function test5() {
+
+  logger.info("=== shapefile getEncoding from goofy .zip");
+  if (await getEncoding({
+    origin: {
+      smt: "shp|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Adel Precincts.zip|~1|*",
+      options: {}
+    },
+    terminal: {
+      output: './test/data/output/shapefile/geo_2010_us_ia_city_precincts.encoding.json'
+    }
+  })) return 1;
+
+}
+
 (async () => {
   if (await test1()) return 1;
   if (await test2()) return 1;
   if (await test3()) return 1;
   if (await test4()) return 1;
+  if (await test5()) return 1;
 })();

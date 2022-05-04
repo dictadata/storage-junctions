@@ -39,6 +39,19 @@ async function test() {
     }
   })) return 1;
 
+  logger.info("=== list zip directory - recursive");
+  if (await list({
+    origin: {
+      smt: "*|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Adel Precincts.zip/Adel Precincts/|*|*",
+      options: {
+        recursive: true
+      }
+    },
+    terminal: {
+      output: "./test/data/output/zip/list_adel.json"
+    }
+  })) return 1;
+
 }
 
 (async () => {
