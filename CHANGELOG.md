@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.2.5
+  - update: codex alias entries
 - version 2.2.4
   - update: shapefile junction with .zip files, use smt.schema of '~1' to find first .shp file in zip container
   - update: zip filesystem, parse addtional path after .zip filename as prefix for accessing files in zip container
