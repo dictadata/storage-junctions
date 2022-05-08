@@ -55,7 +55,7 @@ class Cortex {
       // lookup SMT name in codex
       let results = await Cortex._codex.recall(smt);
       if (results.resultCode !== 0)
-        throw new StorageError(400, "Unknown SMT name: " + smt);
+        throw new StorageError(results.resultCode, results.resultText + ": " + smt);
 
       let entry = results.data[ smt ];
       _smt = entry.smt;
