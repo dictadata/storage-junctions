@@ -38,7 +38,6 @@ async function init() {
 async function test(smt_name, smt) {
   let retCode = 0;
 
-
   try {
     logger.verbose('=== ' + smt_name);
 
@@ -57,6 +56,31 @@ async function test(smt_name, smt) {
   return process.exitCode = retCode;
 }
 
+async function addAlias(alias, alias_smt) {
+  let retCode = 0;
+
+  try {
+    logger.verbose('=== alias ' + alias);
+
+    // store encoding
+    let entry = {
+      name: alias,
+      type: "alias",
+      alias_smt: alias_smt
+    };
+
+    let results = await Storage.codex.store(entry);
+    logger.verbose(JSON.stringify(results, null, "  "));
+  }
+  catch (err) {
+    logger.error(err);
+    retCode = 1;
+  }
+
+  return process.exitCode = retCode;
+
+}
+
 (async () => {
   await init();
 
@@ -73,6 +97,9 @@ async function test(smt_name, smt) {
     return 1;
   if (await test("mysql-foo_schema",
     "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"))
+    return 1;
+
+  if (await addAlias("elasticsearch-foo_alias", "elasticsearch-foo_schema"))
     return 1;
 
   await Storage.codex.relax();

@@ -132,7 +132,7 @@ module.exports = exports = class Codex {
    * @param {*} name SMT name or ETL tract name
    * @returns
    */
-  async recall(name) {
+  async recall(name, resolve_alias = false) {
     let results = {
       resultCode: 0,
       resultText: "OK",
@@ -149,8 +149,19 @@ module.exports = exports = class Codex {
       results = await this._junction.recall({ key: name });
       logger.verbose(results.resultCode);
 
-      // cache entry definition
+      if (resolve_alias && results.resultCode === 0) {
+        // check for alias smt
+        let encoding = results.data[ name ];
+        if (encoding.type === "alias") {
+          // recall the entry for the origin smt
+          results = await this._junction.recall({ key: encoding.alias_smt });
+          if (results.resultCode === 0)
+            results.data[ name ] = results.data[ encoding.alias_smt ];
+        }
+      }
+
       if (results.resultCode === 0) {
+        // cache entry definition
         let encoding = results.data[ name ];
         this._engrams.set(name, encoding);
       }

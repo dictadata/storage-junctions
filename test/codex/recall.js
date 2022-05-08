@@ -71,6 +71,8 @@ async function test(schema) {
 
   if (await test("foo_schema"))
     return 1;
+  if (await test("foo_alias"))
+    return 1;
   if (await test("bad_smt_name"))
     process.exitCode = 0;
   else

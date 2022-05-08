@@ -13,6 +13,7 @@ const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 
 const fs = require('fs');
+const { allowedNodeEnvironmentFlags } = require("process");
 
 logger.info("=== Tests: codex store");
 
@@ -31,7 +32,7 @@ async function init() {
   }
 }
 
-async function test(schema) {
+async function store(schema) {
   let retCode = 0;
 
   let encoding;
@@ -44,6 +45,31 @@ async function test(schema) {
     let entry = new Engram(encoding.smt || "*|*|*|*");
     entry.name = schema;
     entry.encoding = encoding;
+
+    let results = await Storage.codex.store(entry);
+    logger.verbose(JSON.stringify(results, null, "  "));
+  }
+  catch (err) {
+    logger.error(err);
+    retCode = 1;
+  }
+
+  return process.exitCode = retCode;
+}
+
+async function alias(alias, alias_smt) {
+  let retCode = 0;
+
+  try {
+    logger.verbose('=== ' + alias);
+
+    // store alias entry
+    let entry = {
+      name: alias,
+      type: "alias",
+      alias_smt: alias_smt
+    };
+
     let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
@@ -58,10 +84,12 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema")) return 1;
-  if (await test("foo_schema_short")) return 1;
-  if (await test("foo_schema_typesonly")) return 1;
-  if (await test("foo_schema_two")) return 1;
+  if (await store("foo_schema")) return 1;
+  if (await store("foo_schema_short")) return 1;
+  if (await store("foo_schema_typesonly")) return 1;
+  if (await store("foo_schema_two")) return 1;
+
+  if (await alias("foo_alias", "foo_schema")) return 1;
 
   await Storage.codex.relax();
 })();

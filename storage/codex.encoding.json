@@ -25,6 +25,10 @@
       "type": "keyword"
     },
     {
+      "name": "alias_smt",
+      "type": "keyword"
+    },
+    {
       "name": "title",
       "type": "text"
     },
