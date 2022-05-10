@@ -33,6 +33,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     var reader = this;
     var encoding = this.engram;
     this.started = false;
+    var encoder = this.junction.getEncoder();
 
     function cast(construct) {
 
@@ -94,9 +95,12 @@ module.exports = exports = class CSVReader extends StorageReader {
     // eslint-disable-next-line arrow-parens
     parser.on('data', (data) => {
       if (data.value) {
-        let construct = cast(data.value);
+        let construct = encoder.cast(data.value);
+        construct = encoder.filter(construct);
+        construct = encoder.select(construct);
         //logger.debug(JSON.stringify(construct));
-        if (data.value && !reader.push(construct))
+
+        if (construct && !reader.push(construct))
           parser.pause();  // If push() returns false stop reading from source.
 
         if (statistics.count % 1000 === 0)

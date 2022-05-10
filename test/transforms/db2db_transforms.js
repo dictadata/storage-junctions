@@ -99,7 +99,7 @@ async function forecastTransform(tract) {
 
   if (await transfer({
     origin: {
-      smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
+      smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
         http: {
           headers: {

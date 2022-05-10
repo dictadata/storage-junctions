@@ -8,7 +8,7 @@ const ynBoolean = require('yn');
  * Try to parse a string value into a javascript type.
  * Returns the value as a javascript typed value.
  */
-function parseValue (value) {
+function parseValue(value) {
 
   if (!value || typeof value !== 'string')
     return value;
@@ -29,6 +29,6 @@ function parseValue (value) {
     return b;
 
   return value;
-};
+}
 
 module.exports = exports = parseValue;

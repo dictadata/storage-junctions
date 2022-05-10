@@ -6,7 +6,7 @@ const { typeOf, logger, httpRequest } = require("../../utils");
 
 const RESTReader = require("./rest-reader");
 const RESTWriter = require("./rest-writer");
-const encoder = require('./rest-encoder');
+const RESTEncoder = require('./rest-encoder');
 
 const stream = require('stream/promises');
 
@@ -29,6 +29,7 @@ class RESTJunction extends StorageJunction {
   // assign stream constructor functions, sub-class must override
   _readerClass = RESTReader;
   _writerClass = RESTWriter;
+  _encoderClass = RESTEncoder;
 
   /**
    *
@@ -125,6 +126,7 @@ class RESTJunction extends StorageJunction {
 
     try {
       let url = this.options.url || this.engram.smt.schema || '';
+      let encoder = this.getEncoder();
 
       let req_options = Object.assign({
         method: "GET",
@@ -177,6 +179,7 @@ class RESTJunction extends StorageJunction {
 
     try {
       let url = this.options.url || this.engram.smt.schema || '';
+      let encoder = this.getEncoder();
 
       let req_options = Object.assign({
         method: "GET",
@@ -209,7 +212,11 @@ class RESTJunction extends StorageJunction {
 
       let constructs = [];
       encoder.parseData(results, this.options, (construct) => {
-        constructs.push(construct);
+        construct = encoder.cast(construct);
+        construct = encoder.filter(construct);
+        construct = encoder.select(construct);
+        if (construct)
+          constructs.push(construct);
       });
 
       let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
@@ -244,5 +251,4 @@ class RESTJunction extends StorageJunction {
 };
 
 // define module exports
-RESTJunction.encoder = encoder;
 module.exports = RESTJunction;

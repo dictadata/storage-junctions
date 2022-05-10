@@ -26,12 +26,91 @@ module.exports = exports = class JSONReader extends StorageReader {
     //if (this.options.schema && path.extname(this.options.schema) === '')
     //  this.options.schema = this.options.schema + '.json';
 
-    /***** create the parser and data handlers *****/
+    this.started = false;
+    var encoder = this.junction.getEncoder();
+
+    /***** create the parser, pipieline and data handlers *****/
+    var myParser = this.myParser = parser();
+    var pipes = [ myParser ];
+
+    if (this.options.extract) {
+      pipes.push(pick({ filter: this.options.extract }));
+    }
+
+    if (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl')
+      pipes.push(streamValues());
+    else if (this.engram.smt.model === 'jsono')
+      pipes.push(streamObject());
+    else  // default json array
+      pipes.push(streamArray());
+
+    // create variables that will be in the scope of data hander callbacks
     var reader = this;
     var encoding = this.engram;
+    var statistics = this._statistics;
+    var max = this.options.max_read || -1;
+    var array_of_arrays = this.options.array_of_arrays;
+    var header = Array.isArray(array_of_arrays) ? array_of_arrays : null;
 
+    var pipeline = this.pipeline = chain(pipes);
+
+    // eslint-disable-next-line arrow-parens
+    pipeline.on('data', (data) => {
+      if (data.value) {
+        //logger.debug(JSON.stringify(data.value));
+
+        let construct = (array_of_arrays) ? convert(data.value) : data.value;
+        construct = encoder.cast(construct);
+        construct = encoder.filter(construct);
+        construct = encoder.select(construct);
+
+        if (construct && !reader.push(construct))
+          myParser.pause();  // If push() returns false stop reading from source.
+
+        if (statistics.count % 1000 === 0)
+          logger.verbose(statistics.count);
+
+        if (max >= 0 && statistics.count >= max) {
+          reader.push(null);
+          myParser.destroy();
+        }
+      }
+    });
+
+    pipeline.on('end', () => {
+      reader.push(null);
+    });
+
+    pipeline.on('error', function (err) {
+      //logger.error(err);
+      throw err;
+    });
+
+
+    // convert array to object
+    function convert(data) {
+      if (!Array.isArray(data))
+        return data;
+
+      let c;
+      if (!header) {
+        header = data;
+      }
+      else {
+        // convert array to object
+        c = {};
+        for (let i = 0; i < header.length; i++) {
+          if (i >= data.length)
+            break;
+          c[ header[ i ] ] = data[ i ];
+        }
+      }
+
+      return c;
+    }
+
+    // cast fields to match junction encoding, if encoding is defined
     function cast(construct) {
-
       for (let [ name, value ] of Object.entries(construct)) {
         let field = encoding.find(name);
         let newValue = value;
@@ -65,53 +144,6 @@ module.exports = exports = class JSONReader extends StorageReader {
       return construct;
     }
 
-    // create the parser chain pipeline
-    let myParser = this.myParser = parser();
-    let pipes = [ myParser ];
-
-    if (this.options.extract) {
-      pipes.push(pick({ filter: this.options.extract }));
-    }
-
-    if (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl')
-      pipes.push(streamValues());
-    else if (this.engram.smt.model === 'jsono')
-      pipes.push(streamObject());
-    else  // default json array
-      pipes.push(streamArray());
-
-    let pipeline = this.pipeline = chain(pipes);
-
-    var statistics = this._statistics;
-    var max = this.options.max_read || -1;
-
-    // eslint-disable-next-line arrow-parens
-    pipeline.on('data', (data) => {
-      if (data.value) {
-        let c = cast(data.value);
-        //logger.debug(JSON.stringify(data.value));
-        if (data.value && !reader.push(c))
-          myParser.pause();  // If push() returns false stop reading from source.
-
-        if (statistics.count % 1000 === 0)
-          logger.verbose(statistics.count);
-        if (max >= 0 && statistics.count >= max) {
-          reader.push(null);
-          myParser.destroy();
-        }
-      }
-    });
-
-    pipeline.on('end', () => {
-      reader.push(null);
-    });
-
-    pipeline.on('error', function (err) {
-      //logger.error(err);
-      throw err;
-    });
-
-    this.started = false;
   }
 
   /**

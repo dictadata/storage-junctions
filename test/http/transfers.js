@@ -67,7 +67,38 @@ async function test_uncompress() {
 
 }
 
+async function test_gov_data() {
+
+  logger.verbose('=== census data to local json');
+  if (await transfer({
+    origin: {
+      smt: "json|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=state:*||*",
+      options: {
+        array_of_arrays: true
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/http/|census_data_transfer.json|*"
+    }
+  })) return 1;
+
+  logger.verbose("=== transfer Weather Service forecast");
+  if (await transfer({
+    origin: {
+      smt: "json|https://api.weather.gov/gridpoints/DVN/34,71/forecast||*",
+      options: {
+        extract: "properties.periods"
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/http/|weather_forecast_transfer.json|*"
+    }
+  })) return 1;
+
+}
+
 (async () => {
   if (await test_transfers()) return 1;
   if (await test_uncompress()) return 1;
+  if (await test_gov_data()) return 1;
 })();

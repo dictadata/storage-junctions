@@ -22,6 +22,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
 
     var reader = this;
     var encoding = this.engram;
+    var encoder = this.junction.getEncoder();
 
     /***** create the parser *****/
 
@@ -74,9 +75,12 @@ module.exports = exports = class ParquetReader extends StorageReader {
     // eslint-disable-next-line arrow-parens
     parser.on('data', (data) => {
       if (data.value) {
-        let c = cast(data.value);
+        let construct = encoder.cast(data.value);
+        construct = encoder.filter();
+        construct = encoder.select(construct);
         //logger.debug(JSON.stringify(data.value));
-        if (data.value && !reader.push(c))
+
+        if (construct && !reader.push(construct))
           parser.pause();  // If push() returns false stop reading from source.
 
         if (statistics.count % 1000 === 0)

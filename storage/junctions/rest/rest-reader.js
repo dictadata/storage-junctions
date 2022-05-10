@@ -5,7 +5,6 @@
 
 const { StorageReader } = require('../storage-junction');
 const { logger, httpRequest } = require('../../utils');
-const encoder = require('./rest-encoder');
 const { StorageError } = require('../../types');
 
 module.exports = exports = class RESTReader extends StorageReader {
@@ -17,6 +16,8 @@ module.exports = exports = class RESTReader extends StorageReader {
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
+
+    this.encoder = this.junction.getEncoder();
   }
 
   /**
@@ -65,8 +66,12 @@ module.exports = exports = class RESTReader extends StorageReader {
         results = response.data;
 
       // push results to stream
-      encoder.parseData(results, this.options, (construct) => {
-        this.push(construct);
+      this.encoder.parseData(results, this.options, (construct) => {
+        construct = this.encoder.cast(construct);
+        construct = this.encoder.filter(construct);
+        construct = this.encoder.select(construct);
+        if (construct)
+          this.push(construct);
       });
 
     }

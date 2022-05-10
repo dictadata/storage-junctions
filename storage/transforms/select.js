@@ -70,7 +70,7 @@ module.exports = exports = class SelectTransform extends Transform {
 
     let parts = stmt.substr(1, stmt.length - 1).split('+');
     for (let p of parts) {
-      if (p && p[0] === "'")
+      if (p && p[ 0 ] === "'")
         // literal string
         result += p.substr(1, p.length - 2);
       else
@@ -91,18 +91,19 @@ module.exports = exports = class SelectTransform extends Transform {
     let newConstruct = {};
 
     if (this.options.inject_before)
-      for (let [name, value] of Object.entries(this.options.inject_before)) {
-        if (value && value[0] === '=')
-          newConstruct[name] = this.assignment(value, construct)
+      for (let [ name, value ] of Object.entries(this.options.inject_before)) {
+        if (value && value[ 0 ] === '=')
+          newConstruct[ name ] = this.assignment(value, construct);
         else
-          newConstruct[name] = value;
+          newConstruct[ name ] = value;
       }
 
+    // this.options.fields
     if (Array.isArray(this.options.fields)) {
       // select fields
       for (let name of this.options.fields)
         if (hasOwnProperty(construct, name))
-          newConstruct[name] = construct[name];
+          newConstruct[ name ] = construct[ name ];
     }
     else if (typeOf(this.options.fields) === "object")
       // field mapping
@@ -114,14 +115,14 @@ module.exports = exports = class SelectTransform extends Transform {
 
     if (this.options.remove)
       for (let fldname of this.options.remove)
-        delete newConstruct[fldname];
+        delete newConstruct[ fldname ];
 
     if (this.options.inject_after)
-      for (let [name, value] of Object.entries(this.options.inject_after)) {
-        if (value && value[0] === '=')
-          newConstruct[name] = this.assignment(value, construct)
+      for (let [ name, value ] of Object.entries(this.options.inject_after)) {
+        if (value && value[ 0 ] === '=')
+          newConstruct[ name ] = this.assignment(value, construct);
         else
-          newConstruct[name] = value;
+          newConstruct[ name ] = value;
       }
 
     this.push(newConstruct);

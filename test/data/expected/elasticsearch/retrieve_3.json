@@ -4,7 +4,7 @@
   "data": [
     {
       "Foo": "first",
-      "Baz": "123",
+      "Baz": 123,
       "widgets": [
         {
           "part": "core",

@@ -8,33 +8,65 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest transfer");
 
-async function testTransfer() {
+async function transfer_1() {
 
-  logger.verbose("=== Transfer Weather Service forecast");
+  logger.verbose("=== transfer Weather Service forecast");
   if (await transfer({
     origin: {
-      smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|=*",
+      smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
+      options: {
+        extract: "properties.periods"
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/rest/|weather_forecast_transfer_1.json|*"
+    }
+  })) return 1;
+
+}
+
+async function transfer_2() {
+
+  logger.verbose("=== transfer Weather Service forecast");
+  if (await transfer({
+    origin: {
+      smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
         http: {
           headers: {
             "Accept": "application/ld+json",
             "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
-          },
-          //auth: "username:password"
+          }
         },
         extract: "periods"
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/rest/|weather_forecast_transfer.csv|*",
+      smt: "json|./test/data/output/rest/|weather_forecast_transfer_2.json|*"
+    }
+  })) return 1;
+
+}
+
+async function transfer_3() {
+
+  logger.verbose("=== transfer census population data");
+  if (await transfer({
+    origin: {
+      smt: "rest|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=county:*&in=state:19||*",
       options: {
-        header: true
+        array_of_arrays: true
       }
+    },
+    terminal: {
+      smt: "json|./test/data/output/rest/|census_population_transfer_3.json|*"
     }
   })) return 1;
 
 }
 
 (async () => {
-  if (await testTransfer()) return;
+  if (await transfer_1()) return;
+  if (await transfer_2()) return;
+  if (await transfer_3()) return;
 })();
