@@ -6,14 +6,14 @@
 const _pev = require("./_process_events");
 const Storage = require("../../storage");
 const { typeOf, logger } = require("../../storage/utils");
-
+const _compare = require("./_compare");
 const fs = require('fs');
 const stream = require('stream/promises');
 
 /**
  * transfer function
  */
-module.exports = exports = async function (tract) {
+module.exports = exports = async function (tract, compareValues = 2) {
   let retCode = 0;
 
   var jo, jt;  // junctions origin, terminal
@@ -106,6 +106,12 @@ module.exports = exports = async function (tract) {
 
     logger.verbose(">>> start transfer");
     await stream.pipeline(pipes);
+
+    if (tract.terminal && tract.terminal.output) {
+      logger.info("<<< compare results " + tract.terminal.output);
+      let expected_output = tract.terminal.output.replace("output", "expected");
+      retCode = _compare(expected_output, tract.terminal.output, compareValues);
+    }
 
     logger.info(">>> completed");
     let stats = tws.statistics;
