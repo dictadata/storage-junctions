@@ -92,7 +92,8 @@ function http1Request(Url, options, data) {
     const req = _http.request(Url, request, (res) => {
       response.statusCode = res.statusCode;
       response.headers = res.headers;
-      saveCookies(options, res.headers);
+      if (options.cookies)
+        saveCookies(options, res.headers);
 
       if (options.responseType !== 'stream') {
         // return response body
@@ -170,7 +171,7 @@ function http1Request(Url, options, data) {
  */
 function http2Request(Url, options, data) {
   return new Promise((resolve, reject) => {
-    response = {};
+    let response = {};
 
     const client = http2.connect(Url);
 
@@ -199,7 +200,8 @@ function http2Request(Url, options, data) {
 
     req.on('response', (headers, flags) => {
       response.headers = headers;
-      saveCookies(options, headers);
+      if (options.cookies)
+        saveCookies(options, headers);
     });
 
     req.on('data', (chunk) => {
@@ -223,6 +225,9 @@ function http2Request(Url, options, data) {
  * @param {*} headers
  */
 function saveCookies(options, headers) {
+  if (!options.cookies)
+    return;
+
   // parse cookies
   for (const name in headers) {
     logger.debug(`${name}: ${headers[ name ]}`);
