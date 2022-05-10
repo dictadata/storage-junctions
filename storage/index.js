@@ -41,6 +41,7 @@ var StorageJunction = require("./junctions/storage-junction");
 exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
+exports.StorageEncoder = StorageJunction.StorageEncoder;
 Storage.use('*', StorageJunction);
 
 var MemoryJunction = require("./junctions/memory");

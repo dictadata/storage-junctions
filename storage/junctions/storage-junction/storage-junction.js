@@ -4,10 +4,12 @@ const Cortex = require('../../cortex');
 const { Engram, StorageResponse, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 
+const Encoder = require("./storage-encoder");
 const Reader = require("./storage-reader");
 const Writer = require("./storage-writer");
 
 const stream = require('stream');
+const { threadId } = require('worker_threads');
 
 module.exports = exports = class StorageJunction {
 
@@ -26,6 +28,7 @@ module.exports = exports = class StorageJunction {
   }
 
   // assign stream constructor functions, sub-class must override
+  _encoderClass = Encoder;
   _readerClass = Reader;
   _writerClass = Writer;
   _fileSystem = null;
@@ -265,6 +268,12 @@ module.exports = exports = class StorageJunction {
     if (!this._fileSystem)
       this._fileSystem = await Cortex.FileSystems.activate(this.smt, this.options);
     return this._fileSystem;
+  }
+
+  getEncoder() {
+    if (!this._encoder)
+      this._encoder = new this._encoderClass(this, this.options);
+    return this._encoder;
   }
 
 };
