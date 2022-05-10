@@ -92,6 +92,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
       // do the template replacements
       let smt = this.templateObject(this.options.smt, construct);
       let options = this.templateObject(this.options.options, construct);
+      let pattern = options.match;
 
       // create origin junction
       logger.debug("conjoin activate jo");
@@ -100,7 +101,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
 
       // retrieve
       logger.debug("conjoin retrieve");
-      let results = await jo.retrieve(options);
+      let results = await jo.retrieve(pattern);
       //logger.debug(JSON.stringify(results,null,2));
 
       for (let rcon of results.data) {
