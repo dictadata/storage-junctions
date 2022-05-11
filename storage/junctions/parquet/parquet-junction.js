@@ -119,17 +119,32 @@ class ParquetJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} pattern
    */
-  async retrieve(pattern) {
+  async dull(pattern) {
     throw new StorageError(501);
   }
 
   /**
    *
+   * @param {*} pattern
    */
-  async dull(pattern) {
-    throw new StorageError(501);
+  async retrieve(pattern) {
+    let response = new StorageResponse();
+    let rs = this.createReader(options);
+
+    rs.on('data', (chunk) => {
+      response.add(chunk);
+    })
+    rs.on('end', () => {
+      // console.log('There will be no more data.');
+    });
+    rs.on('error', (err) => {
+      response = new StorageError(500).inner(err);
+    });
+
+    await stream.finished(rs);
+
+    return response;
   }
 
 };

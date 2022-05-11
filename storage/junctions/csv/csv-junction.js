@@ -119,7 +119,24 @@ class CSVJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    throw new StorageError(501);
+    Object.assign(this.options, pattern);
+
+    let response = new StorageResponse();
+    let rs = this.createReader(pattern);
+
+    rs.on('data', (chunk) => {
+      response.add(chunk);
+    })
+    rs.on('end', () => {
+      // console.log('There will be no more data.');
+    });
+    rs.on('error', (err) => {
+      response = new StorageError(500).inner(err);
+    });
+
+    await stream.finished(rs);
+
+    return response;
   }
 
 };

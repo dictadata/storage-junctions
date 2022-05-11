@@ -60,6 +60,17 @@
     {
       "type": "pwa-node",
       "request": "launch",
+      "name": "csv retrieve",
+      "program": "${workspaceFolder}/test/csv/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
       "name": "csv transfer",
       "program": "${workspaceFolder}/test/csv/transfers.js",
       "outputCapture": "std",
@@ -84,6 +95,17 @@
       "request": "launch",
       "name": "json codify",
       "program": "${workspaceFolder}/test/json/codify.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "json retrieve",
+      "program": "${workspaceFolder}/test/json/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

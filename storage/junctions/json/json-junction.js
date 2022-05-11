@@ -115,10 +115,27 @@ class JSONJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} options options.pattern
+   * @param {*} pattern options.pattern
    */
-  async retrieve(options) {
-    throw new StorageError(501);
+  async retrieve(pattern) {
+    Object.assign(this.options, pattern);
+
+    let response = new StorageResponse();
+    let rs = this.createReader(pattern);
+
+    rs.on('data', (chunk) => {
+      response.add(chunk);
+    })
+    rs.on('end', () => {
+      // console.log('There will be no more data.');
+    });
+    rs.on('error', (err) => {
+      response = new StorageError(500).inner(err);
+    });
+
+    await stream.finished(rs);
+
+    return response;
   }
 
 };

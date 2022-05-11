@@ -30,7 +30,7 @@ class StorageResponse {
 
   add(data, key) {
     if (!this.data)
-      this.data = (key) ? {} : []
+      this.data = (key) ? {} : [];
 
     if (key) {
       this.data[ key ] = data;
@@ -44,7 +44,6 @@ class StorageResponse {
       }
     }
   }
-
 
 }
 
