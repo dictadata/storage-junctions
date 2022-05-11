@@ -105,6 +105,9 @@ exports.DecomposeTransform = require("./transforms/decompose");
 Storage.Transforms.use('decompose', exports.DecomposeTransform);
 Storage.Transforms.use('flatten', exports.DecomposeTransform);
 
+exports.AdjoinTransform = require("./transforms/adjoin");
+Storage.Transforms.use('adjoin', exports.AdjoinTransform);
+
 exports.ConjoinTransform = require("./transforms/conjoin");
 Storage.Transforms.use('conjoin', exports.ConjoinTransform);
 

@@ -1,3 +1,6 @@
+/**
+ * storage/transforms/conjoin.js
+ */
 "use strict";
 
 const { Transform } = require('stream');
@@ -33,8 +36,6 @@ module.exports = exports = class ConjoinTransform extends Transform {
     super(streamOptions);
 
     this.options = Object.assign({}, options);
-
-    this.summary = {};
   }
 
   /**
