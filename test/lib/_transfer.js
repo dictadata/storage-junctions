@@ -55,9 +55,9 @@ module.exports = exports = async function (tract, compareValues = 2) {
       pipes.push(reader);
 
       for (let [ tfType, tfOptions ] of Object.entries(transforms))
-        pipes.push(jo.createTransform(tfType, tfOptions));
+        pipes.push(await jo.createTransform(tfType, tfOptions));
 
-      let codify = jo.createTransform('codify');
+      let codify = await jo.createTransform('codify');
       pipes.push(codify);
 
       await stream.pipeline(pipes);
@@ -91,7 +91,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     pipes.push(reader);
 
     for (let [ tfType, tfOptions ] of Object.entries(transforms))
-      pipes.push(jo.createTransform(tfType, tfOptions));
+      pipes.push(await jo.createTransform(tfType, tfOptions));
 
     let tws = jt.createWriter({
       progress: (stats) => {

@@ -79,7 +79,7 @@ class ShapeFileJunction extends StorageJunction {
           logger.error("shapefile codify reader: " + error.message);
         });
 
-        let codify = this.createTransform('codify', options);
+        let codify = await this.createTransform('codify', options);
         await stream.pipeline(reader, codify);
 
         let encoding = codify.encoding;

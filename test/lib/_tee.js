@@ -47,7 +47,7 @@ module.exports = exports = async function (tract) {
     });
 
     for (let [ tfType, tfOptions ] of Object.entries(origin_transforms))
-      reader = reader.pipe(jo.createTransform(tfType, tfOptions));
+      reader = reader.pipe(await jo.createTransform(tfType, tfOptions));
 
     logger.info(">>> create terminal branches");
     if (!Array.isArray(tract.terminal))
@@ -72,7 +72,7 @@ module.exports = exports = async function (tract) {
       let writer = null;
       // add transforms
       for (let [ tfType, tfOptions ] of Object.entries(transforms)) {
-        let t = jt.createTransform(tfType, tfOptions);
+        let t = await jt.createTransform(tfType, tfOptions);
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
       // add terminal

@@ -103,12 +103,14 @@ class Transforms {
     Transforms._transforms.set(tfType, transformClass);
   }
 
-  static create(tfType, options) {
+  static async create(tfType, options) {
     if (!tfType)
       throw new StorageError(400, "invalid transform type");
 
     if (Transforms._transforms.has(tfType)) {
       let transform = new (Transforms._transforms.get(tfType))(options);
+      if (typeof transform.activate === "function")
+        await transform.activate();
       return transform;
     }
     else

@@ -55,8 +55,9 @@ module.exports = exports = async function (tract, compareValues = 2) {
     pipes.push(reader);
 
     for (let [ tfType, tfOptions ] of Object.entries(tract.transform))
-      pipes.push(jo.createTransform(tfType, tfOptions));
-    let codify = jo.createTransform('codify', tract.origin);
+      pipes.push(await jo.createTransform(tfType, tfOptions));
+
+    let codify = await jo.createTransform('codify', tract.origin);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding
