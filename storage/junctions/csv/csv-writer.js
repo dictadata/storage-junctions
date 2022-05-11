@@ -145,10 +145,14 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
-        //else
-        //  await new Promise((fulfill) => this.ws.on("finish", fulfill));
+        else
+          await new Promise(
+            (fulfill) => {
+              this.ws.on("finish", fulfill);
+            }
+          );
       }
-      //this._count(null);
+      this._count(null);
       callback();
     }
     catch (err) {

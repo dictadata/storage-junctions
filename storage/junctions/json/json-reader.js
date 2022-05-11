@@ -64,8 +64,9 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
 
-        if (construct && !reader.push(construct))
-          myParser.pause();  // If push() returns false stop reading from source.
+        if (construct && !reader.push(construct)) {
+          //myParser.pause();  // If push() returns false stop reading from source.
+        }
 
         if (statistics.count % 1000 === 0)
           logger.verbose(statistics.count);
