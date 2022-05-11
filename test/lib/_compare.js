@@ -11,7 +11,42 @@ const { unzipSync } = require('zlib');
 const { typeOf, hasOwnProperty } = require("../../storage/utils");
 
 
+function compareTXT(expected, output, compareValues) {
+  if (compareValues > 0) {
+    let ok = (expected.length === output.length);
+    if (!ok) {
+      logger.error(`output files have different lengths ${expected.length} ${output.length}`);
+      return 1;
+    }
+  }
+
+  if (compareValues > 1) {
+    let ok = expected.compare(output) === 0;
+    if (!ok) {
+      logger.error("contents of files are not equal");
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 function compareCSV(expected, output, compareValues) {
+  if (compareValues > 0) {
+    let ok = (expected.length === output.length);
+    if (!ok) {
+      logger.error(`output files have different lengths ${expected.length} ${output.length}`);
+      return 1;
+    }
+  }
+
+  if (compareValues > 1) {
+    let ok = expected.compare(output) === 0;
+    if (!ok) {
+      logger.error("contents of files are not equal");
+      return 1;
+    }
+  }
 
   return 0;
 }
@@ -119,9 +154,11 @@ module.exports = exports = function (filename_expected, filename_output, compare
     return compareJSON(JSON.parse(expected), JSON.parse(output), compareValues);
   else if (ext1 === '.csv')
     return compareCSV(expected, output, compareValues);
+  else if (ext1 === '.txt')
+    return compareTXT(expected, output, compareValues);
   else {
     logger.error("compare unknown file extension");
     return 1;
   }
 
-}
+};

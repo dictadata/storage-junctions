@@ -10,7 +10,7 @@ logger.info("=== Tests: csv data transfers");
 
 async function tests() {
 
-  logger.verbose('=== csv > csv_output.csv');
+  logger.verbose('=== csv > transfer_1.csv');
   if (await transfer({
     origin: {
       smt: "csv|./test/data/input/|foofile.csv|*",

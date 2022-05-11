@@ -38,7 +38,7 @@ async function tests() {
         "inject_after": {
           "fie": "where's fum?"
         },
-        "remove": ["fobe"]
+        "remove": [ "fobe" ]
       }
     },
     "terminal": {
@@ -58,11 +58,12 @@ async function tests() {
           "Bar": "row",
           "Baz": { "lte": 500 }
         },
-        fields: ["Dt Test", "Foo", "Bar", "Baz"]
+        fields: [ "Dt Test", "Foo", "Bar", "Baz" ]
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_0.json|*"
+      smt: "json|./test/data/output/mysql/|transform_0.json|*",
+      output: "./test/data/output/mysql/transform_0.json"
     }
   })) return 1;
 
@@ -98,11 +99,12 @@ async function tests() {
           "Fobe": "fobe",
           "subObj1": "subObj1"
         },
-        "remove": ["fobe"],
+        "remove": [ "fobe" ],
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_1.json|*"
+      smt: "json|./test/data/output/mysql/|transform_1.json|*",
+      output: "./test/data/output/mysql/transform_1.json"
     }
   })) return 1;
 
@@ -138,11 +140,12 @@ async function tests() {
           "Fobe": "fobe",
           "tags": "tags"
         },
-        "remove": ["fobe"],
+        "remove": [ "fobe" ],
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_2.json|*"
+      smt: "json|./test/data/output/mysql/|transform_2.json|*",
+      output: "./test/data/output/mysql/transform_2.json"
     }
   })) return 1;
 

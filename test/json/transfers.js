@@ -11,60 +11,67 @@ logger.info("=== Tests: json data transfers");
 async function tests() {
 
   logger.verbose('=== json_output.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "json|./test/data/output/json/|output.json|*"
+      smt: "json|./test/data/output/json/|transfer_1.json|*",
+      output: "./test/data/output/json/transfer_1.json"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== json_output.csv');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "csv|./test/data/output/json/|output.csv|*",
+      smt: "csv|./test/data/output/json/|transfer_2.csv|*",
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/json/transfer_2.csv"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== json_output_o.json');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "jsono|./test/data/output/json/|output_o.json|*"
+      smt: "jsono|./test/data/output/json/|transfer_o.json|*",
+      output: "./test/data/output/json/transfer_o.json"
     }
-  });
+  })) return 1;
 
-  logger.verbose('=== json_output_l.log');
-  await transfer({
+  logger.verbose('=== json_output_l.txt');
+  if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "jsonl|./test/data/output/json/|output_l.log|*"
+      smt: "jsonl|./test/data/output/json/|transfer_l.txt|*",
+      output: "./test/data/output/json/transfer_l.txt"
     }
-  });
+  })) return 1;
 
   logger.verbose('=== json_output_s.txt');
-  await transfer({
+  if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "jsons|./test/data/output/json/|output_s.txt|*"
+      smt: "jsons|./test/data/output/json/|transfer_s.txt|*",
+      output: "./test/data/output/json/transfer_s.txt"
     }
-  });
+  })) return 1;
 
 }
 
+
 (async () => {
-  await tests();
+  let rc = await tests();
+  if (rc) return 1;
 })();

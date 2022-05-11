@@ -8,6 +8,8 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest transfer");
 
+var compareValues = 1;
+
 async function transfer_1() {
 
   logger.verbose("=== transfer Weather Service forecast");
@@ -19,9 +21,10 @@ async function transfer_1() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|weather_forecast_transfer_1.json|*"
+      smt: "json|./test/data/output/rest/|weather_forecast_transfer_1.json|*",
+      output: "./test/data/output/rest/weather_forecast_transfer_1.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
@@ -42,9 +45,10 @@ async function transfer_2() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|weather_forecast_transfer_2.json|*"
+      smt: "json|./test/data/output/rest/|weather_forecast_transfer_2.json|*",
+      output: "./test/data/output/rest/weather_forecast_transfer_2.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
@@ -59,9 +63,10 @@ async function transfer_3() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|census_population_transfer_3.json|*"
+      smt: "json|./test/data/output/rest/|census_population_transfer_3.json|*",
+      output: "./test/data/output/rest/census_population_transfer_3.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 

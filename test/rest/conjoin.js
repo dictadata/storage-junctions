@@ -8,6 +8,8 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest conjoin");
 
+var compareValues = 1;
+
 async function testConjoin() {
 
   logger.verbose("=== conjoin weather forecast");
@@ -40,9 +42,9 @@ async function testConjoin() {
     },
     terminal: {
       smt: "json|./test/data/output/rest/|weather_forecast_conjoin.json|*",
-      options: {}
+      output: "./test/data/output/rest/weather_forecast_conjoin.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 

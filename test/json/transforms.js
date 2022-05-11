@@ -11,26 +11,46 @@ logger.info("=== Test: json transforms");
 async function tests() {
 
   logger.verbose('=== json_transform_1.json');
-  let smt1 = "json|./test/data/output/json/|transform_1.json|*";
-
   await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_01.json|*",
+      smt: "json|./test/data/input/|foofile.json|*",
       options: {
         match: {
-          "Bar": { "wc": "row*" }
+          "Bar": { "wc": "row*" },
+          "Baz": [ 456, 789 ]
         },
-        fields: ["Foo", "Bar", "Baz", "Dt Test","tags","subObj1"]
+        fields: [ "Foo", "Bar", "Baz", "Dt Test" ]
       }
     },
     terminal: {
-      smt: smt1
+      smt: "json|./test/data/output/json/|transform_1.json|*",
+      output: "./test/data/output/json/transform_1.json"
     }
   });
 
-  logger.verbose('=== json_transform_2.json');
-  let smt2 = "json|./test/data/output/json/|transform_2.json|*";
+  logger.verbose('=== json > json_transform_2.json');
+  await transfer({
+    origin: {
+      smt: "json|./test/data/input/|foofile.json|*"
+    },
+    transform: {
+      filter: {
+        match: {
+          "Bar": { "wc": "row*" },
+          "Baz": [ 456, 789 ]
+        }
+      },
+      select: {
+        fields: [ "Foo", "Bar", "Baz", "Dt Test" ]
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/json/|transform_2.json|*",
+      output: "./test/data/output/json/transform_2.json"
+    }
+  });
 
+  logger.verbose('=== json_transform_3.json');
   await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile_01.json|*"
@@ -59,59 +79,30 @@ async function tests() {
           "subObj1.state": "sub.state",
           "subObj2.subsub.izze": "sub.izze"
         },
-        "remove": ["fobe"],
+        "remove": [ "fobe" ],
       }
     },
     terminal: {
-      smt: smt2
-    }
-  });
-
-  logger.verbose('=== json > json_transform_3.csv');
-  let smt3 = "csv|./test/data/output/json/|transform_3.csv|*";
-
-  await transfer({
-    origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*",
-      options: {
-        encoding: "./test/data/input/foo_schema_02.encoding.json"
-      }
-    },
-    transform: {
-      filter: {
-        match: {
-          "Bar": /row/,
-          "Baz": [456, 789]
-        }
-      },
-      select: {
-        fields: ["Foo","Bar","Baz","Fobe","Dt Test","enabled"]
-      }
-    },
-    terminal: {
-      smt: smt3,
-      options: {
-        header: true
-      }
+      smt: "json|./test/data/output/json/|transform_3.json|*",
+      output: "./test/data/output/json/transform_3.json"
     }
   });
 
   logger.verbose('=== json_transform_4.json');
-  let smt4 = "json|./test/data/output/json/|transform_4.json|*";
-
   await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: smt4
+      smt: "json|./test/data/output/json/|transform_4.json|*",
+      output: "./test/data/output/json/transform_4.json"
     },
     transform: {
       filter: {
         match: {
           "subObj2.subsub.izze": 33
         },
-        fields: ["Foo", "Bar", "Baz", "Dt Test", "tags", "subObj2"]
+        fields: [ "Foo", "Bar", "Baz", "Dt Test", "tags", "subObj2" ]
       }
     }
   });

@@ -79,7 +79,8 @@ async function tests() {
       options: {
         header: true,
         append: false
-      }
+      },
+      output: "./test/data/output/elasticsearch/transfer_foo.csv"
     }
   })) return 1;
 
@@ -93,7 +94,8 @@ async function tests() {
       options: {
         append: false
       }
-    }
+    },
+    output: "./test/data/output/elasticsearch/transfer_foo_j.json"
   })) return 1;
 
 }

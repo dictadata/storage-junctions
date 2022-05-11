@@ -34,7 +34,8 @@ async function tests() {
       "smt": 'csv|./test/data/output/transforms/|csv_aggregate_1.csv|*',
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/transforms/csv_aggregate_1.csv"
     }
   })) return 1;
 
@@ -65,7 +66,8 @@ async function tests() {
       "smt": 'csv|./test/data/output/transforms/|csv_aggregate_2.csv|*',
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/transforms/csv_aggregate_2.csv"
     }
   })) return 1;
 
@@ -96,7 +98,8 @@ async function tests() {
       "smt": 'csv|./test/data/output/transforms/|csv_aggregate_3.csv|*',
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/transforms/csv_aggregate_3.csv"
     }
   })) return 1;
 

@@ -87,7 +87,8 @@ async function tests() {
       smt: "csv|./test/data/output/mysql/|transfer.csv|*",
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/mysql/transfer.csv"
     }
   })) return 1;
 }

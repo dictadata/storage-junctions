@@ -31,7 +31,8 @@ async function tests() {
           smt: "json|./test/data/output/pipelines/|tee_1.json|*",
           options: {
             encoding: "./test/data/input/foo_schema.encoding.json"
-          }
+          },
+          output: "./test/data/output/pipelines/tee_1.json"
         },
         transform: {
         }
@@ -41,11 +42,12 @@ async function tests() {
           smt: "json|./test/data/output/pipelines/|tee_2.json|*",
           options: {
             encoding: "./test/data/input/foo_transform.encoding.json"
-          }
+          },
+          output: "./test/data/output/pipelines/tee_2.json"
         },
         transform: {
           select: {
-            fields: ["Dt Test", "Foo", "Baz"]
+            fields: [ "Dt Test", "Foo", "Baz" ]
           }
         }
       }

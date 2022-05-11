@@ -20,7 +20,8 @@ async function test_transfers() {
       smt: "csv|./test/data/output/http/|foofile.csv|*",
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/http/foofile.csv"
     }
   })) return 1;
 
@@ -34,7 +35,8 @@ async function test_transfers() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile.json|*"
+      smt: "json|./test/data/output/http/|foofile.json|*",
+      output: "./test/data/output/http/foofile.json"
     }
   })) return 1;
 
@@ -48,7 +50,8 @@ async function test_uncompress() {
       smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile_gunzip.json|*"
+      smt: "json|./test/data/output/http/|foofile_gunzip.json|*",
+      output: "./test/data/output/http/foofile_gunzip.json"
     }
   })) return 1;
 
@@ -61,13 +64,14 @@ async function test_uncompress() {
       smt: "csv|./test/data/output/http/|foofile_gunzip.csv|*",
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/http/foofile_gunzip.csv"
     }
   })) return 1;
 
 }
 
-async function test_gov_data() {
+async function test_census_data() {
 
   logger.verbose('=== census data to local json');
   if (await transfer({
@@ -78,9 +82,32 @@ async function test_gov_data() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|census_data_transfer.json|*"
+      smt: "json|./test/data/output/http/|census_transfer_1.json|*",
+      output: "./test/data/output/http/census_transfer_1.json"
     }
   })) return 1;
+
+  logger.verbose('=== census data with querystring');
+  if (await transfer({
+    origin: {
+      smt: "json|https://api.census.gov/data/2020/dec/|pl|*",
+      options: {
+        match: {
+          "get": "NAME,P1_001N,P3_001N",
+          "for": "state:*"
+        },
+        array_of_arrays: true
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/http/|census_transfer_2.json|*",
+      output: "./test/data/output/http/census_transfer_2.json"
+    }
+  })) return 1;
+
+}
+
+async function test_weather_data() {
 
   logger.verbose("=== transfer Weather Service forecast");
   if (await transfer({
@@ -91,7 +118,8 @@ async function test_gov_data() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|weather_forecast_transfer.json|*"
+      smt: "json|./test/data/output/http/|weather_forecast_transfer.json|*",
+      output: "./test/data/output/http/weather_forecast_transfer.json"
     }
   })) return 1;
 
@@ -100,5 +128,6 @@ async function test_gov_data() {
 (async () => {
   if (await test_transfers()) return 1;
   if (await test_uncompress()) return 1;
-  if (await test_gov_data()) return 1;
+  if (await test_census_data()) return 1;
+  if (await test_weather_data()) return 1;
 })();

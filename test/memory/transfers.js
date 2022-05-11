@@ -72,7 +72,8 @@ async function tests() {
       options: {
         header: true,
         append: false
-      }
+      },
+      output: "./test/data/output/memory/transfer_foo.csv"
     }
   })) return 1;
 
@@ -85,7 +86,8 @@ async function tests() {
       smt: "json|./test/data/output/memory/|transfer_foo_j.json|*",
       options: {
         append: false
-      }
+      },
+      output: "./test/data/output/memory/transfer_foo_j.json"
     }
   })) return 1;
 

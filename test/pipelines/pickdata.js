@@ -19,7 +19,8 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "json|./test/data/output/pipelines/|extracted_data.json|*"
+      "smt": "json|./test/data/output/pipelines/|extracted_data.json|*",
+      "output": "./test/data/output/pipelines/extracted_data.json"
     }
   })) return 1;
 }

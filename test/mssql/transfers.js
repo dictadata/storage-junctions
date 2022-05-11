@@ -74,7 +74,8 @@ async function tests() {
       smt: "csv|./test/data/output/mssql/|transfer.csv|*",
       options: {
         header: true
-      }
+      },
+      output: "./test/data/output/mssql/transfer.csv"
     }
   })) return 1;
 }

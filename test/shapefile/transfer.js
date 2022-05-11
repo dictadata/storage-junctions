@@ -6,8 +6,9 @@
 const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
 
-
 logger.info("=== Test: shapefile transfer");
+
+let compareValues = 2;
 
 async function testTransfer1() {
 
@@ -19,9 +20,9 @@ async function testTransfer1() {
     },
     terminal: {
       smt: "json|./test/data/output/shapefile/|polygons.json|*",
-      options: {}
+      output: "./test/data/output/shapefile/polygons.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
   logger.verbose("=== Transfer polygons to elasticsearch");
   if (await transfer({
@@ -30,12 +31,12 @@ async function testTransfer1() {
       options: {}
     },
     terminal: {
-      smt: "elastic|http://localhost:9200/|shapes|*",
+      smt: "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID",
       options: {
         encoding: "./test/data/input/shapes/shapes.encoding.json"
       }
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
@@ -49,9 +50,9 @@ async function testTransfer2() {
     },
     terminal: {
       smt: "json|./test/data/output/shapefile/|points.json|*",
-      options: {}
+      output: "./test/data/output/shapefile/points.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
   logger.verbose("=== Transfer points.zip to elasticsearch");
   if (await transfer({
@@ -60,26 +61,28 @@ async function testTransfer2() {
       options: {}
     },
     terminal: {
-      smt: "elastic|http://localhost:9200/|shapes|*",
+      smt: "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID",
       options: {
         encoding: "./test/data/input/shapes/shapes.encoding.json"
       }
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
 async function testTransfer3() {
 
-  logger.verbose("=== Transfer elastic to geoJSON");
+  logger.verbose("=== Transfer elastic shapes to geoJSON");
+  compareValues = 1;
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://localhost:9200/|shapes|*"
+      "smt": "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID"
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|shapes.json|*"
+      "smt": "json|./test/data/output/shapefile/|shapes.json|*",
+      "output": "./test/data/output/shapefile/shapes.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 

@@ -3,7 +3,7 @@
     "model": "shp",
     "locus": "./test/data/input/shapefile",
     "schema": "points",
-    "key": "*"
+    "key": "!geometry.type+properties.FID"
   },
   "fields": [
     {

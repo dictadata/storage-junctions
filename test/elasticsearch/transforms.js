@@ -19,11 +19,12 @@ async function tests() {
           "Bar": "row",
           "Baz": { "lte": 500 }
         },
-        fields: ["Dt Test", "Foo", "Bar", "Baz"]
+        fields: [ "Dt Test", "Foo", "Bar", "Baz" ]
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transform_1.json|*"
+      smt: "json|./test/data/output/elasticsearch/|transform_1.json|*",
+      output: "./test/data/output/elasticsearch/transform_1.json"
     }
   })) return 1;
 
@@ -57,11 +58,12 @@ async function tests() {
           "subObj1.state": "sub.state",
           "subObj2.subsub.izze": "sub.izze"
         },
-        "remove": ["fobe"],
+        "remove": [ "fobe" ],
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transform_2.json|*"
+      smt: "json|./test/data/output/elasticsearch/|transform_2.json|*",
+      output: "./test/data/output/elasticsearch/transform_2.json"
     }
   })) return 1;
 
