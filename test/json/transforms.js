@@ -107,34 +107,6 @@ async function tests() {
     }
   })) return 1;
 
-  logger.verbose('=== json_transform_5.json');
-  if (await transfer({
-    origin: {
-      smt: "json|./test/data/input/|foofile.json|*",
-      options: {
-        "encoding": "./test/data/input/foo_schema.encoding.json"
-      }
-    },
-    transform: {
-      adjoin: {
-        smt: "json|./test/data/input/|foofile_01.json|*",
-        options: {
-        },
-        lookup: {
-          "Foo": "Foo"
-        },
-        inject: [ "tags" ]
-      }
-    },
-    terminal: {
-      smt: "json|./test/data/output/json/|transform_5.json|*",
-      options: {
-        "encoding": "./test/data/input/foo_schema_01.encoding.json"
-      },
-      output: "./test/data/output/json/transform_5.json"
-    }
-  })) return 1;
-
 }
 
 (async () => {

@@ -12,7 +12,8 @@ const { logger, templateReplace } = require("../utils");
   transform: {
     conjoin: {
       smt: "rest|url/${tfield1}/|${tfield2}",
-      options: {
+      options: {},
+      pattern: {
         match: {
           field1: "${tfield3}"
         },
@@ -26,7 +27,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
 
   /**
    *
-   * @param {*} options transform options
+   * @param {*} options conjoin options
    */
   constructor(options) {
     let streamOptions = {
@@ -36,6 +37,24 @@ module.exports = exports = class ConjoinTransform extends Transform {
     super(streamOptions);
 
     this.options = Object.assign({}, options);
+    this.junction;
+  }
+
+  async activate() {
+    logger.debug("conjoin activate");
+
+    try {
+      if (this.options.keepAlive)
+        this.junction = await Cortex.activate(this.options.smt, this.options.options);
+    }
+    catch (err) {
+      logger.error(err);
+    }
+  }
+
+  async relax() {
+    if (this.junction)
+      await this.junction.relax();
   }
 
   /**
@@ -47,36 +66,45 @@ module.exports = exports = class ConjoinTransform extends Transform {
   async _transform(construct, encoding, callback) {
     logger.debug("conjoin _transform");
 
-    var jo;
     try {
       // do the template replacements
-      let smt = templateReplace(this.options.smt, construct);
       let options = templateReplace(this.options.options, construct);
-      let pattern = options.match;
+      let pattern = templateReplace(this.options.pattern, construct);
 
-      // create origin junction
-      logger.debug("conjoin activate jo");
-      //logger.debug(JSON.stringify(smt,null,2));
-      jo = await Cortex.activate(smt, options);
+      if (!this.junction) {
+        logger.debug("conjoin activate junction");
+        let smt = templateReplace(this.options.smt, construct);
+        logger.debug(JSON.stringify(smt, null, 2));
+        this.junction = await Cortex.activate(smt, options);
+      }
 
       // retrieve
       logger.debug("conjoin retrieve");
-      let results = await jo.retrieve(pattern);
+      let results = await this.junction.retrieve(pattern);
       //logger.debug(JSON.stringify(results,null,2));
 
-      for (let rcon of results.data) {
-        // join results
-        let conjoin = Object.assign({}, construct, rcon);
-        logger.debug("conjoin push " + JSON.stringify(conjoin, null, 2));
-        this.push(conjoin);
+      if (results.resultCode === 0) {
+        for (let con of results.data) {
+          // join results
+          let conjoin = Object.assign({}, construct, con);
+          logger.debug("conjoin push " + JSON.stringify(conjoin, null, 2));
+          this.push(conjoin);
+        }
+      }
+      else {
+        // push original construct without additional fields
+        this.push(construct);
       }
     }
     catch (err) {
       logger.error(err);
     }
     finally {
-      logger.debug("conjoin relax");
-      if (jo) await jo.relax();
+      if (!this.options.keepAlive) {
+        logger.debug("conjoin relax");
+        if (this.junction) await this.junction.relax();
+        this.junction = undefined;
+      }
     }
 
     callback();
@@ -84,10 +112,6 @@ module.exports = exports = class ConjoinTransform extends Transform {
 
   /* optional */
   _flush(callback) {
-    // push the final object(s)
-    //let newConstruct = {};
-    //this.push(newConstruct);
-
     callback();
   }
 

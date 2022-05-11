@@ -11,9 +11,12 @@ const { logger, hasOwnProperty } = require("../utils");
   // example adjoin transform
   transform: {
     adjoin: {
+      // properties for loading lookup table
       smt: "<lookup table>",
-      options: {
-      },
+      options: {},
+      pattern: {},
+
+      // field mapping properties
       lookup: {
         "source_field": "lookup_field",
         ...
@@ -38,30 +41,43 @@ module.exports = exports = class AdjoinTransform extends Transform {
 
     this.options = Object.assign({}, options);
 
-    this.lookup = {};
-    let entries = Object.entries(this.options.lookup);
-    this.srcField = Object.keys(this.options.lookup)[ 0 ];
-    this.lookField = Object.values(this.options.lookup)[ 0 ];
+    this.lookupMap = new Map();
+  }
+
+  _createKey(construct, keys) {
+    let key = "";
+
+    for (const fld of keys) {
+      key += construct[ fld ];
+    }
+
+    return key;
   }
 
   async activate() {
-    let junc;
+    logger.debug("adjoin activate");
+
+    let junction;
     try {
-      junc = await Cortex.activate(this.options.smt, this.options.options);
-      let results = await junc.retrieve();
+      junction = await Cortex.activate(this.options.smt, this.options.options);
+      let results = await junction.retrieve(this.options.pattern);
 
       if (results.resultCode === 0) {
-        for (const values of results.data)
-          if (hasOwnProperty(values, this.lookField))
-            this.lookup[ values[ this.lookField ] ] = values;
+        for (const values of results.data) {
+          let key = this._createKey(values, Object.values(this.options.lookup));
+          this.lookupMap.set(key, values);
+        }
       }
+
+      if (typeof this.options.inject === "string")
+        this.options.inject = [ this.options.inject ];
     }
     catch (err) {
       logger.error(err);
     }
     finally {
       logger.debug("adjoin relax");
-      if (junc) await junc.relax();
+      if (junction) await junction.relax();
     }
   }
 
@@ -75,13 +91,16 @@ module.exports = exports = class AdjoinTransform extends Transform {
     logger.debug("adjoin _transform");
 
     try {
-      // lookup source field in lookup table
-      let values = this.lookup[ construct[ this.srcField ] ];
+      // lookup values in lookup table
+      let key = this._createKey(construct, Object.keys(this.options.lookup));
+      let values = this.lookupMap.get(key);
 
       // inject fields from lookup table
-      for (const fld of this.options.inject) {
-        if (hasOwnProperty(values, fld))
-          construct[ fld ] = values[ fld ];
+      if (values) {
+        for (const fld of this.options.inject) {
+          if (hasOwnProperty(values, fld))
+            construct[ fld ] = values[ fld ];
+        }
       }
 
       this.push(construct);
@@ -95,10 +114,6 @@ module.exports = exports = class AdjoinTransform extends Transform {
 
   /* optional */
   _flush(callback) {
-    // push the final object(s)
-    //let newConstruct = {};
-    //this.push(newConstruct);
-
     callback();
   }
 
