@@ -8,9 +8,8 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest conjoin");
 
-var compareValues = 1;
-
 async function testConjoin() {
+  let compareValues = 1;
 
   logger.verbose("=== conjoin weather forecast");
   if (await transfer({

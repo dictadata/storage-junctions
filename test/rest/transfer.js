@@ -8,9 +8,8 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest transfer");
 
-var compareValues = 1;
-
 async function transfer_weather() {
+  let compareValues = 1;
 
   logger.verbose("=== transfer Weather Service forecast");
   if (await transfer({
@@ -54,6 +53,7 @@ async function transfer_weather() {
 }
 
 async function transfer_census() {
+  let compareValues = 1;
 
   logger.verbose("=== transfer census population data");
   if (await transfer({

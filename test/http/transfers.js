@@ -10,6 +10,7 @@ const { logger } = require('../../storage/utils');
 logger.info("=== Test: http data transfers");
 
 async function test_transfers() {
+  let compareValues = 2;
 
   logger.verbose('=== http json to local csv');
   if (await transfer({
@@ -23,7 +24,7 @@ async function test_transfers() {
       },
       output: "./test/data/output/http/foofile.csv"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
   logger.verbose('=== http csv to local json');
   if (await transfer({
@@ -38,11 +39,12 @@ async function test_transfers() {
       smt: "json|./test/data/output/http/|foofile.json|*",
       output: "./test/data/output/http/foofile.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
 async function test_uncompress() {
+  let compareValues = 2;
 
   logger.verbose('=== http .gz to local json');
   if (await transfer({
@@ -53,7 +55,7 @@ async function test_uncompress() {
       smt: "json|./test/data/output/http/|foofile_gunzip.json|*",
       output: "./test/data/output/http/foofile_gunzip.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
   logger.verbose('=== http .gz to local csv');
   if (await transfer({
@@ -67,11 +69,12 @@ async function test_uncompress() {
       },
       output: "./test/data/output/http/foofile_gunzip.csv"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
 async function test_census_data() {
+  let compareValues = 1;
 
   logger.verbose('=== census data to local json');
   if (await transfer({
@@ -85,11 +88,12 @@ async function test_census_data() {
       smt: "json|./test/data/output/http/|census_transfer_1.json|*",
       output: "./test/data/output/http/census_transfer_1.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
 async function test_weather_data() {
+  let compareValues = 1;
 
   logger.verbose("=== transfer Weather Service forecast");
   if (await transfer({
@@ -103,7 +107,7 @@ async function test_weather_data() {
       smt: "json|./test/data/output/http/|weather_forecast_transfer.json|*",
       output: "./test/data/output/http/weather_forecast_transfer.json"
     }
-  })) return 1;
+  }, compareValues)) return 1;
 
 }
 
