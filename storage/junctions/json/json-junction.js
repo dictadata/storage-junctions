@@ -115,11 +115,9 @@ class JSONJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} pattern options.pattern
+   * @param {*} pattern
    */
   async retrieve(pattern) {
-    Object.assign(this.options, pattern);
-
     let response = new StorageResponse();
     let rs = this.createReader(pattern);
 

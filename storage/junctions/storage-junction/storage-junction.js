@@ -45,7 +45,6 @@ module.exports = exports = class StorageJunction {
     this.options = Object.assign({}, options);
     if (this.options.encoding) {
       this.engram.encoding = this.options.encoding;
-      // delete this.options.encoding;
     }
 
     this.isActive = false;
@@ -222,31 +221,38 @@ module.exports = exports = class StorageJunction {
     throw new StorageError(501);
   }
 
-  ////////// object streaming //////////
+  ////////// streaming //////////
 
-  // If sub-class sets the _readerClass and _writerClass propertiess in constructor
+  // If sub-class sets the _readerClass, _writerClass and _encoderClass propertiess
   // then these methods don't need to be overriden.
   createReader(options) {
     if (!this.capabilities.reader)
       throw new StorageError(405);
 
-    options = Object.assign({}, this.options, options);
-    return new this._readerClass(this, options);
+    let opts = Object.assign({}, this.options, options);
+    return new this._readerClass(this, opts);
   }
 
   createWriter(options) {
     if (!this.capabilities.writer)
       throw new StorageError(405);
 
-    options = Object.assign({}, this.options, options);
-    return new this._writerClass(this, options);
+    let opts = Object.assign({}, this.options, options);
+    return new this._writerClass(this, opts);
   }
+
+  createEncoder(options) {
+    let opts = Object.assign({}, this.options, options);
+    return new this._encoderClass(this, opts);
+  }
+
+  ///////// transforms //////////
 
   // should not need to be overriden, generic transform of JSON objects
   async createTransform(tfType, options) {
-    options = Object.assign({}, this.options, options);
-    let transform_options = options.transform || options.transforms || options || {};
-    let transform = await Cortex.Transforms.create(tfType, transform_options);
+    // options = Object.assign({}, this.options, options);
+    // let transform_options = options.transform || options.transforms || options || {};
+    let transform = await Cortex.Transforms.create(tfType, options);
     return transform;
   }
 
@@ -268,12 +274,6 @@ module.exports = exports = class StorageJunction {
     if (!this._fileSystem)
       this._fileSystem = await Cortex.FileSystems.activate(this.smt, this.options);
     return this._fileSystem;
-  }
-
-  getEncoder() {
-    if (!this._encoder)
-      this._encoder = new this._encoderClass(this, this.options);
-    return this._encoder;
   }
 
 };

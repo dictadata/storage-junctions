@@ -12,7 +12,7 @@ async function tests() {
   if (await transfer({
     origin: {
       smt: "memory|testgroup|foo_schema|*",
-      options: {
+      pattern: {
         match: {
           "Bar": "row",
           "Baz": { "lte": 500 }

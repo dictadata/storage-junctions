@@ -15,7 +15,9 @@ async function tests() {
     origin: {
       smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
-        header: true,
+        header: true
+      },
+      pattern: {
         match: {
           "Bar": { "wc": "row*" },
           "Baz": [ 456, 789 ]

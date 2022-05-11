@@ -20,7 +20,7 @@ module.exports = exports = class StorageEncoder {
     this.smt = storageJunction.smt;
     this.engram = storageJunction.engram;
 
-    this.options = Object.assign({}, storageJunction.options.reader, options);
+    this.options = Object.assign({}, options);
   }
 
   /**

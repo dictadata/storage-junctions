@@ -13,7 +13,7 @@ module.exports = exports = class StorageWriter extends Writable {
    */
   constructor(storageJunction, options) {
     if (!hasOwnProperty(storageJunction, "engram"))
-      throw new StorageError( 400, "Invalid parameter: storageJunction");
+      throw new StorageError(400, "Invalid parameter: storageJunction");
 
     let streamOptions = {
       objectMode: true,
@@ -25,7 +25,7 @@ module.exports = exports = class StorageWriter extends Writable {
     this.smt = storageJunction.smt;
     this.engram = storageJunction.engram;
 
-    this.options = Object.assign({}, storageJunction.options.writer, options);
+    this.options = Object.assign({}, options);
 
     this._statistics = {
       count: 0,
@@ -47,7 +47,7 @@ module.exports = exports = class StorageWriter extends Writable {
       this._statistics.elapsed = Date.now() - this._startms;
     else
       this._statistics.count += count;
-    
+
     if (this.progress && (this._statistics.count % this.progressModula === 0)) {
       this._statistics.elapsed = Date.now() - this._startms;
       this.progress(this._statistics);
@@ -81,8 +81,8 @@ module.exports = exports = class StorageWriter extends Writable {
       this._count(chunks.length);
 
       for (var i = 0; i < chunks.length; i++) {
-        let construct = chunks[i].chunk;
-        let encoding = chunks[i].encoding;
+        let construct = chunks[ i ].chunk;
+        let encoding = chunks[ i ].encoding;
 
         // save construct to .schema
         await this.junction.store(construct);

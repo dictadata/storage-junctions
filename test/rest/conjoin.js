@@ -25,7 +25,9 @@ async function testConjoin() {
             "Accept": "application/ld+json",
             "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
           }
-        },
+        }
+      },
+      pattern: {
         fields: [ "cwa", "gridX", "gridY" ]
       }
     },

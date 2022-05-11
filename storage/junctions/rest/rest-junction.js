@@ -135,7 +135,7 @@ class RESTJunction extends StorageJunction {
         url = templateReplace(url, urlParams);
       }
 
-      let encoder = this.getEncoder();
+      let encoder = this.createEncoder(pattern);
 
       let req_config = Object.assign({
         method: "GET",
@@ -196,7 +196,7 @@ class RESTJunction extends StorageJunction {
         url = templateReplace(url, urlParams);
       }
 
-      let encoder = this.getEncoder();
+      let encoder = this.createEncoder(pattern);
 
       let req_config = Object.assign({
         method: "GET",

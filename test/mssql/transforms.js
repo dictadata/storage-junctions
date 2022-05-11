@@ -53,7 +53,7 @@ async function tests() {
   if (await transfer({
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
-      options: {
+      pattern: {
         match: {
           "Bar": "row",
           "Baz": { "lte": 500 }

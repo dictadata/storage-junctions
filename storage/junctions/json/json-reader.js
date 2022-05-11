@@ -27,7 +27,7 @@ module.exports = exports = class JSONReader extends StorageReader {
     //  this.options.schema = this.options.schema + '.json';
 
     this.started = false;
-    var encoder = this.junction.getEncoder();
+    var encoder = this.junction.createEncoder(options);
 
     /***** create the parser, pipieline and data handlers *****/
     var myParser = this.myParser = parser();

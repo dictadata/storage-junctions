@@ -144,22 +144,22 @@ class SplitterJunction extends StorageJunction {
   /**
    *
    */
-  async recall(options) {
+  async recall(pattern) {
     throw new StorageError(501);
   }
 
   /**
    *
-   * @param {*} options options.pattern
+   * @param {*} pattern
    */
-  async retrieve(options) {
+  async retrieve(pattern) {
     throw new StorageError(501);
   }
 
   /**
    *
    */
-  async dull(options) {
+  async dull(pattern) {
     throw new StorageError(501);
   }
 

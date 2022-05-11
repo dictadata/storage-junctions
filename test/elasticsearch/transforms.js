@@ -14,7 +14,7 @@ async function tests() {
   if (await transfer({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
-      options: {
+      pattern: {
         match: {
           "Bar": "row",
           "Baz": { "lte": 500 }

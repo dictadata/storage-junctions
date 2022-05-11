@@ -41,7 +41,8 @@ module.exports = exports = async function (tract) {
     }
 
     logger.info(">>> create origin pipeline");
-    reader = jo.createReader();
+    let options = Object.assign({}, tract.origin.pattern);
+    reader = jo.createReader(options);
     reader.on('error', (error) => {
       logger.error("_tee reader: " + error.message);
     });

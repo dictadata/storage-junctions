@@ -33,7 +33,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     var reader = this;
     var encoding = this.engram;
     this.started = false;
-    var encoder = this.junction.getEncoder();
+    var encoder = this.junction.createEncoder(options);
 
     function cast(construct) {
 

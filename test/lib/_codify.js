@@ -48,7 +48,11 @@ module.exports = exports = async function (tract, compareValues = 2) {
     logger.info(">>> build pipeline");
     let pipes = [];
 
-    let reader = jo.createReader({ max_read: (tract.origin.options && tract.origin.options.max_read) || 100 });
+    let options = Object.assign({
+      max_read: (tract.origin.options && tract.origin.options.max_read) || 100
+    }, tract.origin.pattern);
+
+    let reader = jo.createReader(options);
     reader.on('error', (error) => {
       logger.error("_codify reader: " + error.message);
     });

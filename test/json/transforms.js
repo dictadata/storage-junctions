@@ -14,7 +14,7 @@ async function tests() {
   if (await transfer({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*",
-      options: {
+      pattern: {
         match: {
           "Bar": { "wc": "row*" },
           "Baz": [ 456, 789 ]

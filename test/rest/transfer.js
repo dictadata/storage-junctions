@@ -73,7 +73,7 @@ async function transfer_census() {
   if (await transfer({
     origin: {
       smt: "rest|https://api.census.gov/data/2020/|dec/pl|*",
-      options: {
+      pattern: {
         match: {
           "get": "NAME,P1_001N,P3_001N",
           "for": "county:*",

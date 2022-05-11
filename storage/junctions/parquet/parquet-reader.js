@@ -22,7 +22,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
 
     var reader = this;
     var encoding = this.engram;
-    var encoder = this.junction.getEncoder();
+    var encoder = this.junction.createEncoder(options);
 
     /***** create the parser *****/
 

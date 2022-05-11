@@ -17,7 +17,7 @@ module.exports = exports = class RESTReader extends StorageReader {
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
-    this.encoder = this.junction.getEncoder();
+    this.encoder = this.junction.createEncoder(options);
   }
 
   /**
