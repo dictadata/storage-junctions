@@ -58,12 +58,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let pathname = this.url.pathname || "/";
       let list = [];
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: 'GET',
         base: this.url.origin,
       }, options.http);
 
-      req_options.headers = Object.assign({},
+      req_config.headers = Object.assign({},
         this._headers,
         { accept: 'text/html,application/xhtml+xml' },
         options.http && options.http.headers);
@@ -83,7 +83,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         logger.debug('readFolder');
 
         // HTTP GET
-        let response = await httpRequest(dirpath, req_options);
+        let response = await httpRequest(dirpath, req_config);
         logger.debug(response);
         if (response.statusCode !== 200)
           throw new storageError(response.statusCode);
@@ -185,18 +185,18 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let filename = schema;
       let rs = null;
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: 'GET',
         base: this.url.href,
         responseType: "stream"
       }, options.http);
 
-      req_options.headers = Object.assign({},
+      req_config.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
 
       // create read stream
-      rs = await httpRequest(filename, req_options);
+      rs = await httpRequest(filename, req_config);
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -251,13 +251,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: 'GET',
         base: this.url.href,
         responseType: "stream"
       }, options.http);
 
-      req_options.headers = Object.assign({},
+      req_config.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
 
@@ -276,7 +276,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
 
       // get file
-      let rs = await httpRequest(src, req_options);
+      let rs = await httpRequest(src, req_config);
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
@@ -306,7 +306,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: 'PUT',
         base: this.url.href,
         responseType: "stream"
@@ -328,12 +328,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       form.append(filename, fs.createReadStream(src));
 
       // send the file
-      req_options.headers = Object.assign({},
+      req_config.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers,
         form.getHeaders());
 
-      let response = await httpRequest(this.url.pathname, req_options, form);
+      let response = await httpRequest(this.url.pathname, req_config, form);
 
       resultCode = response.resultCode;
       return new StorageResponse(resultCode);

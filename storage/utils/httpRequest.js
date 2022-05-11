@@ -13,7 +13,7 @@ const logger = require('./logger');
  * @param {*} url The absolute or relative input URL to request.
  * @param {*} options HTTP request parameters.
  * @param {*} options.base URL to use as base for requests if url is relative.
- * @param {*} options.query object containing URL querystring parameters.
+ * @param {*} options.params object containing URL querystring parameters.
  * @param {*} options.httpVersion HTTP version to use 1.0, 1.1, 2
  * @param {*} options.method HTTP request method, default is GET
  * @param {*} options.timeout request timeout ms, default 5000ms
@@ -39,9 +39,9 @@ function httpRequest(url, options, data) {
     throw new Error(`Invalid url ${url}`);
   }
 
-  if (options.query) {
-    Url.search = querystring.stringify(options.query);
-  }
+  // if (options.params) {
+  //   Url.search = querystring.stringify(options.params);
+  // }
 
   if (options.httpVersion === 2)
     return http2Request(Url, options, data);
@@ -73,6 +73,8 @@ function http1Request(Url, options, data) {
       request.headers[ "Cookie" ] = Object.entries(options.cookies).join('; ');
     if (options.auth)
       request[ "auth" ] = options.auth;
+    if (options.params)
+      request[ "params" ] = options.params;
 
     if (data) {
       // check for web form data
@@ -183,13 +185,14 @@ function http2Request(Url, options, data) {
     let request = Object.assign({
       ':method': options.method || 'GET',
       ':path': Url.path || ''
-    },
-      options.headers
-    );
+    }, options.headers);
+
     if (options.cookies)
       request[ "cookie" ] = Object.entries(options.cookies).join('; ');
     if (options.auth)
       request[ "auth" ] = options.auth;
+    if (options.params)
+      request[ "params" ] = options.params;
 
     const req = client.request(request);
 
@@ -270,4 +273,4 @@ exports.contentTypeIsJSON = (contentType) => {
     return true;
 
   return false;
-}
+};
