@@ -10,7 +10,7 @@ logger.info("=== Test: rest transfer");
 
 var compareValues = 1;
 
-async function transfer_1() {
+async function transfer_weather() {
 
   logger.verbose("=== transfer Weather Service forecast");
   if (await transfer({
@@ -26,15 +26,16 @@ async function transfer_1() {
     }
   }, compareValues)) return 1;
 
-}
-
-async function transfer_2() {
-
-  logger.verbose("=== transfer Weather Service forecast");
+  logger.verbose("=== transfer Weather Service forecast w/ urlParams");
   if (await transfer({
     origin: {
-      smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
+      smt: "rest|https://api.weather.gov/gridpoints/${office}/${gridX},${gridY}/|forecast|*",
       options: {
+        urlParams: {
+          "office": "DVN",
+          "gridX": 34,
+          "gridY": 71
+        },
         http: {
           headers: {
             "Accept": "application/ld+json",
@@ -52,7 +53,7 @@ async function transfer_2() {
 
 }
 
-async function transfer_3() {
+async function transfer_census() {
 
   logger.verbose("=== transfer census population data");
   if (await transfer({
@@ -63,15 +64,33 @@ async function transfer_3() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|census_population_transfer_3.json|*",
-      output: "./test/data/output/rest/census_population_transfer_3.json"
+      smt: "json|./test/data/output/rest/|census_population_transfer_1.json|*",
+      output: "./test/data/output/rest/census_population_transfer_1.json"
+    }
+  }, compareValues)) return 1;
+
+  logger.verbose('=== census data with querystring');
+  if (await transfer({
+    origin: {
+      smt: "rest|https://api.census.gov/data/2020/|dec/pl|*",
+      options: {
+        match: {
+          "get": "NAME,P1_001N,P3_001N",
+          "for": "county:*",
+          "in": "state:19"
+        },
+        array_of_arrays: true
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/rest/|census_population_transfer_1.json|*",
+      output: "./test/data/output/rest/census_population_transfer_1.json"
     }
   }, compareValues)) return 1;
 
 }
 
 (async () => {
-  if (await transfer_1()) return;
-  if (await transfer_2()) return;
-  if (await transfer_3()) return;
+  if (await transfer_weather()) return;
+  if (await transfer_census()) return;
 })();

@@ -16,3 +16,5 @@ exports.httpRequest = require('./httpRequest');
 exports.htmlParseDir = require('./htmlParseDir');
 
 exports.logger = require('./logger');
+
+exports.templateReplace = require('./templateReplace');

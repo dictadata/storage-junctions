@@ -87,24 +87,6 @@ async function test_census_data() {
     }
   })) return 1;
 
-  logger.verbose('=== census data with querystring');
-  if (await transfer({
-    origin: {
-      smt: "json|https://api.census.gov/data/2020/dec/|pl|*",
-      options: {
-        match: {
-          "get": "NAME,P1_001N,P3_001N",
-          "for": "state:*"
-        },
-        array_of_arrays: true
-      }
-    },
-    terminal: {
-      smt: "json|./test/data/output/http/|census_transfer_2.json|*",
-      output: "./test/data/output/http/census_transfer_2.json"
-    }
-  })) return 1;
-
 }
 
 async function test_weather_data() {

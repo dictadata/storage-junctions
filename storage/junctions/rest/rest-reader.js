@@ -4,7 +4,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger, httpRequest } = require('../../utils');
+const { logger, httpRequest, templateReplace } = require('../../utils');
 const { StorageError } = require('../../types');
 
 module.exports = exports = class RESTReader extends StorageReader {
@@ -29,31 +29,38 @@ module.exports = exports = class RESTReader extends StorageReader {
     // read up to size constructs
 
     try {
+      let baseURL = this.smt.locus;
       let url = this.options.url || this.engram.smt.schema || '';
+      let urlParams = this.options.urlParams;
+      if (urlParams) {
+        baseURL = templateReplace(baseURL, urlParams);
+        url = templateReplace(url, urlParams);
+      }
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: "GET",
-        base: this.smt.locus,
+        base: baseURL,
         headers: {
           'Accept': 'application/json',
           'User-Agent': '@dictadata.org/storage'
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_options["query"]
+      // note, a pattern will override req_config["query"]
 
       let data = this.options.data;  // a pattern will override data
-      if (this.options.pattern) {
+
+      if (this.options) {
         // pattern will override options.data
-        let match = this.options.pattern.match || this.options.pattern;
-        if (req_options.method === "GET")
-          req_options.query = match;  // querystring
+        let params = this.options.params || this.options.match || {};
+        if (req_config.method === "GET")
+          req_config.params = params;  // querystring
         else
-          data = match;
+          data = params;
       }
 
       let results;
-      let response = await httpRequest(url, req_options, data);
+      let response = await httpRequest(url, req_config, data);
 
       if (response.statusCode !== 200) {
         let msg = typeof response.data === "string" ? response.data : null;

@@ -2,7 +2,7 @@
 
 const StorageJunction = require("../storage-junction");
 const { StorageResponse, StorageError } = require("../../types");
-const { typeOf, logger, httpRequest } = require("../../utils");
+const { typeOf, logger, httpRequest, templateReplace } = require("../../utils");
 
 const RESTReader = require("./rest-reader");
 const RESTWriter = require("./rest-writer");
@@ -120,36 +120,45 @@ class RESTJunction extends StorageJunction {
    *
    */
   async recall(pattern) {
+    pattern = pattern || {};
+
     if (!this.engram.smt.key) {
       throw new StorageError(400, "no storage key specified");
     }
 
     try {
+      let baseURL = this.smt.locus;
       let url = this.options.url || this.engram.smt.schema || '';
+      let urlParams = pattern.urlParams || this.options.urlParams;
+      if (urlParams) {
+        baseURL = templateReplace(baseURL, urlParams);
+        url = templateReplace(url, urlParams);
+      }
+
       let encoder = this.getEncoder();
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: "GET",
-        base: this.smt.locus,
+        base: baseURL,
         headers: {
           'Accept': 'application/json',
           'User-Agent': '@dictadata.org/storage'
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_options["query"]
+      // note, a pattern will override req_config["query"]
 
       let data = this.options.data;  // a pattern will override data
       if (pattern) {
         // pattern will override options.data
-        let match = pattern.match || pattern;
-        if (req_options.method === "GET")
-          req_options.query = match  // querystring
+        let params = pattern.params || pattern.match || this.options.params;
+        if (req_config.method === "GET")
+          req_config.params = params  // querystring
         else
-          data = match;
+          data = params;
       }
 
-      let response = await httpRequest(url, req_options, data);
+      let response = await httpRequest(url, req_config, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
@@ -176,33 +185,41 @@ class RESTJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
+    pattern = pattern || {};
 
     try {
+      let baseURL = this.smt.locus;
       let url = this.options.url || this.engram.smt.schema || '';
+      let urlParams = pattern.urlParams || this.options.urlParams;
+      if (urlParams) {
+        baseURL = templateReplace(baseURL, urlParams);
+        url = templateReplace(url, urlParams);
+      }
+
       let encoder = this.getEncoder();
 
-      let req_options = Object.assign({
+      let req_config = Object.assign({
         method: "GET",
-        base: this.smt.locus,
+        base: baseURL,
         headers: {
           'Accept': 'application/json',
           'User-Agent': '@dictadata.org/storage'
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_options["query"]
+      // note, a pattern will override req_config["query"]
 
       let data = this.options.data;  // a pattern will override data
       if (pattern) {
         // pattern will override options.data
-        let match = pattern.match || pattern;
-        if (req_options.method === "GET")
-          req_options.query = match  // querystring
+        let params = pattern.params || pattern.match || this.options.params;
+        if (req_config.method === "GET")
+          req_config.params = params  // querystring
         else
-          data = match;
+          data = params;
       }
 
-      let response = await httpRequest(url, req_options, data);
+      let response = await httpRequest(url, req_config, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))

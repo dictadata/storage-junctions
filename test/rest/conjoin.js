@@ -15,8 +15,12 @@ async function testConjoin() {
   logger.verbose("=== conjoin weather forecast");
   if (await transfer({
     origin: {
-      smt: "rest|https://api.weather.gov/points/39.7456,-97.0892||*",
+      smt: "rest|https://api.weather.gov/points/${latitude},${longitude}||*",
       options: {
+        urlParams: {
+          latitude: 39.7456,
+          longitude: -97.0892
+        },
         http: {
           headers: {
             "Accept": "application/ld+json",
