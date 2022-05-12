@@ -146,7 +146,7 @@ class RESTJunction extends StorageJunction {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_config["query"]
+      // note, a pattern will override req_config["params"]
 
       let data = this.options.data;  // a pattern will override data
       if (pattern) {
@@ -207,7 +207,7 @@ class RESTJunction extends StorageJunction {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_config["query"]
+      // note, a pattern will override req_config["params"]
 
       let data = this.options.data;  // a pattern will override data
       if (pattern) {
