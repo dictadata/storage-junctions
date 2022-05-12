@@ -73,7 +73,7 @@ async function test(smt_name) {
 (async () => {
   await init();
 
-  //if (await test("jsonfile-foo_schema")) return 1;
+  if (await test("jsonfile-foo_schema")) return 1;
   if (await test("elasticsearch-foo_schema")) return 1;
   if (await test("elasticsearch-foo_alias")) return 1;
   if (await test("mssql-foo_schema")) return 1;
