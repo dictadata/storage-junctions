@@ -23,6 +23,19 @@ async function keystore() {
     }
   })) return 1;
 
+  logger.info("=== elasticsearch recall ks");
+  if (await recall({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|!",
+      pattern: {
+        key: 'twenty'
+      }
+    },
+    terminal: {
+      output: "./test/data/output/elasticsearch/recall_ks.json"
+    }
+  })) return 1;
+
 }
 
 async function primarykey() {

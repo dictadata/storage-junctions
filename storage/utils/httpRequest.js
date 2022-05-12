@@ -4,34 +4,35 @@
 const http = require('http');
 const https = require('https');
 const http2 = require('http2');
-const querystring = require('querystring');
 const zlib = require('zlib');
 const logger = require('./logger');
 
 /**
+ * httpRequest takes some Axios style request config options.
+ * These request options are coverted to Node.js options for HTTP, HTTPS, HTTP/2
  *
- * @param {*} url The absolute or relative input URL to request.
- * @param {*} options HTTP request parameters.
- * @param {*} options.base URL to use as base for requests if url is relative.
- * @param {*} options.params object containing URL querystring parameters.
- * @param {*} options.httpVersion HTTP version to use 1.0, 1.1, 2
- * @param {*} options.method HTTP request method, default is GET
- * @param {*} options.timeout request timeout ms, default 5000ms
- * @param {*} options.headers HTTP request headers
- * @param {*} options.cookies array of HTTP cookies strings
- * @param {*} options.auth Basic authentication i.e. 'user:password' to compute an Authorization header.
- * @param {*} options.responseType If set to 'stream' the response will be returned when headers are received.
+ * @param {*} url The absolute or relative input URL to options.
+ * @param {*} request HTTP options parameters.
+ * @param {*} request.base URL to use as base for requests if url is relative.
+ * @param {*} request.params object containing URL querystring parameters.
+ * @param {*} request.httpVersion HTTP version to use 1.0, 1.1, 2
+ * @param {*} request.method HTTP options method, default is GET
+ * @param {*} request.timeout options timeout ms, default 5000ms
+ * @param {*} request.headers HTTP options headers
+ * @param {*} request.cookies array of HTTP cookies strings
+ * @param {*} request.auth Basic authentication i.e. 'user:password' to compute an Authorization header.
+ * @param {*} request.responseType If set to 'stream' the response will be returned when headers are received.
  * @param {*} data
  * @returns
  */
-function httpRequest(url, options, data) {
+function httpRequest(url, request, data) {
 
   if (typeof url === "undefined")
     url = '';
 
   let Url;
   if (typeof url === "string") {
-    Url = new URL(url, options.base);
+    Url = new URL(url, request.base);
   }
   else if (typeof url === "object" && url instanceof URL)
     Url = url;
@@ -39,14 +40,15 @@ function httpRequest(url, options, data) {
     throw new Error(`Invalid url ${url}`);
   }
 
-  // if (options.params) {
-  //   Url.search = querystring.stringify(options.params);
-  // }
+  if (request.params) {
+    for (const [ name, value ] of Object.entries(request.params))
+      Url.searchParams.append(name, value);
+  }
 
-  if (options.httpVersion === 2)
-    return http2Request(Url, options, data);
+  if (request.httpVersion === 2)
+    return http2Request(Url, request, data);
   else
-    return http1Request(Url, options, data);
+    return http1Request(Url, request, data);
 }
 
 module.exports = exports = httpRequest;
@@ -54,50 +56,48 @@ module.exports = exports = httpRequest;
 /**
  *
  * @param {*} Url
- * @param {*} options
+ * @param {*} request
  * @param {*} data
  * @returns
  */
-function http1Request(Url, options, data) {
+function http1Request(Url, request, data) {
   return new Promise((resolve, reject) => {
     let response = {
       data: ""
     };
 
-    var request = {
-      method: (options.method && options.method.toUpperCase()) || "GET",
-      timeout: options.timeout || 5000
-    };
-    request.headers = Object.assign({}, options.headers);
-    if (options.cookies)
-      request.headers[ "Cookie" ] = Object.entries(options.cookies).join('; ');
-    if (options.auth)
-      request[ "auth" ] = options.auth;
-    if (options.params)
-      request[ "params" ] = options.params;
+    var options = {};
+    options.method = (request.method && request.method.toUpperCase()) || "GET";
+    options.timeout = request.timeout || 5000;
+    options.headers = Object.assign({}, request.headers);
+    if (request.cookies)
+      options.headers[ "Cookie" ] = Object.entries(request.cookies).join('; ');
+    if (request.auth)
+      options[ "auth" ] = request.auth;
 
     if (data) {
       // check for web form data
-      if (request.headers[ "Content-Type" ] == "application/x-www-form-urlencoded" && typeof data === "object")
-        data = querystring.stringify(data);
+      if (options.headers[ "Content-Type" ] == "application/x-www-form-urlencoded" && typeof data === "object") {
+        data = (new URLSearchParams(data)).toString();
+      }
 
       // default to json payload
-      if (!request.headers[ 'Content-Type' ])
-        request.headers[ "Content-Type" ] = "application/json; charset=utf-8";
+      if (!options.headers[ 'Content-Type' ])
+        options.headers[ "Content-Type" ] = "application/json; charset=utf-8";
 
-      //request.headers['Content-Length'] = Buffer.byteLength(data);
+      //options.headers['Content-Length'] = Buffer.byteLength(data);
       // if Content-Length is not set then default is chunked encoding
     }
 
     let _http = (Url.protocol === "https:") ? https : http;
 
-    const req = _http.request(Url, request, (res) => {
+    const req = _http.request(Url, options, (res) => {
       response.statusCode = res.statusCode;
       response.headers = res.headers;
-      if (options.cookies)
-        saveCookies(options, res.headers);
+      if (request.cookies)
+        saveCookies(request, res.headers);
 
-      if (options.responseType !== 'stream') {
+      if (request.responseType !== 'stream') {
         // return response body
         var chunks = [];
 
@@ -130,7 +130,7 @@ function http1Request(Url, options, data) {
       }
     });
 
-    if (options.responseType === 'stream') {
+    if (request.responseType === 'stream') {
       // return a read stream
 
       req.on('response', (rs) => {
@@ -157,21 +157,22 @@ function http1Request(Url, options, data) {
       reject(err);
     });
 
-    // send the request
+    // stream the request data
     if (data)
       req.write(data);
+    // finish the request
     req.end();
   });
 }
 
 /**
- *
+ * !!! this is probably broken !!!
  * @param {*} Url
- * @param {*} options
+ * @param {*} request
  * @param {*} data
  * @returns
  */
-function http2Request(Url, options, data) {
+function http2Request(Url, request, data) {
   return new Promise((resolve, reject) => {
     let response = {};
 
@@ -182,19 +183,19 @@ function http2Request(Url, options, data) {
       reject(err);
     });
 
-    let request = Object.assign({
-      ':method': options.method || 'GET',
+    let options = Object.assign({
+      ':method': request.method || 'GET',
       ':path': Url.path || ''
-    }, options.headers);
+    }, request.headers);
 
-    if (options.cookies)
-      request[ "cookie" ] = Object.entries(options.cookies).join('; ');
-    if (options.auth)
-      request[ "auth" ] = options.auth;
-    if (options.params)
-      request[ "params" ] = options.params;
+    if (request.cookies)
+      options[ "cookie" ] = Object.entries(request.cookies).join('; ');
+    if (request.auth)
+      options[ "auth" ] = request.auth;
+    if (request.params)
+      options[ "params" ] = request.params;
 
-    const req = client.request(request);
+    const req = client.request(options);
 
     req.setEncoding('utf8');
     if (data)
@@ -203,8 +204,8 @@ function http2Request(Url, options, data) {
 
     req.on('response', (headers, flags) => {
       response.headers = headers;
-      if (options.cookies)
-        saveCookies(options, headers);
+      if (request.cookies)
+        saveCookies(request, headers);
     });
 
     req.on('data', (chunk) => {
@@ -224,11 +225,11 @@ function http2Request(Url, options, data) {
 
 /**
  *
- * @param {*} options
+ * @param {*} request
  * @param {*} headers
  */
-function saveCookies(options, headers) {
-  if (!options.cookies)
+function saveCookies(request, headers) {
+  if (!request.cookies)
     return;
 
   // parse cookies
@@ -248,7 +249,7 @@ function saveCookies(options, headers) {
           let ck = nvs[ 0 ].split('=');
           if (ck.length > 0) {
             logger.debug(ck[ 0 ] + '=' + ck[ 1 ]);
-            options.cookies[ ck[ 0 ] ] = ck[ 1 ];
+            request.cookies[ ck[ 0 ] ] = ck[ 1 ];
           }
         }
       }
