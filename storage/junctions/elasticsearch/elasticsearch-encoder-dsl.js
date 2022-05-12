@@ -73,7 +73,7 @@ exports.searchQuery = function (pattern) {
     cues(dsl, pattern);
     aggregate(dsl, pattern);  // aggregations
 
-    logger.debug("dsl: " + JSON.stringify(dsl));
+    logger.verbose("dsl: " + JSON.stringify(dsl));
     return dsl;
   }
   catch (err) {

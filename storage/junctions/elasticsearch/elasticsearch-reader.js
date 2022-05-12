@@ -4,7 +4,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger } = require('../../utils');
+const { logger, hasOwnProperty } = require('../../utils');
 
 const dslEncoder = require("./elasticsearch-encoder-dsl");
 
@@ -42,8 +42,13 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
       if (!this.started) {
         this.started = true;
         let dsl = dslEncoder.searchQuery(this.options);
-        let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams, { body: dsl, size: size, sort: [ "_doc" ] });
-        //logger.debug(JSON.stringify(params));
+
+        let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams);
+        if (!hasOwnProperty(dsl, "size")) params.size = size;
+        if (!hasOwnProperty(dsl, "sort")) params.sort = [ "_doc" ];
+        params.body = dsl;
+        logger.verbose("params: " + JSON.stringify(params));
+
         response = await this.elasticQuery.client.search(params);
       }
       else {

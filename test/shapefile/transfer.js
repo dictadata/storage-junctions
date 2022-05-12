@@ -73,10 +73,17 @@ async function testTransfer2() {
 async function testTransfer3() {
 
   logger.verbose("=== Transfer elastic shapes to geoJSON");
-  compareValues = 1;
+  compareValues = 2;
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID"
+      "smt": "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID",
+      "options": {
+        "order": {
+          "geometry.type": "desc",
+          "properties.FID": "asc"
+        },
+        "count": 100
+      }
     },
     "terminal": {
       "smt": "json|./test/data/output/shapefile/|shapes.json|*",
