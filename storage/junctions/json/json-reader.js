@@ -56,6 +56,7 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     // eslint-disable-next-line arrow-parens
     pipeline.on('data', (data) => {
+      logger.debug("json parser on data");
       if (data.value) {
         //logger.debug(JSON.stringify(data.value));
 
@@ -79,14 +80,15 @@ module.exports = exports = class JSONReader extends StorageReader {
     });
 
     pipeline.on('end', () => {
+      logger.debug("json parser on end");
       reader.push(null);
     });
 
     pipeline.on('error', function (err) {
+      logger.debug("json parser on error");
       //logger.error(err);
       throw err;
     });
-
 
     // convert array to object
     function convert(data) {
@@ -160,6 +162,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       var rs = await stfs.createReadStream(this.options);
       rs.on("error",
         (err) => {
+          logger.debug("json reader on parser error");
           this.destroy(err);
         }
       );
@@ -167,11 +170,13 @@ module.exports = exports = class JSONReader extends StorageReader {
       this.started = true;
     }
     else if (this.myParser.isPaused()) {
-      // resume reading
+      logger.debug("json reader parser paused")
       this.myParser.resume();
     }
-    else if (this.myParser.destroyed || !this.myParser.readable)
+    else if (this.myParser.destroyed || !this.myParser.readable) {
+      logger.debug("json reader parser problem");
       this.push(null);
+    }
   }
 
 };
