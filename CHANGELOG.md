@@ -1,5 +1,17 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.3.0
+  - implement: new AdjoinTransform for injecting fields via table/map lookup
+  - implement: CsvJunction and JsonJunction retrieve()
+  - implement: URL template string style replacement for RestJunction, ConjoinTransform
+  - refactor: StorageEncoder base class for filesystem based streams for cast, filter, select functions
+  - refactor: use StorageEncoder for CsvReader, JsonReader
+  - refactor: make junction.createTransform() an async function
+  - bug fix: CsvReader and JsonReader stream issues
+  - bug fix: ConjoinTransform bug fix in pattern match
+  - bug fix: issue with httpRequest querystring params
+  - bug fix: issue with ElasticsearchReader sort order
+  - testing: compare output of filesystem based transfer tests
 - version 2.2.5
   - update: codex alias entries
 - version 2.2.4
