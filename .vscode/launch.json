@@ -860,6 +860,71 @@
     },
     {
       "type": "node-terminal",
+      "name": "--- transform",
+      "request": "launch"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transforms aggregate csv",
+      "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transforms aggregate json",
+      "program": "${workspaceFolder}/test/transforms/json_aggregate.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "transforms db2db",
+      "program": "${workspaceFolder}/test/transforms/db2db_transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node-terminal",
+      "name": "--- pipelines",
+      "request": "launch"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "pipelines extract data",
+      "program": "${workspaceFolder}/test/pipelines/pickdata.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "pipelines tee",
+      "program": "${workspaceFolder}/test/pipelines/tee.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node-terminal",
       "name": "--- other junctions",
       "request": "launch"
     },
@@ -945,71 +1010,6 @@
       "request": "launch",
       "name": "shapefile retrieve tiger2020",
       "program": "${workspaceFolder}/test/shapefile/retrieve_tiger2020.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node-terminal",
-      "name": "--- transform",
-      "request": "launch"
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "transforms aggregate csv",
-      "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "transforms aggregate json",
-      "program": "${workspaceFolder}/test/transforms/json_aggregate.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "transforms db2db",
-      "program": "${workspaceFolder}/test/transforms/db2db_transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node-terminal",
-      "name": "--- pipelines",
-      "request": "launch"
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "pipelines extract data",
-      "program": "${workspaceFolder}/test/pipelines/pickdata.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "pipelines tee",
-      "program": "${workspaceFolder}/test/pipelines/tee.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
