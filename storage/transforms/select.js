@@ -9,7 +9,7 @@ const dot = require('dot-object');
 //   inject_before
 //   select fields, mapping or copy
 //   remove
-//   inject_after
+//   inject or inject_after
 
 // example select transform
 /*
@@ -18,7 +18,7 @@ const dot = require('dot-object');
       // inject new fields or set defaults in case of missing values
       inject_before: {
         "new-field-name": <value>
-        "existing-field-name": <default value>
+        "existing-field-name": <value>
       },
 
       // select fields
@@ -27,22 +27,34 @@ const dot = require('dot-object');
       // or map fields using dot notation
       // { src: dest, ...}
       fields: {
-        "field1": "Field1",
-        "object1.subfield":  "FlatField"
+        "field1": <value>,
+        "object1.subfield1":  <value>
       },
 
       // remove fields from the new construct
       remove: ["field1", "field2"],
 
-      // inject new fields or override existing values
-      inject_after: {
+      // inject (inject_after) new fields or override existing values
+      inject: {
         "new-field-name": <value>,
-        "existing-field-name": <override value>
+        "existing-field-name": <value>
       }
 
     }
   };
 */
+
+// value
+//   literal
+//   =value expression
+//
+// value expression
+//   fieldvalue
+//   fieldvalue + fieldvalue + ...    // string concatenation
+//
+// fieldvalue
+//   field name | 'literal string'
+
 
 module.exports = exports = class SelectTransform extends Transform {
 
@@ -117,8 +129,8 @@ module.exports = exports = class SelectTransform extends Transform {
       for (let fldname of this.options.remove)
         delete newConstruct[ fldname ];
 
-    if (this.options.inject_after)
-      for (let [ name, value ] of Object.entries(this.options.inject_after)) {
+    if (this.options.inject || this.options.inject_after)
+      for (let [ name, value ] of Object.entries(this.options.inject || this.options.inject_after)) {
         if (value && value[ 0 ] === '=')
           newConstruct[ name ] = this.assignment(value, construct);
         else
