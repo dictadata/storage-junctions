@@ -30,8 +30,15 @@ async function testTransfer1() {
       smt: "shp|./test/data/input/shapes/|polygons|*",
       options: {}
     },
+    transform: {
+      "select": {
+        "inject_before": {
+          "id": "=geometry.type+properties.FID"
+        }
+      }
+    },
     terminal: {
-      smt: "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID",
+      smt: "elastic|http://localhost:9200/|shapes|!id",
       options: {
         encoding: "./test/data/input/shapes/shapes.encoding.json"
       }
@@ -60,8 +67,15 @@ async function testTransfer2() {
       smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
       options: {}
     },
+    transform: {
+      "select": {
+        "inject_before": {
+          "id": "=geometry.type+properties.FID"
+        }
+      }
+    },
     terminal: {
-      smt: "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID",
+      smt: "elastic|http://localhost:9200/|shapes|!id",
       options: {
         encoding: "./test/data/input/shapes/shapes.encoding.json"
       }
@@ -76,11 +90,10 @@ async function testTransfer3() {
   compareValues = 2;
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://localhost:9200/|shapes|!geometry.type+properties.FID",
+      "smt": "elastic|http://localhost:9200/|shapes|!id",
       "options": {
         "order": {
-          "geometry.type": "desc",
-          "properties.FID": "asc"
+          "id": "desc"
         },
         "count": 100
       }
