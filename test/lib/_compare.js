@@ -10,14 +10,36 @@ const path = require('path');
 const { unzipSync } = require('zlib');
 const { typeOf, hasOwnProperty } = require("../../storage/utils");
 
+function compareText(expected, output, compareValues) {
 
-function compareTXT(expected, output, compareValues) {
-  if (compareValues > 0) {
-    let ok = (expected.length === output.length);
-    if (!ok) {
-      logger.error(`output files have different lengths ${expected.length} ${output.length}`);
-      return 1;
+  let expLines = expected.split(/\r?\n/);
+  let outLines = output.split(/\r?\n/);
+
+  if (expLines.length !== outLines.length) {
+    logger.error(`output file has different length ${expLines.length} ${outLines.length}`);
+    return 1;
+  }
+
+  if (compareValues > 1) {
+    for (let i = 0; i < expLines.length; i++) {
+      if (expLines[ i ] !== outLines[ i ]) {
+        logger.error("contents of files are not equal on line: " + (i + 1));
+        logger.error(expLines[ i ]);
+        logger.error(outLines[ i ]);
+        return 1;
+      }
     }
+  }
+
+  return 0;
+}
+
+function compareBuffer(expected, output, compareValues) {
+
+  let ok = (expected.length === output.length);
+  if (!ok) {
+    logger.error(`output files have different lengths ${expected.length} ${output.length}`);
+    return 1;
   }
 
   if (compareValues > 1) {
@@ -32,23 +54,9 @@ function compareTXT(expected, output, compareValues) {
 }
 
 function compareCSV(expected, output, compareValues) {
-  if (compareValues > 0) {
-    let ok = (expected.length === output.length);
-    if (!ok) {
-      logger.error(`output files have different lengths ${expected.length} ${output.length}`);
-      return 1;
-    }
-  }
-
-  if (compareValues > 1) {
-    let ok = expected.compare(output) === 0;
-    if (!ok) {
-      logger.error("contents of files are not equal");
-      return 1;
-    }
-  }
-
   return 0;
+
+  // using compareText for now
 }
 
 /**
@@ -123,7 +131,8 @@ function compareJSON(var1, var2, compareValues) {
  */
 module.exports = exports = function (filename_expected, filename_output, compareValues = 1) {
   logger.info(">>> compare files");
-  //return 0;
+  if (compareValues <= 0)
+    return 0;
 
   let ext1 = path.extname(filename_expected);
   let ext2 = path.extname(filename_output);
@@ -142,10 +151,10 @@ module.exports = exports = function (filename_expected, filename_output, compare
   }
 
   // read files
-  let expected = fs.readFileSync(filename_expected);
+  let expected = fs.readFileSync(filename_expected, { encoding: 'utf8' });
   if (path.extname(filename_expected) === '.gz')
     expected = unzipSync(expected);
-  let output = fs.readFileSync(filename_output);
+  let output = fs.readFileSync(filename_output, { encoding: 'utf8' });
   if (path.extname(filename_output) === '.gz')
     output = unzipSync(output);
 
@@ -153,9 +162,9 @@ module.exports = exports = function (filename_expected, filename_output, compare
   if (ext1 === '.json')
     return compareJSON(JSON.parse(expected), JSON.parse(output), compareValues);
   else if (ext1 === '.csv')
-    return compareCSV(expected, output, compareValues);
+    return compareText(expected, output, compareValues);
   else if (ext1 === '.txt')
-    return compareTXT(expected, output, compareValues);
+    return compareText(expected, output, compareValues);
   else {
     logger.error("compare unknown file extension");
     return 1;
