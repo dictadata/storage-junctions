@@ -1,10 +1,10 @@
 {
-  "name": "Adel Precincts",
+  "name": "Dubuque precincts final",
   "type": "engram",
   "smt": {
     "model": "shp",
-    "locus": "zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Adel Precincts.zip/Adel Precincts/",
-    "schema": "Adel Precincts",
+    "locus": "zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Dubuque.zip/Dubuque/",
+    "schema": "Dubuque precincts final",
     "key": "*"
   },
   "fields": [
@@ -41,7 +41,7 @@
         {
           "name": "NAME",
           "type": "text",
-          "size": 15
+          "size": 10
         },
         {
           "name": "POPULATION",

@@ -42,13 +42,13 @@ async function test() {
   logger.info("=== list zip directory - recursive");
   if (await list({
     origin: {
-      smt: "*|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Adel Precincts.zip/Adel Precincts/|*|*",
+      smt: "*|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Dubuque.zip/Dubuque/|*|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_adel.json"
+      output: "./test/data/output/zip/list_dubuque.json"
     }
   })) return 1;
 
