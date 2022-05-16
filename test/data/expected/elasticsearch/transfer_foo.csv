@@ -1,10 +1,10 @@
 "Bar","Baz","Dt Test","Fobe","Foo","enabled"
-row,123,2018-10-07,,first,true
-row your boat,789,2018-10-18T05:00:00.000Z,,third,true
-Jackson,20,2020-10-07T13:00:00.000Z,,twenty,true
-,,,,sixth,false
-row,456,2018-10-07T05:00:00.000Z,,second,false
-big data,0,2018-10-10T19:13:30.000Z,,seventh,false
- boat ,0,2018-10-10T14:13:30.500Z,,fourth,false
 bigger data,12,2018-10-10T05:00:00.000Z,,eighth,false
 downstream,-12,2018-10-18T05:00:00.000Z,,fifth,true
+row,123,2018-10-07,,first,true
+ boat ,0,2018-10-10T14:13:30.500Z,,fourth,false
+row,456,2018-10-07T05:00:00.000Z,,second,false
+big data,0,2018-10-10T19:13:30.000Z,,seventh,false
+,,,,sixth,false
+row your boat,789,2018-10-18T05:00:00.000Z,,third,true
+Jackson,20,2020-10-07T13:00:00.000Z,,twenty,true
