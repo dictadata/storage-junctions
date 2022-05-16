@@ -32,8 +32,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
 
     logger.debug(">>> get origin encoding");
-    let encoding;
-    if (jo.capabilities.encoding) {
+    let encoding = tract.origin.options.encoding;
+    if (!encoding && jo.capabilities.encoding) {
       let results = await jo.getEncoding();  // load encoding from origin for validation
       encoding = results.data[ "encoding" ];
     }
