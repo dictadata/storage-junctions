@@ -55,6 +55,21 @@ async function tests() {
     }
   })) return 1;
 
+  logger.verbose('=== csv > csv_output.json');
+  if (await transfer({
+    origin: {
+      smt: "csv|./test/data/input/|foofile.txt|*",
+      options: {
+        header: true,
+        separator: "|"
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/csv/|transfer_3.json|*",
+      output: "./test/data/output/csv/transfer_3.json"
+    }
+  })) return 1;
+
   logger.verbose('=== timeseries.csv > csv_timeseries.json');
   if (await transfer({
     origin: {

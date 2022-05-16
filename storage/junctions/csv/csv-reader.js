@@ -8,7 +8,7 @@ const path = require('path');
 const ynBoolean = require('yn');
 
 const chain = require('stream-chain');
-const ParserCsv = require('stream-csv-as-json');
+const CsvParser = require('stream-csv-as-json');
 const CsvTransform = require('./CsvTransform'); //require('stream-csv-as-json/AsObjects');
 const StreamValues = require('stream-json/streamers/StreamValues');
 
@@ -35,56 +35,8 @@ module.exports = exports = class CSVReader extends StorageReader {
     this.started = false;
     var encoder = this.junction.createEncoder(options);
 
-    function cast(construct) {
-
-      for (let [ name, value ] of Object.entries(construct)) {
-        let newValue = value;
-        let field = encoding.find(name);
-
-        if (value === "" || value === null) {     // current parser generates "" instead of null
-          newValue = field.defaultValue;
-        }
-        else if (field.type === 'boolean') {
-          newValue = ynBoolean(value);
-          if (typeof newValue === "undefined")
-            newValue = field.defaultValue;
-        }
-        else if (field.type === 'integer') {
-          newValue = Number.parseInt(value, 10);
-          if (Number.isNaN(newValue))
-            newValue = field.defaultValue;
-        }
-        else if (field.type === 'float') {
-          newValue = Number.parseFloat(value);
-          if (!Number.isFinite(newValue))
-            newValue = field.defaultValue;
-        }
-        else if (field.type === 'date') {
-          newValue = new Date(value);
-          if (isNaN(newValue))
-            newValue = field.defaultValue;
-        }
-        else if (field.type === 'keyword') {
-          if (value === null)
-            newValue = field.defaultValue;
-        }
-        else if (field.type === 'text') {
-          if (value === null)
-            newValue = field.defaultValue;
-        }
-        else {
-          newValue = parseValue(value);
-        }
-
-        if (newValue !== value)
-          construct[ name ] = newValue;
-      }
-
-      return construct;
-    }
-
     let parser = this.parser = new chain([
-      ParserCsv(),
+      CsvParser({ separator: options.separator }),
       new CsvTransform({ keys: encoding.names, header: options.header }),
       new StreamValues()
     ]);

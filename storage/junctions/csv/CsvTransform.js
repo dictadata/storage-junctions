@@ -1,8 +1,10 @@
 /**
  * CsvTransform
- * 
- * !!!DEPRECATED!!!
- * 
+ *
+ * This code module is copied from stream-csv-as-json/AsObjects
+ *
+ * This module should be DEPRECATED???
+ *
  */
 'use strict';
 
@@ -47,15 +49,15 @@ class CsvTransform extends Transform {
     }
     else
       this._transform = this._transformToObject;
-//    else
-//      this._transform = this._transformHeaderValues;
+    //    else
+    //      this._transform = this._transformHeaderValues;
   }
 
   /**
    * if useStringValues === false
-   * @param {*} chunk 
-   * @param {*} _ 
-   * @param {*} callback 
+   * @param {*} chunk
+   * @param {*} _
+   * @param {*} callback
    */
   _transformHeaderTokens(chunk, _, callback) {
     switch (chunk.name) {
@@ -76,9 +78,9 @@ class CsvTransform extends Transform {
 
   /**
    * if useStringValues === true
-   * @param {*} chunk 
-   * @param {*} _ 
-   * @param {*} callback 
+   * @param {*} chunk
+   * @param {*} _
+   * @param {*} callback
    */
   _transformHeaderValues(chunk, _, callback) {
     switch (chunk.name) {
@@ -104,7 +106,7 @@ class CsvTransform extends Transform {
         break;
       case 'startString':
       case 'stringValue':
-        const key = (this._index < this._keys.length && this._keys[this._index]) || this._fieldPrefix + this._index;
+        const key = (this._index < this._keys.length && this._keys[ this._index ]) || this._fieldPrefix + this._index;
         ++this._index;
         if (this._streamKeys) {
           this.push({ name: 'startKey' });
