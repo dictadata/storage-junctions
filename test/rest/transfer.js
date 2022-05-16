@@ -5,6 +5,7 @@
 
 const transfer = require('../lib/_transfer');
 const { logger } = require('../../storage/utils');
+const { stringBreakpoints } = require('../../storage/types');
 
 logger.info("=== Test: rest transfer");
 
@@ -60,7 +61,16 @@ async function transfer_census() {
     origin: {
       smt: "rest|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=county:*&in=state:19||*",
       options: {
-        array_of_arrays: true
+        array_of_arrays: true,
+        encoding: {
+          fields: {
+            "NAME": "string",
+            "P1_001N": "number",
+            "P3_001N": "number",
+            "state": "keyword",
+            "county": "keyword"
+          }
+        }
       }
     },
     terminal: {
@@ -73,18 +83,27 @@ async function transfer_census() {
   if (await transfer({
     origin: {
       smt: "rest|https://api.census.gov/data/2020/|dec/pl|*",
-      pattern: {
-        match: {
+      options: {
+        params: {
           "get": "NAME,P1_001N,P3_001N",
           "for": "county:*",
           "in": "state:19"
         },
-        array_of_arrays: true
+        array_of_arrays: true,
+        encoding: {
+          fields: {
+            "NAME": "string",
+            "P1_001N": "number",
+            "P3_001N": "number",
+            "state": "keyword",
+            "county": "keyword"
+          }
+        }
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|census_population_transfer_1.json|*",
-      output: "./test/data/output/rest/census_population_transfer_1.json"
+      smt: "json|./test/data/output/rest/|census_population_transfer_2.json|*",
+      output: "./test/data/output/rest/census_population_transfer_2.json"
     }
   }, compareValues)) return 1;
 

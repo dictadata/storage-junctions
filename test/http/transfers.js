@@ -114,6 +114,6 @@ async function test_weather_data() {
 (async () => {
   if (await test_transfers()) return 1;
   if (await test_uncompress()) return 1;
-  if (await test_census_data()) return 1;
+  //if (await test_census_data()) return 1;
   if (await test_weather_data()) return 1;
 })();
