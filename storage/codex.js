@@ -51,10 +51,10 @@ module.exports = exports = class Codex {
         // attempt to create accounts schema
         let results = await this._junction.createSchema();
         if (results.resultCode === 0) {
-          logger.info("created codex schema");
+          logger.info("storage/codex: created schema, " + this._junction.smt.schema);
         }
         else if (results.resultCode === 409) {
-          logger.verbose("codex schema exists");
+          logger.verbose("storage/codex: schema exists");
         }
         else {
           throw new StorageError(500, "unable to create codex schema");
@@ -63,7 +63,7 @@ module.exports = exports = class Codex {
       }
     }
     catch (err) {
-      logger.error('codex activate failed: ', err);
+      logger.error('storge/codex: activate failed, ', err.message || err);
     }
 
     return this._active;
@@ -94,7 +94,7 @@ module.exports = exports = class Codex {
     if (this._junction) {
       // save in source codex
       results = await this._junction.store(encoding);
-      logger.verbose(results.resultCode);
+      logger.verbose("storage/codex: " + encoding.name + ", " + results.resultCode);
     }
 
     return results;
@@ -147,7 +147,7 @@ module.exports = exports = class Codex {
     else if (this._junction) {
       // go to the source codex
       results = await this._junction.recall({ key: name });
-      logger.verbose(results.resultCode);
+      logger.verbose("storage/codex: recall, " + results.resultCode);
 
       if (resolve_alias && results.resultCode === 0) {
         // check for alias smt
@@ -188,7 +188,7 @@ module.exports = exports = class Codex {
     if (this._junction) {
       // retrieve list from source codex
       results = await this._junction.retrieve(pattern);
-      logger.verbose(results.resultCode);
+      logger.verbose("storage/codex: retrieve, " + results.resultCode);
 
       // current design does not cache entries from retrieved list
     }
