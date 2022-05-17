@@ -160,6 +160,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       // start the reader
       let stfs = await this.junction.getFileSystem();
       var rs = await stfs.createReadStream(this.options);
+      rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on("error",
         (err) => {
           logger.debug("json reader on parser error");

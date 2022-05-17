@@ -88,6 +88,7 @@ module.exports = exports = class CSVReader extends StorageReader {
       // start the reader
       let stfs = await this.junction.getFileSystem();
       var rs = await stfs.createReadStream(this.options);
+      rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on("error",
         (err) => {
           this.destroy(err);
