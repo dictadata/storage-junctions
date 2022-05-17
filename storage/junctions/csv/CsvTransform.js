@@ -60,6 +60,7 @@ class CsvTransform extends Transform {
    * @param {*} callback
    */
   _transformHeaderTokens(chunk, _, callback) {
+
     switch (chunk.name) {
       case 'endArray':
         // at end of first row switch to transfer method
@@ -69,7 +70,10 @@ class CsvTransform extends Transform {
         this._buffer += chunk.value;
         break;
       case 'endString':
-        this._keys.push(this._buffer);
+        if (this._buffer.charCodeAt(0) === 0xFEFF)  // BOM character
+          this._keys.push(this._buffer.substring(1));
+        else
+          this._keys.push(this._buffer);
         this._buffer = '';
         break;
     }
