@@ -1,5 +1,5 @@
 /**
- * CsvTransform
+ * CsvAsObjects
  *
  * This code module is copied from stream-csv-as-json/AsObjects
  *
@@ -12,13 +12,13 @@ const { Transform } = require('stream');
 
 const withParser = require('stream-json/utils/withParser');
 
-class CsvTransform extends Transform {
+class CsvAsObjects extends Transform {
   static make(options) {
-    return new CsvTransform(options);
+    return new CsvAsObjects(options);
   }
 
   static withParser(options) {
-    return withParser(CsvTransform.make, options);
+    return withParser(CsvAsObjects.make, options);
   }
 
   constructor(options) {
@@ -100,6 +100,7 @@ class CsvTransform extends Transform {
   }
 
   _transformToObject(chunk, encoding, callback) {
+    let key;
     switch (chunk.name) {
       case 'startArray':
         this.push({ name: 'startObject' });
@@ -110,7 +111,7 @@ class CsvTransform extends Transform {
         break;
       case 'startString':
       case 'stringValue':
-        const key = (this._index < this._keys.length && this._keys[ this._index ]) || this._fieldPrefix + this._index;
+        key = (this._index < this._keys.length && this._keys[ this._index ]) || this._fieldPrefix + this._index;
         ++this._index;
         if (this._streamKeys) {
           this.push({ name: 'startKey' });
@@ -148,7 +149,7 @@ class CsvTransform extends Transform {
   }
 }
 
-CsvTransform.CsvTransform = CsvTransform.make;
-CsvTransform.make.Constructor = CsvTransform;
+CsvAsObjects.CsvAsObjects = CsvAsObjects.make;
+CsvAsObjects.make.Constructor = CsvAsObjects;
 
-module.exports = CsvTransform;
+module.exports = CsvAsObjects;

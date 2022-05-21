@@ -1,15 +1,11 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { parseValue } = require('../../types');
 const { logger } = require('../../utils');
-
-const path = require('path');
-const ynBoolean = require('yn');
 
 const chain = require('stream-chain');
 const CsvParser = require('stream-csv-as-json');
-const CsvTransform = require('./CsvTransform'); //require('stream-csv-as-json/AsObjects');
+const CsvAsObjects = require('./csv-AsObjects'); //require('stream-csv-as-json/AsObjects');
 const StreamValues = require('stream-json/streamers/StreamValues');
 
 
@@ -35,14 +31,14 @@ module.exports = exports = class CSVReader extends StorageReader {
     this.started = false;
     var encoder = this.junction.createEncoder(options);
 
-    let parser = this.parser = new chain([
-      CsvParser({ separator: options.separator }),
-      new CsvTransform({ keys: encoding.names, header: options.header }),
-      new StreamValues()
-    ]);
-
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
+
+    let parser = this.parser = new chain([
+      CsvParser({ separator: options.separator }),
+      new CsvAsObjects({ keys: encoding.names, header: options.header }),
+      new StreamValues()
+    ]);
 
     // eslint-disable-next-line arrow-parens
     parser.on('data', (data) => {
