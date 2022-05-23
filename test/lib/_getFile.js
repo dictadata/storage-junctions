@@ -1,5 +1,5 @@
 /**
- * test/lib/getFile
+ * test/lib/_getFile
  *
  * Download file from filesystem directly to a local folder.
  * getFile is a filesystem method.

@@ -18,11 +18,7 @@
       "env": {
         "NODE_ENV": "production",
         "LOG_LEVEL": "verbose"
-      },
-      "outFiles": [
-        "${workspaceFolder}/storage/**/*.js",
-        "${workspaceFolder}/test/lib/*.js"
-      ]
+      }
     },
     {
       "type": "pwa-node",
@@ -159,11 +155,7 @@
       "env": {
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
-      },
-      "outFiles": [
-        "${workspaceFolder}/storage/**/*.js",
-        "${workspaceFolder}/test/lib/*.js"
-      ]
+      }
     },
     {
       "type": "pwa-node",
@@ -569,11 +561,7 @@
       "env": {
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
-      },
-      "outFiles": [
-        "${workspaceFolder}/storage/**/*.js",
-        "${workspaceFolder}/test/lib/*.js"
-      ]
+      }
     },
     {
       "type": "pwa-node",
@@ -584,11 +572,7 @@
       "env": {
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
-      },
-      "outFiles": [
-        "${workspaceFolder}/storage/**/*.js",
-        "${workspaceFolder}/test/lib/*.js"
-      ]
+      }
     },
     {
       "type": "pwa-node",
@@ -599,11 +583,7 @@
       "env": {
         "NODE_ENV": "development",
         "LOG_LEVEL": "verbose"
-      },
-      "outFiles": [
-        "${workspaceFolder}/storage/**/*.js",
-        "${workspaceFolder}/test/lib/*.js"
-      ]
+      }
     },
     {
       "type": "pwa-node",

@@ -15,8 +15,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo"
     },
-    outputFile1: './test/data/output/mssql/codify_01.json',
-    outputFile2: './test/data/output/mssql/codify_02.json'
+    output: './test/data/output/mssql/codify_00.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
@@ -24,8 +23,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|=Foo"
     },
-    outputFile1: './test/data/output/mssql/codify_11.json',
-    outputFile2: './test/data/output/mssql/codify_12.json'
+    output: './test/data/output/mssql/codify_01.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
@@ -33,8 +31,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|=Foo"
     },
-    outputFile1: './test/data/output/mssql/codify_21.json',
-    outputFile2: './test/data/output/mssql/codify_22.json'
+    output: './test/data/output/mssql/codify_02.json'
   })) return 1;
 
 }

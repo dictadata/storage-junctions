@@ -1,5 +1,5 @@
 /**
- * test/lib/getFiles
+ * test/lib/_getFiles
  *
  * Download file(s) from filesystem directly to a local folder.
  * Reads directory of remote file system before download(s).

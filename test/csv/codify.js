@@ -9,7 +9,7 @@ const { logger } = require('../../storage/utils');
 logger.info("=== tests: csv Codify");
 
 async function tests() {
-  logger.verbose("=== csv > csv_encoding_x");
+  logger.verbose("=== csv > csv_codify_x");
   if (await codify({
     origin: {
       smt: "csv|./test/data/input/|foofile.csv|*",
@@ -17,11 +17,10 @@ async function tests() {
         header: true
       }
     },
-    outputFile1: './test/data/output/csv/encoding_1.json',
-    outputFile2: './test/data/output/csv/encoding_2.json'
+    output: './test/data/output/csv/codify_1.json'
   })) return 1;
 
-  logger.verbose("=== csv.gz > csv_encoding_gz")
+  logger.verbose("=== csv.gz > csv_codify_gz");
   if (await codify({
     origin: {
       smt: "csv|./test/data/input/|foofile.csv.gz|*",
@@ -29,8 +28,7 @@ async function tests() {
         header: true
       }
     },
-    outputFile1: './test/data/output/csv/encoding_g1.json',
-    outputFile2: './test/data/output/csv/encoding_g2.json'
+    output: './test/data/output/csv/codify_g1.json'
   })) return 1;
 
 }

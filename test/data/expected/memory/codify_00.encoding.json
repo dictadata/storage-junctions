@@ -1,17 +1,18 @@
 {
-  "name": "*",
+  "name": "foo_schema",
   "type": "engram",
   "smt": {
-    "model": "any",
-    "locus": "*",
-    "schema": "*",
-    "key": "*"
+    "model": "memory",
+    "locus": "testgroup",
+    "schema": "foo_schema",
+    "key": "!Foo"
   },
   "fields": [
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7
+      "size": 7,
+      "key": 1
     },
     {
       "name": "Bar",
@@ -33,16 +34,6 @@
     {
       "name": "enabled",
       "type": "boolean"
-    },
-    {
-      "name": "tags",
-      "type": "keyword",
-      "size": 30
-    },
-    {
-      "name": "widgets",
-      "type": "text",
-      "size": 87
     }
   ]
 }

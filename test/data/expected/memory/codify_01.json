@@ -1,18 +1,17 @@
 {
-  "name": "foo_schema",
+  "name": "*",
   "type": "engram",
   "smt": {
-    "model": "memory",
-    "locus": "testgroup",
-    "schema": "foo_schema",
-    "key": "!Foo"
+    "model": "any",
+    "locus": "*",
+    "schema": "*",
+    "key": "*"
   },
   "fields": [
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
-      "key": 1
+      "size": 7
     },
     {
       "name": "Bar",
@@ -34,6 +33,47 @@
     {
       "name": "enabled",
       "type": "boolean"
+    },
+    {
+      "name": "subObj1",
+      "type": "map",
+      "fields": [
+        {
+          "name": "state",
+          "type": "keyword",
+          "size": 7
+        },
+        {
+          "name": "ex-state",
+          "type": "keyword",
+          "size": 4
+        }
+      ]
+    },
+    {
+      "name": "subObj2",
+      "type": "map",
+      "fields": [
+        {
+          "name": "subsub",
+          "type": "map",
+          "fields": [
+            {
+              "name": "izze",
+              "type": "integer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tags",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword",
+        "size": 6
+      }
     }
   ]
 }

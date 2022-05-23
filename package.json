@@ -26,7 +26,6 @@
   },
   "homepage": "https://gitlab.com/dictadata/js/storage-junctions#readme",
   "scripts": {
-    "debug": "set NODE_ENV=development&& node --inspect-brk test/lib/<some file to test>.js",
     "lint": "eslint storage/**/*.js",
     "lint-fix": "eslint --fix storage/**/*.js",
     "test": "./testrunner"

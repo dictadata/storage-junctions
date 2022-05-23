@@ -1,5 +1,5 @@
 /**
- * test/lib/putFile
+ * test/lib/_putFile
  *
  * Upload file(s) from local folder directly to a filesystem.
  * putFile is a filesystem method.

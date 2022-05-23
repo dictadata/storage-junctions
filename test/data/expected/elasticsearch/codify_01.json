@@ -1,54 +1,78 @@
 {
-  "name": "foo_schema",
+  "name": "*",
   "type": "engram",
   "smt": {
-    "model": "elasticsearch",
-    "locus": "http://localhost:9200",
-    "schema": "foo_schema",
-    "key": "!Foo"
+    "model": "any",
+    "locus": "*",
+    "schema": "*",
+    "key": "*"
   },
   "fields": [
     {
-      "name": "Bar",
+      "name": "Foo",
       "type": "keyword",
-      "_elasticsearch": {
-        "type": "keyword"
-      }
+      "size": 7
+    },
+    {
+      "name": "Bar",
+      "type": "text",
+      "size": 13
     },
     {
       "name": "Baz",
-      "type": "integer",
-      "_elasticsearch": {
-        "type": "integer"
-      }
-    },
-    {
-      "name": "Dt Test",
-      "type": "date",
-      "_elasticsearch": {
-        "type": "date"
-      }
+      "type": "integer"
     },
     {
       "name": "Fobe",
-      "type": "float",
-      "_elasticsearch": {
-        "type": "double"
-      }
+      "type": "number"
     },
     {
-      "name": "Foo",
-      "type": "keyword",
-      "_elasticsearch": {
-        "type": "keyword"
-      },
-      "key": 1
+      "name": "Dt Test",
+      "type": "date"
     },
     {
       "name": "enabled",
-      "type": "boolean",
-      "_elasticsearch": {
-        "type": "boolean"
+      "type": "boolean"
+    },
+    {
+      "name": "subObj1",
+      "type": "map",
+      "fields": [
+        {
+          "name": "state",
+          "type": "keyword",
+          "size": 7
+        },
+        {
+          "name": "ex-state",
+          "type": "keyword",
+          "size": 4
+        }
+      ]
+    },
+    {
+      "name": "subObj2",
+      "type": "map",
+      "fields": [
+        {
+          "name": "subsub",
+          "type": "map",
+          "fields": [
+            {
+              "name": "izze",
+              "type": "integer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tags",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword",
+        "size": 6
       }
     }
   ]

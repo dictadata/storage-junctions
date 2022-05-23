@@ -15,8 +15,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
-    outputFile1: './test/data/output/json/encoding_1.json',
-    outputFile2: './test/data/output/json/encoding_2.json'
+    output: './test/data/output/json/codify_1.json'
   })) return 1;
 
   logger.info("=== codify foofile.json.gz");
@@ -24,8 +23,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json.gz|*"
     },
-    outputFile1: './test/data/output/json/encoding_g1.json',
-    outputFile2: './test/data/output/json/encoding_g2.json'
+    output: './test/data/output/json/codify_g1.json'
   })) return 1;
 
   logger.info("=== codify foofile_01.json");
@@ -33,8 +31,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile_01.json|*"
     },
-    outputFile1: './test/data/output/json/encoding_m1.json',
-    outputFile2: './test/data/output/json/encoding_m2.json'
+    output: './test/data/output/json/codify_m1.json'
   })) return 1;
 
   logger.info("=== codify foofile_02.json");
@@ -42,8 +39,7 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile_02.json|*"
     },
-    outputFile1: './test/data/output/json/encoding_l1.json',
-    outputFile2: './test/data/output/json/encoding_l2.json'
+    output: './test/data/output/json/codify_l1.json'
   })) return 1;
 }
 

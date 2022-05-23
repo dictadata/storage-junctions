@@ -11,7 +11,7 @@
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7
+      "size": 10
     },
     {
       "name": "Bar",
@@ -33,21 +33,6 @@
     {
       "name": "enabled",
       "type": "boolean"
-    },
-    {
-      "name": "subObj1",
-      "type": "keyword",
-      "size": 19
-    },
-    {
-      "name": "subObj2",
-      "type": "keyword",
-      "size": 22
-    },
-    {
-      "name": "tags",
-      "type": "keyword",
-      "size": 21
     }
   ]
 }
