@@ -9,11 +9,14 @@ process.on('rejectionHandled', (promise) => {
   unhandledRejections.delete(promise);
 });
 
+/*
+// deprecated in node.js 17.6.0
 process.on('multipleResolves', (type, promise, reason) => {
   console.error("multipleResolves ", type, reason ? reason.message : "");
   //console.error(type, promise, reason);
   //setImmediate(() => process.exit(1));
 });
+*/
 
 process.on('warning', (warning) => {
   console.warn(warning.name);
@@ -27,7 +30,7 @@ process.on('beforeExit', (code) => {
 
 process.on('exit', (code) => {
   console.log('Process exit event with code: ', code);
-  for (let [promise, reason] of unhandledRejections)
+  for (let [ promise, reason ] of unhandledRejections)
     console.log(`unhandledPromise ${promise}: ${reason}`);
   if (unhandledRejections.size > 0)
     process.exitCode = 1;
