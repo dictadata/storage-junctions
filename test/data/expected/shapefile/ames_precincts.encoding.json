@@ -1,10 +1,10 @@
 {
-  "name": "Dubuque precincts final",
+  "name": "Ames Precincts",
   "type": "engram",
   "smt": {
     "model": "shp",
-    "locus": "zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Dubuque.zip/Dubuque/",
-    "schema": "Dubuque precincts final",
+    "locus": "zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/",
+    "schema": "Ames Precincts",
     "key": "*"
   },
   "fields": [
@@ -28,7 +28,7 @@
         {
           "name": "DISTRICT",
           "type": "keyword",
-          "size": 5
+          "size": 6
         },
         {
           "name": "MEMBERS",
@@ -41,7 +41,7 @@
         {
           "name": "NAME",
           "type": "text",
-          "size": 10
+          "size": 22
         },
         {
           "name": "POPULATION",
@@ -68,7 +68,7 @@
         {
           "name": "type",
           "type": "keyword",
-          "size": 7
+          "size": 12
         },
         {
           "name": "coordinates",
@@ -81,7 +81,11 @@
               "type": "list",
               "_list": {
                 "name": "_list",
-                "type": "number"
+                "type": "list",
+                "_list": {
+                  "name": "_list",
+                  "type": "number"
+                }
               }
             }
           }

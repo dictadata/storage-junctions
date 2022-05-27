@@ -73,11 +73,11 @@ async function test5() {
   logger.info("=== shapefile getEncoding from goofy .zip");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Dubuque.zip|~1|*",
+      smt: "shp|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip|~1|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/dubuque_precincts.encoding.json'
+      output: './test/data/output/shapefile/ames_precincts.encoding.json'
     }
   })) return 1;
 

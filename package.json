@@ -34,7 +34,7 @@
     "st_launcher": "./test/st_launcher.js"
   },
   "engines": {
-    "node": ">=16.4.0"
+    "node": ">=17.0.0"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.2.0-patch.1",
