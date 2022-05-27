@@ -22,9 +22,10 @@ module.exports = exports = class StorageSQLEncoder {
   }
 
   encodeValue(field, value) {
+    let dt;
     switch (field.type.toLowerCase()) {
       case "date":
-        let dt = value;
+        dt = value;
         if (typeof value === "string")
           dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
         return dt ? this.escapeValue(dt) : "NULL";
@@ -217,7 +218,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       let value = values[ i ];
       let field = engram.find(name);
       (first) ? first = false : sql += ",";
-      sql += encodeValue(field, value);
+      sql += this.encodeValue(field, value);
     }
     sql += ")";
 
@@ -249,7 +250,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
         let value = construct[ name ];
         let field = engram.find(name);
         (vfirst) ? vfirst = false : sql += ",";
-        sql += encodeValue(field, value);
+        sql += this.encodeValue(field, value);
       }
       sql += ")";
     }
@@ -273,7 +274,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       let field = engram.find(name);
       if (!field.isKey) {
         (first) ? first = false : sql += ", ";
-        sql += this.escapeId(name) + "=" + encodeValue(field, value);
+        sql += this.escapeId(name) + "=" + this.encodeValue(field, value);
       }
     }
 
@@ -285,10 +286,10 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       for (let name of engram.keys) {
         let field = engram.find(name);
         let value = construct[ name ];
-        if (typeof value === "undefined")
+        if (value === undefined)
           throw "key value undefined " + name;
         (first) ? first = false : sql += " AND ";
-        sql += this.escapeId(name) + "=" + encodeValue(field, value);
+        sql += this.escapeId(name) + "=" + this.encodeValue(field, value);
       }
     }
 
@@ -309,10 +310,26 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
       let first = true;
       for (let key of engram.keys) {
         let value = match[ key ];
-        if (typeof value === "undefined")
+        let tvalue = typeOf(value);
+
+        if (tvalue === "undefined")
           throw "key value undefined " + key;
-        (first) ? first = false : sql += " AND ";
-        sql += this.escapeId(key) + "=" + encodeValue(engram.find(key), value);
+        else if (tvalue === "array") {
+          // multiple values { field: [ value1, value2, ... ] }
+          (first) ? first = false : sql += " AND ";
+          sql += "(";
+          let f1rst = true;
+          for (let val of value) {
+            (f1rst) ? f1rst = false : sql += " OR ";
+            sql += this.escapeId(key) + "=" + this.encodeValue(engram.find(key), val);
+          }
+          sql += ")";
+        }
+        else {
+          // single value { field: value }
+          (first) ? first = false : sql += " AND ";
+          sql += this.escapeId(key) + "=" + this.encodeValue(engram.find(key), value);
+        }
       }
     }
 
@@ -360,7 +377,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
             // aggregate columns for GROUP BY
             let asfld = func;
             for (let [ func, fld ] of Object.entries(value)) {
-              let exp = sqlFunction(func) + "(" + this.escapeId(fld) + ")";
+              let exp = this.sqlFunction(func) + "(" + this.escapeId(fld) + ")";
               columns.push(exp + " as " + this.escapeId(asfld));
             }
           }
@@ -368,7 +385,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
             // aggregate columns for summary
             let asfld = name;
             let fld = value;
-            let exp = sqlFunction(func) + "(" + this.escapeId(fld) + ")";
+            let exp = this.sqlFunction(func) + "(" + this.escapeId(fld) + ")";
             columns.push(exp + " as " + this.escapeId(asfld));
           }
         }
@@ -388,7 +405,9 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
 
       let first = true;
       for (let [ fldname, value ] of Object.entries(pattern.match)) {
-        if (typeOf(value) === 'object') {
+        let tvalue = typeOf(value);
+
+        if (tvalue === 'object') {
           // expression(s) { op: value, ...}
           for (let [ op, val ] of Object.entries(value)) {
             (first) ? first = false : sql += " AND ";
@@ -406,13 +425,24 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
                 break;
               default: sql += " ??? ";
             }
-            sql += encodeValue(engram.find(fldname), val);
+            sql += this.encodeValue(engram.find(fldname), val);
           }
+        }
+        else if (tvalue === "array") {
+          // multiple values { field: [ value1, value2, ... ] }
+          (first) ? first = false : sql += " AND ";
+          sql += "(";
+          let f1rst = true;
+          for (let val of value) {
+            (f1rst) ? f1rst = false : sql += " OR ";
+            sql += this.escapeId(fldname) + "=" + this.encodeValue(engram.find(fldname), val);
+          }
+          sql += ")";
         }
         else {
           // single property { field: value }
           (first) ? first = false : sql += " AND ";
-          sql += this.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), value);
+          sql += this.escapeId(fldname) + "=" + this.encodeValue(engram.find(fldname), value);
         }
       }
     }

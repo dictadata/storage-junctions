@@ -10,9 +10,10 @@ const { escapeId } = require('tsqlstring');
 
 
 function encodeValue(field, value) {
+  let dt;
   switch (field.type.toLowerCase()) {
     case "date":
-      let dt = value;
+      dt = value;
       if (typeof value === "string")
         dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
       return dt ? sqlString.escape(dt) : "NULL";
@@ -72,10 +73,10 @@ exports.decodeIndexResults = (engram, columns) => {
       index.fields[ column[ "Seq_in_index" ] - 1 ] = {
         "name": column[ "Column_name" ],
         "order": column[ "Collation" ] === 'D' ? "DESC" : "ASC"
-      }
+      };
     }
   }
-}
+};
 
 exports.sqlCreateTable = function (engram, options) {
   let sql = "CREATE TABLE " + engram.smt.schema + " (";
@@ -109,8 +110,8 @@ exports.sqlCreateTable = function (engram, options) {
   // other indexes
   if (!options.bulkLoad && engram.indices) {
     for (let [ name, index ] of Object.entries(engram.indices)) {
-      sql += ","
-      if (index.unique) sql += " UNIQUE "
+      sql += ",";
+      if (index.unique) sql += " UNIQUE ";
       sql += "INDEX " + sqlString.escapeId(name) + "(";
       let first = true;
       for (let col of index.fields) {
@@ -213,8 +214,25 @@ exports.sqlWhereByKey = (engram, pattern) => {
     let first = true;
     for (let key of engram.keys) {
       let value = match[ key ];
-      (first) ? first = false : sql += " AND ";
-      sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), value);
+      let tvalue = typeOf(value);
+
+      if (tvalue === "undefined")
+        throw "key value undefined " + key;
+      else if (tvalue === "array") {
+        // multiple values { field: [ value1, value2, ... ] }
+        (first) ? first = false : sql += " AND ";
+        sql += "(";
+        let f1rst = true;
+        for (let val of value) {
+          (f1rst) ? f1rst = false : sql += " OR ";
+          sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), val);
+        }
+        sql += ")";
+      }
+      else {
+        (first) ? first = false : sql += " AND ";
+        sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), value);
+      }
     }
   }
 
@@ -287,7 +305,9 @@ exports.sqlSelectByPattern = function (engram, pattern) {
 
     let first = true;
     for (let [ fldname, value ] of Object.entries(pattern.match)) {
-      if (typeOf(value) === 'object') {
+      let tvalue = typeOf(value);
+
+      if (tvalue === 'object') {
         // expression(s) { op: value, ...}
         for (let [ op, val ] of Object.entries(value)) {
           (first) ? first = false : sql += " AND ";
@@ -308,8 +328,19 @@ exports.sqlSelectByPattern = function (engram, pattern) {
           sql += encodeValue(engram.find(fldname), val);
         }
       }
+      else if (tvalue === 'array') {
+        // multiple values { field: [ value1, value2, ... ] }
+        (first) ? first = false : sql += " AND ";
+        sql += "(";
+        let f1rst = true;
+        for (let val of value) {
+          (f1rst) ? f1rst = false : sql += " OR ";
+          sql += sqlString.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), val);
+        }
+        sql += ")";
+      }
       else {
-        // single property { field: value }
+        // single value { field: value }
         (first) ? first = false : sql += " AND ";
         sql += sqlString.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), value);
       }

@@ -29,7 +29,7 @@ exports.encodeValues = function (engram, construct) {
   }
 
   return data;
-}
+};
 
 /**
  *
@@ -154,7 +154,7 @@ function match(dsl, pattern) {
       }
     }
     else if (typeOf(value) === "array") {
-      // mulitiple property { field: [value1, value2] }
+      // mulitiple values { field: [value1, value2, ...] }
       let q = {
         terms: {}
       };
@@ -162,7 +162,7 @@ function match(dsl, pattern) {
       filter.push(q);
     }
     else {
-      // single property { field: value }
+      // single value { field: value }
       let q = {
         term: {}
       };

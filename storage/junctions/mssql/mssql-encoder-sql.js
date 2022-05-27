@@ -31,12 +31,13 @@ exports.connectionConfig = (options) => {
   };
 
   return config;
-}
+};
 
 function encodeValue(field, value) {
+  let dt;
   switch (field.type.toLowerCase()) {
     case "date":
-      let dt = value;
+      dt = value;
       if (typeof value === "string")
         dt = (isDate(value) === 1) ? parseDate(value) : new Date(dt);
       return dt ? sqlString.escape(dt) : "NULL";
@@ -99,9 +100,9 @@ exports.decodeIndexResults = (engram, column) => {
     index.fields[ column[ "key_ordinal" ].value - 1 ] = {
       "name": column[ "column_name" ].value,
       "order": column[ "is_descending_key" ].value ? "DESC" : "ASC"
-    }
+    };
   }
-}
+};
 
 exports.sqlDescribeTable = (tblname) => {
   let sql = `SELECT sc.name 'name', st.Name 'type', sc.max_length 'size', sc.precision, sc.scale, sc.is_nullable, sm.text 'default'
@@ -110,7 +111,7 @@ JOIN sys.types st ON st.user_type_id = sc.user_type_id
 LEFT JOIN sys.syscomments sm ON sm.id = sc.default_object_id
 WHERE sc.object_id = OBJECT_ID('${tblname}')`;
   return sql;
-}
+};
 
 exports.sqlDescribeIndexes = (tblname) => {
   let sql = `SELECT si.name as 'index_name', si.is_unique, si.is_primary_key, ic.key_ordinal, ic.is_descending_key, sc.name as 'column_name'
@@ -119,7 +120,7 @@ JOIN sys.index_columns ic ON ic.object_id = si.object_id AND ic.index_id = si.in
 JOIN sys.columns sc ON sc.object_id = si.object_id AND sc.column_id = ic.column_id
 WHERE si.object_id = OBJECT_ID('${tblname}')`;
   return sql;
-}
+};
 
 exports.sqlCreateTable = (engram, options) => {
   let sql = "CREATE TABLE " + engram.smt.schema + " (";
@@ -180,7 +181,7 @@ exports.sqlAddIndices = (engram, options) => {
     sql += "ADD INDEX " + sqlString.escapeId(name);
     if (index.unique) sql += "UNIQUE ";
 
-    sql += "("
+    sql += "(";
     let cfirst = true;
     for (let col of index.fields) {
       (cfirst) ? cfirst = false : sql += ",";
@@ -321,10 +322,25 @@ exports.sqlWhereByKey = (engram, pattern) => {
     let first = true;
     for (let key of engram.keys) {
       let value = match[ key ];
-      if (typeof value === "undefined")
+      let tvalue = typeOf(value);
+
+      if (tvalue === "undefined")
         throw "key value undefined " + key;
-      (first) ? first = false : sql += " AND ";
-      sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), value);
+      else if (tvalue === "array") {
+        // multiple values { field: [ value1, value2, ... ] }
+        (first) ? first = false : sql += " AND ";
+        sql += "(";
+        let f1rst = true;
+        for (let val of value) {
+          (f1rst) ? f1rst = false : sql += " OR ";
+          sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), val);
+        }
+        sql += ")";
+      }
+      else {
+        (first) ? first = false : sql += " AND ";
+        sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), value);
+      }
     }
   }
 
@@ -400,7 +416,9 @@ exports.sqlSelectByPattern = (engram, pattern) => {
 
     let first = true;
     for (let [ fldname, value ] of Object.entries(pattern.match)) {
-      if (typeOf(value) === 'object') {
+      let tvalue = typeOf(value);
+
+      if (tvalue === 'object') {
         // expression(s) { op: value, ...}
         for (let [ op, val ] of Object.entries(value)) {
           (first) ? first = false : sql += " AND ";
@@ -421,8 +439,19 @@ exports.sqlSelectByPattern = (engram, pattern) => {
           sql += encodeValue(engram.find(fldname), val);
         }
       }
+      else if (tvalue === 'array') {
+        // multiple values { field: [ value1, value2, ... ] }
+        (first) ? first = false : sql += " AND ";
+        sql += "(";
+        let f1rst = true;
+        for (let val of value) {
+          (f1rst) ? f1rst = false : sql += " OR ";
+          sql += sqlString.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), val);
+        }
+        sql += ")";
+      }
       else {
-        // single property { field: value }
+        // single value { field: value }
         (first) ? first = false : sql += " AND ";
         sql += sqlString.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), value);
       }
