@@ -19,7 +19,8 @@ async function tests() {
           "Bar": "row",
           "Baz": { "lte": 500 }
         },
-        fields: [ "Dt Test", "Foo", "Bar", "Baz" ]
+        fields: [ "Dt Test", "Foo", "Bar", "Baz" ],
+        order: { "Foo": "asc" }
       }
     },
     terminal: {
