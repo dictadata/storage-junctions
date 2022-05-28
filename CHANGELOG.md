@@ -1,5 +1,10 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.3.1
+  - update: CsvJunction supports other delimited files
+  - update: CsvJunction check input for BOM character
+  - update: match field expression, support array values (OR); { field: [value, ...] }
+  - testing: compare .csv and .txt files line-by-line
 - version 2.3.0
   - implement: new AdjoinTransform for injecting fields via table/map lookup
   - implement: CsvJunction and JsonJunction retrieve()
