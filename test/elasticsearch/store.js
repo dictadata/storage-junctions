@@ -65,7 +65,7 @@ async function primarykey() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo"
+      smt: "elasticsearch|http://localhost:9200|foo_schema_pk|=Foo"
     },
     construct: {
       Foo: 'twenty',

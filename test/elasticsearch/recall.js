@@ -43,7 +43,7 @@ async function primarykey() {
   logger.info("=== elasticsearch recall");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
+      smt: "elasticsearch|http://localhost:9200|foo_schema_pk|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'
@@ -51,7 +51,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/recall_2.json"
+      output: "./test/data/output/elasticsearch/recall_pk.json"
     }
   })) return 1;
 
