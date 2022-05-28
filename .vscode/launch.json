@@ -280,89 +280,7 @@
     },
     {
       "type": "node-terminal",
-      "name": "--- codex",
-      "request": "launch"
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex in-memory",
-      "program": "${workspaceFolder}/test/codex/codex_in-memory.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex store",
-      "program": "${workspaceFolder}/test/codex/store.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex recall",
-      "program": "${workspaceFolder}/test/codex/recall.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex dull",
-      "program": "${workspaceFolder}/test/codex/dull.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex retrieve",
-      "program": "${workspaceFolder}/test/codex/retrieve.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex add smt",
-      "program": "${workspaceFolder}/test/codex/codex_add_smt.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "codex use smt",
-      "program": "${workspaceFolder}/test/codex/codex_use_smt.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node-terminal",
-      "name": "--- db junctions",
+      "name": "--- DB junctions",
       "request": "launch"
     },
     {
@@ -832,6 +750,88 @@
       "request": "launch",
       "name": "mysql list",
       "program": "${workspaceFolder}/test/mysql/list.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node-terminal",
+      "name": "--- codex",
+      "request": "launch"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex in-memory",
+      "program": "${workspaceFolder}/test/codex/codex_in-memory.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex store",
+      "program": "${workspaceFolder}/test/codex/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex recall",
+      "program": "${workspaceFolder}/test/codex/recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex dull",
+      "program": "${workspaceFolder}/test/codex/dull.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex retrieve",
+      "program": "${workspaceFolder}/test/codex/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex add smt",
+      "program": "${workspaceFolder}/test/codex/codex_add_smt.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "codex use smt",
+      "program": "${workspaceFolder}/test/codex/codex_use_smt.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
