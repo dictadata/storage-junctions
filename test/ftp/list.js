@@ -22,7 +22,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_1.json"
+      output: "./data/output/ftp/list_1.json"
     }
   })) return 1;
 
@@ -41,7 +41,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_2.json"
+      output: "./data/output/ftp/list_2.json"
     }
   })) return 1;
 
@@ -54,7 +54,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_tiger2020.json"
+      output: "./data/output/ftp/list_tiger2020.json"
     }
   })) return 1;
 

@@ -14,7 +14,7 @@ async function test(schema, encoding) {
       smt: "memory|testgroup|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/memory/" + encoding + ".encoding.json"
+      output: "./data/output/memory/" + encoding + ".encoding.json"
     }
   })) return 1;
 

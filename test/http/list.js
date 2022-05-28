@@ -21,7 +21,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/IIS/list_1.json"
+      output: "./data/output/http/IIS/list_1.json"
     }
   })) return 1;
 
@@ -49,7 +49,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/IIS/list_2.json"
+      output: "./data/output/http/IIS/list_2.json"
     }
   })) return 1;
 
@@ -68,7 +68,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/NGINX/list_1.json"
+      output: "./data/output/http/NGINX/list_1.json"
     }
   })) return 1;
 
@@ -96,7 +96,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/NGINX/list_2.json"
+      output: "./data/output/http/NGINX/list_2.json"
     }
   })) return 1;
 
@@ -113,7 +113,7 @@ async function testSOS() {
       }
     },
     terminal: {
-      output: "./test/data/output/http/list_sos_shapefiles.json"
+      output: "./data/output/http/list_sos_shapefiles.json"
     }
   })) return 1;
 

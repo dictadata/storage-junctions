@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mssql/list.json"
+      output: "./data/output/mssql/list.json"
     }
   }, 1)) return 1;
 

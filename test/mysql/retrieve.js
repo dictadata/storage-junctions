@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/retrieve_0.json"
+      output: "./data/output/mysql/retrieve_0.json"
     }
   })) return 1;
 
@@ -30,7 +30,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/foo_schema_01.encoding.json",
+        encoding: "./data/input/foo_schema_01.encoding.json",
       },
       pattern: {
         match: {
@@ -39,7 +39,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/retrieve_1.json"
+      output: "./data/output/mysql/retrieve_1.json"
     }
   })) return 1;
 
@@ -48,7 +48,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/input/foo_schema_02.encoding.json",
+        encoding: "./data/input/foo_schema_02.encoding.json",
       },
       pattern: {
         match: {
@@ -58,7 +58,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/retrieve_2.json"
+      output: "./data/output/mysql/retrieve_2.json"
     }
   })) return 1;
 
@@ -84,7 +84,7 @@ async function tests() {
         },
         count: 3,
         order: { "Dt Test": "asc" },
-        fields: ["Foo", "Baz"]
+        fields: [ "Foo", "Baz" ]
       }
     }
   })) return 1;

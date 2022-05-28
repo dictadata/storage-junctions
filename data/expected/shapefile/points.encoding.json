@@ -1,10 +1,10 @@
 {
-  "name": "polygons",
+  "name": "points",
   "type": "engram",
   "smt": {
     "model": "shp",
-    "locus": "./test/data/input/shapes/",
-    "schema": "polygons",
+    "locus": "zip:./data/input/shapes/points.zip",
+    "schema": "points",
     "key": "*"
   },
   "fields": [
@@ -30,26 +30,14 @@
         {
           "name": "type",
           "type": "keyword",
-          "size": 12
+          "size": 5
         },
         {
           "name": "coordinates",
           "type": "list",
           "_list": {
             "name": "_list",
-            "type": "list",
-            "_list": {
-              "name": "_list",
-              "type": "list",
-              "_list": {
-                "name": "_list",
-                "type": "list",
-                "_list": {
-                  "name": "_list",
-                  "type": "integer"
-                }
-              }
-            }
+            "type": "integer"
           }
         }
       ]

@@ -13,11 +13,11 @@ async function test1() {
   logger.info("=== shapefile getEncoding polygons");
   if (await getEncoding({
     origin: {
-      smt: "shp|./test/data/input/shapes/|polygons|*",
+      smt: "shp|./data/input/shapes/|polygons|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/polygons.encoding.json'
+      output: './data/output/shapefile/polygons.encoding.json'
     }
   })) return 1;
 
@@ -28,11 +28,11 @@ async function test2() {
   logger.info("=== shapefile getEncoding points");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
+      smt: "shp|zip:./data/input/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/points.encoding.json'
+      output: './data/output/shapefile/points.encoding.json'
     }
   })) return 1;
 
@@ -47,7 +47,7 @@ async function test3() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_state.encoding.json'
+      output: './data/output/shapefile/tl_2020_us_state.encoding.json'
     }
   })) return 1;
 
@@ -62,7 +62,7 @@ async function test4() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_county.encoding.json'
+      output: './data/output/shapefile/tl_2020_us_county.encoding.json'
     }
   })) return 1;
 
@@ -77,7 +77,7 @@ async function test5() {
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/ames_precincts.encoding.json'
+      output: './data/output/shapefile/ames_precincts.encoding.json'
     }
   })) return 1;
 

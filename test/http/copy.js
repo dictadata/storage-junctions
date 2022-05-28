@@ -16,7 +16,7 @@ async function downloads_IIS() {
       smt: "*|http://localhost/data/dictadata.org/test/input/|foofile*.json|*",
     },
     terminal: {
-      smt: "*|./test/data/output/http/IIS/|*|*",
+      smt: "*|./data/output/http/IIS/|*|*",
     }
   })) return 1;
 
@@ -29,7 +29,7 @@ async function downloads_IIS() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/http/IIS/|*|*",
+      smt: "*|./data/output/http/IIS/|*|*",
       options: {
         use_rpath: true
       }
@@ -46,7 +46,7 @@ async function downloads_NGINX() {
       smt: "*|https://api.dictadata.org/data/dictadata.org/test/input/|foofile*.json|*",
     },
     terminal: {
-      smt: "*|./test/data/output/http/NGINX/|*|*",
+      smt: "*|./data/output/http/NGINX/|*|*",
     }
   })) return 1;
 
@@ -59,7 +59,7 @@ async function downloads_NGINX() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/http/NGINX/|*|*",
+      smt: "*|./data/output/http/NGINX/|*|*",
       options: {
         use_rpath: true
       }

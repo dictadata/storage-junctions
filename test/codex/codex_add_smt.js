@@ -28,7 +28,7 @@ async function init() {
     Storage.codex = codex;
 
     // read foo_schema encoding
-    encoding = JSON.parse(fs.readFileSync("./test/data/input/foo_schema.encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/foo_schema.encoding.json", "utf8"));
   }
   catch (err) {
     logger.error(err);
@@ -86,7 +86,7 @@ async function addAlias(alias, alias_smt) {
 
   if (await test(
     "jsonfile-foo_schema",
-    "json|./test/data/input/|foofile.json|*"))
+    "json|./data/input/|foofile.json|*"))
     return 1;
   if (await test(
     "elasticsearch-foo_schema",

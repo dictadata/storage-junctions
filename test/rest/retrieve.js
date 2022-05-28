@@ -26,7 +26,7 @@ async function retrieve_1() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_forecast_retrieve.json'
+      output: './data/output/rest/weather_forecast_retrieve.json'
     }
   }, 1)) return 1;
 
@@ -43,7 +43,7 @@ async function retrieve_2() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/census_population_retrieve.json'
+      output: './data/output/rest/census_population_retrieve.json'
     }
   }, 1)) return 1;
 

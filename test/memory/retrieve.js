@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/retrieve_1.json"
+      output: "./data/output/memory/retrieve_1.json"
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/retrieve_2.json"
+      output: "./data/output/memory/retrieve_2.json"
     }
   })) return 1;
 
@@ -55,7 +55,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/retrieve_3.json"
+      output: "./data/output/memory/retrieve_3.json"
     }
   })) return 1;
 

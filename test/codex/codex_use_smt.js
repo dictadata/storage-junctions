@@ -51,7 +51,7 @@ async function test(smt_name) {
       }
     });
 
-    let outputfile = "./test/data/output/codex/" + smt_name + ".json";
+    let outputfile = "./data/output/codex/" + smt_name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");

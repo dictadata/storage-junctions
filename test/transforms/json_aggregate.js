@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== json aggregate");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     "transform": {
       filter: {
@@ -28,15 +28,15 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|json_aggregate_1.json|*',
-      "output": "./test/data/output/transforms/json_aggregate_1.json"
+      "smt": 'json|./data/output/transforms/|json_aggregate_1.json|*',
+      "output": "./data/output/transforms/json_aggregate_1.json"
     }
   })) return 1;
 
   logger.info("=== json aggregate summary");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*",
+      smt: "json|./data/input/|foofile.json|*",
     },
     "transform": {
       filter: {
@@ -54,15 +54,15 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|json_aggregate_2.json|*',
-      "output": "./test/data/output/transforms/json_aggregate_2.json"
+      "smt": 'json|./data/output/transforms/|json_aggregate_2.json|*',
+      "output": "./data/output/transforms/json_aggregate_2.json"
     }
   })) return 1;
 
   logger.info("=== json aggregate w/ groupby");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     transform: {
       filter: {
@@ -80,8 +80,8 @@ async function tests() {
       }
     },
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|json_aggregate_3.json|*',
-      "output": "./test/data/output/transforms/json_aggregate_3.json"
+      "smt": 'json|./data/output/transforms/|json_aggregate_3.json|*',
+      "output": "./data/output/transforms/json_aggregate_3.json"
     }
   })) return 1;
 

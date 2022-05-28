@@ -18,7 +18,7 @@ async function transfer1() {
       "smt": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|tl_2020_us_state.json|*"
+      "smt": "json|./data/output/shapefile/|tl_2020_us_state.json|*"
     }
   })) return 1;
 
@@ -34,7 +34,7 @@ async function transfer2() {
     "terminal": {
       "smt": "elastic|http://localhost:9200/|geo_2020_us_state|*",
       "options": {
-        "encoding": "./test/data/input/shapes/geo_YYYY_us_state.encoding.json"
+        "encoding": "./data/input/shapes/geo_YYYY_us_state.encoding.json"
       }
     }
   })) return 1;
@@ -49,7 +49,7 @@ async function transfer3() {
       "smt": "elastic|http://localhost:9200/|geo_2020_us_state|*"
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|geo_2020_us_state_elastic.json|*"
+      "smt": "json|./data/output/shapefile/|geo_2020_us_state_elastic.json|*"
     }
   })) return 1;
 

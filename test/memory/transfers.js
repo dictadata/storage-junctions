@@ -12,7 +12,7 @@ async function tests() {
   logger.info("=== csv => memory");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -25,7 +25,7 @@ async function tests() {
   logger.info("=== json => memory");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
       smt: "memory|testgroup|foo_schema_j|!Foo"
@@ -35,7 +35,7 @@ async function tests() {
   logger.info("=== json 01 => memory");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_01.json|*"
+      smt: "json|./data/input/|foofile_01.json|*"
     },
     terminal: {
       smt: "memory|testgroup|foo_schema_01|!Foo"
@@ -45,7 +45,7 @@ async function tests() {
   logger.info("=== json 02 => memory");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*"
+      smt: "json|./data/input/|foofile_02.json|*"
     },
     terminal: {
       smt: "memory|testgroup|foo_schema_02|!Foo"
@@ -68,12 +68,12 @@ async function tests() {
       smt: "memory|testgroup|foo_transfer|!Foo"
     },
     terminal: {
-      smt: "csv|./test/data/output/memory/|transfer_foo.csv|*",
+      smt: "csv|./data/output/memory/|transfer_foo.csv|*",
       options: {
         header: true,
         append: false
       },
-      output: "./test/data/output/memory/transfer_foo.csv"
+      output: "./data/output/memory/transfer_foo.csv"
     }
   })) return 1;
 
@@ -83,11 +83,11 @@ async function tests() {
       smt: "memory|testgroup|foo_schema_j|!Foo"
     },
     terminal: {
-      smt: "json|./test/data/output/memory/|transfer_foo_j.json|*",
+      smt: "json|./data/output/memory/|transfer_foo_j.json|*",
       options: {
         append: false
       },
-      output: "./test/data/output/memory/transfer_foo_j.json"
+      output: "./data/output/memory/transfer_foo_j.json"
     }
   })) return 1;
 

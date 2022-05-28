@@ -13,9 +13,9 @@ async function tests() {
   logger.verbose('=== foo_schema > pipelines/tee_1.json, pipelines/tee_2.json');
   if (await tee({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*",
+      smt: "json|./data/input/|foofile.json|*",
       options: {
-        encoding: "./test/data/input/foo_schema.encoding.json"
+        encoding: "./data/input/foo_schema.encoding.json"
       }
     },
     transform: {
@@ -28,22 +28,22 @@ async function tests() {
     terminal: [
       {
         terminal: {
-          smt: "json|./test/data/output/pipelines/|tee_1.json|*",
+          smt: "json|./data/output/pipelines/|tee_1.json|*",
           options: {
-            encoding: "./test/data/input/foo_schema.encoding.json"
+            encoding: "./data/input/foo_schema.encoding.json"
           },
-          output: "./test/data/output/pipelines/tee_1.json"
+          output: "./data/output/pipelines/tee_1.json"
         },
         transform: {
         }
       },
       {
         terminal: {
-          smt: "json|./test/data/output/pipelines/|tee_2.json|*",
+          smt: "json|./data/output/pipelines/|tee_2.json|*",
           options: {
-            encoding: "./test/data/input/foo_transform.encoding.json"
+            encoding: "./data/input/foo_transform.encoding.json"
           },
-          output: "./test/data/output/pipelines/tee_2.json"
+          output: "./data/output/pipelines/tee_2.json"
         },
         transform: {
           select: {

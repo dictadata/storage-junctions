@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
     },
-    output: './test/data/output/elasticsearch/codify_00.json'
+    output: './data/output/elasticsearch/codify_00.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
@@ -23,7 +23,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_01|!Foo"
     },
-    output: './test/data/output/elasticsearch/codify_01.json'
+    output: './data/output/elasticsearch/codify_01.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_02|!Foo"
     },
-    output: './test/data/output/elasticsearch/codify_02.json'
+    output: './data/output/elasticsearch/codify_02.json'
   })) return 1;
 
 }

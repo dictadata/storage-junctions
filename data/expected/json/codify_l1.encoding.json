@@ -3,7 +3,7 @@
   "type": "engram",
   "smt": {
     "model": "json",
-    "locus": "./test/data/input/",
+    "locus": "./data/input/",
     "schema": "foofile_02.json",
     "key": "*"
   },

@@ -46,7 +46,7 @@ async function test(schema) {
   try {
     // store encoding
     logger.verbose('=== ' + schema);
-    encoding = JSON.parse(fs.readFileSync("./test/data/input/" + schema + ".encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
 
     let entry = new Engram(encoding.smt || "*|*|*|*");
     entry.name = schema;
@@ -59,7 +59,7 @@ async function test(schema) {
     logger.verbose(JSON.stringify(results, null, "  "));
     encoding = results.data[ schema ];
 
-    let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
+    let outputfile = "./data/output/codex/" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");

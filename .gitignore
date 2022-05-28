@@ -1,8 +1,7 @@
 node_modules/
 
 # test generated data
-data/output
-test/data/output
+output/
 
 # debug logs
 log/

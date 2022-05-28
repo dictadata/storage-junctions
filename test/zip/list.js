@@ -13,7 +13,7 @@ async function test() {
   logger.info("=== list zip directory - forEach");
   if (await list({
     origin: {
-      smt: "json|zip:./test/data/input/foofile.zip|*.json|*",
+      smt: "json|zip:./data/input/foofile.zip|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -22,20 +22,20 @@ async function test() {
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_1.json"
+      output: "./data/output/zip/list_1.json"
     }
   })) return 1;
 
   logger.info("=== list zip directory - recursive");
   if (await list({
     origin: {
-      smt: "json|zip:./test/data/input/foofile.zip|*.json|*",
+      smt: "json|zip:./data/input/foofile.zip|*.json|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_2.json"
+      output: "./data/output/zip/list_2.json"
     }
   })) return 1;
 
@@ -48,7 +48,7 @@ async function test() {
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_ames.json"
+      output: "./data/output/zip/list_ames.json"
     }
   })) return 1;
 

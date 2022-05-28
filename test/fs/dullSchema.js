@@ -12,8 +12,8 @@ logger.info("=== Test: gzip transfers");
 async function tests() {
 
   logger.verbose('=== csv => fs/gzip_output.csv.gz');
-  if (await dullSchema({ smt: "csv|./test/data/output/fs/|gzip_output.csv.gz|*" })) return 1;
-  
+  if (await dullSchema({ smt: "csv|./data/output/fs/|gzip_output.csv.gz|*" })) return 1;
+
 }
 
 (async () => {

@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose("=== json => mysql foo_schema_etl2");
   if (await transfer({
     "origin": {
-      "smt": "json|./test/data/input/|foofile.json|*"
+      "smt": "json|./data/input/|foofile.json|*"
     },
     "transform": {
       "filter": {
@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./test/data/input/foo_schema_t.encoding.json"
+        "encoding": "./data/input/foo_schema_t.encoding.json"
       }
     }
   })) return 1;
@@ -62,8 +62,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_0.json|*",
-      output: "./test/data/output/mysql/transform_0.json"
+      smt: "json|./data/output/mysql/|transform_0.json|*",
+      output: "./data/output/mysql/transform_0.json"
     }
   })) return 1;
 
@@ -72,7 +72,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/foo_schema_01.encoding.json"
+        encoding: "./data/input/foo_schema_01.encoding.json"
       }
     },
     transform: {
@@ -103,8 +103,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_1.json|*",
-      output: "./test/data/output/mysql/transform_1.json"
+      smt: "json|./data/output/mysql/|transform_1.json|*",
+      output: "./data/output/mysql/transform_1.json"
     }
   })) return 1;
 
@@ -113,7 +113,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./test/data/input/foo_schema_02.encoding.json"
+        encoding: "./data/input/foo_schema_02.encoding.json"
       }
     },
     transform: {
@@ -144,8 +144,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_2.json|*",
-      output: "./test/data/output/mysql/transform_2.json"
+      smt: "json|./data/output/mysql/|transform_2.json|*",
+      output: "./data/output/mysql/transform_2.json"
     }
   })) return 1;
 

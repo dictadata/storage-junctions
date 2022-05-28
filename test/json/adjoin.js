@@ -13,14 +13,14 @@ async function tests() {
   logger.verbose('=== json_adjoin_1.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*",
+      smt: "json|./data/input/|foofile.json|*",
       options: {
-        "encoding": "./test/data/input/foo_schema.encoding.json"
+        "encoding": "./data/input/foo_schema.encoding.json"
       }
     },
     transform: {
       adjoin: {
-        smt: "json|./test/data/input/|foofile_01.json|*",
+        smt: "json|./data/input/|foofile_01.json|*",
         lookup: {
           "Foo": "Foo"
         },
@@ -28,11 +28,11 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/json/|adjoin_1.json|*",
+      smt: "json|./data/output/json/|adjoin_1.json|*",
       options: {
-        "encoding": "./test/data/input/foo_schema_01.encoding.json"
+        "encoding": "./data/input/foo_schema_01.encoding.json"
       },
-      output: "./test/data/output/json/adjoin_1.json"
+      output: "./data/output/json/adjoin_1.json"
     }
   })) return 1;
 
@@ -40,14 +40,14 @@ async function tests() {
   logger.verbose('=== json_adjoin_2.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*",
+      smt: "json|./data/input/|foofile.json|*",
       options: {
-        "encoding": "./test/data/input/foo_schema.encoding.json"
+        "encoding": "./data/input/foo_schema.encoding.json"
       }
     },
     transform: {
       adjoin: {
-        smt: "json|./test/data/input/|foofile_02.json|*",
+        smt: "json|./data/input/|foofile_02.json|*",
         options: {},
         pattern: {},
         lookup: {
@@ -58,11 +58,11 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/json/|adjoin_2.json|*",
+      smt: "json|./data/output/json/|adjoin_2.json|*",
       options: {
-        "encoding": "./test/data/input/foo_schema_02.encoding.json"
+        "encoding": "./data/input/foo_schema_02.encoding.json"
       },
-      output: "./test/data/output/json/adjoin_2.json"
+      output: "./data/output/json/adjoin_2.json"
     }
   })) return 1;
 

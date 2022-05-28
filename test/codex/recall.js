@@ -48,7 +48,7 @@ async function test(schema) {
     else {
       let encoding = results.data[ schema ];
 
-      let outputfile = "./test/data/output/codex/recall_" + schema + ".encoding.json";
+      let outputfile = "./data/output/codex/recall_" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");

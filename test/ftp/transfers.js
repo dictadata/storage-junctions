@@ -21,7 +21,7 @@ async function test_read() {
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/ftp/|output.csv|*",
+      smt: "csv|./data/output/ftp/|output.csv|*",
       options: {
         header: true
       }
@@ -35,7 +35,7 @@ async function test_read() {
       options: {}
     },
     terminal: {
-      smt: "csv|./test/data/output/ftp/|output.csv.gz|*",
+      smt: "csv|./data/output/ftp/|output.csv.gz|*",
       options: {
         header: true
       }
@@ -49,7 +49,7 @@ async function test_read() {
       options: {}
     },
     terminal: {
-      smt: "json|./test/data/output/ftp/|output.json|*"
+      smt: "json|./data/output/ftp/|output.json|*"
     }
   })) return 1;
 
@@ -60,7 +60,7 @@ async function test_read() {
       options: {}
     },
     terminal: {
-      smt: "json|./test/data/output/ftp/|output.json.gz|*"
+      smt: "json|./data/output/ftp/|output.json.gz|*"
     }
   })) return 1;
 
@@ -74,7 +74,7 @@ async function test_write() {
 
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv.gz|*",
+      smt: "csv|./data/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
@@ -90,7 +90,7 @@ async function test_write() {
     logger.verbose('=== ftp output.csv.gz');
     if (await transfer({
       origin: {
-        smt: "csv|./test/data/input/|foofile.csv|*",
+        smt: "csv|./data/input/|foofile.csv|*",
         options: {
           header: true
         }
@@ -106,7 +106,7 @@ async function test_write() {
   logger.verbose('=== ftp output.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json.gz|*"
+      smt: "json|./data/input/|foofile.json.gz|*"
     },
     terminal: {
       smt: "json|ftp://dicta:data@127.0.0.1/data/dictadata.org/test/output/json/|output.json|*",
@@ -117,7 +117,7 @@ async function test_write() {
     logger.verbose('=== ftp output.json.gz');
     if (await transfer({
       origin: {
-        smt: "json|./test/data/input/|foofile.json|*"
+        smt: "json|./data/input/|foofile.json|*"
       },
       terminal: {
         smt: "json|ftp://dicta:data@127.0.0.1/data/dictadata.org/test/output/json/|output.json.gz|*",

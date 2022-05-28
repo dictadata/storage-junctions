@@ -13,60 +13,60 @@ async function tests() {
   logger.verbose('=== csv > transfer_1.csv');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./data/input/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/csv/|transfer_1.csv|*",
+      smt: "csv|./data/output/csv/|transfer_1.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/csv/transfer_1.csv"
+      output: "./data/output/csv/transfer_1.csv"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_output_noheader.csv');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./data/input/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/csv/|transfer_noheader.csv|*",
-      output: "./test/data/output/csv/transfer_noheader.csv"
+      smt: "csv|./data/output/csv/|transfer_noheader.csv|*",
+      output: "./data/output/csv/transfer_noheader.csv"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_output.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./data/input/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "json|./test/data/output/csv/|transfer_2.json|*",
-      output: "./test/data/output/csv/transfer_2.json"
+      smt: "json|./data/output/csv/|transfer_2.json|*",
+      output: "./data/output/csv/transfer_2.json"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_output.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.txt|*",
+      smt: "csv|./data/input/|foofile.txt|*",
       options: {
         header: true,
         separator: "|"
       }
     },
     terminal: {
-      smt: "json|./test/data/output/csv/|transfer_3.json|*",
-      output: "./test/data/output/csv/transfer_3.json"
+      smt: "json|./data/output/csv/|transfer_3.json|*",
+      output: "./data/output/csv/transfer_3.json"
     }
   })) return 1;
 
@@ -83,8 +83,8 @@ async function tests() {
       },
     },
     terminal: {
-      smt: "json|./test/data/output/csv/|transfer_timeseries.json|*",
-      "output": "./test/data/output/csv/transfer_timeseries.json"
+      smt: "json|./data/output/csv/|transfer_timeseries.json|*",
+      "output": "./data/output/csv/transfer_timeseries.json"
     }
   })) return 1;
 }

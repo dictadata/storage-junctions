@@ -13,7 +13,7 @@ async function tests() {
     origin: {
       smt: "memory|testgroup|foo_schema|!Foo"
     },
-    output: './test/data/output/memory/codify_00.json'
+    output: './data/output/memory/codify_00.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
@@ -21,7 +21,7 @@ async function tests() {
     origin: {
       smt: "memory|testgroup|foo_schema_01|!Foo"
     },
-    output: './test/data/output/memory/codify_01.json'
+    output: './data/output/memory/codify_01.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
@@ -29,7 +29,7 @@ async function tests() {
     origin: {
       smt: "memory|testgroup|foo_schema_02|!Foo"
     },
-    output: './test/data/output/memory/codify_02.json'
+    output: './data/output/memory/codify_02.json'
   })) return 1;
 
 }

@@ -47,7 +47,7 @@ async function test(schema) {
       }
     });
 
-    let outputfile = "./test/data/output/codex/retrieve_" + schema + ".encoding.json";
+    let outputfile = "./data/output/codex/retrieve_" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");

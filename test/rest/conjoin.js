@@ -46,8 +46,8 @@ async function testConjoin() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|weather_forecast_conjoin.json|*",
-      output: "./test/data/output/rest/weather_forecast_conjoin.json"
+      smt: "json|./data/output/rest/|weather_forecast_conjoin.json|*",
+      output: "./data/output/rest/weather_forecast_conjoin.json"
     }
   }, compareValues)) return 1;
 

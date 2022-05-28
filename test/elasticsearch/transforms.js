@@ -24,8 +24,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transform_1.json|*",
-      output: "./test/data/output/elasticsearch/transform_1.json"
+      smt: "json|./data/output/elasticsearch/|transform_1.json|*",
+      output: "./data/output/elasticsearch/transform_1.json"
     }
   })) return 1;
 
@@ -63,8 +63,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transform_2.json|*",
-      output: "./test/data/output/elasticsearch/transform_2.json"
+      smt: "json|./data/output/elasticsearch/|transform_2.json|*",
+      output: "./data/output/elasticsearch/transform_2.json"
     }
   })) return 1;
 

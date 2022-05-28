@@ -13,58 +13,58 @@ async function tests() {
   logger.verbose('=== json_output.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "json|./test/data/output/json/|transfer_1.json|*",
-      output: "./test/data/output/json/transfer_1.json"
+      smt: "json|./data/output/json/|transfer_1.json|*",
+      output: "./data/output/json/transfer_1.json"
     }
   })) return 1;
 
   logger.verbose('=== json_output.csv');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "csv|./test/data/output/json/|transfer_2.csv|*",
+      smt: "csv|./data/output/json/|transfer_2.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/json/transfer_2.csv"
+      output: "./data/output/json/transfer_2.csv"
     }
   })) return 1;
 
   logger.verbose('=== json_output_o.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "jsono|./test/data/output/json/|transfer_o.json|*",
-      output: "./test/data/output/json/transfer_o.json"
+      smt: "jsono|./data/output/json/|transfer_o.json|*",
+      output: "./data/output/json/transfer_o.json"
     }
   })) return 1;
 
   logger.verbose('=== json_output_l.txt');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "jsonl|./test/data/output/json/|transfer_l.txt|*",
-      output: "./test/data/output/json/transfer_l.txt"
+      smt: "jsonl|./data/output/json/|transfer_l.txt|*",
+      output: "./data/output/json/transfer_l.txt"
     }
   })) return 1;
 
   logger.verbose('=== json_output_s.txt');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "jsons|./test/data/output/json/|transfer_s.txt|*",
-      output: "./test/data/output/json/transfer_s.txt"
+      smt: "jsons|./data/output/json/|transfer_s.txt|*",
+      output: "./data/output/json/transfer_s.txt"
     }
   })) return 1;
 

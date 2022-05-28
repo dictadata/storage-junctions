@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/recall_1.json"
+      output: "./data/output/memory/recall_1.json"
     }
   })) return 1;
 
@@ -37,7 +37,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/recall_2.json"
+      output: "./data/output/memory/recall_2.json"
     }
   })) return 1;
 

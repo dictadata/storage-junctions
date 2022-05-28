@@ -18,11 +18,11 @@ async function test_transfers() {
       smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json|*",
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|foofile.csv|*",
+      smt: "csv|./data/output/http/|foofile.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/http/foofile.csv"
+      output: "./data/output/http/foofile.csv"
     }
   }, compareValues)) return 1;
 
@@ -32,12 +32,12 @@ async function test_transfers() {
       smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv|*",
       options: {
         header: true,
-        encoding: "./test/data/input/foo_schema.encoding.json"
+        encoding: "./data/input/foo_schema.encoding.json"
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile.json|*",
-      output: "./test/data/output/http/foofile.json"
+      smt: "json|./data/output/http/|foofile.json|*",
+      output: "./data/output/http/foofile.json"
     }
   }, compareValues)) return 1;
 
@@ -52,8 +52,8 @@ async function test_uncompress() {
       smt: "json|http://localhost/data/dictadata.org/test/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile_gunzip.json|*",
-      output: "./test/data/output/http/foofile_gunzip.json"
+      smt: "json|./data/output/http/|foofile_gunzip.json|*",
+      output: "./data/output/http/foofile_gunzip.json"
     }
   }, compareValues)) return 1;
 
@@ -63,11 +63,11 @@ async function test_uncompress() {
       smt: "csv|http://localhost/data/dictadata.org/test/input/|foofile.csv.gz|*"
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|foofile_gunzip.csv|*",
+      smt: "csv|./data/output/http/|foofile_gunzip.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/http/foofile_gunzip.csv"
+      output: "./data/output/http/foofile_gunzip.csv"
     }
   }, compareValues)) return 1;
 
@@ -85,8 +85,8 @@ async function test_census_data() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|census_transfer_1.json|*",
-      output: "./test/data/output/http/census_transfer_1.json"
+      smt: "json|./data/output/http/|census_transfer_1.json|*",
+      output: "./data/output/http/census_transfer_1.json"
     }
   }, compareValues)) return 1;
 
@@ -104,8 +104,8 @@ async function test_weather_data() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|weather_forecast_transfer.json|*",
-      output: "./test/data/output/http/weather_forecast_transfer.json"
+      smt: "json|./data/output/http/|weather_forecast_transfer.json|*",
+      output: "./data/output/http/weather_forecast_transfer.json"
     }
   }, compareValues)) return 1;
 

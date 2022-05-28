@@ -41,7 +41,7 @@ async function noRefresh() {
     logger.verbose(JSON.stringify(results));
 
     // save and compare results
-    let output = './test/data/output/elasticsearch/refresh_NR.json';
+    let output = './data/output/elasticsearch/refresh_NR.json';
     fs.writeFileSync(output, JSON.stringify(results, null, "  "), "utf8");
     let expected = output.replace("output", "expected");
     retCode = compare(expected, output, 2);
@@ -94,7 +94,7 @@ async function withRefresh() {
     logger.verbose(JSON.stringify(results));
 
     // save and compare results
-    let output = './test/data/output/elasticsearch/refresh_WR.json';
+    let output = './data/output/elasticsearch/refresh_WR.json';
     fs.writeFileSync(output, JSON.stringify(results, null, "  "), "utf8");
     let expected = output.replace("output", "expected");
     retCode = compare(expected, output, 2);

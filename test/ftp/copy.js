@@ -20,7 +20,7 @@ async function test_1() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/ftp/downloads/|*|*",
+      smt: "*|./data/output/ftp/downloads/|*|*",
       options: {
       }
     }
@@ -32,7 +32,7 @@ async function test_2() {
 
   if (await putFiles({
     origin: {
-      smt: "*|./test/data/input/|*.csv|*",
+      smt: "*|./data/input/|*.csv|*",
       options: {
         recursive: false
       }
@@ -55,7 +55,7 @@ async function test_3() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/ftp/shapefiles/|*|*",
+      smt: "*|./data/output/ftp/shapefiles/|*|*",
       options: {
         use_rpath: true
       }
