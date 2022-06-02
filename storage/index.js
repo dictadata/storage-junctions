@@ -122,3 +122,6 @@ Storage.Transforms.use('encoder', exports.EncoderTransform);
 
 exports.MetaStatsTransform = require("./transforms/metastats");
 Storage.Transforms.use('metastats', exports.MetaStatsTransform);
+
+exports.RowsTransform = require("./transforms/rows");
+Storage.Transforms.use('rows', exports.RowsTransform);
