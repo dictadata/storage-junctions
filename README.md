@@ -1,8 +1,8 @@
-# @dictadata/storage-junctions 2.0.x
+# @dictadata/storage-junctions 2.3.x
 
-Node.js library for accessing distributed data storage, ETL transfers, analytics preparation and creating API services.
+_Storage Junctions_ is a Node.js library useful for creating apps that access distributed data sources, perform ETL transfers, prepare data for analytics and developing API services.
 
-StorageJunction provides a normalized, plug-in interface to access disparate data sources such as data files, database tables, document collections, key/value stores, ... with one standarized interface.
+StorageJunction provides a normalized, plug-in interface to access disparate data sources such as data files, database tables, document collections, key/value stores, etc. with one standardized interface.
 
 ## Installation
 
@@ -12,8 +12,17 @@ npm install @dictadata/storage-junctions
 
 ## Documentation
 
-* [storage-junctions API Reference](docs/reference/index.md)
-* [storage-junctions Programming Guide](docs/guide/index.md)
+[Storage Junctions Docs](https://github.com/dictadata/storage-junctions/docs/) contains documentation for dictadata's _Storage Junctions_ base types, classes, standard junctions and file systems needed to use the library.
+
+[Storage Junctions Guide](https://gitlab.com/dictadata/storage-guide/docs/) explains the concepts behind dictadata's Storage System along with advanced examples.
+
+## dictadata Projects
+
+[Storage-ETL](https://github.com/dictadata/storage-etl) is command line interface (CLI) for using _Storage Junctions_ library to transfer data between data sources, perform data transformations and manage data schemas.
+
+[Storage-Node](https://github.com/dictadata/storage-node) is a Node.js with Express.js based HTTP server application with extensible API services. A plugin framework supports all the base junctions and file systems from _Storage JUnctions_ library and custom plugins. Features `Codex` a data dictionary service to manage data sources and schemas amongst users and applications.
+
+[Storage Plugins](https://github.com/dictadata/storage-junctions/docs/plugins.md) List of the various storage junctions and file system plugins that can be used with _Storage-ETL_ and _Storage-Node_.
 
 ## Supported Storage Sources
 
