@@ -1,0 +1,17 @@
+##
+GET http://localhost:9200/foo_schema/_search
+Content-Type: application/json
+
+{
+  "query":{
+    "bool":{
+      "filter":[{
+        "match":{
+          "Bar":"row"}
+      }]
+    }
+  },
+  "sort":{
+    "Foo":"asc"
+  }
+}

@@ -123,30 +123,41 @@ function match(dsl, pattern) {
       }
       else if (keys[ 0 ] === 'wc') {
         // wildcard query
+        let exp = value;
         let q = {
           wildcard: {}
         };
-        q.wildcard[ fldname ] = { "value": value.wc };
+        q.wildcard[ fldname ] = { "value": exp.wc };
+        filter.push(q);
+      }
+      else if (keys[ 0 ] === 'search') {
+        // full-text search query
+        let exp = value;
+        let q = {
+          match: {}
+        };
+        q.match[ fldname ] = value.search;
         filter.push(q);
       }
       else {
         // expression(s) { op: value, ...}
         let q = {};
+        let exp = value;
 
-        if ('eq' in value || 'neq' in value) {
+        if ('eq' in exp || 'neq' in exp) {
           q[ "term" ] = {};
-          if ('eq' in value) q.term[ fldname ] = value.eq;
-          if ('neq' in value) q.term[ fldname ] = value.neq;
+          if ('eq' in exp) q.term[ fldname ] = exp.eq;
+          if ('neq' in exp) q.term[ fldname ] = exp.neq;
           filter.push(q);
         }
         else {
           q[ "range" ] = {};
 
           let rf = q.range[ fldname ] = {};
-          if ('gt' in value) rf[ "gt" ] = value.gt;
-          if ('gte' in value) rf[ "gte" ] = value.gte;
-          if ('lt' in value) rf[ "lt" ] = value.lt;
-          if ('lte' in value) rf[ "lte" ] = value.lte;
+          if ('gt' in exp) rf[ "gt" ] = exp.gt;
+          if ('gte' in exp) rf[ "gte" ] = exp.gte;
+          if ('lt' in exp) rf[ "lt" ] = exp.lt;
+          if ('lte' in exp) rf[ "lte" ] = exp.lte;
 
           if (Object.keys(rf).length > 0)
             filter.push(q);

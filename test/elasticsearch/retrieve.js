@@ -10,15 +10,14 @@ logger.info("=== Tests: elasticsearch");
 
 async function tests() {
 
-  logger.info("=== elasticsearch retrieve");
+  logger.info("=== elasticsearch retrieve term");
   if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
-          "Bar": { 'wc': 'row*' }
-        },
-        order: { "Foo": "asc" }
+          "Foo": "first"
+        }
       }
     },
     terminal: {
@@ -26,13 +25,14 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== elasticsearch retrieve w/ cues");
+  logger.info("=== elasticsearch retrieve term expression");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_01|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
-        "order": { "Foo": "asc" },
-        "count": 5
+        match: {
+          "Foo": { "eq": "first" }
+        }
       }
     },
     terminal: {
@@ -40,7 +40,22 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== elasticsearch retrieve w/ pattern");
+  logger.info("=== elasticsearch retrieve term array");
+  if (await retrieve({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      pattern: {
+        match: {
+          "Foo": [ "first", "second" ]
+        }
+      }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/retrieve_3.json"
+    }
+  })) return 1;
+
+  logger.info("=== elasticsearch retrieve range");
   if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema_02|*",
@@ -55,33 +70,17 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/elasticsearch/retrieve_3.json"
-    }
-  })) return 1;
-
-  logger.info("=== elasticsearch retrieve");
-  if (await retrieve({
-    origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
-      pattern: {
-        match: {
-          "Foo": "first"
-        }
-      }
-    },
-    terminal: {
       output: "./data/output/elasticsearch/retrieve_4.json"
     }
   })) return 1;
 
-  logger.info("=== elasticsearch retrieve");
+  logger.info("=== elasticsearch retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://localhost:9200|foo_schema_01|*",
       pattern: {
-        match: {
-          "Foo": { "eq": "first" }
-        }
+        "order": { "Foo": "asc" },
+        "count": 5
       }
     },
     terminal: {
@@ -89,18 +88,35 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== elasticsearch retrieve");
+  logger.info("=== elasticsearch retrieve wildcard");
   if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
-          "Foo": [ "first", "second" ]
-        }
+          "Bar": { 'wc': 'row*' }
+        },
+        order: { "Foo": "asc" }
       }
     },
     terminal: {
       output: "./data/output/elasticsearch/retrieve_6.json"
+    }
+  })) return 1;
+
+  logger.info("=== elasticsearch retrieve full-text match");
+  if (await retrieve({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      pattern: {
+        match: {
+          "Bar": { 'search': 'row' }
+        },
+        order: { "Foo": "asc" }
+      }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/retrieve_7.json"
     }
   })) return 1;
 
