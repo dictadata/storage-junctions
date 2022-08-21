@@ -11,10 +11,10 @@
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
+      "size": 64,
       "_mysql": {
         "Field": "Foo",
-        "Type": "varchar(7)",
+        "Type": "varchar(64)",
         "Null": "NO",
         "Key": "PRI",
         "Default": null,
@@ -26,11 +26,11 @@
     },
     {
       "name": "Bar",
-      "type": "keyword",
-      "size": 13,
+      "type": "text",
+      "size": 256,
       "_mysql": {
         "Field": "Bar",
-        "Type": "varchar(13)",
+        "Type": "varchar(256)",
         "Null": "YES",
         "Key": "",
         "Default": null,

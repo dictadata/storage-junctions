@@ -11,7 +11,7 @@
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
+      "size": 64,
       "default": null,
       "nullable": true,
       "key": 1,
@@ -20,7 +20,7 @@
     {
       "name": "Bar",
       "type": "text",
-      "size": 13,
+      "size": 256,
       "default": null,
       "nullable": true,
       "label": "Bar"

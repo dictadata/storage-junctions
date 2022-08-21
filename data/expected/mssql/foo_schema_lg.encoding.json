@@ -43,15 +43,15 @@
     },
     {
       "name": "Baz",
-      "type": "keyword",
-      "size": 20,
+      "type": "integer",
+      "size": 4,
       "default": null,
       "nullable": true,
       "_mssql": {
         "name": "Baz",
-        "type": "varchar",
-        "size": 20,
-        "precision": 0,
+        "type": "int",
+        "size": 4,
+        "precision": 10,
         "scale": 0,
         "is_nullable": true,
         "default": null
@@ -59,44 +59,60 @@
     },
     {
       "name": "Fobe",
-      "type": "text",
-      "size": 1200,
+      "type": "number",
+      "size": 8,
       "default": null,
       "nullable": true,
       "_mssql": {
         "name": "Fobe",
-        "type": "varchar",
-        "size": 1200,
-        "precision": 0,
+        "type": "float",
+        "size": 8,
+        "precision": 53,
         "scale": 0,
         "is_nullable": true,
         "default": null
       }
     },
     {
-      "name": "Str Test",
-      "type": "keyword",
-      "size": -1,
+      "name": "Dt Test",
+      "type": "date",
+      "size": 8,
       "default": null,
       "nullable": true,
       "_mssql": {
-        "name": "Str Test",
-        "type": "varchar",
-        "size": -1,
-        "precision": 0,
+        "name": "Dt Test",
+        "type": "datetime",
+        "size": 8,
+        "precision": 23,
+        "scale": 3,
+        "is_nullable": true,
+        "default": null
+      }
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "size": 1,
+      "default": null,
+      "nullable": true,
+      "_mssql": {
+        "name": "enabled",
+        "type": "bit",
+        "size": 1,
+        "precision": 1,
         "scale": 0,
         "is_nullable": true,
         "default": null
       }
     },
     {
-      "name": "enabler",
+      "name": "big_text",
       "type": "keyword",
       "size": -1,
       "default": null,
       "nullable": true,
       "_mssql": {
-        "name": "enabler",
+        "name": "big_text",
         "type": "varchar",
         "size": -1,
         "precision": 0,

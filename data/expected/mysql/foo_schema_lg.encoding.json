@@ -41,11 +41,11 @@
     },
     {
       "name": "Baz",
-      "type": "keyword",
-      "size": 20,
+      "type": "integer",
+      "size": null,
       "_mysql": {
         "Field": "Baz",
-        "Type": "varchar(20)",
+        "Type": "int",
         "Null": "YES",
         "Key": "",
         "Default": null,
@@ -56,11 +56,11 @@
     },
     {
       "name": "Fobe",
-      "type": "text",
-      "size": 1200,
+      "type": "float",
+      "size": null,
       "_mysql": {
         "Field": "Fobe",
-        "Type": "varchar(1200)",
+        "Type": "double",
         "Null": "YES",
         "Key": "",
         "Default": null,
@@ -70,12 +70,12 @@
       "nullable": true
     },
     {
-      "name": "Str Test",
-      "type": "text",
+      "name": "Dt Test",
+      "type": "date",
       "size": null,
       "_mysql": {
-        "Field": "Str Test",
-        "Type": "text",
+        "Field": "Dt Test",
+        "Type": "datetime",
         "Null": "YES",
         "Key": "",
         "Default": null,
@@ -85,11 +85,26 @@
       "nullable": true
     },
     {
-      "name": "enabler",
+      "name": "enabled",
+      "type": "boolean",
+      "size": 1,
+      "_mysql": {
+        "Field": "enabled",
+        "Type": "tinyint(1)",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      "default": null,
+      "nullable": true
+    },
+    {
+      "name": "big_text",
       "type": "text",
       "size": null,
       "_mysql": {
-        "Field": "enabler",
+        "Field": "big_text",
         "Type": "text",
         "Null": "YES",
         "Key": "",

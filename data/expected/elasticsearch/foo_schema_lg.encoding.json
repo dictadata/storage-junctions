@@ -10,23 +10,30 @@
   "fields": [
     {
       "name": "Bar",
-      "type": "keyword",
+      "type": "text",
       "_elasticsearch": {
-        "type": "keyword"
+        "type": "text"
       }
     },
     {
       "name": "Baz",
-      "type": "text",
+      "type": "integer",
       "_elasticsearch": {
-        "type": "text"
+        "type": "integer"
+      }
+    },
+    {
+      "name": "Dt Test",
+      "type": "date",
+      "_elasticsearch": {
+        "type": "date"
       }
     },
     {
       "name": "Fobe",
-      "type": "text",
+      "type": "float",
       "_elasticsearch": {
-        "type": "text"
+        "type": "double"
       }
     },
     {
@@ -37,17 +44,17 @@
       }
     },
     {
-      "name": "Str Test",
+      "name": "big_text",
       "type": "text",
       "_elasticsearch": {
         "type": "text"
       }
     },
     {
-      "name": "enabler",
-      "type": "text",
+      "name": "enabled",
+      "type": "boolean",
       "_elasticsearch": {
-        "type": "text"
+        "type": "boolean"
       }
     }
   ]

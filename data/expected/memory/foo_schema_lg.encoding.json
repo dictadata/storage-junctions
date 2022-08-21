@@ -19,7 +19,7 @@
     },
     {
       "name": "Bar",
-      "type": "keyword",
+      "type": "text",
       "size": 256,
       "default": null,
       "nullable": true,
@@ -27,35 +27,43 @@
     },
     {
       "name": "Baz",
-      "type": "text",
-      "size": 20,
+      "type": "integer",
+      "size": 0,
       "default": null,
       "nullable": true,
       "label": "Baz"
     },
     {
       "name": "Fobe",
-      "type": "text",
-      "size": 1200,
+      "type": "number",
+      "size": 0,
       "default": null,
       "nullable": true,
       "label": "Fobe"
     },
     {
-      "name": "Str Test",
-      "type": "text",
-      "size": 2500,
+      "name": "Dt Test",
+      "type": "date",
+      "size": 0,
       "default": null,
       "nullable": true,
-      "label": "Str Test"
+      "label": "Dt Test"
     },
     {
-      "name": "enabler",
+      "name": "enabled",
+      "type": "boolean",
+      "size": 0,
+      "default": null,
+      "nullable": true,
+      "label": "enabled"
+    },
+    {
+      "name": "big_text",
       "type": "text",
       "size": 200000,
       "default": null,
       "nullable": true,
-      "label": "enabler"
+      "label": "Big Text"
     }
   ]
 }

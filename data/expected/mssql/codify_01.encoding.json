@@ -11,13 +11,13 @@
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
+      "size": 64,
       "default": null,
       "nullable": false,
       "_mssql": {
         "name": "Foo",
         "type": "varchar",
-        "size": 7,
+        "size": 64,
         "precision": 0,
         "scale": 0,
         "is_nullable": false,
@@ -27,14 +27,14 @@
     },
     {
       "name": "Bar",
-      "type": "keyword",
-      "size": 13,
+      "type": "text",
+      "size": 256,
       "default": null,
       "nullable": true,
       "_mssql": {
         "name": "Bar",
         "type": "varchar",
-        "size": 13,
+        "size": 256,
         "precision": 0,
         "scale": 0,
         "is_nullable": true,
