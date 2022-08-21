@@ -45,6 +45,8 @@ async function store(schema) {
     let entry = new Engram(encoding.smt || "*|*|*|*");
     entry.name = schema;
     entry.encoding = encoding;
+    if (!entry.tags) entry.tags = [];
+    entry.tags.push("foo");
 
     let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
@@ -67,7 +69,8 @@ async function alias(alias, alias_smt) {
     let entry = {
       name: alias,
       type: "alias",
-      alias_smt: alias_smt
+      alias_smt: alias_smt,
+      tags: [ "foo", "alias" ]
     };
 
     let results = await Storage.codex.store(entry);

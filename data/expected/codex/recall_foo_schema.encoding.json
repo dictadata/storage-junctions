@@ -17,8 +17,8 @@
     },
     {
       "name": "Bar",
-      "type": "keyword",
-      "size": 64,
+      "type": "text",
+      "size": 256,
       "default": null,
       "nullable": true,
       "label": "Bar"
@@ -57,5 +57,8 @@
     }
   ],
   "name": "foo_schema",
-  "type": "engram"
+  "type": "engram",
+  "tags": [
+    "foo"
+  ]
 }
