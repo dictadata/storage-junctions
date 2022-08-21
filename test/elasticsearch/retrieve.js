@@ -104,19 +104,77 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== elasticsearch retrieve full-text match");
+  logger.info("=== elasticsearch retrieve full-text search");
   if (await retrieve({
     origin: {
       smt: "elasticsearch|http://localhost:9200|foo_schema|*",
       pattern: {
         match: {
-          "Bar": { 'search': 'row' }
+          "Bar": { 'search': 'row boat' }
         },
         order: { "Foo": "asc" }
       }
     },
     terminal: {
       output: "./data/output/elasticsearch/retrieve_7.json"
+    }
+  })) return 1;
+
+  logger.info("=== elasticsearch retrieve full-text search AND");
+  if (await retrieve({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      pattern: {
+        match: {
+          "Bar": {
+            'search': 'row boat',
+            'op': 'AND'
+          }
+        },
+        order: { "Foo": "asc" }
+      }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/retrieve_8.json"
+    }
+  })) return 1;
+
+  logger.info("=== elasticsearch retrieve full-text search phrase");
+  if (await retrieve({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      pattern: {
+        match: {
+          "Bar": {
+            'search': 'row your boat',
+            'op': 'phrase'
+          }
+        },
+        order: { "Foo": "asc" }
+      }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/retrieve_9.json"
+    }
+  })) return 1;
+
+  logger.info("=== elasticsearch retrieve full-text search multiple fields");
+  if (await retrieve({
+    origin: {
+      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      pattern: {
+        match: {
+          "_": {
+            'search': 'big data',
+            'fields': [ "Bar" ],
+            "op": "AND"
+          }
+        },
+        order: { "Foo": "asc" }
+      }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/retrieve_10.json"
     }
   })) return 1;
 

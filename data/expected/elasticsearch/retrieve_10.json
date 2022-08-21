@@ -1,0 +1,14 @@
+{
+  "resultCode": 0,
+  "resultText": "OK",
+  "data": [
+    {
+      "Foo": "seventh",
+      "Bar": "big data",
+      "Baz": 0,
+      "Fobe": 4.3,
+      "Dt Test": "2018-10-10T19:13:30.000Z",
+      "enabled": false
+    }
+  ]
+}

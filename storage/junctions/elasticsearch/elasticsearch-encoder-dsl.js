@@ -133,10 +133,31 @@ function match(dsl, pattern) {
       else if (keys[ 0 ] === 'search') {
         // full-text search query
         let exp = value;
-        let q = {
-          match: {}
-        };
-        q.match[ fldname ] = value.search;
+        let q = {};
+
+        if (exp.fields) {
+          // note: fldname is ignored
+          q[ "multi_match" ] = {};
+          q.multi_match[ "query" ] = exp.search;
+          q.multi_match[ "fields" ] = exp.fields;
+          if ('op' in exp) {
+            if (exp.op === "phrase")
+              q.multi_match[ "type" ] = "phrase";
+            else
+              q.multi_match[ "operator" ] = exp.op;
+          }
+        }
+        else if (exp.op === "phrase") {
+          q[ "match_phrase" ] = {};
+          q.match_phrase[ fldname ] = { "query": exp.search };
+        }
+        else {
+          q[ "match" ] = {};
+          q.match[ fldname ] = { "query": exp.search };
+          if ('op' in exp)
+            q.match[ fldname ][ "operator" ] = exp.op;
+        }
+
         filter.push(q);
       }
       else {

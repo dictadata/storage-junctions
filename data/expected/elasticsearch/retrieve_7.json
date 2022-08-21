@@ -11,6 +11,14 @@
       "enabled": true
     },
     {
+      "Foo": "fourth",
+      "Bar": " boat ",
+      "Baz": 0,
+      "Fobe": 4.3,
+      "Dt Test": "2018-10-10T14:13:30.500Z",
+      "enabled": false
+    },
+    {
       "Foo": "second",
       "Bar": "row",
       "Baz": 456,

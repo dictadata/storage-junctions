@@ -1,0 +1,81 @@
+### simple query
+GET http://localhost:9200/foo_schema/_search
+Content-Type: application/json
+
+{
+  "query":{
+    "bool":{
+      "filter":[{
+        "match":{
+          "Bar":"row"}
+      }]
+    }
+  },
+  "sort":{
+    "Foo":"asc"
+  }
+}
+
+### query with AND/OR operator
+GET http://localhost:9200/foo_schema/_search
+Content-Type: application/json
+
+{
+  "query":{
+    "bool":{
+      "filter":[{
+        "match":{
+          "Bar": {
+            "query": "row boat",
+            "operator": "OR"
+          }
+        }
+      }]
+    }
+  },
+  "sort":{
+    "Foo":"asc"
+  }
+}
+
+### query a phrase
+GET http://localhost:9200/foo_schema/_search
+Content-Type: application/json
+
+{
+  "query":{
+    "bool":{
+      "filter":[{
+        "match_phrase":{
+          "Bar": {
+            "query": "row your boat"
+          }
+        }
+      }]
+    }
+  },
+  "sort":{
+    "Foo":"asc"
+  }
+}
+
+### query multiple fields
+GET http://localhost:9200/foo_schema/_search
+Content-Type: application/json
+
+{
+  "query":{
+    "bool":{
+      "filter":[{
+        "multi_match":{
+          "query": "big data",
+          "fields": [ "Bar" ],
+          "operator": "AND"
+        }
+      }]
+    }
+  },
+  "sort":{
+    "Foo":"asc"
+  }
+}
