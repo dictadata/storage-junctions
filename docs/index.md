@@ -11,6 +11,7 @@
 * [StorageFileSystem](storage-filesystem.md)
 * [Transforms](transforms.md)
 * [Types](types.md)
+* [Patterns](patterns.md)
 
 ## Storage Junctions
 
