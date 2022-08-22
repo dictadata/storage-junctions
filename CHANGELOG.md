@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.3.2
+  - implement: full-text search pattern syntax and elasticsearch-junction
 - version 2.3.1
   - update: CsvJunction supports other delimited files
   - update: CsvJunction check input for BOM character
