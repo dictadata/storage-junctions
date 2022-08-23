@@ -24,7 +24,7 @@ module.exports = exports = class Engram {
 
   /**
    * Engram class
-   * @param {SMT|encoding} Engram/encoding object, SMT object or SMT string
+   * @param {SMT|encoding} encoding type object, SMT object or SMT string
    */
   constructor(encoding) {
     let smt = {};
@@ -38,11 +38,14 @@ module.exports = exports = class Engram {
       encoding = { smt: smt };
     }
 
-    // codex properties
+    // codex properties from codex.encoding.json
     this.name = encoding.name || smt.schema || "";
     this.type = encoding.type || "engram";
+    if (encoding.alias_smt) this.alias_smt = encoding.alias_smt;
     if (encoding.title) this.title = encoding.title;
     if (encoding.description) this.description = encoding.description;
+    if (encoding.source) this.source = encoding.source;
+    if (encoding.notes) this.notes = encoding.notes;
     if (encoding.tags) this.tags = encoding.tags;
 
     // SMT
@@ -66,7 +69,9 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Returns a simple encoding object with the Engram's properties, but without functions or fieldsMap property.
+   * Returns a simple encoding object with the engram's properties
+   * including fields array, codex properties and any user added properties.
+   * Does not include functions or the fieldsMap property.
    */
   get encoding() {
     let encoding = Engram._copy({}, this);
@@ -75,8 +80,8 @@ module.exports = exports = class Engram {
   }
 
   /**
-   * Replace fields definitions.
-   * Replace indices, if defined in parameter object.
+   * Replace fields definitions only.
+   * Replaces indices definitions, if defined in encoding.indices parameter.
    * @param {encoding|Engram|fields} encoding is an Encoding/Engram object or Fields array/object
    */
   set encoding(encoding) {
@@ -89,8 +94,8 @@ module.exports = exports = class Engram {
       }
     }
 
-    this.dull();
-    this.merge(encoding);
+    this.dullfields();
+    this.mergefields(encoding);
     /*
         if (encoding && encoding.smt) {
           let smt = new SMT(encoding.smt);
@@ -116,7 +121,7 @@ module.exports = exports = class Engram {
    * Sets fields and indices to empty
    * smt and other primitive properties added to the engram remain unchanged.
    */
-  dull() {
+  dullfields() {
     this.fields = [];
     this.fieldsMap = {};
     if (this.indices)
@@ -127,7 +132,7 @@ module.exports = exports = class Engram {
    * Add or replace fields.
    * @param {Engram|encoding|fields} encoding is an Encoding/Engram object Fields object
    */
-  merge(encoding) {
+  mergefields(encoding) {
     let newFields = encoding.fields || encoding;
 
     if (typeOf(newFields) === "object")
