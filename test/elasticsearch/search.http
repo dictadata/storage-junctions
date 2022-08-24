@@ -79,3 +79,27 @@ Content-Type: application/json
     "Foo":"asc"
   }
 }
+
+### query multiple fields
+GET http://localhost:9200/dicta_codex/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "multi_match": {
+            "query": "iowa",
+            "fields": [
+              "title",
+              "description",
+              "tags"
+            ],
+            "operator": "OR"
+          }
+        }
+      ]
+    }
+  }
+}
