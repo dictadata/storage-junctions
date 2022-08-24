@@ -18,6 +18,8 @@ const logger = require("./utils/logger");
 
 const codexEncoding = require("./codex.encoding.json");
 
+const codexTypes = [ "engram", "tract", "alias" ];
+
 module.exports = exports = class Codex {
 
   constructor(options = {}) {
@@ -89,6 +91,11 @@ module.exports = exports = class Codex {
     if (!entry.name || entry.name === "*") {
       results.resultCode = 400;
       results.resultText = "Invalid encoding name";
+      return results;
+    }
+    if (!entry.type || !codexTypes.includes(entry.type)) {
+      results.resultCode = 400;
+      results.resultText = "Invalid codex type";
       return results;
     }
 
