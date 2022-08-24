@@ -1,7 +1,9 @@
 {
   "name": "foo_alias",
   "type": "alias",
-  "alias_smt": "foo_schema",
+  "title": "foo_alias",
+  "description": "alias for foo_schema",
+  "source": "foo_schema",
   "tags": [
     "foo",
     "alias"

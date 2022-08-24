@@ -70,17 +70,17 @@
     "rpath": "shapes/shapes.encoding.json"
   },
   {
-    "name": "geo_2020_us_county.encoding.json",
+    "name": "tl_20220_us_county.encoding.json",
     "type": "-",
     "size": 2079,
     "date": "2021-12-20T16:08:00.000Z",
-    "rpath": "shapes/geo_2020_us_county.encoding.json"
+    "rpath": "shapes/tl_20220_us_county.encoding.json"
   },
   {
-    "name": "geo_2020_us_state.encoding.json",
+    "name": "tl_20220_us_state.encoding.json",
     "type": "-",
     "size": 1929,
     "date": "2021-12-20T16:08:00.000Z",
-    "rpath": "shapes/geo_2020_us_state.encoding.json"
+    "rpath": "shapes/tl_20220_us_state.encoding.json"
   }
 ]
