@@ -80,19 +80,19 @@
     "rpath": "shapes/shapes.encoding.json"
   },
   {
-    "href": "/data/dictadata.org/test/input/shapes/tl_20220_us_county.encoding.json",
-    "name": "tl_20220_us_county.encoding.json",
+    "href": "/data/dictadata.org/test/input/shapes/tl_2020_us_county.encoding.json",
+    "name": "tl_2020_us_county.encoding.json",
     "isDir": false,
     "date": "2021-12-20T16:08:00.000Z",
     "size": 2079,
-    "rpath": "shapes/tl_20220_us_county.encoding.json"
+    "rpath": "shapes/tl_2020_us_county.encoding.json"
   },
   {
-    "href": "/data/dictadata.org/test/input/shapes/tl_20220_us_state.encoding.json",
-    "name": "tl_20220_us_state.encoding.json",
+    "href": "/data/dictadata.org/test/input/shapes/tl_2020_us_state.encoding.json",
+    "name": "tl_2020_us_state.encoding.json",
     "isDir": false,
     "date": "2021-12-20T16:08:00.000Z",
     "size": 1929,
-    "rpath": "shapes/tl_20220_us_state.encoding.json"
+    "rpath": "shapes/tl_2020_us_state.encoding.json"
   }
 ]

@@ -80,19 +80,19 @@
     "rpath": "shapes/shapes.encoding.json"
   },
   {
-    "href": "tl_20220_us_county.encoding.json",
-    "name": "tl_20220_us_county.encoding.json",
+    "href": "tl_2020_us_county.encoding.json",
+    "name": "tl_2020_us_county.encoding.json",
     "isDir": false,
     "date": "2021-10-02T19:03:00.000Z",
     "size": 2078,
-    "rpath": "shapes/tl_20220_us_county.encoding.json"
+    "rpath": "shapes/tl_2020_us_county.encoding.json"
   },
   {
-    "href": "tl_20220_us_state.encoding.json",
-    "name": "tl_20220_us_state.encoding.json",
+    "href": "tl_2020_us_state.encoding.json",
+    "name": "tl_2020_us_state.encoding.json",
     "isDir": false,
     "date": "2021-10-02T19:03:00.000Z",
     "size": 1928,
-    "rpath": "shapes/tl_20220_us_state.encoding.json"
+    "rpath": "shapes/tl_2020_us_state.encoding.json"
   }
 ]

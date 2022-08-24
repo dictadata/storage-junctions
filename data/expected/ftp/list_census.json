@@ -1,7 +1,7 @@
 [
   {
     "type": "-",
-    "name": "tl_20220_us_county.zip",
+    "name": "tl_2020_us_county.zip",
     "sticky": false,
     "rights": {
       "user": "rw",
@@ -13,6 +13,6 @@
     "group": "i-geo",
     "size": 80644766,
     "date": "2021-02-01T00:00:00.000Z",
-    "rpath": "tl_20220_us_county.zip"
+    "rpath": "tl_2020_us_county.zip"
   }
 ]
