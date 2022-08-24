@@ -42,11 +42,11 @@ async function store(schema) {
     // store encoding
     encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
 
-    let entry = new Engram(encoding.smt || "*|*|*|*");
-    entry.name = schema;
-    entry.encoding = encoding;
-    if (!entry.tags) entry.tags = [];
-    entry.tags.push("foo");
+    let entry = new Engram(encoding);
+    if (!entry.tags) {
+      entry.tags = [];
+      entry.tags.push("foo");
+    }
 
     let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
@@ -59,7 +59,7 @@ async function store(schema) {
   return process.exitCode = retCode;
 }
 
-async function alias(alias, alias_smt) {
+async function alias(alias, smt_name) {
   let retCode = 0;
 
   try {
@@ -69,7 +69,9 @@ async function alias(alias, alias_smt) {
     let entry = {
       name: alias,
       type: "alias",
-      alias_smt: alias_smt,
+      title: alias,
+      description: "alias for " + smt_name,
+      source: smt_name,
       tags: [ "foo", "alias" ]
     };
 
