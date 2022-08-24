@@ -86,6 +86,12 @@ module.exports = exports = class Codex {
       resultText: "OK"
     };
 
+    if (!entry.name || entry.name === "*") {
+      results.resultCode = 400;
+      results.resultText = "Invalid encoding name";
+      return results;
+    }
+
     let encoding = (entry instanceof Engram) ? entry.encoding : entry;
 
     // save in cache

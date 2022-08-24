@@ -41,6 +41,7 @@ async function store(schema) {
 
     // store encoding
     encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
+    encoding.name = schema;
 
     let entry = new Engram(encoding);
     if (!entry.tags) {
@@ -89,8 +90,8 @@ async function alias(alias, smt_name) {
 (async () => {
   await init();
 
-  if (await store("foo_schema")) return 1;
-  if (await store("foo_schema_short")) return 1;
+  //if (await store("foo_schema")) return 1;
+  //if (await store("foo_schema_short")) return 1;
   if (await store("foo_schema_typesonly")) return 1;
   if (await store("foo_schema_two")) return 1;
 
