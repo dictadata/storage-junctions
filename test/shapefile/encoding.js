@@ -40,7 +40,7 @@ async function test2() {
 
 async function test3() {
 
-  logger.info("=== shapefile getEncoding geo_2020_us_state");
+  logger.info("=== shapefile getEncoding tl_2020_us_state");
   if (await getEncoding({
     origin: {
       smt: "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
@@ -55,7 +55,7 @@ async function test3() {
 
 async function test4() {
 
-  logger.info("=== shapefile getEncoding geo_2020_us_county");
+  logger.info("=== shapefile getEncoding tl_2020_us_county");
   if (await getEncoding({
     origin: {
       smt: "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
