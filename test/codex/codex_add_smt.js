@@ -59,7 +59,7 @@ async function test(smt_name, smt) {
   return process.exitCode = retCode;
 }
 
-async function addAlias(alias, alias_smt) {
+async function addAlias(alias, smt_name) {
   let retCode = 0;
 
   try {
@@ -69,7 +69,9 @@ async function addAlias(alias, alias_smt) {
     let entry = {
       name: alias,
       type: "alias",
-      alias_smt: alias_smt,
+      title: alias,
+      description: "alias for " + smt_name,
+      source: smt_name,
       tags: [ "foo", "alias" ]
     };
 

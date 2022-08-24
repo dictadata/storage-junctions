@@ -41,7 +41,6 @@ module.exports = exports = class Engram {
     // codex properties from codex.encoding.json
     this.name = encoding.name || smt.schema || "";
     this.type = encoding.type || "engram";
-    if (encoding.alias_smt) this.alias_smt = encoding.alias_smt;
     if (encoding.title) this.title = encoding.title;
     if (encoding.description) this.description = encoding.description;
     if (encoding.source) this.source = encoding.source;

@@ -154,9 +154,9 @@ module.exports = exports = class Codex {
         let encoding = results.data[ name ];
         if (encoding.type === "alias") {
           // recall the entry for the origin smt
-          results = await this._junction.recall({ key: encoding.alias_smt });
+          results = await this._junction.recall({ key: encoding.source });
           if (results.resultCode === 0)
-            results.data[ name ] = results.data[ encoding.alias_smt ];
+            results.data[ name ] = results.data[ encoding.source ];
         }
       }
 
