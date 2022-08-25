@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.3.4
+  - refactor: add domain and roles to codex entry
 - version 2.3.3
   - update: Codex.store() validate entry's name and type
   - refactor: add source and notes to codex entry, remove alias_smt
