@@ -1,5 +1,5 @@
 /**
- * storage/types/Engram
+ * storage/types/engram.js
  *
  * An Engram (encoding) is a storage memory trace (SMT) plus field definitions.
  * Field definitions are needed to encode and decode constructs for storage.
@@ -15,18 +15,22 @@
 
 const SMT = require('./smt');
 const Field = require('./field');
+const Entry = require('./entry');
 const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty, getCI } = require("../utils");
 
 const dot = require('dot-object');
 
-module.exports = exports = class Engram {
+module.exports = exports = class Engram extends Entry {
 
   /**
    * Engram class
    * @param {SMT|encoding} encoding type object, SMT object or SMT string
    */
   constructor(encoding) {
+    super(encoding);
+    this.type = "engram";
+
     let smt = {};
     if (typeOf(encoding) === "object" && hasOwnProperty(encoding, "smt")) {
       smt = new SMT(encoding.smt);
@@ -38,22 +42,14 @@ module.exports = exports = class Engram {
       encoding = { smt: smt };
     }
 
-    // codex properties from codex.encoding.json
-    this.name = encoding.name || smt.schema || "";
-    this.type = encoding.type || "engram";
-    if (encoding.title) this.title = encoding.title;
-    if (encoding.description) this.description = encoding.description;
-    if (encoding.source) this.source = encoding.source;
-    if (encoding.notes) this.notes = encoding.notes;
-    if (encoding.tags) this.tags = encoding.tags;
-
-    // SMT
+    if (!this.name)
+      this.name = smt.schema;
     this.smt = smt;
 
-    // storage-junction options (codex)
+    // junction options
     if (encoding.options) this.options = encoding.options;
 
-    // fields encoding
+    // field definitions
     this.fields = [];
     this.fieldsMap = {};
     if (hasOwnProperty(encoding, "fields"))

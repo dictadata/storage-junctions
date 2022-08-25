@@ -47,16 +47,16 @@ async function test(schema) {
     // store encoding
     logger.verbose('=== ' + schema);
     encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
+    encoding.name = schema;
 
-    let entry = new Engram(encoding.smt || "*|*|*|*");
-    entry.name = schema;
-    entry.encoding = encoding;
+    let entry = new Engram(encoding);
+
     let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding
     results = await Storage.codex.recall(schema);
-    logger.verbose(JSON.stringify(results, null, "  "));
+    logger.verbose("recall: " + results.resultText);
     encoding = results.data[ schema ];
 
     let outputfile = "./data/output/codex/" + schema + ".encoding.json";

@@ -1,17 +1,18 @@
 {
-  "name": "dicta_codex",
+  "name": "dicta_tracts",
   "type": "engram",
-  "title": "dicta_codex entry definition",
-  "description": "dictadata Storage Codex encoding definition",
+  "title": "dicta_codex tracts definition",
+  "description": "dictadata Storage Codex tracts definition",
   "tags": [
     "dictadata",
     "codex",
-    "codex entry"
+    "codex entry",
+    "tracts"
   ],
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "dicta_codex",
+    "schema": "dicta_tracts",
     "key": "!name"
   },
   "fields": [
@@ -111,6 +112,27 @@
           }
         ]
       }
+    },
+    {
+      "name": "tract",
+      "type": "map",
+      "fields": [
+        {
+          "name": "origin",
+          "type": "map",
+          "fields": []
+        },
+        {
+          "name": "transform",
+          "type": "map",
+          "fields": []
+        },
+        {
+          "name": "terminal",
+          "type": "map",
+          "fields": []
+        }
+      ]
     }
   ]
 }
