@@ -73,6 +73,15 @@
       }
     },
     {
+      "name": "auth",
+      "type": "map",
+      "fields": {
+        "username": "keyword",
+        "password": "keyword",
+        "access_key": "keyword"
+      }
+    },
+    {
       "name": "fields",
       "type": "list",
       "_list": {
