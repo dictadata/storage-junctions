@@ -202,7 +202,7 @@ module.exports = exports = class Engram extends Entry {
       return 'none';
     switch (this.smt.key[ 0 ]) {
       case '*':
-        return 'all';   // primary keys specified in field encodings, or no recall
+        return '*';   // primary keys specified in field encodings, or no recall
       case '=':
         return 'primary';  // field list for lookup, e.g. database records
       case '!':
@@ -224,7 +224,7 @@ module.exports = exports = class Engram extends Entry {
       //   |.|.|.|!name1+name2+...
       keys = this.smt.key.substring(1).split('+');
     }
-    else if (this.keyof === 'all') {
+    else if (this.keyof === '*') {
       // look for key fields in the encoding
       for (let field of this.fields) {
         if (field.key)

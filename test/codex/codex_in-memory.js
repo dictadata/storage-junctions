@@ -38,10 +38,6 @@ async function init() {
 async function test(schema) {
   let retCode = 0;
 
-  Storage.codex = new Storage.Codex({
-    smt: "memory|dictadata|codex|!name"
-  });
-
   let encoding;
   try {
     // store encoding

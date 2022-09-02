@@ -268,7 +268,7 @@ class ElasticsearchJunction extends StorageJunction {
 
         return new StorageResponse(0, null, response._source, key);
       }
-      else if (this.engram.keyof === 'primary' || this.engram.keyof === 'all') {
+      else if (this.engram.keyof === 'primary' || this.engram.keyof === '*') {
         // search by exact match
         let dsl = dslEncoder.matchQuery(this.engram.keys, pattern);
 

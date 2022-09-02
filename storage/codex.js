@@ -100,9 +100,10 @@ module.exports = exports = class Codex {
     }
 
     let encoding = (entry instanceof Engram) ? entry.encoding : entry;
+    let key = (encoding.domain) ? encoding.domain + encoding.name : encoding.name;
 
     // save in cache
-    this._engrams.set(encoding.name, encoding);
+    this._engrams.set(key, encoding);
 
     if (this._junction) {
       // save in source codex
@@ -118,15 +119,17 @@ module.exports = exports = class Codex {
    * @param {*} name SMT name or ETL tract name
    * @returns
    */
-  async dull(name) {
+  async dull(name, options = {}) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
 
-    if (this._engrams.has(name)) {
+    let key = (options.domain) ? options.domain + name : name;
+
+    if (this._engrams.has(key)) {
       // delete from cache
-      if (!this._engrams.delete(name)) {
+      if (!this._engrams.delete(key)) {
         results.resultCode = 500;
         results.resultText = "map delete error";
       }
@@ -134,7 +137,7 @@ module.exports = exports = class Codex {
 
     if (this._junction) {
       // delete from source codex
-      results = await this._junction.dull({ key: name });
+      results = await this._junction.dull({ key: key });
     }
 
     return results;
@@ -145,38 +148,41 @@ module.exports = exports = class Codex {
    * @param {*} name SMT name or ETL tract name
    * @returns
    */
-  async recall(name, resolve_alias = false) {
+  async recall(name, options = {}) {
     let results = {
       resultCode: 0,
       resultText: "OK",
       data: {}
     };
 
-    if (this._engrams.has(name)) {
+    let key = (options.domain) ? options.domain + name : name;
+
+    if (this._engrams.has(key)) {
       // entry has been cached
-      let entry = this._engrams.get(name);
+      let entry = this._engrams.get(key);
       results.data[ name ] = entry;
     }
     else if (this._junction) {
       // go to the source codex
-      results = await this._junction.recall({ key: name });
+      results = await this._junction.recall({ key: key });
       logger.verbose("storage/codex: recall, " + results.resultCode);
 
-      if (resolve_alias && results.resultCode === 0) {
+      if (options.resolve_alias && results.resultCode === 0) {
         // check for alias smt
         let encoding = results.data[ name ];
         if (encoding.type === "alias") {
-          // recall the entry for the origin smt
+          // recall the entry for the smt_name in source
           results = await this._junction.recall({ key: encoding.source });
           if (results.resultCode === 0)
             results.data[ name ] = results.data[ encoding.source ];
         }
       }
 
-      if (results.resultCode === 0) {
+      if (results.resultCode === 0 && !options.resolve_alias) {
         // cache entry definition
         let encoding = results.data[ name ];
-        this._engrams.set(name, encoding);
+        if (name === encoding.name) // double check it wasn't an alias lookup
+          this._engrams.set(key, encoding);
       }
     }
     else {

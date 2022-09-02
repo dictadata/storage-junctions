@@ -12,14 +12,19 @@
     "model": "*",
     "locus": "*",
     "schema": "dicta_codex",
-    "key": "!name"
+    "key": "!domain+name"
   },
   "fields": [
+    {
+      "name": "domain",
+      "type": "keyword",
+      "key": 1
+    },
     {
       "name": "name",
       "type": "keyword",
       "nullable": false,
-      "key": 1
+      "key": 2
     },
     {
       "name": "type",
@@ -32,10 +37,6 @@
         "name": "_list",
         "type": "keyword"
       }
-    },
-    {
-      "name": "domain",
-      "type": "keyword"
     },
     {
       "name": "source",

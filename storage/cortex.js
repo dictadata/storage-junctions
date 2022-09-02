@@ -53,7 +53,10 @@ class Cortex {
 
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex._codex) {
       // lookup SMT name in codex
-      let results = await Cortex._codex.recall(smt, true);
+      let results = await Cortex._codex.recall(smt, {
+        domain: options.domain,
+        resolve_alias: true
+      });
       if (results.resultCode !== 0)
         throw new StorageError(results.resultCode, results.resultText + ": " + smt);
 
