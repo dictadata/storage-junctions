@@ -21,7 +21,7 @@ async function init() {
   try {
     // activate codex
     let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
     });
 
     await codex.activate();

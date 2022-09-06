@@ -1,4 +1,5 @@
 {
+  "domain": "foo",
   "name": "foo_alias",
   "type": "alias",
   "title": "foo_alias",

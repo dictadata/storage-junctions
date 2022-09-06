@@ -21,7 +21,7 @@ async function init() {
   try {
     // activate codex
     let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
     });
 
     await codex.activate();
@@ -39,7 +39,10 @@ async function test(schema) {
     logger.verbose('=== ' + schema);
 
     // recall engram definition
-    let results = await Storage.codex.recall(schema);
+    let results = await Storage.codex.recall({
+      domain: 'foo',
+      name: schema
+    });
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.resultCode !== 0) {

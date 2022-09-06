@@ -21,7 +21,7 @@ async function init() {
   try {
     // activate codex
     let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!name"
+      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
     });
 
     await codex.activate();
@@ -69,6 +69,7 @@ async function alias(alias, smt_name) {
 
     // store alias entry
     let entry = {
+      domain: "foo",
       name: alias,
       type: "alias",
       title: alias,

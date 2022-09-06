@@ -24,7 +24,7 @@ async function init() {
   try {
     // activate codex
     let codex = new Storage.Codex({
-      smt: "memory|dictadata|codex|!name"
+      smt: "memory|dictadata|codex|!domain+'_'+name"
     });
 
     await codex.activate();

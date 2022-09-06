@@ -50,7 +50,7 @@ module.exports = exports = class Codex {
           junctionOptions.encoding = codexEncoding;
         this._junction = await Cortex.activate(options.smt, junctionOptions);
 
-        // attempt to create accounts schema
+        // attempt to create codex schema
         let results = await this._junction.createSchema();
         if (results.resultCode === 0) {
           logger.info("storage/codex: created schema, " + this._junction.smt.schema);
@@ -77,6 +77,19 @@ module.exports = exports = class Codex {
       await this._junction.relax();
   }
 
+  _getkey(pattern) {
+    let key = pattern; // assume typeof string
+
+    if (typeof key === "object") {
+      if (pattern.key)
+        key = pattern.key;
+      else
+        key = (pattern.domain) ? pattern.domain + '_' + pattern.name : pattern.name;
+    }
+
+    return key;
+  }
+
   /**
    *
    * @param {*} entry Engram or encoding object with codex properties
@@ -100,15 +113,15 @@ module.exports = exports = class Codex {
     }
 
     let encoding = (entry instanceof Engram) ? entry.encoding : entry;
-    let key = (encoding.domain) ? encoding.domain + encoding.name : encoding.name;
+    let key = this._getkey(encoding);
 
     // save in cache
     this._engrams.set(key, encoding);
 
     if (this._junction) {
       // save in source codex
-      results = await this._junction.store(encoding);
-      logger.verbose("storage/codex: " + encoding.name + ", " + results.resultCode);
+      results = await this._junction.store(encoding, { key: key });
+      logger.verbose("storage/codex: " + key + ", " + results.resultCode);
     }
 
     return results;
@@ -119,13 +132,12 @@ module.exports = exports = class Codex {
    * @param {*} name SMT name or ETL tract name
    * @returns
    */
-  async dull(name, options = {}) {
+  async dull(pattern) {
     let results = {
       resultCode: 0,
       resultText: "OK"
     };
-
-    let key = (options.domain) ? options.domain + name : name;
+    let key = this._getkey(pattern);
 
     if (this._engrams.has(key)) {
       // delete from cache
@@ -148,26 +160,26 @@ module.exports = exports = class Codex {
    * @param {*} name SMT name or ETL tract name
    * @returns
    */
-  async recall(name, options = {}) {
+  async recall(pattern, options = {}) {
     let results = {
       resultCode: 0,
       resultText: "OK",
       data: {}
     };
 
-    let key = (options.domain) ? options.domain + name : name;
+    let key = this._getkey(pattern);
 
     if (this._engrams.has(key)) {
       // entry has been cached
       let entry = this._engrams.get(key);
-      results.data[ name ] = entry;
+      results.data[ key ] = entry;
     }
     else if (this._junction) {
       // go to the source codex
       results = await this._junction.recall({ key: key });
       logger.verbose("storage/codex: recall, " + results.resultCode);
 
-      if (options.resolve_alias && results.resultCode === 0) {
+      if (options.resolve && results.resultCode === 0) {
         // check for alias smt
         let encoding = results.data[ name ];
         if (encoding.type === "alias") {
@@ -178,7 +190,7 @@ module.exports = exports = class Codex {
         }
       }
 
-      if (results.resultCode === 0 && !options.resolve_alias) {
+      if (results.resultCode === 0 && !options.resolve) {
         // cache entry definition
         let encoding = results.data[ name ];
         if (name === encoding.name) // double check it wasn't an alias lookup

@@ -1,5 +1,6 @@
 {
   "name": "foo_schema",
+  "domain": "foo",
   "type": "engram",
   "title": "foo_schema encoding",
   "description": "test input for foo_schema encoding",
