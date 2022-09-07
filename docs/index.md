@@ -2,19 +2,29 @@
 
 ---
 
+## Core Functionality
+
+* [Storage Cortex](cortex.md)
+* [Codex Data Directory and Schema Definitions](codex.md)
+* [Plugins - FileSystem and StorageJunction](plugins.md)
+
 ## Core Data Types
 
 * [SMT (Storage Memory Trace)](smt.md)
-* [Engram](engram.md)
-* [Field](field.md)
 * [StorageJunction](storage-junction.md)
 * [StorageFileSystem](storage-filesystem.md)
-* [Transforms](transforms.md)
+* [Engram](engram.md)
+* [Field](field.md)
 * [Types](types.md)
-* [Patterns](patterns.md)
+* [Pattern Parameter](patterns.md)
+
+## Data Transforms
+
+* [Transforms](transforms.md)
 
 ## Storage Junctions
 
+* [StorageJunction](storage-junction.md)
 * [CSVJunction](csv-junction.md)
 * [EchoJunction](echo-junction.md)
 * [ElasticSearchJunction](elasticsearch-junction.md)
@@ -28,11 +38,16 @@
 
 ## File Systems
 
+* [StorageFileSystem](storage-filesystem.md)
 * [FSFileSystem](fs-filesystem.md)
 * [FTPFileSystem](ftp-filesystem.md)
 * [HTTPFileSystem](http-filesystem.md)
 * [S3FileSystem](s3-filesystem.md)
 * [ZipFileSystem](zip-filesystem.md)
+
+## examples
+
+* [Codify](examples/codify.md)
 
 ---
 

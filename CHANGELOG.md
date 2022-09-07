@@ -1,21 +1,23 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.4.0
+  - feature: smt_id used as key for codex directory
 - version 2.3.4
   - refactor: add domain and roles to codex entry
 - version 2.3.3
   - update: Codex.store() validate entry's name and type
   - refactor: add source and notes to codex entry, remove alias_smt
 - version 2.3.2
-  - implement: full-text search pattern syntax and elasticsearch-junction
+  - feature: full-text search pattern syntax and elasticsearch-junction
 - version 2.3.1
   - update: CsvJunction supports other delimited files
   - update: CsvJunction check input for BOM character
   - update: match field expression, support array values (OR); { field: [value, ...] }
   - testing: compare .csv and .txt files line-by-line
 - version 2.3.0
-  - implement: new AdjoinTransform for injecting fields via table/map lookup
-  - implement: CsvJunction and JsonJunction retrieve()
-  - implement: URL template string style replacement for RestJunction, ConjoinTransform
+  - feature: new AdjoinTransform for injecting fields via table/map lookup
+  - feature: CsvJunction and JsonJunction retrieve()
+  - feature: URL template string style replacement for RestJunction, ConjoinTransform
   - refactor: StorageEncoder base class for filesystem based streams for cast, filter, select functions
   - refactor: use StorageEncoder for CsvReader, JsonReader
   - refactor: make junction.createTransform() an async function

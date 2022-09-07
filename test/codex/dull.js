@@ -49,8 +49,8 @@ async function test(domain, schema) {
   await init();
 
   if (await test("", "foo_schema_two")) return 1;
-  //if (await test("", "foo_schema")) return 1;
-  //if (await test("", "foo:foo_schema")) return 1;
+  //if (await test("", "foo_alias")) return 1;
+  //if (await test("", "foo:foo_alias")) return 1;
 
   await Storage.codex.relax();
 

@@ -1,18 +1,30 @@
 # @dictadata/storage-junctions Programming Guide
 
-* [codify](codify.md)
-* [download](download.md)
-* [dull](dull.md)
-* [encoding](encoding.md)
-* [list](list.md)
-* [recall](recall.md)
-* [retrieve](retrieve.md)
-* [scan](scan.md)
+## Accessing Data
+
 * [store](store.md)
-* [tee](tee.md)
-* [timeseries](timeseries.md)
+* [recall](recall.md)
+* [dull](dull.md)
+* [retrieve](retrieve.md)
+
+## Working with Schemas
+
+* [encodings](encodings.md)
+* [codify](codify.md)
+
+## Data Transfers
+
 * [transfer](transfer.md)
+* [tee](tee.md)
+
+## Data Transforms
+
 * [transforms](transforms.md)
+
+## Copying Files
+
+* [list](list.md)
+* [download](download.md)
 * [upload](upload.md)
 
 ---
