@@ -12,7 +12,7 @@
     "model": "*",
     "locus": "*",
     "schema": "dicta_codex",
-    "key": "!domain+'_'+name"
+    "key": "!domain+'/'+name"
   },
   "fields": [
     {

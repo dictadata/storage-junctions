@@ -23,10 +23,7 @@ logger.info("=== Tests: codex in-memory encodings");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex({
-      smt: "memory|dictadata|codex|!domain+'_'+name"
-    });
-
+    let codex = new Storage.Codex("memory|dictadata|codex|*");
     await codex.activate();
     Storage.codex = codex;
   }
@@ -46,23 +43,28 @@ async function test(schema) {
     encoding.name = schema;
 
     let entry = new Engram(encoding);
-
     let results = await Storage.codex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding
-    results = await Storage.codex.recall(schema);
+    let smt_id = entry.smt_id;
+    results = await Storage.codex.recall(smt_id);
     logger.verbose("recall: " + results.resultText);
-    encoding = results.data[ schema ];
 
-    let outputfile = "./data/output/codex/" + schema + ".encoding.json";
-    logger.verbose("output file: " + outputfile);
-    fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-    fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+    if (results.resultCode === 0) {
+      encoding = results.data[ smt_id ];
 
-    // compare to expected output
-    let expected_output = outputfile.replace("output", "expected");
-    retCode = _compare(expected_output, outputfile, true);
+      let outputfile = "./data/output/codex/" + schema + ".encoding.json";
+      logger.verbose("output file: " + outputfile);
+      fs.mkdirSync(path.dirname(outputfile), { recursive: true });
+      fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+
+      // compare to expected output
+      let expected_output = outputfile.replace("output", "expected");
+      retCode = _compare(expected_output, outputfile, true);
+    }
+    else
+      retCode = results.resultCode;
   }
   catch (err) {
     logger.error(err);

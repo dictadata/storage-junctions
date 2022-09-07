@@ -13,7 +13,7 @@
     "model": "*",
     "locus": "*",
     "schema": "dicta_tracts",
-    "key": "!domain+'_'+name"
+    "key": "!domain+'/'+name"
   },
   "fields": [
     {

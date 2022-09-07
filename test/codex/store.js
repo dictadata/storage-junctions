@@ -11,19 +11,14 @@
 const Storage = require("../../storage");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
-
 const fs = require('fs');
-const { allowedNodeEnvironmentFlags } = require("process");
 
 logger.info("=== Tests: codex store");
 
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
-    });
-
+    let codex = new Storage.Codex("elasticsearch|http://localhost:9200/|dicta_codex|*");
     await codex.activate();
     Storage.codex = codex;
   }

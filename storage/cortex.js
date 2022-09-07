@@ -52,11 +52,11 @@ class Cortex {
     if (!options) options = {};
 
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex._codex) {
-      // lookup SMT name in codex
+      // lookup SMT_ID in codex
       let results = await Cortex._codex.recall({
-        name: smt,
-        domain: options.domain
-      }, {
+        match: {
+          key: smt
+        },
         resolve: true
       });
       if (results.resultCode !== 0)

@@ -20,10 +20,7 @@ logger.info("=== Tests: codex recall");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
-    });
-
+    let codex = new Storage.Codex("elasticsearch|http://localhost:9200/|dicta_codex|*");
     await codex.activate();
     Storage.codex = codex;
   }
@@ -32,24 +29,22 @@ async function init() {
   }
 }
 
-async function test(schema) {
+async function test(domain, schema) {
   let retCode = 0;
 
   try {
     logger.verbose('=== ' + schema);
 
     // recall engram definition
-    let results = await Storage.codex.recall({
-      domain: 'foo',
-      name: schema
-    });
+    let results = await Storage.codex.recall({ domain: domain, name: schema });
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.resultCode !== 0) {
       retCode = results.resultCode;
     }
     else {
-      let encoding = results.data[ schema ];
+      let smt_id = Object.keys(results.data)[ 0 ];
+      let encoding = results.data[ smt_id ];
 
       let outputfile = "./data/output/codex/recall_" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
@@ -72,11 +67,11 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema"))
+  if (await test("foo", "foo_schema"))
     return 1;
-  if (await test("foo_alias"))
+  if (await test("foo", "foo_alias"))
     return 1;
-  if (await test("bad_smt_name"))
+  if (await test("", "bad_smt_name"))
     process.exitCode = 0;
   else
     return 1;

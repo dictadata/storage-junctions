@@ -219,7 +219,7 @@ module.exports = exports = class Engram extends Entry {
     let keys = [];
 
     if (this.keyof === 'primary' || this.keyof === 'key') {
-      // get keys froms in smt.key definition
+      // get keys from smt.key definition
       //   |.|.|.|=name1+name2+...
       //   |.|.|.|!name1+name2+...
       keys = this.smt.key.substring(1).split('+');

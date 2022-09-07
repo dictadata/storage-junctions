@@ -36,4 +36,11 @@ module.exports = exports = class Entry {
     if (options.tags) this.tags = options.tags;
   }
 
+  get smt_id() {
+    if (this.domain)
+      return this.domain + "/" + this.name;
+    else
+      return this.name;
+  }
+
 };

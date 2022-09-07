@@ -20,10 +20,7 @@ var encoding;
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
-    });
-
+    let codex = new Storage.Codex("elasticsearch|http://localhost:9200/|dicta_codex|*");
     await codex.activate();
     Storage.codex = codex;
 

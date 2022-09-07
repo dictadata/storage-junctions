@@ -15,10 +15,7 @@ logger.info("=== Tests: codex dull");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex({
-      smt: "elasticsearch|http://localhost:9200/|dicta_codex|!domain+'_'+name"
-    });
-
+    let codex = new Storage.Codex("elasticsearch|http://localhost:9200/|dicta_codex|*");
     await codex.activate();
     Storage.codex = codex;
   }
@@ -27,14 +24,14 @@ async function init() {
   }
 }
 
-async function test(schema) {
+async function test(domain, schema) {
   let retCode = 0;
 
   try {
     logger.verbose('=== ' + schema);
 
     // dull encoding
-    let results = await Storage.codex.dull(schema);
+    let results = await Storage.codex.dull({ domain: domain, name: schema });
     logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
@@ -51,7 +48,9 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema_two")) return 1;
+  if (await test("", "foo_schema_two")) return 1;
+  //if (await test("", "foo_schema")) return 1;
+  //if (await test("", "foo:foo_schema")) return 1;
 
   await Storage.codex.relax();
 
