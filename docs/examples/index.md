@@ -11,6 +11,7 @@
 
 * [encodings](encodings.md)
 * [codify](codify.md)
+* [codex](codex.md)
 
 ## Data Transfers
 
