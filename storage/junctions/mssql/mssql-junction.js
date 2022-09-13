@@ -44,16 +44,6 @@ class MSSQLJunction extends StorageJunction {
     super(smt, options);
     logger.debug("MSSQLJunction");
 
-    // parse database connection string into options
-    let pairs = this.smt.locus.split(';');
-    for (let i = 0; i < pairs.length; i++) {
-      let kv = pairs[ i ].split('=');
-
-      // constructor options take precedence
-      if (!this.options[ kv[ 0 ] ])
-        this.options[ kv[ 0 ] ] = kv[ 1 ];
-    }
-
     if (this.options.stringBreakpoints)
       Object.assign(encoder.stringBreakpoints, this.options.stringBreakpoints);
 
@@ -64,8 +54,7 @@ class MSSQLJunction extends StorageJunction {
     return new Promise(async (resolve, reject) => {
       logger.debug("MSSQLJunction.activate");
 
-      let options = this.options;
-      var config = sqlEncoder.connectionConfig(this.options);
+      var config = sqlEncoder.connectionConfig(this.smt, this.options);
       this.connection = new tedious.Connection(config);
 
       this.connection.connect(async (err) => {
@@ -74,7 +63,7 @@ class MSSQLJunction extends StorageJunction {
           reject(err);
         } else {
           this.isActive = true;
-          if (options.bulkLoad) {
+          if (this.options.bulkLoad) {
             this.connection.beginTransaction((err) => {
               if (err) {
                 logger.error(err);

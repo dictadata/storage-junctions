@@ -44,16 +44,6 @@ class MySQLJunction extends StorageJunction {
     super(smt, options);
     logger.debug("MySQLJunction");
 
-    // parse database connection string into options
-    // "host=address;user=name;password=secret;database=name;..."
-    // options passed in constructor take precedence
-    let pairs = this.smt.locus.split(';');
-    for (let i = 0; i < pairs.length; i++) {
-      let kv = pairs[ i ].split('=');
-      if (!this.options[ kv[ 0 ] ])
-        this.options[ kv[ 0 ] ] = kv[ 1 ];
-    }
-
     if (this.options.stringBreakpoints)
       Object.assign(encoder.stringBreakpoints, this.options.stringBreakpoints);
   }
@@ -63,15 +53,8 @@ class MySQLJunction extends StorageJunction {
     logger.debug("MySQLJunction activate");
 
     try {
-      this.pool = mysql.createPool({
-        connectionLimit: this.options.connectionLimit || 8,
-        host: this.options.host || 'localhost',
-        user: this.options.user || 'root',
-        password: this.options.password || '',
-        database: this.options.database || '',
-        charset: this.options.charset || 'utf8mb4',
-        timezone: this.options.timezone || 'Z'
-      });
+      let config = sqlEncoder.connectionConfig(this.smt, this.options);
+      this.pool = mysql.createPool(config);
 
       this.pool.query = util.promisify(this.pool.query);
       this.pool.end = util.promisify(this.pool.end);

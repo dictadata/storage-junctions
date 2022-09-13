@@ -6,6 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
+const auth_stash = require("../auth-stash");
 
 const fs = require('fs');
 const path = require('path');
@@ -62,6 +63,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         method: 'GET',
         base: this.url.origin,
       }, options.http);
+
+      if (!req_config.auth && auth_stash.has(this.url.origin)) {
+        let auth = auth_stash.recall(this.url);
+        req_config.auth = auth.username + ":" + auth.password;
+      }
 
       req_config.headers = Object.assign({},
         this._headers,
@@ -191,6 +197,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
+      if (!req_config.auth && auth_stash.has(this.url.origin)) {
+        let auth = auth_stash.recall(this.url);
+        req_config.auth = auth.username + ":" + auth.password;
+      }
+
       req_config.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
@@ -257,6 +268,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
+      if (!req_config.auth && auth_stash.has(this.url.origin)) {
+        let auth = auth_stash.recall(this.url);
+        req_config.auth = auth.username + ":" + auth.password;
+      }
+
       req_config.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
@@ -311,6 +327,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         base: this.url.href,
         responseType: "stream"
       }, options.http);
+
+      if (!req_config.auth && auth_stash.has(this.url.origin)) {
+        let auth = auth_stash.recall(this.url);
+        req_config.auth = auth.username + ":" + auth.password;
+      }
+
       // headers set below from HTML form data
 
       // smt.locus is source folder

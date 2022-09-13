@@ -8,21 +8,31 @@ const sqlString = require('tsqlstring');
 const { StorageError } = require('../../types');
 const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../utils');
 
-exports.connectionConfig = (options) => {
+exports.connectionConfig = (smt, options) => {
+
+  // parse database connection string
+  // "server=address;userName=name;password=secret;database=name;..."
+  let conn = {};
+  let pairs = smt.locus.split(';');
+  for (let i = 0; i < pairs.length; i++) {
+    let kv = pairs[ i ].split('=');
+    if (!conn[ kv[ 0 ] ])
+      conn[ kv[ 0 ].toLowerCase() ] = kv[ 1 ];
+  }
 
   var config = {
-    server: options.server || 'localhost',
+    server: conn.server || 'localhost',
     authentication: {
       type: "default",
       options: {
-        userName: options.userName || options.username || 'root',
-        password: options.password || ''
+        userName: (conn && conn.username) || (options.auth && options.auth.username) || 'root',
+        password: (conn && conn.password) || (options.auth && options.auth.password) || ''
       }
     },
     options: {
       encrypt: false,
-      appName: options.appName || 'mssql-junction',
-      database: options.database || '',
+      appName: conn.appName || 'mssql-junction',
+      database: conn.database || '',
       useColumnNames: true,
       validateBulkLoadParameters: true,
       trustServerCertificate: false

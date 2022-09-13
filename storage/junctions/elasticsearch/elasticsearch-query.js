@@ -32,6 +32,7 @@ module.exports = exports = class ElasticQuery {
 
     this.elasticOptions = {
       node: options.node,
+      auth: options.auth || {},
       apiVersion: "7.x",
       log: options.log || "warning"
     };

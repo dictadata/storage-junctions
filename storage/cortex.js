@@ -10,6 +10,7 @@
 "use strict";
 
 const { SMT, StorageError } = require("./types");
+const auth_stash = require("./auth-stash");
 //const { typeOf, hasOwnProperty } = require("./utils");
 
 class Cortex {
@@ -51,6 +52,7 @@ class Cortex {
     let _smt = {};
     if (!options) options = {};
 
+    // lookup/verify SMT object
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex._codex) {
       // lookup SMT_ID in codex
       let results = await Cortex._codex.recall({
@@ -74,6 +76,12 @@ class Cortex {
       _smt = new SMT(smt);
     }
 
+    // check for auth options
+    if (!options.auth && auth_stash.has(_smt.locus)) {
+      options[ "auth" ] = auth_stash.recall(_smt.locus);
+    }
+
+    // create the junction
     if (Cortex._storageJunctions.has(_smt.model)) {
       let junctionClass = Cortex._storageJunctions.get(_smt.model);
       let junction = new junctionClass(_smt, options);

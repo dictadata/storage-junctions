@@ -6,6 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
+const auth_stash = require("../auth-stash");
 
 const fs = require('fs');
 const fsp = require('fs/promises');
@@ -43,12 +44,14 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     //console.log("activate");
     const ftpOptions = this.options.ftp || {};
 
+    let auth = auth_stash.recall(this.url);
+
     // connect to host
     await this._ftp.connect({
       host: this.url.host || "127.0.0.1",
       port: this.url.port || 21,
-      user: this.url.username || (this.smt.credentials && this.smt.credentials.user) || 'anonymous',
-      password: this.url.password || (this.smt.credentials && this.smt.credentials.password) || 'anonymous@dictadata',
+      user: this.url.username || auth.username || 'anonymous',
+      password: this.url.password || auth.password || 'anonymous@dictadata',
       secure: hasOwnProperty(ftpOptions, "secure") ? ftpOptions.secure : false
     });
 

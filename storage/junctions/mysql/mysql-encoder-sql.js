@@ -8,6 +8,30 @@ const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../uti
 const sqlString = require('sqlstring');
 const { escapeId } = require('tsqlstring');
 
+exports.connectionConfig = (smt, options) => {
+
+  // parse database connection string
+  // "host=address;user=name;password=secret;database=name;..."
+  let conn = {};
+  let pairs = smt.locus.split(';');
+  for (let i = 0; i < pairs.length; i++) {
+    let kv = pairs[ i ].split('=');
+    if (!conn[ kv[ 0 ] ])
+      conn[ kv[ 0 ].toLowerCase() ] = kv[ 1 ];
+  }
+
+  var config = {
+    connectionLimit: options.connectionLimit || 8,
+    host: conn.host || 'localhost',
+    user: conn.user || (options.auth && options.auth.username) || 'root',
+    password: conn.password || (options.auth && options.auth.password) || '',
+    database: conn.database || '',
+    charset: conn.charset || 'utf8mb4',
+    timezone: conn.timezone || 'Z'
+  };
+
+  return config;
+};
 
 function encodeValue(field, value) {
   let dt;

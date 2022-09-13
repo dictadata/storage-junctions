@@ -11,7 +11,7 @@ const { logger } = require('../../utils');
 
 const encoder = require("./elasticsearch-encoder");
 const dslEncoder = require("./elasticsearch-encoder-dsl");
-const ElasticQuery = require("./elasticsearch-client-query");
+const ElasticQuery = require("./elasticsearch-query");
 const fs = require('fs');
 const path = require('path');
 
@@ -55,6 +55,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     let queryOptions = {
       node: this.smt.locus,
+      auth: this.options.auth || {},
       index: this.smt.schema
     };
     if (this.options.refresh) {
