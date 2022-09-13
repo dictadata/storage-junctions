@@ -57,7 +57,7 @@ async function testDBTransform2() {
 
   if (await transfer({
     "origin": {
-      "smt": "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo",
+      "smt": "mysql|host=localhost;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
     "transform": {
@@ -126,13 +126,13 @@ async function forecastTransform(tract) {
 
   if (await testDBTransform1({
     terminal: {
-      smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_dbtransform|=foo"
+      smt: "mssql|server=localhost;database=storage_node|foo_dbtransform|=foo"
     }
   })) return;
 
   if (await testDBTransform1({
     terminal: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_dbtransform|=foo"
+      smt: "mysql|host=localhost;database=storage_node|foo_dbtransform|=foo"
     }
   })) return;
 
@@ -147,13 +147,13 @@ async function forecastTransform(tract) {
 
   if (await forecastTransform({
     terminal: {
-      smt: "mssql|server=localhost;username=dicta;password=data;database=storage_node|weather_forecast|*"
+      smt: "mssql|server=localhost;database=storage_node|weather_forecast|*"
     }
   })) return;
 
   if (await forecastTransform({
     terminal: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|weather_forecast|*"
+      smt: "mysql|host=localhost;database=storage_node|weather_forecast|*"
     }
   })) return;
 

@@ -14,8 +14,12 @@ async function test(schema, encoding) {
   logger.info("=== createSchema " + schema);
   if (await createSchema({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|" + schema + "|*",
+      smt: "mysql|host=localhost;database=storage_node|" + schema + "|*",
       options: {
+        auth: {
+          username: "dicta",
+          password: "data"
+        },
         encoding: "./data/input/" + encoding + ".encoding.json"
       }
     }
@@ -24,7 +28,7 @@ async function test(schema, encoding) {
   logger.info("=== dull (truncate) " + schema);
   if (await dull({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|" + schema + "|*"
+      smt: "mysql|host=localhost;database=storage_node|" + schema + "|*"
     }
   })) return 1;
 
@@ -35,7 +39,7 @@ async function test_lg() {
   logger.info("=== mysql large fields");
   if (await createSchema({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema_lg|*",
+      smt: "mysql|host=localhost;database=storage_node|foo_schema_lg|*",
       options: {
         encoding: "./data/input/foo_schema_lg.encoding.json",
         stringBreakpoints: {

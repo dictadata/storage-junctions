@@ -1,0 +1,6 @@
+###
+POST http://localhost:9200/_security/api_key
+
+{
+  "name": "my-api-key",
+}

@@ -42,7 +42,7 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "mssql|server=localhost;username=dicta;password=data;database=storage_node|foo_schema_etl2|*",
+      "smt": "mssql|server=localhost;database=storage_node|foo_schema_etl2|*",
       "options": {
         "encoding": "./data/input/foo_schema_t.encoding.json"
       }
@@ -52,7 +52,7 @@ async function tests() {
   logger.verbose('=== mssql > mssql_transform_0.json');
   if (await transfer({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -70,7 +70,7 @@ async function tests() {
   logger.verbose('=== mssql > mssql_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/input/foo_schema_01.encoding.json"
       }
@@ -111,7 +111,7 @@ async function tests() {
   logger.verbose('=== mssql > mssql_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/input/foo_schema_02.encoding.json"
       }

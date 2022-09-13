@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mssql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== mssql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_01|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/input/foo_schema_01.encoding.json"
       },
@@ -46,7 +46,7 @@ async function tests() {
   logger.info("=== mssql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema_02|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/input/foo_schema_02.encoding.json"
       },
@@ -64,7 +64,7 @@ async function tests() {
   logger.info("=== mssql retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 100
@@ -75,7 +75,7 @@ async function tests() {
   logger.info("=== mssql retrieve with pattern");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_transfer|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_transfer|*",
       pattern: {
         match: {
           "Foo": "first",

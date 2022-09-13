@@ -14,7 +14,7 @@ async function tests() {
   logger.info("=== mysql storeBulk");
   if (await storeBulk({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|foo_schema|=Foo"
+      smt: "mysql|host=localhost;database=storage_node|foo_schema|=Foo"
     },
     constructs: [{
       Foo: 'one-o-five',
@@ -44,7 +44,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|timeseries|*",
+      smt: "mysql|host=localhost;database=storage_node|timeseries|*",
       options: {
         bulkLoad: true
       }

@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mssql dull");
   if (await dull({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'one'

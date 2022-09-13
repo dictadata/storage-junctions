@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mssql recall");
   if (await recall({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|=Foo",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== mssql recall");
   if (await recall({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|foo_schema|*",
+      smt: "mssql|server=localhost;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           Foo: 'ten'

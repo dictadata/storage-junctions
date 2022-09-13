@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list");
   if (await list({
     origin: {
-      smt: "mssql|server=localhost;userName=dicta;password=data;database=storage_node|*|*",
+      smt: "mssql|server=localhost;database=storage_node|*|*",
       options: {
         schema: "foo*"
       }

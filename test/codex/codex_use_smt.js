@@ -37,7 +37,7 @@ async function test(smt_name) {
     logger.verbose('=== ' + smt_name);
 
     // create junction
-    let junction = await Storage.activate(smt_name);
+    let junction = await Storage.activate(smt_name, { auth: { "username": "dicta", password: "data" } });
 
     // retrieve codex entries
     let results = await junction.retrieve({

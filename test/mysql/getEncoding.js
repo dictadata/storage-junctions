@@ -13,7 +13,7 @@ async function test(schema, encoding) {
   logger.info("=== getEncoding " + schema);
   if (await getEncoding({
     origin: {
-      smt: "mysql|host=localhost;user=dicta;password=data;database=storage_node|" + schema + "|*"
+      smt: "mysql|host=localhost;database=storage_node|" + schema + "|*"
     },
     terminal: {
       output: "./data/output/mysql/" + encoding + ".encoding.json"
