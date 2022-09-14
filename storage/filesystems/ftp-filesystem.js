@@ -6,7 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
-const auth_stash = require("../auth-stash");
+const codex_auth = require("../codex-auth");
 
 const fs = require('fs');
 const fsp = require('fs/promises');
@@ -44,7 +44,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     //console.log("activate");
     const ftpOptions = this.options.ftp || {};
 
-    let auth = auth_stash.recall(this.url);
+    let auth = codex_auth.recall(this.url);
 
     // connect to host
     await this._ftp.connect({

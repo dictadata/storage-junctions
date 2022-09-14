@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.4.1
+  - feature: codex_auth for username/passwords, apiKey, etc.
 - version 2.4.0
   - feature: smt_id used as key for codex directory
 - version 2.3.4
