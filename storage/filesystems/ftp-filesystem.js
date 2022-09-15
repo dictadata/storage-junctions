@@ -6,16 +6,14 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
-const codex_auth = require("../codex-auth");
+const _auth = require("../auth-stash");
 
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
+const stream = require('stream');
 const zlib = require('zlib');
-
-const FTP = require("promise-ftp");
-const { PassThrough } = require('stream');
-const { finished } = require('stream/promises');
+const ftp = require("basic-ftp");
 
 
 module.exports = exports = class FTPFileSystem extends StorageFileSystem {
@@ -31,7 +29,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     super(smt, options);
     logger.debug("FTPFileSystem");
 
-    this._ftp = new FTP();
+    this._client = new ftp.Client();
+    //this._client.ftp.verbose = true;
 
     this._dirname = '';  // last local dir
     this._curdir = '';   // last ftp dir
@@ -44,10 +43,10 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     //console.log("activate");
     const ftpOptions = this.options.ftp || {};
 
-    let auth = codex_auth.recall(this.url);
+    let auth = _auth.recall(this.url);
 
     // connect to host
-    await this._ftp.connect({
+    await this._client.access({
       host: this.url.host || "127.0.0.1",
       port: this.url.port || 21,
       user: this.url.username || auth.username || 'anonymous',
@@ -65,7 +64,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   async relax() {
     if (this.isActive) {
       this.isActive = false;
-      await this._ftp.end();
+      this._client.close();
     }
   }
 
@@ -95,13 +94,13 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       // recursive scanner function
       // eslint-disable-next-line no-inner-declarations
-      let ftp = this._ftp;
+      let client = this._client;
       let readFolder = async (dirpath, relpath, options) => {
         logger.debug('readFolder');
 
         // get list
-        await ftp.cwd(dirpath + relpath);
-        let dirList = await ftp.list();
+        await client.cd(dirpath + relpath);
+        let dirList = await client.list();
 
         // process files in current folder
         for (let entry of dirList) {
@@ -152,8 +151,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let schema = options.schema || this.smt.schema;
       let filename = schema;
 
-      await this._ftp.cwd(decodeURI(this.url.pathname));
-      await this._ftp.delete(filename);
+      await this._client.cd(decodeURI(this.url.pathname));
+      await this._client.remove(filename);
 
       return new StorageResponse(0);
     }
@@ -175,14 +174,15 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options.schema || this.smt.schema;
-      let rs = null;
 
-      let filename = schema;
+      // ftp writes to passthrough and app reads from passthrough
+      let rs = new stream.PassThrough();
 
       // create the read stream
-      await this._ftp.cwd(decodeURI(this.url.pathname));
+      await this._client.cd(decodeURI(this.url.pathname));
 
-      rs = await this._ftp.get(filename);
+      let filename = schema;
+      await this._client.downloadTo(rs, filename);
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -212,23 +212,21 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options.schema || this.smt.schema;
-      let ws = false;
-
-      let filename = schema;
 
       // create the read stream
-      await this._walkCWD(decodeURI(this.url.pathname));
+      await this._client.ensureDir(decodeURI(this.url.pathname));
 
-      // create the write stream
-      ws = new PassThrough(); // app writes to passthrough and ftp reads from passthrough
+      // app writes to passthrough and ftp reads from passthrough
+      let ws = new stream.PassThrough();
 
+      let filename = schema;
       if (options.append) {
         this.isNewFile = false;  // should check for existence
-        ws.fs_ws_promise = this._ftp.append(ws, filename);
+        ws.fs_ws_promise = this._client.appendFrom(ws, filename);
       }
       else {
         this.isNewFile = true;
-        ws.fs_ws_promise = this._ftp.put(ws, filename);
+        ws.fs_ws_promise = this._client.uploadFrom(ws, filename);
       }
       // ws.fs_ws_promise is an added property. Used so that StorageWriters
       // using filesystems know when a transfer is complete.
@@ -278,15 +276,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
 
       // create the read stream
-      await this._ftp.cwd(wdPath);
-      let rs = await this._ftp.get(options.entry.name);
-
-      // save to local file
-      let ws = fs.createWriteStream(dest);
-
-      rs.pipe(ws);
-      await finished(rs);
-      await finished(ws);
+      await this._client.cd(wdPath);
+      await this._client.downloadTo(dest, options.entry.name);
 
       return new StorageResponse(resultCode);
     }
@@ -320,8 +311,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
       // upload file
       let wdPath = path.dirname(dest);
-      await this._walkCWD(wdPath);
-      await this._ftp.put(src, options.entry.name);
+      await this._client.ensureDir(wdPath);
+      await this._client.uploadFrom(src, options.entry.name);
 
       return new StorageResponse(resultCode);
     }
@@ -331,6 +322,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 
+/* not needed for basic-ftp
 
   async _walkCWD(path) {
     if (path === this._curdir)
@@ -357,7 +349,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
   async _cwd(path) {
     try {
-      await this._ftp.cwd(path);
+      await this._client.cd(path);
       return 0;
     }
     catch (err) {
@@ -367,12 +359,13 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
   async _mkdir(path) {
     try {
-      await this._ftp.mkdir(path);
+      await this._client.ensureDir(path);
       return 0;
     }
     catch (err) {
       return err.code;
     }
   }
-
+*/
+  
 };
