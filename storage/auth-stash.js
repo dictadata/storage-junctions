@@ -1,11 +1,11 @@
 /**
- * storage/codex_auth.js
+ * storage/auth_stash.js
  */
 "use strict";
 
 const fs = require('fs');
 
-var codex_auth = new Map();
+var _stash = new Map();
 
 function origin(key) {
   if (key instanceof URL)
@@ -19,30 +19,30 @@ function origin(key) {
 }
 
 exports.store = (key, auth) => {
-  return codex_auth.set(origin(key), auth);
+  return _stash.set(origin(key), auth);
 };
 
 exports.has = (key) => {
-  return codex_auth.has(origin(key));
+  return _stash.has(origin(key));
 };
 
 exports.recall = (key) => {
-  return codex_auth.get(origin(key));
+  return _stash.get(origin(key));
 };
 
 exports.dull = (key) => {
-  return codex_auth.dull(origin(key));
+  return _stash.dull(origin(key));
 };
 
 exports.load = (filename) => {
-  var data = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+  var data = JSON.parse(fs.readFileSync(filename, 'utf8'));
   for (let [ key, value ] of Object.entries(data))
-    codex_auth.set(key, value);
+    _stash.set(key, value);
 };
 
 exports.save = (filename) => {
   let data = {};
-  for (let [ key, value ] of codex_auth.entries())
+  for (let [ key, value ] of _stash.entries())
     data[ key ] = value;
-  fs.writeFileSync(filename, JSON.stringify(data, null, 2));
+  fs.writeFileSync(filename, JSON.stringify(data, null, 2), "utf8");
 };

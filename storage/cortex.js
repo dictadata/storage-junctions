@@ -10,10 +10,17 @@
 "use strict";
 
 const { SMT, StorageError } = require("./types");
-const codex_auth = require("./codex-auth");
+const auth_stash = require("./auth-stash");
 //const { typeOf, hasOwnProperty } = require("./utils");
 
 class Cortex {
+
+  /**
+   * auth
+   */
+  static get authStash() {
+    return auth_stash;
+  }
 
   /**
    * Codex
@@ -77,8 +84,8 @@ class Cortex {
     }
 
     // check for auth options
-    if (!options.auth && codex_auth.has(_smt.locus)) {
-      options[ "auth" ] = codex_auth.recall(_smt.locus);
+    if (!options.auth && auth_stash.has(_smt.locus)) {
+      options[ "auth" ] = auth_stash.recall(_smt.locus);
     }
 
     // create the junction
@@ -173,6 +180,7 @@ class FileSystems {
 // Cortex static properties
 Cortex._codex = null;
 
+// Junction static properties
 Cortex._storageJunctions = new Map();
 
 // Transforms static properties

@@ -17,7 +17,6 @@ module.exports = exports = Storage;
 //////////
 ///// Codex class
 exports.Codex = require("./codex");
-exports.Auth = require("./codex-auth");
 
 //////////
 ///// register Storage FileSystems
