@@ -6,8 +6,9 @@
       "name": "local storage_node",
       "password": "dicta",
       "port": 3306,
-      "server": "localhost",
+      "server": "dev.dictadata.org",
       "username": "dicta"
     }
-  ]
+  ],
+  "editor.formatOnSaveMode": "file"
 }
