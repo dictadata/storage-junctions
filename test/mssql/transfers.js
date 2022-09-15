@@ -13,7 +13,7 @@ async function tests() {
 
   logger.info("=== dullSchema foo_transfer");
   if (await dullSchema({
-    smt: "mssql|server=localhost;database=storage_node|foo_transfer|*"
+    smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_transfer|*"
   })) return 1;
 
   logger.info("=== foofile.csv > mssql");
@@ -25,7 +25,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
     }
   })) return 1;
 
@@ -35,7 +35,7 @@ async function tests() {
       smt: "json|./data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema_01|=Foo",
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema_01|=Foo",
       options: {
         encoding: "./data/input/foo_schema_01.encoding.json"
       }
@@ -48,7 +48,7 @@ async function tests() {
       smt: "json|./data/input/|foofile_02.json|*"
     },
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema_02|=Foo",
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema_02|=Foo",
       options: {
         encoding: "./data/input/foo_schema_02.encoding.json"
       }
@@ -58,17 +58,17 @@ async function tests() {
   logger.info("=== mssql > mssql foo_transfer");
   if (await transfer({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
     },
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|foo_transfer|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_transfer|=Foo"
     }
   })) return 1;
 
   logger.info("=== mssql > mssql_transfer.csv");
   if (await transfer({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_transfer|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_transfer|=Foo"
     },
     terminal: {
       smt: "csv|./data/output/mssql/|transfer.csv|*",

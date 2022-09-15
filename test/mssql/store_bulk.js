@@ -14,7 +14,7 @@ async function tests() {
   logger.info("=== mssql storeBulk");
   if (await storeBulk({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
     },
     constructs: [{
       Foo: 'one-o-five',
@@ -44,7 +44,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|timeseries|*",
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|timeseries|*",
       options: {
         bulkLoad: true
       }

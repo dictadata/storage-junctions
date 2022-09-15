@@ -16,7 +16,7 @@ async function tests() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!"
     },
     construct: {
       Foo: '50',
@@ -29,14 +29,14 @@ async function tests() {
   logger.info("=== elasticsearch recall uid");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|" + keyValues.uid
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|" + keyValues.uid
     }
   })) return 1;
 
   logger.info("=== elasticsearch recall !");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!",
       pattern: {
         key: keyValues.uid
       }
@@ -46,7 +46,7 @@ async function tests() {
   logger.info("=== elasticsearch recall uid");
   if (await dull({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|" + keyValues.uid
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|" + keyValues.uid
     }
   })) return 1;
 

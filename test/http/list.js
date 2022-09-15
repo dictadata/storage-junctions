@@ -13,7 +13,7 @@ async function testIIS() {
   logger.info("=== IIS get list of foo files (forEach)");
   if (await list({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|foofile*.json|*",
+      smt: "*|http://dev.dictadata.org/data/dictadata.org/test/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -30,7 +30,7 @@ async function testIIS() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://localhost/data/dictadata.org/test/input/",
+        locus: "http://dev.dictadata.org/data/dictadata.org/test/input/",
         schema: "*.encoding.json",
         key: "*"
       },

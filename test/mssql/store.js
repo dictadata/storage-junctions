@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mssql store one");
   if (await store({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
     },
     construct: {
       Foo: 'one',
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== mssql store twenty");
   if (await store({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo",
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -43,7 +43,7 @@ async function tests() {
   logger.info("=== mssql store 30");
   if (await store({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo",
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -56,7 +56,7 @@ async function tests() {
   logger.info("=== mssql store ten");
   if (await store({
     origin: {
-      smt: "mssql|server=localhost;database=storage_node|foo_schema|=Foo",
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
     },
     construct: {
       Foo: 'ten',

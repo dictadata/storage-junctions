@@ -22,7 +22,7 @@ exports.connectionConfig = (smt, options) => {
 
   var config = {
     connectionLimit: options.connectionLimit || 8,
-    host: conn.host || 'localhost',
+    host: conn.host || 'dev.dictadata.org',
     user: conn.user || (options.auth && options.auth.username) || 'root',
     password: conn.password || (options.auth && options.auth.password) || '',
     database: conn.database || '',

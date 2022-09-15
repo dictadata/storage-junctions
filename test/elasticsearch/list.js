@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list");
   if (await list({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|*|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|*|*",
       options: {
         schema: "foo*"
       }

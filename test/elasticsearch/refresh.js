@@ -16,7 +16,7 @@ async function noRefresh() {
   let junction;
   try {
     logger.info("=== elasticsearch store");
-    let smt = "elasticsearch|http://localhost:9200|foo_schema|!Foo";
+    let smt = "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo";
     junction = await Storage.activate(smt);
 
     let construct = {
@@ -69,7 +69,7 @@ async function withRefresh() {
   let junction;
   try {
     logger.info("=== elasticsearch store");
-    let smt = "elasticsearch|http://localhost:9200|foo_schema|!Foo";
+    let smt = "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo";
     junction = await Storage.activate(smt, { refresh: true });
 
     let construct = {

@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== elasticsearch_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -32,7 +32,7 @@ async function tests() {
   logger.verbose('=== elasticsearch_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_01|*"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_01|*"
     },
     transform: {
       "filter": {

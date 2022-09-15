@@ -6,7 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
-const codex_auth = require("../codex-auth");
+const _auth = require("../auth-stash");
 
 const fs = require('fs');
 const path = require('path');
@@ -64,8 +64,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         base: this.url.origin,
       }, options.http);
 
-      if (!req_config.auth && codex_auth.has(this.url)) {
-        let auth = codex_auth.recall(this.url);
+      if (!req_config.auth && _auth.has(this.url)) {
+        let auth = _auth.recall(this.url);
         req_config.auth = auth.username + ":" + auth.password;
       }
 
@@ -197,8 +197,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && codex_auth.has(this.url)) {
-        let auth = codex_auth.recall(this.url);
+      if (!req_config.auth && _auth.has(this.url)) {
+        let auth = _auth.recall(this.url);
         req_config.auth = auth.username + ":" + auth.password;
       }
 
@@ -268,8 +268,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && codex_auth.has(this.url)) {
-        let auth = codex_auth.recall(this.url);
+      if (!req_config.auth && _auth.has(this.url)) {
+        let auth = _auth.recall(this.url);
         req_config.auth = auth.username + ":" + auth.password;
       }
 
@@ -328,8 +328,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && codex_auth.has(this.url)) {
-        let auth = codex_auth.recall(this.url);
+      if (!req_config.auth && _auth.has(this.url)) {
+        let auth = _auth.recall(this.url);
         req_config.auth = auth.username + ":" + auth.password;
       }
 

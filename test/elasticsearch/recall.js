@@ -13,7 +13,7 @@ async function keystore() {
   logger.info("=== elasticsearch recall");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo",
       pattern: {
         key: 'twenty'
       }
@@ -26,7 +26,7 @@ async function keystore() {
   logger.info("=== elasticsearch recall ks");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!",
       pattern: {
         key: 'twenty'
       }
@@ -43,7 +43,7 @@ async function primarykey() {
   logger.info("=== elasticsearch recall");
   if (await recall({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|=Foo",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'

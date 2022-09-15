@@ -20,7 +20,7 @@ var encoding;
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://localhost:9200/|dicta_codex|*");
+    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.org:9200/|dicta_codex|*");
     await codex.activate();
     Storage.codex = codex;
 
@@ -93,13 +93,13 @@ async function addAlias(alias, smt_name) {
     return 1;
   if (await test(
     "elasticsearch-foo_schema",
-    "elasticsearch|http://localhost:9200|foo_schema|!Foo"))
+    "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo"))
     return 1;
   if (await test("mssql-foo_schema",
-    "mssql|server=localhost;database=storage_node|foo_schema|=Foo"))
+    "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|=Foo"))
     return 1;
   if (await test("mysql-foo_schema",
-    "mysql|host=localhost;database=storage_node|foo_schema|=Foo"))
+    "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo"))
     return 1;
 
   if (await addAlias("elasticsearch-foo_alias", "elasticsearch-foo_schema"))

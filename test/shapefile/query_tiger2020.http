@@ -1,5 +1,5 @@
-POST http://localhost:9200/tl_2020_us_state/_search
-content-type: application/json; charset=UTF-8
+POST http://dev.dictadata.org:9200/tl_2020_us_state/_search
+content-type: application/json; charset=utf-8
 
 {
   "query": {
@@ -14,8 +14,8 @@ content-type: application/json; charset=UTF-8
 }
 
 ### geojson documents containing point
-POST http://localhost:9200/tl_2020_us_state/_search
-content-type: application/json; charset=UTF-8
+POST http://dev.dictadata.org:9200/tl_2020_us_state/_search
+content-type: application/json; charset=utf-8
 
 {
   "query": {
@@ -39,8 +39,8 @@ content-type: application/json; charset=UTF-8
 }
 
 ### find county for geojson coordinates
-POST http://localhost:9200/tl_2020_us_state/_search
-content-type: application/json; charset=UTF-8
+POST http://dev.dictadata.org:9200/tl_2020_us_state/_search
+content-type: application/json; charset=utf-8
 
 {
   "query": {

@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql aggregate");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -33,7 +33,7 @@ async function tests() {
   logger.info("=== mysql aggregate summary");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -57,7 +57,7 @@ async function tests() {
   logger.info("=== mysql aggregate w/ groupby");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

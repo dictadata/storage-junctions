@@ -12,7 +12,7 @@ async function test(schema, encoding) {
 
   logger.info("=== dullSchema" + schema);
   if (await dullSchema({
-    smt: "mysql|host=localhost;database=storage_node|" + schema + "|*"
+    smt: "mysql|host=dev.dictadata.org;database=storage_node|" + schema + "|*"
   })) return 1;
 
 }

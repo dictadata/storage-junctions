@@ -1,5 +1,5 @@
 ### simple query
-POST http://localhost:9200/foo_schema/_search
+POST http://dev.dictadata.org:9200/foo_schema/_search
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### query with AND/OR operator
-POST http://localhost:9200/foo_schema/_search
+POST http://dev.dictadata.org:9200/foo_schema/_search
 Content-Type: application/json
 
 {
@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### query a phrase
-POST http://localhost:9200/foo_schema/_search
+POST http://dev.dictadata.org:9200/foo_schema/_search
 Content-Type: application/json
 
 {
@@ -60,7 +60,7 @@ Content-Type: application/json
 }
 
 ### query multiple fields
-POST http://localhost:9200/foo_schema/_search
+POST http://dev.dictadata.org:9200/foo_schema/_search
 Content-Type: application/json
 
 {
@@ -81,7 +81,7 @@ Content-Type: application/json
 }
 
 ### query multiple fields
-POST http://localhost:9200/dicta_codex/_search
+POST http://dev.dictadata.org:9200/dicta_codex/_search
 Content-Type: application/json
 
 {

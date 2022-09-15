@@ -13,7 +13,7 @@ async function downloads_IIS() {
   logger.info("=== IIS download foo files");
   if (await getFiles({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|foofile*.json|*",
+      smt: "*|http://dev.dictadata.org/data/dictadata.org/test/input/|foofile*.json|*",
     },
     terminal: {
       smt: "*|./data/output/http/IIS/|*|*",
@@ -23,7 +23,7 @@ async function downloads_IIS() {
   logger.info("=== IIS download encoding files");
   if (await getFiles({
     origin: {
-      smt: "*|http://localhost/data/dictadata.org/test/input/|*.encoding.json|*",
+      smt: "*|http://dev.dictadata.org/data/dictadata.org/test/input/|*.encoding.json|*",
       options: {
         recursive: true
       }

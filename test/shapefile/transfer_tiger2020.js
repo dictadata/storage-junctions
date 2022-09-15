@@ -32,7 +32,7 @@ async function transfer2() {
       "smt": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
-      "smt": "elastic|http://localhost:9200/|tl_2020_us_state|*",
+      "smt": "elastic|http://dev.dictadata.org:9200/|tl_2020_us_state|*",
       "options": {
         "encoding": "./data/input/shapes/tl_YYYY_us_state.encoding.json"
       }
@@ -46,7 +46,7 @@ async function transfer3() {
   logger.verbose("=== Transfer Elasticsearch to GeoJSON");
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://localhost:9200/|tl_2020_us_state|*"
+      "smt": "elastic|http://dev.dictadata.org:9200/|tl_2020_us_state|*"
     },
     "terminal": {
       "smt": "json|./data/output/shapefile/|tl_2020_us_state_elastic.json|*"

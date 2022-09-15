@@ -13,7 +13,7 @@ async function tests() {
 
   logger.info("=== dullSchema foo_transfer");
   if (await dullSchema({
-    smt: "mysql|host=localhost;database=storage_node|foo_transfer|*"
+    smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_transfer|*"
   })) return 1;
 
   logger.info("=== foofile.csv > mysql.foo_schema");
@@ -25,7 +25,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema|*"
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*"
     }
   })) return 1;
 
@@ -35,7 +35,7 @@ async function tests() {
       smt: "json|./data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema_01|=Foo",
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_01|=Foo",
       options: {
         encoding: "./data/input/foo_schema_01.encoding.json"
       }
@@ -48,7 +48,7 @@ async function tests() {
       smt: "json|./data/input/|foofile_02.json|*"
     },
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema_02|=Foo",
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_02|=Foo",
       options: {
         encoding: "./data/input/foo_schema_02.encoding.json"
       }
@@ -61,7 +61,7 @@ async function tests() {
       smt: "json|./data/input/|foofile_two.json|*"
     },
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema_two|*",
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_two|*",
       options: {
         encoding: "./data/input/foo_schema_two.encoding.json"
       }
@@ -71,17 +71,17 @@ async function tests() {
   logger.info("=== mysql.foo_schema > mysql.foo_transfer");
   if (await transfer({
     origin: {
-      smt: "mysql|host=localhost;database=storage_node|foo_schema|*"
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*"
     },
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|foo_transfer|*"
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_transfer|*"
     }
   })) return 1;
 
   logger.info("=== mysql.foo_transfer > mysql_transfer.csv");
   if (await transfer({
     origin: {
-      smt: "mysql|host=localhost;database=storage_node|foo_transfer|*"
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_transfer|*"
     },
     terminal: {
       smt: "csv|./data/output/mysql/|transfer.csv|*",

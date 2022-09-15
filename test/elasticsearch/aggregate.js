@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== elasticsearch aggregate");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -33,7 +33,7 @@ async function tests() {
   logger.info("=== elasticsearch aggregate summary");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -57,7 +57,7 @@ async function tests() {
   logger.info("=== elasticsearch aggregate w/ groupby");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

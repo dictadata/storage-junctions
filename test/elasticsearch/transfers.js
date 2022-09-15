@@ -13,7 +13,7 @@ async function tests() {
 
   logger.info("=== dullSchema foo_transfer");
   if (await dullSchema({
-    smt: "elasticsearch|http://localhost:9200|foo_transfer|*"
+    smt: "elasticsearch|http://dev.dictadata.org:9200|foo_transfer|*"
   })) return 1;
 
   logger.info("=== csv => elasticsearch");
@@ -25,7 +25,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo"
     }
   })) return 1;
 
@@ -35,7 +35,7 @@ async function tests() {
       smt: "json|./data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_j|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_j|!Foo"
     }
   })) return 1;
 
@@ -45,7 +45,7 @@ async function tests() {
       smt: "json|./data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_01|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_01|!Foo"
     }
   })) return 1;
 
@@ -55,24 +55,24 @@ async function tests() {
       smt: "json|./data/input/|foofile_02.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_02|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_02|!Foo"
     }
   })) return 1;
 
   logger.info("=== elasticsearch => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema|*"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*"
     },
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|foo_transfer|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_transfer|!Foo"
     }
   })) return 1;
 
   logger.info("=== elasticsearch => csv");
   if (await transfer({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_transfer|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_transfer|*",
       options: {
         order: { "Foo": "asc" }
       }
@@ -90,7 +90,7 @@ async function tests() {
   logger.info("=== elasticsearch => json");
   if (await transfer({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_j|!Foo",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_j|!Foo",
       options: {
         order: { "Foo": "asc" }
       }

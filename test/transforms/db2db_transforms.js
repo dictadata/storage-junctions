@@ -17,7 +17,7 @@ async function testDBTransform1(tract) {
 
   if (await transfer({
     "origin": {
-      "smt": "elasticsearch|http://localhost:9200|foo_schema|*",
+      "smt": "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       "options": {}
     },
     "terminal": tract.terminal,
@@ -57,7 +57,7 @@ async function testDBTransform2() {
 
   if (await transfer({
     "origin": {
-      "smt": "mysql|host=localhost;database=storage_node|foo_schema|=Foo",
+      "smt": "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
     "transform": {
@@ -81,7 +81,7 @@ async function testDBTransform2() {
       }
     },
     "terminal": {
-      "smt": "elasticsearch|http://localhost:9200|foo_dbtransform|=Foo",
+      "smt": "elasticsearch|http://dev.dictadata.org:9200|foo_dbtransform|=Foo",
       "options": {}
     }
   })) return 1;
@@ -126,13 +126,13 @@ async function forecastTransform(tract) {
 
   if (await testDBTransform1({
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|foo_dbtransform|=foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_dbtransform|=foo"
     }
   })) return;
 
   if (await testDBTransform1({
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|foo_dbtransform|=foo"
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_dbtransform|=foo"
     }
   })) return;
 
@@ -141,19 +141,19 @@ async function forecastTransform(tract) {
 
   if (await forecastTransform({
     terminal: {
-      smt: "elasticsearch|http://localhost:9200|weather_forecast|=Foo"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|weather_forecast|=Foo"
     }
   })) return;
 
   if (await forecastTransform({
     terminal: {
-      smt: "mssql|server=localhost;database=storage_node|weather_forecast|*"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|weather_forecast|*"
     }
   })) return;
 
   if (await forecastTransform({
     terminal: {
-      smt: "mysql|host=localhost;database=storage_node|weather_forecast|*"
+      smt: "mysql|host=dev.dictadata.org;database=storage_node|weather_forecast|*"
     }
   })) return;
 

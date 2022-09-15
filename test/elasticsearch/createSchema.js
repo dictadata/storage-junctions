@@ -14,7 +14,7 @@ async function test(schema, encoding) {
   logger.info("=== createSchema " + schema);
   if (await createSchema({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|" + schema + "|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*",
       options: {
         encoding: "./data/input/" + encoding + ".encoding.json"
       }
@@ -24,7 +24,7 @@ async function test(schema, encoding) {
   logger.info("=== dull (truncate) " + schema);
   if (await dull({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|" + schema + "|*"
+      smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*"
     }
   })) return 1;
 
@@ -35,7 +35,7 @@ async function test_lg() {
   logger.info("=== elasticsearch large fields");
   if (await createSchema({
     origin: {
-      smt: "elasticsearch|http://localhost:9200|foo_schema_lg|*",
+      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_lg|*",
       options: {
         encoding: "./data/input/foo_schema_lg.encoding.json",
         stringBreakpoints: {
