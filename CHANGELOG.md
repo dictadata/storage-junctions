@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.4.2
+  - refactor: Codex key replace smt_id with smt_urn
 - version 2.4.1
   - feature: Storage.authStash for username/passwords, apiKey, etc.
   - refactor: use basic-ftp in place of promise-ftp
