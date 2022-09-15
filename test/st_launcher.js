@@ -18,7 +18,7 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
 
 (async () => {
   try {
-    let l = fs.readFileSync("./.vscode/launch.json", "utf-8");
+    let l = fs.readFileSync("./.vscode/launch.json", "utf8");
     let lj = l.replace(/\/\/.*/g, "");  // remove comments
     var launch = JSON.parse(lj);
 
