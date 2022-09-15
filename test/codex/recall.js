@@ -43,8 +43,8 @@ async function test(domain, schema) {
       retCode = results.resultCode;
     }
     else {
-      let smt_id = Object.keys(results.data)[ 0 ];
-      let encoding = results.data[ smt_id ];
+      let smt_urn = Object.keys(results.data)[ 0 ];
+      let encoding = results.data[ smt_urn ];
 
       let outputfile = "./data/output/codex/recall_" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
@@ -71,7 +71,7 @@ async function test(domain, schema) {
     return 1;
   if (await test("foo", "foo_alias"))
     return 1;
-  if (await test("", "bad_smt_name"))
+  if (await test("", "bad_smt_urn"))
     process.exitCode = 0;
   else
     return 1;

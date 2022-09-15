@@ -45,12 +45,32 @@ async function test(domain, schema) {
   return process.exitCode = retCode;
 }
 
+async function dull(keys) {
+  let retCode = 0;
+
+  try {
+    for (let key of keys) {
+      logger.verbose('=== ' + key);
+
+      // dull encoding
+      let results = await Storage.codex.dull(key);
+      logger.info(JSON.stringify(results, null, "  "));
+    }
+  }
+  catch (err) {
+    logger.error(err);
+    retCode = 1;
+  }
+
+  return process.exitCode = retCode;
+}
+
 (async () => {
   await init();
 
   if (await test("", "foo_schema_two")) return 1;
-  //if (await test("", "foo_alias")) return 1;
-  //if (await test("", "foo:foo_alias")) return 1;
+
+  await dull([":elasticsearch-foo_alias" ]);
 
   await Storage.codex.relax();
 

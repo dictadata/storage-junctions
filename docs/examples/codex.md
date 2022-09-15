@@ -2,7 +2,7 @@
 
 ## Codex Initialization
 
-## smt_id is the Key
+## smt_urn is the Key
 
 ## Store Entry
 

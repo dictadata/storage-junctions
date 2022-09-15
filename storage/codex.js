@@ -40,7 +40,7 @@ module.exports = exports = class Codex {
     return this._active;
   }
 
-  smt_id(match) {
+  smt_urn(match) {
     let key;
 
     if (typeof match === "string")
@@ -55,19 +55,13 @@ module.exports = exports = class Codex {
         //   |.|.|.|!name1+'literal'+name2+...
         key = '';
         let keys = this.smt.key.substring(1).split('+');
-        let skip = false;
         for (let kname of keys) {
           if (kname && kname[ 0 ] === "'") {
-            if (skip)
-              skip = false;
-            else
-              key += kname.substr(1, kname.length - 2);  // strip quotes
+            key += kname.substr(1, kname.length - 2);  // strip quotes
           }
           else {
             if (hasOwnProperty(match, kname) && match[ kname ])
               key += match[ kname ];
-            else
-              skip = true;
           }
         }
       }
@@ -148,7 +142,7 @@ module.exports = exports = class Codex {
     }
 
     let encoding = (entry instanceof Engram) ? entry.encoding : entry;
-    let key = this.smt_id(encoding);
+    let key = this.smt_urn(encoding);
 
     // save in cache
     this._engrams.set(key, encoding);
@@ -174,7 +168,7 @@ module.exports = exports = class Codex {
     };
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
-    let key = this.smt_id(match);
+    let key = this.smt_urn(match);
 
     if (this._engrams.has(key)) {
       // delete from cache
@@ -205,7 +199,7 @@ module.exports = exports = class Codex {
     };
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
-    let key = this.smt_id(match);
+    let key = this.smt_urn(match);
 
     if (this._engrams.has(key)) {
       // entry has been cached
@@ -226,7 +220,7 @@ module.exports = exports = class Codex {
       // check for alias smt
       let encoding = results.data[ key ];
       if (encoding.type === "alias") {
-        // recall the entry for the source smt_name
+        // recall the entry for the source smt_urn
         results = await this.recall({
           match: {
             key: encoding.source
@@ -241,7 +235,7 @@ module.exports = exports = class Codex {
     if (results.resultCode === 0 && !pattern.resolve) {
       // cache entry definition
       let encoding = results.data[ key ];
-      if (key === this.smt_id(encoding)) // double check it wasn't an alias lookup
+      if (key === this.smt_urn(encoding)) // double check it wasn't an alias lookup
         this._engrams.set(key, encoding);
     }
 

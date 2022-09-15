@@ -61,7 +61,7 @@ class Cortex {
 
     // lookup/verify SMT object
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex._codex) {
-      // lookup SMT_ID in codex
+      // lookup smt_urn in codex
       let results = await Cortex._codex.recall({
         match: {
           key: smt

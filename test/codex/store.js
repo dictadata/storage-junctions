@@ -56,7 +56,7 @@ async function store(schema) {
   return process.exitCode = retCode;
 }
 
-async function alias(alias, smt_name) {
+async function alias(alias, smt_urn) {
   let retCode = 0;
 
   try {
@@ -68,8 +68,8 @@ async function alias(alias, smt_name) {
       name: alias,
       type: "alias",
       title: alias,
-      description: "alias for " + smt_name,
-      source: smt_name,
+      description: "alias for " + smt_urn,
+      source: smt_urn,
       tags: [ "foo", "alias" ]
     };
 

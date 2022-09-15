@@ -32,15 +32,16 @@ async function init() {
   }
 }
 
-async function test(smt_name, smt) {
+async function test(name, smt) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + smt_name);
+    logger.verbose('=== ' + name);
 
     // store encoding
     let entry = new Engram(smt);
-    entry.name = smt_name;
+    entry.domain = "foo";
+    entry.name = name;
     entry.encoding = encoding;
     if (!entry.tags) entry.tags = [];
     entry.tags.push("foo");
@@ -56,7 +57,7 @@ async function test(smt_name, smt) {
   return process.exitCode = retCode;
 }
 
-async function addAlias(alias, smt_name) {
+async function addAlias(alias, source) {
   let retCode = 0;
 
   try {
@@ -64,11 +65,12 @@ async function addAlias(alias, smt_name) {
 
     // store encoding
     let entry = {
+      domain: "foo",
       name: alias,
       type: "alias",
       title: alias,
-      description: "alias for " + smt_name,
-      source: smt_name,
+      description: "alias for " + source,
+      source: source,
       tags: [ "foo", "alias" ]
     };
 
@@ -102,7 +104,7 @@ async function addAlias(alias, smt_name) {
     "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo"))
     return 1;
 
-  if (await addAlias("elasticsearch-foo_alias", "elasticsearch-foo_schema"))
+  if (await addAlias("elasticsearch-foo_alias", "foo:elasticsearch-foo_schema"))
     return 1;
 
   await Storage.codex.relax();

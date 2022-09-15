@@ -6,7 +6,7 @@
 
 * [Storage Cortex](cortex.md)
 * [Codex Data Directory and Schema Definitions](codex.md)
-  * [smt_id - Codex key field](types/smt_id.md)
+  * [smt_urn - Codex key field](types/smt_urn.md)
   * [authStash - credentials file](auth-stash.md)
 * [Plugins - FileSystem and StorageJunction](plugins.md)
 

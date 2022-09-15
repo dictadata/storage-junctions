@@ -5,7 +5,7 @@
   - refactor: use basic-ftp in place of promise-ftp
   - testing: use dev.dictadata.org instead of localhost in test URL's
 - version 2.4.0
-  - feature: smt_id used as key for codex directory
+  - feature: smt_urn used as key for codex directory
 - version 2.3.4
   - refactor: add domain and roles to codex entry
 - version 2.3.3

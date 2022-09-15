@@ -4,14 +4,14 @@ Codex is a data directory and dictionary of encoding definitions.
 
 Encoding definitions:
 
-* smt_id - the key for addressing Codex entries
+* smt_urn - the key for addressing Codex entries
 * engram - SMT encoding definitions
 * tract  - ETL tract definitions
 
 An underlying StorageJunction such as ElasticsearchJunction can be used for permanent storage.
 By default a simple cache is implemented with a Map.
 
-## smt_id is the Key
+## smt_urn is the Key
 
 ```javascript
 
@@ -32,7 +32,7 @@ class Codex {
   /**
    * 
    */
-  smt_id(match)
+  smt_urn(match)
 
   /**
    * Activate the Codex

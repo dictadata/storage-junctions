@@ -30,14 +30,15 @@ async function init() {
   }
 }
 
-async function test(smt_name) {
+async function test(name) {
   let retCode = 0;
+  let smt_urn = "foo:" + name;
 
   try {
-    logger.verbose('=== ' + smt_name);
+    logger.verbose('=== ' + smt_urn);
 
     // create junction
-    let junction = await Storage.activate(smt_name, { auth: { "username": "dicta", password: "data" } });
+    let junction = await Storage.activate(smt_urn, { auth: { "username": "dicta", password: "data" } });
 
     // retrieve codex entries
     let results = await junction.retrieve({
@@ -48,7 +49,7 @@ async function test(smt_name) {
       }
     });
 
-    let outputfile = "./data/output/codex/" + smt_name + ".json";
+    let outputfile = "./data/output/codex/" + name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");
