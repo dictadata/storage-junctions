@@ -1,7 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
 - version 2.4.1
-  - feature: codex_auth for username/passwords, apiKey, etc.
+  - feature: Storage.authStash for username/passwords, apiKey, etc.
+  - refactor: use basic-ftp in place of promise-ftp
+  - testing: use dev.dictadata.org instead of localhost in test URL's
 - version 2.4.0
   - feature: smt_id used as key for codex directory
 - version 2.3.4

@@ -11,9 +11,6 @@
     "transform",
     "data access",
     "data management",
-    "smt",
-    "engram",
-    "encoding",
     "codex"
   ],
   "license": "MIT",
@@ -28,7 +25,7 @@
   "scripts": {
     "lint": "eslint storage/**/*.js",
     "lint-fix": "eslint --fix storage/**/*.js",
-    "test": "./testrunner"
+    "test": "./testrunner.bat"
   },
   "bin": {
     "st_launcher": "./test/st_launcher.js"
