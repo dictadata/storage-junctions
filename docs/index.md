@@ -6,44 +6,45 @@
 
 * [Storage Cortex](cortex.md)
 * [Codex Data Directory and Schema Definitions](codex.md)
+  * [smt_id - Codex key field](types/smt_id.md)
+  * [authStash - credentials file](auth-stash.md)
 * [Plugins - FileSystem and StorageJunction](plugins.md)
 
-## Core Data Types
+## [Core Data Types](types/)
 
-* [SMT (Storage Memory Trace)](smt.md)
-* [StorageJunction](storage-junction.md)
-* [StorageFileSystem](storage-filesystem.md)
-* [Engram](engram.md)
-* [Field](field.md)
-* [Types](types.md)
-* [Pattern Parameter](patterns.md)
+* [SMT (Storage Memory Trace)](types/smt.md)
+* [StorageJunction](junctions/storage-junction.md)
+* [StorageFileSystem](/filesystems/storage-filesystem.md)
+* [Engram](types/engram.md)
+* [Field](types/field.md)
+* [Pattern Parameter](type/patterns.md)
 
 ## Data Transforms
 
-* [Transforms](transforms.md)
+* [Transforms](transforms/)
 
 ## Storage Junctions
 
-* [StorageJunction](storage-junction.md)
-* [CSVJunction](csv-junction.md)
-* [EchoJunction](echo-junction.md)
-* [ElasticSearchJunction](elasticsearch-junction.md)
-* [JSONJunction](json-junction.md)
-* [MSSQLJunction](mssql-junction.md)
-* [MySQLJunction](mysql-junction.md)
-* [OracleDBJunction](oracledb-junction.md)
-* [RESTJunction](rest-junction.md)
-* [ShapeFileJunction](shapes-junction.md)
-* [XlsxJunction](xlsx-junction.md)
+* [StorageJunction](junctions/storage-junction.md)
+* [CSVJunction](junctions/csv-junction.md)
+* [EchoJunction](junctions/echo-junction.md)
+* [ElasticSearchJunction](junctions/elasticsearch-junction.md)
+* [JSONJunction](junctions/json-junction.md)
+* [MSSQLJunction](junctions/mssql-junction.md)
+* [MySQLJunction](junctions/mysql-junction.md)
+* [OracleDBJunction](junctions/oracledb-junction.md)
+* [RESTJunction](junctions/rest-junction.md)
+* [ShapeFileJunction](junctions/shapes-junction.md)
+* [XlsxJunction](junctions/xlsx-junction.md)
 
 ## File Systems
 
-* [StorageFileSystem](storage-filesystem.md)
-* [FSFileSystem](fs-filesystem.md)
-* [FTPFileSystem](ftp-filesystem.md)
-* [HTTPFileSystem](http-filesystem.md)
-* [S3FileSystem](s3-filesystem.md)
-* [ZipFileSystem](zip-filesystem.md)
+* [StorageFileSystem](filesystems/storage-filesystem.md)
+* [FSFileSystem](filesystems/fs-filesystem.md)
+* [FTPFileSystem](filesystems/ftp-filesystem.md)
+* [HTTPFileSystem](filesystems/http-filesystem.md)
+* [S3FileSystem](filesystems/s3-filesystem.md)
+* [ZipFileSystem](filesystems/zip-filesystem.md)
 
 ## examples
 
