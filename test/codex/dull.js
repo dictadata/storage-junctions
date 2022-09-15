@@ -70,7 +70,7 @@ async function dull(keys) {
 
   if (await test("", "foo_schema_two")) return 1;
 
-  await dull([":elasticsearch-foo_alias" ]);
+  await dull(["foo/foo_schema_XYZ" ]);
 
   await Storage.codex.relax();
 
