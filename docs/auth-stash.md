@@ -10,24 +10,28 @@ Credential values don't have to be stored in authStash. Depending upon the data 
 
 ### Key Values
 
-The key for the storing and recalling credentials is obtained from the smt.locus field. If the smt.locus is a URL like http:// or ftp:// then the key is url.origin, for example _http://www.census.gov_. If the smt.locus is not a URL then the smt.locus field is used as is, for example a database connection string; *server=dev.dictadata.org;database=storage_node*.
+The key for the storing and recalling credentials is obtained from the smt.locus field. If the smt.locus is a URL like http:// or ftp:// then the key is url.origin, for example _<http://www.census.gov>_. If the smt.locus is not a URL then the smt.locus field is used as is, for example a database connection string; _server=dev.dictadata.org;database=storage_node_.
 
 ### Entry Properties
 
 Common supported properties are:
 
 ```javascript
-{
-  username: "my_name",
-  password: "my_password"
+"host=dbserv;database=my_db": {
+  auth: {
+    username: "my_name",
+    password: "my_password"
+  }
 }
 ```
 
 or
 
 ```javascript
-{
-  apiKey: "abc123dorami"
+"https://www.server.com:1234": {
+  auth: {
+    apiKey: "abc123dorami"
+  }
 }
 ```
 
@@ -47,17 +51,23 @@ Storage.authStash.load("./auth_stash.json");
 {
   "http://dev.dictadata.org:9200": {
     "desciption": "elasticsearch",
-    "apiKey": "abc123dorami"
+    "auth" : {
+      "apiKey": "abc123dorami"
+    }
   },
   "ftp://dev.dictadata.org": {
     "description": "ftp server",
-    "username": "dicta",
-    "password": "data"
+    "auth": {
+      "username": "dicta",
+      "password": "data"
+    }
   },
   "server=dev.dictadata.org;database=storage_node": {
     "description": "MS SQL database",
-    "username": "dicta",
-    "password": "data"
+    "auth": {
+      "username": "dicta",
+      "password": "data"
+    }
   }
 }
 ```
