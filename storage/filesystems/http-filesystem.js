@@ -6,7 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResponse, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
-const _auth = require("../auth-stash");
+const authStash = require("../auth-stash");
 
 const fs = require('fs');
 const path = require('path');
@@ -64,9 +64,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         base: this.url.origin,
       }, options.http);
 
-      if (!req_config.auth && _auth.has(this.url)) {
-        let auth = _auth.recall(this.url);
-        req_config.auth = auth.username + ":" + auth.password;
+      if (!req_config.auth && authStash.has(this.url)) {
+        let cred = authStash.recall(this.url) || {};
+        req_config.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
       req_config.headers = Object.assign({},
@@ -197,9 +197,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && _auth.has(this.url)) {
-        let auth = _auth.recall(this.url);
-        req_config.auth = auth.username + ":" + auth.password;
+      if (!req_config.auth && authStash.has(this.url)) {
+        let cred = authStash.recall(this.url) || {};
+        req_config.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
       req_config.headers = Object.assign({},
@@ -268,9 +268,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && _auth.has(this.url)) {
-        let auth = _auth.recall(this.url);
-        req_config.auth = auth.username + ":" + auth.password;
+      if (!req_config.auth && authStash.has(this.url)) {
+        let cred = authStash.recall(this.url);
+        req_config.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
       req_config.headers = Object.assign({},
@@ -328,9 +328,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && _auth.has(this.url)) {
-        let auth = _auth.recall(this.url);
-        req_config.auth = auth.username + ":" + auth.password;
+      if (!req_config.auth && authStash.has(this.url)) {
+        let cred = authStash.recall(this.url) || {};
+        req_config.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
       // headers set below from HTML form data
