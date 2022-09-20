@@ -1,4 +1,4 @@
-# @dictadata/storage-junctions 2.4.x
+# @dictadata/storage-junctions 2.5.x
 
 _Storage Junctions_ is a Node.js library useful for creating apps that access distributed data sources, perform ETL transfers, prepare data for analytics and developing API services.
 

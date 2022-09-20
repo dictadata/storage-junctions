@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.5.0
+  - stable build of codex with smt_urn and auth_stash
 - version 2.4.3
   - refactor: add auth property to auth_stash objects
 - version 2.4.2
