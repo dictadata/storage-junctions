@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.5.1
+  - bug fix: use stream _destroy() instead of destroy() in reader/writer implementations
 - version 2.5.0
   - stable build of codex with smt_urn and auth_stash
 - version 2.4.3
