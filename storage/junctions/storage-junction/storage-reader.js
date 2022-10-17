@@ -63,7 +63,7 @@ module.exports = exports = class StorageReader extends Readable {
    */
   async _read(size) {
     logger.debug('StorageReader _read');
-    this.destroy(new StorageError(501, "StorageReader._read method not implemented"));
+    this._destroy(new StorageError(501, "StorageReader._read method not implemented"));
   }
 
 };

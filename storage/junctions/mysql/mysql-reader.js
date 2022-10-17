@@ -43,7 +43,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
     }
     catch (err) {
       logger.error("mysql reader: " + err.message);
-      this.destroy(err);
+      this._destroy(err);
     }
 
   }

@@ -74,7 +74,7 @@ module.exports = exports = class JSONReader extends StorageReader {
 
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          myParser.destroy();
+          myParser._destroy();
         }
       }
     });
@@ -164,7 +164,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       rs.on("error",
         (err) => {
           logger.debug("json reader on parser error");
-          this.destroy(err);
+          this._destroy(err);
         }
       );
       rs.pipe(this.pipeline);

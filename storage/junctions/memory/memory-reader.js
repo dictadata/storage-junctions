@@ -33,7 +33,7 @@ module.exports = exports = class MemoryReader extends StorageReader {
     }
     catch (err) {
       logger.error("memory reader: " + err.message);
-      this.destroy(err);
+      this._destroy(err);
     }
 
     // when done reading from source

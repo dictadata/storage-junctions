@@ -25,7 +25,7 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     // this.options.header = false;  // default value
 
-    /***** create the parser and data handlers *****/
+    /***** create the pipeline and data handlers *****/
     var reader = this;
     var encoding = this.engram;
     this.started = false;
@@ -34,14 +34,15 @@ module.exports = exports = class CSVReader extends StorageReader {
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
 
-    let parser = this.parser = new chain([
-      CsvParser({ separator: options.separator }),
+    var parser = CsvParser({ separator: options.separator });
+    var pipeline = this.pipeline = new chain([
+      parser,
       new CsvAsObjects({ keys: encoding.names, header: options.header }),
       new StreamValues()
     ]);
 
     // eslint-disable-next-line arrow-parens
-    parser.on('data', (data) => {
+    pipeline.on('data', (data) => {
       if (data.value) {
         let construct = encoder.cast(data.value);
         construct = encoder.filter(construct);
@@ -49,24 +50,24 @@ module.exports = exports = class CSVReader extends StorageReader {
         //logger.debug(JSON.stringify(construct));
 
         if (construct && !reader.push(construct)) {
-          //parser.pause();  // If push() returns false stop reading from source.
+          //pipeline.pause();  // If push() returns false stop reading from source.
         }
 
         if (statistics.count % 1000 === 0)
           logger.debug(statistics.count);
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          parser.destroy();
+          parser._destroy();
         }
       }
 
     });
 
-    parser.on('end', () => {
+    pipeline.on('end', () => {
       reader.push(null);
     });
 
-    parser.on('error', function (err) {
+    pipeline.on('error', function (err) {
       //logger.error(err);
       throw err;
     });
@@ -87,17 +88,17 @@ module.exports = exports = class CSVReader extends StorageReader {
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on("error",
         (err) => {
-          this.destroy(err);
+          this._destroy(err);
         }
       );
-      rs.pipe(this.parser);
+      rs.pipe(this.pipeline);
       this.started = true;
     }
-    else if (this.parser.isPaused()) {
+    else if (this.pipeline.isPaused()) {
       // resume reading
-      this.parser.resume();
+      this.pipeline.resume();
     }
-    else if (this.parser.destroyed || !this.parser.readable)
+    else if (this.pipeline.destroyed || !this.pipeline.readable)
       this.push(null);
   }
 

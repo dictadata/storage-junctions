@@ -53,7 +53,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
         this.ws = await stfs.createWriteStream(this.options);
         this.ws.on("error",
           (err) => {
-            this.destroy(err);
+            this._destroy(err);
           });
 
         // write opening, if any
