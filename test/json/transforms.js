@@ -107,6 +107,27 @@ async function tests() {
     }
   })) return 1;
 
+  logger.verbose('=== json_transform_5.json');
+  if (await transfer({
+    origin: {
+      smt: "json|./data/input/|file_list.json|*"
+    },
+    terminal: {
+      smt: "json|./data/output/json/|transform_5.json|*",
+      output: "./data/output/json/transform_5.json"
+    },
+    transform: {
+      select: {
+        fields: [
+          "rpath",
+          "name",
+          "size",
+          "date"
+        ]
+      }
+    }
+  })) return 1;
+
 }
 
 (async () => {
