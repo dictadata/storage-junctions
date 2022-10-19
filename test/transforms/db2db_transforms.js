@@ -30,11 +30,11 @@ async function testDBTransform1(tract) {
           "Baz": { "eq": 456 }
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "Fie": "where's fum?"
         },
-        "fields": {
+        "map": {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
@@ -69,11 +69,11 @@ async function testDBTransform2() {
           "Baz": 5678
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "Fie": "where's fum?"
         },
-        "fields": {
+        "map": {
           "Foo": "Foo",
           "Bar": "Bar",
           "Baz": "Bazzy"
@@ -111,8 +111,8 @@ async function forecastTransform(tract) {
       }
     },
     "transform": {
-      "select": {
-        "inject_after": {
+      "mutate": {
+        "override": {
           "Fie": "It's always sunny in Philadelphia?"
         }
       }

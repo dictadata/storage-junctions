@@ -46,8 +46,8 @@ async function tests() {
           output: "./data/output/pipelines/tee_2.json"
         },
         transform: {
-          select: {
-            fields: [ "Dt Test", "Foo", "Baz" ]
+          mutate: {
+            select: [ "Dt Test", "Foo", "Baz" ]
           }
         }
       }

@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.5.2
+  - Breaking change: MutateTransform replaces SelectTransform
 - version 2.5.1
   - bug fix: use stream _destroy() instead of destroy() in reader/writer implementations
 - version 2.5.0

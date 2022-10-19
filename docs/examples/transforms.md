@@ -13,17 +13,17 @@
         "Baz": 5678
       }
     },
-    "select": {
-      "inject_before": {
+    "mutate": {
+      "default": {
         "Fie": "where's fum?"
       },
-      "fields": {
+      "map": {
         "Foo": "Foo",
         "Bar": "Bar",
         "Baz": "Bazzy"
       },
       "remove": [ "Fobe" ],
-      "inject_after": {
+      "override": {
         "Fie": "override the fum"
       }
     }
@@ -52,24 +52,25 @@
   };
 ```
 
-### SelectTransform
+### MutateTransform
 
 ```json
   // example fields transform
 
   transform: {
-    "select": {
+    "mutate": {
       // inject new fields or set defaults in case of missing values
-      "inject_before": {
+      "default": {
         "newField": <value>
         "existingField": <default value>
       },
 
       // select a list of fields
-      "fields": ["field1", "field2", ... ],
-      // or select and map fields using dot notation
+      "select": ["field1", "field2", ... ],
+
+      // or map fields using dot notation
       // { src: dest, ...}
-      "fields": {
+      "map": {
         "field1": "Field1",
         "object1.subfield":  "FlatField"
       },
@@ -78,7 +79,7 @@
       "remove": ["field1", "field2"],
 
       // inject new fields or override existing values
-      "inject_after": {
+      "override": {
         "newField": <value>,
         "existingField": <override value>
       }
@@ -89,10 +90,11 @@
 
 ### order of operations
 
-* inject_before
-* select, mapping or copy
+* default
+* select | map
+* assign
 * remove
-* inject_after
+* override
 
 ### AggregateTransform
 

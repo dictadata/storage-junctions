@@ -95,8 +95,8 @@ Storage.use('split', SplitterJunction);
 exports.FilterTransform = require("./transforms/filter");
 Storage.Transforms.use('filter', exports.FilterTransform);
 
-exports.SelectTransform = require("./transforms/select");
-Storage.Transforms.use('select', exports.SelectTransform);
+exports.MutateTransform = require("./transforms/mutate");
+Storage.Transforms.use('mutate', exports.MutateTransform);
 
 exports.ComposeTransform = require("./transforms/compose");
 Storage.Transforms.use('compose', exports.ComposeTransform);
@@ -120,8 +120,8 @@ Storage.Transforms.use('codify', exports.CodifyTransform);
 exports.EncoderTransform = require("./transforms/encoder");
 Storage.Transforms.use('encoder', exports.EncoderTransform);
 
-exports.MetaStatsTransform = require("./transforms/metastats");
-Storage.Transforms.use('metastats', exports.MetaStatsTransform);
+//exports.FlowStatsTransform = require./transforms/flowstatsts");
+//Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
 
-exports.RowsTransform = require("./transforms/rows");
-Storage.Transforms.use('rows', exports.RowsTransform);
+//exports.RowsTransform = require("./transforms/rows");
+//Storage.Transforms.use('rows', exports.RowsTransform);

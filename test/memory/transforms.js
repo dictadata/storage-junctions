@@ -40,14 +40,14 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "fie": "where's fum?"
         },
-        "inject_after": {
+        "override": {
           "fum": "here"
         },
-        "fields": {
+        "map": {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",

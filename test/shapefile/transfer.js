@@ -31,8 +31,8 @@ async function testTransfer1() {
       options: {}
     },
     transform: {
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "id": "=geometry.type+properties.FID"
         }
       }
@@ -68,8 +68,8 @@ async function testTransfer2() {
       options: {}
     },
     transform: {
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "id": "=geometry.type+properties.FID"
         }
       }

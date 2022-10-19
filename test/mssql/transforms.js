@@ -26,8 +26,8 @@ async function tests() {
           }
         }
       },
-      "select": {
-        "fields": {
+      "mutate": {
+        "map": {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
@@ -35,7 +35,7 @@ async function tests() {
           "Dt Test": "dt_test",
           "subObj1.state": "state"
         },
-        "inject_after": {
+        "override": {
           "fie": "where's fum?"
         },
         "remove": [ "fobe" ]
@@ -84,14 +84,14 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "fie": "where's fum?"
         },
-        "inject_after": {
+        "override": {
           "fum": "here"
         },
-        "fields": {
+        "map": {
           "Dt Test": "dt_date",
           "Foo": "foo",
           "Bar": "bar",
@@ -125,14 +125,14 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "fie": "where's fum?"
         },
-        "inject_after": {
+        "override": {
           "fum": "here"
         },
-        "fields": {
+        "map": {
           "Dt Test": "dt_date",
           "Foo": "foo",
           "Bar": "bar",

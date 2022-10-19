@@ -40,8 +40,11 @@ async function tests() {
           "Baz": [ 456, 789 ]
         }
       },
-      select: {
-        fields: [ "Foo", "Bar", "Baz", "Dt Test" ]
+      mutate: {
+        select: [ "Foo", "Bar", "Baz", "Dt Test" ],
+        assign: {
+          "Baz": "return value * 100"
+        }
       }
     },
     terminal: {
@@ -68,20 +71,23 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "fie": "where's fum?"
         },
-        "inject_after": {
+        "override": {
           "fum": "here"
         },
-        "fields": {
+        "map": {
           "Foo": "foo",
           "Bar": "bar",
           "Baz": "baz",
           "Fobe": "fobe",
           "subObj1.state": "sub.state",
           "subObj2.subsub.izze": "sub.izze"
+        },
+        "assign": {
+          "fobe": "return value * 100"
         },
         "remove": [ "fobe" ],
       }
@@ -117,8 +123,8 @@ async function tests() {
       output: "./data/output/json/transform_5.json"
     },
     transform: {
-      select: {
-        fields: [
+      mutate: {
+        select: [
           "rpath",
           "name",
           "size",

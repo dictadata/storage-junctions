@@ -46,8 +46,8 @@ async function tests() {
           "Baz": [ 456, 789 ]
         }
       },
-      select: {
-        fields: [ "Foo", "Bar", "Baz", "Dt Test" ]
+      mutate: {
+        select: [ "Foo", "Bar", "Baz", "Dt Test" ]
       }
     },
     terminal: {
@@ -73,14 +73,14 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "select": {
-        "inject_before": {
+      "mutate": {
+        "default": {
           "fie": "where's fum?"
         },
-        "inject_after": {
+        "override": {
           "fum": "here"
         },
-        "fields": {
+        "map": {
           "Dt Test": "dt_date",
           "Foo": "foo",
           "Bar": "bar",
