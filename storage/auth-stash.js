@@ -35,14 +35,25 @@ exports.dull = (key) => {
 };
 
 exports.load = (filename) => {
-  var data = JSON.parse(fs.readFileSync(filename, 'utf8'));
-  for (let [ key, value ] of Object.entries(data))
-    _stash.set(key, value);
+  try {
+    var data = JSON.parse(fs.readFileSync(filename, 'utf8'));
+    for (let [ key, value ] of Object.entries(data))
+      _stash.set(key, value);
+  }
+  catch (err) {
+    console.warn(err.message);
+  }
 };
 
 exports.save = (filename) => {
-  let data = {};
-  for (let [ key, value ] of _stash.entries())
-    data[ key ] = value;
-  fs.writeFileSync(filename, JSON.stringify(data, null, 2), "utf8");
+  try {
+    let data = {};
+    for (let [ key, value ] of _stash.entries())
+      data[ key ] = value;
+    fs.writeFileSync(filename, JSON.stringify(data, null, 2), "utf8");
+  }
+  catch (err) {
+    console.warn(err.message);
+  }
+
 };
