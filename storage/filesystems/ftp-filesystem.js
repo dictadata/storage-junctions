@@ -104,7 +104,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
         // process files in current folder
         for (let entry of dirList) {
-          if (entry.type === '-' && rx.test(entry.name)) {
+          if (entry.type === 1 && rx.test(entry.name)) {
             entry.rpath = relpath + entry.name;
             if (options.forEach)
               await options.forEach(entry);
@@ -116,7 +116,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
         // process sub-folders
         if (options.recursive) {
           for (let entry of dirList) {
-            if (entry.type === 'd') {
+            if (entry.type === 2) {
               let subpath = relpath + entry.name + '/';
               await readFolder(dirpath, subpath, options);
             }
