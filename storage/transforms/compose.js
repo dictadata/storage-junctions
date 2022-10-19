@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Build a hierachical object from a stream of flat (row) objects.
+ * Build a hierarchical object from a stream of flat (row) objects.
  */
 
 const { Transform } = require('stream');

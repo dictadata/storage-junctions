@@ -1,5 +1,5 @@
 /**
- * transform/metastats
+ * storage/transforms/flowstats
  *
  * collect data on meta statistics for each field
  */
@@ -16,7 +16,7 @@ const { logger } = require('../utils');
 const _meta = [ "first_date", "last_date", "count", "nulls", "min_length", "max_length", "min_value", "max_value" ];
 
 
-module.exports = exports = class MetaStatsTransform extends Transform {
+module.exports = exports = class FlowStatsTransform extends Transform {
 
   /**
    *
@@ -32,7 +32,7 @@ module.exports = exports = class MetaStatsTransform extends Transform {
     this.options = Object.assign({}, options);
 
     // engram for storing encoding
-    this.engram = new Engram('any|*|*|*');
+    this.engram = new Engram('*|*|*|*');
 
     if (this.options.encoding)
       this.engram.merge(this.options.encoding);
@@ -84,7 +84,7 @@ module.exports = exports = class MetaStatsTransform extends Transform {
    * @param {*} callback
    */
   _transform(construct, encoding, callback) {
-    logger.debug("metastats _transform");
+    logger.debug("flowstats _transform");
 
     try {
       // loop through construct fields
@@ -95,14 +95,14 @@ module.exports = exports = class MetaStatsTransform extends Transform {
 
     }
     catch (err) {
-      logger.error("metastats error", err);
+      logger.error("flowstats error", err);
     }
 
     callback();
   }
 
   _final(callback) {
-    logger.debug("metastats _final");
+    logger.debug("flowstats _final");
 
     this.push(this.engram.fields);
     callback();

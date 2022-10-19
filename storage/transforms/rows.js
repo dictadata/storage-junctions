@@ -1,11 +1,13 @@
 /**
  * storage/transforms/rows.js
  */
+"use strict";
 
 const { Transform } = require('stream');
 
 /**
  * Transforms row data (array) to JSON object.
+ * Requires options.headers[] which enumerates property names.
  */
 module.exports = exports = class RowsTransform extends Transform {
 
