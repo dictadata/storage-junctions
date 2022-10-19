@@ -71,19 +71,27 @@ function compareJSON(var1, var2, compareValues) {
     return 0;
 
   // objects must be of same type
-  if (typeOf(var2) !== typeOf(var1)) {
-    logger.error(`objects are different types: ${typeOf(var2)} <> ${typeOf(var1)}`);
+  if (typeOf(var1) !== typeOf(var2)) {
+    logger.error(`objects are different types: ${typeOf(var1)} <> ${typeOf(var2)}`);
     return 1;
   }
 
   if (Array.isArray(var1)) {
     // check array lengths
-    if (compareValues > 1 && var2.length !== var1.length) {
-      logger.error("arrays have different lengths");
-      return 1;
+    if (compareValues) {
+      if (var1.length > 0 && var2.length === 0 || var1.length === 0 && var2.length > 0) {
+        logger.error("arrays have different lengths");
+        return 1;
+      }
     }
 
     if (compareValues > 1) {
+      // exact length match
+      if (var2.length !== var1.length) {
+        logger.error("arrays have different lengths");
+        return 1;
+      }
+
       // check array elements
       for (let i = 0; i < var1.length; i++) {
         if (compareJSON(var1[ i ], var2[ i ], compareValues))
