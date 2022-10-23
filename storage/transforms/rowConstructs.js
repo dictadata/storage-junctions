@@ -1,15 +1,15 @@
 /**
- * storage/transforms/rows.js
+ * storage/transforms/rowConstructs.js
  */
 "use strict";
 
 const { Transform } = require('stream');
 
 /**
- * Transforms row data (array) to JSON object.
+ * Transforms row (array) data to construct object.
  * Requires options.headers[] which enumerates property names.
  */
-module.exports = exports = class RowsTransform extends Transform {
+module.exports = exports = class RowConstructsTransform extends Transform {
 
   /**
    * If headers are not set in options then the first row seen is assumed to be the headers.
@@ -38,12 +38,12 @@ module.exports = exports = class RowsTransform extends Transform {
       this.headers = row;
     }
     else {
-      let obj = {};
+      let construct = {};
       for (let i = 0; i < row.length; i++) {
         let prop = (i < this.headers.length) ? this.headers[ i ] : i;
-        obj[ prop ] = row[ i ];
+        construct[ prop ] = construct[ i ];
       }
-      this.push(obj);
+      this.push(construct);
     }
     callback();
   }
