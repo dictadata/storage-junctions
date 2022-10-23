@@ -79,9 +79,13 @@ async function test_census_data() {
   logger.verbose('=== census data to local json');
   if (await transfer({
     origin: {
-      smt: "json|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=state:*||*",
+      smt: "json|https://api.census.gov/data/2020/dec/|pl|*",
       options: {
-        array_of_arrays: true
+        params: {
+          "get": "NAME,P1_001N,P3_001N",
+          "for": "state:*"
+        },
+        header: true
       }
     },
     terminal: {
@@ -98,7 +102,7 @@ async function test_weather_data() {
   logger.verbose("=== transfer Weather Service forecast");
   if (await transfer({
     origin: {
-      smt: "json|https://api.weather.gov/gridpoints/DVN/34,71/forecast||*",
+      smt: "json|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
         extract: "properties.periods"
       }
@@ -114,6 +118,6 @@ async function test_weather_data() {
 (async () => {
   if (await test_transfers()) return 1;
   if (await test_uncompress()) return 1;
-  //if (await test_census_data()) return 1;
+  if (await test_census_data()) return 1;
   if (await test_weather_data()) return 1;
 })();
