@@ -92,7 +92,9 @@ function http1Request(Url, request, data) {
     let _http = (Url.protocol === "https:") ? https : http;
 
     const req = _http.request(Url, options, (res) => {
+      response.httpVersion = res.httpVersion;
       response.statusCode = res.statusCode;
+      response.statusMessage = res.statusMessage;
       response.headers = res.headers;
       if (request.cookies)
         saveCookies(request, res.headers);
