@@ -1,5 +1,5 @@
 /**
- * dictadata/storage/filesystems/http-filesystem
+ * storage/filesystems/http-filesystem
  */
 "use strict";
 
@@ -59,17 +59,18 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let pathname = this.url.pathname || "/";
       let list = [];
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: 'GET',
         base: this.url.origin,
+        params: this.options.params
       }, options.http);
 
-      if (!req_config.auth && authStash.has(this.url)) {
+      if (!request.auth && authStash.has(this.url)) {
         let cred = authStash.recall(this.url) || {};
-        req_config.auth = cred.auth.username + ":" + cred.auth.password;
+        request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
-      req_config.headers = Object.assign({},
+      request.headers = Object.assign({},
         this._headers,
         { accept: 'text/html,application/xhtml+xml' },
         options.http && options.http.headers);
@@ -89,7 +90,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         logger.debug('readFolder');
 
         // HTTP GET
-        let response = await httpRequest(dirpath, req_config);
+        let response = await httpRequest(dirpath, request);
         logger.debug(response);
         if (response.statusCode !== 200)
           throw new storageError(response.statusCode);
@@ -191,23 +192,24 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let filename = schema;
       let rs = null;
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: 'GET',
         base: this.url.href,
+        params: this.options.params,
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && authStash.has(this.url)) {
+      if (!request.auth && authStash.has(this.url)) {
         let cred = authStash.recall(this.url) || {};
-        req_config.auth = cred.auth.username + ":" + cred.auth.password;
+        request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
-      req_config.headers = Object.assign({},
+      request.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
 
       // create read stream
-      rs = await httpRequest(filename, req_config);
+      rs = await httpRequest(filename, request);
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -262,18 +264,19 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: 'GET',
         base: this.url.href,
+        params: this.options.params,
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && authStash.has(this.url)) {
+      if (!request.auth && authStash.has(this.url)) {
         let cred = authStash.recall(this.url);
-        req_config.auth = cred.auth.username + ":" + cred.auth.password;
+        request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
-      req_config.headers = Object.assign({},
+      request.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers);
 
@@ -292,7 +295,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
 
       // get file
-      let rs = await httpRequest(src, req_config);
+      let rs = await httpRequest(src, request);
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
@@ -322,15 +325,16 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       options = Object.assign({}, this.options, options);
       let resultCode = 0;
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: 'PUT',
         base: this.url.href,
+        params: this.options.params,
         responseType: "stream"
       }, options.http);
 
-      if (!req_config.auth && authStash.has(this.url)) {
+      if (!request.auth && authStash.has(this.url)) {
         let cred = authStash.recall(this.url) || {};
-        req_config.auth = cred.auth.username + ":" + cred.auth.password;
+        request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
       // headers set below from HTML form data
@@ -350,12 +354,12 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       form.append(filename, fs.createReadStream(src));
 
       // send the file
-      req_config.headers = Object.assign({},
+      request.headers = Object.assign({},
         this._headers,
         options.http && options.http.headers,
         form.getHeaders());
 
-      let response = await httpRequest(this.url.pathname, req_config, form);
+      let response = await httpRequest(this.url.pathname, request, form);
 
       resultCode = response.resultCode;
       return new StorageResponse(resultCode);
