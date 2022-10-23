@@ -331,7 +331,7 @@ class ElasticsearchJunction extends StorageJunction {
 
       if (!storageResponse.data) {
         storageResponse.resultCode = 404;
-        storageResponse.resultText = "Not Found";
+        storageResponse.resultMessage = "Not Found";
       }
       return storageResponse;
     }

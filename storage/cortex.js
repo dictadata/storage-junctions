@@ -69,7 +69,7 @@ class Cortex {
         resolve: true
       });
       if (results.resultCode !== 0)
-        throw new StorageError(results.resultCode, results.resultText + ": " + smt);
+        throw new StorageError(results.resultCode, results.resultMessage + ": " + smt);
 
       let entry = results.data[ smt ];
       _smt = entry.smt;

@@ -49,7 +49,7 @@ async function test(schema) {
     // recall encoding
     let smt_urn = entry.smt_urn;
     results = await Storage.codex.recall(smt_urn);
-    logger.verbose("recall: " + results.resultText);
+    logger.verbose("recall: " + results.resultMessage);
 
     if (results.resultCode === 0) {
       encoding = results.data[ smt_urn ];

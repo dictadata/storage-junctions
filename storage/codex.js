@@ -125,19 +125,19 @@ module.exports = exports = class Codex {
   async store(entry) {
     let results = {
       resultCode: 0,
-      resultText: "OK"
+      resultMessage: "OK"
     };
 
     // parameter checks
     // note: domain is optional
     if (!entry.name || entry.name === "*") {
       results.resultCode = 400;
-      results.resultText = "Invalid encoding name";
+      results.resultMessage = "Invalid encoding name";
       return results;
     }
     if (!entry.type || !codexTypes.includes(entry.type)) {
       results.resultCode = 400;
-      results.resultText = "Invalid codex type";
+      results.resultMessage = "Invalid codex type";
       return results;
     }
 
@@ -164,7 +164,7 @@ module.exports = exports = class Codex {
   async dull(pattern) {
     let results = {
       resultCode: 0,
-      resultText: "OK"
+      resultMessage: "OK"
     };
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
@@ -174,7 +174,7 @@ module.exports = exports = class Codex {
       // delete from cache
       if (!this._engrams.delete(key)) {
         results.resultCode = 500;
-        results.resultText = "map delete error";
+        results.resultMessage = "map delete error";
       }
     }
 
@@ -194,7 +194,7 @@ module.exports = exports = class Codex {
   async recall(pattern) {
     let results = {
       resultCode: 0,
-      resultText: "OK",
+      resultMessage: "OK",
       data: {}
     };
 
@@ -213,7 +213,7 @@ module.exports = exports = class Codex {
     }
     else {
       results.resultCode = 404;
-      results.resultText = "Not Found";
+      results.resultMessage = "Not Found";
     }
 
     if (results.resultCode === 0 && pattern.resolve) {
@@ -250,7 +250,7 @@ module.exports = exports = class Codex {
   async retrieve(pattern) {
     let results = {
       resultCode: 0,
-      resultText: "OK"
+      resultMessage: "OK"
     };
 
     if (this._junction) {
@@ -262,7 +262,7 @@ module.exports = exports = class Codex {
     }
     else {
       results.resultCode = 503;
-      results.resultText = "Codex Unavailable";
+      results.resultMessage = "Codex Unavailable";
     }
 
     return results;
