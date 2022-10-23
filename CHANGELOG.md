@@ -1,7 +1,17 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
 - version 2.5.2
-  - Breaking change: MutateTransform replaces SelectTransform
+  - Breaking changes:
+    - MutateTransform replaces SelectTransform; renamed options
+    - refactor: rename StorageResponse.resultText to StorageResponse.resultMessage
+  - feature: new transforms RowConstructs (arrays), MapConstructs (map/object)
+  - feature: new StreamFileSystem "stream:*" for reading/writing to any provided stream
+  - enhancement: support function body definitions in MutateTransform assignment
+  - enhancement: support regular expressions in FilterTransform expressions
+  - refactor: using '*' instead of 'any' for generic smt models
+  - refactor: HttpFileSystem options rename urlParams to urlReplace
+  - refactor: HttpRequest responses include httpVersion, statusMessage
+  - bug fix: HttpFileSystem list directory using basic-ftp entry.type
 - version 2.5.1
   - bug fix: use stream _destroy() instead of destroy() in reader/writer implementations
 - version 2.5.0
@@ -19,14 +29,14 @@
 - version 2.3.4
   - refactor: add domain and roles to codex entry
 - version 2.3.3
-  - update: Codex.store() validate entry's name and type
+  - enhancement: Codex.store() validate entry's name and type
   - refactor: add source and notes to codex entry, remove alias_smt
 - version 2.3.2
   - feature: full-text search pattern syntax and elasticsearch-junction
 - version 2.3.1
-  - update: CsvJunction supports other delimited files
-  - update: CsvJunction check input for BOM character
-  - update: match field expression, support array values (OR); { field: [value, ...] }
+  - enhancement: CsvJunction supports other delimited files
+  - enhancement: CsvJunction check input for BOM character
+  - enhancement: match field expression, support array values (OR); { field: [value, ...] }
   - testing: compare .csv and .txt files line-by-line
 - version 2.3.0
   - feature: new AdjoinTransform for injecting fields via table/map lookup
@@ -41,15 +51,15 @@
   - bug fix: issue with ElasticsearchReader sort order
   - testing: compare output of filesystem based transfer tests
 - version 2.2.5
-  - update: codex alias entries
+  - enhancement: codex alias entries
 - version 2.2.4
-  - update: shapefile junction with .zip files, use smt.schema of '~1' to find first .shp file in zip container
-  - update: zip filesystem, parse addtional path after .zip filename as prefix for accessing files in zip container
+  - enhancement: shapefile junction with .zip files, use smt.schema of '~1' to find first .shp file in zip container
+  - enhancement: zip filesystem, parse addtional path after .zip filename as prefix for accessing files in zip container
   - refactor: filesystem copy functions options.use_rpath for making destination path
   - bug fix: improve handling HTTP responses with content-encoding (compressed HTTP message body)
   - bug fix: improve handling of stream errors
 - version 2.2.3
-  - update: add options to Engram codex properties, passed to storage-junctions by cortex.activate
+  - enhancement: add options to Engram codex properties, passed to storage-junctions by cortex.activate
   - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
   - testing: st_launcher testing parameters
 - version 2.2.2
@@ -75,10 +85,10 @@
   - refactor: parseSMT() to class SMT
 - version 2.0.8
   - bug fix: passing options thru codex to underlying junction
-  - update: dependencies for tedious and elasticsearch client
+  - enhancement: dependencies for tedious and elasticsearch client
 - version 2.0.7
   - bug fix: check results before caching during recall()
-  - update: automatic index refresh option to elasticsearch junction
+  - enhancement: automatic index refresh option to elasticsearch junction
   - testing: only test local ftp site
 - version 2.0.6
   - bug fix: MySQL create new StorageError()
