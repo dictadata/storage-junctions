@@ -32,6 +32,9 @@ exports.HTTPFileSystem = require("./filesystems/http-filesystem");
 Storage.FileSystems.use('http', exports.HTTPFileSystem);
 Storage.FileSystems.use('https', exports.HTTPFileSystem);
 
+exports.StreamFileSystem = require("./filesystems/stream-filesystem");
+Storage.FileSystems.use('stream', exports.StreamFileSystem);
+
 exports.ZipFileSystem = require("./filesystems/zip-filesystem");
 Storage.FileSystems.use('zip', exports.ZipFileSystem);
 
@@ -120,8 +123,11 @@ Storage.Transforms.use('codify', exports.CodifyTransform);
 exports.EncoderTransform = require("./transforms/encoder");
 Storage.Transforms.use('encoder', exports.EncoderTransform);
 
-//exports.FlowStatsTransform = require./transforms/flowstatsts");
-//Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
+exports.FlowStatsTransform = require("./transforms/flowstats");
+Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
 
-//exports.RowsTransform = require("./transforms/rows");
-//Storage.Transforms.use('rows', exports.RowsTransform);
+exports.RowConstructsTransform = require("./transforms/rowConstructs");
+Storage.Transforms.use('row_constructs', exports.RowConstructsTransform);
+
+exports.MapConstructsTransform = require("./transforms/mapConstructs");
+Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
