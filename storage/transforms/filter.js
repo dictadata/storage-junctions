@@ -28,6 +28,33 @@ const dot = require('dot-object');
   };
 */
 
+/**
+ *
+ * @param {*} criteria
+ * @returns
+ */
+function _isRegExp(criteria) {
+
+  try {
+    if (criteria instanceof RegExp)
+      return criteria;
+
+    if (typeof criteria === "string" && criteria && criteria[ 0 ] === '/') {
+      let l = criteria.lastIndexOf('/');
+      if (l > 0) {
+        let r = criteria.substring(1, l);
+        let m = criteria.substring(l + 1);
+        let rx = new RegExp(r, m);
+        return rx;
+      }
+    }
+  } catch (e) {
+    // no op
+  }
+
+  return null;
+}
+
 module.exports = exports = class FilterTransform extends Transform {
 
   /**
@@ -61,12 +88,13 @@ module.exports = exports = class FilterTransform extends Transform {
       let cvalue = dot.pick(fldname, construct);
       let exists = typeof (cvalue) !== "undefined";
       //let exists = hasOwnProperty(construct,fldname);
+      let rx = _isRegExp(criteria);
 
       if (Array.isArray(criteria)) {
         forward = exists && criteria.includes(cvalue);
       }
-      else if (criteria instanceof RegExp) {
-        forward = exists && criteria.test(cvalue);
+      else if (rx) {
+        forward = exists && rx.test(cvalue);
       }
       else if (typeOf(criteria) === 'object') {
         // expression(s) { op: value, ...}
@@ -101,12 +129,13 @@ module.exports = exports = class FilterTransform extends Transform {
         let cvalue = dot.pick(fldname, construct);
         let exists = typeof (cvalue) !== "undefined";
         //let exists = hasOwnProperty(construct,fldname);
+        let rx = _isRegExp(criteria);
 
         if (Array.isArray(criteria)) {
           dropit = exists && criteria.includes(cvalue);
         }
-        else if (criteria instanceof RegExp) {
-          dropit = exists && criteria.test(cvalue);
+        else if (rx) {
+          dropit = exists && rx.test(cvalue);
         }
         else if (typeOf(criteria) === 'object') {
           // expression(s) { op: value, ...}
