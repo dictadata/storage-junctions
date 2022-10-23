@@ -53,7 +53,7 @@ module.exports = exports = async function (tract) {
 
     logger.info(">>> create terminal branches");
     if (!Array.isArray(tract.terminal))
-      throw new StorageError(400, "tract.terminal not an Array");
+      throw new Error("tract.terminal not an Array");
 
     for (const branch of tract.terminal) {
       const transforms = branch.transform || branch.transforms || {};

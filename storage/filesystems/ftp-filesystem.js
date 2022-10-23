@@ -1,5 +1,5 @@
 /**
- * dictadata/storage/filesystems/ftp-filesystem
+ * storage/filesystems/ftp-filesystem
  */
 "use strict";
 

@@ -4,7 +4,7 @@
 const StorageError = require("./storage-error");
 
 /**
- * An field is a desciptor for a individual item of a construct.
+ * An field is a descriptor for a property of a construct.
  */
 module.exports = exports = class Field {
 

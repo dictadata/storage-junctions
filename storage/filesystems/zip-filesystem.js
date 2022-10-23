@@ -1,5 +1,5 @@
 /**
- * dictadata/storage/filesystems/zip-filesystem
+ * storage/filesystems/zip-filesystem
  */
 "use strict";
 
