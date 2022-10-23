@@ -6,15 +6,15 @@ class StorageResponse {
   /**
    * The results type returned by storage methods. Note encoding methods return an Engram object.
    * @param {integer} resultCode a HTTP like statusCode
-   * @param {string} resultText a string with a textual result code
+   * @param {string} resultMessage a string with a HTTP like statusMessage
    * @param {*} data a map or array of constructs
    * @param {*} key the key for keystores storage sources
    */
-  constructor(resultCode, resultText, data, key) {
+  constructor(resultCode, resultMessage, data, key) {
     this.resultCode = resultCode || 0;
     if (this.resultCode === 200)
       this.resultCode = 0;
-    this.resultText = resultText || StorageResponse.RESULT_CODES[ this.resultCode ] || 'unknown';
+    this.resultMessage = resultMessage || StorageResponse.RESULT_CODES[ this.resultCode ] || 'unknown';
 
     this.data;
     if (key) {
