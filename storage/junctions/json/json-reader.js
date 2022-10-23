@@ -44,13 +44,13 @@ module.exports = exports = class JSONReader extends StorageReader {
     else  // default json array
       pipes.push(streamArray());
 
-    // create variables that will be in the scope of data hander callbacks
+    // create variables that will be in the scope of data handler callbacks
     var reader = this;
     var encoding = this.engram;
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
-    var array_of_arrays = this.options.array_of_arrays;
-    var header = Array.isArray(array_of_arrays) ? array_of_arrays : null;
+    var header = this.options.header;
+    var headers = Array.isArray(this.options.header) ? this.options.header : null;
 
     var pipeline = this.pipeline = chain(pipes);
 
@@ -60,7 +60,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       if (data.value) {
         //logger.debug(JSON.stringify(data.value));
 
-        let construct = (array_of_arrays) ? convert(data.value) : data.value;
+        let construct = (header) ? convert(data.value) : data.value;
         construct = encoder.cast(construct);
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
@@ -96,16 +96,16 @@ module.exports = exports = class JSONReader extends StorageReader {
         return data;
 
       let c;
-      if (!header) {
-        header = data;
+      if (header && !headers) {
+        headers = data;
       }
       else {
         // convert array to object
         c = {};
-        for (let i = 0; i < header.length; i++) {
+        for (let i = 0; i < headers.length; i++) {
           if (i >= data.length)
             break;
-          c[ header[ i ] ] = data[ i ];
+          c[ headers[ i ] ] = data[ i ];
         }
       }
 

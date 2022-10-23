@@ -26,12 +26,12 @@ async function transfer_weather() {
     }
   }, compareValues)) return 1;
 
-  logger.verbose("=== transfer Weather Service forecast w/ urlParams");
+  logger.verbose("=== transfer Weather Service forecast w/ params");
   if (await transfer({
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/${office}/${gridX},${gridY}/|forecast|*",
       options: {
-        urlParams: {
+        urlReplace: {
           "office": "DVN",
           "gridX": 34,
           "gridY": 71
@@ -61,7 +61,7 @@ async function transfer_census() {
     origin: {
       smt: "rest|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=county:*&in=state:19||*",
       options: {
-        array_of_arrays: true,
+        header: true,
         encoding: {
           fields: {
             "NAME": "string",
@@ -89,7 +89,7 @@ async function transfer_census() {
           "for": "county:*",
           "in": "state:19"
         },
-        array_of_arrays: true,
+        header: true,
         encoding: {
           fields: {
             "NAME": "string",

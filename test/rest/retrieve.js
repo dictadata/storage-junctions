@@ -37,15 +37,19 @@ async function retrieve_2() {
   logger.verbose("=== retrieve state census population");
   if (await retrieve({
     origin: {
-      smt: "rest|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=state:*||*",
+      smt: "rest|https://api.census.gov/data/2020/dec/|pl|*",
       options: {
-        array_of_arrays: true
+        params: {
+          get: "NAME,P1_001N,P3_001N",
+          for: "state:*"
+        },
+        header: true
       }
     },
     terminal: {
       output: './data/output/rest/census_population_retrieve.json'
     }
-  }, 1)) return 1;
+  }, 2)) return 1;
 
 }
 

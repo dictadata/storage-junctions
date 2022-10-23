@@ -31,13 +31,13 @@ module.exports = exports = class RESTReader extends StorageReader {
     try {
       let baseURL = this.smt.locus;
       let url = this.options.url || this.engram.smt.schema || '';
-      let urlParams = this.options.urlParams;
-      if (urlParams) {
-        baseURL = templateReplace(baseURL, urlParams);
-        url = templateReplace(url, urlParams);
+      let urlReplace = this.options.urlReplace;
+      if (urlReplace) {
+        baseURL = templateReplace(baseURL, urlReplace);
+        url = templateReplace(url, urlReplace);
       }
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: "GET",
         base: baseURL,
         headers: {
@@ -46,21 +46,19 @@ module.exports = exports = class RESTReader extends StorageReader {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_config["params"]
 
-      let data = this.options.data;  // a pattern will override data
+      let data = this.options.data;
 
       if (this.options) {
-        // pattern will override options.data
         let params = this.options.params || this.options.match || {};
-        if (req_config.method === "GET")
-          req_config.params = params;  // querystring
+        if (request.method === "GET")
+          request.params = params;  // querystring
         else
           data = params;
       }
 
       let results;
-      let response = await httpRequest(url, req_config, data);
+      let response = await httpRequest(url, request, data);
 
       if (response.statusCode !== 200) {
         let msg = typeof response.data === "string" ? response.data : null;

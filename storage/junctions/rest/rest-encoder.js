@@ -108,11 +108,11 @@ module.exports = exports = class RestEncoder extends StorageEncoder {
       return;
 
     // data is an array
-    if (options.array_of_arrays) {
+    if (options.header) {
       // assume data is an array of arrays
 
-      // check if options.array_of_arrays is array with field names
-      let header = Array.isArray(options.array_of_arrays) ? options.array_of_arrays : null;
+      // check if options.header is array with field names
+      let header = Array.isArray(options.header) ? options.header : null;
 
       for (let arr of data) {
         if (!header)

@@ -16,7 +16,7 @@ async function testConjoin() {
     origin: {
       smt: "rest|https://api.weather.gov/points/${latitude},${longitude}||*",
       options: {
-        urlParams: {
+        urlReplace: {
           latitude: 39.7456,
           longitude: -97.0892
         },

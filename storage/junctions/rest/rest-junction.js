@@ -129,15 +129,15 @@ class RESTJunction extends StorageJunction {
     try {
       let baseURL = this.smt.locus;
       let url = this.options.url || this.engram.smt.schema || '';
-      let urlParams = pattern.urlParams || this.options.urlParams;
-      if (urlParams) {
-        baseURL = templateReplace(baseURL, urlParams);
-        url = templateReplace(url, urlParams);
+      let urlReplace = pattern.urlReplace || this.options.urlReplace;
+      if (urlReplace) {
+        baseURL = templateReplace(baseURL, urlReplace);
+        url = templateReplace(url, urlReplace);
       }
 
       let encoder = this.createEncoder(pattern);
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: "GET",
         base: baseURL,
         headers: {
@@ -146,19 +146,19 @@ class RESTJunction extends StorageJunction {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_config["params"]
 
-      let data = this.options.data;  // a pattern will override data
+      let data = this.options.data;
+
+      // pattern will override options
       if (pattern) {
-        // pattern will override options.data
         let params = pattern.params || pattern.match || this.options.params;
-        if (req_config.method === "GET")
-          req_config.params = params  // querystring
+        if (request.method === "GET")
+          request.params = params  // querystring
         else
           data = params;
       }
 
-      let response = await httpRequest(url, req_config, data);
+      let response = await httpRequest(url, request, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
@@ -190,15 +190,15 @@ class RESTJunction extends StorageJunction {
     try {
       let baseURL = this.smt.locus;
       let url = this.options.url || this.engram.smt.schema || '';
-      let urlParams = pattern.urlParams || this.options.urlParams;
-      if (urlParams) {
-        baseURL = templateReplace(baseURL, urlParams);
-        url = templateReplace(url, urlParams);
+      let urlReplace = pattern.urlReplace || this.options.urlReplace;
+      if (urlReplace) {
+        baseURL = templateReplace(baseURL, urlReplace);
+        url = templateReplace(url, urlReplace);
       }
 
       let encoder = this.createEncoder(pattern);
 
-      let req_config = Object.assign({
+      let request = Object.assign({
         method: "GET",
         base: baseURL,
         headers: {
@@ -207,19 +207,19 @@ class RESTJunction extends StorageJunction {
         },
         timeout: 10000
       }, this.options.http || {});
-      // note, a pattern will override req_config["params"]
 
-      let data = this.options.data;  // a pattern will override data
+      let data = this.options.data;
+
+      // pattern will override options
       if (pattern) {
-        // pattern will override options.data
         let params = pattern.params || pattern.match || this.options.params;
-        if (req_config.method === "GET")
-          req_config.params = params  // querystring
+        if (request.method === "GET")
+          request.params = params  // querystring
         else
           data = params;
       }
 
-      let response = await httpRequest(url, req_config, data);
+      let response = await httpRequest(url, request, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
