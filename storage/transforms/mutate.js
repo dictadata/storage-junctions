@@ -15,7 +15,7 @@ const dot = require('dot-object');
 // order of operations:
 //   default
 //   select | map
-//   modify
+//   assign
 //   remove
 //   override
 
@@ -157,7 +157,7 @@ module.exports = exports = class MutateTransform extends Transform {
       for (let [ name, value ] of Object.entries(this.options.assign)) {
         if (value && value[ 0 ] === '=')
           newConstruct[ name ] = this.assignment(value, newConstruct);
-        else if (hasOwnProperty(newConstruct, name) && hasOwnProperty(this.mutations, name))
+        else if (hasOwnProperty(this.mutations, name))
           newConstruct[ name ] = this.mutations[ name ](newConstruct[ name ], newConstruct);
       }
     }
