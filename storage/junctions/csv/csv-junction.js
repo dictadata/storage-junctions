@@ -120,7 +120,7 @@ class CSVJunction extends StorageJunction {
    */
   async retrieve(pattern) {
     let response = new StorageResponse();
-    let rs = this.createReader(pattern);
+    let rs = this.createReader({ pattern: pattern });
 
     rs.on('data', (chunk) => {
       response.add(chunk);
