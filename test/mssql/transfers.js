@@ -68,7 +68,11 @@ async function tests() {
   logger.info("=== mssql > mssql_transfer.csv");
   if (await transfer({
     origin: {
-      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_transfer|=Foo"
+      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_transfer|=Foo",
+      options: {},
+      pattern: {
+        order: { "Foo": "asc" }
+      }
     },
     terminal: {
       smt: "csv|./data/output/mssql/|transfer.csv|*",

@@ -51,8 +51,9 @@ module.exports = exports = async function (tract, compareValues = 2) {
     let pipes = [];
 
     let options = Object.assign({
-      max_read: (tract.origin.options && tract.origin.options.max_read) || 100
-    }, tract.origin.pattern);
+      max_read: (tract.origin.options && tract.origin.options.max_read) || 100,
+      pattern: tract.origin.pattern
+    });
 
     let reader = jo.createReader(options);
     reader.on('error', (error) => {

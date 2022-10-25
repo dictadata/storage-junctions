@@ -73,7 +73,8 @@ async function tests() {
   if (await transfer({
     origin: {
       smt: "elasticsearch|http://dev.dictadata.org:9200|foo_transfer|*",
-      options: {
+      options: {},
+      pattern: {
         order: { "Foo": "asc" }
       }
     },
@@ -91,9 +92,11 @@ async function tests() {
   if (await transfer({
     origin: {
       smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_j|!Foo",
-      options: {
+      options: {},
+      pattern: {
         order: { "Foo": "asc" }
       }
+
     },
     terminal: {
       smt: "json|./data/output/elasticsearch/|transfer_foo_j.json|*",

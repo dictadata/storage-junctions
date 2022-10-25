@@ -91,7 +91,8 @@ async function testTransfer3() {
   if (await transfer({
     "origin": {
       "smt": "elastic|http://dev.dictadata.org:9200/|shapes|!id",
-      "options": {
+      "options": {},
+      "pattern": {
         "order": {
           "id": "desc"
         },
