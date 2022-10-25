@@ -137,7 +137,7 @@ function compareJSON(var1, var2, compareValues) {
  * @param {*} compareValues 0 = no, 1 = compare basic values , 2 = compare dates and array lengths
  * @returns 0 if OK, 1 if different
  */
-module.exports = exports = function (filename_expected, filename_output, compareValues = 1) {
+function compareFiles(filename_expected, filename_output, compareValues = 1) {
   logger.info(">>> compare files");
   if (compareValues <= 0)
     return 0;
@@ -178,4 +178,11 @@ module.exports = exports = function (filename_expected, filename_output, compare
     return 1;
   }
 
-};
+}
+
+module.exports = exports = compareFiles;
+exports.Files = compareFiles;
+exports.Buffer = compareBuffer;
+exports.CSV = compareCSV;
+exports.JSON = compareJSON;
+exports.Text = compareText;
