@@ -223,8 +223,8 @@ module.exports = exports = class StorageJunction {
 
   ////////// streaming //////////
 
-  // If sub-class sets the _readerClass, _writerClass and _encoderClass propertiess
-  // then these methods don't need to be overriden.
+  // If sub-class sets the _readerClass, _writerClass and _encoderClass properties
+  // then these methods don't need to be overridden.
   createReader(options) {
     if (!this.capabilities.reader)
       throw new StorageError(405);

@@ -31,7 +31,7 @@ module.exports = exports = class StorageReader extends Readable {
     this._statistics = {
       count: 0,
       elapsed: 0
-    }
+    };
     this._startms = 0;
     this.progress = this.options.progress || null;
     this.progressModula = this.options.progressModula || 1000;
