@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 2.5.3
+  - explicit passing of options.pattern argument, don't overload options object
 - version 2.5.2
   - Breaking changes:
     - MutateTransform replaces SelectTransform; renamed options
