@@ -20,9 +20,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
     super(storageJunction, options);
 
     this.started = false;
-
     this.elasticQuery = this.junction.elasticQuery;
-
     this.scrollParams = {
       scroll: '30s'
     };
@@ -41,7 +39,8 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
     try {
       if (!this.started) {
         this.started = true;
-        let dsl = dslEncoder.searchQuery(this.options);
+        let pattern = this.options.pattern || {};
+        let dsl = dslEncoder.searchQuery(pattern);
 
         let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams);
         if (!hasOwnProperty(dsl, "size")) params.size = size;

@@ -24,8 +24,8 @@ module.exports = exports = class MemoryReader extends StorageReader {
     // read up to size constructs
 
     try {
-      // filter constructs using patttern
-      let pattern = this.options.pattern || {};
+      // filter constructs using pattern
+      // this.pattern
 
       for (let construct of this.junction._constructs.values()) {
         this.push(construct);

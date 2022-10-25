@@ -83,19 +83,20 @@ module.exports = exports = class StorageEncoder {
     if (typeOf(construct) !== "object")
       return construct;
 
+    let pattern = this.options.pattern || {};
     let newConstruct = {};
 
-    // this.options.fields
-    if (Array.isArray(this.options.fields)) {
+    // pattern.fields
+    if (Array.isArray(pattern.fields)) {
       // select fields
-      for (let name of this.options.fields)
+      for (let name of pattern.fields)
         if (hasOwnProperty(construct, name))
           newConstruct[ name ] = construct[ name ];
     }
-    else if (typeOf(this.options.fields) === "object")
+    else if (typeOf(pattern.fields) === "object")
       // field mapping
       // JSON object with 'source': 'target' properties in dot notation
-      dot.transform(this.options.fields, construct, newConstruct);
+      dot.transform(pattern.fields, construct, newConstruct);
     else
       // copy the entire construct
       newConstruct = construct;
@@ -113,7 +114,8 @@ module.exports = exports = class StorageEncoder {
     if (typeOf(construct) !== "object")
       return construct;
 
-    const match = this.options.match || {};
+    const pattern = this.options.pattern || {};
+    const match = pattern.match || {};
     let forward = true;
 
     // do some match filterin'

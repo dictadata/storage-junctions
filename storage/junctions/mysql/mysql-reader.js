@@ -29,7 +29,8 @@ module.exports = exports = class MySQLReader extends StorageReader {
 
     // read up to size constructs
     try {
-      let sql = sqlEncoder.sqlSelectByPattern(this.engram, this.options);
+      let pattern = this.options.pattern || {};
+      let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
       let rows = await this.junction.pool.query(sql);
 
       for (let i = 0; i < rows.length; i++) {

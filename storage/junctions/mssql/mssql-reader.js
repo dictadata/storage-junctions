@@ -34,7 +34,8 @@ module.exports = exports = class MSSQLReader extends StorageReader {
       this.started = true;
 
       try {
-        let sql = sqlEncoder.sqlSelectByPattern(this.engram, this.options);
+        let pattern = this.options.pattern || {};
+        let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
         let request = new tedious.Request(sql, (err, rowCount) => {
           // when done reading from source
           this.push(null);
