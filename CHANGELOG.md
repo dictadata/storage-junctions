@@ -1,5 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.83
+  - new versioning
+  - testing: debug output; compare functions
+
 - version 2.5.3
   - explicit passing of options.pattern argument, don't overload options object
 - version 2.5.2
