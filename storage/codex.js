@@ -97,7 +97,7 @@ module.exports = exports = class Codex {
         logger.info("storage/codex: created schema, " + this._junction.smt.schema);
       }
       else if (results.resultCode === 409) {
-        logger.verbose("storage/codex: schema exists");
+        logger.debug("storage/codex: schema exists");
       }
       else {
         throw new StorageError(500, "unable to create codex schema");
