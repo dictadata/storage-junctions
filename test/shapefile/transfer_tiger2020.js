@@ -55,9 +55,36 @@ async function transfer3() {
 
 }
 
+async function transfer4() {
+
+  logger.verbose("=== Transfer shapefile to elasticsearch");
+  if (await transfer({
+    "origin": {
+      "smt": "shp|zip:/var/data/US/IA/legis.iowa.gov/Plan2/SHP/IA_ProposedPlan2_Oct2021.zip|Plan2_Congress|*",
+      "options": {
+        "encoding": "./data/input/shapes/bl_2020_ia_congress.encoding.json"
+      }
+    },
+    "transforms": {
+      "mutate": {
+        "override": {
+          "properties.STATEFP": "19"
+        }
+      }
+    },
+    "terminal": {
+      "smt": "elasticsearch|http://dev.dictadata.org:9200|bl_2020_us_congress|*",
+      "options": {
+        "encoding": "./data/input/shapes/bl_2020_ia_congress.encoding.json"
+      }
+    }
+  })) return 1;
+
+}
+
 (async () => {
   if (await transfer1()) return 1;
   if (await transfer2()) return 1;
   if (await transfer3()) return 1;
-
+  if (await transfer4()) return 1;
 })();
