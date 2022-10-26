@@ -30,8 +30,10 @@ process.on('beforeExit', (code) => {
 
 process.on('exit', (code) => {
   console.log('Process exit event with code: ', code);
-  for (let [ promise, reason ] of unhandledRejections)
-    console.log(`unhandledPromise ${promise}: ${reason}`);
+  for (let [ promise, reason ] of unhandledRejections) {
+    let prom = JSON.stringify(promise);
+    console.log(`unhandledPromise ${prom}: ${reason}`);
+  }
   if (unhandledRejections.size > 0)
     process.exitCode = 1;
 });
