@@ -3,7 +3,7 @@
  *
  * Download file(s) from filesystem directly to a local folder.
  * Reads directory of remote file system before download(s).
- * getFile is a filesystem method.
+ * getFiles is a filesystem method.
  */
 "use strict";
 
@@ -16,61 +16,48 @@ const { logger } = require('../../storage/utils');
 module.exports = exports = async function (tract) {
   let retCode = 0;
 
-  logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
-  if (tract.origin.options)
-    logger.verbose("options:" + JSON.stringify(tract.origin.options));
-
   var junction;
   try {
-    if (!tract.origin.options)
+    logger.info("=== download");
+
+    logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
+    if (tract.origin.options)
+      logger.verbose("options:" + JSON.stringify(tract.origin.options));
+    else
       tract.origin.options = {};
 
-    logger.info(">>> create junction");
+    logger.info(">>> activate junction");
     junction = await Storage.activate(tract.origin.smt, tract.origin.options);
+
+    logger.verbose(">>> get list of desired files");
+    let list;
+    if (junction.smt.schema.includes('*') || junction.smt.schema.includes('?'))
+      // wildcard
+      ({ data: list } = await junction.list());
+    else
+      // single file
+      list = [ { name: junction.smt.schema, rpath: junction.smt.schema } ];
+
+    logger.verbose(">>> download files");
+    // download is a filesystem level method
     let stfs = await junction.getFileSystem();
 
-    logger.info(">>> get list of desired files");
-    let results = await junction.list(tract.origin.options.batch ? {} : {
-      forEach: async (entry) => {
-        //logger.debug(JSON.stringify(entry, null, 2));
+    for (let entry of list) {
+      logger.info(entry.name);
+      logger.verbose(JSON.stringify(entry, null, 2));
 
-        let options = Object.assign({
-          smt: tract.terminal.smt,
-          entry: entry,
-        },
-          tract.terminal.options);
-
-        let results = await stfs.getFile(options);
-        if (results.resultCode !== 0) {
-          logger.error("!!! getFile failed: " + entry.name);
-          retCode = 1;
-        }
-      }
-    });
-    let { data: list } = results;
-
-    if (tract.origin.options.batch) {
-      logger.info(">>> download files");
-      for (let entry of list) {
-        //logger.debug(JSON.stringify(entry, null, 2));
-
-        let options = Object.assign({
-          smt: tract.terminal.smt,
-          entry: entry,
-        },
-          tract.terminal.options);
-
-        let results = await stfs.getFile(options);
-        if (results.resultCode !== 0) {
-          logger.error("!!! getFile failed: " + entry.name);
-          retCode = 1;
-          break;
-        }
+      let options = Object.assign({ smt: tract.terminal.smt, entry: entry }, tract.terminal.options);
+      let ok = await stfs.getFile(options);
+      if (!ok) {
+        logger.error("download failed: " + entry.href);
+        retCode = 1;
       }
     }
+
+    logger.info("=== completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.message);
     retCode = 1;
   }
   finally {

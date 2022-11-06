@@ -280,7 +280,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         this._headers,
         options.http && options.http.headers);
 
-      let src = options.entry.rpath;
+      let src = options.entry.rpath || options.entry.name;
 
       // smt.locus is destination folder
       let smt = new SMT(options.smt);

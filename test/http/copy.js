@@ -68,7 +68,28 @@ async function downloads_NGINX() {
 
 }
 
+async function downloads_SOS() {
+
+  logger.info("=== download sos.iowa.gov pdf file");
+  if (await getFiles({
+    "origin": {
+      "smt": "*|https://sos.iowa.gov/elections/pdf/VRStatsArchive/2022/|CongNov22.pdf|*",
+      "options": {
+        "recursive": false
+      }
+    },
+    "terminal": {
+      "smt": "*|file:./data/output/http/SOS/|*|*",
+      "options": {
+        "use_rpath": false
+      }
+    }
+  })) return 1;
+
+}
+
 (async () => {
-  if (await downloads_IIS()) return;
-  if (await downloads_NGINX()) return;
+  //if (await downloads_IIS()) return;
+  //if (await downloads_NGINX()) return;
+  if (await downloads_SOS()) return;
 })();
