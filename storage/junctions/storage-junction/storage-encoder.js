@@ -1,7 +1,8 @@
 "use strict";
 
-const { parseValue, StorageError } = require("../../types");
-const { typeOf, hasOwnProperty } = require("../../utils");
+const { StorageError } = require("../../types");
+const { typeOf, hasOwnProperty, isDate } = require("../../utils");
+
 const dot = require('dot-object');
 const ynBoolean = require('yn');
 
@@ -37,33 +38,39 @@ module.exports = exports = class StorageEncoder {
       let field = encoding.find(name);
       let newValue = value;
 
-      if (value === "" || value === null) {     // current parser generates "" instead of null
-        newValue = field.defaultValue;
+      if (typeof value === "undefined" || value === null || value === "") {     // current parser generates "" instead of null
+        newValue = field.default || null;
       }
       else if (field.type === 'boolean') {
         newValue = ynBoolean(value);
-        if (typeof newValue === "undefined") newValue = field.defaultValue;
+        if (typeof newValue === "undefined")
+          newValue = field.default;
       }
       else if (field.type === 'integer') {
         newValue = Number.parseInt(value, 10);
-        if (Number.isNaN(newValue)) newValue = field.defaultValue;
+        if (Number.isNaN(newValue))
+          newValue = field.default;
       }
-      else if (field.type === 'float') {
+      else if (field.type === 'number') {
         newValue = Number.parseFloat(value);
-        if (!Number.isFinite(newValue)) newValue = field.defaultValue;
+        if (!Number.isFinite(newValue))
+          newValue = field.default;
       }
       else if (field.type === 'date') {
         newValue = new Date(value);
-        if (isNaN(newValue)) newValue = field.defaultValue;
+        if (isNaN(newValue))
+          newValue = field.default;
       }
       else if (field.type === 'keyword') {
-        if (value === null) newValue = field.defaultValue;
+        if (typeof value === "undefined" || value === null)
+          newValue = field.default;
       }
       else if (field.type === 'text') {
-        if (value === null) newValue = field.defaultValue;
+        if (typeof value === "undefined" || value === null)
+          newValue = field.default;
       }
       else {
-        newValue = parseValue(value);
+        newValue = this.parseValue(value);
       }
 
       if (newValue !== value)
@@ -74,8 +81,35 @@ module.exports = exports = class StorageEncoder {
   }
 
   /**
+  * Try to parse a string value into a javascript type.
+  * Returns the value as a javascript typed value.
+  */
+  parseValue(value) {
+
+    if (!value || typeof value !== 'string')
+      return value;
+
+    if (isDate(value))
+      return new Date(value);
+
+    // integer check
+    if (/^[-+]?(\d+)$/.test(value))
+      return Number(value);
+
+    // number check
+    if (!isNaN(value) && !isNaN(parseFloat(value)))
+      return Number(value);
+
+    let b = ynBoolean(value);
+    if (typeof b !== "undefined")
+      return b;
+
+    return value;
+  }
+
+  /**
    * Select fields to include in the output.
-   * Logic is the same as the fields clause of Select transform.
+   * Logic is the same as the fields clause of Mutate transform.
    * @param {Object} construct
    * @returns
    */
