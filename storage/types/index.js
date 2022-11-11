@@ -10,7 +10,6 @@ exports.StorageResponse = require('./storage-response');
 exports.StorageError = require('./storage-error');
 
 exports.storageType = require('./storageType');
-exports.parseValue = require('./parseValue');
 exports.stringBreakpoints = require("./stringBreakpoints");
 
 // dicta storage types
@@ -28,4 +27,4 @@ exports.stringBreakpoints = require("./stringBreakpoints");
 //  "geometry" - GeoJSON geometry object
 
 // other types
-//  "unknown"  - used for values that are null
+//  "unknown"  - used for fields that have all null values
