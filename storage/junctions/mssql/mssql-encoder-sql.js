@@ -144,14 +144,14 @@ exports.sqlCreateTable = (engram, options) => {
 
     if (field.isKey) {
       primaryKeys[ field.key - 1 ] = sqlString.escapeId(field.name);
-      field.isNullable = false;
+      field.nullable = false;
     }
     if (field.isNullable)
       sql += " NULL";
     else
       sql += " NOT NULL";
-    if (field.defaultValue)
-      sql += " DEFAULT " + sqlString.escape(field.defaultValue);
+    if (field.hasDefault)
+      sql += " DEFAULT " + sqlString.escape(field.default);
   }
 
   if (primaryKeys.length > 0) {

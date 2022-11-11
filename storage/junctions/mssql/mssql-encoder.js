@@ -25,6 +25,7 @@ var storageType = exports.storageType = (mssqlType, size = 0) => {
         fldType = 'boolean';
         break;
       }
+    // eslint-disable-next-line no-fallthrough
     case 'SMALLINT':
     case 'INT':
     case 'Numeric':
@@ -102,7 +103,7 @@ exports.storageField = (column) => {
   };
 
   if (hasOwnProperty(column, "default"))
-    field.defaultValue = column[ "default" ].value;
+    field.default = column[ "default" ].value;
   if (hasOwnProperty(column, "is_nullable"))
     field.nullable = ynBoolean(column[ "is_nullable" ].value);
   if (hasOwnProperty(column, "key_ordinal"))

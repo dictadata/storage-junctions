@@ -71,8 +71,8 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
         for (let field of this.engram.fields) {
           if (hasOwnProperty(construct, field.name) && construct[ field.name ] !== null)
             ordered[ field.name ] = construct[ field.name ];
-          else if (field.defaultValue)
-            ordered[ field.name ] = field.defaultValue;
+          else if (field.hasDefault)
+            ordered[ field.name ] = field.default;
           // else don't copy field
         }
       }

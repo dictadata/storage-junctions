@@ -10,7 +10,7 @@ const ynBoolean = require('yn');
  * The storage source should provide the actual type, but not always possible.
  */
 function storageType (value) {
-  if (value === null)
+  if (typeof value === "undefined" || value === null)
     return "unknown";
 
   let jtype = typeOf(value);
@@ -44,17 +44,17 @@ function storageType (value) {
   else if (jtype === "object") {
     return "map";  // nested object
   }
-/*    
+/*
   else if (jtype === "boolean") {
     return "boolean";
   }
   else if (jtype === "date") {
     return "date";
   }
-  // could be other types like function, regex, or classes  
+  // could be other types like function, regex, or classes
 */
-  
+
   return jtype;
-};
+}
 
 module.exports = exports = storageType;

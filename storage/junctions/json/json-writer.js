@@ -103,10 +103,14 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       if (this.options.orderFields) {
         let ordered = {};
         for (let field of this.engram.fields) {
-          if (hasOwnProperty(construct, field.name) && construct[ field.name ] !== null)
-            ordered[ field.name ] = construct[ field.name ];
-          else if (field.defaultValue)
-            ordered[ field.name ] = field.defaultValue;
+          if (hasOwnProperty(construct, field.name)) {
+            if (construct[ field.name ] === null && field.hasDefault)
+              ordered[ field.name ] = field.default;
+            else
+              ordered[ field.name ] = construct[ field.name ];
+          }
+          else if (field.hasDefault)
+            ordered[ field.name ] = field.default;
           // else don't copy field
         }
       }

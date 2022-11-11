@@ -41,19 +41,11 @@ module.exports = exports = class Field {
         this[ prop ] = definition[ prop ];
   }
 
-  get defaultValue() {
-    return (typeof this.default !== "undefined") ? this.default : null;
+  get hasDefault() {
+    return (typeof this.default !== "undefined");
   }
-  set defaultValue(value) {
-    if (typeof value !== "undefined")
-      this.default = value;
-  }
-
   get isNullable() {
     return (typeof this.nullable !== "undefined") ? this.nullable : true;
-  }
-  set isNullable(value) {
-    this.nullable = value ? true : false;
   }
 
   get isKey() {

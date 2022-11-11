@@ -68,8 +68,8 @@ module.exports = exports = class CSVWriter extends StorageWriter {
         (first) ? first = false : data += ',';
 
         let value = construct[ field.name ];
-        if ((typeof value === "undefined" || value === null) && field.defaultValue)
-          value = field.defaultValue;
+        if ((typeof value === "undefined" || value === null) && field.hasDefault)
+          value = field.default;
 
         if (typeof value !== "undefined" && value !== null) {
           switch (field.type.toLowerCase()) {
