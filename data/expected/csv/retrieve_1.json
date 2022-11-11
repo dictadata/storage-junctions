@@ -3,14 +3,6 @@
   "resultMessage": "OK",
   "data": [
     {
-      "Foo": "Foo",
-      "Bar": "Bar",
-      "Baz": null,
-      "Fobe": "Fobe",
-      "Dt Test": null,
-      "enabled": null
-    },
-    {
       "Foo": "first",
       "Bar": "row",
       "Baz": 123,
