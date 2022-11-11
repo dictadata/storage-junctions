@@ -34,28 +34,28 @@
     "node": ">=17.0.0"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^8.2.1",
+    "@elastic/elasticsearch": "^8.5.0",
     "basic-ftp": "^5.0.2",
     "dot-object": "^2.1.4",
     "form-data": "^4.0.0",
     "mysql": "^2.18.1",
-    "node-html-parser": "^5.4.2-0",
+    "node-html-parser": "^6.1.1",
     "node-stream-zip": "^1.15.0",
     "shapefile": "^0.6.6",
     "sqlstring": "^2.3.3",
     "stream-chain": "^2.2.4",
     "stream-csv-as-json": "^1.0.4",
     "stream-json": "^1.7.3",
-    "tedious": "^15.0.1",
+    "tedious": "^15.1.1",
     "tsqlstring": "^1.0.1",
     "uuid": "^8.3.2",
-    "winston": "^3.8.1",
+    "winston": "^3.8.2",
     "yn": "^4.0.0"
   },
   "devDependencies": {
     "colors": "^1.4.0",
-    "eslint": "^8.22.0",
+    "eslint": "^8.27.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0"
+    "eslint-plugin-promise": "^6.1.1"
   }
 }
