@@ -112,41 +112,6 @@ module.exports = exports = class JSONReader extends StorageReader {
       return c;
     }
 
-    // cast fields to match junction encoding, if encoding is defined
-    function cast(construct) {
-      for (let [ name, value ] of Object.entries(construct)) {
-        let field = encoding.find(name);
-        let newValue = value;
-
-        if (value === null) {
-          newValue = field.defaultValue;
-        }
-        else if (field.type === 'integer') {
-          newValue = Number.parseInt(value, 10);
-          if (Number.isNaN(newValue)) newValue = field.defaultValue;
-        }
-        else if (field.type === 'float') {
-          newValue = Number.parseFloat(value);
-          if (!Number.isFinite(newValue)) newValue = field.defaultValue;
-        }
-        else if (field.type === 'date') {
-          newValue = new Date(value);
-          if (isNaN(newValue)) newValue = field.defaultValue;
-        }
-        else if (field.type === 'keyword') {
-          if (value === null) newValue = field.defaultValue;
-        }
-        else if (field.type === 'text') {
-          if (value === null) newValue = field.defaultValue;
-        }
-
-        if (newValue !== value)
-          construct[ name ] = newValue;
-      }
-
-      return construct;
-    }
-
   }
 
   /**

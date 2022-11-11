@@ -1,3 +1,9 @@
+/**
+ * storage/junctions/parquet/parquet-reader.js
+ *
+ * This module has NOT been implemented, yet.
+ *
+ */
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
@@ -25,41 +31,6 @@ module.exports = exports = class ParquetReader extends StorageReader {
     var encoder = this.junction.createEncoder(options);
 
     /***** create the parser *****/
-
-    function cast(construct) {
-
-      for (let [ name, value ] of Object.entries(construct)) {
-        let field = encoding.find(name);
-        let newValue = value;
-
-        if (value === null) {
-          newValue = field.defaultValue;
-        }
-        else if (field.type === 'integer') {
-          newValue = Number.parseInt(value, 10);
-          if (Number.isNaN(newValue)) newValue = field.defaultValue;
-        }
-        else if (field.type === 'float') {
-          newValue = Number.parseFloat(value);
-          if (!Number.isFinite(newValue)) newValue = field.defaultValue;
-        }
-        else if (field.type === 'date') {
-          newValue = new Date(value);
-          if (isNaN(newValue)) newValue = field.defaultValue;
-        }
-        else if (field.type === 'keyword') {
-          if (value === null) newValue = field.defaultValue;
-        }
-        else if (field.type === 'text') {
-          if (value === null) newValue = field.defaultValue;
-        }
-
-        if (newValue !== value)
-          construct[ name ] = newValue;
-      }
-
-      return construct;
-    }
 
     let parser = null;
     if (this.engram.smt.model === 'Parquets' || this.engram.smt.model === 'Parquetl')

@@ -8,84 +8,14 @@
 "use strict";
 
 const StorageEncoder = require('../storage-junction/storage-encoder');
-const { storageType } = require('../../types');
 const { typeOf, hasOwnProperty } = require('../../utils');
 const dot = require('dot-object');
-const ynBoolean = require('yn');
+
 
 module.exports = exports = class RestEncoder extends StorageEncoder {
 
   constructor(storageJunction, options) {
     super(storageJunction, options);
-  }
-
-  /**
-   * convert a REST type to a storage field type
-   *
-   * Implementors notes:
-   *   replace srcType values with actual source types
-   */
-  storageType(srcType) {
-    let fldType = 'unknown';
-
-    switch (srcType.toUpperCase()) {
-      default:
-        fldType = 'unknown';
-        break;
-    }
-
-    return fldType;
-  }
-
-  /**
-   * return a source type from a storage field definition
-   * implementors notes:
-   * replace "src" with storage name e.g. "mysql", "mongodb", ...
-   * returned propery types for the data source
-   */
-  srcType(field) {
-    let srcType = "";
-
-    if (field.scr_type) {
-      srcType = field.src_type;
-    }
-    else {
-      switch (field.type.toLowerCase()) {
-        default:
-          srcType = "unknown";
-          break;
-      }
-    }
-
-    return srcType;
-  }
-
-  /**
-   * convert a source column definition to a storage field definition
-   * implementors notes:
-   * replace srcdef.property with the approprieate proptery name
-   */
-  storageField(srcdef) {
-
-    let field = {
-      name: srcdef.Name,
-      type: storageType(srcdef.Type),
-      size: srcdef.Size,
-      // add additional REST fields
-      _rest: {
-        Type: srcdef.Type,
-        Extra: srcdef.Extra
-      }
-    };
-
-    if (hasOwnProperty(srcdef, "Default"))
-      field.defaultValue = srcdef[ "Default" ];
-    if (hasOwnProperty(srcdef, "Null"))
-      field.nullable = ynBoolean(srcdef[ "Null" ]);
-    if (hasOwnProperty(srcdef, "Key"))
-      field.key = srcdef[ "Key" ];
-
-    return field;
   }
 
   parseData(data, options, callback) {
