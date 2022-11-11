@@ -1,13 +1,15 @@
 /**
- * mssql/queries
+ * storage/types/storage-encoder-sql
+ *
+ * Generic methods for processing SQL queries.
  */
 "use strict";
 
-const encoder = require('./storage-encoder');
+const encoder = require('./template-encoder');
 const { StorageError } = require('.');
 const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../utils');
 
-module.exports = exports = class StorageSQLEncoder {
+module.exports = exports = class StorageEncoderSQL {
 
   constructor(options) {
     this.options = options;
@@ -122,14 +124,14 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
 
       if (field.isKey) {
         primaryKeys[ field.key - 1 ] = this.escapeId(field.name);
-        field.isNullable = false;
+        field.nullable = false;
       }
       if (field.isNullable)
         sql += " NULL";
       else
         sql += " NOT NULL";
-      if (field.defaultValue)
-        sql += " DEFAULT " + this.escapeValue(field.defaultValue);
+      if (field.hasDefault)
+        sql += " DEFAULT " + this.escapeValue(field.default);
     }
 
     if (primaryKeys.length > 0) {
