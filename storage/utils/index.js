@@ -9,6 +9,8 @@ exports.isUUID = require('./isUUID');
 exports.parseDate = require('./parseDate');
 exports.formatDate = require('./formatDate');
 
+//exports.formatCurrency = require("./formatCurrency");
+
 exports.getCI = require('./getCI');
 exports.ifOptions = require('./ifOptions');
 
