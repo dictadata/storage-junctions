@@ -1,10 +1,12 @@
 /**
- * junction/encoder
+ * storage/types/storage-encoder
  *
- * Example functions that handle the conversion of types
+ * NOTE: This is a template class file.
+ *       For use by developers creating new junctions.
+ *
+ * Methods that handle the conversion of types
  * and queries between the junction and the source library.
  *
- * For internal use by junction developers only.
  */
 "use strict";
 
@@ -34,7 +36,7 @@ module.exports = exports = class StorageEncoder {
 
       case 'FLOAT':
       case 'DOUBLE':
-        fldType = 'float';
+        fldType = 'number';
         break;
 
       case 'DATE':
@@ -59,7 +61,7 @@ module.exports = exports = class StorageEncoder {
     }
 
     return fldType;
-  };
+  }
 
   /**
    * convert a column definition to a storage field definition
@@ -80,20 +82,20 @@ module.exports = exports = class StorageEncoder {
     };
 
     if (hasOwnProperty(srcdef, "Default"))
-      field.defaultValue = srcdef[ "Default" ];
+      field.default = srcdef[ "Default" ];
     if (hasOwnProperty(srcdef, "Null"))
       field.nullable = ynBoolean(srcdef[ "Null" ]);
     if (hasOwnProperty(srcdef, "Key"))
       field.key = srcdef[ "Key" ];
 
     return field;
-  };
+  }
 
   /**
    * return a source type from a storage field definition
    * implementors notes:
    * replace "src" with storage name e.g. "mysql", "mongodb", ...
-   * returned propery types for the data source
+   * returned property types for the data source
    */
   srcType(field) {
     let srcType = "";
@@ -129,6 +131,6 @@ module.exports = exports = class StorageEncoder {
     }
 
     return srcType;
-  };
+  }
 
-}
+};
