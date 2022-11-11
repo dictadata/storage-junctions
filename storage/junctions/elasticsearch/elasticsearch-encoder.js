@@ -27,7 +27,7 @@ var storageType = exports.storageType = function (elasticType) {
     case 'float':
     case 'half_float':
     case 'scaled_float':
-      fldType = 'float';
+      fldType = 'number';
       break;
 
     case 'boolean':
@@ -123,7 +123,7 @@ var storageField = exports.storageField = function (name, property) {
   };
 
   if (hasOwnProperty(property, "null_value"))  // default if value is null
-    field.defaultValue = property[ "null_value" ];
+    field.default = property[ "null_value" ];
 
   // add elasticsearch definition
   field._elasticsearch = property;
@@ -207,8 +207,8 @@ exports.fieldsToMappings = function fieldsToMappings(fields) {
     else if (ftype !== "unknown") {
       mappings.properties[ field.name ] = { "type": elasticType(field) };
 
-      if (hasOwnProperty(field, "default") && field.type !== 'text') {
-        mappings.properties[ field.name ].null_value = field.defaultValue;
+      if (field.hasDefault && field.type !== 'text') {
+        mappings.properties[ field.name ].null_value = field.default;
       }
 
       if (field._elasticsearch) {

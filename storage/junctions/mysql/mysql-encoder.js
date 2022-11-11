@@ -52,7 +52,7 @@ var storageType = exports.storageType = function (mysqlType) {
 
     case 'FLOAT':
     case 'DOUBLE':
-      fldType = 'float';
+      fldType = 'number';
       break;
 
     case 'TIMESTAMP':
@@ -123,15 +123,15 @@ exports.storageField = function (column) {
   };
 
   if (hasOwnProperty(column, "Default"))
-    field.defaultValue = column[ "Default" ];
+    field.default = column[ "Default" ];
   if (hasOwnProperty(column, "Null"))
     field.nullable = ynBoolean(column.Null);
   if (column.Key)
     field.key = 1;
 
   // make sure isNullable and default are valid
-  //if ((field.type === 'keyword' || field.type === 'text') && !field.isNullable && field.defaultValue === null)
-  //    field.defaultValue = '';
+  //if ((field.type === 'keyword' || field.type === 'text') && !field.isNullable && field.default === null)
+  //    field.default = '';
 
   // add MySQL definition
   field._mysql = column;
