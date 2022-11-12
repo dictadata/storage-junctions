@@ -6,7 +6,6 @@
 const encoder = require('./mysql-encoder');
 const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../utils');
 const sqlString = require('sqlstring');
-const { escapeId } = require('tsqlstring');
 
 exports.connectionConfig = (smt, options) => {
 
@@ -123,7 +122,7 @@ exports.sqlCreateTable = function (engram, options) {
     else
       sql += " NOT NULL";
 
-    if (field.hasDefault)
+    if (field.hasDefault && (field.default !== null || field.isNullable))
       sql += " DEFAULT " + sqlString.escape(field.default);
   }
 

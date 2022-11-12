@@ -102,8 +102,9 @@ exports.storageField = (column) => {
     size: column[ "size" ].value,
   };
 
-  if (hasOwnProperty(column, "default"))
-    field.default = column[ "default" ].value;
+  if (hasOwnProperty(column, "default")) {
+    field.default = (column[ "default" ].value === "(NULL)") ? null : column[ "default" ].value;
+  }
   if (hasOwnProperty(column, "is_nullable"))
     field.nullable = ynBoolean(column[ "is_nullable" ].value);
   if (hasOwnProperty(column, "key_ordinal"))
