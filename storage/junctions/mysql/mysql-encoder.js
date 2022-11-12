@@ -163,7 +163,7 @@ exports.mysqlType = function (field) {
     case "string":
     case "text":
       if (field.size < 0 || field.size > stringBreakpoints.text)
-        mysqlType = "TEXT"
+        mysqlType = "TEXT";
       else
         mysqlType = "VARCHAR(" + (field.size > 0 ? field.size : stringBreakpoints.keyword) + ")";
       break;
