@@ -1,33 +1,16 @@
 ### simple query
-POST http://dev.dictadata.org:9200/foo_schema/_search
+PUT http://dev.dictadata.org:9200/foo_schema_2
 Content-Type: application/json
 
 {
   "settings": {
-    "index": {
-      "number_of_shards": 3,
-      "number_of_replicas": 1,
-      "mapping.total_fields.limit": 1000,
-      "mapping.depth.limit": 10,
-      "mapping.nested_fields.limit": 10,
-    },
-    "analysis": {
-      "analyzer": {
-        "st_split_analyzer": {
-          "tokenizer": "st_split_tokenizer",
-        },
-      },
-      "tokenizer": {
-        "st_split_tokenizer": {
-          "type": "simple_pattern_split",
-          "pattern": ">",
-        },
-      },
-    },
+    "index.number_of_shards": 3,
+    "index.number_of_replicas": 1,
+    "index.write.wait_for_active_shards": "2"
   },
   "mappings": {
     "_meta": {
-      "version": "1.0.0",
+      "my_version": "1.0.1"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -35,36 +18,31 @@ Content-Type: application/json
         "strings_as_keyword": {
           "mapping": {
             "type": "keyword",
-            "ignore_above": 1024,
+            "ignore_above": 1024
           },
-          "match_mapping_type": "string",
-        },
-      },
+          "match_mapping_type": "string"
+        }
+      }
     ],
     "properties": {
       "Foo": {
-        "type": "keyword",
-        "null_value": undefined,
+        "type": "keyword"
       },
       "Bar": {
-        "type": "text",
+        "type": "text"
       },
       "Baz": {
-        "type": "integer",
-        "null_value": undefined,
+        "type": "integer"
       },
       "Fobe": {
-        "type": "double",
-        "null_value": undefined,
+        "type": "double"
       },
       "Dt Test": {
-        "type": "date",
-        "null_value": undefined,
+        "type": "date"
       },
       "enabled": {
-        "type": "boolean",
-        "null_value": undefined,
-      },
-    },
+        "type": "boolean"
+      }
+    }
   }
 }
