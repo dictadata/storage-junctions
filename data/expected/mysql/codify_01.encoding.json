@@ -56,7 +56,7 @@
     },
     {
       "name": "Fobe",
-      "type": "float",
+      "type": "number",
       "size": null,
       "_mysql": {
         "Field": "Fobe",
