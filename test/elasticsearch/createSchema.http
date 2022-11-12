@@ -1,0 +1,70 @@
+### simple query
+POST http://dev.dictadata.org:9200/foo_schema/_search
+Content-Type: application/json
+
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 1,
+      "mapping.total_fields.limit": 1000,
+      "mapping.depth.limit": 10,
+      "mapping.nested_fields.limit": 10,
+    },
+    "analysis": {
+      "analyzer": {
+        "st_split_analyzer": {
+          "tokenizer": "st_split_tokenizer",
+        },
+      },
+      "tokenizer": {
+        "st_split_tokenizer": {
+          "type": "simple_pattern_split",
+          "pattern": ">",
+        },
+      },
+    },
+  },
+  "mappings": {
+    "_meta": {
+      "version": "1.0.0",
+    },
+    "date_detection": false,
+    "dynamic_templates": [
+      {
+        "strings_as_keyword": {
+          "mapping": {
+            "type": "keyword",
+            "ignore_above": 1024,
+          },
+          "match_mapping_type": "string",
+        },
+      },
+    ],
+    "properties": {
+      "Foo": {
+        "type": "keyword",
+        "null_value": undefined,
+      },
+      "Bar": {
+        "type": "text",
+      },
+      "Baz": {
+        "type": "integer",
+        "null_value": undefined,
+      },
+      "Fobe": {
+        "type": "double",
+        "null_value": undefined,
+      },
+      "Dt Test": {
+        "type": "date",
+        "null_value": undefined,
+      },
+      "enabled": {
+        "type": "boolean",
+        "null_value": undefined,
+      },
+    },
+  }
+}
