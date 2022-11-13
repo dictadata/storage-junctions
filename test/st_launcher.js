@@ -24,7 +24,7 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
 
     for (let config of launch.configurations) {
       if (!testName || config.name.indexOf(testName) >= 0) {
-        if (config.type === "pwa-node"
+        if ((config.type === "node" || config.type === "pwa-node")
           && config.request === "launch"
           && (config.program && config.program.includes(testProg))) {
 
