@@ -5,6 +5,5 @@
 {"Foo":"fourth","baz_sum":0},
 {"Foo":"fifth","baz_sum":-12},
 {"Foo":"sixth","baz_sum":0},
-{"Foo":"seventh","baz_sum":0},
 {"Foo":"eighth","baz_sum":12}
 ]

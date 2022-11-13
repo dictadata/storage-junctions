@@ -4,6 +4,6 @@
 {"Dt Test":"2018-10-10T14:13:30.500Z","Foo":"fourth","Baz":0},
 {"Dt Test":"2018-10-18T05:00:00.000Z","Foo":"fifth","Baz":-12},
 {"Dt Test":null,"Foo":"sixth","Baz":null},
-{"Dt Test":"2018-10-10T19:13:30.000Z","Foo":"seventh","Baz":0},
+{"Dt Test":"2018-10-10T19:13:30.000Z","Foo":"seventh","Baz":1000000},
 {"Dt Test":"2018-10-10T05:00:00.000Z","Foo":"eighth","Baz":12}
 ]
