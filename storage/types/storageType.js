@@ -23,19 +23,30 @@ function storageType (value) {
   else if (jtype === "string") {
     //if (value.length === 0)
     //  return "unknown";
+
     if (isDate(value))
       return "date";
+
     if (isUUID(value))
       return "uuid";
-    if (/^[-+]?(\d+)$/.test(value))
+
+    // test for integer; optional delimiters
+    if (/^\s*[-+]?(\d{1,3}(?:,?\d{3})*)?\s*$/.test(value))
       return "integer";
-    if (!isNaN(value) && !isNaN(parseFloat(value)))
+
+    // if (!isNaN(value) && !isNaN(parseFloat(value)))
+    // test for number or currency; optional delimiters
+    if (/^\s*[-+]?(\d{1,3}(?:,?\d{3})*(?:\.\d*)?|\.\d*)?\s*$/.test(value) ||
+      /^\s*\(?(\$?\d{1,3}(?:,?\d{3})*(?:\.\d{2})?|\.\d{2})?\)?\s*$/.test(value))
       return "number";
+
     let b = ynBoolean(value);
     if (typeof b !== "undefined")
       return "boolean";
+
     if (value.length > 0 && value.length <= stringBreakpoints.keyword && !(/\s/g.test(value)))
       return "keyword";
+
     return "text";
   }
   else if (jtype === "array") {
@@ -44,7 +55,7 @@ function storageType (value) {
   else if (jtype === "object") {
     return "map";  // nested object
   }
-/*
+  /*
   else if (jtype === "boolean") {
     return "boolean";
   }
@@ -52,7 +63,7 @@ function storageType (value) {
     return "date";
   }
   // could be other types like function, regex, or classes
-*/
+  */
 
   return jtype;
 }

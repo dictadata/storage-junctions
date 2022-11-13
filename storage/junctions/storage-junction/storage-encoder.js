@@ -25,7 +25,7 @@ module.exports = exports = class StorageEncoder {
   }
 
   /**
-   * Convert values to types defined in the storage encoding.
+   * Convert string values to types defined in the storage encoding.
    * @param {Object} construct
    */
   cast(construct) {
@@ -47,12 +47,17 @@ module.exports = exports = class StorageEncoder {
           newValue = field.default;
       }
       else if (field.type === 'integer') {
-        newValue = Number.parseInt(value, 10);
+        if (typeof newValue === "string")
+          newValue = Number(value.replace(/[\,]/g, '')); // optional delimiters
         if (Number.isNaN(newValue))
           newValue = field.default;
       }
       else if (field.type === 'number') {
-        newValue = Number.parseFloat(value);
+        if (typeof newValue === "string")
+          newValue = Number(value.replace(/[\,]/g, '')); // optional delimiters
+        if (!Number.isFinite(newValue))
+          // check currency with optional delimiters
+          newValue = Number(value.replace(/\(/, '-').replace(/[\$\(\,\)]/g, ''));
         if (!Number.isFinite(newValue))
           newValue = field.default;
       }
@@ -69,7 +74,7 @@ module.exports = exports = class StorageEncoder {
         if (typeof value === "undefined" || value === null)
           newValue = field.default;
       }
-      else {
+      else /* unknown */ {
         newValue = this.parseValue(value);
       }
 
@@ -92,13 +97,17 @@ module.exports = exports = class StorageEncoder {
     if (isDate(value))
       return new Date(value);
 
-    // integer check
-    if (/^[-+]?(\d+)$/.test(value))
-      return Number(value);
+    // test for integer; optional delimiters
+    if (/^\s*[-+]?(\d{1,3}(?:,?\d{3})*)?\s*$/.test(value))
+      return Number(value.replace(/[\,]/g, ''));
 
-    // number check
-    if (!isNaN(value) && !isNaN(parseFloat(value)))
-      return Number(value);
+    // test for number; optional delimiters
+    if (/^\s*[-+]?(\d{1,3}(?:,?\d{3})*(?:\.\d*)?|\.\d*)?\s*$/.test(value))
+      return Number(value.replace(/[\,]/g, ''));
+
+    // test for currency; optional delimiters
+    if (/^\s*\(?(\$?\d{1,3}(?:,?\d{3})*(?:\.\d{2})?|\.\d{2})?\)?\s*$/.test(value))
+      return Number(value.replace(/[\$\(,\)]/g, ''));
 
     let b = ynBoolean(value);
     if (typeof b !== "undefined")
