@@ -1,5 +1,11 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.84
+  - feature: parse delimited numbers from text sources
+  - refactor: field properties hasDefault, isNullable
+  - refactor: handling of missing values, nulls and default values
+  - bug fix: dictadata storage type is "number" (not float)
+  - testing: fix issue downloading single file via HTTP
 - version 0.9.83
   - new versioning
   - testing: debug output; compare functions
