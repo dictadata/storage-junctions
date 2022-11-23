@@ -37,7 +37,10 @@ module.exports = exports = class CSVReader extends StorageReader {
     var parser = CsvParser({ separator: options.separator });
     var pipeline = this.pipeline = new chain([
       parser,
-      new CsvAsObjects({ keys: encoding.names, header: options.header }),
+      new CsvAsObjects({
+        keys: options.keys || options.headers || encoding.names,
+        header: options.header
+      }),
       new StreamValues()
     ]);
 

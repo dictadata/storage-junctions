@@ -34,7 +34,7 @@ class CsvAsObjects extends Transform {
 
     if (options) {
       'header' in options && (this._header = options.header);
-      'keys' in options && (this._keys = options.keys);
+      'keys' in options && (this._keys = options.keys || options.headers);
       'fieldPrefix' in options && (this._fieldPrefix = options.fieldPrefix);
       'packValues' in options && (this._packStrings = options.packValues);
       'packKeys' in options && (this._packKeys = options.packKeys);

@@ -50,7 +50,7 @@ module.exports = exports = class JSONReader extends StorageReader {
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
     var header = this.options.header;
-    var headers = Array.isArray(this.options.header) ? this.options.header : null;
+    var headers = this.options.headers || (Array.isArray(this.options.header) ? this.options.header : null);
 
     var pipeline = this.pipeline = chain(pipes);
 

@@ -42,19 +42,19 @@ module.exports = exports = class RestEncoder extends StorageEncoder {
       // assume data is an array of arrays
 
       // check if options.header is array with field names
-      let header = Array.isArray(options.header) ? options.header : null;
+      let headers = options.headers || (Array.isArray(options.header) ? options.header : null);
 
       for (let arr of data) {
-        if (!header)
+        if (!headers)
           // assume first array is header with field names
-          header = arr;
+          headers = arr;
         else {
           // convert array to object
           let construct = {};
-          for (let i = 0; i < header.length; i++) {
+          for (let i = 0; i < headers.length; i++) {
             if (i >= arr.length)
               break;
-            construct[ header[ i ] ] = arr[ i ];
+            construct[ headers[ i ] ] = arr[ i ];
           }
           callback(construct);
         }
