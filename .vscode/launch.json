@@ -911,50 +911,6 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "rest retrieve",
-      "program": "${workspaceFolder}/test/rest/retrieve.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "rest encoding",
-      "program": "${workspaceFolder}/test/rest/encoding.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "rest transfer",
-      "program": "${workspaceFolder}/test/rest/transfer.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "rest conjoin",
-      "program": "${workspaceFolder}/test/rest/conjoin.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "shapefile createSchema",
       "program": "${workspaceFolder}/test/shapefile/createSchema.js",
       "outputCapture": "std",
@@ -990,6 +946,50 @@
       "request": "launch",
       "name": "shapefile transfer tiger2020",
       "program": "${workspaceFolder}/test/shapefile/transfer_tiger2020.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "rest retrieve",
+      "program": "${workspaceFolder}/test/rest/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "rest encoding",
+      "program": "${workspaceFolder}/test/rest/encoding.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "rest transfer",
+      "program": "${workspaceFolder}/test/rest/transfer.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "rest conjoin",
+      "program": "${workspaceFolder}/test/rest/conjoin.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
