@@ -4,7 +4,7 @@
 class StorageResponse {
 
   /**
-   * The results type returned by storage methods. Note encoding methods return an Engram object.
+   * The results type returned by storage methods.
    * @param {integer} resultCode a HTTP like statusCode
    * @param {string} resultMessage a string with a HTTP like statusMessage
    * @param {*} data a map or array of constructs
