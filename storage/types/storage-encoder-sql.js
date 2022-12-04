@@ -402,7 +402,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
     sql += " FROM " + engram.smt.schema;
 
     // WHERE clause
-    if (pattern && pattern.match) {
+    if (pattern && pattern.match && Object.keys(pattern.match).length > 0) {
       sql += " WHERE ";
 
       let first = true;

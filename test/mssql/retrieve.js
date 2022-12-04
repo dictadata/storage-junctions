@@ -15,9 +15,8 @@ async function tests() {
     origin: {
       smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|*",
       pattern: {
-        match: {
-          "Bar": { 'wc': 'row*' }
-        }
+        match: {},
+        "order": { "Foo": "asc" }
       }
     },
     terminal: {
