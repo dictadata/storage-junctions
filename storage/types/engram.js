@@ -50,8 +50,9 @@ module.exports = exports = class Engram extends Entry {
     if (encoding.options) this.options = encoding.options;
 
     // field definitions
-    this.fields = [];
-    this.fieldsMap = {};
+    this.fields = new Array();
+    this.fieldsMap = new Map();
+
     if (hasOwnProperty(encoding, "fields"))
       this.encoding = encoding.fields;
   }
@@ -117,10 +118,10 @@ module.exports = exports = class Engram extends Entry {
    * smt and other primitive properties added to the engram remain unchanged.
    */
   dullfields() {
-    this.fields = [];
-    this.fieldsMap = {};
+    this.fields = new Array();
+    this.fieldsMap = new Map();
     if (this.indices)
-      this.indices = {};
+      this.indices = new Map();
   }
 
   /**
@@ -152,22 +153,44 @@ module.exports = exports = class Engram extends Entry {
    */
   static _copy(dst, src) {
     for (let [ key, value ] of Object.entries(src)) {
-      if (typeOf(value) === "object") { // fields, ...
+      let srcType = typeOf(value);
+
+      if (srcType === "object") {
         dst[ key ] = {};  // replace
         Engram._copy(dst[ key ], value);
       }
-      else if (typeOf(value) === "array") {
-        dst[ key ] = [];  // replace
+      else if (["date", "regexp"].includes(srcType)) {
+        dst[ key ] = value;
+      }
+      else if (srcType === "array") {
+        dst[ key ] = new Array();  // replace
         for (let item of value)
-          if (typeOf(item) === "object")
+          if (item != null && typeof item === "object")
             dst[ key ].push(Engram._copy({}, item));
           else
             dst[ key ].push(item);
       }
-      else if (typeOf(value) !== "function") {
+      else if (srcType === "map") {
+        dst[ key ] = new Map();  // replace
+        for (let [name, item] of value.entries())
+          if (item != null && typeof item === "object")
+            dst[ key ].set(name, Engram._copy({}, item));
+          else
+            dst[ key ].set(name, item);
+      }
+      else if (srcType === "set") {
+        dst[ key ] = new Set();  // replace
+        for (let item of value.entries())
+          if (item != null && typeof item === "object")
+            dst[ key ].add(Engram._copy({}, item));
+          else
+            dst[ key ].add(item);
+      }
+      else if (srcType !== "function") {
         dst[ key ] = value;
       }
     }
+
     return dst;
   }
 
@@ -191,7 +214,7 @@ module.exports = exports = class Engram extends Entry {
    * Array of field names.
    */
   get names() {
-    return Object.keys(this.fieldsMap);
+    return Array.from(this.fieldsMap.keys());
   }
 
   /**
@@ -291,7 +314,7 @@ module.exports = exports = class Engram extends Entry {
   find(name) {
     let fname = (this.caseInsensitive) ? name.toUpperCase() : name;
 
-    let field = this.fieldsMap[ fname ];
+    let field = this.fieldsMap.get(fname);
     if (!field) {
       field = new Field({
         name: name,
@@ -326,21 +349,22 @@ module.exports = exports = class Engram extends Entry {
       this.fields.push(newField);
 
     // save in map
-    this.fieldsMap[ fname ] = newField;
+    this.fieldsMap.set(fname, newField);
 
     return newField;
   }
 
   /**
    * Convert fields map to an array of fields.
-   * @param {*} fieldsMap are fields as an object (map) wherein each field is a named property
+   * @param {*} fields are fields as an object or Map wherein each field is a named property
    * @returns fields as an array of Field objects
    */
-  static _convert(fieldsMap) {
-    let fields = [];
+  static _convert(fields) {
+    let retFields = [];
 
-    for (let [ name, field ] of Object.entries(fieldsMap)) {
-      if (typeOf(field) === "string") {
+    let entries = typeOf(fields) === 'map' ? fields.entries() : Object.entries(fields);
+    for (let [ name, field ] of entries) {
+      if (typeof field === "string") {
         // convert to object
         field = {
           "name": name,
@@ -354,9 +378,9 @@ module.exports = exports = class Engram extends Entry {
       if ((field.type === "list" || field.type === "map") && typeOf(field.fields) === "object")
         field.fields = Engram._convert(field.fields);
 
-      fields.push(field);
+      retFields.push(field);
     }
 
-    return fields;
+    return retFields;
   }
 };
