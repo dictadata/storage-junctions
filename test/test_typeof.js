@@ -1,67 +1,96 @@
-#!/usr/bin/env node
+function typeOf(obj, fullClass = false) {
+  // use obj.prototype.toString() for deepType (handles all types)
 
-function type(obj, fullClass = false) {
-  // get toPrototypeString() of obj (handles all types)
-  // Early JS environments return '[object Object]' for null, so it's best to directly check for it.
   if (fullClass) {
+    // return type as "[object deepType]" format
+    // Note, early JS environments return '[object Object]' for null.
     return (obj === null) ? '[object Null]' : Object.prototype.toString.call(obj);
   }
 
-  if (obj == null) { return (obj + '').toLowerCase(); } // implicit toString() conversion
+  // really old bug in Javascript that where typeof null returns 'object'
+  if (obj == null) {                  // null or undefined
+    return (obj + '').toLowerCase(); // implicit toString() conversion
+  }
 
   var deepType = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
-  if (deepType === 'generatorfunction') { return 'function' }
+  console.log('deepType ' + deepType);
+
+  if (deepType === 'generatorfunction') {
+    return 'function';
+  }
+
+  if (deepType.endsWith('array') && deepType !== 'array')
+    return 'typedarray';
 
   // Prevent overspecificity (for example, [object HTMLDivElement], etc).
   // Account for functionish Regexp (Android <=2.3), functionish <object> element (Chrome <=57, Firefox <=52), etc.
   // String.prototype.match is universally supported.
 
-  return deepType.match(/^(array|bigint|date|error|function|generator|regexp|symbol)$/) ? deepType :
+  return deepType.match(/^(array|map|set|bigint|date|error|function|generator|regexp|symbol)$/) ? deepType :
     (typeof obj === 'object' || typeof obj === 'function') ? 'object' : typeof obj;
 }
 
-function print(obj) {
-  console.log(typeof obj);
+function logTypeOf(obj) {
+  console.log("typeof   " + typeof obj);
   //console.log(Object.prototype.toString.call(obj));
   //console.log(type(obj,true));
-  console.log(type(obj));
+  console.log("typeOf   " + typeOf(obj));
   console.log("");
 }
 
+console.log('undefined');
+logTypeOf();
 
-let obj1 = {};
-print(obj1);
+console.log('null');
+logTypeOf(null);
 
-let obj2 = { a: 1 };
-print(obj2);
+console.log('true');
+logTypeOf(true);
 
-let obj3 = [1];
-print(obj3);
+console.log('0');
+logTypeOf(0);
 
-let obj4 = new Date();
-print(obj4);
+console.log('100');
+logTypeOf(100);
 
-let obj5 = (x) => x += 1;
-print(obj5);
+console.log('100000000000n');
+logTypeOf(100000000000n);
 
-let obj6 = /abc/;
-print(obj6);
+console.log('""');
+logTypeOf("");
 
-let obj7 = "string";
-print(obj7);
+console.log('"string"');
+logTypeOf("string");
 
-let objA = true;
-print(objA);
+console.log('{}');
+logTypeOf({});
 
-let obj8 = 100;
-print(obj8);
+console.log('{ a: 1 }');
+logTypeOf({ a: 1 });
 
-let obj9;
-print(obj9);
+console.log('[1]');
+logTypeOf([ 1 ]);
 
-let obj10 = null;
-print(obj10);
+console.log('new Date()');
+logTypeOf(new Date());
 
+console.log('(x) => x += 1');
+logTypeOf((x) => x += 1);
+
+console.log('/abc/');
+logTypeOf(/abc/);
+
+console.log('new Array()');
+logTypeOf(new Array());
+
+console.log('new Map()');
+logTypeOf(new Map());
+
+console.log('new Set()');
+logTypeOf(new Set());
+
+console.log('new Int8Array(8)');
+logTypeOf(new Int8Array(8));
 
 class myClass {
   constructor() {
@@ -70,5 +99,5 @@ class myClass {
   }
 }
 
-let obj0 = new myClass();
-print(obj0);
+console.log('new myClass()');
+logTypeOf(new myClass());
