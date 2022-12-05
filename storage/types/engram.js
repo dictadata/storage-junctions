@@ -52,6 +52,7 @@ module.exports = exports = class Engram extends Entry {
     // field definitions
     this.fields = new Array();
     this.fieldsMap = new Map();
+    this.indices;  // optional, indices will be created if part of the encoding definition
 
     if (hasOwnProperty(encoding, "fields"))
       this.encoding = encoding.fields;
@@ -121,7 +122,7 @@ module.exports = exports = class Engram extends Entry {
     this.fields = new Array();
     this.fieldsMap = new Map();
     if (this.indices)
-      this.indices = new Map();
+      this.indices = {};
   }
 
   /**
