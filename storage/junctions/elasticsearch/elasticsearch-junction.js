@@ -380,7 +380,7 @@ class ElasticsearchJunction extends StorageJunction {
         logger.debug(response);
       }
 
-      let storageResponse = new StorageResponse(0);
+      let storageResponse = new StorageResponse("message");
       if (response.result)
         storageResponse.add(response.result, key);
       else if (response.hasOwnProperty("deleted"))

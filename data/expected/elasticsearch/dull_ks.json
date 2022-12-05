@@ -1,7 +1,7 @@
 {
   "resultCode": 0,
   "resultMessage": "OK",
-  "type": "map",
+  "type": "message",
   "data": {
     "one": "deleted"
   }
