@@ -123,7 +123,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async store(entry) {
-    let storageResponse = new StorageResponse(0);
+    let storageResponse = new StorageResponse("message");
 
     // parameter checks
     // note: domain is optional
@@ -144,9 +144,9 @@ module.exports = exports = class Codex {
 
     if (this._junction) {
       // save in source codex
-      let results = await this._junction.store(encoding, { key: key });
-      logger.verbose("storage/codex: " + key + ", " + results.resultCode);
-      return results;
+      storageResponse = await this._junction.store(encoding, { key: key });
+      logger.verbose("storage/codex: " + key + ", " + storageResponse.resultCode);
+      return storageResponse;
     }
 
     storageResponse.setResults(500, "Codex junction not activated");
@@ -159,7 +159,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async dull(pattern) {
-    let storageResponse = new StorageResponse(0);
+    let storageResponse = new StorageResponse("message");
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.smt_urn(match);
@@ -174,8 +174,8 @@ module.exports = exports = class Codex {
 
     if (this._junction) {
       // delete from source codex
-      let results = await this._junction.dull({ key: key });
-      return results;
+      storageResponse = await this._junction.dull({ key: key });
+      return storageResponse;
     }
 
     storageResponse.setResults(500, "Codex junction not activated");
@@ -188,7 +188,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async recall(pattern) {
-    let storageResponse = new StorageResponse(0);
+    let storageResponse = new StorageResponse("map");
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.smt_urn(match);
@@ -200,9 +200,8 @@ module.exports = exports = class Codex {
     }
     else if (this._junction) {
       // go to the source codex
-      let results = await this._junction.recall({ key: key });
-      logger.verbose("storage/codex: recall, " + results.resultCode);
-      storageResponse = results;
+      storageResponse = await this._junction.recall({ key: key });
+      logger.verbose("storage/codex: recall, " + storageResponse.resultCode);
     }
     else {
       storageResponse.setResults(404, "Not Found");
@@ -240,15 +239,14 @@ module.exports = exports = class Codex {
    * @returns
    */
   async retrieve(pattern) {
-    let storageResponse = new StorageResponse(0);
+    let storageResponse = new StorageResponse("message");
 
     if (this._junction) {
-      // retrieve list from source codex
-      let results = await this._junction.retrieve(pattern);
-      logger.verbose("storage/codex: retrieve, " + results.resultCode);
-
       // current design does not cache entries from retrieved list
-      storageResponse = results;
+
+      // retrieve list from source codex
+      storageResponse = await this._junction.retrieve(pattern);
+      logger.verbose("storage/codex: retrieve, " + storageResponse.resultCode);
     }
     else {
       storageResponse.setResults(503, "Codex Unavailable");
