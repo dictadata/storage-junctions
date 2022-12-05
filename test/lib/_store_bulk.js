@@ -5,10 +5,11 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
+const _output = require("./_output");
 const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 
-module.exports = exports = async function (tract, keyValues) {
+module.exports = exports = async function (tract, compareValues = 2, keyValues = null) {
   logger.info(">>> create junction");
   let retCode = 0;
 
@@ -20,7 +21,11 @@ module.exports = exports = async function (tract, keyValues) {
   try {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.storeBulk(tract.constructs, tract.origin.pattern);
-    logger.verbose(JSON.stringify(results));
+
+    if (tract.terminal && tract.terminal.output)
+      retCode = _output(tract.terminal.output, results, compareValues);
+    else
+      logger.verbose(JSON.stringify(results, null, "  "));
 
     logger.info(">>> completed");
     // check for a returnd keystore UniqueID value

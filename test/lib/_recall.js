@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _compare = require("./_compare");
+const _output = require("./_output");
 const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 const fs = require('fs');
@@ -29,14 +29,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.recall(tract.origin.pattern);
 
-    if (tract.terminal && tract.terminal.output) {
-      logger.info("<<< save results to " + tract.terminal.output);
-      fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
-      fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
-
-      let expected_output = tract.terminal.output.replace("output", "expected");
-      retCode = _compare(expected_output, tract.terminal.output, compareValues);
-    }
+    if (tract.terminal && tract.terminal.output)
+      retCode = _output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));
 

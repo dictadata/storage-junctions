@@ -66,7 +66,7 @@ class RESTJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -171,8 +171,12 @@ class RESTJunction extends StorageJunction {
         constructs.push(construct);
       });
 
-      let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
-      return new StorageResponse(resultCode, null, constructs);
+      let storageResponse;
+      if (constructs.length)
+        storageResponse = new StorageResponse("construct", null, constructs[0]);
+      else
+        storageResponse = new StorageResponse(404);
+      return storageResponse;
     }
     catch (err) {
       logger.error(err);
@@ -236,8 +240,12 @@ class RESTJunction extends StorageJunction {
           constructs.push(construct);
       });
 
-      let resultCode = (constructs.length === 0) ? 404 : response.statusCode;
-      return new StorageResponse(resultCode, null, constructs);
+      let storageResponse;
+      if (constructs.length)
+        storageResponse = new StorageResponse(response.statusCode, null, constructs);
+      else
+        storageResponse = new StorageResponse(404);
+      return storageResponse;
     }
     catch (err) {
       logger.error(err);

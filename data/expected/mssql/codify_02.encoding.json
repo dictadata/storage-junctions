@@ -1,157 +1,162 @@
 {
-  "name": "foo_schema_02",
-  "type": "engram",
-  "smt": {
-    "model": "mssql",
-    "locus": "server=dev.dictadata.org;database=storage_node",
-    "schema": "foo_schema_02",
-    "key": "=Foo"
-  },
-  "fields": [
-    {
-      "name": "Foo",
-      "type": "keyword",
-      "size": 64,
-      "default": null,
-      "nullable": false,
-      "_mssql": {
+  "resultCode": 0,
+  "resultMessage": "OK",
+  "type": "encoding",
+  "data": {
+    "name": "foo_schema_02",
+    "type": "engram",
+    "smt": {
+      "model": "mssql",
+      "locus": "server=dev.dictadata.org;database=storage_node",
+      "schema": "foo_schema_02",
+      "key": "=Foo"
+    },
+    "fields": [
+      {
         "name": "Foo",
-        "type": "varchar",
+        "type": "keyword",
         "size": 64,
-        "precision": 0,
-        "scale": 0,
-        "is_nullable": false,
-        "default": null
-      },
-      "key": 2
-    },
-    {
-      "name": "Bar",
-      "type": "text",
-      "size": 256,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "Bar",
-        "type": "varchar",
-        "size": 256,
-        "precision": 0,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
-      "name": "Baz",
-      "type": "integer",
-      "size": 4,
-      "default": null,
-      "nullable": false,
-      "_mssql": {
-        "name": "Baz",
-        "type": "int",
-        "size": 4,
-        "precision": 10,
-        "scale": 0,
-        "is_nullable": false,
-        "default": null
-      },
-      "key": 1
-    },
-    {
-      "name": "Fobe",
-      "type": "number",
-      "size": 8,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "Fobe",
-        "type": "float",
-        "size": 8,
-        "precision": 53,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
-      "name": "Dt Test",
-      "type": "date",
-      "size": 8,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "Dt Test",
-        "type": "datetime",
-        "size": 8,
-        "precision": 23,
-        "scale": 3,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
-      "name": "enabled",
-      "type": "boolean",
-      "size": 1,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "enabled",
-        "type": "bit",
-        "size": 1,
-        "precision": 1,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
-      "name": "tags",
-      "type": "text",
-      "size": -1,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "tags",
-        "type": "nvarchar",
-        "size": -1,
-        "precision": 0,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    },
-    {
-      "name": "widgets",
-      "type": "text",
-      "size": -1,
-      "default": null,
-      "nullable": true,
-      "_mssql": {
-        "name": "widgets",
-        "type": "nvarchar",
-        "size": -1,
-        "precision": 0,
-        "scale": 0,
-        "is_nullable": true,
-        "default": null
-      }
-    }
-  ],
-  "indices": {
-    "foo_index_02": {
-      "fields": [
-        {
-          "name": "Bar",
-          "order": "ASC"
+        "default": null,
+        "nullable": false,
+        "_mssql": {
+          "name": "Foo",
+          "type": "varchar",
+          "size": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_nullable": false,
+          "default": null
         },
-        {
-          "name": "Fobe",
-          "order": "DESC"
+        "key": 2
+      },
+      {
+        "name": "Bar",
+        "type": "text",
+        "size": 256,
+        "default": null,
+        "nullable": true,
+        "_mssql": {
+          "name": "Bar",
+          "type": "varchar",
+          "size": 256,
+          "precision": 0,
+          "scale": 0,
+          "is_nullable": true,
+          "default": null
         }
-      ],
-      "unique": false
+      },
+      {
+        "name": "Baz",
+        "type": "integer",
+        "size": 4,
+        "default": null,
+        "nullable": false,
+        "_mssql": {
+          "name": "Baz",
+          "type": "int",
+          "size": 4,
+          "precision": 10,
+          "scale": 0,
+          "is_nullable": false,
+          "default": null
+        },
+        "key": 1
+      },
+      {
+        "name": "Fobe",
+        "type": "number",
+        "size": 8,
+        "default": null,
+        "nullable": true,
+        "_mssql": {
+          "name": "Fobe",
+          "type": "float",
+          "size": 8,
+          "precision": 53,
+          "scale": 0,
+          "is_nullable": true,
+          "default": null
+        }
+      },
+      {
+        "name": "Dt Test",
+        "type": "date",
+        "size": 8,
+        "default": null,
+        "nullable": true,
+        "_mssql": {
+          "name": "Dt Test",
+          "type": "datetime",
+          "size": 8,
+          "precision": 23,
+          "scale": 3,
+          "is_nullable": true,
+          "default": null
+        }
+      },
+      {
+        "name": "enabled",
+        "type": "boolean",
+        "size": 1,
+        "default": null,
+        "nullable": true,
+        "_mssql": {
+          "name": "enabled",
+          "type": "bit",
+          "size": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_nullable": true,
+          "default": null
+        }
+      },
+      {
+        "name": "tags",
+        "type": "text",
+        "size": -1,
+        "default": null,
+        "nullable": true,
+        "_mssql": {
+          "name": "tags",
+          "type": "nvarchar",
+          "size": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_nullable": true,
+          "default": null
+        }
+      },
+      {
+        "name": "widgets",
+        "type": "text",
+        "size": -1,
+        "default": null,
+        "nullable": true,
+        "_mssql": {
+          "name": "widgets",
+          "type": "nvarchar",
+          "size": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_nullable": true,
+          "default": null
+        }
+      }
+    ],
+    "indices": {
+      "foo_index_02": {
+        "fields": [
+          {
+            "name": "Bar",
+            "order": "ASC"
+          },
+          {
+            "name": "Fobe",
+            "order": "DESC"
+          }
+        ],
+        "unique": false
+      }
     }
   }
 }

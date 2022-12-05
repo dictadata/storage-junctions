@@ -1,80 +1,85 @@
 {
-  "name": "foo_schema_01",
-  "type": "engram",
-  "smt": {
-    "model": "memory",
-    "locus": "testgroup",
-    "schema": "foo_schema_01",
-    "key": "!Foo"
-  },
-  "fields": [
-    {
-      "name": "Foo",
-      "type": "keyword",
-      "size": 7,
-      "key": 1
+  "resultCode": 0,
+  "resultMessage": "OK",
+  "type": "encoding",
+  "data": {
+    "name": "foo_schema_01",
+    "type": "engram",
+    "smt": {
+      "model": "memory",
+      "locus": "testgroup",
+      "schema": "foo_schema_01",
+      "key": "!Foo"
     },
-    {
-      "name": "Bar",
-      "type": "text",
-      "size": 13
-    },
-    {
-      "name": "Baz",
-      "type": "integer"
-    },
-    {
-      "name": "Fobe",
-      "type": "number"
-    },
-    {
-      "name": "Dt Test",
-      "type": "date"
-    },
-    {
-      "name": "enabled",
-      "type": "boolean"
-    },
-    {
-      "name": "subObj1",
-      "type": "map",
-      "fields": [
-        {
-          "name": "state",
-          "type": "keyword",
-          "size": 7
-        },
-        {
-          "name": "ex-state",
-          "type": "keyword",
-          "size": 4
-        }
-      ]
-    },
-    {
-      "name": "subObj2",
-      "type": "map",
-      "fields": [
-        {
-          "name": "subsub",
-          "type": "map",
-          "fields": [
-            {
-              "name": "izze",
-              "type": "integer"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "tags",
-      "type": "list",
-      "_list": {
-        "name": "_list",
+    "fields": [
+      {
+        "name": "Foo",
         "type": "keyword",
-        "size": 6
+        "size": 7,
+        "key": 1
+      },
+      {
+        "name": "Bar",
+        "type": "text",
+        "size": 13
+      },
+      {
+        "name": "Baz",
+        "type": "integer"
+      },
+      {
+        "name": "Fobe",
+        "type": "number"
+      },
+      {
+        "name": "Dt Test",
+        "type": "date"
+      },
+      {
+        "name": "enabled",
+        "type": "boolean"
+      },
+      {
+        "name": "subObj1",
+        "type": "map",
+        "fields": [
+          {
+            "name": "state",
+            "type": "keyword",
+            "size": 7
+          },
+          {
+            "name": "ex-state",
+            "type": "keyword",
+            "size": 4
+          }
+        ]
+      },
+      {
+        "name": "subObj2",
+        "type": "map",
+        "fields": [
+          {
+            "name": "subsub",
+            "type": "map",
+            "fields": [
+              {
+                "name": "izze",
+                "type": "integer"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "tags",
+        "type": "list",
+        "_list": {
+          "name": "_list",
+          "type": "keyword",
+          "size": 6
+        }
       }
-    }
-  ]
+    ]
+  }
 }

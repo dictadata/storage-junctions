@@ -23,6 +23,7 @@ module.exports = exports = async function (tract) {
 
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.createSchema();
+    logger.verbose(JSON.stringify(results))
     if (results.resultCode !== 0)
       logger.warn("could not create storage schema: " + results.resultMessage);
 

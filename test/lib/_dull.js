@@ -5,10 +5,11 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
+const _output = require("./_output");
 const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
 
-module.exports = exports = async function (tract) {
+module.exports = exports = async function (tract, compareValues = 2) {
   let retCode = 0;
 
   logger.info(">>> create junction");
@@ -21,7 +22,11 @@ module.exports = exports = async function (tract) {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
 
     let results = await jo.dull(tract.origin.pattern);
-    logger.verbose(JSON.stringify(results));
+
+    if (tract.terminal && tract.terminal.output)
+      retCode = _output(tract.terminal.output, results, compareValues);
+    else
+      logger.verbose(JSON.stringify(results, null, "  "));
 
     logger.info(">>> completed");
   }

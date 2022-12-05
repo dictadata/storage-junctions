@@ -52,7 +52,7 @@ async function test(name) {
     let outputfile = "./data/output/codex/" + name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-    fs.writeFileSync(outputfile, JSON.stringify(results.data, null, 2), "utf8");
+    fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
 
     // compare to expected output
     let expected_output = outputfile.replace("output", "expected");

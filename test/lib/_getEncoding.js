@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _compare = require("./_compare");
+const _output = require("./_output");
 const Storage = require("../../storage");
 const { typeOf } = require("../../storage/utils");
 const { logger } = require('../../storage/utils');
@@ -21,18 +21,12 @@ module.exports = exports = async function (tract, compareValues = 2) {
   try {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.getEncoding();
-    let encoding = results.data[ "encoding" ];
+    let encoding = results.data;
+    //logger.debug(JSON.stringify(encoding));
 
     if (typeOf(encoding) === 'object') {
-      //logger.debug(JSON.stringify(encoding));
-      if (tract.terminal && tract.terminal.output) {
-        logger.verbose("<<< " + tract.terminal.output);
-        fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
-        fs.writeFileSync(tract.terminal.output, JSON.stringify(encoding, null, "  "));
-
-        let expected_output = tract.terminal.output.replace("output", "expected");
-        retCode = _compare(expected_output, tract.terminal.output, compareValues);
-      }
+      if (tract.terminal && tract.terminal.output)
+        retCode = _output(tract.terminal.output, results.data, compareValues);
     }
     else
       logger.warn("storage schema was: " + encoding);

@@ -5,9 +5,9 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
+const _output = require("./_output");
 const Storage = require("../../storage");
 const { logger } = require('../../storage/utils');
-const _compare = require("./_compare");
 const fs = require('fs');
 const path = require('path');
 
@@ -32,14 +32,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
     let results = await jo.retrieve(tract.origin.pattern);
 
     logger.verbose("result: " + results.resultCode + " count: " + (results.data ? results.data.length : 0));
-    if (tract.terminal && tract.terminal.output) {
-      logger.info("<<< save results to " + tract.terminal.output);
-      fs.mkdirSync(path.dirname(tract.terminal.output), { recursive: true });
-      fs.writeFileSync(tract.terminal.output, JSON.stringify(results, null, "  "), "utf8");
-
-      let expected_output = tract.terminal.output.replace("output", "expected");
-      retCode = _compare(expected_output, tract.terminal.output, compareValues);
-    }
+    if (tract.terminal && tract.terminal.output)
+      retCode = _output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));
 

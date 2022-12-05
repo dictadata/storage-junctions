@@ -22,8 +22,11 @@ async function keystore() {
       "Fobe": 2.1,
       "Dt Test": "10/07/2018",
       "enabled": false
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/store_ks1.json"
     }
-  })) return 1;
+  }, 1)) return 1;
 
   logger.info("=== elasticsearch store");
   if (await store({
@@ -40,8 +43,11 @@ async function keystore() {
       Fobe: 1.1,
       "Dt Test": "10/07/2018",
       enabled: false
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/store_ks2.json"
     }
-  })) return 1;
+  }, 1)) return 1;
 
   logger.info("=== elasticsearch store");
   if (await store({
@@ -55,8 +61,11 @@ async function keystore() {
       Fobe: 20.20,
       "Dt Test": "2020-10-07T08:00:00",
       enabled: true
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/store_ks3.json"
     }
-  })) return 1;
+  }, 1)) return 1;
 
 }
 
@@ -74,8 +83,11 @@ async function primarykey() {
       Fobe: 20.20,
       "Dt Test": "2020-10-07 08:00:00",
       enabled: true
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/store_pk1.json"
     }
-  })) return 1;
+  }, 0)) return 1;
 
   logger.info("=== elasticsearch store");
   if (await store({
@@ -89,8 +101,11 @@ async function primarykey() {
       Fobe: 0.10,
       "Dt Test": "2020-10-07",
       enabled: true
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/store_pk2.json"
     }
-  })) return 1;
+  }, 0)) return 1;
 
 }
 

@@ -157,7 +157,7 @@ class MySQLJunction extends StorageJunction {
       columns = await this.pool.query(sql);
       sqlEncoder.decodeIndexResults(this.engram, columns);
 
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
@@ -182,7 +182,7 @@ class MySQLJunction extends StorageJunction {
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResponse(409, null, 'table exists');
+        return new StorageResponse(409, 'table exists');
       }
 
       // use a temporary engram
@@ -196,7 +196,7 @@ class MySQLJunction extends StorageJunction {
 
       // if successfull update engram
       this.engram.encoding = encoding;
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -250,7 +250,7 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if row was inserted
-      return new StorageResponse(0, null, results.affectedRows, "affectedRows");
+      return new StorageResponse("message", null, { stored: results.affectedRows });
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY
@@ -284,7 +284,7 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if rows were inserted
-      return new StorageResponse(0, null, results.affectedRows, "affectedRows");
+      return new StorageResponse("message", null, { stored: results.affectedRows });
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY
@@ -316,8 +316,12 @@ class MySQLJunction extends StorageJunction {
       if (rows.length > 0)
         sqlEncoder.decodeResults(this.engram, rows[ 0 ]);
 
-      let resultCode = rows.length > 0 ? 200 : 404;
-      return new StorageResponse(resultCode, null, rows.length > 0 ? rows[ 0 ] : null);
+      let response;
+      if (rows.length > 0)
+        response = new StorageResponse("construct", null, rows[ 0 ]);
+      else
+        response = new StorageResponse(404);
+      return response;
     }
     catch (err) {
       logger.error(err);
@@ -343,8 +347,12 @@ class MySQLJunction extends StorageJunction {
       for (let i = 0; i < rows.length; i++)
         sqlEncoder.decodeResults(this.engram, rows[ i ]);
 
-      let resultCode = rows.length > 0 ? 200 : 404;
-      return new StorageResponse(resultCode, null, rows);
+      let response;
+      if (rows.length > 0)
+        response = new StorageResponse(0, null, rows);
+      else
+        response = new StorageResponse(404);
+      return response;
     }
     catch (err) {
       logger.error(err);
@@ -380,7 +388,7 @@ class MySQLJunction extends StorageJunction {
         results = await this.pool.query(sql);
       }
 
-      return new StorageResponse(0, null, results.affectedRows, "affectedRows");
+      return new StorageResponse("message", null, { deleted: results.affectedRows });
     }
     catch (err) {
       logger.error(err);

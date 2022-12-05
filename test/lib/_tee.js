@@ -38,7 +38,7 @@ module.exports = exports = async function (tract) {
     let encoding;
     if (jo.capabilities.encoding) {
       let results = await jo.getEncoding();
-      encoding = results.data[ "encoding" ];
+      encoding = results.data;
     }
 
     logger.info(">>> create origin pipeline");

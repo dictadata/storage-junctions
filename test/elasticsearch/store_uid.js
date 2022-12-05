@@ -22,9 +22,9 @@ async function tests() {
       Foo: '50',
       Bar: 'Grant',
       Baz: 50,
-      "Dt Test": "2018-10-18" 
+      "Dt Test": "2018-10-18"
     }
-  }, keyValues)) return 1;
+  }, 2, keyValues)) return 1;
 
   logger.info("=== elasticsearch recall uid");
   if (await recall({

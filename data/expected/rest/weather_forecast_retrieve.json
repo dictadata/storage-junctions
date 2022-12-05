@@ -1,6 +1,7 @@
 {
   "resultCode": 0,
   "resultMessage": "OK",
+  "type": "list",
   "data": [
     {
       "number": 1,

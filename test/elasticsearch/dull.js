@@ -17,6 +17,9 @@ async function keystore() {
       pattern: {
         key: 'one'
       }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/dull_ks.json"
     }
   })) return 1;
 
@@ -33,6 +36,9 @@ async function primarykey() {
           Foo: 'ten'
         }
       }
+    },
+    terminal: {
+      output: "./data/output/elasticsearch/dull_pk.json"
     }
   })) return 1;
 

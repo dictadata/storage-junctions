@@ -5,43 +5,147 @@ class StorageResponse {
 
   /**
    * The results type returned by storage methods.
-   * @param {integer} resultCode a HTTP like statusCode
+   * @param {integer} type_code overloaded, response type OR a HTTP like statusCode
    * @param {string} resultMessage a string with a HTTP like statusMessage
-   * @param {*} data a map or array of constructs
-   * @param {*} key the key for keystores storage sources
+   * @param {*} data an Array or Map of constructs, or single construct
+   * @param {*} key optional key for keystores (map) storage sources
    */
-  constructor(resultCode, resultMessage, data, key) {
-    this.resultCode = resultCode || 0;
-    if (this.resultCode === 200)
-      this.resultCode = 0;
-    this.resultMessage = resultMessage || StorageResponse.RESULT_CODES[ this.resultCode ] || 'unknown';
-
+  constructor(type_code, resultMessage, data, key) {
+    // these four fields MUST be in any serialized (HTTP) response
+    this.resultCode = 0;
+    this.resultMessage = "";
+    this.type;
     this.data;
-    if (key) {
-      this.data = {};
-      this.data[ key ] = data;
+
+    if (typeof type_code === "string") {
+      // defines data structure type
+      switch (type_code) {
+        case "index":
+        case "map":
+          this.type = "map";
+          break;
+        case "list":
+        case "array":
+          this.type = "list";
+          break;
+        case "construct":
+          this.type = "construct";
+          break;
+        case "encoding":
+          this.type = "encoding";
+          break;
+        case "message":
+        case "object":
+        default:
+          this.type = "message";
+      }
+      type_code = 0; // set to default
     }
-    else if (Array.isArray(data))
-      this.data = data;
-    else if (data)
-      this.data = [ data ];
-    // else no data
+
+    this.setResults(type_code, resultMessage, data, key);
   }
 
+  /**
+   * Set result status and optionally add or delete data.
+   * @param {*} resultCode the result of the request using HTTP like status codes
+   * @param {*} resultMessage if blank will use standard HTTP like messages
+   * @param {*} data final data to add; set to null to remove data from response
+   * @param {*} key needed for keystore (map) responses
+   */
+  setResults(resultCode, resultMessage, data, key) {
+    this.resultCode = ((resultCode === 200) ? 0 : resultCode) || 0;
+    this.resultMessage = resultMessage || StorageResponse.RESULT_CODES[ this.resultCode ] || 'unknown';
+
+    if (data) {
+      this.add(data, key);
+    }
+    else if (data === null) {
+      this.data = null;
+    }
+  }
+
+  /**
+   * Infer type from values of data and key.
+   * Allocates storage for responses.
+   * @param {*} data
+   * @param {*} key
+   */
+  _init(data, key) {
+    // determine type
+    if (!this.type) {
+      if (key || data instanceof Map) {
+        this.type = "map";
+      }
+      else if (Array.isArray(data)) {
+        this.type = "list";
+      }
+      else {
+        this.type = "message";
+      }
+      // "construct" and "encoding" types needs to be explicitly set by constructor
+    }
+
+    // allocate storage
+    switch (this.type) {
+      case "map":
+        this.data = {};
+        break;
+      case "list":
+        this.data = new Array();
+        break;
+      case "construct":
+      case "encoding":
+      case "message":
+      default:
+        this.data = {};
+        // may be assigned (overwritten) in add()
+        break;
+    }
+  }
+
+  /**
+   * Add data to the response.
+   *   list: data will be pushed onto an array
+   *   map: if key provided data added to map, if data is Map then entries assigned to map (object)
+   *   construct: assigned as the only data in the response; multiple calls will overwrite response data
+   * @param {*} data an Array or Map of constructs, or single construct
+   * @param {*} key optional, key for keystores (map) storage sources
+   */
   add(data, key) {
     if (!this.data)
-      this.data = (key) ? {} : [];
+      this._init(data, key);
 
-    if (key) {
-      this.data[ key ] = data;
-    }
-    else {
-
-      if (Array.isArray(data))
-        this.data = this.data.concat(data);
-      else {
-        this.data.push(data);
-      }
+    switch (this.type) {
+      case "list":
+        if (Array.isArray(data))
+          this.data.push(...data);
+        else
+          this.data.push(data);
+        break;
+      case "map":
+        if (key)
+          this.data[ key ] = data;
+        else if (data instanceof Map)
+          Object.assign(this.data, Object.fromEntries(data.entries()));
+        else
+          throw new Error("add data missing key value");
+        break;
+      case "construct":
+      case "encoding":
+        if (typeof data === "object")
+          this.data = Object.assign({}, data);  // replace data
+        else
+          throw new Error("data type is not supported");
+        break;
+      case "message":
+      default:
+        if (key)
+          this.data[ key ] = data;
+        else if (typeof data === "object")
+          this.data = Object.assign(this.data, data); // merge data
+        else
+          throw new Error("data type is not supported");
+        break;
     }
   }
 

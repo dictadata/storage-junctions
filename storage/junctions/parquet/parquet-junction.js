@@ -70,7 +70,7 @@ class ParquetJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -129,7 +129,7 @@ class ParquetJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    let response = new StorageResponse();
+    let response = new StorageResponse("list");
     let rs = this.createReader(options);
 
     rs.on('data', (chunk) => {

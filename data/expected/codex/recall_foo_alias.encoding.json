@@ -1,12 +1,19 @@
 {
-  "domain": "foo",
-  "name": "foo_alias",
-  "type": "alias",
-  "title": "foo_alias",
-  "description": "alias for foo_schema",
-  "source": "foo_schema",
-  "tags": [
-    "foo",
-    "alias"
-  ]
+  "resultCode": 0,
+  "resultMessage": "OK",
+  "type": "map",
+  "data": {
+    "foo:foo_alias": {
+      "domain": "foo",
+      "name": "foo_alias",
+      "type": "alias",
+      "title": "foo_alias",
+      "description": "alias for foo_schema",
+      "source": "foo_schema",
+      "tags": [
+        "foo",
+        "alias"
+      ]
+    }
+  }
 }

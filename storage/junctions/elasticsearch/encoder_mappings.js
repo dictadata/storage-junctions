@@ -60,7 +60,7 @@ module.exports = exports = class ElasticMappings {
     }
 
     logger.debug(this.engram);
-    return new StorageResponse(0, null, this.engram.encoding, "encoding");
+    return new StorageResponse("encoding", null, this.engram.encoding);
   }
 
   /**

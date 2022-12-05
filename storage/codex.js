@@ -13,7 +13,7 @@
 "use strict";
 
 const Cortex = require("./cortex");
-const { SMT, Engram, StorageError } = require("./types");
+const { SMT, Engram, StorageResponse, StorageError } = require("./types");
 const logger = require("./utils/logger");
 
 const codex_encoding = require("./codex.encoding.json");
@@ -123,22 +123,17 @@ module.exports = exports = class Codex {
    * @returns
    */
   async store(entry) {
-    let results = {
-      resultCode: 0,
-      resultMessage: "OK"
-    };
+    let storageResponse = new StorageResponse(0);
 
     // parameter checks
     // note: domain is optional
     if (!entry.name || entry.name === "*") {
-      results.resultCode = 400;
-      results.resultMessage = "Invalid encoding name";
-      return results;
+      storageResponse.setResults(400, "Invalid encoding name" );
+      return storageResponse;
     }
     if (!entry.type || !codexTypes.includes(entry.type)) {
-      results.resultCode = 400;
-      results.resultMessage = "Invalid codex type";
-      return results;
+      storageResponse.setResults(400, "Invalid codex type" );
+      return storageResponse;
     }
 
     let encoding = (entry instanceof Engram) ? entry.encoding : entry;
@@ -149,11 +144,13 @@ module.exports = exports = class Codex {
 
     if (this._junction) {
       // save in source codex
-      results = await this._junction.store(encoding, { key: key });
+      let results = await this._junction.store(encoding, { key: key });
       logger.verbose("storage/codex: " + key + ", " + results.resultCode);
+      return results;
     }
 
-    return results;
+    storageResponse.setResults(500, "Codex junction not activated");
+    return storageResponse;
   }
 
   /**
@@ -162,10 +159,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async dull(pattern) {
-    let results = {
-      resultCode: 0,
-      resultMessage: "OK"
-    };
+    let storageResponse = new StorageResponse(0);
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.smt_urn(match);
@@ -173,17 +167,19 @@ module.exports = exports = class Codex {
     if (this._engrams.has(key)) {
       // delete from cache
       if (!this._engrams.delete(key)) {
-        results.resultCode = 500;
-        results.resultMessage = "map delete error";
+        storageResponse.setResults(500, "map delete error");
+        return storageResponse;
       }
     }
 
     if (this._junction) {
       // delete from source codex
-      results = await this._junction.dull({ key: key });
+      let results = await this._junction.dull({ key: key });
+      return results;
     }
 
-    return results;
+    storageResponse.setResults(500, "Codex junction not activated");
+    return storageResponse;
   }
 
   /**
@@ -192,11 +188,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async recall(pattern) {
-    let results = {
-      resultCode: 0,
-      resultMessage: "OK",
-      data: {}
-    };
+    let storageResponse = new StorageResponse(0);
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.smt_urn(match);
@@ -204,42 +196,42 @@ module.exports = exports = class Codex {
     if (this._engrams.has(key)) {
       // entry has been cached
       let entry = this._engrams.get(key);
-      results.data[ key ] = entry;
+      storageResponse.add(entry, key);
     }
     else if (this._junction) {
       // go to the source codex
-      results = await this._junction.recall({ key: key });
+      let results = await this._junction.recall({ key: key });
       logger.verbose("storage/codex: recall, " + results.resultCode);
+      storageResponse = results;
     }
     else {
-      results.resultCode = 404;
-      results.resultMessage = "Not Found";
+      storageResponse.setResults(404, "Not Found");
     }
 
-    if (results.resultCode === 0 && pattern.resolve) {
+    if (storageResponse.resultCode === 0 && pattern.resolve) {
       // check for alias smt
-      let encoding = results.data[ key ];
+      let encoding = storageResponse.data[ key ];
       if (encoding.type === "alias") {
         // recall the entry for the source smt_urn
-        results = await this.recall({
+        let results = await this.recall({
           match: {
             key: encoding.source
           },
           resolve: false
         });
         if (results.resultCode === 0)
-          results.data[ key ] = results.data[ encoding.source ];
+          storageResponse.data[ key ] = results.data[ encoding.source ];
       }
     }
 
-    if (results.resultCode === 0 && !pattern.resolve) {
+    if (storageResponse.resultCode === 0 && !pattern.resolve) {
       // cache entry definition
-      let encoding = results.data[ key ];
+      let encoding = storageResponse.data[ key ];
       if (key === this.smt_urn(encoding)) // double check it wasn't an alias lookup
         this._engrams.set(key, encoding);
     }
 
-    return results;
+    return storageResponse;
   }
 
   /**
@@ -248,23 +240,20 @@ module.exports = exports = class Codex {
    * @returns
    */
   async retrieve(pattern) {
-    let results = {
-      resultCode: 0,
-      resultMessage: "OK"
-    };
+    let storageResponse = new StorageResponse(0);
 
     if (this._junction) {
       // retrieve list from source codex
-      results = await this._junction.retrieve(pattern);
+      let results = await this._junction.retrieve(pattern);
       logger.verbose("storage/codex: retrieve, " + results.resultCode);
 
       // current design does not cache entries from retrieved list
+      storageResponse = results;
     }
     else {
-      results.resultCode = 503;
-      results.resultMessage = "Codex Unavailable";
+      storageResponse.setResults(503, "Codex Unavailable");
     }
 
-    return results;
+    return storageResponse;
   }
 };

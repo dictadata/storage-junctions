@@ -44,12 +44,12 @@ async function test(domain, schema) {
     }
     else {
       let smt_urn = Object.keys(results.data)[ 0 ];
-      let encoding = results.data[ smt_urn ];
+      //let encoding = results.data[ smt_urn ];
 
       let outputfile = "./data/output/codex/recall_" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
-      fs.writeFileSync(outputfile, JSON.stringify(encoding, null, 2), "utf8");
+      fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
 
       // compare to expected output
       let expected_output = outputfile.replace("output", "expected");

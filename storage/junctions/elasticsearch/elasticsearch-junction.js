@@ -49,6 +49,10 @@ class ElasticsearchJunction extends StorageJunction {
     this.storeCount = 0;
   }
 
+  get isKeyStore() {
+    return this.engram.keyof === 'uid' || this.engram.keyof === 'key';
+  }
+
   async activate() {
     this.isActive = true;
     this.storeCount = 0;
@@ -130,7 +134,7 @@ class ElasticsearchJunction extends StorageJunction {
       // convert to encoding fields
       this.engram.encoding = this.encoder.mappingsToFields(mappings);
 
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       if (err.statusCode === 404)  // index_not_found_exception
@@ -175,7 +179,7 @@ class ElasticsearchJunction extends StorageJunction {
       // if successfull update encoding
       this.engram.encoding = encoding;
 
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       if (err.statusCode === 400 && err.message === "resource_already_exists_exception")
@@ -225,7 +229,7 @@ class ElasticsearchJunction extends StorageJunction {
       let data = dslEncoder.encodeValues(this.engram, construct);
       let key = null;
       let response = null;
-      if (this.engram.keyof === 'uid' || this.engram.keyof === 'key') {
+      if (this.isKeyStore) {
         // store by _id
         key = (pattern && pattern.key) || this.engram.get_uid(construct) || null;
         //logger.debug(key + " " + JSON.stringify(data));
@@ -236,8 +240,10 @@ class ElasticsearchJunction extends StorageJunction {
       }
 
       this.storeCount++;
-      key = response._id;
-      return new StorageResponse(0, null, response.result, key);
+      if (this.isKeyStore)
+        return new StorageResponse("message", null, response.result, response._id);
+      else
+        return new StorageResponse("message", null, { "stored": 1 })
     }
     catch (err) {
       logger.error("elasticsearch store: " + err.message);
@@ -258,7 +264,7 @@ class ElasticsearchJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      if (this.engram.keyof === 'uid' || this.engram.keyof === 'key') {
+      if (this.isKeyStore) {
         // get by _id
         let key = (match.key) || this.engram.get_uid(match) || null;
         if (!key)
@@ -267,7 +273,7 @@ class ElasticsearchJunction extends StorageJunction {
         let response = await this.elasticQuery.get(key);
         key = response._id || true;
 
-        return new StorageResponse(0, null, response._source, key);
+        return new StorageResponse(0, "", response._source, key);
       }
       else if (this.engram.keyof === 'primary' || this.engram.keyof === '*') {
         // search by exact match
@@ -279,7 +285,7 @@ class ElasticsearchJunction extends StorageJunction {
         //let keys = (hits[0] && hits[0]._id);
 
         if (response.hits.hits.length > 0)
-          return new StorageResponse(0, null, hits[ 0 ]._source);
+          return new StorageResponse("construct", null, hits[ 0 ]._source);
         else
           return new StorageResponse(404);
       }
@@ -309,30 +315,28 @@ class ElasticsearchJunction extends StorageJunction {
 
       let dsl = dslEncoder.searchQuery(pattern);
       logger.verbose(JSON.stringify(dsl));
-      let isKeyStore = (this.engram.keyof === 'uid' || this.engram.keyof === 'key');
-      let storageResponse = new StorageResponse(0);
+      let storageResponse;
 
       if (pattern.aggregate) {
         // aggregation response
         let response = await this.elasticQuery.aggregate(dsl);
         let constructs = dslEncoder.processAggregations(response.aggregations);
-        storageResponse.add(constructs);
+        storageResponse = new StorageResponse(0, "OK", constructs);
       }
       else {
         let response = await this.elasticQuery.search(dsl);
         let hits = response.hits.hits;
+        storageResponse = new StorageResponse(this.isKeyStore ? "map" : "list");
         for (var i = 0; i < hits.length; i++) {
-          if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
+          if (this.isKeyStore)
             storageResponse.add(hits[ i ]._source, hits[ i ]._id);
           else
             storageResponse.add(hits[ i ]._source);
         }
       }
 
-      if (!storageResponse.data) {
-        storageResponse.resultCode = 404;
-        storageResponse.resultMessage = "Not Found";
-      }
+      if (!storageResponse.data)
+        storageResponse.setResults(404, "Not Found");
       return storageResponse;
     }
     catch (err) {
@@ -357,7 +361,7 @@ class ElasticsearchJunction extends StorageJunction {
       let response;
 
       let key;
-      if (this.engram.keyof === 'uid' || this.engram.keyof === 'key') {
+      if (this.isKeyStore) {
         // delete by _id
         key = (match.key) || this.engram.get_uid(match) || null;
         if (!key)

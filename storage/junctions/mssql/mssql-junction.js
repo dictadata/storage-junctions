@@ -201,7 +201,7 @@ class MSSQLJunction extends StorageJunction {
         sqlEncoder.decodeIndexResults(this.engram, column);
       });
 
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -305,7 +305,7 @@ class MSSQLJunction extends StorageJunction {
         rowCount = await this._request(sql, null);
       }
 
-      return new StorageResponse(0, null, rowCount, "rowCount");
+      return new StorageResponse("message", null, { stored: rowCount });
     }
     catch (err) {
       logger.error(err);
@@ -335,7 +335,7 @@ class MSSQLJunction extends StorageJunction {
       let rowCount = await this._request(sql, null);
 
       // check if rows were inserted
-      return new StorageResponse(0, null, rowCount, "rowCount");
+      return new StorageResponse("message", null, { stored: rowCount });
     }
     catch (err) {
       if (err.number === 2627)
@@ -368,8 +368,12 @@ class MSSQLJunction extends StorageJunction {
       });
 
       logger.debug(rowCount + ' rows');
-      let resultCode = rowCount > 0 ? 200 : 404;
-      return new StorageResponse(resultCode, null, resultRow);
+      let response;
+      if (rowCount > 0)
+        response = new StorageResponse("construct", "", resultRow)
+      else
+        response = new StorageResponse(404);
+      return response;
     }
     catch (err) {
       logger.error(err);
@@ -398,8 +402,12 @@ class MSSQLJunction extends StorageJunction {
       });
 
       logger.debug(rowCount + ' rows');
-      let resultCode = resultRows.length > 0 ? 200 : 404;
-      return new StorageResponse(resultCode, null, resultRows);
+      let response;
+      if (resultRows.length > 0)
+        response = new StorageResponse(0, "", resultRows)
+      else
+        response = new StorageResponse(404);
+      return response;
     }
     catch (err) {
       logger.error(err);
@@ -433,7 +441,7 @@ class MSSQLJunction extends StorageJunction {
       logger.verbose(sql);
 
       let rowCount = await this._request(sql, null);
-      return new StorageResponse(0, null, rowCount, "rowCount");
+      return new StorageResponse("message", null, { deleted: rowCount });
     }
     catch (err) {
       logger.error(err);

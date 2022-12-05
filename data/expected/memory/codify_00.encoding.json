@@ -1,39 +1,44 @@
 {
-  "name": "foo_schema",
-  "type": "engram",
-  "smt": {
-    "model": "memory",
-    "locus": "testgroup",
-    "schema": "foo_schema",
-    "key": "!Foo"
-  },
-  "fields": [
-    {
-      "name": "Foo",
-      "type": "keyword",
-      "size": 7,
-      "key": 1
+  "resultCode": 0,
+  "resultMessage": "OK",
+  "type": "encoding",
+  "data": {
+    "name": "foo_schema",
+    "type": "engram",
+    "smt": {
+      "model": "memory",
+      "locus": "testgroup",
+      "schema": "foo_schema",
+      "key": "!Foo"
     },
-    {
-      "name": "Bar",
-      "type": "text",
-      "size": 13
-    },
-    {
-      "name": "Baz",
-      "type": "integer"
-    },
-    {
-      "name": "Fobe",
-      "type": "number"
-    },
-    {
-      "name": "Dt Test",
-      "type": "date"
-    },
-    {
-      "name": "enabled",
-      "type": "boolean"
-    }
-  ]
+    "fields": [
+      {
+        "name": "Foo",
+        "type": "keyword",
+        "size": 7,
+        "key": 1
+      },
+      {
+        "name": "Bar",
+        "type": "text",
+        "size": 13
+      },
+      {
+        "name": "Baz",
+        "type": "integer"
+      },
+      {
+        "name": "Fobe",
+        "type": "number"
+      },
+      {
+        "name": "Dt Test",
+        "type": "date"
+      },
+      {
+        "name": "enabled",
+        "type": "boolean"
+      }
+    ]
+  }
 }

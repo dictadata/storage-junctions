@@ -43,7 +43,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     let encoding = origin.options.encoding;
     if (!encoding && jo.capabilities.encoding) {
       let results = await jo.getEncoding();  // load encoding from origin for validation
-      encoding = results.data[ "encoding" ];
+      encoding = results.data;
     }
 
     /// determine terminal encoding

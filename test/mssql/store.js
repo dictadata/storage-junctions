@@ -22,6 +22,9 @@ async function tests() {
       Fobe: 1.1,
       "Dt Test": "10/07/2018",
       enabled: false
+    },
+    terminal: {
+      output: "./data/output/mssql/store_01.json"
     }
   })) return 1;
 
@@ -37,6 +40,9 @@ async function tests() {
       Fobe: 20.20,
       "Dt Test": "2020-10-07T08:00:00",
       enabled: true
+    },
+    terminal: {
+      output: "./data/output/mssql/store_02.json"
     }
   })) return 1;
 
@@ -50,6 +56,9 @@ async function tests() {
       Bar: 'Jackson',
       Baz: 30,
       enabled: false
+    },
+    terminal: {
+      output: "./data/output/mssql/store_03.json"
     }
   })) return 1;
 
@@ -62,6 +71,9 @@ async function tests() {
       Foo: 'ten',
       Bar: 'Hamilton',
       Baz: 10
+    },
+    terminal: {
+      output: "./data/output/mssql/store_04.json"
     }
   })) return 1;
 

@@ -98,7 +98,7 @@ class MemoryJunction extends StorageJunction {
       if (!entry)
         return new StorageResponse(404, "schema not found");
 
-      return new StorageResponse(0, null, entry.engram.encoding, "encoding");
+      return new StorageResponse("encoding", null, entry.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -179,7 +179,9 @@ class MemoryJunction extends StorageJunction {
       let key = (pattern && pattern.key) || this.engram.get_uid(construct);
       this._constructs.set(key, construct);
 
-      return new StorageResponse(resultCode, null, numAffected, "numAffected");
+      let response = new StorageResponse("message");
+      response.setResults(resultCode, null, numAffected, "numAffected");
+      return response;
     }
     catch (err) {
       logger.error(err);
@@ -210,7 +212,9 @@ class MemoryJunction extends StorageJunction {
         this._constructs.set(key, construct);
       }
 
-      return new StorageResponse(resultCode, null, numAffected, "numAffected");
+      let response = new StorageResponse("message");
+      response.setResults(resultCode, null, numAffected, "numAffected");
+      return response;
     }
     catch (err) {
       logger.error(err);
@@ -229,12 +233,12 @@ class MemoryJunction extends StorageJunction {
 
     try {
       let resultCode = 0;
-      let response = new StorageResponse(0);
+      let storageResponse = new StorageResponse("map");
 
       if (pattern && pattern.key) {
         let construct = this._constructs.get(pattern.key);
         if (construct)
-          response.add(construct, pattern.key);
+          storageResponse.add(construct, pattern.key);
         else
           resultCode = 404;
       }
@@ -242,8 +246,8 @@ class MemoryJunction extends StorageJunction {
         // find construct using pattern
       }
 
-      response.resultCode = resultCode;
-      return response;
+      storageResponse.setResults(resultCode);
+      return storageResponse;
     }
     catch (err) {
       logger.error(err);
@@ -261,14 +265,14 @@ class MemoryJunction extends StorageJunction {
 
     try {
       let resultCode = 0;
-      let response = new StorageResponse(0);
+      let storageResponse = new StorageResponse("map");
 
       // filter constructs using pattern
       let key = pattern.key;
-      response.add(this._constructs.get(key), key);
+      storageResponse.add(this._constructs.get(key), key);
 
-      response.resultCode = resultCode;
-      return response;
+      storageResponse.setResults(resultCode);
+      return storageResponse;
     }
     catch (err) {
       logger.error(err);
@@ -301,7 +305,9 @@ class MemoryJunction extends StorageJunction {
         // delete constructs according to pattern
       }
 
-      return new StorageResponse(resultCode, null, numAffected, "numAffected");
+      let response = new StorageResponse("message");
+      response.setResults(resultCode, null, numAffected, "numAffected");
+      return response;
     }
     catch (err) {
       logger.error(err);

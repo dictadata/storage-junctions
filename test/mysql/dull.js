@@ -19,6 +19,9 @@ async function tests() {
           Foo: 'one'
         }
       }
+    },
+    terminal: {
+      output: "./data/output/mysql/dull_01.json"
     }
   })) return 1;
 

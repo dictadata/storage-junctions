@@ -72,7 +72,7 @@ class CSVJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse(0, null, this.engram.encoding, "encoding");
+      return new StorageResponse("encoding", "", this.engram.encoding);
     }
     catch (err) {
       if (e instanceof StorageError)
@@ -119,22 +119,23 @@ class CSVJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    let response = new StorageResponse();
+    let storageResponse = new StorageResponse("list");
     let rs = this.createReader({ pattern: pattern });
 
     rs.on('data', (chunk) => {
-      response.add(chunk);
+      storageResponse.add(chunk);
     })
     rs.on('end', () => {
       // console.log('There will be no more data.');
+      storageResponse.setResults(0);
     });
     rs.on('error', (err) => {
-      response = new StorageError(500).inner(err);
+      storageResponse = new StorageError(500).inner(err);
     });
 
     await stream.finished(rs);
 
-    return response;
+    return storageResponse;
   }
 
 };

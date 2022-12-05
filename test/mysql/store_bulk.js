@@ -28,7 +28,10 @@ async function tests() {
       Foo: 'one-twenty',
       Bar: 'Jackson',
       Baz: 120
-    }]
+    } ],
+    terminal: {
+      output: "./data/output/mysql/store_bulk_01.json"
+    }
   })) return 1;
 
   logger.verbose('=== timeseries.csv > mysql');

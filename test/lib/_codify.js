@@ -5,7 +5,7 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _compare = require("./_compare");
+const _output = require("./_output");
 const Storage = require("../../storage");
 const { logger, hasOwnProperty } = require('../../storage/utils');
 
@@ -33,16 +33,12 @@ module.exports = exports = async function (tract, compareValues = 2) {
       logger.verbose(">>> get encoding");
       // *** get encoding for junction's schema
       let results = await jo.getEncoding();
-      let encoding = results.data[ "encoding" ];
+      let encoding = results.data;
+      //logger.debug(JSON.stringify(encoding, null, "  "));
 
-      //logger.debug(JSON.stringify(encoding1, null, "  "));
       let filename = tract.output.replace(".json", ".encoding.json");
-      logger.info(">>> saving encoding to " + filename);
-      fs.mkdirSync(path.dirname(filename), { recursive: true });
-      fs.writeFileSync(filename, JSON.stringify(encoding, null, 2), "utf8");
-
-      let expected_output = filename.replace("output", "expected");
-      if (_compare(expected_output, filename, compareValues))
+      let retCode = _output(filename, results, compareValues);
+      if (retCode)
         return process.exitCode = 1;
     }
 
@@ -75,12 +71,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     let encoding2 = codify.encoding;
 
     //logger.debug(JSON.stringify(encoding2, null, "  "));
-    logger.info(">>> save encoding to " + tract.output);
-    fs.mkdirSync(path.dirname(tract.output), { recursive: true });
-    fs.writeFileSync(tract.output, JSON.stringify(encoding2, null, "  "), "utf8");
-
-    let expected_output = tract.output.replace("output", "expected");
-    retCode = _compare(expected_output, tract.output, compareValues);
+    retCode = _output(tract.output, encoding2, compareValues);
 
     logger.info(">>> completed");
   }
