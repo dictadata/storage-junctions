@@ -1,5 +1,10 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.85
+  - refactor: add type property to StorageResponse; list, map, construct and message
+  - refactor: adjust junction responses to set response type
+  - bug fix: invalid SQL retrieving empty match: {}
+  - bug fix: CSV usage of options.header and options.headers
 - version 0.9.84
   - feature: parse delimited numbers from text sources
   - refactor: field properties hasDefault, isNullable
