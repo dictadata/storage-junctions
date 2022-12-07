@@ -179,9 +179,9 @@ class MemoryJunction extends StorageJunction {
       let key = (pattern && pattern.key) || this.engram.get_uid(construct);
       this._constructs.set(key, construct);
 
-      let response = new StorageResults("message");
-      response.setResults(resultCode, null, numAffected, "numAffected");
-      return response;
+      let storageResults = new StorageResults("message");
+      storageResults.setResults(resultCode, null, numAffected, "numAffected");
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -212,9 +212,9 @@ class MemoryJunction extends StorageJunction {
         this._constructs.set(key, construct);
       }
 
-      let response = new StorageResults("message");
-      response.setResults(resultCode, null, numAffected, "numAffected");
-      return response;
+      let storageResults = new StorageResults("message");
+      storageResults.setResults(resultCode, null, numAffected, "numAffected");
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -305,9 +305,9 @@ class MemoryJunction extends StorageJunction {
         // delete constructs according to pattern
       }
 
-      let response = new StorageResults("message");
-      response.setResults(resultCode, null, numAffected, "numAffected");
-      return response;
+      let storageResults = new StorageResults("message");
+      storageResults.setResults(resultCode, null, numAffected, "numAffected");
+      return storageResults;
     }
     catch (err) {
       logger.error(err);

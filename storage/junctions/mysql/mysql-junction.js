@@ -316,12 +316,12 @@ class MySQLJunction extends StorageJunction {
       if (rows.length > 0)
         sqlEncoder.decodeResults(this.engram, rows[ 0 ]);
 
-      let response;
+      let storageResults;
       if (rows.length > 0)
-        response = new StorageResults("construct", null, rows[ 0 ]);
+        storageResults = new StorageResults("construct", null, rows[ 0 ]);
       else
-        response = new StorageResults(404);
-      return response;
+        storageResults = new StorageResults(404);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -347,12 +347,12 @@ class MySQLJunction extends StorageJunction {
       for (let i = 0; i < rows.length; i++)
         sqlEncoder.decodeResults(this.engram, rows[ i ]);
 
-      let response;
+      let storageResults;
       if (rows.length > 0)
-        response = new StorageResults(0, null, rows);
+        storageResults = new StorageResults(0, null, rows);
       else
-        response = new StorageResults(404);
-      return response;
+        storageResults = new StorageResults(404);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);

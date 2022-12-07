@@ -368,12 +368,12 @@ class MSSQLJunction extends StorageJunction {
       });
 
       logger.debug(rowCount + ' rows');
-      let response;
+      let storageResults;
       if (rowCount > 0)
-        response = new StorageResults("construct", "", resultRow)
+        storageResults = new StorageResults("construct", "", resultRow)
       else
-        response = new StorageResults(404);
-      return response;
+        storageResults = new StorageResults(404);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -402,12 +402,12 @@ class MSSQLJunction extends StorageJunction {
       });
 
       logger.debug(rowCount + ' rows');
-      let response;
+      let storageResults;
       if (resultRows.length > 0)
-        response = new StorageResults(0, "", resultRows)
+        storageResults = new StorageResults(0, "", resultRows)
       else
-        response = new StorageResults(404);
-      return response;
+        storageResults = new StorageResults(404);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);

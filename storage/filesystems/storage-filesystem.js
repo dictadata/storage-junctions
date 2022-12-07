@@ -87,7 +87,7 @@ module.exports = exports = class StorageFileSystem {
     logger.debug("StorageFileSystem dull");
     throw new StorageError(501);
 
-    // return newStorageResponse(0);
+    // return new StorageResults(0);
   }
 
   /**
