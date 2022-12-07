@@ -1,7 +1,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResponse, StorageError } = require("../../types");
+const { StorageResults, StorageError } = require("../../types");
 const { typeOf, logger, httpRequest, templateReplace } = require("../../utils");
 
 const RESTReader = require("./rest-reader");
@@ -66,7 +66,7 @@ class RESTJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse("encoding", null, this.engram.encoding);
+      return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -171,12 +171,12 @@ class RESTJunction extends StorageJunction {
         constructs.push(construct);
       });
 
-      let storageResponse;
+      let storageResults;
       if (constructs.length)
-        storageResponse = new StorageResponse("construct", null, constructs[0]);
+        storageResults = new StorageResults("construct", null, constructs[0]);
       else
-        storageResponse = new StorageResponse(404);
-      return storageResponse;
+        storageResults = new StorageResults(404);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -240,12 +240,12 @@ class RESTJunction extends StorageJunction {
           constructs.push(construct);
       });
 
-      let storageResponse;
+      let storageResults;
       if (constructs.length)
-        storageResponse = new StorageResponse(response.statusCode, null, constructs);
+        storageResults = new StorageResults(response.statusCode, null, constructs);
       else
-        storageResponse = new StorageResponse(404);
-      return storageResponse;
+        storageResults = new StorageResults(404);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);

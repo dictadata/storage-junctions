@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResponse, StorageError } = require("../../types");
+const { StorageResults, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 
 const ShapeFileReader = require("./shapefile-reader");
@@ -85,7 +85,7 @@ class ShapeFileJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse("encoding", null, this.engram.encoding);
+      return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);

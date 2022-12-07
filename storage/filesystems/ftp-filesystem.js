@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { SMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResults, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 const authStash = require("../auth-stash");
 
@@ -74,7 +74,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {string} options.schema Override smt.schema, my contain wildcard characters.
    * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
    * @param {function} options.forEach Function to execute with each entry object, optional.
-   * @returns StorageResponse object where data is an array of directory entry objects.
+   * @returns StorageResults object where data is an array of directory entry objects.
    */
   async list(options) {
     logger.debug('ftp-filesystem list');
@@ -128,7 +128,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       // start scanning FTP directory
       await readFolder(wdPath, "", options);
 
-      return new StorageResponse(0, null, list);
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -141,7 +141,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async dull(options) {
     logger.debug('ftp-filesystem dull');
@@ -154,7 +154,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       await this._client.cd(decodeURI(this.url.pathname));
       await this._client.remove(filename);
 
-      return new StorageResponse(0);
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
@@ -252,7 +252,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
-   * @returns StorageResponse object with resultCode;
+   * @returns StorageResults object with resultCode;
    */
   async getFile(options) {
     logger.debug("ftp-fileSystem getFile");
@@ -279,7 +279,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       await this._client.cd(wdPath);
       await this._client.downloadTo(dest, options.entry.name);
 
-      return new StorageResponse(resultCode);
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
@@ -293,7 +293,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async putFile(options) {
     logger.debug("ftp-fileSystem putFile");
@@ -314,7 +314,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       await this._client.ensureDir(wdPath);
       await this._client.uploadFrom(src, options.entry.name);
 
-      return new StorageResponse(resultCode);
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);

@@ -136,7 +136,7 @@ function match(dsl, pattern) {
         let q = {};
 
         if (exp.fields) {
-          // note: fldname is ignored
+          // note: fldname from parent node is ignored
           q[ "multi_match" ] = {};
           q.multi_match[ "query" ] = exp.search;
           q.multi_match[ "fields" ] = exp.fields;

@@ -110,7 +110,9 @@ async function tests() {
       smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       pattern: {
         match: {
-          "Bar": { 'search': 'row boat' }
+          "Bar": {
+            'search': 'row boat'
+          }
         },
         order: { "Foo": "asc" }
       }
@@ -164,7 +166,7 @@ async function tests() {
       smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
       pattern: {
         match: {
-          "_": {
+          "~search": {
             'search': 'big data',
             'fields': [ "Bar" ],
             "op": "AND"

@@ -2,7 +2,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction/storage-junction");
-const { StorageResponse, StorageError } = require("../../types");
+const { StorageResults, StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
 
 const MemoryReader = require("./memory-reader");
@@ -83,7 +83,7 @@ class MemoryJunction extends StorageJunction {
       throw new StorageError(500).inner(err);
     }
 
-    return new StorageResponse(0, null, list);
+    return new StorageResults(0, null, list);
   }
 
   /**
@@ -96,9 +96,9 @@ class MemoryJunction extends StorageJunction {
     try {
       let entry = _storage.get(this.storage_key);
       if (!entry)
-        return new StorageResponse(404, "schema not found");
+        return new StorageResults(404, "schema not found");
 
-      return new StorageResponse("encoding", null, entry.engram.encoding);
+      return new StorageResults("encoding", null, entry.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -116,7 +116,7 @@ class MemoryJunction extends StorageJunction {
 
     try {
       if (_storage.has(this.storage_key))
-        return new StorageResponse(409, "schema exists");
+        return new StorageResults(409, "schema exists");
 
       if (options.encoding)
         this.engram.encoding = options.encoding;
@@ -126,7 +126,7 @@ class MemoryJunction extends StorageJunction {
         constructs: this._constructs
       });
 
-      return new StorageResponse(0);
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
@@ -147,12 +147,12 @@ class MemoryJunction extends StorageJunction {
     try {
       let entry = _storage.get(this.smt.locus + schema);
       if (!entry)
-        return new StorageResponse(404, "schema not found");
+        return new StorageResults(404, "schema not found");
 
       entry.constructs.clear();
       _storage.delete(this.smt.locus + schema);
 
-      return new StorageResponse(0);
+      return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
@@ -179,7 +179,7 @@ class MemoryJunction extends StorageJunction {
       let key = (pattern && pattern.key) || this.engram.get_uid(construct);
       this._constructs.set(key, construct);
 
-      let response = new StorageResponse("message");
+      let response = new StorageResults("message");
       response.setResults(resultCode, null, numAffected, "numAffected");
       return response;
     }
@@ -212,7 +212,7 @@ class MemoryJunction extends StorageJunction {
         this._constructs.set(key, construct);
       }
 
-      let response = new StorageResponse("message");
+      let response = new StorageResults("message");
       response.setResults(resultCode, null, numAffected, "numAffected");
       return response;
     }
@@ -233,12 +233,12 @@ class MemoryJunction extends StorageJunction {
 
     try {
       let resultCode = 0;
-      let storageResponse = new StorageResponse("map");
+      let storageResults = new StorageResults("map");
 
       if (pattern && pattern.key) {
         let construct = this._constructs.get(pattern.key);
         if (construct)
-          storageResponse.add(construct, pattern.key);
+          storageResults.add(construct, pattern.key);
         else
           resultCode = 404;
       }
@@ -246,8 +246,8 @@ class MemoryJunction extends StorageJunction {
         // find construct using pattern
       }
 
-      storageResponse.setResults(resultCode);
-      return storageResponse;
+      storageResults.setResults(resultCode);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -265,14 +265,14 @@ class MemoryJunction extends StorageJunction {
 
     try {
       let resultCode = 0;
-      let storageResponse = new StorageResponse("map");
+      let storageResults = new StorageResults("map");
 
       // filter constructs using pattern
       let key = pattern.key;
-      storageResponse.add(this._constructs.get(key), key);
+      storageResults.add(this._constructs.get(key), key);
 
-      storageResponse.setResults(resultCode);
-      return storageResponse;
+      storageResults.setResults(resultCode);
+      return storageResults;
     }
     catch (err) {
       logger.error(err);
@@ -305,7 +305,7 @@ class MemoryJunction extends StorageJunction {
         // delete constructs according to pattern
       }
 
-      let response = new StorageResponse("message");
+      let response = new StorageResults("message");
       response.setResults(resultCode, null, numAffected, "numAffected");
       return response;
     }

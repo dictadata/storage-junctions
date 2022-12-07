@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { SMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResults, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const path = require('path');
@@ -61,7 +61,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {string} options.schema Override smt.schema, my contain wildcard characters.
    * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
    * @param {function} options.forEach Function to execute with each entry object, optional.
-   * @returns StorageResponse object where data is an array of directory entry objects.
+   * @returns StorageResults object where data is an array of directory entry objects.
    */
   async list(options) {
     logger.debug("StorageFileSystem list");
@@ -73,7 +73,7 @@ module.exports = exports = class StorageFileSystem {
 
     // implement directory list in overrides
 
-    //return new StorageResponse(0, null, list);
+    //return new StorageResults(0, null, list);
   }
 
   /**
@@ -81,7 +81,7 @@ module.exports = exports = class StorageFileSystem {
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async dull(schema) {
     logger.debug("StorageFileSystem dull");
@@ -136,7 +136,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
-   * @returns StorageResponse object with resultCode;
+   * @returns StorageResults object with resultCode;
    */
   async geFile(options) {
     logger.debug("StorageFileSystem getFile");
@@ -146,7 +146,7 @@ module.exports = exports = class StorageFileSystem {
     //let schema = options.schema || this.smt.schema;
     //let result = false;
 
-    //return new StorageResponse(0);
+    //return new StorageResults(0);
   }
 
   /**
@@ -155,7 +155,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async putFile(options) {
     logger.debug("StorageFileSystem putFile");
@@ -165,7 +165,7 @@ module.exports = exports = class StorageFileSystem {
     //let schema = options.schema || this.smt.schema;
     //let result = false;
 
-    //return new StorageResponse(0);
+    //return new StorageResults(0);
   }
 
 };

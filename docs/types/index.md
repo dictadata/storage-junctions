@@ -20,5 +20,5 @@
 
 ## Common Responses
 
-* [StorageResponse](storage-response.md)
+* [StorageResults](storage-results.md)
 * [StorageError](storage-error.md)

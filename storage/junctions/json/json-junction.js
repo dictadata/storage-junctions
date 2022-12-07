@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResponse, StorageError } = require("../../types");
+const { StorageResults, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 const JSONReader = require("./json-reader");
 const JSONWriter = require("./json-writer");
@@ -70,7 +70,7 @@ class JSONJunction extends StorageJunction {
         this.engram.encoding = encoding;
       }
 
-      return new StorageResponse("encoding", null, this.engram.encoding);
+      return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
       if (err instanceof StorageError)
@@ -118,22 +118,22 @@ class JSONJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    let storageResponse = new StorageResponse("list");
+    let storageResults = new StorageResults("list");
     let rs = this.createReader({ pattern: pattern });
 
     rs.on('data', (chunk) => {
-      storageResponse.add(chunk);
+      storageResults.add(chunk);
     })
     rs.on('end', () => {
       // console.log('There will be no more data.');
     });
     rs.on('error', (err) => {
-      storageResponse = new StorageError(500).inner(err);
+      storageResults = new StorageError(500).inner(err);
     });
 
     await stream.finished(rs);
 
-    return storageResponse;
+    return storageResults;
   }
 
 };

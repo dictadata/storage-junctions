@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { Engram, StorageResponse, StorageError } = require("../../types");
+const { Engram, StorageResults, StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
 
 const MySQLReader = require("./mysql-reader");
@@ -127,7 +127,7 @@ class MySQLJunction extends StorageJunction {
           list.push(name);
       }
 
-      return new StorageResponse(0, null, list);
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -157,11 +157,11 @@ class MySQLJunction extends StorageJunction {
       columns = await this.pool.query(sql);
       sqlEncoder.decodeIndexResults(this.engram, columns);
 
-      return new StorageResponse("encoding", null, this.engram.encoding);
+      return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
-        return new StorageResponse(404, 'no such table');
+        return new StorageResults(404, 'no such table');
 
       logger.error(err);
       throw new StorageError(500).inner(err);
@@ -182,7 +182,7 @@ class MySQLJunction extends StorageJunction {
       // check if table already exists
       let { data: tables } = await this.list();
       if (tables.length > 0) {
-        return new StorageResponse(409, 'table exists');
+        return new StorageResults(409, 'table exists');
       }
 
       // use a temporary engram
@@ -196,7 +196,7 @@ class MySQLJunction extends StorageJunction {
 
       // if successfull update engram
       this.engram.encoding = encoding;
-      return new StorageResponse("encoding", null, this.engram.encoding);
+      return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -217,11 +217,11 @@ class MySQLJunction extends StorageJunction {
     try {
       let sql = "DROP TABLE " + schema + ";";
       let results = await this.pool.query(sql);
-      return new StorageResponse(0);
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.errno === 1051)  // ER_BAD_TABLE_ERROR
-        return new StorageResponse(404, 'no such table');
+        return new StorageResults(404, 'no such table');
 
       logger.error(err);
       throw new StorageError(500).inner(err);
@@ -250,11 +250,11 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if row was inserted
-      return new StorageResponse("message", null, { stored: results.affectedRows });
+      return new StorageResults("message", null, { stored: results.affectedRows });
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY
-        return new StorageResponse(409, 'duplicate entry');
+        return new StorageResults(409, 'duplicate entry');
       }
 
       logger.error(err);
@@ -284,11 +284,11 @@ class MySQLJunction extends StorageJunction {
       let results = await this.pool.query(sql);
 
       // check if rows were inserted
-      return new StorageResponse("message", null, { stored: results.affectedRows });
+      return new StorageResults("message", null, { stored: results.affectedRows });
     }
     catch (err) {
       if (err.errno === 1062) {  // ER_DUP_ENTRY
-        return new StorageResponse(409, 'duplicate entry');
+        return new StorageResults(409, 'duplicate entry');
       }
 
       logger.error(err);
@@ -318,9 +318,9 @@ class MySQLJunction extends StorageJunction {
 
       let response;
       if (rows.length > 0)
-        response = new StorageResponse("construct", null, rows[ 0 ]);
+        response = new StorageResults("construct", null, rows[ 0 ]);
       else
-        response = new StorageResponse(404);
+        response = new StorageResults(404);
       return response;
     }
     catch (err) {
@@ -349,9 +349,9 @@ class MySQLJunction extends StorageJunction {
 
       let response;
       if (rows.length > 0)
-        response = new StorageResponse(0, null, rows);
+        response = new StorageResults(0, null, rows);
       else
-        response = new StorageResponse(404);
+        response = new StorageResults(404);
       return response;
     }
     catch (err) {
@@ -388,7 +388,7 @@ class MySQLJunction extends StorageJunction {
         results = await this.pool.query(sql);
       }
 
-      return new StorageResponse("message", null, { deleted: results.affectedRows });
+      return new StorageResults("message", null, { deleted: results.affectedRows });
     }
     catch (err) {
       logger.error(err);

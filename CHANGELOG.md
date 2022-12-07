@@ -1,7 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
 - version 0.9.85
-  - refactor: add type property to StorageResponse; list, map, construct and message
+  - refactor: add type property to StorageResults; list, map, construct and message
   - refactor: adjust junction responses to set response type
   - bug fix: invalid SQL retrieving empty match: {}
   - bug fix: CSV usage of options.header and options.headers
@@ -20,7 +20,7 @@
 - version 2.5.2
   - Breaking changes:
     - MutateTransform replaces SelectTransform; renamed options
-    - refactor: rename StorageResponse.resultText to StorageResponse.resultMessage
+    - refactor: rename StorageResults.resultText to StorageResults.resultMessage
   - feature: new transforms RowConstructs (arrays), MapConstructs (map/object)
   - feature: new StreamFileSystem "stream:*" for reading/writing to any provided stream
   - enhancement: support function body definitions in MutateTransform assignment
@@ -164,12 +164,12 @@
 - version 1.7.3
   - httpRequest improvements
 - version 1.7.2
-  - StorageResponse updates
+  - StorageResults updates
 - version 1.7.1
   - export tests lib
 - version 1.7.0
   - refactoring of project files
-  - all async methods now return a StorageResponse object or throw a StorageError object
+  - all async methods now return a StorageResults object or throw a StorageError object
   - automated testing implemented
   - moved S3-FileSystem and XlsxJunction to separate plugin projects
 - version 1.5.1
@@ -307,4 +307,4 @@
 - version 1.0.1
   - prevent empty string as elasticsearch key
 - version 1.0.0
-  - StorageResponse now returns an array (list) for row or column stores (tables) and an object (dictionary map) for document and key-value stores. This allows return of data source generated keys while not polluting data objects.  Single data objects will no longer be return.
+  - StorageResults now returns an array (list) for row or column stores (tables) and an object (dictionary map) for document and key-value stores. This allows return of data source generated keys while not polluting data objects.  Single data objects will no longer be return.

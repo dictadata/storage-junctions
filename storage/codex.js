@@ -13,7 +13,7 @@
 "use strict";
 
 const Cortex = require("./cortex");
-const { SMT, Engram, StorageResponse, StorageError } = require("./types");
+const { SMT, Engram, StorageResults, StorageError } = require("./types");
 const logger = require("./utils/logger");
 
 const codex_encoding = require("./codex.encoding.json");
@@ -123,17 +123,17 @@ module.exports = exports = class Codex {
    * @returns
    */
   async store(entry) {
-    let storageResponse = new StorageResponse("message");
+    let storageResults = new StorageResults("message");
 
     // parameter checks
     // note: domain is optional
     if (!entry.name || entry.name === "*") {
-      storageResponse.setResults(400, "Invalid encoding name" );
-      return storageResponse;
+      storageResults.setResults(400, "Invalid encoding name" );
+      return storageResults;
     }
     if (!entry.type || !codexTypes.includes(entry.type)) {
-      storageResponse.setResults(400, "Invalid codex type" );
-      return storageResponse;
+      storageResults.setResults(400, "Invalid codex type" );
+      return storageResults;
     }
 
     let encoding = (entry instanceof Engram) ? entry.encoding : entry;
@@ -144,13 +144,13 @@ module.exports = exports = class Codex {
 
     if (this._junction) {
       // save in source codex
-      storageResponse = await this._junction.store(encoding, { key: key });
-      logger.verbose("storage/codex: " + key + ", " + storageResponse.resultCode);
-      return storageResponse;
+      storageResults = await this._junction.store(encoding, { key: key });
+      logger.verbose("storage/codex: " + key + ", " + storageResults.resultCode);
+      return storageResults;
     }
 
-    storageResponse.setResults(500, "Codex junction not activated");
-    return storageResponse;
+    storageResults.setResults(500, "Codex junction not activated");
+    return storageResults;
   }
 
   /**
@@ -159,7 +159,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async dull(pattern) {
-    let storageResponse = new StorageResponse("message");
+    let storageResults = new StorageResults("message");
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.smt_urn(match);
@@ -167,19 +167,19 @@ module.exports = exports = class Codex {
     if (this._engrams.has(key)) {
       // delete from cache
       if (!this._engrams.delete(key)) {
-        storageResponse.setResults(500, "map delete error");
-        return storageResponse;
+        storageResults.setResults(500, "map delete error");
+        return storageResults;
       }
     }
 
     if (this._junction) {
       // delete from source codex
-      storageResponse = await this._junction.dull({ key: key });
-      return storageResponse;
+      storageResults = await this._junction.dull({ key: key });
+      return storageResults;
     }
 
-    storageResponse.setResults(500, "Codex junction not activated");
-    return storageResponse;
+    storageResults.setResults(500, "Codex junction not activated");
+    return storageResults;
   }
 
   /**
@@ -188,7 +188,7 @@ module.exports = exports = class Codex {
    * @returns
    */
   async recall(pattern) {
-    let storageResponse = new StorageResponse("map");
+    let storageResults = new StorageResults("map");
 
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.smt_urn(match);
@@ -196,20 +196,20 @@ module.exports = exports = class Codex {
     if (this._engrams.has(key)) {
       // entry has been cached
       let entry = this._engrams.get(key);
-      storageResponse.add(entry, key);
+      storageResults.add(entry, key);
     }
     else if (this._junction) {
       // go to the source codex
-      storageResponse = await this._junction.recall({ key: key });
-      logger.verbose("storage/codex: recall, " + storageResponse.resultCode);
+      storageResults = await this._junction.recall({ key: key });
+      logger.verbose("storage/codex: recall, " + storageResults.resultCode);
     }
     else {
-      storageResponse.setResults(404, "Not Found");
+      storageResults.setResults(404, "Not Found");
     }
 
-    if (storageResponse.resultCode === 0 && pattern.resolve) {
+    if (storageResults.resultCode === 0 && pattern.resolve) {
       // check for alias smt
-      let encoding = storageResponse.data[ key ];
+      let encoding = storageResults.data[ key ];
       if (encoding.type === "alias") {
         // recall the entry for the source smt_urn
         let results = await this.recall({
@@ -219,18 +219,18 @@ module.exports = exports = class Codex {
           resolve: false
         });
         if (results.resultCode === 0)
-          storageResponse.data[ key ] = results.data[ encoding.source ];
+          storageResults.data[ key ] = results.data[ encoding.source ];
       }
     }
 
-    if (storageResponse.resultCode === 0 && !pattern.resolve) {
+    if (storageResults.resultCode === 0 && !pattern.resolve) {
       // cache entry definition
-      let encoding = storageResponse.data[ key ];
+      let encoding = storageResults.data[ key ];
       if (key === this.smt_urn(encoding)) // double check it wasn't an alias lookup
         this._engrams.set(key, encoding);
     }
 
-    return storageResponse;
+    return storageResults;
   }
 
   /**
@@ -239,19 +239,19 @@ module.exports = exports = class Codex {
    * @returns
    */
   async retrieve(pattern) {
-    let storageResponse = new StorageResponse("message");
+    let storageResults = new StorageResults("message");
 
     if (this._junction) {
       // current design does not cache entries from retrieved list
 
       // retrieve list from source codex
-      storageResponse = await this._junction.retrieve(pattern);
-      logger.verbose("storage/codex: retrieve, " + storageResponse.resultCode);
+      storageResults = await this._junction.retrieve(pattern);
+      logger.verbose("storage/codex: retrieve, " + storageResults.resultCode);
     }
     else {
-      storageResponse.setResults(503, "Codex Unavailable");
+      storageResults.setResults(503, "Codex Unavailable");
     }
 
-    return storageResponse;
+    return storageResults;
   }
 };

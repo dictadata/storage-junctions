@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageJunction = require("../storage-junction");
-const { StorageResponse, StorageError } = require("../../types");
+const { StorageResults, StorageError } = require("../../types");
 const { logger } = require('../../utils');
 
 const ParquetReader = require("./parquet-reader");
@@ -70,7 +70,7 @@ class ParquetJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResponse("encoding", null, this.engram.encoding);
+      return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
       logger.error(err);
@@ -97,7 +97,7 @@ class ParquetJunction extends StorageJunction {
     logger.debug('ParquetJunction list');
     let stfs = await this.getFileSystem();
     let list = await stfs.list(options);
-    return new StorageResponse(0, null, list);
+    return new StorageResults(0, null, list);
   }
 
 
@@ -129,7 +129,7 @@ class ParquetJunction extends StorageJunction {
    * @param {*} pattern
    */
   async retrieve(pattern) {
-    let response = new StorageResponse("list");
+    let response = new StorageResults("list");
     let rs = this.createReader(options);
 
     rs.on('data', (chunk) => {

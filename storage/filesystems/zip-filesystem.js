@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { SMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResults, StorageError } = require("../types");
 const { logger } = require("../utils");
 
 const fs = require('fs');
@@ -63,7 +63,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {string} options.schema Override smt.schema, my contain wildcard characters.
    * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
    * @param {function} options.forEach Function to execute with each entry object, optional.
-   * @returns StorageResponse object where data is an array of directory entry objects.
+   * @returns StorageResults object where data is an array of directory entry objects.
    */
   async list(options) {
     logger.debug('zip-filesystem list');
@@ -101,7 +101,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
         }
       }
 
-      return new StorageResponse(0, null, list);
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -126,7 +126,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {string} options.schema Override smt.schema with a filename in the same locus.
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async dull(options) {
     logger.debug('zip-filesystem dull');
@@ -136,7 +136,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
     throw new StorageError(501);
 
-    //return new StorageResponse(0);
+    //return new StorageResults(0);
   }
 
   /**
@@ -218,7 +218,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of zip filesystem in local filesystem.
-   * @returns StorageResponse object with resultCode;
+   * @returns StorageResults object with resultCode;
    */
   async getFile(options) {
     logger.debug("zip-fileSystem getFile");
@@ -241,7 +241,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
       await this.zip.extract(src, dest);
 
-      return new StorageResponse(resultCode);
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
@@ -255,7 +255,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async putFile(options) {
     logger.debug("zip-fileSystem putFile");
@@ -280,7 +280,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       logger.verbose("  " + src + " >> " + dest);
       await fsp.copyFile(src, dest);
 
-      return new StorageResponse(resultCode);
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);

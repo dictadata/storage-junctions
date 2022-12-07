@@ -1,7 +1,7 @@
-// storage/types/StorageResponse
+// storage/types/StorageResults
 "use strict";
 
-class StorageResponse {
+class StorageResults {
 
   /**
    * The results type returned by storage methods.
@@ -54,7 +54,7 @@ class StorageResponse {
    */
   setResults(resultCode, resultMessage, data, key) {
     this.resultCode = ((resultCode === 200) ? 0 : resultCode) || 0;
-    this.resultMessage = resultMessage || StorageResponse.RESULT_CODES[ this.resultCode ] || 'unknown';
+    this.resultMessage = resultMessage || StorageResults.RESULT_CODES[ this.resultCode ] || 'unknown';
 
     if (data) {
       this.add(data, key);
@@ -151,7 +151,7 @@ class StorageResponse {
 
 }
 
-StorageResponse.RESULT_CODES = {
+StorageResults.RESULT_CODES = {
   0: "OK",
   100: "Continue",
   101: "Switching Protocols",
@@ -195,4 +195,4 @@ StorageResponse.RESULT_CODES = {
   505: "HTTP Version not supported"
 };
 
-module.exports = exports = StorageResponse;
+module.exports = exports = StorageResults;

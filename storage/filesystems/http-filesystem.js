@@ -4,7 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
-const { SMT, StorageResponse, StorageError } = require("../types");
+const { SMT, StorageResults, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
 const authStash = require("../auth-stash");
 
@@ -48,7 +48,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {boolean} options.recursive Scan the specified folder and all sub-folders.
    * @param {function} options.forEach Function to execute with each entry object, optional.
    * @param {string} options.http httpRequest options, see httpRequest
-   * @returns StorageResponse object where data is an array of directory entry objects.
+   * @returns StorageResults object where data is an array of directory entry objects.
    */
   async list(options) {
     logger.debug('http-filesystem list');
@@ -149,7 +149,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // start scanning HTTP directory
       await readFolder(pathname);
 
-      return new StorageResponse(0, null, list);
+      return new StorageResults(0, null, list);
     }
     catch (err) {
       logger.error(err);
@@ -163,7 +163,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
    * @param {string} options.http httpRequest options, see httpRequest
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async dull(options) {
     logger.debug('http-filesystem dull');
@@ -173,7 +173,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     throw new StorageError(501);
 
-    //return new StorageResponse(0);
+    //return new StorageResults(0);
   }
 
   /**
@@ -255,7 +255,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
    * @param {string} options.http httpRequest options, see httpRequest
-   * @returns StorageResponse object with resultCode;
+   * @returns StorageResults object with resultCode;
    */
   async getFile(options) {
     logger.debug("HTTPFileSystem getFile");
@@ -300,7 +300,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
 
-      return new StorageResponse(resultCode);
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
@@ -316,7 +316,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
    * @param {string} options.http httpRequest options, see httpRequest
    * @param {*} options.formdata HTML formdata that specifies remote filename
-   * @returns StorageResponse object with resultCode.
+   * @returns StorageResults object with resultCode.
    */
   async putFile(options) {
     logger.debug("HTTPFileSystem putFile")
@@ -362,7 +362,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let response = await httpRequest(this.url.pathname, request, form);
 
       resultCode = response.resultCode;
-      return new StorageResponse(resultCode);
+      return new StorageResults(resultCode);
     }
     catch (err) {
       logger.error(err);
