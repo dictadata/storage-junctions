@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.86
+  - rename StorageResponse to StorageResults for naming consistency
 - version 0.9.85
   - refactor: add type property to StorageResults; list, map, construct and message
   - refactor: adjust junction responses to set response type
