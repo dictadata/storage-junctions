@@ -3,12 +3,11 @@
  */
 "use strict";
 
-var { hasOwnProperty } = require('../../utils');
-var { stringBreakpoints } = require('../../types');
+const { hasOwnProperty, ynBoolean } = require('../../utils');
 const TYPES = require('tedious').TYPES;
-const ynBoolean = require('yn');
 
-stringBreakpoints = exports.stringBreakpoints = Object.assign({}, stringBreakpoints);
+var stringBreakpoints = require('../../types/stringBreakpoints');
+exports.stringBreakpoints = stringBreakpoints = Object.assign({}, stringBreakpoints);
 if (stringBreakpoints.text > 8000)
   stringBreakpoints.text = 8000;   // up to 32767 if MAX_STRING_SIZE = EXTENDED;
 

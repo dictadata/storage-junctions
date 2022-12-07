@@ -1,9 +1,9 @@
 // storage/types/storageType
 "use strict";
 
-const { typeOf, isDate, isUUID } = require("../utils");
+const { typeOf, isDate, isUUID, ynBoolean } = require("../utils");
 const stringBreakpoints = require("./stringBreakpoints");
-const ynBoolean = require('yn');
+
 
 /**
  * Determine storage field type. Note, this is just a guess.

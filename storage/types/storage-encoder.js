@@ -11,7 +11,7 @@
 "use strict";
 
 const stringBreakpoints = require('./stringBreakpoints');
-const ynBoolean = require('yn');
+const { ynBoolean } = require('../utils');
 
 module.exports = exports = class StorageEncoder {
 

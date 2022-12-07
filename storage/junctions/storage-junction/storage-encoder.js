@@ -1,10 +1,9 @@
 "use strict";
 
 const { StorageError } = require("../../types");
-const { typeOf, hasOwnProperty, isDate } = require("../../utils");
+const { typeOf, hasOwnProperty, isDate, ynBoolean } = require("../../utils");
 
 const dot = require('dot-object');
-const ynBoolean = require('yn');
 
 module.exports = exports = class StorageEncoder {
 
