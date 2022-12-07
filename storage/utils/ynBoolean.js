@@ -1,5 +1,7 @@
 /**
  * ynBoolean - utility to determine if a value is boolean representation
+ *
+ * extracted from https://github.com/sindresorhus/yn
  */
 'use strict';
 
