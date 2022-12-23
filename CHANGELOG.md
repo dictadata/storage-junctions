@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.87
+  - bug fix: set parser options for jsonl and jsons streams
 - version 0.9.86
   - rename StorageResponse to StorageResults for naming consistency
 - version 0.9.85
@@ -127,7 +129,7 @@
   - define codex storage: codex.encoding.json
   - store codex entries in Elasticsearch
 - version 1.8.6
-  - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint  
+  - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint
 - version 1.8.5
   - implement dot notation for filter transform
   - testing:
