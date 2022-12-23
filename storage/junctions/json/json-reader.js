@@ -30,7 +30,8 @@ module.exports = exports = class JSONReader extends StorageReader {
     var encoder = this.junction.createEncoder(options);
 
     /***** create the parser, pipieline and data handlers *****/
-    var myParser = this.myParser = parser();
+    let jstream = (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl');
+    var myParser = this.myParser = parser({ jsonStreaming: jstream });
     var pipes = [ myParser ];
 
     if (this.options.extract) {
