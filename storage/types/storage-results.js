@@ -5,15 +5,15 @@ class StorageResults {
 
   /**
    * The results type returned by storage methods.
-   * @param {integer} type_code overloaded, response type OR a HTTP like statusCode
-   * @param {string} resultMessage a string with a HTTP like statusMessage
+   * @param {integer} type_code overloaded, response type OR a HTTP like status code
+   * @param {string} message a string with a HTTP like statusMessage
    * @param {*} data an Array or Map of constructs, or single construct
    * @param {*} key optional key for keystores (map) storage sources
    */
-  constructor(type_code, resultMessage, data, key) {
+  constructor(type_code, message, data, key) {
     // these four fields MUST be in any serialized (HTTP) response
-    this.resultCode = 0;
-    this.resultMessage = "";
+    this.status = 0;
+    this.message = "";
     this.type;
     this.data;
 
@@ -42,19 +42,19 @@ class StorageResults {
       type_code = 0; // set to default
     }
 
-    this.setResults(type_code, resultMessage, data, key);
+    this.setResults(type_code, message, data, key);
   }
 
   /**
    * Set result status and optionally add or delete data.
-   * @param {*} resultCode the result of the request using HTTP like status codes
-   * @param {*} resultMessage if blank will use standard HTTP like messages
+   * @param {*} status the result of the request using HTTP like status codes
+   * @param {*} message if blank will use standard HTTP like messages
    * @param {*} data final data to add; set to null to remove data from response
    * @param {*} key needed for keystore (map) responses
    */
-  setResults(resultCode, resultMessage, data, key) {
-    this.resultCode = ((resultCode === 200) ? 0 : resultCode) || 0;
-    this.resultMessage = resultMessage || StorageResults.RESULT_CODES[ this.resultCode ] || 'unknown';
+  setResults(status, message, data, key) {
+    this.status = ((status === 200) ? 0 : status) || 0;
+    this.message = message || StorageResults.RESULT_CODES[ this.status ] || 'unknown';
 
     if (data) {
       this.add(data, key);

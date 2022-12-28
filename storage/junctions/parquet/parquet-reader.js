@@ -59,7 +59,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
           logger.verbose(statistics.count);
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          parser._destroy();
+          parser.destroy();
         }
       }
     });
@@ -89,7 +89,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on("error",
         (err) => {
-          this._destroy(err);
+          this.destroy(err);
         }
       );
       rs.pipe(this.parser);

@@ -55,7 +55,7 @@ module.exports = exports = class MSSQLReader extends StorageReader {
       }
       catch (err) {
         logger.error("mssql reader: " + err.message);
-        this._destroy(err);
+        this.destroy(err);
       }
     }
   }

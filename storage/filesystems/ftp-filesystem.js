@@ -141,7 +141,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
-   * @returns StorageResults object with resultCode.
+   * @returns StorageResults object with status.
    */
   async dull(options) {
     logger.debug('ftp-filesystem dull');
@@ -252,14 +252,14 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
-   * @returns StorageResults object with resultCode;
+   * @returns StorageResults object with status;
    */
   async getFile(options) {
     logger.debug("ftp-fileSystem getFile");
 
     try {
       options = Object.assign({}, this.options, options);
-      let resultCode = 0;
+      let status = 0;
 
       let wdPath = decodeURI(this.url.pathname + (options.recursive ? path.dirname(options.entry.rpath) : ''));
       let src = wdPath + (options.recursive ? options.entry.rpath : options.entry.name);
@@ -279,7 +279,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       await this._client.cd(wdPath);
       await this._client.downloadTo(dest, options.entry.name);
 
-      return new StorageResults(resultCode);
+      return new StorageResults(status);
     }
     catch (err) {
       logger.error(err);
@@ -293,14 +293,14 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
-   * @returns StorageResults object with resultCode.
+   * @returns StorageResults object with status.
    */
   async putFile(options) {
     logger.debug("ftp-fileSystem putFile");
 
     try {
       options = Object.assign({}, this.options, options);
-      let resultCode = 0;
+      let status = 0;
 
       let smt = new SMT(options.smt); // smt.locus is source folder
       let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
@@ -314,7 +314,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       await this._client.ensureDir(wdPath);
       await this._client.uploadFrom(src, options.entry.name);
 
-      return new StorageResults(resultCode);
+      return new StorageResults(status);
     }
     catch (err) {
       logger.error(err);

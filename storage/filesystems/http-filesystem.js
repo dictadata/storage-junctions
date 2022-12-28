@@ -163,7 +163,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
    * @param {string} options.http httpRequest options, see httpRequest
-   * @returns StorageResults object with resultCode.
+   * @returns StorageResults object with status.
    */
   async dull(options) {
     logger.debug('http-filesystem dull');
@@ -255,14 +255,14 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
    * @param {string} options.http httpRequest options, see httpRequest
-   * @returns StorageResults object with resultCode;
+   * @returns StorageResults object with status;
    */
   async getFile(options) {
     logger.debug("HTTPFileSystem getFile");
 
     try {
       options = Object.assign({}, this.options, options);
-      let resultCode = 0;
+      let status = 0;
 
       let request = Object.assign({
         method: 'GET',
@@ -300,7 +300,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
 
-      return new StorageResults(resultCode);
+      return new StorageResults(status);
     }
     catch (err) {
       logger.error(err);
@@ -316,14 +316,14 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
    * @param {string} options.http httpRequest options, see httpRequest
    * @param {*} options.formdata HTML formdata that specifies remote filename
-   * @returns StorageResults object with resultCode.
+   * @returns StorageResults object with status.
    */
   async putFile(options) {
     logger.debug("HTTPFileSystem putFile")
 
     try {
       options = Object.assign({}, this.options, options);
-      let resultCode = 0;
+      let status = 0;
 
       let request = Object.assign({
         method: 'PUT',
@@ -361,8 +361,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       let response = await httpRequest(this.url.pathname, request, form);
 
-      resultCode = response.resultCode;
-      return new StorageResults(resultCode);
+      status = response.status;
+      return new StorageResults(status);
     }
     catch (err) {
       logger.error(err);

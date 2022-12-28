@@ -56,7 +56,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
     }
     catch (err) {
       console.log("shapefile reader: " + err.message);
-      this._destroy(err);
+      this.destroy(err);
     }
   }
 

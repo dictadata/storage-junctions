@@ -83,7 +83,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
       let results = await this.junction.retrieve(pattern);
       //logger.debug(JSON.stringify(results,null,2));
 
-      if (results.resultCode === 0) {
+      if (results.status === 0) {
         for (let con of results.data) {
           // join results
           let conjoin = Object.assign({}, construct, con);

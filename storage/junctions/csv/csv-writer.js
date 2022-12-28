@@ -51,7 +51,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
         this.ws = await stfs.createWriteStream(this.options);
         this.ws.on("error",
           (err) => {
-            this._destroy(err);
+            this.destroy(err);
           });
 
         if (stfs.isNewFile && this.options.header) {

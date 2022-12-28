@@ -81,7 +81,7 @@ module.exports = exports = class StorageFileSystem {
    * Depending upon the filesystem may be a delete, mark for deletion, erase, etc.
    * @param {*} options Specify any options use when querying the filesystem.
    * @param {*} options.schema Override smt.schema with a filename in the same locus.
-   * @returns StorageResults object with resultCode.
+   * @returns StorageResults object with status.
    */
   async dull(schema) {
     logger.debug("StorageFileSystem dull");
@@ -136,7 +136,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {SMT} options.smt smt.locus specifies the output folder in the local filesystem.
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
-   * @returns StorageResults object with resultCode;
+   * @returns StorageResults object with status;
    */
   async geFile(options) {
     logger.debug("StorageFileSystem getFile");
@@ -155,7 +155,7 @@ module.exports = exports = class StorageFileSystem {
    * @param {SMT} options.smt smt.locus specifies the source folder in the local filesystem.
    * @param {object} options.entry Directory entry object containing the file information.
    * @param {boolean} options.use_rpath If true replicate folder structure of local filesystem in remote filesystem.
-   * @returns StorageResults object with resultCode.
+   * @returns StorageResults object with status.
    */
   async putFile(options) {
     logger.debug("StorageFileSystem putFile");

@@ -37,7 +37,7 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
       // save construct to .schema
       this._count(1);
       let response = await this.junction.store(construct);
-      logger.verbose("resultCode: " + JSON.stringify(response));
+      logger.verbose("status: " + JSON.stringify(response));
       callback();
     }
     catch (err) {
@@ -59,10 +59,10 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
 
         // save construct to .schema
         response = await this.junction.store(construct);
-        if (response.resultCode !== 0)
+        if (response.status !== 0)
           break;
 
-        // logger.verbose("resultCode: " + JSON.stringify(response));
+        // logger.verbose("status: " + JSON.stringify(response));
       }
 
       callback();

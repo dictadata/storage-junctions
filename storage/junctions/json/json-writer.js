@@ -84,7 +84,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
         this.ws = await stfs.createWriteStream(this.options);
         this.ws.on("error",
           (err) => {
-            this._destroy(err);
+            this.destroy(err);
           });
         // write opening, if any
         if (this.formation.opening) await this.ws.write(this.formation.opening);

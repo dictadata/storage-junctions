@@ -62,7 +62,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
       junction = await Cortex.activate(this.options.smt, this.options.options);
       let results = await junction.retrieve(this.options.pattern);
 
-      if (results.resultCode === 0) {
+      if (results.status === 0) {
         for (const values of results.data) {
           let key = this._createKey(values, Object.values(this.options.lookup));
           this.lookupMap.set(key, values);

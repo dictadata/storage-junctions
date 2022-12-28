@@ -68,8 +68,8 @@ class Cortex {
         },
         resolve: true
       });
-      if (results.resultCode !== 0)
-        throw new StorageError(results.resultCode, results.resultMessage + ": " + smt);
+      if (results.status !== 0)
+        throw new StorageError(results.status, results.message + ": " + smt);
 
       let entry = results.data[ smt ];
       _smt = entry.smt;

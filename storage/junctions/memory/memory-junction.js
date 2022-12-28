@@ -173,14 +173,14 @@ class MemoryJunction extends StorageJunction {
       throw new StorageError(400, "Invalid parameter: construct is not an object");
 
     try {
-      let resultCode = 0;
+      let status = 0;
       let numAffected = 0;
 
       let key = (pattern && pattern.key) || this.engram.get_uid(construct);
       this._constructs.set(key, construct);
 
       let storageResults = new StorageResults("message");
-      storageResults.setResults(resultCode, null, numAffected, "numAffected");
+      storageResults.setResults(status, null, numAffected, "numAffected");
       return storageResults;
     }
     catch (err) {
@@ -203,7 +203,7 @@ class MemoryJunction extends StorageJunction {
       throw new StorageError(400, "Invalid parameter: construct is not an object");
 
     try {
-      let resultCode;
+      let status;
       let numAffected = constructs.length;
 
       // store constructs
@@ -213,7 +213,7 @@ class MemoryJunction extends StorageJunction {
       }
 
       let storageResults = new StorageResults("message");
-      storageResults.setResults(resultCode, null, numAffected, "numAffected");
+      storageResults.setResults(status, null, numAffected, "numAffected");
       return storageResults;
     }
     catch (err) {
@@ -232,7 +232,7 @@ class MemoryJunction extends StorageJunction {
       throw new StorageError(400, "only keystore supported");
 
     try {
-      let resultCode = 0;
+      let status = 0;
       let storageResults = new StorageResults("map");
 
       if (pattern && pattern.key) {
@@ -240,13 +240,13 @@ class MemoryJunction extends StorageJunction {
         if (construct)
           storageResults.add(construct, pattern.key);
         else
-          resultCode = 404;
+          status = 404;
       }
       else {
         // find construct using pattern
       }
 
-      storageResults.setResults(resultCode);
+      storageResults.setResults(status);
       return storageResults;
     }
     catch (err) {
@@ -264,14 +264,14 @@ class MemoryJunction extends StorageJunction {
     logger.debug("MemoryJunction retrieve");
 
     try {
-      let resultCode = 0;
+      let status = 0;
       let storageResults = new StorageResults("map");
 
       // filter constructs using pattern
       let key = pattern.key;
       storageResults.add(this._constructs.get(key), key);
 
-      storageResults.setResults(resultCode);
+      storageResults.setResults(status);
       return storageResults;
     }
     catch (err) {
@@ -292,21 +292,21 @@ class MemoryJunction extends StorageJunction {
       throw new StorageError(400, "only keystore supported");
 
     try {
-      let resultCode = 0;
+      let status = 0;
       let numAffected = 0;
 
       if (pattern && pattern.key) {
         if (this._constructs.delete(pattern.key))
           numAffected = 1;
         else
-          resultCode = 404;
+          status = 404;
       }
       else {
         // delete constructs according to pattern
       }
 
       let storageResults = new StorageResults("message");
-      storageResults.setResults(resultCode, null, numAffected, "numAffected");
+      storageResults.setResults(status, null, numAffected, "numAffected");
       return storageResults;
     }
     catch (err) {

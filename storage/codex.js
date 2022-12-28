@@ -93,10 +93,10 @@ module.exports = exports = class Codex {
 
       // attempt to create codex schema
       let results = await this._junction.createSchema();
-      if (results.resultCode === 0) {
+      if (results.status === 0) {
         logger.info("storage/codex: created schema, " + this._junction.smt.schema);
       }
-      else if (results.resultCode === 409) {
+      else if (results.status === 409) {
         logger.debug("storage/codex: schema exists");
       }
       else {
@@ -145,7 +145,7 @@ module.exports = exports = class Codex {
     if (this._junction) {
       // save in source codex
       storageResults = await this._junction.store(encoding, { key: key });
-      logger.verbose("storage/codex: " + key + ", " + storageResults.resultCode);
+      logger.verbose("storage/codex: " + key + ", " + storageResults.status);
       return storageResults;
     }
 
@@ -201,13 +201,13 @@ module.exports = exports = class Codex {
     else if (this._junction) {
       // go to the source codex
       storageResults = await this._junction.recall({ key: key });
-      logger.verbose("storage/codex: recall, " + storageResults.resultCode);
+      logger.verbose("storage/codex: recall, " + storageResults.status);
     }
     else {
       storageResults.setResults(404, "Not Found");
     }
 
-    if (storageResults.resultCode === 0 && pattern.resolve) {
+    if (storageResults.status === 0 && pattern.resolve) {
       // check for alias smt
       let encoding = storageResults.data[ key ];
       if (encoding.type === "alias") {
@@ -218,12 +218,12 @@ module.exports = exports = class Codex {
           },
           resolve: false
         });
-        if (results.resultCode === 0)
+        if (results.status === 0)
           storageResults.data[ key ] = results.data[ encoding.source ];
       }
     }
 
-    if (storageResults.resultCode === 0 && !pattern.resolve) {
+    if (storageResults.status === 0 && !pattern.resolve) {
       // cache entry definition
       let encoding = storageResults.data[ key ];
       if (key === this.smt_urn(encoding)) // double check it wasn't an alias lookup
@@ -246,7 +246,7 @@ module.exports = exports = class Codex {
 
       // retrieve list from source codex
       storageResults = await this._junction.retrieve(pattern);
-      logger.verbose("storage/codex: retrieve, " + storageResults.resultCode);
+      logger.verbose("storage/codex: retrieve, " + storageResults.status);
     }
     else {
       storageResults.setResults(503, "Codex Unavailable");

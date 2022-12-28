@@ -48,7 +48,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
         this.ws = await stfs.createWriteStream(this.options);
         this.ws.on("error",
           (err) => {
-            this._destroy(err);
+            this.destroy(err);
           });
 
         // write opening, if any
