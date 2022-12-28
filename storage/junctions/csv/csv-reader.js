@@ -52,16 +52,16 @@ module.exports = exports = class CSVReader extends StorageReader {
         construct = encoder.select(construct);
         //logger.debug(JSON.stringify(construct));
 
-        if (construct && !reader.push(construct)) {
-          //pipeline.pause();  // If push() returns false stop reading from source.
-        }
-
         if (statistics.count % 1000 === 0)
           logger.debug(statistics.count);
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          parser._destroy();
+          parser.destroy();
         }
+        else if (construct && !reader.push(construct)) {
+          //pipeline.pause();  // If push() returns false stop reading from source.
+        }
+
       }
 
     });
@@ -91,7 +91,8 @@ module.exports = exports = class CSVReader extends StorageReader {
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on("error",
         (err) => {
-          this._destroy(err);
+          logger.error("JSONReader parser error: " + err.message);
+          this.destroy(err);
         }
       );
       rs.pipe(this.pipeline);

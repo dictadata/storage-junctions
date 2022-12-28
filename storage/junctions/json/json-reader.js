@@ -66,16 +66,15 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
 
-        if (construct && !reader.push(construct)) {
-          //myParser.pause();  // If push() returns false stop reading from source.
-        }
-
         if (statistics.count % 1000 === 0)
           logger.verbose(statistics.count);
 
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          myParser._destroy();
+          this.destroy();
+        }
+        else if (construct && !reader.push(construct)) {
+          //myParser.pause();  // If push() returns false stop reading from source.
         }
       }
     });
@@ -86,8 +85,7 @@ module.exports = exports = class JSONReader extends StorageReader {
     });
 
     pipeline.on('error', function (err) {
-      logger.debug("json parser on error");
-      //logger.error(err);
+      logger.error("JSONReader parser err " + err.message);
       throw err;
     });
 
@@ -129,8 +127,8 @@ module.exports = exports = class JSONReader extends StorageReader {
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on("error",
         (err) => {
-          logger.debug("json reader on parser error");
-          this._destroy(err);
+          logger.error("JSONReader parser error: " + err.message);
+          this.destroy(err);
         }
       );
       rs.pipe(this.pipeline);
