@@ -1,5 +1,8 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.88
+  - refactor: StorageResults properties
+  - bug fix: CSVReader, JSONReader handling of count > max
 - version 0.9.87
   - bug fix: set parser options for jsonl and jsons streams
 - version 0.9.86

@@ -1,6 +1,6 @@
 {
   "name": "@dictadata/storage-junctions",
-  "version": "0.9.87",
+  "version": "0.9.88",
   "description": "Node.js library for distributed data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "keywords": [
@@ -52,8 +52,10 @@
   },
   "devDependencies": {
     "colors": "^1.4.0",
-    "eslint": "^8.29.0",
+    "eslint": "^8.30.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.8.0",
+    "espree": "^9.4.1"
   }
 }
