@@ -1,4 +1,4 @@
 {
-  "resultCode": 404,
-  "resultMessage": "Not Found"
+  "status": 404,
+  "message": "Not Found"
 }
