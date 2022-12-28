@@ -71,7 +71,7 @@ module.exports = exports = class JSONReader extends StorageReader {
 
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          this.destroy();
+          pipeline.destroy();
         }
         else if (construct && !reader.push(construct)) {
           //myParser.pause();  // If push() returns false stop reading from source.

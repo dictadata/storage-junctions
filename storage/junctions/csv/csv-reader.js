@@ -54,9 +54,10 @@ module.exports = exports = class CSVReader extends StorageReader {
 
         if (statistics.count % 1000 === 0)
           logger.debug(statistics.count);
+
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
-          parser.destroy();
+          pipeline.destroy();
         }
         else if (construct && !reader.push(construct)) {
           //pipeline.pause();  // If push() returns false stop reading from source.
