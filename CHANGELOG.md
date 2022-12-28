@@ -33,8 +33,6 @@
   - refactor: HttpFileSystem options rename urlParams to urlReplace
   - refactor: HttpRequest responses include httpVersion, statusMessage
   - bug fix: HttpFileSystem list directory using basic-ftp entry.type
-- version 2.5.1
-  - bug fix: use stream _destroy() instead of destroy() in reader/writer implementations
 - version 2.5.0
   - stable build of codex with smt_urn and auth_stash
 - version 2.4.3
@@ -140,7 +138,7 @@
   - update dependencies
   - testing updates:
     - standardize file name convention for encoding as abc123.encoding.json
-    - use api.dictadata.org (NGINX) for ftp and http testing
+    - use api-origin.dictadata.org (NGINX) for ftp and http testing
 - version 1.8.3
   - extensive testing and bug fixes
 - version 1.8.2
