@@ -39,8 +39,8 @@ async function test(domain, schema) {
     let results = await Storage.codex.recall({ domain: domain, name: schema });
     logger.verbose(JSON.stringify(results, null, "  "));
 
-    if (results.resultCode !== 0) {
-      retCode = results.resultCode;
+    if (results.status !== 0) {
+      retCode = results.status;
     }
     else {
       let smt_urn = Object.keys(results.data)[ 0 ];
@@ -78,4 +78,3 @@ async function test(domain, schema) {
 
   await Storage.codex.relax();
 })();
-

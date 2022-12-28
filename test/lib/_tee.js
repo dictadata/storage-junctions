@@ -94,7 +94,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 1;
   }
   finally {

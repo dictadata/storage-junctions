@@ -45,15 +45,15 @@ module.exports = exports = async function (tract) {
         tract.origin.options);
 
       let results = await stfs.putFile(options);
-      if (results.resultCode !== 0) {
-        logger.error("!!! putFile failed: " + results.resultCode);
+      if (results.status !== 0) {
+        logger.error("!!! putFile failed: " + results.status);
         retCode = 1;
         break;
       }
     }
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 1;
   }
   finally {

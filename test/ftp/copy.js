@@ -14,7 +14,7 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dev.dictadata.org/data/dictadata.org/test/input/|*.csv|*",
+      smt: "*|ftp://dev.dictadata.org/data/dictadata.org/data/input/|*.csv|*",
       options: {
         recursive: false
       }
@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|ftp://dev.dictadata.org/data/dictadata.org/test/output/uploads/|*|*",
+      smt: "*|ftp://dev.dictadata.org/data/dictadata.org/data/output/uploads/|*|*",
       options: {}
     }
   })) return 1;

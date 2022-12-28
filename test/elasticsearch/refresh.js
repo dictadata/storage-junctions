@@ -53,7 +53,7 @@ async function noRefresh() {
     logger.verbose(JSON.stringify(results));
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 1;
   }
   finally {
@@ -106,7 +106,7 @@ async function withRefresh() {
     logger.verbose(JSON.stringify(results));
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 1;
   }
   finally {

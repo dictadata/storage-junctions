@@ -37,7 +37,7 @@ module.exports = exports = async function (tract, compareValues = 2, keyValues =
     if (err.statusCode < 500)
       logger.warn(err.message);
     else {
-      logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+      logger.error('!!! request failed: ' + err.status + " " + err.message);
       retCode = 1;
     }
   }

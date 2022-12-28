@@ -49,9 +49,9 @@ async function test(schema) {
     // recall encoding
     let smt_urn = entry.smt_urn;
     results = await Storage.codex.recall(smt_urn);
-    logger.verbose("recall: " + results.resultMessage);
+    logger.verbose("recall: " + results.message);
 
-    if (results.resultCode === 0) {
+    if (results.status === 0) {
       //encoding = results.data[ smt_urn ];
 
       let outputfile = "./data/output/codex/" + schema + ".encoding.json";
@@ -64,7 +64,7 @@ async function test(schema) {
       retCode = _compare(expected_output, outputfile, true);
     }
     else
-      retCode = results.resultCode;
+      retCode = results.status;
   }
   catch (err) {
     logger.error(err);

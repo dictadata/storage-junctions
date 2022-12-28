@@ -37,7 +37,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 1;
   }
   finally {

@@ -31,7 +31,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.retrieve(tract.origin.pattern);
 
-    logger.verbose("result: " + results.resultCode + " count: " + (results.data ? results.data.length : 0));
+    logger.verbose("result: " + results.status + " count: " + (results.data ? results.data.length : 0));
     if (tract.terminal && tract.terminal.output)
       retCode = _output(tract.terminal.output, results, compareValues);
     else
@@ -40,7 +40,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     logger.info(">>> completed");
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 1;
   }
   finally {

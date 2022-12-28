@@ -28,7 +28,7 @@ module.exports = exports = async function (tract) {
     logger.info(JSON.stringify(results));
   }
   catch (err) {
-    logger.error('!!! request failed: ' + err.resultCode + " " + err.message);
+    logger.error('!!! request failed: ' + err.status + " " + err.message);
     retCode = 0;
   }
   finally {

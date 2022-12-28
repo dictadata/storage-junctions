@@ -15,7 +15,7 @@ async function test_transfers() {
   logger.verbose('=== http json to local csv');
   if (await transfer({
     origin: {
-      smt: "json|http://dev.dictadata.org/data/dictadata.org/test/input/|foofile.json|*",
+      smt: "json|http://dev.dictadata.org/data/dictadata.org/data/input/|foofile.json|*",
     },
     terminal: {
       smt: "csv|./data/output/http/|foofile.csv|*",
@@ -29,7 +29,7 @@ async function test_transfers() {
   logger.verbose('=== http csv to local json');
   if (await transfer({
     origin: {
-      smt: "csv|http://dev.dictadata.org/data/dictadata.org/test/input/|foofile.csv|*",
+      smt: "csv|http://dev.dictadata.org/data/dictadata.org/data/input/|foofile.csv|*",
       options: {
         header: true,
         encoding: "./data/input/foo_schema.encoding.json"
@@ -49,7 +49,7 @@ async function test_uncompress() {
   logger.verbose('=== http .gz to local json');
   if (await transfer({
     origin: {
-      smt: "json|http://dev.dictadata.org/data/dictadata.org/test/input/|foofile.json.gz|*"
+      smt: "json|http://dev.dictadata.org/data/dictadata.org/data/input/|foofile.json.gz|*"
     },
     terminal: {
       smt: "json|./data/output/http/|foofile_gunzip.json|*",
@@ -60,7 +60,7 @@ async function test_uncompress() {
   logger.verbose('=== http .gz to local csv');
   if (await transfer({
     origin: {
-      smt: "csv|http://dev.dictadata.org/data/dictadata.org/test/input/|foofile.csv.gz|*"
+      smt: "csv|http://dev.dictadata.org/data/dictadata.org/data/input/|foofile.csv.gz|*"
     },
     terminal: {
       smt: "csv|./data/output/http/|foofile_gunzip.csv|*",
