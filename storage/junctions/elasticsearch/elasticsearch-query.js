@@ -6,6 +6,7 @@
 const elasticsearch = require("@elastic/elasticsearch");
 const { StorageError } = require("../../types");
 const { typeOf, logger } = require("../../utils");
+const fs = require('node:fs');
 
 /**
  * Notes about Elasticsearch Javascript API:
@@ -32,9 +33,10 @@ module.exports = exports = class ElasticQuery {
 
     this.elasticOptions = {
       node: options.node,
-      auth: options.auth || {},
       apiVersion: "7.x",
-      log: options.log || "warning"
+      log: options.log || "warning",
+      auth: options.auth || {},
+      tls: options.tls || options.ssl || {}
     };
 
     this.client = new elasticsearch.Client(this.elasticOptions);

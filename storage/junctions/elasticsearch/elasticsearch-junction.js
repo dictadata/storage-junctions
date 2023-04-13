@@ -60,6 +60,7 @@ class ElasticsearchJunction extends StorageJunction {
     let queryOptions = {
       node: this.smt.locus,
       auth: this.options.auth || {},
+      tls: this.options.tls || this.options.ssl || {},
       index: this.smt.schema
     };
     if (this.options.refresh) {

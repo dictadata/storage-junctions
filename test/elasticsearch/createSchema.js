@@ -6,6 +6,8 @@
 const createSchema = require('../lib/_createSchema');
 const dull = require("../lib/_dull");
 const { logger } = require('../../storage/utils');
+const fs = require('node:fs');
+const homedir = require('os').homedir();
 
 logger.info("===== elasticsearch createSchema ");
 
@@ -49,7 +51,49 @@ async function test_lg() {
 
 }
 
+async function test_origin(schema, encoding) {
+
+  let ca_file = fs.readFileSync(homedir + "/.dictadata/ec2_elasticsearch-ca.pem");
+
+  logger.info("=== createSchema " + schema);
+  if (await createSchema({
+    origin: {
+      smt: "elasticsearch|https://data-origin.dictadata.org:9200|" + schema + "|*",
+      options: {
+        encoding: "./data/input/" + encoding + ".encoding.json",
+        refresh: true,
+        auth: {
+          apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="
+        },
+        tls: {
+          ca: ca_file,
+          rejectUnauthorized: true
+        }
+      }
+    }
+  })) return 1;
+
+  logger.info("=== dull (truncate) " + schema);
+  if (await dull({
+    origin: {
+      smt: "elasticsearch|https://data-origin.dictadata.org:9200|" + schema + "|*",
+      options: {
+        auth: {
+          apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="
+        },
+        tls: {
+          ca: ca_file,
+          rejectUnauthorized: true
+        }
+      }
+    }
+  })) return 1;
+
+}
+
 (async () => {
+  if (await test_origin("foo_schema", "foo_schema")) return;
+
   if (await test("foo_schema", "foo_schema")) return;
   if (await test("foo_schema_x", "foo_schema")) return;    // for dullSchema.js
   if (await test("foo_schema_01", "foo_schema_01")) return;
