@@ -72,7 +72,9 @@ exports.decodeResults = (engram, columns) => {
   for (let [ name, colProps ] of Object.entries(columns)) {
     let value = colProps.value;
     let field = engram.find(name);
-    switch (field.type.toLowerCase()) {
+    let stype = field.type.toLowerCase();
+
+    switch (stype) {
       case "date":
         construct[ name ] = value;
         break;
@@ -81,11 +83,26 @@ exports.decodeResults = (engram, columns) => {
         break;
       case "list":
       case "map":
-        // unstuff the stored json representation
-        construct[ name ] = JSON.parse(value);
+        if (typeof value === "string")
+          // stored as json string
+          construct[ name ] = JSON.parse(value);
+        else
+          construct[ name ] = value;
         break;
       case "binary":
         break;   // to do figure out how to pass buffers
+      case "number":
+        if (typeof value === "string")
+          construct[ name ] = parseFloat(value);
+        else
+          construct[ name ] = value;
+        break;
+      case "integer":
+        if (typeof value === "string")
+          construct[ name ] = parseInt(value);
+        else
+          construct[ name ] = value;
+        break;
       default:
         construct[ name ] = value;
     }
@@ -398,16 +415,22 @@ exports.sqlSelectByPattern = (engram, pattern) => {
           // aggregate columns for GROUP BY
           let asfld = func;
           for (let [ func, fld ] of Object.entries(value)) {
-            let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
+            let sfunc = sqlFunction(func);
+            let exp = sfunc + "(" + sqlString.escapeId(fld) + ")";
             columns.push(exp + " as " + sqlString.escapeId(asfld));
+
+            addField(sfunc, engram, fld, asfld);
           }
         }
         else {
           // aggregate columns for summary
           let asfld = name;
           let fld = value;
-          let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
+          let sfunc = sqlFunction(func);
+          let exp = sfunc + "(" + sqlString.escapeId(fld) + ")";
           columns.push(exp + " as " + sqlString.escapeId(asfld));
+
+          addField(sfunc, engram, fld, asfld);
         }
       }
     }
@@ -500,13 +523,24 @@ exports.sqlSelectByPattern = (engram, pattern) => {
   return sql;
 };
 
-function sqlFunction(cfunc) {
-  switch (cfunc.toLowerCase()) {
+function sqlFunction(sfunc) {
+  switch (sfunc.toLowerCase()) {
     case 'sum': return 'SUM';
     case 'avg': return 'AVG';
     case 'min': return 'MIN';
     case 'max': return 'MAX';
     case 'count': return 'COUNT';
-    default: return cfunc;
+    default: return sfunc;
   }
+}
+
+function addField(sfunc, engram, fld, asfld) {
+  // add aggregate field to definitions
+  let aggFld = engram.find(fld);
+  aggFld.name = asfld;
+  if (sfunc === "AVG")
+    aggFld.type = "number";
+  if (sfunc === "COUNT")
+    aggFld.type = "integer";
+  engram.add(aggFld);
 }

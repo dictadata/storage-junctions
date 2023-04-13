@@ -6,6 +6,7 @@
 const encoder = require('./mysql-encoder');
 const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../utils');
 const sqlString = require('sqlstring');
+const fs = require('node:fs');
 
 exports.connectionConfig = (smt, options) => {
 
@@ -28,6 +29,8 @@ exports.connectionConfig = (smt, options) => {
     charset: conn.charset || 'utf8mb4',
     timezone: conn.timezone || 'Z'
   };
+  if (options.ssl || options.tls)
+    config.ssl = options.ssl || options.tls;
 
   return config;
 };
@@ -44,7 +47,7 @@ function encodeValue(field, value) {
       return (value) ? 1 : 0;
     case "list":
     case "map":
-      // json string representation
+      // store as json string
       return sqlString.escape(JSON.stringify(value));
     case "binary":
       return "NULL";   // to do figure out how to pass buffers
@@ -59,7 +62,9 @@ exports.decodeResults = function (engram, construct) {
 
   for (let [ name, value ] of Object.entries(construct)) {
     let field = engram.find(name);
-    switch (field.type.toLowerCase()) {
+    let stype = field.type.toLowerCase();
+
+    switch (stype) {
       case "date":
         if (typeof value === "string" && value.startsWith("0000"))
           construct[ name ] = null;
@@ -69,11 +74,26 @@ exports.decodeResults = function (engram, construct) {
         break;
       case "list":
       case "map":
-        // stored as json string
-        construct[ name ] = JSON.parse(value);
+        if (typeof value === "string")
+          // stored as json string
+          construct[ name ] = JSON.parse(value);
+        else
+          construct[ name ] = value;
         break;
       case "binary":
         break;   // to do figure out how to pass buffers
+      case "number":
+        if (typeof value === "string")
+          construct[ name ] = parseFloat(value);
+        else
+          construct[ name ] = value;
+        break;
+      case "integer":
+        if (typeof value === "string")
+          construct[ name ] = parseInt(value);
+        else
+          construct[ name ] = value;
+        break;
       default:
       // retrieved value should be good
     }
@@ -296,19 +316,26 @@ exports.sqlSelectByPattern = function (engram, pattern) {
           let groupby = sqlString.escapeId(name);
           if (!columns.includes(groupby))
             columns.push(groupby);
+
           // aggregate columns for GROUP BY
           let asfld = func;
           for (let [ func, fld ] of Object.entries(value)) {
-            let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
+            let sfunc = sqlFunction(func);
+            let exp = sfunc + "(" + sqlString.escapeId(fld) + ")";
             columns.push(exp + " as " + sqlString.escapeId(asfld));
+
+            addField(sfunc, engram, fld, asfld);
           }
         }
         else {
           // aggregate columns for summary
           let asfld = name;
           let fld = value;
-          let exp = sqlFunction(func) + "(" + sqlString.escapeId(fld) + ")";
+          let sfunc = sqlFunction(func);
+          let exp = sfunc + "(" + sqlString.escapeId(fld) + ")";
           columns.push(exp + " as " + sqlString.escapeId(asfld));
+
+          addField(sfunc, engram, fld, asfld);
         }
       }
     }
@@ -406,7 +433,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   return sql;
 };
 
-function sqlFunction(cfunc) {
+function sqlFunction(cfunc, stype) {
   switch (cfunc.toLowerCase()) {
     case 'sum': return 'SUM';
     case 'avg': return 'AVG';
@@ -415,4 +442,15 @@ function sqlFunction(cfunc) {
     case 'count': return 'COUNT';
     default: return cfunc;
   }
+}
+
+function addField(sfunc, engram, fld, asfld) {
+  // add aggregate field to definitions
+  let aggFld = engram.find(fld);
+  aggFld.name = asfld;
+  if (sfunc === "AVG")
+    aggFld.type = "number";
+  if (sfunc === "COUNT")
+    aggFld.type = "integer";
+  engram.add(aggFld);
 }
