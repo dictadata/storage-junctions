@@ -12,7 +12,7 @@ const MySQLWriter = require("./mysql-writer");
 const encoder = require("./mysql-encoder");
 const sqlEncoder = require("./mysql-encoder-sql");
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const util = require('util');
 
 class MySQLJunction extends StorageJunction {

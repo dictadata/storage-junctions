@@ -4,7 +4,7 @@
 "use strict";
 
 const { hasOwnProperty, ynBoolean } = require('../../utils');
-const { Types } = require('mysql');
+const { Types } = require('mysql2');
 
 var stringBreakpoints = require('../../types/stringBreakpoints');
 exports.stringBreakpoints = stringBreakpoints = Object.assign({}, stringBreakpoints);
@@ -38,10 +38,9 @@ var storageType = exports.storageType = function (mysqlType) {
   let fldType = 'unknown';
   switch (mst.toUpperCase()) {
     case 'TINYINT':
-      if (size === 1) {
+      if (size === 1)
         fldType = 'boolean';
-        break;
-      }
+      break;
     case 'SMALLINT':
     case 'INT':
     case 'MEDIUMINT':
