@@ -4,6 +4,7 @@
 "use strict";
 
 const fs = require('fs');
+const homedir = require('os').homedir();
 
 var _stash = new Map();
 
@@ -35,10 +36,25 @@ exports.dull = (key) => {
 };
 
 exports.load = (filename) => {
+  // file format:
+  // { key: options, ... }
+  // where key is a connection string
+  // where options is an object with connection options
   try {
-    var data = JSON.parse(fs.readFileSync(filename, 'utf8'));
-    for (let [ key, value ] of Object.entries(data))
-      _stash.set(key, value);
+    var connections = JSON.parse(fs.readFileSync(filename, 'utf8'));
+
+    for (let [ key, options ] of Object.entries(connections)) {
+      // check to read certificate authorities from file
+      let ca = (options.ssl && options.ssl.ca) || (options.tls && options.tls.ca) || null;
+      if (typeof ca === "string" && !ca.startsWith("-----BEGIN CERTIFICATE-----")) {
+        // assume it's a filename
+        if (ca.startsWith("~"))
+          ca = homedir + ca.substring(1);
+        ca = fs.readFileSync(ca);
+      }
+
+      _stash.set(key, options);
+    }
   }
   catch (err) {
     console.warn(err.message);

@@ -14,10 +14,11 @@
 
 const Cortex = require("./cortex");
 const { SMT, Engram, StorageResults, StorageError } = require("./types");
-const logger = require("./utils/logger");
+const { hasOwnProperty, logger } = require("./utils");
+const fs = require("node:fs");
+const homedir = require('os').homedir();
 
 const codex_encoding = require("./codex.encoding.json");
-const { hasOwnProperty } = require("./utils");
 
 const codexTypes = [ "engram", "tract", "alias" ];
 
@@ -86,6 +87,15 @@ module.exports = exports = class Codex {
         // use default smt.key
         let s = new SMT(codex_encoding.smt);
         this.smt.key = s.key;
+      }
+
+      // check to read certificate authorities from file
+      let ca = (options.ssl && options.ssl.ca) || (options.tls && options.tls.ca) || null;
+      if (typeof ca === "string" && !ca.startsWith("-----BEGIN CERTIFICATE-----")) {
+        // assume it's a filename
+        if (ca.startsWith("~"))
+          ca = homedir + ca.substring(1);
+        ca = fs.readFileSync(ca);
       }
 
       // create the junction
