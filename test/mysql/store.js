@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql store one");
   if (await store({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
     construct: {
       Foo: 'one',
@@ -31,7 +31,7 @@ async function tests() {
   logger.info("=== mysql store 20");
   if (await store({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -49,7 +49,7 @@ async function tests() {
   logger.info("=== mysql store 30");
   if (await store({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
     },
     construct: {
       Foo: 'twenty',
@@ -65,7 +65,7 @@ async function tests() {
   logger.info("=== mysql store 10");
   if (await store({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
     },
     construct: {
       Foo: 'ten',

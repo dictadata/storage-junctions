@@ -13,7 +13,7 @@ async function keystore() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo"
     },
     construct: {
       "Foo": "second",
@@ -31,7 +31,7 @@ async function keystore() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo",
       options: {
         refresh: true
       }
@@ -52,7 +52,7 @@ async function keystore() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo"
     },
     construct: {
       Foo: 'twenty',
@@ -74,7 +74,7 @@ async function primarykey() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|=Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|=Foo"
     },
     construct: {
       Foo: 'twenty',
@@ -92,7 +92,7 @@ async function primarykey() {
   logger.info("=== elasticsearch store");
   if (await store({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|=Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|=Foo"
     },
     construct: {
       Foo: 'ten',

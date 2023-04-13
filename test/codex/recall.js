@@ -20,7 +20,7 @@ logger.info("=== Tests: codex recall");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.org:9200/|dicta_codex|*");
+    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|dicta_codex|*");
     await codex.activate();
     Storage.codex = codex;
   }

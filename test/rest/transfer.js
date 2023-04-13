@@ -39,7 +39,7 @@ async function transfer_weather() {
         http: {
           headers: {
             "Accept": "application/ld+json",
-            "User-Agent": "@dictadata.org/storage contact:info@dictadata.org"
+            "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
           }
         },
         extract: "periods"

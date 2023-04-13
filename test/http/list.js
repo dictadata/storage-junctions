@@ -13,7 +13,7 @@ async function testIIS() {
   logger.info("=== IIS get list of foo files (forEach)");
   if (await list({
     origin: {
-      smt: "*|http://dev.dictadata.org/data/dictadata.org/data/input/|foofile*.json|*",
+      smt: "*|http://dev.dictadata.net/data/dictadata.net/data/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -30,7 +30,7 @@ async function testIIS() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://dev.dictadata.org/data/dictadata.org/data/input/",
+        locus: "http://dev.dictadata.net/data/dictadata.net/data/input/",
         schema: "*.encoding.json",
         key: "*"
       },
@@ -60,7 +60,7 @@ async function testNGINX() {
   logger.info("=== NGINX get list of foo files - forEach");
   if (await list({
     origin: {
-      smt: "*|http://api-origin.dictadata.org/data/dictadata.org/data/input/|foofile*.json|*",
+      smt: "*|http://api-origin.dictadata.net/data/dictadata.net/data/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -77,7 +77,7 @@ async function testNGINX() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://api-origin.dictadata.org/data/dictadata.org/data/input/",
+        locus: "http://api-origin.dictadata.net/data/dictadata.net/data/input/",
         schema: "*.encoding.json",
         key: "*"
       },

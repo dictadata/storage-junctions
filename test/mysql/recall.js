@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql recall");
   if (await recall({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'twenty'
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== mysql recall");
   if (await recall({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           Foo: 'ten'

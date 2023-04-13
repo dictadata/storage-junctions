@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mysql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {},
         "order": { "Foo": "asc" }
@@ -27,7 +27,7 @@ async function tests() {
   logger.info("=== mysql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_01|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/input/foo_schema_01.encoding.json",
       },
@@ -45,7 +45,7 @@ async function tests() {
   logger.info("=== mysql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_02|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/input/foo_schema_02.encoding.json",
       },
@@ -64,7 +64,7 @@ async function tests() {
   logger.info("=== mysql retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 100
@@ -75,7 +75,7 @@ async function tests() {
   logger.info("=== mysql retrieve with pattern");
   if (await retrieve({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_transfer|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_transfer|*",
       pattern: {
         match: {
           "Foo": "first",

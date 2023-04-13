@@ -10,7 +10,7 @@ Credential values don't have to be stored in authStash. Depending upon the data 
 
 ### Key Values
 
-The key for the storing and recalling credentials is obtained from the smt.locus field. If the smt.locus is a URL like http:// or ftp:// then the key is url.origin, for example _<http://www.census.gov>_. If the smt.locus is not a URL then the smt.locus field is used as is, for example a database connection string; _server=dev.dictadata.org;database=storage_node_.
+The key for the storing and recalling credentials is obtained from the smt.locus field. If the smt.locus is a URL like http:// or ftp:// then the key is url.origin, for example _<http://www.census.gov>_. If the smt.locus is not a URL then the smt.locus field is used as is, for example a database connection string; _server=dev.dictadata.net;database=storage_node_.
 
 ### Entry Properties
 
@@ -49,20 +49,20 @@ Storage.authStash.load("./auth_stash.json");
 
 ```json
 {
-  "http://dev.dictadata.org:9200": {
+  "http://dev.dictadata.net:9200": {
     "desciption": "elasticsearch",
     "auth" : {
       "apiKey": "abc123dorami"
     }
   },
-  "ftp://dev.dictadata.org": {
+  "ftp://dev.dictadata.net": {
     "description": "ftp server",
     "auth": {
       "username": "dicta",
       "password": "data"
     }
   },
-  "server=dev.dictadata.org;database=storage_node": {
+  "server=dev.dictadata.net;database=storage_node": {
     "description": "MS SQL database",
     "auth": {
       "username": "dicta",

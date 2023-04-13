@@ -142,7 +142,7 @@ class RESTJunction extends StorageJunction {
         base: baseURL,
         headers: {
           'Accept': 'application/json',
-          'User-Agent': '@dictadata.org/storage'
+          'User-Agent': '@dictadata.net/storage'
         },
         timeout: 10000
       }, this.options.http || {});
@@ -207,7 +207,7 @@ class RESTJunction extends StorageJunction {
         base: baseURL,
         headers: {
           'Accept': 'application/json',
-          'User-Agent': '@dictadata.org/storage'
+          'User-Agent': '@dictadata.net/storage'
         },
         timeout: 10000
       }, this.options.http || {});

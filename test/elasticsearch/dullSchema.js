@@ -12,7 +12,7 @@ async function test(schema, encoding) {
 
   logger.info("=== dullSchema" + schema);
   if (await dullSchema({
-    smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*"
+    smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
   })) return 1;
 
 }

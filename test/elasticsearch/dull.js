@@ -13,7 +13,7 @@ async function keystore() {
   logger.info("=== elasticsearch dull !Foo");
   if (await dull({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|!Foo",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo",
       pattern: {
         key: 'one'
       }
@@ -30,7 +30,7 @@ async function primarykey() {
   logger.info("=== elasticsearch dull =Foo");
   if (await dull({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|=Foo",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|=Foo",
       pattern: {
         match: {
           Foo: 'ten'

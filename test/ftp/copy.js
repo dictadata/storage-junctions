@@ -14,7 +14,7 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dev.dictadata.org/data/dictadata.org/data/input/|*.csv|*",
+      smt: "*|ftp://dev.dictadata.net/data/dictadata.net/data/input/|*.csv|*",
       options: {
         recursive: false
       }
@@ -38,7 +38,7 @@ async function test_2() {
       }
     },
     terminal: {
-      smt: "*|ftp://dev.dictadata.org/data/dictadata.org/data/output/uploads/|*|*",
+      smt: "*|ftp://dev.dictadata.net/data/dictadata.net/data/output/uploads/|*|*",
       options: {}
     }
   })) return 1;
@@ -49,7 +49,7 @@ async function test_3() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dev.dictadata.org/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
+      smt: "*|ftp://dev.dictadata.net/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
       options: {
         recursive: false
       }

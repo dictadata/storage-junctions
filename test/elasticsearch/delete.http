@@ -1,1 +1,1 @@
-DELETE http://dev.dictadata.org:9200/foo_schema/_doc/tkG8S38BqNe1_rl1z7PE
+DELETE http://dev.dictadata.net:9200/foo_schema/_doc/tkG8S38BqNe1_rl1z7PE

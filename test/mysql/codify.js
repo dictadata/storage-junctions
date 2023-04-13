@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== codify foo_schema");
   if (await codify({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
     output: './data/output/mysql/codify_00.json'
   })) return 1;
@@ -21,7 +21,7 @@ async function tests() {
   logger.info("=== codify foo_schema_01");
   if (await codify({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_01|=Foo"
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo"
     },
     output: './data/output/mysql/codify_01.json'
   })) return 1;
@@ -29,7 +29,7 @@ async function tests() {
   logger.info("=== codify foo_schema_02");
   if (await codify({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_02|=Foo"
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|=Foo"
     },
     output: './data/output/mysql/codify_02.json'
   })) return 1;

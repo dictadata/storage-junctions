@@ -14,7 +14,7 @@ async function tests() {
   logger.info("=== mysql storeBulk");
   if (await storeBulk({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|=Foo"
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
     constructs: [{
       Foo: 'one-o-five',
@@ -37,7 +37,7 @@ async function tests() {
   logger.verbose('=== timeseries.csv > mysql');
   if (await transfer({
     origin: {
-      smt: "csv|/var/data/dictadata.org/data/input/|timeseries.csv|*",
+      smt: "csv|/var/data/dictadata.net/data/input/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {
@@ -47,7 +47,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|timeseries|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|timeseries|*",
       options: {
         bulkLoad: true
       }

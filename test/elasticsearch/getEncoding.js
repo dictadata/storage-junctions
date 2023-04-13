@@ -13,7 +13,7 @@ async function test(schema, encoding) {
   logger.info("=== getEncoding " + schema);
   if (await getEncoding({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
     },
     terminal: {
       output: "./data/output/elasticsearch/" + encoding + ".encoding.json"

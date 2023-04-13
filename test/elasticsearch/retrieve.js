@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve term");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Foo": "first"
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve term expression");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Foo": { "eq": "first" }
@@ -43,7 +43,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve term array");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Foo": [ "first", "second" ]
@@ -58,7 +58,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve range");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_02|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_02|*",
       pattern: {
         match: {
           "Foo": "first",
@@ -77,7 +77,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_01|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_01|*",
       pattern: {
         "order": { "Foo": "asc" },
         "count": 5
@@ -91,7 +91,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve wildcard");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": { 'wc': 'row*' }
@@ -107,7 +107,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve full-text search");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": {
@@ -125,7 +125,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve full-text search AND");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": {
@@ -144,7 +144,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve full-text search phrase");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "Bar": {
@@ -163,7 +163,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve full-text search multiple fields");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {
           "~search": {

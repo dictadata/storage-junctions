@@ -1,5 +1,5 @@
 ###
-POST http://dev.dictadata.org:9200/_security/api_key
+POST http://dev.dictadata.net:9200/_security/api_key
 
 {
   "name": "my-api-key",

@@ -13,7 +13,7 @@ async function test(schema, encoding) {
   logger.info("=== getEncoding " + schema);
   if (await getEncoding({
     origin: {
-      smt: "mssql|server=dev.dictadata.org;database=storage_node|" + schema + "|*"
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|" + schema + "|*"
     },
     terminal: {
       output: "./data/output/mssql/" + encoding + ".encoding.json"

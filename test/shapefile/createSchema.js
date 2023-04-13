@@ -13,7 +13,7 @@ async function test(schema) {
   logger.info("=== shapefile createSchema bl_congress_schema");
   if (await createSchema({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
         encoding: "./data/input/shapes/" + schema + ".encoding.json"
       }

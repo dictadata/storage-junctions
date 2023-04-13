@@ -13,7 +13,7 @@ async function test_1() {
   logger.info("=== list ftp directory (forEach)");
   if (await list({
     origin: {
-      smt: "json|ftp://dev.dictadata.org/data/dictadata.org/data/input/|foofile*.json|*",
+      smt: "json|ftp://dev.dictadata.net/data/dictadata.net/data/input/|foofile*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -31,7 +31,7 @@ async function test_1() {
     origin: {
       smt: {
         model: "json",
-        locus: "ftp://dev.dictadata.org/data/dictadata.org/data/input/",
+        locus: "ftp://dev.dictadata.net/data/dictadata.net/data/input/",
         schema: "*.json",
         key: "*"
       },
@@ -48,7 +48,7 @@ async function test_1() {
   logger.info("=== list tiger2020");
   if (await list({
     origin: {
-      smt: "json|ftp://dev.dictadata.org/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
+      smt: "json|ftp://dev.dictadata.net/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
       options: {
         recursive: false
       }

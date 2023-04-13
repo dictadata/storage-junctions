@@ -2,7 +2,7 @@
 
 let Url;
 try {
-  Url = new URL("/data/test", "http://dev.dictadata.org/");
+  Url = new URL("/data/test", "http://dev.dictadata.net/");
 } catch (error) {
   console.log(error.message);
 }

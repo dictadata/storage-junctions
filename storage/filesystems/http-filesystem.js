@@ -34,7 +34,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     this._headers = Object.assign({
       'accept': "*/*",
       'accept-encoding': "gzip, deflate;q=0.9, br;q=0.1",
-      'user-agent': "@dictadata/storage-junctions/http-filesystem (dictadata.org)",
+      'user-agent': "@dictadata/storage-junctions/http-filesystem (dictadata.net)",
       'cache-control': "max-age=0"
     }, (options.http && options.http.headers) || {});
 

@@ -45,7 +45,7 @@
 - version 2.4.1
   - feature: Storage.authStash for username/passwords, apiKey, etc.
   - refactor: use basic-ftp in place of promise-ftp
-  - testing: use dev.dictadata.org instead of localhost in test URL's
+  - testing: use dev.dictadata.net instead of localhost in test URL's
 - version 2.4.0
   - feature: smt_urn used as key for codex directory
 - version 2.3.4
@@ -141,7 +141,7 @@
   - update dependencies
   - testing updates:
     - standardize file name convention for encoding as abc123.encoding.json
-    - use api-origin.dictadata.org (NGINX) for ftp and http testing
+    - use api-origin.dictadata.net (NGINX) for ftp and http testing
 - version 1.8.3
   - extensive testing and bug fixes
 - version 1.8.2

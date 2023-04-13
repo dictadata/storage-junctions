@@ -12,7 +12,7 @@ async function test(schema, encoding) {
 
   logger.info("=== dullSchema" + schema);
   if (await dullSchema({
-    smt: "mssql|server=dev.dictadata.org;database=storage_node|" + schema + "|*"
+    smt: "mssql|server=dev.dictadata.net;database=storage_node|" + schema + "|*"
   })) return 1;
 
 }

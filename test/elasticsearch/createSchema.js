@@ -16,7 +16,7 @@ async function test(schema, encoding) {
   logger.info("=== createSchema " + schema);
   if (await createSchema({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
         encoding: "./data/input/" + encoding + ".encoding.json",
         refresh: true
@@ -27,7 +27,7 @@ async function test(schema, encoding) {
   logger.info("=== dull (truncate) " + schema);
   if (await dull({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|" + schema + "|*"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
     }
   })) return 1;
 
@@ -38,7 +38,7 @@ async function test_lg() {
   logger.info("=== elasticsearch large fields");
   if (await createSchema({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|foo_schema_lg|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_lg|*",
       options: {
         encoding: "./data/input/foo_schema_lg.encoding.json",
         stringBreakpoints: {
@@ -58,7 +58,7 @@ async function test_origin(schema, encoding) {
   logger.info("=== createSchema " + schema);
   if (await createSchema({
     origin: {
-      smt: "elasticsearch|https://data-origin.dictadata.org:9200|" + schema + "|*",
+      smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
       options: {
         encoding: "./data/input/" + encoding + ".encoding.json",
         refresh: true,
@@ -76,7 +76,7 @@ async function test_origin(schema, encoding) {
   logger.info("=== dull (truncate) " + schema);
   if (await dull({
     origin: {
-      smt: "elasticsearch|https://data-origin.dictadata.org:9200|" + schema + "|*",
+      smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
       options: {
         auth: {
           apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="

@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|tl_2020_us_state|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|tl_2020_us_state|*",
       pattern: {
         match: {
           "properties.STUSPS": "NY"
@@ -28,7 +28,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|tl_2020_us_state|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|tl_2020_us_state|*",
       pattern: {
         match: {
           "geometry": {
@@ -45,7 +45,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve w/ pattern");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.org:9200|tl_2020_us_state|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|tl_2020_us_state|*",
       pattern: {
         match: {
           "properties.LSAD": "00",

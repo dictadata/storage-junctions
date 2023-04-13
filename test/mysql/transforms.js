@@ -42,7 +42,7 @@ async function tests() {
       }
     },
     "terminal": {
-      "smt": "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_etl2|*",
+      "smt": "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_etl2|*",
       "options": {
         "encoding": "./data/input/foo_schema_t.encoding.json"
       }
@@ -52,7 +52,7 @@ async function tests() {
   logger.verbose('=== mysql > mysql_transform_0.json');
   if (await transfer({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -70,7 +70,7 @@ async function tests() {
   logger.verbose('=== mysql > mysql_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_01|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
         encoding: "./data/input/foo_schema_01.encoding.json"
       }
@@ -111,7 +111,7 @@ async function tests() {
   logger.verbose('=== mysql > mysql_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|foo_schema_02|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|*",
       options: {
         encoding: "./data/input/foo_schema_02.encoding.json"
       }

@@ -38,7 +38,7 @@ async function testTransfer1() {
       }
     },
     terminal: {
-      smt: "elastic|http://dev.dictadata.org:9200/|shapes|!id",
+      smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
         encoding: "./data/input/shapes/shapes.encoding.json"
       }
@@ -75,7 +75,7 @@ async function testTransfer2() {
       }
     },
     terminal: {
-      smt: "elastic|http://dev.dictadata.org:9200/|shapes|!id",
+      smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
         encoding: "./data/input/shapes/shapes.encoding.json"
       }
@@ -90,7 +90,7 @@ async function testTransfer3() {
   compareValues = 2;
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://dev.dictadata.org:9200/|shapes|!id",
+      "smt": "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       "options": {},
       "pattern": {
         "order": {

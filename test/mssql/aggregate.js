@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== mssql aggregate");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Bar": "row",
@@ -33,7 +33,7 @@ async function tests() {
   logger.info("=== mssql aggregate summary");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
@@ -57,7 +57,7 @@ async function tests() {
   logger.info("=== mssql aggregate w/ groupby");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=dev.dictadata.org;database=storage_node|foo_schema|*",
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {
           "Baz": { "gte": 0, "lte": 1000 }

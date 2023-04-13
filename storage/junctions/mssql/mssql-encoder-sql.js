@@ -21,7 +21,7 @@ exports.connectionConfig = (smt, options) => {
   }
 
   var config = {
-    server: conn.server || 'dev.dictadata.org',
+    server: conn.server || 'dev.dictadata.net',
     authentication: {
       type: "default",
       options: {

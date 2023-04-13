@@ -1,5 +1,5 @@
 ### simple query
-PUT http://dev.dictadata.org:9200/foo_schema_2
+PUT http://dev.dictadata.net:9200/foo_schema_2
 Content-Type: application/json
 
 {

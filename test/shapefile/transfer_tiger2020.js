@@ -32,7 +32,7 @@ async function transfer2() {
       "smt": "shp|zip:/var/data/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*"
     },
     "terminal": {
-      "smt": "elastic|http://dev.dictadata.org:9200/|tl_2020_us_state|*",
+      "smt": "elastic|http://dev.dictadata.net:9200/|tl_2020_us_state|*",
       "options": {
         "encoding": "./data/input/shapes/tl_YYYY_us_state.encoding.json"
       }
@@ -46,7 +46,7 @@ async function transfer3() {
   logger.verbose("=== Transfer Elasticsearch to GeoJSON");
   if (await transfer({
     "origin": {
-      "smt": "elastic|http://dev.dictadata.org:9200/|tl_2020_us_state|*"
+      "smt": "elastic|http://dev.dictadata.net:9200/|tl_2020_us_state|*"
     },
     "terminal": {
       "smt": "json|./data/output/shapefile/|tl_2020_us_state_elastic.json|*"
@@ -73,7 +73,7 @@ async function transfer4() {
       }
     },
     "terminal": {
-      "smt": "elasticsearch|http://dev.dictadata.org:9200|bl_2020_us_congress|*",
+      "smt": "elasticsearch|http://dev.dictadata.net:9200|bl_2020_us_congress|*",
       "options": {
         "encoding": "./data/input/shapes/bl_2020_ia_congress.encoding.json"
       }

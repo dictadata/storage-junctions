@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list");
   if (await list({
     origin: {
-      smt: "mysql|host=dev.dictadata.org;database=storage_node|*|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|*|*",
       options: {
         schema: "foo*"
       }
