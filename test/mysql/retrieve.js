@@ -6,7 +6,7 @@
 const retrieve = require('../lib/_retrieve');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== Test: mysql");
+logger.info("=== Test: mysql retrieve");
 
 async function tests() {
 
