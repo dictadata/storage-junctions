@@ -1,5 +1,9 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.89
+  - refactor: rebrand to dictadata.net for all web sites and URL's
+  - feature: support TLS options for Elasticsearch and MySQL connections
+  - refactor: update to mysql2 package
 - version 0.9.88
   - refactor: StorageResults properties
   - bug fix: CSVReader, JSONReader handling of count > max
