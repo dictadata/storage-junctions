@@ -22,7 +22,7 @@
       "password": "data"
     }
   },
-  "http://data-origin.dictadata.net:9200": {
+  "https://data-origin.dictadata.net:9200": {
     "auth": {
       "apiKey": "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="
     },

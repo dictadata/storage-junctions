@@ -86,7 +86,7 @@ class Cortex {
     // check for auth options
     if (!options.auth && auth_stash.has(_smt.locus)) {
       let stash = auth_stash.recall(_smt.locus);
-      options[ "auth" ] = stash.auth || {};
+      options = Object.assign(options, stash);
     }
 
     // create the junction
