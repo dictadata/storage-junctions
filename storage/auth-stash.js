@@ -2,7 +2,7 @@
  * storage/auth_stash.js
  */
 "use strict";
-
+const { logger } = require("./utils");
 const fs = require('fs');
 const homedir = require('os').homedir();
 
