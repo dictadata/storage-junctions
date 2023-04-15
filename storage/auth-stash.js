@@ -52,6 +52,9 @@ exports.load = (filename) => {
           // assume it's a filename
           if (tls.ca.startsWith("~"))
             tls.ca = homedir + tls.ca.substring(1);
+
+          // replace ca with contents of file
+          logger.verbose("ca: " + tls.ca);
           tls.ca = fs.readFileSync(tls.ca);
         }
       }

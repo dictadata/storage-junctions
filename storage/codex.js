@@ -90,12 +90,17 @@ module.exports = exports = class Codex {
       }
 
       // check to read certificate authorities from file
-      let ca = (options.ssl && options.ssl.ca) || (options.tls && options.tls.ca) || null;
-      if (typeof ca === "string" && !ca.startsWith("-----BEGIN CERTIFICATE-----")) {
-        // assume it's a filename
-        if (ca.startsWith("~"))
-          ca = homedir + ca.substring(1);
-        ca = fs.readFileSync(ca);
+      let tls = options.tls || options.ssl;
+      if (tls && tls.ca) {
+        if (typeof tls.ca === "string" && !tls.ca.startsWith("-----BEGIN CERTIFICATE-----")) {
+          // assume it's a filename
+          if (tls.ca.startsWith("~"))
+            tls.ca = homedir + tls.ca.substring(1);
+
+          // replace ca with contents of file
+          logger.verbose("ca: " + tls.ca);
+          tls.ca = fs.readFileSync(tls.ca);
+        }
       }
 
       // create the junction
