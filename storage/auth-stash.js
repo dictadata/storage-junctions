@@ -4,7 +4,7 @@
 "use strict";
 const { logger } = require("./utils");
 const fs = require('fs');
-const homedir = require('os').homedir();
+const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
 var _stash = new Map();
 exports._stash = _stash;

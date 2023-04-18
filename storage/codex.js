@@ -16,7 +16,7 @@ const Cortex = require("./cortex");
 const { SMT, Engram, StorageResults, StorageError } = require("./types");
 const { hasOwnProperty, logger } = require("./utils");
 const fs = require("node:fs");
-const homedir = require('os').homedir();
+const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
 const codex_encoding = require("./codex.encoding.json");
 

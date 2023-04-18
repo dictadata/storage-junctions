@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.92
+  - bug fix: have process.env.HOMEPATH take precedence over os.homedir()
 - version 0.9.91
   - bug fix: add logger to auth_stash module
 - version 0.9.90

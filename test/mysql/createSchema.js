@@ -7,7 +7,7 @@ const createSchema = require('../lib/_createSchema');
 const dull = require("../lib/_dull");
 const { logger, typeOf } = require('../../storage/utils');
 const fs = require('node:fs');
-const homedir = require('os').homedir();
+const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
 logger.info("=== Test: mysql createSchema");
 
