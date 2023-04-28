@@ -14,13 +14,10 @@ const { typeOf, hasOwnProperty } = require("../utils");
 
 module.exports = exports = class Tract extends Entry {
 
-  constructor() {
-    super();
+  constructor(options) {
+    super(options);
     this.type = "tract";
-
-    this.source = {};
-    this.transforms = {};
-    this.terminal = {};
+    this.tracts = options.tracts || {};
   }
 
 };

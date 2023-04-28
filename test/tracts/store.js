@@ -1,10 +1,10 @@
 /**
- * test/codex/store
+ * test/tracts/store
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
+ *   use tracts with Elasticsearch junction
  *   read engram(s) from file
- *   store engram(s) in codex
+ *   store engram(s) in tracts
  */
 "use strict";
 
@@ -13,14 +13,14 @@ const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
-logger.info("=== Tests: codex store");
+logger.info("=== Tests: tracts store");
 
 async function init() {
   try {
-    // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|dicta_codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    // activate tracts
+    let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
+    await tracts.activate();
+    Storage.tracts = tracts;
   }
   catch (err) {
     logger.error(err);
@@ -45,7 +45,7 @@ async function store(schema) {
       entry.tags.push("foo");
     }
 
-    let results = await Storage.codex.store(entry);
+    let results = await Storage.tracts.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
@@ -73,7 +73,7 @@ async function alias(alias, urn) {
       tags: [ "foo", "alias" ]
     };
 
-    let results = await Storage.codex.store(entry);
+    let results = await Storage.tracts.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
@@ -94,5 +94,5 @@ async function alias(alias, urn) {
 
   if (await alias("foo_alias", "foo_schema")) return 1;
 
-  await Storage.codex.relax();
+  await Storage.tracts.relax();
 })();

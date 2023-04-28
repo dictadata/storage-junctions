@@ -4,11 +4,11 @@
  * An Engram (encoding) is a storage memory trace (SMT) plus field definitions.
  * Field definitions are needed to encode and decode constructs for storage.
  *
- * SMT and Engram represent the same concept, accessing a specific datasource,
+ * SMT and Engram represent the same concept, accessing a specific datastore,
  * and can sometimes be interchangable as parameters.  For example if the field
- * definitions are not needed to access the datasource.
+ * definitions are not needed to access the datastore.
  *
- * Extra information about the datasource may be be stored in Engram properties such
+ * Extra information about the datastore may be be stored in Engram properties such
  * as indices and source specific field properties needed to (re)create a schema.
  */
 "use strict";

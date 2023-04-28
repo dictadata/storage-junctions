@@ -1,8 +1,8 @@
 /**
- * test/codex/recall
+ * test/tracts/recall
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
+ *   use tracts with Elasticsearch junction
  *   recall engram definition for foo_schema
  *   compare results to expected foo_schema encoding
  */
@@ -15,14 +15,14 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex recall");
+logger.info("=== Tests: tracts recall");
 
 async function init() {
   try {
-    // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|dicta_codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    // activate tracts
+    let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
+    await tracts.activate();
+    Storage.tracts = tracts;
   }
   catch (err) {
     logger.error(err);
@@ -36,7 +36,7 @@ async function test(domain, schema) {
     logger.verbose('=== ' + schema);
 
     // recall engram definition
-    let results = await Storage.codex.recall({ domain: domain, name: schema });
+    let results = await Storage.tracts.recall({ domain: domain, name: schema });
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.status !== 0) {
@@ -46,7 +46,7 @@ async function test(domain, schema) {
       let urn = Object.keys(results.data)[ 0 ];
       //let encoding = results.data[ urn ];
 
-      let outputfile = "./data/output/codex/recall_" + schema + ".encoding.json";
+      let outputfile = "./data/output/tracts/recall_" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -76,5 +76,5 @@ async function test(domain, schema) {
   else
     return 1;
 
-  await Storage.codex.relax();
+  await Storage.tracts.relax();
 })();

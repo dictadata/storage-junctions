@@ -1,12 +1,11 @@
 {
   "name": "dicta_tracts",
-  "type": "engram",
+  "type": "tract",
   "title": "dicta_codex tracts definition",
   "description": "dictadata Storage Codex tracts definition",
   "tags": [
     "dictadata",
     "codex",
-    "codex entry",
     "tracts"
   ],
   "smt": {
@@ -16,6 +15,11 @@
     "key": "!domain+':'+name"
   },
   "fields": [
+    {
+      "name": "domain",
+      "type": "keyword",
+      "key": 1
+    },
     {
       "name": "name",
       "type": "keyword",
@@ -33,10 +37,6 @@
         "name": "_list",
         "type": "keyword"
       }
-    },
-    {
-      "name": "domain",
-      "type": "keyword"
     },
     {
       "name": "source",
@@ -63,76 +63,41 @@
       }
     },
     {
-      "name": "smt",
-      "type": "map",
-      "fields": {
-        "model": "keyword",
-        "locus": "text",
-        "schema": "keyword",
-        "key": "keyword"
-      }
-    },
-    {
-      "name": "fields",
+      "name": "tracts",
       "type": "list",
       "_list": {
         "name": "_list",
         "type": "map",
         "fields": [
           {
-            "name": "name",
-            "type": "keyword",
-            "nullable": false
+            "name": "_name",
+            "type": "keyword"
           },
           {
-            "name": "type",
-            "type": "keyword",
-            "default": "unknown",
-            "nullable": false
+            "name": "action",
+            "type": "keyword"
           },
           {
-            "name": "size",
-            "type": "integer",
-            "default": 0
+            "name": "description",
+            "type": "keyword"
           },
           {
-            "name": "nullable",
-            "type": "boolean",
-            "default": true
+            "name": "origin",
+            "type": "map",
+            "fields": []
           },
           {
-            "name": "default",
-            "type": "variable",
-            "default": null
+            "name": "transform",
+            "type": "map",
+            "fields": []
           },
           {
-            "name": "key",
-            "type": "integer",
-            "default": 0
+            "name": "terminal",
+            "type": "map",
+            "fields": []
           }
         ]
       }
-    },
-    {
-      "name": "tract",
-      "type": "map",
-      "fields": [
-        {
-          "name": "origin",
-          "type": "map",
-          "fields": []
-        },
-        {
-          "name": "transform",
-          "type": "map",
-          "fields": []
-        },
-        {
-          "name": "terminal",
-          "type": "map",
-          "fields": []
-        }
-      ]
     }
   ]
 }
