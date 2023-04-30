@@ -37,7 +37,7 @@ async function tests() {
     terminal: {
       smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./data/input/foo_schema_01.encoding.json"
+        encoding: "./data/input/encodings/foo_schema_01.encoding.json"
       }
     }
   })) return 1;
@@ -50,7 +50,7 @@ async function tests() {
     terminal: {
       smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./data/input/foo_schema_02.encoding.json"
+        encoding: "./data/input/encodings/foo_schema_02.encoding.json"
       }
     }
   })) return 1;

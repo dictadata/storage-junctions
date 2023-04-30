@@ -17,7 +17,7 @@ async function test(schema) {
   try {
     logger.verbose('=== ' + schema);
     jo = await Storage.activate("*|*|*|*");
-    encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".encoding.json", "utf8"));
     jo.encoding = encoding;
     encoding = jo.encoding;
     //logger.debug(JSON.stringify(encoding, null, 2));

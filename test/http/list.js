@@ -30,7 +30,7 @@ async function testIIS() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://dev.dictadata.net/data/dictadata.net/data/input/",
+        locus: "http://dev.dictadata.net/data/dictadata.net/data/input/encodings/",
         schema: "*.encoding.json",
         key: "*"
       },
@@ -77,7 +77,7 @@ async function testNGINX() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://api-origin.dictadata.net/data/dictadata.net/data/input/",
+        locus: "http://api-origin.dictadata.net/data/dictadata.net/data/input/encodings/",
         schema: "*.encoding.json",
         key: "*"
       },

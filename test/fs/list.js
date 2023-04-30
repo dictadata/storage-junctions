@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: {
         model: "*",
-        locus: "./data/input/",
+        locus: "./data/input/encodings/",
         schema: "*.json",
         key: "*"
       },

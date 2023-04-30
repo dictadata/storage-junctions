@@ -31,7 +31,7 @@ async function test_1() {
     origin: {
       smt: {
         model: "json",
-        locus: "ftp://dev.dictadata.net/data/dictadata.net/data/input/",
+        locus: "ftp://dev.dictadata.net/data/dictadata.net/data/input/encodings/",
         schema: "*.json",
         key: "*"
       },

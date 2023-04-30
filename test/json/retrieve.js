@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "json|./data/input/|foofile.json|*",
       options: {
-        encoding: "./data/input/foo_schema.encoding.json"
+        encoding: "./data/input/encodings/foo_schema.encoding.json"
       }
     },
     terminal: {
@@ -28,7 +28,7 @@ async function tests() {
     origin: {
       smt: "json|./data/input/|foofile.json|*",
       options: {
-        encoding: "./data/input/foo_schema.encoding.json",
+        encoding: "./data/input/encodings/foo_schema.encoding.json",
       },
       pattern: {
         match: {

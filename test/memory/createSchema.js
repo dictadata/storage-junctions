@@ -13,7 +13,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "memory|testgroup|" + schema + "|*",
       options: {
-        encoding: "./data/input/" + encoding + ".encoding.json"
+        encoding: "./data/input/encodings/" + encoding + ".encoding.json"
       }
     }
   })) return 1;
@@ -27,7 +27,7 @@ async function test_lg() {
     origin: {
       smt: "memory|testgroup|foo_schema_lg|*",
       options: {
-        encoding: "./data/input/foo_schema_lg.encoding.json",
+        encoding: "./data/input/encodings/foo_schema_lg.encoding.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

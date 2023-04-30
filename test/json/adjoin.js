@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "json|./data/input/|foofile.json|*",
       options: {
-        "encoding": "./data/input/foo_schema.encoding.json"
+        "encoding": "./data/input/encodings/foo_schema.encoding.json"
       }
     },
     transform: {
@@ -30,7 +30,7 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/json/|adjoin_1.json|*",
       options: {
-        "encoding": "./data/input/foo_schema_01.encoding.json"
+        "encoding": "./data/input/encodings/foo_schema_01.encoding.json"
       },
       output: "./data/output/json/adjoin_1.json"
     }
@@ -42,7 +42,7 @@ async function tests() {
     origin: {
       smt: "json|./data/input/|foofile.json|*",
       options: {
-        "encoding": "./data/input/foo_schema.encoding.json"
+        "encoding": "./data/input/encodings/foo_schema.encoding.json"
       }
     },
     transform: {
@@ -60,7 +60,7 @@ async function tests() {
     terminal: {
       smt: "json|./data/output/json/|adjoin_2.json|*",
       options: {
-        "encoding": "./data/input/foo_schema_02.encoding.json"
+        "encoding": "./data/input/encodings/foo_schema_02.encoding.json"
       },
       output: "./data/output/json/adjoin_2.json"
     }

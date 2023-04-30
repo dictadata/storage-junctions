@@ -18,7 +18,7 @@ const { logger } = require('../../storage/utils');
     origin: {
       smt: "memory|testgroup|foo_schema|!Foo",
       options: {
-        encoding: "./data/input/foo_schema.encoding.json"
+        encoding: "./data/input/encodings/foo_schema.encoding.json"
       }
     }
   })) return 1;

@@ -44,7 +44,7 @@ async function tests() {
     "terminal": {
       "smt": "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./data/input/foo_schema_t.encoding.json"
+        "encoding": "./data/input/encodings/foo_schema_t.encoding.json"
       }
     }
   })) return 1;
@@ -72,7 +72,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./data/input/foo_schema_01.encoding.json"
+        encoding: "./data/input/encodings/foo_schema_01.encoding.json"
       }
     },
     transform: {
@@ -113,7 +113,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./data/input/foo_schema_02.encoding.json"
+        encoding: "./data/input/encodings/foo_schema_02.encoding.json"
       }
     },
     transform: {
