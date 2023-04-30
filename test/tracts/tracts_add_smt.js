@@ -25,7 +25,7 @@ async function init() {
     Storage.tracts = tracts;
 
     // read foo_schema encoding
-    encoding = JSON.parse(fs.readFileSync("./data/input/foo_schema.encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/foo_schema.tract.json", "utf8"));
   }
   catch (err) {
     logger.error(err);

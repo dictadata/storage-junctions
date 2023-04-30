@@ -35,7 +35,7 @@ async function store(schema) {
     logger.verbose('=== ' + schema);
 
     // store encoding
-    encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".encoding.json", "utf8"));
     encoding.name = schema;
 
     let entry = new Engram(encoding);

@@ -1,5 +1,5 @@
 {
-  "name": "dicta_codex",
+  "name": "codex_engrams",
   "type": "engram",
   "title": "dicta_codex entry definition",
   "description": "dictadata Storage Codex encoding definition",
@@ -11,7 +11,7 @@
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "dicta_codex",
+    "schema": "codex_engrams",
     "key": "!domain+':'+name"
   },
   "fields": [

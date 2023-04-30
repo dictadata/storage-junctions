@@ -1,5 +1,5 @@
 {
-  "name": "dicta_tracts",
+  "name": "codex_tracts",
   "type": "tract",
   "title": "dicta_codex tracts definition",
   "description": "dictadata Storage Codex tracts definition",
@@ -11,7 +11,7 @@
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "dicta_tracts",
+    "schema": "codex_tracts",
     "key": "!domain+':'+name"
   },
   "fields": [
@@ -37,10 +37,6 @@
         "name": "_list",
         "type": "keyword"
       }
-    },
-    {
-      "name": "source",
-      "type": "text"
     },
     {
       "name": "title",
@@ -70,7 +66,7 @@
         "type": "map",
         "fields": [
           {
-            "name": "_name",
+            "name": "name",
             "type": "keyword"
           },
           {

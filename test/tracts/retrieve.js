@@ -44,7 +44,7 @@ async function test(schema) {
       }
     });
 
-    let outputfile = "./data/output/tracts/retrieve_" + schema + ".encoding.json";
+    let outputfile = "./data/output/tracts/retrieve_" + schema + ".tract.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

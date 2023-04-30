@@ -34,17 +34,6 @@ class Cortex {
   }
 
   /**
-   * Tracts
-   */
-  static set tracts(tracts) {
-    Cortex._tracts = tracts;
-  }
-
-  static get tracts() {
-    return Cortex._tracts;
-  }
-
-  /**
    *
    * StorageJunctions
    */
@@ -73,7 +62,7 @@ class Cortex {
     // lookup/verify SMT object
     if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex._codex) {
       // lookup urn in codex
-      let results = await Cortex._codex.recall({
+      let results = await Cortex._codex.engrams.recall({
         match: {
           key: smt
         },
@@ -191,7 +180,6 @@ class FileSystems {
 
 // Cortex static properties
 Cortex._codex = null;
-Cortex._tracts = null;
 
 // Junction static properties
 Cortex._storageJunctions = new Map();

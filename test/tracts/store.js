@@ -3,8 +3,8 @@
  *
  * Test Outline:
  *   use tracts with Elasticsearch junction
- *   read engram(s) from file
- *   store engram(s) in tracts
+ *   read tract definition from file
+ *   store tract definition in tracts
  */
 "use strict";
 
@@ -35,7 +35,7 @@ async function store(schema) {
     logger.verbose('=== ' + schema);
 
     // store encoding
-    encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".tract.json", "utf8"));
     encoding.name = schema;
 
     let entry = new Engram(encoding);

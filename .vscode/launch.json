@@ -840,6 +840,44 @@
     },
     {
       "type": "node-terminal",
+      "name": "--- tracts",
+      "request": "launch"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tracts in-memory",
+      "program": "${workspaceFolder}/test/tracts/tracts_in-memory.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tracts store",
+      "program": "${workspaceFolder}/test/tracts/store.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "codex tracts",
+      "program": "${workspaceFolder}/test/tracts/recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node-terminal",
       "name": "--- transform",
       "request": "launch"
     },

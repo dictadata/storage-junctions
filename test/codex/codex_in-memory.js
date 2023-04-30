@@ -39,7 +39,7 @@ async function test(schema) {
   try {
     // store encoding
     logger.verbose('=== ' + schema);
-    encoding = JSON.parse(fs.readFileSync("./data/input/" + schema + ".encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".encoding.json", "utf8"));
     encoding.name = schema;
 
     let entry = new Engram(encoding);
@@ -61,7 +61,7 @@ async function test(schema) {
 
       // compare to expected output
       let expected_output = outputfile.replace("output", "expected");
-      retCode = _compare(expected_output, outputfile, true);
+      retCode = _compare(expected_output, outputfile, 2);
     }
     else
       retCode = results.status;
