@@ -72,7 +72,7 @@
     "rpath": "foo_transform.encoding.json"
   },
   {
-    "href": "/data/dictadata.net/test/input/shapes/shapes.encoding.json",
+    "href": "/data/dictadata.net/test/input/encodings/shapes.encoding.json",
     "name": "shapes.encoding.json",
     "isDir": false,
     "date": "2021-12-20T16:08:00.000Z",
@@ -80,7 +80,7 @@
     "rpath": "shapes/shapes.encoding.json"
   },
   {
-    "href": "/data/dictadata.net/test/input/shapes/tl_2020_us_county.encoding.json",
+    "href": "/data/dictadata.net/test/input/encodings/tl_2020_us_county.encoding.json",
     "name": "tl_2020_us_county.encoding.json",
     "isDir": false,
     "date": "2021-12-20T16:08:00.000Z",
@@ -88,7 +88,7 @@
     "rpath": "shapes/tl_2020_us_county.encoding.json"
   },
   {
-    "href": "/data/dictadata.net/test/input/shapes/tl_2020_us_state.encoding.json",
+    "href": "/data/dictadata.net/test/input/encodings/tl_2020_us_state.encoding.json",
     "name": "tl_2020_us_state.encoding.json",
     "isDir": false,
     "date": "2021-12-20T16:08:00.000Z",
