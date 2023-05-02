@@ -1,6 +1,6 @@
 {
   "domain": "foo",
-  "name": "foo_transfer",
+  "name": "jsonfile-foo_transfer",
   "type": "tract",
   "title": "JSON to JSON",
   "description": "JSON to JSON transfer tract.",
@@ -14,7 +14,7 @@
     {
       "name": "json-json",
       "action": "transfer",
-      "description": "transfer foo from json to json",
+      "description": "transfer foo from JSON to JSON",
       "origin": {
         "smt": "json|./data/input/|foofile.json|*"
       },
@@ -22,10 +22,10 @@
         "smt": {
           "model": "json",
           "locus": "./data/output/tracts/",
-          "schema": "transfer_foofile.json",
+          "schema": "jsonfile-foo_transfer.json",
           "key": "*"
         },
-        "output": "./data/output/tracts/tracts_foofile.json"
+        "output": "./data/output/tracts/jsonfile-foo_transfer.json"
       }
     }
   ]

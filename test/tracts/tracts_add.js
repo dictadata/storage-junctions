@@ -1,21 +1,17 @@
 /**
- * test/tracts/add_smt
+ * test/tracts/tracts_add
  *
  * Test Outline:
  *   use tracts with underlying Elasticsearch junction
- *   add engram definitions for test data sources:
- *     Elasticsearch, MySQL, MSSQL, JSON file
+ *   add tract definitions for test transfers
  */
 "use strict";
 
 const Storage = require("../../storage");
-const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
 logger.info("=== Tests: tracts store");
-
-var encoding;
 
 async function init() {
   try {
@@ -23,27 +19,26 @@ async function init() {
     let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
     await tracts.activate();
     Storage.tracts = tracts;
-
-    // read foo_schema encoding
-    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/foo_schema.tract.json", "utf8"));
   }
   catch (err) {
     logger.error(err);
   }
 }
 
-async function test(name, smt) {
+async function test(tract_name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + name);
+    logger.verbose('=== ' + tract_name);
 
-    // store encoding
-    let entry = new Engram(smt);
+    // store tract
+    let entry = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
+    entry.name = tract_name;
+
     entry.domain = "foo";
-    entry.name = name;
-    entry.encoding = encoding;
-    if (!entry.tags) entry.tags = [];
+    entry.name = tract_name;
+    if (!entry.tags)
+      entry.tags = [];
     entry.tags.push("foo");
 
     let results = await Storage.tracts.store(entry);
@@ -89,22 +84,16 @@ async function addAlias(alias, source) {
 (async () => {
   await init();
 
-  if (await test(
-    "jsonfile-foo_schema",
-    "json|./data/input/|foofile.json|*"))
+  if (await test("jsonfile-foo_transfer"))
     return 1;
-  if (await test(
-    "elasticsearch-foo_schema",
-    "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo"))
+  if (await test("elasticsearch-foo_transfer"))
     return 1;
-  if (await test("mssql-foo_schema",
-    "mssql|server=dev.dictadata.net;database=storage_node|foo_schema|=Foo"))
+  if (await test("mssql-foo_transfer"))
     return 1;
-  if (await test("mysql-foo_schema",
-    "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"))
+  if (await test("mysql-foo_transfer"))
     return 1;
 
-  if (await addAlias("elasticsearch-foo_alias", "foo:elasticsearch-foo_schema"))
+  if (await addAlias("elasticsearch-foo_alias", "foo:elasticsearch-foo_transfer"))
     return 1;
 
   await Storage.tracts.relax();

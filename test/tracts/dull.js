@@ -3,7 +3,7 @@
  *
  * Test Outline:
  *   use tracts with Elasticsearch junction
- *   dull engram definition for "foo_schema_two" in tracts
+ *   dull tract definition for "foo_transfer_two" in tracts
  */
 "use strict";
 
@@ -24,14 +24,13 @@ async function init() {
   }
 }
 
-async function test(domain, schema) {
+async function test(domain, name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== ' + name);
 
-    // dull encoding
-    let results = await Storage.tracts.dull({ domain: domain, name: schema });
+    let results = await Storage.tracts.dull({ domain: domain, name: name });
     logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
@@ -45,14 +44,13 @@ async function test(domain, schema) {
   return process.exitCode = retCode;
 }
 
-async function dull(keys) {
+async function test_keys(keys) {
   let retCode = 0;
 
   try {
     for (let key of keys) {
       logger.verbose('=== ' + key);
 
-      // dull encoding
       let results = await Storage.tracts.dull(key);
       logger.info(JSON.stringify(results, null, "  "));
     }
@@ -68,9 +66,10 @@ async function dull(keys) {
 (async () => {
   await init();
 
-  if (await test("", "foo_schema_two")) return 1;
+  if (await test("foo", "foo_transfer_two")) return 1;
 
-  await dull(["foo/foo_schema_XYZ" ]);
+  // delete extraneous entries
+  //await test_keys(["dictadata.net:foo_transfer" ]);
 
   await Storage.tracts.relax();
 

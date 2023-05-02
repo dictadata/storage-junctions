@@ -3,10 +3,10 @@
  *
  * Test Outline:
  *   Uses tracts with Memory Junction
- *   read encoding(s) from file
- *   store engram definition(s) in tracts
- *   recall engram(s) from tracts
- *   compare results with expected SMT engram definitions
+ *   read tract(s) from file
+ *   store tract definition(s) in tracts
+ *   recall tract(s) from tracts storage
+ *   compare results with expected tracts definitions
  */
 "use strict";
 
@@ -17,7 +17,7 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: tracts in-memory encodings");
+logger.info("=== Tests: tracts in-memory tracts");
 
 async function init() {
   try {
@@ -36,22 +36,20 @@ async function test(tract_name) {
 
   let tract;
   try {
-    // store encoding
+    // store tract
     logger.verbose('=== ' + tract_name);
     tract = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
 
     let results = await Storage.tracts.store(tract);
     logger.verbose(JSON.stringify(results, null, "  "));
 
-    // recall encoding
+    // recall tract
     let urn = tract.domain + ":" + tract.name;
     logger.verbose('--- ' + urn);
     results = await Storage.tracts.recall(urn);
     logger.verbose("recall: " + results.message);
 
     if (results.status === 0) {
-      //encoding = results.data[ urn ];
-
       let outputfile = "./data/output/tracts/" + tract_name + ".tract.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });

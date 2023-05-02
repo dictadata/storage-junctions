@@ -9,7 +9,6 @@
 "use strict";
 
 const Storage = require("../../storage");
-const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
@@ -27,18 +26,15 @@ async function init() {
   }
 }
 
-async function store(schema) {
+async function store(tract_name) {
   let retCode = 0;
 
-  let encoding;
+  let entry;
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== ' + tract_name);
 
-    // store encoding
-    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".tract.json", "utf8"));
-    encoding.name = schema;
-
-    let entry = new Engram(encoding);
+    entry = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
+    entry.name = tract_name;
 
     if (!entry.tags) {
       entry.tags = [];
@@ -87,12 +83,10 @@ async function alias(alias, urn) {
 (async () => {
   await init();
 
-  if (await store("foo_schema")) return 1;
-  if (await store("foo_schema_short")) return 1;
-  if (await store("foo_schema_typesonly")) return 1;
-  if (await store("foo_schema_two")) return 1;
+  if (await store("foo_transfer")) return 1;
+  if (await store("foo_transfer_two")) return 1;
 
-  if (await alias("foo_alias", "foo_schema")) return 1;
+  if (await alias("foo_alias", "foo_transfer")) return 1;
 
   await Storage.tracts.relax();
 })();

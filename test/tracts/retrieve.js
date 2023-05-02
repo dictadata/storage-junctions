@@ -3,7 +3,7 @@
  *
  * Test Outline:
  *   use tracts with Elasticsearch junction
- *   retreive all entries starting with foo_schema*
+ *   retreive all entries starting with foo_transfer*
  *   compare results to expected tracts entries
  */
 "use strict";
@@ -29,22 +29,22 @@ async function init() {
   }
 }
 
-async function test(schema) {
+async function test(tract_name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== ' + tract_name);
 
     // retrieve tracts entries
     let results = await Storage.tracts.retrieve({
       match: {
         "name": {
-          wc: schema + "*"
+          wc: tract_name + "*"
         }
       }
     });
 
-    let outputfile = "./data/output/tracts/retrieve_" + schema + ".tract.json";
+    let outputfile = "./data/output/tracts/retrieve_" + tract_name + ".tract.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -64,7 +64,7 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema")) return 1;
+  if (await test("foo_transfer")) return 1;
 
   await Storage.tracts.relax();
 })();

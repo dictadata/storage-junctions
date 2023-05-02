@@ -868,8 +868,52 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "codex tracts",
+      "name": "tracts recall",
       "program": "${workspaceFolder}/test/tracts/recall.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tracts dull",
+      "program": "${workspaceFolder}/test/tracts/dull.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tracts retrieve",
+      "program": "${workspaceFolder}/test/tracts/retrieve.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tracts add",
+      "program": "${workspaceFolder}/test/tracts/tracts_add.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "tracts transfer",
+      "program": "${workspaceFolder}/test/tracts/tracts_transfer.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
