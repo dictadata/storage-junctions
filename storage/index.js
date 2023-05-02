@@ -131,3 +131,6 @@ Storage.Transforms.use('row_constructs', exports.RowConstructsTransform);
 
 exports.MapConstructsTransform = require("./transforms/mapConstructs");
 Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
+
+///// Tracts class
+exports.Tracts = require("./tracts");
