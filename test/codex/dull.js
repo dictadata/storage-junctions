@@ -45,7 +45,7 @@ async function test(domain, schema) {
   return process.exitCode = retCode;
 }
 
-async function dull(keys) {
+async function test_keys(keys) {
   let retCode = 0;
 
   try {
@@ -70,7 +70,8 @@ async function dull(keys) {
 
   if (await test("", "foo_schema_two")) return 1;
 
-  await dull(["foo/foo_schema_XYZ" ]);
+  // delete extraneous entries
+  // await test_keys(["foo:foo_schema_XYZ" ]);
 
   await Storage.codex.relax();
 
