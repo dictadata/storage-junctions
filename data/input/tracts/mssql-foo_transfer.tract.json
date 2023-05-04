@@ -16,7 +16,10 @@
       "action": "transfer",
       "description": "transfer foo from MSSQL to JSON",
       "origin": {
-        "smt": "mssql|server=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
+        "smt": "mssql|server=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
+        "pattern": {
+          "order": { "Foo": "asc" }
+        }
       },
       "terminal": {
         "smt": {
@@ -25,7 +28,7 @@
           "schema": "mssql-foo_transfer.json",
           "key": "*"
         },
-        "output": "./data/output/tracts/mssql-foo_transfer.json"
+        "output": "./data/output/tracts/use_mssql-foo_transfer.json"
       }
     }
   ]

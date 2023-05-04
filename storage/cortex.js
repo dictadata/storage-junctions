@@ -120,7 +120,8 @@ class Cortex {
     // developers should call this instead of junction.relax()
     // could implement some pool or tracking or something here
 
-    if (junction && junction.relax) await junction.relax();
+    if (junction?.relax)
+      await junction.relax();
   }
 
 }

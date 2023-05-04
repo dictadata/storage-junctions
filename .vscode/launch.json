@@ -819,8 +819,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "codex add smt",
-      "program": "${workspaceFolder}/test/codex/codex_add_smt.js",
+      "name": "codex add",
+      "program": "${workspaceFolder}/test/codex/codex_add.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -830,8 +830,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "codex use smt",
-      "program": "${workspaceFolder}/test/codex/codex_use_smt.js",
+      "name": "codex use",
+      "program": "${workspaceFolder}/test/codex/codex_use.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -912,8 +912,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts transfer",
-      "program": "${workspaceFolder}/test/tracts/tracts_transfer.js",
+      "name": "tracts use",
+      "program": "${workspaceFolder}/test/tracts/tracts_use.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

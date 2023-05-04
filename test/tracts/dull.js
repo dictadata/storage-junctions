@@ -28,7 +28,7 @@ async function test(domain, name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + name);
+    logger.verbose('=== dull ' + name);
 
     let results = await Storage.tracts.dull({ domain: domain, name: name });
     logger.info(JSON.stringify(results, null, "  "));
@@ -49,7 +49,7 @@ async function test_keys(keys) {
 
   try {
     for (let key of keys) {
-      logger.verbose('=== ' + key);
+      logger.verbose('=== dull ' + key);
 
       let results = await Storage.tracts.dull(key);
       logger.info(JSON.stringify(results, null, "  "));

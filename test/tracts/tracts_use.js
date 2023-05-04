@@ -14,7 +14,7 @@ const { logger } = require("../../storage/utils");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: tracts store");
+logger.info("=== Tests: tracts use");
 
 async function init() {
   try {
@@ -33,7 +33,7 @@ async function test(tract_name) {
   let urn = "foo:" + tract_name;
 
   try {
-    logger.verbose('=== ' + urn);
+    logger.verbose('=== use ' + urn);
 
     // recall tract definition
     let results = await Storage.tracts.recall({ match: urn, resolve: true });

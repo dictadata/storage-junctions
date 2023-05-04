@@ -31,7 +31,7 @@ async function store(tract_name) {
 
   let entry;
   try {
-    logger.verbose('=== ' + tract_name);
+    logger.verbose('=== store ' + tract_name);
 
     entry = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
     entry.name = tract_name;
@@ -56,7 +56,7 @@ async function alias(alias, urn) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + alias);
+    logger.verbose('=== alias ' + alias);
 
     // store alias entry
     let entry = {
@@ -86,7 +86,7 @@ async function alias(alias, urn) {
   if (await store("foo_transfer")) return 1;
   if (await store("foo_transfer_two")) return 1;
 
-  if (await alias("foo_alias", "foo_transfer")) return 1;
+  if (await alias("foo_alias", "foo:foo_transfer")) return 1;
 
   await Storage.tracts.relax();
 })();

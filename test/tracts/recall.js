@@ -29,21 +29,21 @@ async function init() {
   }
 }
 
-async function test(domain, tract_name) {
+async function test(domain, tract_name, resolve = false) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + tract_name);
+    logger.verbose('=== recall ' + tract_name);
 
     // recall tract definition
-    let results = await Storage.tracts.recall({ domain: domain, name: tract_name });
+    let results = await Storage.tracts.recall({ domain: domain, name: tract_name, resolve });
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.status !== 0) {
       retCode = results.status;
     }
     else {
-      let outputfile = "./data/output/tracts/recall_" + tract_name + ".tract.json";
+      let outputfile = "./data/output/tracts/" + (resolve ? "resolve_" : "recall_") + tract_name + ".tract.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -67,6 +67,8 @@ async function test(domain, tract_name) {
   if (await test("foo", "foo_transfer"))
     return 1;
   if (await test("foo", "foo_alias"))
+    return 1;
+  if (await test("foo", "foo_alias", true))
     return 1;
   if (await test("", "bad_urn"))
     process.exitCode = 0;

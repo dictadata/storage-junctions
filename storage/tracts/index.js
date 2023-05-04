@@ -45,6 +45,8 @@ module.exports = exports = class Tracts {
     let urn;
     if (typeof tract === "string")
       urn = tract;
+    else if (tract.key)
+      urn = tract.key;
     else
       urn = tract.domain + ":" + tract.name;
     return urn;
@@ -70,7 +72,7 @@ module.exports = exports = class Tracts {
 
       // check to read certificate authorities from file
       let tls = options.tls || options.ssl;
-      if (tls && tls.ca) {
+      if (tls?.ca) {
         if (typeof tls.ca === "string" && !tls.ca.startsWith("-----BEGIN CERTIFICATE-----")) {
           // assume it's a filename
           if (tls.ca.startsWith("~"))
@@ -205,12 +207,16 @@ module.exports = exports = class Tracts {
       let tract = storageResults.data[ key ];
       if (tract.type === "alias") {
         // recall the tract for the source urn
-        storageResults = await this._junction.recall({
+        let results = await this._junction.recall({
           match: {
             key: tract.source
           },
-          resolve: false
+          resolve: false  // only recurse once
         });
+
+        // return source value, NOTE: not the alias value
+        if (results.status === 0)
+          storageResults.data[ key ] = results.data[ tract.source ];
       }
     }
 

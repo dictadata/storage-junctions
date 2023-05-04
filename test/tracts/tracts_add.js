@@ -11,7 +11,7 @@ const Storage = require("../../storage");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
-logger.info("=== Tests: tracts store");
+logger.info("=== Tests: tracts add");
 
 async function init() {
   try {
@@ -29,7 +29,7 @@ async function test(tract_name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + tract_name);
+    logger.verbose('=== store ' + tract_name);
 
     // store tract
     let entry = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));

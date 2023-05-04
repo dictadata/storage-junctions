@@ -17,7 +17,7 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: tracts in-memory tracts");
+logger.info("=== Tests: tracts in-memory");
 
 async function init() {
   try {
@@ -37,7 +37,7 @@ async function test(tract_name) {
   let tract;
   try {
     // store tract
-    logger.verbose('=== ' + tract_name);
+    logger.verbose('=== store/recall ' + tract_name);
     tract = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
 
     let results = await Storage.tracts.store(tract);

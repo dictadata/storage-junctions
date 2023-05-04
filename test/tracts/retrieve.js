@@ -33,7 +33,7 @@ async function test(tract_name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + tract_name);
+    logger.verbose('=== retrieve ' + tract_name);
 
     // retrieve tracts entries
     let results = await Storage.tracts.retrieve({

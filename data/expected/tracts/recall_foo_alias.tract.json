@@ -8,8 +8,8 @@
       "name": "foo_alias",
       "type": "alias",
       "title": "foo_alias",
-      "description": "alias for foo_transfer",
-      "source": "foo_transfer",
+      "description": "alias for foo:foo_transfer",
+      "source": "foo:foo_transfer",
       "tags": [
         "foo",
         "alias"
