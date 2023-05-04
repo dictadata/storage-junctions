@@ -18,7 +18,7 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex in-memory encodings");
+logger.info("=== Tests: codex in-memory");
 
 async function init() {
   try {
@@ -38,7 +38,7 @@ async function test(schema) {
   let encoding;
   try {
     // store encoding
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== store/recall ' + schema);
     encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".encoding.json", "utf8"));
     encoding.name = schema;
 

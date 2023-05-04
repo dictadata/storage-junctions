@@ -100,7 +100,7 @@ module.exports = exports = class CodexStore {
       ///// check to read certificate authorities from file
       // for options.tls || or options.ssl
       let tls = this.options.tls || this.options.ssl;
-      if (tls && tls.ca) {
+      if (tls?.ca) {
         if (typeof tls.ca === "string" && !tls.ca.startsWith("-----BEGIN CERTIFICATE-----")) {
           // assume it's a filename
           if (tls.ca.startsWith("~"))

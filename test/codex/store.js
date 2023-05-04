@@ -32,7 +32,7 @@ async function store(schema) {
 
   let encoding;
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== store ' + schema);
 
     // store encoding
     encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".encoding.json", "utf8"));
@@ -60,7 +60,7 @@ async function alias(alias, urn) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + alias);
+    logger.verbose('=== alias ' + alias);
 
     // store alias entry
     let entry = {
@@ -92,7 +92,7 @@ async function alias(alias, urn) {
   if (await store("foo_schema_typesonly")) return 1;
   if (await store("foo_schema_two")) return 1;
 
-  if (await alias("foo_alias", "foo_schema")) return 1;
+  if (await alias("foo_alias", "foo:foo_schema")) return 1;
 
   await Storage.codex.relax();
 })();

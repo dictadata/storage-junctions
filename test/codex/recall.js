@@ -29,14 +29,14 @@ async function init() {
   }
 }
 
-async function test(domain, schema) {
+async function test(domain, schema, resolve = false) {
   let retCode = 0;
 
   try {
     logger.verbose('=== ' + schema);
 
     // recall engram definition
-    let results = await Storage.codex.recall({ domain: domain, name: schema });
+    let results = await Storage.codex.recall({ domain: domain, name: schema, resolve });
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.status !== 0) {
@@ -46,7 +46,7 @@ async function test(domain, schema) {
       let urn = Object.keys(results.data)[ 0 ];
       //let encoding = results.data[ urn ];
 
-      let outputfile = "./data/output/codex/recall_" + schema + ".encoding.json";
+      let outputfile = "./data/output/codex/" + (resolve ? "resolve_" : "recall_") + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -70,6 +70,8 @@ async function test(domain, schema) {
   if (await test("foo", "foo_schema"))
     return 1;
   if (await test("foo", "foo_alias"))
+    return 1;
+  if (await test("foo", "foo_alias", true))
     return 1;
   if (await test("", "bad_urn"))
     process.exitCode = 0;

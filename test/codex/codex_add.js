@@ -1,5 +1,5 @@
 /**
- * test/codex/add_smt
+ * test/codex/codex_add
  *
  * Test Outline:
  *   use codex with underlying Elasticsearch junction
@@ -13,7 +13,7 @@ const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
-logger.info("=== Tests: codex store");
+logger.info("=== Tests: codex add");
 
 var encoding;
 
@@ -36,7 +36,7 @@ async function test(name, smt) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + name);
+    logger.verbose('=== store ' + name);
 
     // store encoding
     let entry = new Engram(smt);

@@ -8,8 +8,8 @@
       "name": "foo_alias",
       "type": "alias",
       "title": "foo_alias",
-      "description": "alias for foo_schema",
-      "source": "foo_schema",
+      "description": "alias for foo:foo_schema",
+      "source": "foo:foo_schema",
       "tags": [
         "foo",
         "alias"

@@ -92,7 +92,7 @@ module.exports = exports = class Codex {
 
       // check to read certificate authorities from file
       let tls = options.tls || options.ssl;
-      if (tls && tls.ca) {
+      if (tls?.ca) {
         if (typeof tls.ca === "string" && !tls.ca.startsWith("-----BEGIN CERTIFICATE-----")) {
           // assume it's a filename
           if (tls.ca.startsWith("~"))
@@ -232,8 +232,10 @@ module.exports = exports = class Codex {
           match: {
             key: encoding.source
           },
-          resolve: false
+          resolve: false  // only recurse once
         });
+
+        // return source value, NOTE: not the alias value
         if (results.status === 0)
           storageResults.data[ key ] = results.data[ encoding.source ];
       }

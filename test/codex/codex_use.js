@@ -1,5 +1,5 @@
 /**
- * test/codex/use_smt
+ * test/codex/codex_use
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
@@ -16,7 +16,7 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex store");
+logger.info("=== Tests: codex use");
 
 async function init() {
   try {
@@ -35,7 +35,7 @@ async function test(name) {
   let urn = "foo:" + name;
 
   try {
-    logger.verbose('=== ' + urn);
+    logger.verbose('=== retrieve ' + urn);
 
     // create junction
     let junction = await Storage.activate(urn, { auth: { "username": "dicta", password: "data" } });
@@ -49,7 +49,7 @@ async function test(name) {
       }
     });
 
-    let outputfile = "./data/output/codex/" + name + ".json";
+    let outputfile = "./data/output/codex/use_" + name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
