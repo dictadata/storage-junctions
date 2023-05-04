@@ -69,7 +69,7 @@ async function test_keys(keys) {
   if (await test("foo", "foo_transfer_two")) return 1;
 
   // delete extraneous entries
-  //await test_keys(["dictadata.net:foo_transfer" ]);
+  await test_keys(["foo:foo_alias" ]);
 
   await Storage.tracts.relax();
 
