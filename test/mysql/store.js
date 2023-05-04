@@ -71,6 +71,8 @@ async function tests() {
       Foo: 'ten',
       Bar: 'Hamilton',
       Baz: 10,
+      Fobe: 0.10,
+      "Dt Test": "2020-10-07",
       enabled: false
     },
     terminal: {

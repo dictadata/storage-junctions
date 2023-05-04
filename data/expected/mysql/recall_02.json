@@ -6,8 +6,8 @@
     "Foo": "ten",
     "Bar": "Hamilton",
     "Baz": 10,
-    "Fobe": null,
-    "Dt Test": null,
+    "Fobe": 0.1,
+    "Dt Test": "2020-10-07T00:00:00.000Z",
     "enabled": false
   }
 }

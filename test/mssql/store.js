@@ -70,7 +70,10 @@ async function tests() {
     construct: {
       Foo: 'ten',
       Bar: 'Hamilton',
-      Baz: 10
+      Baz: 10,
+      Fobe: 0.10,
+      "Dt Test": "2020-10-07",
+      enabled: false
     },
     terminal: {
       output: "./data/output/mssql/store_04.json"

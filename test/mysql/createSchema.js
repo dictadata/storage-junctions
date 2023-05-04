@@ -57,7 +57,7 @@ async function test_lg() {
 async function test_origin(schema, encoding) {
 
   let ca_file = fs.readFileSync(homedir + "/.dictadata/ec2_mysql-ca.pem");
-  console.log(typeOf(ca_file));
+  // console.log(typeOf(ca_file));
 
   logger.info("=== createSchema " + schema);
   if (await createSchema({
