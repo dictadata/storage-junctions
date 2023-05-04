@@ -25,7 +25,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     //logger.debug(JSON.stringify(encoding));
 
     if (typeOf(encoding) === 'object') {
-      if (tract.terminal && tract.terminal.output)
+      if (tract.terminal?.output)
         retCode = _output(tract.terminal.output, results.data, compareValues);
     }
     else

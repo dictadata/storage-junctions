@@ -221,7 +221,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       if (field.type === "unknown")
         field.type = default_type;
       else if (field.type === "list") {
-        if (field._list && field._list.type === "unknown")
+        if (field._list?.type === "unknown")
           field._list.type = default_type;
       }
       else if (field.type === "map") {

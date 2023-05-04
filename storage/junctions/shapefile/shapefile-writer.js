@@ -20,7 +20,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
     super(storageJunction, options);
 
     // check schema's extension
-    if (this.options.schema && path.extname(this.options.schema) === '')
+    if (path.extname(this.options?.schema) === '')
       this.options.schema = this.options.schema + '.shp';
 
     this.ws = null;

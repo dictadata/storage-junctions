@@ -74,7 +74,7 @@ module.exports = exports = class Field {
     if (typeof definition === 'string') {
       definition = { name: definition };
     }
-    if (!(definition && definition.name))
+    if (!definition?.name)
       throw new StorageError(400, "Invalid field definition");
 
     // required properties

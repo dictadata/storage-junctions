@@ -27,7 +27,7 @@ module.exports = exports = async function (tract) {
     logger.info(">>> create origin junction");
     const origin_transforms = tract.transform || tract.transforms || {};
 
-    if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
+    if (typeof tract.origin?.options?.encoding === "string") {
       // read encoding from file
       let filename = tract.origin.options.encoding;
       tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
@@ -58,7 +58,7 @@ module.exports = exports = async function (tract) {
       const transforms = branch.transform || branch.transforms || {};
 
       logger.info(">>> create branch junction");
-      if (branch.terminal.options && typeof branch.terminal.options.encoding === "string") {
+      if (typeof branch.terminal?.options?.encoding === "string") {
         // read encoding from file
         let filename = branch.terminal.options.encoding;
         branch.terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));

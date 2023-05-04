@@ -25,8 +25,8 @@ exports.connectionConfig = (smt, options) => {
     authentication: {
       type: "default",
       options: {
-        userName: (conn && conn.username) || (options.auth && options.auth.username) || 'root',
-        password: (conn && conn.password) || (options.auth && options.auth.password) || ''
+        userName: (conn?.username) || (options.auth?.username) || 'root',
+        password: (conn?.password) || (options.auth?.password) || ''
       }
     },
     options: {
@@ -340,7 +340,7 @@ exports.sqlUpdate = (engram, construct) => {
  * options: {fieldname: value, ...}
  */
 exports.sqlWhereByKey = (engram, pattern) => {
-  const match = (pattern && pattern.match) || pattern || {};
+  const match = pattern?.match || pattern || {};
   let sql = "";
 
   if (engram.keys.length > 0) {
@@ -444,7 +444,7 @@ exports.sqlSelectByPattern = (engram, pattern) => {
   sql += " FROM " + engram.smt.schema;
 
   // WHERE clause
-  if (pattern && pattern.match && Object.keys(pattern.match).length > 0) {
+  if (pattern?.match && Object.keys(pattern.match).length > 0) {
     sql += " WHERE ";
 
     let first = true;

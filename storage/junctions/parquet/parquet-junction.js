@@ -44,7 +44,7 @@ class ParquetJunction extends StorageJunction {
     super(smt, options);
 
     // check schema's extension
-    if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
+    if (!this.options.schema && this.smt?.schema != '*' && path.extname(this.smt.schema) === '')
       this.options.schema = this.smt.schema + '.parquet';
   }
 

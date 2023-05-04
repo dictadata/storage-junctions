@@ -303,7 +303,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
    * options: {fieldname: value, ...}
    */
   sqlWhereByKey(engram, pattern) {
-    const match = (pattern && pattern.match) || pattern || {};
+    const match = pattern?.match || pattern || {};
     let sql = "";
 
     if (engram.keys.length > 0) {
@@ -402,7 +402,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
     sql += " FROM " + engram.smt.schema;
 
     // WHERE clause
-    if (pattern && pattern.match && Object.keys(pattern.match).length > 0) {
+    if (pattern?.match && Object.keys(pattern.match).length > 0) {
       sql += " WHERE ";
 
       let first = true;

@@ -26,7 +26,7 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
       if (!testName || config.name.indexOf(testName) >= 0) {
         if ((config.type === "node" || config.type === "pwa-node")
           && config.request === "launch"
-          && (config.program && config.program.includes(testProg))) {
+          && (config.program?.includes(testProg))) {
 
           console.log(config.name.bgBlue);
           let script = config.program.replace("${workspaceFolder}", ".");

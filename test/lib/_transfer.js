@@ -29,7 +29,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
   var jo, jt;  // junctions origin, terminal
   try {
     /// check if origin encoding is in a file
-    if (origin.options && typeof origin.options.encoding === "string") {
+    if (typeof origin.options?.encoding === "string") {
       let filename = origin.options.encoding;
       origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
@@ -47,7 +47,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     }
 
     /// determine terminal encoding
-    if (terminal.options && typeof terminal.options.encoding === "string") {
+    if (typeof terminal.options?.encoding === "string") {
       // read encoding from file
       let filename = terminal.options.encoding;
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
@@ -58,7 +58,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       let pipes = [];
 
       let options = Object.assign({
-        max_read: (origin.options && origin.options.max_read) || 100,
+        max_read: origin.options?.max_read || 100,
         pattern: origin.pattern || {}
       });
 
@@ -132,7 +132,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     await stream.pipeline(pipes);
 
     /// check results
-    if (tract.terminal && terminal.output) {
+    if (terminal?.output) {
       logger.info("<<< compare results " + terminal.output);
       let expected_output = terminal.output.replace("output", "expected");
       retCode = _compare(expected_output, terminal.output, compareValues);

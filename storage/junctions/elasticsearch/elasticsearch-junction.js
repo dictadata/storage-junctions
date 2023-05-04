@@ -232,7 +232,7 @@ class ElasticsearchJunction extends StorageJunction {
       let response = null;
       if (this.isKeyStore) {
         // store by _id
-        key = (pattern && pattern.key) || this.engram.get_uid(construct) || null;
+        key = pattern?.key || this.engram.get_uid(construct) || null;
         //logger.debug(key + " " + JSON.stringify(data));
         response = await this.elasticQuery.put(key, data);
       }
@@ -259,7 +259,7 @@ class ElasticsearchJunction extends StorageJunction {
    */
   async recall(pattern) {
     logger.debug("ElasticJunction recall");
-    const match = (pattern && pattern.match) || pattern || {};
+    const match = pattern?.match || pattern || {};
 
     try {
       if (!this.engram.isDefined)
@@ -341,7 +341,7 @@ class ElasticsearchJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      let msg = (err.body && err.body.error.reason) || err.message;
+      let msg = err.body?.error?.reason || err.message;
       logger.debug(msg);
       logger.error(err);
       throw new StorageError(err.statusCode || 500, msg).inner(err);
@@ -358,7 +358,7 @@ class ElasticsearchJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEncoding();
 
-      const match = (pattern && pattern.match) || pattern || {};
+      const match = pattern?.match || pattern || {};
       let response;
 
       let key;

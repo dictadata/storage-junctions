@@ -176,7 +176,7 @@ class MemoryJunction extends StorageJunction {
       let status = 0;
       let numAffected = 0;
 
-      let key = (pattern && pattern.key) || this.engram.get_uid(construct);
+      let key = pattern?.key || this.engram.get_uid(construct);
       this._constructs.set(key, construct);
 
       let storageResults = new StorageResults("message");
@@ -235,7 +235,7 @@ class MemoryJunction extends StorageJunction {
       let status = 0;
       let storageResults = new StorageResults("map");
 
-      if (pattern && pattern.key) {
+      if (pattern?.key) {
         let construct = this._constructs.get(pattern.key);
         if (construct)
           storageResults.add(construct, pattern.key);
@@ -295,7 +295,7 @@ class MemoryJunction extends StorageJunction {
       let status = 0;
       let numAffected = 0;
 
-      if (pattern && pattern.key) {
+      if (pattern?.key) {
         if (this._constructs.delete(pattern.key))
           numAffected = 1;
         else

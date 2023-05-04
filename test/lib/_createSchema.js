@@ -15,7 +15,7 @@ module.exports = exports = async function (tract) {
 
   var jo;
   try {
-    if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
+    if (typeof tract.origin?.options?.encoding === "string") {
       // read encoding from file
       let filename = tract.origin.options.encoding;
       tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));

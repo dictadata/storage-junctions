@@ -83,7 +83,7 @@ exports.searchQuery = function (pattern) {
 };
 
 function match(dsl, pattern) {
-  const match = (pattern && pattern.match) || {};
+  const match = pattern?.match || {};
 
   if (Object.keys(match).length <= 0) {
     dsl.query[ "match_all" ] = {};

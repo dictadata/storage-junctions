@@ -25,7 +25,7 @@ module.exports = exports = async function (tract, compareValues = 2, keyValues =
 
     results = await jo.store(tract.construct, tract.origin.pattern);
 
-    if (tract.terminal && tract.terminal.output)
+    if (tract.terminal?.output)
       retCode = _output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));

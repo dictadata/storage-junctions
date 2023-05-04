@@ -21,7 +21,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
   var jo;
   try {
-    if (tract.origin.options && typeof tract.origin.options.encoding === "string") {
+    if (typeof tract.origin?.options?.encoding === "string") {
       // read encoding from file
       let filename = tract.origin.options.encoding;
       tract.origin.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
@@ -29,7 +29,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.recall(tract.origin.pattern);
 
-    if (tract.terminal && tract.terminal.output)
+    if (tract.terminal?.output)
       retCode = _output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));

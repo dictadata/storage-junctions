@@ -18,7 +18,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
     super(storageJunction, options);
 
     // check schema's extension
-    if (this.options.schema && path.extname(this.options.schema) === '')
+    if (path.extname(this.options?.schema) === '')
       this.options.schema = this.options.schema + '.parquet';
 
     this.ws = null;

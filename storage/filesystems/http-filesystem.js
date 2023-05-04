@@ -36,7 +36,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       'accept-encoding': "gzip, deflate;q=0.9, br;q=0.1",
       'user-agent': "@dictadata/storage-junctions/http-filesystem (dictadata.net)",
       'cache-control': "max-age=0"
-    }, (options.http && options.http.headers) || {});
+    }, options.http?.headers || {});
 
     this._dirname = '';
   }
@@ -73,7 +73,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       request.headers = Object.assign({},
         this._headers,
         { accept: 'text/html,application/xhtml+xml' },
-        options.http && options.http.headers);
+        options.http?.headers);
 
       // regex for filespec match
       let filespec = schema || '*';
@@ -206,7 +206,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       request.headers = Object.assign({},
         this._headers,
-        options.http && options.http.headers);
+        options.http?.headers);
 
       // create read stream
       rs = await httpRequest(filename, request);
@@ -278,7 +278,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       request.headers = Object.assign({},
         this._headers,
-        options.http && options.http.headers);
+        options.http?.headers);
 
       let src = options.entry.rpath || options.entry.name;
 
@@ -356,7 +356,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // send the file
       request.headers = Object.assign({},
         this._headers,
-        options.http && options.http.headers,
+        options.http?.headers,
         form.getHeaders());
 
       let response = await httpRequest(this.url.pathname, request, form);

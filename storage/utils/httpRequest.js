@@ -67,7 +67,7 @@ function http1Request(Url, request, data) {
     };
 
     var options = {};
-    options.method = (request.method && request.method.toUpperCase()) || "GET";
+    options.method = request.method?.toUpperCase() || "GET";
     options.timeout = request.timeout || 5000;
     options.headers = Object.assign({}, request.headers);
     if (request.cookies)

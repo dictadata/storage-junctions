@@ -145,7 +145,7 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
 
     // check for Elasticsearch object  fields
     if (hasOwnProperty(property, "properties")) {
-      if (property.type && property.type === "nested") {
+      if (property.type === "nested") {
         // won't get here, nested not implemented
         // need to use codify tranform to identify arrays
         fields.push({

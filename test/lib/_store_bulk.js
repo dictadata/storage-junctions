@@ -22,7 +22,7 @@ module.exports = exports = async function (tract, compareValues = 2, keyValues =
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
     let results = await jo.storeBulk(tract.constructs, tract.origin.pattern);
 
-    if (tract.terminal && tract.terminal.output)
+    if (tract.terminal?.output)
       retCode = _output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));

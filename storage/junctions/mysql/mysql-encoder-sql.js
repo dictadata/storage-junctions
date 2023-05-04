@@ -23,8 +23,8 @@ exports.connectionConfig = (smt, options) => {
   var config = {
     connectionLimit: options.connectionLimit || 8,
     host: conn.host || 'dev.dictadata.net',
-    user: conn.user || (options.auth && options.auth.username) || 'root',
-    password: conn.password || (options.auth && options.auth.password) || '',
+    user: conn.user || (options.auth?.username) || 'root',
+    password: conn.password || (options.auth?.password) || '',
     database: conn.database || '',
     charset: conn.charset || 'utf8mb4',
     timezone: conn.timezone || 'Z'
@@ -248,7 +248,7 @@ exports.sqlBulkInsert = function (engram, constructs) {
  * options: {fieldname: value, ...}
  */
 exports.sqlWhereByKey = (engram, pattern) => {
-  const match = (pattern && pattern.match) || pattern || {};
+  const match = (pattern?.match) || pattern || {};
   let sql = "";
 
   if (engram.keys.length > 0) {
@@ -350,7 +350,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   sql += " FROM " + engram.smt.schema;
 
   // WHERE clause
-  if (pattern && pattern.match && Object.keys(pattern.match).length > 0) {
+  if (pattern?.match && Object.keys(pattern.match).length > 0) {
     sql += " WHERE ";
 
     let first = true;

@@ -29,7 +29,7 @@ module.exports = exports = async function (tract, compareValues = 1) {
     let list = response.data;
 
     //logger.verbose(JSON.stringify(list, null, "  "));
-    if (tract.terminal && tract.terminal.output)
+    if (tract.terminal?.output)
       retCode = _output(tract.terminal.output, list, compareValues);
 
     logger.info(">>> completed");

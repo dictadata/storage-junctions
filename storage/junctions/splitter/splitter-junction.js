@@ -105,7 +105,7 @@ class SplitterJunction extends StorageJunction {
     logger.verbose(smt.locus + smt.schema);
 
     // add terminal junction
-    if (terminal.options && typeof terminal.options.encoding === "string") {
+    if (typeof terminal.options?.encoding === "string") {
       // read encoding from file
       let filename = terminal.options.encoding;
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));

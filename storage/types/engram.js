@@ -32,7 +32,7 @@ module.exports = exports = class Engram extends Entry {
     this.type = "engram";
 
     let smt = {};
-    if (typeOf(encoding) === "object" && hasOwnProperty(encoding, "smt")) {
+    if (encoding?.smt) {
       smt = new SMT(encoding.smt);
     }
     else {
@@ -94,12 +94,12 @@ module.exports = exports = class Engram extends Entry {
     this.dullfields();
     this.mergefields(encoding);
     /*
-        if (encoding && encoding.smt) {
+        if (encoding?.smt) {
           let smt = new SMT(encoding.smt);
           this.smt.key = smt.key;
         }
     */
-    if (encoding && encoding.indices) {
+    if (encoding?.indices) {
       this.indices = {};
       Engram._copy(this.indices, encoding.indices);
     }

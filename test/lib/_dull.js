@@ -14,8 +14,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
   logger.info(">>> create junction");
   logger.verbose("smt:" + JSON.stringify(tract.origin.smt, null, 2));
-  if (tract.origin.options) logger.verbose("options:" + JSON.stringify(tract.origin.options));
-  if (tract.origin.pattern) logger.verbose("pattern: " + JSON.stringify(tract.origin.pattern));
+  if (tract.origin.options) logger.debug("options:" + JSON.stringify(tract.origin.options));
+  if (tract.origin.pattern) logger.debug("pattern: " + JSON.stringify(tract.origin.pattern));
 
   var jo;
   try {
@@ -23,7 +23,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
     let results = await jo.dull(tract.origin.pattern);
 
-    if (tract.terminal && tract.terminal.output)
+    if (tract.terminal?.output)
       retCode = _output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));
