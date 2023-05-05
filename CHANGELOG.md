@@ -1,5 +1,7 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.94
+  - bug fix: coerce smt strings in tracts entries
 - version 0.9.93
   - feature: Tract storage
   - testing updates for codex and tracts
