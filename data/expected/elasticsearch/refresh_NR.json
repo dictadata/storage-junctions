@@ -1,4 +1,5 @@
 {
   "status": 404,
-  "message": "Not Found"
+  "message": "Not Found",
+  "type": "map"
 }
