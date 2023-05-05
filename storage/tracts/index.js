@@ -1,7 +1,7 @@
 /**
  * storage/tracts
  *
- * Tracts is a datastore for ETL tract definitions.
+ * Tracts is a datastore for ETL tracts definitions.
  *
  * tract types:
  *   tract  - ETL tract definitions
@@ -41,14 +41,14 @@ module.exports = exports = class Tracts {
     return this._active;
   }
 
-  urn(tract) {
+  urn(entry) {
     let urn;
-    if (typeof tract === "string")
-      urn = tract;
-    else if (tract.key)
-      urn = tract.key;
+    if (typeof entry === "string")
+      urn = entry;
+    else if (entry.key)
+      urn = entry.key;
     else
-      urn = tract.domain + ":" + tract.name;
+      urn = entry.domain + ":" + entry.name;
     return urn;
   }
 
@@ -65,7 +65,7 @@ module.exports = exports = class Tracts {
         options.encoding = tracts_encoding;
 
       if (this.smt.key === "*") {
-        // use default smt.key
+        // use default smt.key which is !domain+name
         let s = new SMT(tracts_encoding.smt);
         this.smt.key = s.key;
       }
@@ -115,31 +115,45 @@ module.exports = exports = class Tracts {
 
   /**
    *
-   * @param {*} tract object with tracts properties
+   * @param {*} entry object with tracts' properties
    * @returns
    */
-  async store(tract) {
+  async store(entry) {
     let storageResults = new StorageResults("message");
 
     // parameter checks
     // note: domain is optional
-    if (!tract.name || tract.name === "*") {
+    if (!entry.name || entry.name === "*") {
       storageResults.setResults(400, "Invalid tracts name" );
       return storageResults;
     }
-    if (!tract.type || !codexTypes.includes(tract.type)) {
+    if (!entry.type || !codexTypes.includes(entry.type)) {
       storageResults.setResults(400, "Invalid codex type" );
       return storageResults;
     }
 
-    let key = this.urn(tract);
+    let key = this.urn(entry);
+
+    // make sure smt are strings
+    if (entry.type === "tract") {
+      for (let tract of entry?.tracts) {
+        if (typeof tract.origin?.smt === "object") {
+          let smt = new SMT(tract.origin.smt);
+          tract.origin.smt = smt.toString();
+        }
+        if (typeof tract.terminal?.smt === "object") {
+          let smt = new SMT(tract.terminal.smt);
+          tract.terminal.smt = smt.toString();
+        }
+      }
+    }
 
     // save in cache
-    this._tracts.set(key, tract);
+    this._tracts.set(key, entry);
 
     if (this._junction) {
       // save in source tracts
-      storageResults = await this._junction.store(tract, { key: key });
+      storageResults = await this._junction.store(entry, { key: key });
       logger.verbose("storage/tracts: " + key + ", " + storageResults.status);
       return storageResults;
     }
@@ -150,7 +164,7 @@ module.exports = exports = class Tracts {
 
   /**
    *
-   * @param {*} name SMT name or ETL tract name
+   * @param {*} name SMT name or ETL tracts name
    * @returns
    */
   async dull(pattern) {
@@ -179,7 +193,7 @@ module.exports = exports = class Tracts {
 
   /**
    *
-   * @param {*} name SMT name or ETL tract name
+   * @param {*} name SMT name or ETL tracts name
    * @returns
    */
   async recall(pattern) {
@@ -189,9 +203,9 @@ module.exports = exports = class Tracts {
     let key = this.urn(match);
 
     if (this._tracts.has(key)) {
-      // tract has been cached
-      let tract = this._tracts.get(key);
-      storageResults.add(tract, key);
+      // entry has been cached
+      let entry = this._tracts.get(key);
+      storageResults.add(entry, key);
     }
     else if (this._junction) {
       // go to the source tracts
@@ -204,27 +218,27 @@ module.exports = exports = class Tracts {
 
     if (storageResults.status === 0 && pattern.resolve) {
       // check for alias smt
-      let tract = storageResults.data[ key ];
-      if (tract.type === "alias") {
-        // recall the tract for the source urn
+      let entry = storageResults.data[ key ];
+      if (entry.type === "alias") {
+        // recall the entry for the source urn
         let results = await this._junction.recall({
           match: {
-            key: tract.source
+            key: entry.source
           },
           resolve: false  // only recurse once
         });
 
         // return source value, NOTE: not the alias value
         if (results.status === 0)
-          storageResults.data[ key ] = results.data[ tract.source ];
+          storageResults.data[ key ] = results.data[ entry.source ];
       }
     }
 
     if (storageResults.status === 0 && !pattern.resolve) {
-      // cache tract definition
-      let tract = storageResults.data[ key ];
-      if (key === this.urn(tract)) // double check it wasn't an alias lookup
-        this._tracts.set(key, tract);
+      // cache tracts definition
+      let entry = storageResults.data[ key ];
+      if (key === this.urn(entry)) // double check it wasn't an alias lookup
+        this._tracts.set(key, entry);
     }
 
     return storageResults;

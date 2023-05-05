@@ -27,8 +27,7 @@
           "locus": "./data/output/tracts/",
           "schema": "use_elasticsearch-foo_transfer.json",
           "key": "*"
-        },
-        "output": "./data/output/tracts/use_elasticsearch-foo_transfer.json"
+        }
       }
     }
   ]

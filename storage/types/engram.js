@@ -62,7 +62,7 @@ module.exports = exports = class Engram extends Entry {
    * Returns the SMT string representation.
    */
   toString() {
-    return this.smt.model + "|" + this.smt.locus + "|" + this.smt.schema + "|" + this.smt.key;
+    return this.smt.toString();
   }
 
   /**

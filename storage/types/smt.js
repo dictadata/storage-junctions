@@ -45,4 +45,11 @@ module.exports = exports = class SMT {
       throw new StorageError(400, "Invalid parameter: smt");
   }
 
+  /**
+   * Returns the SMT string representation.
+   */
+  toString() {
+    return this.model + "|" + this.locus + "|" + this.schema + "|" + this.key;
+  }
+
 };
