@@ -1,10 +1,13 @@
 # CHANGELOG:  @dictadata/storage-junctions
 
+- version 0.9.95
+  - refactor: rename internal Cortex class to Campus (hippocampus)
+  - refactor: rename Tracts storage class to and Cortex (cerebral cortex)
 - version 0.9.94
-  - bug fix: coerce smt strings in tracts entries
+  - bug fix: coerce smt strings in cortex entries
 - version 0.9.93
-  - feature: Tract storage
-  - testing updates for codex and tracts
+  - feature: Cortex storage
+  - testing updates for codex and cortex storage
 - version 0.9.92
   - bug fix: have process.env.HOMEPATH take precedence over os.homedir()
 - version 0.9.91
