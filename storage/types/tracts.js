@@ -12,7 +12,7 @@ const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty } = require("../utils");
 
 
-module.exports = exports = class Tract extends Entry {
+module.exports = exports = class Tracts extends Entry {
 
   constructor(options) {
     super(options);

@@ -18,6 +18,9 @@ module.exports = exports = Storage;
 ///// Codex class
 exports.Codex = require("./codex");
 
+///// Cortex class
+exports.Cortex = require("./cortex");
+
 //////////
 ///// register Storage FileSystems
 exports.StorageFileSystem = require("./filesystems/storage-filesystem");
@@ -131,6 +134,3 @@ Storage.Transforms.use('row_constructs', exports.RowConstructsTransform);
 
 exports.MapConstructsTransform = require("./transforms/mapConstructs");
 Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
-
-///// Tracts class
-exports.Cortex = require("./cortex");

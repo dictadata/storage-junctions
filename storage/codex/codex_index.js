@@ -4,13 +4,11 @@
  * MODULE NOT USED
  * An attempt at a manager class for using codex engrams and ETL tracts from same interface.
  *
- *
- * Codex is a data directory of engram encoding definitions and transfer tracts definitions.
- * Codex acts as a data locator, data dictionary and data management repository.
+ * Codex is a data directory of engram encoding definitions.
+ * Codex acts as a data locator and data dictionary.
  *
  * codex entry types:
  *   engram - SMT encoding definitions
- *   tract  - ETL tract definitions
  *   alias  - points to an engram of tract entry
  *
  * Uses an underlying document based StorageJunction such as ElasticsearchJunction or MongoDB for persistent storage.
