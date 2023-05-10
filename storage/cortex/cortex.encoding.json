@@ -1,17 +1,17 @@
 {
-  "name": "dicta_tracts",
+  "name": "dicta_cortex",
   "type": "tract",
-  "title": "dicta_codex tracts definition",
-  "description": "dictadata Storage Codex tracts definition",
+  "title": "dicta_cortex storage definition",
+  "description": "dictadata storage Cortex encoding definition",
   "tags": [
     "dictadata",
-    "codex",
+    "cortex",
     "tracts"
   ],
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "dicta_tracts",
+    "schema": "dicta_cortex",
     "key": "!domain+':'+name"
   },
   "fields": [

@@ -1,8 +1,8 @@
 /**
- * test/tracts/recall
+ * test/cortex/recall
  *
  * Test Outline:
- *   use tracts with Elasticsearch junction
+ *   use cortex with Elasticsearch junction
  *   recall tract definition for foo_transfer
  *   compare results to expected foo_transfer definition
  */
@@ -15,14 +15,14 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: tracts recall");
+logger.info("=== Tests: cortex recall");
 
 async function init() {
   try {
-    // activate tracts
-    let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
-    await tracts.activate();
-    Storage.tracts = tracts;
+    // activate cortex
+    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
+    await cortex.activate();
+    Storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -36,14 +36,14 @@ async function test(domain, tract_name, resolve = false) {
     logger.verbose('=== recall ' + tract_name);
 
     // recall tract definition
-    let results = await Storage.tracts.recall({ domain: domain, name: tract_name, resolve });
+    let results = await Storage.cortex.recall({ domain: domain, name: tract_name, resolve });
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.status !== 0) {
       retCode = results.status;
     }
     else {
-      let outputfile = "./data/output/tracts/" + (resolve ? "resolve_" : "recall_") + tract_name + ".tract.json";
+      let outputfile = "./data/output/cortex/" + (resolve ? "resolve_" : "recall_") + tract_name + ".tract.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -75,5 +75,5 @@ async function test(domain, tract_name, resolve = false) {
   else
     return 1;
 
-  await Storage.tracts.relax();
+  await Storage.cortex.relax();
 })();

@@ -1,8 +1,8 @@
 /**
- * test/tracts/tracts_add
+ * test/cortex/cortex_add
  *
  * Test Outline:
- *   use tracts with underlying Elasticsearch junction
+ *   use cortex with underlying Elasticsearch junction
  *   add tract definitions for test transfers
  */
 "use strict";
@@ -11,14 +11,14 @@ const Storage = require("../../storage");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
 
-logger.info("=== Tests: tracts add");
+logger.info("=== Tests: cortex add");
 
 async function init() {
   try {
-    // activate tracts
-    let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
-    await tracts.activate();
-    Storage.tracts = tracts;
+    // activate cortex
+    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
+    await cortex.activate();
+    Storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -41,7 +41,7 @@ async function test(tract_name) {
       entry.tags = [];
     entry.tags.push("foo");
 
-    let results = await Storage.tracts.store(entry);
+    let results = await Storage.cortex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
@@ -69,7 +69,7 @@ async function addAlias(alias, source) {
       tags: [ "foo", "alias" ]
     };
 
-    let results = await Storage.tracts.store(entry);
+    let results = await Storage.cortex.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
   }
   catch (err) {
@@ -96,5 +96,5 @@ async function addAlias(alias, source) {
   if (await addAlias("elasticsearch-foo_alias", "foo:elasticsearch-foo_transfer"))
     return 1;
 
-  await Storage.tracts.relax();
+  await Storage.cortex.relax();
 })();

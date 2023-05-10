@@ -11,7 +11,7 @@
  */
 "use strict";
 
-var Storage = require("./cortex");
+var Storage = require("./campus");
 module.exports = exports = Storage;
 
 //////////
@@ -133,4 +133,4 @@ exports.MapConstructsTransform = require("./transforms/mapConstructs");
 Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
 
 ///// Tracts class
-exports.Tracts = require("./tracts");
+exports.Cortex = require("./cortex");

@@ -1,23 +1,23 @@
 /**
- * test/tracts/dull
+ * test/cortex/dull
  *
  * Test Outline:
- *   use tracts with Elasticsearch junction
- *   dull tract definition for "foo_transfer_two" in tracts
+ *   use cortex with Elasticsearch junction
+ *   dull tract definition for "foo_transfer_two" in cortex
  */
 "use strict";
 
 const Storage = require("../../storage");
 const { logger } = require("../../storage/utils");
 
-logger.info("=== Tests: tracts dull");
+logger.info("=== Tests: cortex dull");
 
 async function init() {
   try {
-    // activate tracts
-    let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
-    await tracts.activate();
-    Storage.tracts = tracts;
+    // activate cortex
+    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
+    await cortex.activate();
+    Storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -30,7 +30,7 @@ async function test(domain, name) {
   try {
     logger.verbose('=== dull ' + name);
 
-    let results = await Storage.tracts.dull({ domain: domain, name: name });
+    let results = await Storage.cortex.dull({ domain: domain, name: name });
     logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
@@ -51,7 +51,7 @@ async function test_keys(keys) {
     for (let key of keys) {
       logger.verbose('=== dull ' + key);
 
-      let results = await Storage.tracts.dull(key);
+      let results = await Storage.cortex.dull(key);
       logger.info(JSON.stringify(results, null, "  "));
     }
   }
@@ -71,7 +71,7 @@ async function test_keys(keys) {
   // delete extraneous entries
   await test_keys(["foo:foo_alias" ]);
 
-  await Storage.tracts.relax();
+  await Storage.cortex.relax();
 
   // give Elasticsearch time to refresh its index
   await new Promise((r) => setTimeout(r, 1100));

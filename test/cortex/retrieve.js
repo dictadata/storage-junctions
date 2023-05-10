@@ -1,10 +1,10 @@
 /**
- * test/tracts/retrieve
+ * test/cortex/retrieve
  *
  * Test Outline:
- *   use tracts with Elasticsearch junction
+ *   use cortex with Elasticsearch junction
  *   retreive all entries starting with foo_transfer*
- *   compare results to expected tracts entries
+ *   compare results to expected cortex entries
  */
 "use strict";
 
@@ -15,14 +15,14 @@ const _compare = require("../lib/_compare");
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: tracts retrieve");
+logger.info("=== Tests: cortex retrieve");
 
 async function init() {
   try {
-    // activate tracts
-    let tracts = new Storage.Tracts("elasticsearch|http://dev.dictadata.net:9200/|dicta_tracts|*");
-    await tracts.activate();
-    Storage.tracts = tracts;
+    // activate cortex
+    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
+    await cortex.activate();
+    Storage.cortex = cortex;
   }
   catch (err) {
     logger.error(err);
@@ -35,8 +35,8 @@ async function test(tract_name) {
   try {
     logger.verbose('=== retrieve ' + tract_name);
 
-    // retrieve tracts entries
-    let results = await Storage.tracts.retrieve({
+    // retrieve cortex entries
+    let results = await Storage.cortex.retrieve({
       match: {
         "name": {
           wc: tract_name + "*"
@@ -44,7 +44,7 @@ async function test(tract_name) {
       }
     });
 
-    let outputfile = "./data/output/tracts/retrieve_" + tract_name + ".tract.json";
+    let outputfile = "./data/output/cortex/retrieve_" + tract_name + ".tract.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -66,5 +66,5 @@ async function test(tract_name) {
 
   if (await test("foo_transfer")) return 1;
 
-  await Storage.tracts.relax();
+  await Storage.cortex.relax();
 })();

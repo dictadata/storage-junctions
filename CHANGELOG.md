@@ -96,13 +96,13 @@
   - bug fix: improve handling HTTP responses with content-encoding (compressed HTTP message body)
   - bug fix: improve handling of stream errors
 - version 2.2.3
-  - enhancement: add options to Engram codex properties, passed to storage-junctions by cortex.activate
+  - enhancement: add options to Engram codex properties, passed to storage-junctions by campus.activate
   - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
   - testing: st_launcher testing parameters
 - version 2.2.2
   - add title to predefined codex properties
 - version 2.2.1
-  - refactor: Storage module, Cortex and Codex classes
+  - refactor: Storage module, Campus and Codex classes
 - version 2.1.6
   - update required node engine >= 16.4
 - version 2.1.5
@@ -118,7 +118,7 @@
 - version 2.1.1
   - refactor: codex entry is an engram definition
 - version 2.1.0
-  - refactor: Storage, Cortex classes; remove codex class
+  - refactor: Storage, Campus classes; remove codex class
   - refactor: parseSMT() to class SMT
 - version 2.0.8
   - bug fix: passing options thru codex to underlying junction
@@ -136,7 +136,7 @@
 - version 2.0.3
   - fix codex methods to return results object
 - version 2.0.2
-  - storatge/cortex/codex integration testing and updates
+  - storatge/campus/codex integration testing and updates
 - version 2.0.1
   - improve logic in Engram.encoding setter
 - version 2.0.0

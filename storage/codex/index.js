@@ -13,7 +13,7 @@
  */
 "use strict";
 
-const Cortex = require("../cortex");
+const Campus = require("../campus");
 const { SMT, Engram, StorageResults, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 const fs = require("node:fs");
@@ -105,7 +105,7 @@ module.exports = exports = class Codex {
       }
 
       // create the junction
-      this._junction = await Cortex.activate(this.smt, options);
+      this._junction = await Campus.activate(this.smt, options);
 
       // attempt to create codex schema
       let results = await this._junction.createSchema();

@@ -18,7 +18,7 @@
  */
 "use strict";
 
-const Cortex = require("../cortex");
+const Campus = require("../campus");
 const { SMT, Engram, StorageResults, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 const fs = require("node:fs");
@@ -117,7 +117,7 @@ module.exports = exports = class CodexStore {
       let s1 =  new SMT(smt);
       smt.key = s1.key;
 
-      this.engrams_junction = await Cortex.activate(smt, options);
+      this.engrams_junction = await Campus.activate(smt, options);
 
       let results = await this.engrams_junction.createSchema();
       if (results.status === 0) {
@@ -135,7 +135,7 @@ module.exports = exports = class CodexStore {
       let s2 =  new SMT(tracts_encoding.smt);
       smt.key = s2.key;
 
-      this.tracts_junction = await Cortex.activate(smt, options);
+      this.tracts_junction = await Campus.activate(smt, options);
 
       results = await this.tracts_junction.createSchema();
       if (results.status === 0) {

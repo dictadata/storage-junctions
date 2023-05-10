@@ -1,11 +1,11 @@
 /**
- * storage/cortex
+ * storage/campus
  *
  * Strategies, as static classes, for registering storage classes and creating storage objects.
  * Includes strategies for:
- *   Cortex.StorageJunctions
- *   Cortex.FileSystems
- *   Cortex.Transforms
+ *   Campus.StorageJunctions
+ *   Campus.FileSystems
+ *   Campus.Transforms
  */
 "use strict";
 
@@ -13,7 +13,7 @@ const { SMT, StorageError } = require("./types");
 const auth_stash = require("./auth-stash");
 //const { typeOf, hasOwnProperty } = require("./utils");
 
-class Cortex {
+class Campus {
 
   /**
    * auth
@@ -26,22 +26,22 @@ class Cortex {
    * Codex
    */
   static set codex(codex) {
-    Cortex._codex = codex;
+    Campus._codex = codex;
   }
 
   static get codex() {
-    return Cortex._codex;
+    return Campus._codex;
   }
 
   /**
-   * Tracts
+   * Cortex
    */
-  static set tracts(tracts) {
-    Cortex._tracts = tracts;
+  static set cortex(cortex) {
+    Campus._cortex = cortex;
   }
 
-  static get tracts() {
-    return Cortex._tracts;
+  static get cortex() {
+    return Campus._cortex;
   }
 
   /**
@@ -56,7 +56,7 @@ class Cortex {
    * @param {*} storageJunctionClass
    */
   static use(model, storageJunctionClass) {
-    Cortex._storageJunctions.set(model, storageJunctionClass);
+    Campus._storageJunctions.set(model, storageJunctionClass);
   }
 
   /**
@@ -71,9 +71,9 @@ class Cortex {
     if (!options) options = {};
 
     // lookup/verify SMT object
-    if (typeof smt === "string" && smt.indexOf('|') < 0 && Cortex.codex) {
+    if (typeof smt === "string" && smt.indexOf('|') < 0 && Campus.codex) {
       // lookup urn in codex
-      let results = await Cortex.codex.recall({
+      let results = await Campus.codex.recall({
         match: {
           key: smt
         },
@@ -101,8 +101,8 @@ class Cortex {
     }
 
     // create the junction
-    if (Cortex._storageJunctions.has(_smt.model)) {
-      let junctionClass = Cortex._storageJunctions.get(_smt.model);
+    if (Campus._storageJunctions.has(_smt.model)) {
+      let junctionClass = Campus._storageJunctions.get(_smt.model);
       let junction = new junctionClass(_smt, options);
       await junction.activate();
       return junction;
@@ -190,21 +190,21 @@ class FileSystems {
 
 }
 
+// Campus static properties
+Campus._codex;
+
 // Cortex static properties
-Cortex._codex;
+Campus._cortex;
 
 // Junction static properties
-Cortex._storageJunctions = new Map();
+Campus._storageJunctions = new Map();
 
 // Transforms static properties
 Transforms._transforms = new Map();
-Cortex.Transforms = Transforms;
+Campus.Transforms = Transforms;
 
 // FileSystems static properties
 FileSystems._fileSystems = new Map();
-Cortex.FileSystems = FileSystems;
+Campus.FileSystems = FileSystems;
 
-// Tracts static properties
-Cortex._tracts;
-
-module.exports = exports = Cortex;
+module.exports = exports = Campus;

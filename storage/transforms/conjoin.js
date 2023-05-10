@@ -4,7 +4,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const Cortex = require("../cortex");
+const Campus = require("../campus");
 const { logger, templateReplace } = require("../utils");
 
 /*
@@ -45,7 +45,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
 
     try {
       if (this.options.keepAlive)
-        this.junction = await Cortex.activate(this.options.smt, this.options.options);
+        this.junction = await Campus.activate(this.options.smt, this.options.options);
     }
     catch (err) {
       logger.error(err);
@@ -75,7 +75,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
         logger.debug("conjoin activate junction");
         let smt = templateReplace(this.options.smt, construct);
         logger.debug(JSON.stringify(smt, null, 2));
-        this.junction = await Cortex.activate(smt, options);
+        this.junction = await Campus.activate(smt, options);
       }
 
       // retrieve

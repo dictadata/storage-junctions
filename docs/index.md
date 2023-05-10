@@ -4,7 +4,7 @@
 
 ## Core Functionality
 
-* [Storage Cortex](cortex.md)
+* [Storage Campus](campus.md)
 * [Codex Data Directory and Schema Definitions](codex.md)
   * [smt_urn - Codex key field](types/smt_urn.md)
   * [authStash - credentials file](auth-stash.md)

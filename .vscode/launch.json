@@ -840,14 +840,14 @@
     },
     {
       "type": "node-terminal",
-      "name": "--- tracts",
+      "name": "--- cortex",
       "request": "launch"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts in-memory",
-      "program": "${workspaceFolder}/test/tracts/tracts_in-memory.js",
+      "name": "cortex in-memory",
+      "program": "${workspaceFolder}/test/cortex/cortex_in-memory.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -857,8 +857,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts store",
-      "program": "${workspaceFolder}/test/tracts/store.js",
+      "name": "cortex store",
+      "program": "${workspaceFolder}/test/cortex/store.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -868,8 +868,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts recall",
-      "program": "${workspaceFolder}/test/tracts/recall.js",
+      "name": "cortex recall",
+      "program": "${workspaceFolder}/test/cortex/recall.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -879,8 +879,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts dull",
-      "program": "${workspaceFolder}/test/tracts/dull.js",
+      "name": "cortex dull",
+      "program": "${workspaceFolder}/test/cortex/dull.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -890,8 +890,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts retrieve",
-      "program": "${workspaceFolder}/test/tracts/retrieve.js",
+      "name": "cortex retrieve",
+      "program": "${workspaceFolder}/test/cortex/retrieve.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -901,8 +901,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts add",
-      "program": "${workspaceFolder}/test/tracts/tracts_add.js",
+      "name": "cortex add",
+      "program": "${workspaceFolder}/test/cortex/cortex_add.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -912,8 +912,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "tracts use",
-      "program": "${workspaceFolder}/test/tracts/tracts_use.js",
+      "name": "cortex use",
+      "program": "${workspaceFolder}/test/cortex/cortex_use.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

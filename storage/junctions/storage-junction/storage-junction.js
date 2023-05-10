@@ -1,6 +1,6 @@
 "use strict";
 
-const Cortex = require('../../cortex');
+const Campus = require('../../campus');
 const { Engram, StorageResults, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 
@@ -69,7 +69,7 @@ module.exports = exports = class StorageJunction {
     this.isActive = false;
 
     if (this._fileSystem)
-      await Cortex.FileSystems.relax(this._fileSystem);
+      await Campus.FileSystems.relax(this._fileSystem);
     this._fileSystem = null;
   }
 
@@ -252,7 +252,7 @@ module.exports = exports = class StorageJunction {
   async createTransform(tfType, options) {
     // options = Object.assign({}, this.options, options);
     // let transform_options = options.transform || options.transforms || options || {};
-    let transform = await Cortex.Transforms.create(tfType, options);
+    let transform = await Campus.Transforms.create(tfType, options);
     return transform;
   }
 
@@ -272,7 +272,7 @@ module.exports = exports = class StorageJunction {
       throw new StorageError(405);
 
     if (!this._fileSystem)
-      this._fileSystem = await Cortex.FileSystems.activate(this.smt, this.options);
+      this._fileSystem = await Campus.FileSystems.activate(this.smt, this.options);
     return this._fileSystem;
   }
 
