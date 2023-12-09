@@ -49,7 +49,7 @@ async function testTransfer1() {
 
 async function testTransfer2() {
 
-  logger.verbose("=== Transfer points.zip to geoJSON");
+  logger.verbose("=== Transfer2 points.zip to geoJSON");
   if (await transfer({
     origin: {
       smt: "shp|zip:./data/input/shapes/points.zip|points|*",
@@ -61,7 +61,7 @@ async function testTransfer2() {
     }
   }, compareValues)) return 1;
 
-  logger.verbose("=== Transfer points.zip to elasticsearch");
+  logger.verbose("=== Transfer2 points.zip to elasticsearch");
   if (await transfer({
     origin: {
       smt: "shp|zip:./data/input/shapes/points.zip|points|*",
@@ -86,7 +86,7 @@ async function testTransfer2() {
 
 async function testTransfer3() {
 
-  logger.verbose("=== Transfer elastic shapes to geoJSON");
+  logger.verbose("=== Transfer3 elastic shapes to geoJSON");
   compareValues = 2;
   if (await transfer({
     "origin": {
@@ -108,7 +108,10 @@ async function testTransfer3() {
 }
 
 (async () => {
-  if (await testTransfer1()) return;
-  if (await testTransfer2()) return;
-  if (await testTransfer3()) return;
+  let rc = await testTransfer1();
+  if (rc) return 1;
+  rc = await testTransfer2();
+  if (rc) return 1;
+  rc = await testTransfer3();
+  if (rc) return 1;
 })();

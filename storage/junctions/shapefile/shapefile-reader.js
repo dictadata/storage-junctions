@@ -1,6 +1,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
+const { StorageError } = require("../../types");
 const { logger } = require('../../utils');
 
 const shapefile = require('shapefile');
@@ -15,7 +16,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
-    this.schemafile = this.options.schema || this.smt.schema;
+    this.schemafile = this.options?.schema || options?.name || this.smt.schema;
 
     this.started = false;
     this.done = false;
@@ -35,8 +36,23 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
         // start the reader
         logger.debug('ShapeFileReader start');
         this.stfs = await this.junction.getFileSystem();
+
+        if (! await this.stfs.exists({ schema: this.schemafile + '.shp' }))
+          throw new StorageError(404);
+
         this.shp = await this.stfs.createReadStream({ schema: this.schemafile + '.shp' });
         this.dbf = await this.stfs.createReadStream({ schema: this.schemafile + '.dbf' });
+
+        this.shp.on('error',
+          (err) => {
+            logger.error("ShapeFileReader .shp stream error: " + err.message);
+          }
+        );
+        this.dbf.on('error',
+          (err) => {
+            logger.error("ShapeFileReader .dbf stream error: " + err.message);
+          }
+        );
 
         this.started = true;
         this.source = await shapefile.open(this.shp, this.dbf);
@@ -55,8 +71,8 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
       }
     }
     catch (err) {
-      console.log("shapefile reader: " + err.message);
-      this.destroy(err);
+      logger.error(`ShapeFileReader read error: ${err.message}`);
+      this.destroy(this.stfs.Error(err));
     }
   }
 

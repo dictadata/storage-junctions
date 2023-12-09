@@ -64,7 +64,7 @@ class MemoryJunction extends StorageJunction {
   async list(options) {
     logger.debug('MemoryJunction list');
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
     let list = [];
 
     try {
@@ -80,7 +80,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
 
     return new StorageResults(0, null, list);
@@ -102,7 +102,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -130,7 +130,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -142,7 +142,7 @@ class MemoryJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('MemoryJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
 
     try {
       let entry = _storage.get(this.smt.locus + schema);
@@ -156,7 +156,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -185,7 +185,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -218,7 +218,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -251,7 +251,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
 
   }
@@ -276,7 +276,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
 
   }
@@ -311,7 +311,7 @@ class MemoryJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 

@@ -14,7 +14,7 @@ logger.info("=== Test: mysql createSchema");
 async function test(schema, encoding) {
 
   logger.info("=== createSchema " + schema);
-  if (await createSchema({
+  let retCode = await createSchema({
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*",
       options: {
@@ -25,21 +25,24 @@ async function test(schema, encoding) {
         encoding: "./data/input/encodings/" + encoding + ".encoding.json"
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
-  logger.info("=== dull (truncate) " + schema);
-  if (await dull({
-    origin: {
-      smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*"
-    }
-  })) return 1;
-
+  if (retCode < 0) {
+    // if schema already exists then truncate constructs
+    logger.info("=== dull (truncate) " + schema);
+    if (await dull({
+      origin: {
+        smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*"
+      }
+    })) return 1;
+  }
 }
 
 async function test_lg() {
 
   logger.info("=== mysql large fields");
-  if (await createSchema({
+  let retCode = await createSchema({
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_lg|*",
       options: {
@@ -50,7 +53,8 @@ async function test_lg() {
         }
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
 }
 
@@ -59,8 +63,8 @@ async function test_origin(schema, encoding) {
   let ca_file = fs.readFileSync(homedir + "/.dictadata/ec2_mysql-ca.pem");
   // console.log(typeOf(ca_file));
 
-  logger.info("=== createSchema " + schema);
-  if (await createSchema({
+  logger.info("=== origin createSchema " + schema);
+  let retCode = await createSchema({
     origin: {
       smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*",
       options: {
@@ -75,25 +79,28 @@ async function test_origin(schema, encoding) {
         encoding: "./data/input/encodings/" + encoding + ".encoding.json"
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
-  logger.info("=== dull (truncate) " + schema);
-  if (await dull({
-    origin: {
-      smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*",
-      options: {
-        auth: {
-          username: "dicta",
-          password: "data"
-        },
-        ssl: {
-          ca: ca_file,
-          rejectUnauthorized: true
+  if (retCode < 0) {
+    // if schema already exists then truncate constructs
+    logger.info("=== origin dull (truncate) " + schema);
+    if (await dull({
+      origin: {
+        smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*",
+        options: {
+          auth: {
+            username: "dicta",
+            password: "data"
+          },
+          ssl: {
+            ca: ca_file,
+            rejectUnauthorized: true
+          }
         }
       }
-    }
-  })) return 1;
-
+    })) return 1;
+  }
 }
 
 (async () => {

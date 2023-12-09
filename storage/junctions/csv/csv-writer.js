@@ -4,8 +4,6 @@ const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
 const { formatDate, logger } = require("../../utils");
 
-const path = require('path');
-
 
 module.exports = exports = class CSVWriter extends StorageWriter {
 
@@ -34,27 +32,29 @@ module.exports = exports = class CSVWriter extends StorageWriter {
    */
   async _write(construct, encoding, callback) {
     logger.debug("CSVWriter._write");
-    //logger.debug(JSON.stringify(construct));
+
     // check for empty construct
+    //logger.debug(JSON.stringify(construct));
     if (Object.keys(construct).length === 0) {
       callback();
       return;
     }
 
+    let stfs;
     try {
       // save construct to .schema
       //this.junction.store(construct);  // not sure if this would be better
 
       // check if file is open
       if (!this.ws) {
-        let stfs = await this.junction.getFileSystem();
-        this.ws = await stfs.createWriteStream(this.options);
-        this.ws.on("error",
+        this.stfs = await this.junction.getFileSystem();
+        this.ws = await this.stfs.createWriteStream(this.options);
+        this.ws.on('error',
           (err) => {
-            this.destroy(err);
+            this.destroy(this.stfs.Error(err));
           });
 
-        if (stfs.isNewFile && this.options.header) {
+        if (this.stfs.isNewFile && this.options.header) {
           // new file, write header line
           let headers = '"' + this.engram.names.join('","') + '"\n';
           await this.ws.write(headers);
@@ -106,7 +106,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(this.stfs.Error(err, 'CSVWriter write error '));
     }
   }
 
@@ -130,7 +130,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(this.stfs.Error(err));
     }
   }
 
@@ -159,7 +159,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      callback(this.stfs.Error(err));
     }
   }
 

@@ -1,4 +1,17 @@
-console.log("test numbers with delimiters");
+console.log("----- test paths");
+
+function testPath() {
+  var rx = new RegExp(/^Ames\/.*\.shp$/);
+  console.log(rx.test("Ames/Ames Precincts.shp"));
+
+  rx = new RegExp(/^Ames\/.*\.shp$/);
+  console.log(rx.test("Ames/Ames Precincts.shp"));
+}
+
+
+testPath();
+
+console.log("----- test numbers with delimiters");
 console.log("integer, number, currency, value");
 
 function testInteger(value) {

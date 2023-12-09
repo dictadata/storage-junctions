@@ -19,7 +19,7 @@
     "name": "Ames Precincts.dat",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/Ames Precincts.dat",
+    "rpath": "Ames Precincts.dat",
     "date": "2011-09-01T15:37:16.000Z"
   },
   {
@@ -42,7 +42,7 @@
     "name": "Ames Precincts.dbd",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/Ames Precincts.dbd",
+    "rpath": "Ames Precincts.dbd",
     "date": "2011-09-01T15:37:16.000Z"
   },
   {
@@ -65,7 +65,7 @@
     "name": "AMES PRECINCTS.DBF",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/AMES PRECINCTS.DBF",
+    "rpath": "AMES PRECINCTS.DBF",
     "date": "2011-09-01T15:31:00.000Z"
   },
   {
@@ -88,7 +88,7 @@
     "name": "Ames Precincts.key",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/Ames Precincts.key",
+    "rpath": "Ames Precincts.key",
     "date": "2011-09-01T15:37:16.000Z"
   },
   {
@@ -111,7 +111,7 @@
     "name": "Ames Precincts.prj",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/Ames Precincts.prj",
+    "rpath": "Ames Precincts.prj",
     "date": "2011-09-01T15:31:00.000Z"
   },
   {
@@ -134,7 +134,7 @@
     "name": "Ames Precincts.shp",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/Ames Precincts.shp",
+    "rpath": "Ames Precincts.shp",
     "date": "2011-09-01T15:31:00.000Z"
   },
   {
@@ -157,7 +157,7 @@
     "name": "Ames Precincts.shx",
     "isDirectory": false,
     "comment": null,
-    "rpath": "Ames/Ames Precincts.shx",
+    "rpath": "Ames Precincts.shx",
     "date": "2011-09-01T15:31:00.000Z"
   }
 ]

@@ -70,10 +70,10 @@ async function test4() {
 
 async function test5() {
 
-  logger.info("=== shapefile getEncoding from goofy .zip");
+  logger.info("=== shapefile getEncoding from Ames.zip");
   if (await getEncoding({
     origin: {
-      smt: "shp|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip|~1|*",
+      smt: "shp|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|~1|*",
       options: {}
     },
     terminal: {

@@ -10,7 +10,7 @@ logger.info("=== Tests: json data transfers");
 
 async function tests() {
 
-  logger.verbose('=== json_output.json');
+  logger.verbose('=== transfer_1.json');
   if (await transfer({
     origin: {
       smt: "json|./data/input/|foofile.json|*"
@@ -21,7 +21,18 @@ async function tests() {
     }
   })) return 1;
 
-  logger.verbose('=== json_output.csv');
+  logger.verbose('=== transfer_badfile.json');
+  if (await transfer({
+    origin: {
+      smt: "json|./data/input/|foofile_badfile.json|*"
+    },
+    terminal: {
+      smt: "json|./data/output/json/|transfer_badfile.json|*",
+      output: "./data/output/json/transfer_badfile.json"
+    }
+  }, -1)) return 1;
+
+  logger.verbose('=== transfer_2.csv');
   if (await transfer({
     origin: {
       smt: "json|./data/input/|foofile.json|*"
@@ -65,6 +76,20 @@ async function tests() {
     terminal: {
       smt: "jsons|./data/output/json/|transfer_s.txt|*",
       output: "./data/output/json/transfer_s.txt"
+    }
+  })) return 1;
+
+  logger.verbose('=== transfer_dataPath.json');
+  if (await transfer({
+    origin: {
+      smt: "json|./data/input/|foofile.json|*",
+      options: {
+        dataPath: "/var/data/dictadata.net/"
+      }
+    },
+    terminal: {
+      smt: "json|./data/output/json/|transfer_dataPath.json|*",
+      output: "./data/output/json/transfer_dataPath.json"
     }
   })) return 1;
 

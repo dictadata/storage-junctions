@@ -10,7 +10,6 @@ const { logger } = require("../../utils");
 const ShapeFileReader = require("./shapefile-reader");
 const ShapeFileWriter = require("./shapefile-writer");
 
-const path = require('path');
 const stream = require('stream/promises');
 const shapefile = require('shapefile');
 
@@ -57,8 +56,9 @@ class ShapeFileJunction extends StorageJunction {
         this.smt.schema = this.engram.name = entry.name.substring(0, entry.name.length - 4);
 
         let pl = entry.rpath.length - entry.name.length;
-        stfs.prefix += entry.rpath.substring(0, pl);
-        this.smt.locus += "/" + stfs.prefix;
+        if (pl > 0)
+          stfs.prefix += entry.rpath.substring(0, pl);
+        //this.smt.locus += "/" + stfs.prefix;
       }
     }
   }
@@ -89,7 +89,7 @@ class ShapeFileJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 

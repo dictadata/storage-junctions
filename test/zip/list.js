@@ -39,16 +39,29 @@ async function test() {
     }
   })) return 1;
 
-  logger.info("=== list zip directory - recursive");
+  logger.info("=== list zip files - recursive");
   if (await list({
     origin: {
-      smt: "*|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|*|*",
+      smt: "*|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip|*|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      output: "./data/output/zip/list_ames.json"
+      output: "./data/output/zip/list_AmesZip.json"
+    }
+  })) return 1;
+
+  logger.info("=== list zip by prefix ");
+  if (await list({
+    origin: {
+      smt: "*|zip:/var/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|*|*",
+      options: {
+        recursive: false
+      }
+    },
+    terminal: {
+      output: "./data/output/zip/list_AmesPrefix.json"
     }
   })) return 1;
 

@@ -74,7 +74,7 @@ class ParquetJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -139,7 +139,7 @@ class ParquetJunction extends StorageJunction {
       // console.log('There will be no more data.');
     });
     rs.on('error', (err) => {
-      storageResults = new StorageError(500).inner(err);
+      storageResults = this.Error(err);
     });
 
     await stream.finished(rs);

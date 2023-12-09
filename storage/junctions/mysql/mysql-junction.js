@@ -109,7 +109,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let list = [];
 
       let rx = '^' + schema + '$';
@@ -131,7 +131,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -164,7 +164,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(404, 'no such table');
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -200,7 +200,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -212,7 +212,7 @@ class MySQLJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('MySQLJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
 
     try {
       let sql = "DROP TABLE " + schema + ";";
@@ -224,7 +224,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(404, 'no such table');
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -258,7 +258,7 @@ class MySQLJunction extends StorageJunction {
       }
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -292,7 +292,7 @@ class MySQLJunction extends StorageJunction {
       }
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -325,7 +325,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -356,7 +356,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -392,7 +392,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 

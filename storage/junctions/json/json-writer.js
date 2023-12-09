@@ -33,21 +33,21 @@ module.exports = exports = class JSONWriter extends StorageWriter {
             opening: '',
             delimiter: '',
             closing: ''
-          }
+          };
           break;
         case 'jsonl':
           this.formation = {
             opening: '',
             delimiter: '\n',
             closing: ''
-          }
+          };
           break;
         case 'jsono':
           this.formation = {
             opening: '{\n',
             delimiter: ',\n',
             closing: '\n}'
-          }
+          };
           break;
         case 'jsona':
         case 'json':
@@ -56,8 +56,10 @@ module.exports = exports = class JSONWriter extends StorageWriter {
             opening: '[\n',
             delimiter: ',\n',
             closing: '\n]'
-          }
+          };
       }
+
+    this.stfs;
   }
 
   /**
@@ -80,11 +82,11 @@ module.exports = exports = class JSONWriter extends StorageWriter {
 
       // check if file is open
       if (this.ws === null) {
-        let stfs = await this.junction.getFileSystem();
-        this.ws = await stfs.createWriteStream(this.options);
-        this.ws.on("error",
+        this.stfs = await this.junction.getFileSystem();
+        this.ws = await this.stfs.createWriteStream(this.options);
+        this.ws.on('error',
           (err) => {
-            this.destroy(err);
+            this.destroy(this.Error(err));
           });
         // write opening, if any
         if (this.formation.opening) await this.ws.write(this.formation.opening);
@@ -125,7 +127,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(this.stfs.Error(err, 'JSONWriter write error'));
     }
 
   }
@@ -150,7 +152,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(this.stfs.Error('JSONWriter writev error'));
     }
   }
 
@@ -182,8 +184,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
-      callback(new StorageError(500, 'Error _final').inner(err));
+      // logger.error(err);
+      callback(this.stfs.Error(err, 'Error _final'));
     }
   }
 

@@ -27,6 +27,23 @@ async function tests() {
     }
   })) return 1;
 
+  logger.verbose('=== csv > transfer_badfile.csv');
+  if (await transfer({
+    origin: {
+      smt: "csv|./data/input/|foofile_badfile.csv|*",
+      options: {
+        header: true
+      }
+    },
+    terminal: {
+      smt: "csv|./data/output/csv/|transfer_badfile.csv|*",
+      options: {
+        header: true
+      },
+      output: "./data/output/csv/transfer_badfile.csv"
+    }
+  }, -1)) return 1;
+
   logger.verbose('=== csv > csv_output_noheader.csv');
   if (await transfer({
     origin: {
@@ -87,8 +104,28 @@ async function tests() {
       "output": "./data/output/csv/transfer_timeseries.json"
     }
   })) return 1;
+
+  logger.verbose('=== csv > transfer_dataPath.csv');
+  if (await transfer({
+    origin: {
+      smt: "csv|./data/input/|foofile.csv|*",
+      options: {
+        dataPath: "/var/data/dictadata.net/",
+        header: true
+      }
+    },
+    terminal: {
+      smt: "csv|./data/output/csv/|transfer_dataPath.csv|*",
+      options: {
+        header: true
+      },
+      output: "./data/output/csv/transfer_dataPath.csv"
+    }
+  })) return 1;
+
 }
 
 (async () => {
-  if (await tests()) return;
+  let rc = await tests();
+  if (rc) return 1;
 })();

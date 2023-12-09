@@ -9,7 +9,7 @@ const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: zip transfers");
 
-async function test_01() {
+async function tests() {
   logger.verbose("=== zip source");
 
   logger.verbose('=== zip foofile.json');
@@ -26,7 +26,7 @@ async function test_01() {
   logger.verbose('=== zip foofile_01.json');
   if (await transfer({
     origin: {
-      smt: "json|zip:./data/input/foofile.zip|subfolder/foofile_01.json|*",
+      smt: "json|zip:./data/input/foofile.zip/subfolder/|foofile_01.json|*",
       options: {}
     },
     terminal: {
@@ -38,5 +38,6 @@ async function test_01() {
 }
 
 (async () => {
-  if (await test_01()) return;
+  let rc = await tests();
+  if (rc) return 1;
 })();

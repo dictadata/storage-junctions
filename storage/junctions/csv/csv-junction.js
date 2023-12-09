@@ -63,7 +63,7 @@ class CSVJunction extends StorageJunction {
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {
-          logger.error("csv codify reader: " + error.message);
+          logger.error(`csv getEncoding reader: ${error.message}`);
         });
 
         let codify = await this.createTransform("codify", options);
@@ -77,8 +77,8 @@ class CSVJunction extends StorageJunction {
     catch (err) {
       if (e instanceof StorageError)
         throw err;
-      logger.error(err);
-      throw new StorageError(500).inner(err);
+      // logger.error(err);
+      throw this.Error(err);
     }
   }
 
@@ -130,7 +130,7 @@ class CSVJunction extends StorageJunction {
       storageResults.setResults(0);
     });
     rs.on('error', (err) => {
-      storageResults = new StorageError(500).inner(err);
+      storageResults = this.Error(err);
     });
 
     await stream.finished(rs);

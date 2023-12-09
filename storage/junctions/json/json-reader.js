@@ -1,9 +1,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
+const { StorageError } = require('../../types');
 const { logger } = require('../../utils');
-
-const path = require('path');
 
 const { parser } = require('stream-json/Parser');
 const { streamValues } = require('stream-json/streamers/StreamValues');
@@ -67,7 +66,7 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.select(construct);
 
         if (statistics.count % 1000 === 0)
-          logger.verbose(statistics.count);
+          logger.debug(statistics.count);
 
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
@@ -86,7 +85,7 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     pipeline.on('error', function (err) {
       logger.error("JSONReader parser err " + err.message);
-      throw err;
+      // throw err;
     });
 
     // convert array to object
@@ -111,6 +110,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       return c;
     }
 
+    this.stfs;
   }
 
   /**
@@ -122,20 +122,27 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     if (!this.started) {
       // start the reader
-      let stfs = await this.junction.getFileSystem();
-      var rs = await stfs.createReadStream(this.options);
-      rs.setEncoding(this.options.fileEncoding || "utf8");
-      rs.on("error",
-        (err) => {
-          logger.error("JSONReader parser error: " + err.message);
-          this.destroy(err);
-        }
-      );
-      rs.pipe(this.pipeline);
-      this.started = true;
+      try {
+        this.stfs = await this.junction.getFileSystem();
+        var rs = await this.stfs.createReadStream(this.options);
+
+        rs.setEncoding(this.options.fileEncoding || "utf8");
+        rs.on('error',
+          (err) => {
+            logger.error("JSONReader parser error: " + err.message);
+            this.destroy(this.stfs.Error(err));
+          }
+        );
+        rs.pipe(this.pipeline);
+        this.started = true;
+      }
+      catch (err) {
+        logger.debug("JSONReader read error: " + err.message);
+        this.destroy(this.stfs.Error(err));
+      }
     }
     else if (this.myParser.isPaused()) {
-      logger.debug("json reader parser paused")
+      logger.debug("json reader parser paused");
       this.myParser.resume();
     }
     else if (this.myParser.destroyed || !this.myParser.readable) {

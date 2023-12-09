@@ -276,4 +276,21 @@ module.exports = exports = class StorageJunction {
     return this._fileSystem;
   }
 
+  /**
+   * Convert a source datastore error into a StorageResponse
+   *
+   * @param {*} err a source error object
+   * @returns a new StorageError object
+   */
+  Error(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = status in err ? err.status : 500;
+
+    // derived classes should override method
+    // and implement error conversion logic
+
+    return new StorageError(status).inner(err);
+  }
 };

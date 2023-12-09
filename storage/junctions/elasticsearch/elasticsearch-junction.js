@@ -101,7 +101,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let list = [];
 
       // get Lucene catalog list of indexes
@@ -199,7 +199,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
 
       let response = await this.elasticQuery.deleteIndex(schema);
 
@@ -248,7 +248,7 @@ class ElasticsearchJunction extends StorageJunction {
     }
     catch (err) {
       logger.error("elasticsearch store: " + err.message);
-      logger.debug(err);
+      logger.error(err);
       throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }
@@ -298,7 +298,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(404);
 
       logger.error(err.message);
-      logger.debug(err);
+      logger.error(err);
       throw new StorageError(err.statusCode || 500, err.message).inner(err);
     }
   }

@@ -14,7 +14,7 @@ logger.info("===== elasticsearch createSchema ");
 async function test(schema, encoding) {
 
   logger.info("=== createSchema " + schema);
-  if (await createSchema({
+  let retCode = await createSchema({
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
@@ -22,21 +22,25 @@ async function test(schema, encoding) {
         refresh: true
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
-  logger.info("=== dull (truncate) " + schema);
-  if (await dull({
-    origin: {
-      smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
-    }
-  })) return 1;
-
+  if (retCode < 0) {
+    // if schema already exists then truncate constructs
+    logger.info("=== dull (truncate) " + schema);
+    if (await dull({
+      origin: {
+        smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
+      }
+    })) return 1;
+  }
 }
 
 async function test_lg() {
+  logger.info("=== elasticsearch test_lg large fields");
 
-  logger.info("=== elasticsearch large fields");
-  if (await createSchema({
+  logger.info("=== createSchema foo_schema_lg");
+  let retCode = await createSchema({
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_lg|*",
       options: {
@@ -47,16 +51,18 @@ async function test_lg() {
         }
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
 }
 
 async function test_origin(schema, encoding) {
+  logger.info("=== elasticsearch test_origin");
 
   let ca_file = fs.readFileSync(homedir + "/.dictadata/ec2_elasticsearch-ca.pem");
 
   logger.info("=== createSchema " + schema);
-  if (await createSchema({
+  let retCode = await createSchema({
     origin: {
       smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
       options: {
@@ -71,24 +77,27 @@ async function test_origin(schema, encoding) {
         }
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
-  logger.info("=== dull (truncate) " + schema);
-  if (await dull({
-    origin: {
-      smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
-      options: {
-        auth: {
-          apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="
-        },
-        tls: {
-          ca: ca_file,
-          rejectUnauthorized: true
+  if (retCode < 0) {
+    // if schema already exists then truncate constructs
+    logger.info("=== dull (truncate) " + schema);
+    if (await dull({
+      origin: {
+        smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
+        options: {
+          auth: {
+            apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="
+          },
+          tls: {
+            ca: ca_file,
+            rejectUnauthorized: true
+          }
         }
       }
-    }
-  })) return 1;
-
+    })) return 1;
+  }
 }
 
 (async () => {
@@ -97,6 +106,7 @@ async function test_origin(schema, encoding) {
   if (await test("foo_schema_01", "foo_schema_01")) return;
   if (await test("foo_schema_02", "foo_schema_02")) return;
   if (await test("foo_schema_two", "foo_schema_two")) return;
+
   if (await test_lg()) return;
 
   if (await test_origin("foo_schema", "foo_schema")) return;

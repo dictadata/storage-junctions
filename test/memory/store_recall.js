@@ -14,14 +14,15 @@ const { logger } = require('../../storage/utils');
 (async () => {
 
   logger.info("=== createSchema foo_schema");
-  if (await _createSchema({
+  let retCode = await _createSchema({
     origin: {
       smt: "memory|testgroup|foo_schema|!Foo",
       options: {
         encoding: "./data/input/encodings/foo_schema.encoding.json"
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
   if (await store.runTests()) return 1;
   if (await recall.runTests()) return 1;

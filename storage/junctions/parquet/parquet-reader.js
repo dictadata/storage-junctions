@@ -52,7 +52,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
         //logger.debug(JSON.stringify(data.value));
 
         if (statistics.count % 1000 === 0)
-          logger.verbose(statistics.count);
+          logger.debug(statistics.count);
 
         if (max >= 0 && statistics.count >= max) {
           reader.push(null);
@@ -84,16 +84,22 @@ module.exports = exports = class ParquetReader extends StorageReader {
 
     if (!this.started) {
       // start the reader
-      let stfs = await this.junction.getFileSystem();
-      var rs = await stfs.createReadStream(this.options);
-      rs.setEncoding(this.options.fileEncoding || "utf8");
-      rs.on("error",
-        (err) => {
-          this.destroy(err);
-        }
-      );
-      rs.pipe(this.parser);
-      this.started = true;
+      try {
+        let stfs = await this.junction.getFileSystem();
+        var rs = await stfs.createReadStream(this.options);
+        rs.setEncoding(this.options.fileEncoding || "utf8");
+        rs.on('error',
+          (err) => {
+            this.destroy(err);
+          }
+        );
+        rs.pipe(this.parser);
+        this.started = true;
+      }
+      catch (err) {
+        logger.debug("ParquetReader reader error: " + err.message);
+        this.destroy(err);
+      }
     }
     else if (this.parser.isPaused()) {
       // resume reading

@@ -1,0 +1,33 @@
+/**
+ * test/shapefile
+ */
+"use strict";
+
+const transfer = require('../lib/_transfer');
+const { logger } = require('../../storage/utils');
+
+logger.info("=== shapefile transfer badfile");
+
+
+async function tests() {
+
+  logger.verbose("=== Transfer polygons_badfile");
+  if (await transfer({
+    origin: {
+      smt: "shp|./data/input/shapes/|polygons_badfile|*"
+    },
+    terminal: {
+      smt: "json|./data/output/shapefile/|polygons_badfile.json|*",
+      output: "./data/output/shapefile/polygons_badfile.json"
+    }
+  }, -1))
+    return 1;
+
+}
+
+(async () => {
+  logger.verbose("... begin tests ...");
+  let rc = await tests();
+  if (rc) return 1;
+  logger.verbose("... end of tests ...");
+})();

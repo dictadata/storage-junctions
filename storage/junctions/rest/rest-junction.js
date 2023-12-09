@@ -70,7 +70,7 @@ class RESTJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -91,7 +91,7 @@ class RESTJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('RESTJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
 
     // junctions that don't use filesystems should override the dullSchema() method
     throw new StorageError(501);
@@ -112,7 +112,7 @@ class RESTJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -180,7 +180,7 @@ class RESTJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -249,7 +249,7 @@ class RESTJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -269,7 +269,7 @@ class RESTJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 

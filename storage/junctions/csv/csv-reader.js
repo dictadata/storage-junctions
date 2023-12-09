@@ -1,6 +1,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
+const { StorageError } = require('../../types');
 const { logger } = require('../../utils');
 
 const chain = require('stream-chain');
@@ -72,10 +73,11 @@ module.exports = exports = class CSVReader extends StorageReader {
     });
 
     pipeline.on('error', function (err) {
-      //logger.error(err);
-      throw err;
+      logger.error(err);
+      // throw err;
     });
 
+    this.stfs;
   }
 
   /**
@@ -87,17 +89,24 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     if (!this.started) {
       // start the reader
-      let stfs = await this.junction.getFileSystem();
-      var rs = await stfs.createReadStream(this.options);
-      rs.setEncoding(this.options.fileEncoding || "utf8");
-      rs.on("error",
-        (err) => {
-          logger.error("JSONReader parser error: " + err.message);
-          this.destroy(err);
-        }
-      );
-      rs.pipe(this.pipeline);
-      this.started = true;
+      let rs;
+      try {
+        this.stfs = await this.junction.getFileSystem();
+        rs = await this.stfs.createReadStream(this.options);
+        rs.setEncoding(this.options.fileEncoding || "utf8");
+        rs.on('error',
+          (err) => {
+            logger.error(`CSVReader parser error: ${err.message}`);
+            this.destroy(this.stfs.Error(err));
+          }
+        );
+        rs.pipe(this.pipeline);
+        this.started = true;
+      }
+      catch (err) {
+        logger.error(`CSVReader read error: ${err.message}`);
+        this.destroy(this.stfs.Error(err));
+      }
     }
     else if (this.pipeline.isPaused()) {
       // resume reading

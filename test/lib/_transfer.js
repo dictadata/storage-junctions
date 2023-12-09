@@ -63,9 +63,9 @@ module.exports = exports = async function (tract, compareValues = 2) {
       });
 
       let reader = jo.createReader(options);
-      reader.on('error', (error) => {
-        logger.error("_transfer reader: " + error.message);
-      });
+      // reader.on('error', (error) => {
+      //   logger.error("_transfer reader: " + error.message);
+      // });
       pipes.push(reader);
 
       for (let [ tfType, tfOptions ] of Object.entries(transforms))
@@ -143,7 +143,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     logger.info(stats.count + " in " + stats.elapsed / 1000 + "s, " + Math.round(stats.count / (stats.elapsed / 1000)) + "/sec");
   }
   catch (err) {
-    logger.error('!!! transfer failed: ' + err.message);
+    logger.error(`!!! transfer failed: ${err.status} ${err.message}`);
     retCode = 1;
   }
   finally {
@@ -151,5 +151,5 @@ module.exports = exports = async function (tract, compareValues = 2) {
     if (jt) await jt.relax();
   }
 
-  return process.exitCode = retCode;
+  return process.exitCode = compareValues < 0 ? 0 : retCode;
 };

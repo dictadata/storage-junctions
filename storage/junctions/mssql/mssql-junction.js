@@ -156,7 +156,7 @@ class MSSQLJunction extends StorageJunction {
     logger.debug('MSSQLJunction.list');
 
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
     let list = [];
 
     try {
@@ -176,7 +176,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -205,7 +205,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -241,7 +241,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -253,7 +253,7 @@ class MSSQLJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('MSSQLJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
 
     try {
       let sql = "DROP TABLE " + schema;
@@ -265,7 +265,7 @@ class MSSQLJunction extends StorageJunction {
         return new StorageResults(404, "table not found");
 
       logger.error(err.number, err.message);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -309,7 +309,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -342,7 +342,7 @@ class MSSQLJunction extends StorageJunction {
         return new StorageResults(err.number, err.message);
 
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -377,7 +377,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -411,7 +411,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -445,7 +445,7 @@ class MSSQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 

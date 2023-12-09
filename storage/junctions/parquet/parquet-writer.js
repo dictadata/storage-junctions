@@ -46,7 +46,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       if (this.ws === null) {
         let stfs = await this.junction.getFileSystem();
         this.ws = await stfs.createWriteStream(this.options);
-        this.ws.on("error",
+        this.ws.on('error',
           (err) => {
             this.destroy(err);
           });
@@ -67,7 +67,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(new StorageError(500, 'ParquetWriter write error').inner(err));
     }
 
   }

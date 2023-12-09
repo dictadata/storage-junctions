@@ -9,21 +9,22 @@ const { logger } = require('../../storage/utils');
 async function test(schema, encoding) {
 
   logger.info("=== createSchema " + schema);
-  if (await _createSchema({
+  let retCode = await _createSchema({
     origin: {
       smt: "memory|testgroup|" + schema + "|*",
       options: {
         encoding: "./data/input/encodings/" + encoding + ".encoding.json"
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
 }
 
 async function test_lg() {
 
   logger.info("=== memory large fields");
-  if (await _createSchema({
+  let retCode = await _createSchema({
     origin: {
       smt: "memory|testgroup|foo_schema_lg|*",
       options: {
@@ -34,7 +35,8 @@ async function test_lg() {
         }
       }
     }
-  })) return 1;
+  });
+  if (retCode > 0) return 1;
 
 }
 
@@ -44,6 +46,7 @@ exports.runTests = async () => {
   if (await test("foo_schema_01", "foo_schema_01")) return 1;
   if (await test("foo_schema_02", "foo_schema_02")) return 1;
   if (await test("foo_schema_two", "foo_schema_two")) return 1;
+
   if (await test_lg()) return 1;
 
   return 0;

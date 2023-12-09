@@ -26,6 +26,8 @@ module.exports = exports = async function (tract) {
     logger.verbose(JSON.stringify(results));
     if (results.status !== 0)
       logger.warn("could not create storage schema: " + results.message);
+    if (results.status === 409)
+      retCode = -1; // already exists
 
     logger.info(">>> completed");
   }
@@ -37,5 +39,7 @@ module.exports = exports = async function (tract) {
     if (jo) await jo.relax();
   }
 
-  return process.exitCode = retCode;
+  if (retCode > 0)
+    process.exitCode = retCode;
+  return retCode;
 };
