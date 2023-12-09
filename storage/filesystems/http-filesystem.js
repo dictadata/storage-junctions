@@ -55,7 +55,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let pathname = this.url.pathname || "/";
       let list = [];
 
@@ -93,7 +93,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         let response = await httpRequest(dirpath, request);
         logger.debug(response);
         if (response.statusCode !== 200)
-          throw new storageError(response.statusCode);
+          throw this.Error(response);
 
         if (!hasOwnProperty(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
           logger.warn(JSON.stringify(response, null, 2));
@@ -153,7 +153,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -169,7 +169,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug('http-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
 
     throw new StorageError(501);
 
@@ -188,7 +188,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let filename = schema;
       let rs = null;
 
@@ -222,7 +222,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw new this.Error(err);
     }
   }
 
@@ -240,7 +240,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // implement writestream creation in overrides
     //options = Object.assign({}, this.options, options);
-    //let schema = options.schema || this.smt.schema;
+    //let schema = options?.schema || options?.name || this.smt.schema;
     //let ws = false;
 
     //this.isNewFile = true | false
@@ -304,7 +304,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -366,8 +366,25 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
+  }
+
+  /**
+   * Convert a HTTP error into a StorageResponse
+   *
+   * @param {*} err a HTTP error object
+   * @returns a new StorageError object
+   */
+  Error(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = statusCode in err ? err.statusCode : 500;
+
+    // StorageError.status is based on HTTP status codes
+
+    return new StorageError(status).inner(err);
   }
 
 };

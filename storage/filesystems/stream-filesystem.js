@@ -69,4 +69,22 @@ module.exports = exports = class StreamFileSystem extends StorageFileSystem {
       throw new StorageError(500, "writer not assigned");
   }
 
+  /**
+   * Convert a stream error into a StorageResponse
+   *
+   * @param {*} err a stream error object
+   * @returns a new StorageError object
+   */
+  Error(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = status in err ? err.status : 500;
+
+    // derived classes should override method
+    // and implement error conversion logic
+
+    return new StorageError(status).inner(err);
+  }
+
 };

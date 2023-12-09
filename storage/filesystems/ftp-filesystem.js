@@ -67,7 +67,11 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       this._client.close();
     }
   }
-
+/*
+  filepath(filename = "") {
+    return path.join(decodeURI(this.url.pathname), decodeURI(filename));
+  }
+*/
   /**
    * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
    * @param {object} options Specify any options use when querying the filesystem.
@@ -81,7 +85,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let list = [];
 
       let wdPath = decodeURI(this.url.pathname);
@@ -106,9 +110,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
         for (let entry of dirList) {
           if (entry.type === 1 && rx.test(entry.name)) {
             entry.rpath = relpath + entry.name;
+
             if (options.forEach)
               await options.forEach(entry);
-
             list.push(entry);
           }
         }
@@ -132,7 +136,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(err.code, err.message).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -148,7 +152,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let filename = schema;
 
       await this._client.cd(decodeURI(this.url.pathname));
@@ -158,7 +162,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(err.code, err.message).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -173,7 +177,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
 
       // ftp writes to passthrough and app reads from passthrough
       let rs = new stream.PassThrough();
@@ -195,7 +199,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(err.code, err.message).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -211,7 +215,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
 
       // create the read stream
       await this._client.ensureDir(decodeURI(this.url.pathname));
@@ -242,7 +246,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(err.code, err.message).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -283,7 +287,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(err.code, err.message).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -318,7 +322,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(err.code, err.message).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -367,5 +371,30 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 */
+
+
+  /**
+   * Convert a FTP error into a StorageResponse
+   *
+   * @param {*} err a FTP error object
+   * @returns a new StorageError object
+   */
+  Error(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = 500;
+
+    // FTP response code
+    switch (err.code) {
+      case 0:
+        status = 200;
+        break;
+      default:
+        status = 500;
+    }
+
+    return new StorageError(status).inner(err);
+  }
 
 };

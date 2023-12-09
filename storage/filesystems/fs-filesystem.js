@@ -26,7 +26,11 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     this._dirname = ''; // last dirname
   }
-
+  /*
+    filepath(filename = "") {
+      return path.join(url.fileURLToPath(this.url), filename);
+    }
+  */
   /**
    * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
    * @param {object} options Specify any options use when querying the filesystem.
@@ -40,7 +44,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       var list = [];
 
       let dirpath = url.fileURLToPath(this.url);
@@ -96,7 +100,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -112,16 +116,16 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
 
-      let filepath = path.join(url.fileURLToPath(this.url), schema);
-      await fsp.unlink(filepath);
+      let filename = path.join(url.fileURLToPath(this.url), schema);
+      await fsp.unlink(filename);
 
       return new StorageResults(0);
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -136,7 +140,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let rs = null;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
@@ -153,7 +157,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -169,7 +173,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
@@ -197,7 +201,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -234,7 +238,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
 
@@ -271,8 +275,71 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
     }
     catch (err) {
       logger.error(err);
-      throw new StorageError(500).inner(err);
+      throw this.Error(err);
     }
   }
+
+
+  /**
+   * Convert a filesystem code to a StorageError code.
+   *
+   * @param {*} err a filesystem error object
+   * @returns a new StorageError object
+   */
+  Error(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = 500;
+
+    switch (err.code) {
+      case "EACCES": //  Permission denied
+        status = 403;
+        break;
+      case "EADDRINUSE": // Address already in use
+        status = 500;
+        break;
+      case "ECONNREFUSED": // Connection refused
+        status = 503;
+        break;
+      case "ECONNRESET": // Connection reset by peer
+        status = 503;
+        break;
+      case "EEXIST": // File exists
+        status = 409;
+        break;
+      case "EISDIR": // Is a directory
+        status = 406;
+        break;
+      case "EMFILE": // Too many open files in system
+        status = 500;
+        break;
+      case "ENOENT": // No such file or directory
+        status = 404;
+        break;
+      case "ENOTDIR": // Not a directory
+        status = 406;
+        break;
+      case "ENOTEMPTY": // Directory not empty
+        status = 409;
+        break;
+      case "ENOTFOUND": // DNS lookup failed
+        status = 404;
+        break;
+      case "EPERM": // Operation not permitted
+        status = 406;
+        break;
+      case "EPIPE": // Broken pipe
+        status = 500;
+        break;
+      case "ETIMEDOUT": // Operation timed out
+        status = 408;
+        break;
+      default:
+        status = 500;
+    }
+
+    return new StorageError(status).inner(err);
+  };
 
 };

@@ -4,6 +4,7 @@
 "use strict";
 
 const StorageFileSystem = require("./storage-filesystem");
+const FSFileSystem = require("./fs-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
 const { logger } = require("../utils");
 
@@ -28,6 +29,8 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
     let pathname = decodeURI(this.url.pathname);
 
+    // prefix is a folder name inside the zip file
+    // locus:  zip:/path/container.zip/prefix/filename.ext
     let z = pathname.indexOf(".zip");
     if (z < pathname.length - 4) {
       this.zipname = pathname.substring(0, z + 4);
@@ -37,7 +40,6 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       this.zipname = pathname;
       this.prefix = "";
     }
-
   }
 
   /**
@@ -45,7 +47,13 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    */
   async activate() {
     this.isActive = true;
-    this.zip = new StreamZip.async({ file: this.zipname });
+
+    let smt = `file|${path.dirname(this.zipname)}|${path.basename(this.zipname)}|*`;
+    let stfs = new FSFileSystem(smt);
+    this.zipexists = await stfs.exists();
+
+    if (this.zipexists)
+      this.zip = new StreamZip.async({ file: this.zipname });
   }
 
   /**
@@ -55,6 +63,12 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     this.isActive = false;
     if (this.zip)
       this.zip.close();
+  }
+
+  async exists(options) {
+    logger.debug("ZipFileSystem exists");
+
+    return this.zipexists ? super.exists(options) : false;
   }
 
   /**
@@ -69,12 +83,16 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug('zip-filesystem list');
 
     try {
+      if (!this.zipexists)
+        throw new StorageError(404);
+
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       var list = [];
 
-      let filespec = this.prefix + schema || '*';
+      let filespec = this.prefix + (schema || '*');
       let rx = '^' + filespec + '$';
+      rx = rx.replace('/', '\\/');
       rx = rx.replace('.', '\\.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
@@ -87,25 +105,25 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
         if (entry.isFile && rx.test(entry.name)) {
           logger.debug(`Entry ${entry.name}: ${entry.size}`);
 
-          entry.rpath = entry.name;
+          let stEntry = Object.assign({}, entry);
+
+          stEntry.rpath = this.prefix ? entry.name.substring(this.prefix.length) : entry.name;
           let p = path.parse(entry.name);
-          if (!options.recursive && p.dir)
-            continue;
-          if (p.dir)
-            entry.name = p.base;
-          entry.date = new Date(entry.time);
+          stEntry.name = p.base;
+          stEntry.date = new Date(entry.time);
 
           if (this.options.forEach)
-            await this.options.forEach(entry);
-          list.push(entry);
+            await this.options.forEach(stEntry);
+
+          list.push(stEntry);
         }
       }
 
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.error(err);
-      throw new StorageError(500).inner(err);
+      logger.error("ZipFileSystem list: " + err.message);
+      throw this.Error(err);
     }
   }
 
@@ -132,7 +150,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug('zip-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    let schema = options.schema || this.smt.schema;
+    let schema = options?.schema || options?.name || this.smt.schema;
 
     throw new StorageError(501);
 
@@ -150,10 +168,14 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+
+      if (!this.zipexists)
+        throw new StorageError(404);
+
+      let schema = options?.schema || options?.name || this.smt.schema;
       let rs = null;
 
-      let filename = this.prefix + schema;
+      let filename = (this.prefix ?? '') + schema;
       let entry = await this.findEntry(filename);
       if (!entry)
         throw new StorageError(404);
@@ -170,8 +192,8 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.error(err);
-      throw new StorageError(500).inner(err);
+      logger.error("ZipFileSystem createReadStream: " + err.message);
+      throw this.Error(err);
     }
   }
 
@@ -189,7 +211,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options.schema || this.smt.schema;
+      let schema = options?.schema || options?.name || this.smt.schema;
       let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
@@ -207,8 +229,8 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return ws;
     }
     catch (err) {
-      logger.error(err);
-      throw new StorageError(500).inner(err);
+      logger.error("ZipFileSystem createWriteStream: " + err.message);
+      throw this.Error(err);
     }
   }
 
@@ -224,6 +246,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug("zip-fileSystem getFile");
 
     try {
+      if (!this.zipexists)
+        throw new StorageError(404);
+
       options = Object.assign({}, this.options, options);
       let status = 0;
 
@@ -244,8 +269,8 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.error(err);
-      throw new StorageError(500).inner(err);
+      logger.error("ZipFileSystem getFile: " + err.message);
+      throw this.Error(err);
     }
   }
 
@@ -283,9 +308,50 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.error(err);
-      throw new StorageError(500).inner(err);
+      logger.error("ZipFileSystem putFile: " + err.message);
+      throw this.Error(err);
     }
+  }
+
+  /**
+   * Convert a ZIP error into a StorageResponse
+   *
+   * @param {*} err a ZIP error object
+   * @returns a new StorageError object
+   */
+  Error(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = 500;
+
+    switch (err.code) {
+      case "EACCES": //  Permission denied
+        status = 403;
+        break;
+      case "EEXIST": // File exists
+        status = 409;
+        break;
+      case "EISDIR": // Is a directory
+        status = 406;
+        break;
+      case "EMFILE": // Too many open files in system
+        status = 500;
+        break;
+      case "ENOENT": // No such file or directory
+        status = 404;
+        break;
+      case "ENOTDIR": // Not a directory
+        status = 406;
+        break;
+      case "ENOTEMPTY": // Directory not empty
+        status = 409;
+        break;
+      default:
+        status = 500;
+    }
+
+    return new StorageError(status).inner(err);
   }
 
 };
