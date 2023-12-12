@@ -15,7 +15,7 @@ async function test(schema) {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
-        encoding: "./data/input/encodings/" + schema + ".encoding.json"
+        encoding: "./test/data/input/encodings/" + schema + ".encoding.json"
       }
     }
   });

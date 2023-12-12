@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== csv => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,7 +32,7 @@ async function tests() {
   logger.info("=== json => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_j|!Foo"
@@ -42,7 +42,7 @@ async function tests() {
   logger.info("=== json 01 => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_01.json|*"
+      smt: "json|./test/data/input/|foofile_01.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_01|!Foo"
@@ -52,7 +52,7 @@ async function tests() {
   logger.info("=== json 02 => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foofile_02.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_02|!Foo"
@@ -79,12 +79,12 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "csv|./data/output/elasticsearch/|transfer_foo.csv|*",
+      smt: "csv|./test/data/output/elasticsearch/|transfer_foo.csv|*",
       options: {
         header: true,
         append: false
       },
-      output: "./data/output/elasticsearch/transfer_foo.csv"
+      output: "./test/data/output/elasticsearch/transfer_foo.csv"
     }
   })) return 1;
 
@@ -99,12 +99,12 @@ async function tests() {
 
     },
     terminal: {
-      smt: "json|./data/output/elasticsearch/|transfer_foo_j.json|*",
+      smt: "json|./test/data/output/elasticsearch/|transfer_foo_j.json|*",
       options: {
         append: false
       }
     },
-    output: "./data/output/elasticsearch/transfer_foo_j.json"
+    output: "./test/data/output/elasticsearch/transfer_foo_j.json"
   })) return 1;
 
 }

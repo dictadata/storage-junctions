@@ -13,7 +13,7 @@ async function testIIS() {
   logger.info("=== IIS get list of foo files (forEach)");
   if (await list({
     origin: {
-      smt: "*|http://dev.dictadata.net/data/dictadata.net/data/input/|foofile*.json|*",
+      smt: "*|http://dev.dictadata.net/dictadata/test/data/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -21,7 +21,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./data/output/http/IIS/list_1.json"
+      output: "./test/data/output/http/IIS/list_1.json"
     }
   })) return 1;
 
@@ -30,7 +30,7 @@ async function testIIS() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://dev.dictadata.net/data/dictadata.net/data/input/encodings/",
+        locus: "http://dev.dictadata.net/dictadata/test/data/input/encodings/",
         schema: "*.encoding.json",
         key: "*"
       },
@@ -49,7 +49,7 @@ async function testIIS() {
       }
     },
     terminal: {
-      output: "./data/output/http/IIS/list_2.json"
+      output: "./test/data/output/http/IIS/list_2.json"
     }
   })) return 1;
 
@@ -60,7 +60,7 @@ async function testNGINX() {
   logger.info("=== NGINX get list of foo files - forEach");
   if (await list({
     origin: {
-      smt: "*|http://api-origin.dictadata.net/data/dictadata.net/data/input/|foofile*.json|*",
+      smt: "*|http://api-origin.dictadata.net/dictadata/test/data/input/|foofile*.json|*",
       options: {
         forEach: (entry) => {
           logger.info("- " + entry.name);
@@ -68,7 +68,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./data/output/http/NGINX/list_1.json"
+      output: "./test/data/output/http/NGINX/list_1.json"
     }
   })) return 1;
 
@@ -77,7 +77,7 @@ async function testNGINX() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://api-origin.dictadata.net/data/dictadata.net/data/input/encodings/",
+        locus: "http://api-origin.dictadata.net/dictadata/test/data/input/encodings/",
         schema: "*.encoding.json",
         key: "*"
       },
@@ -96,7 +96,7 @@ async function testNGINX() {
       }
     },
     terminal: {
-      output: "./data/output/http/NGINX/list_2.json"
+      output: "./test/data/output/http/NGINX/list_2.json"
     }
   })) return 1;
 
@@ -113,7 +113,7 @@ async function testSOS() {
       }
     },
     terminal: {
-      output: "./data/output/http/list_sos_shapefiles.json"
+      output: "./test/data/output/http/list_sos_shapefiles.json"
     }
   })) return 1;
 

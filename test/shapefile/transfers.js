@@ -15,19 +15,19 @@ async function testTransfer1() {
   logger.verbose("=== Transfer polygons to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|./data/input/shapes/|polygons|*",
+      smt: "shp|./test/data/input/shapes/|polygons|*",
       options: {}
     },
     terminal: {
-      smt: "json|./data/output/shapefile/|polygons.json|*",
-      output: "./data/output/shapefile/polygons.json"
+      smt: "json|./test/data/output/shapefile/|polygons.json|*",
+      output: "./test/data/output/shapefile/polygons.json"
     }
   }, compareValues)) return 1;
 
   logger.verbose("=== Transfer polygons to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|./data/input/shapes/|polygons|*",
+      smt: "shp|./test/data/input/shapes/|polygons|*",
       options: {}
     },
     transform: {
@@ -40,7 +40,7 @@ async function testTransfer1() {
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
-        encoding: "./data/input/encodings/shapes.encoding.json"
+        encoding: "./test/data/input/encodings/shapes.encoding.json"
       }
     }
   }, compareValues)) return 1;
@@ -52,19 +52,19 @@ async function testTransfer2() {
   logger.verbose("=== Transfer2 points.zip to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|zip:./data/input/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
-      smt: "json|./data/output/shapefile/|points.json|*",
-      output: "./data/output/shapefile/points.json"
+      smt: "json|./test/data/output/shapefile/|points.json|*",
+      output: "./test/data/output/shapefile/points.json"
     }
   }, compareValues)) return 1;
 
   logger.verbose("=== Transfer2 points.zip to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|zip:./data/input/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
       options: {}
     },
     transform: {
@@ -77,7 +77,7 @@ async function testTransfer2() {
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
-        encoding: "./data/input/encodings/shapes.encoding.json"
+        encoding: "./test/data/input/encodings/shapes.encoding.json"
       }
     }
   }, compareValues)) return 1;
@@ -100,8 +100,8 @@ async function testTransfer3() {
       }
     },
     "terminal": {
-      "smt": "json|./data/output/shapefile/|shapes.json|*",
-      "output": "./data/output/shapefile/shapes.json"
+      "smt": "json|./test/data/output/shapefile/|shapes.json|*",
+      "output": "./test/data/output/shapefile/shapes.json"
     }
   }, compareValues)) return 1;
 

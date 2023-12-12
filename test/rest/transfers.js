@@ -21,8 +21,8 @@ async function transfer_weather() {
       }
     },
     terminal: {
-      smt: "json|./data/output/rest/|weather_forecast_transfer_1.json|*",
-      output: "./data/output/rest/weather_forecast_transfer_1.json"
+      smt: "json|./test/data/output/rest/|weather_forecast_transfer_1.json|*",
+      output: "./test/data/output/rest/weather_forecast_transfer_1.json"
     }
   }, compareValues)) return 1;
 
@@ -46,8 +46,8 @@ async function transfer_weather() {
       }
     },
     terminal: {
-      smt: "json|./data/output/rest/|weather_forecast_transfer_2.json|*",
-      output: "./data/output/rest/weather_forecast_transfer_2.json"
+      smt: "json|./test/data/output/rest/|weather_forecast_transfer_2.json|*",
+      output: "./test/data/output/rest/weather_forecast_transfer_2.json"
     }
   }, compareValues)) return 1;
 
@@ -74,8 +74,8 @@ async function transfer_census() {
       }
     },
     terminal: {
-      smt: "json|./data/output/rest/|census_population_transfer_1.json|*",
-      output: "./data/output/rest/census_population_transfer_1.json"
+      smt: "json|./test/data/output/rest/|census_population_transfer_1.json|*",
+      output: "./test/data/output/rest/census_population_transfer_1.json"
     }
   }, compareValues)) return 1;
 
@@ -102,8 +102,8 @@ async function transfer_census() {
       }
     },
     terminal: {
-      smt: "json|./data/output/rest/|census_population_transfer_2.json|*",
-      output: "./data/output/rest/census_population_transfer_2.json"
+      smt: "json|./test/data/output/rest/|census_population_transfer_2.json|*",
+      output: "./test/data/output/rest/census_population_transfer_2.json"
     }
   }, compareValues)) return 1;
 

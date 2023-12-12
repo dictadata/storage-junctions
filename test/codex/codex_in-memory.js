@@ -39,7 +39,7 @@ async function test(schema) {
   try {
     // store encoding
     logger.verbose('=== store/recall ' + schema);
-    encoding = JSON.parse(fs.readFileSync("./data/input/encodings/" + schema + ".encoding.json", "utf8"));
+    encoding = JSON.parse(fs.readFileSync("./test/data/input/encodings/" + schema + ".encoding.json", "utf8"));
     encoding.name = schema;
 
     let entry = new Engram(encoding);
@@ -54,7 +54,7 @@ async function test(schema) {
     if (results.status === 0) {
       //encoding = results.data[ urn ];
 
-      let outputfile = "./data/output/codex/" + schema + ".encoding.json";
+      let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

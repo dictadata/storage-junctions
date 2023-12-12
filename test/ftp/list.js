@@ -13,7 +13,7 @@ async function test_1() {
   logger.info("=== list ftp directory (forEach)");
   if (await list({
     origin: {
-      smt: "json|ftp://dev.dictadata.net/data/dictadata.net/data/input/|foofile*.json|*",
+      smt: "json|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -22,7 +22,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./data/output/ftp/list_1.json"
+      output: "./test/data/output/ftp/list_1.json"
     }
   })) return 1;
 
@@ -31,7 +31,7 @@ async function test_1() {
     origin: {
       smt: {
         model: "json",
-        locus: "ftp://dev.dictadata.net/data/dictadata.net/data/input/encodings/",
+        locus: "ftp://dev.dictadata.net/dictadata/test/data/input/encodings/",
         schema: "*.json",
         key: "*"
       },
@@ -41,20 +41,20 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./data/output/ftp/list_2.json"
+      output: "./test/data/output/ftp/list_2.json"
     }
   })) return 1;
 
   logger.info("=== list tiger2020");
   if (await list({
     origin: {
-      smt: "json|ftp://dev.dictadata.net/data/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
+      smt: "json|ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      output: "./data/output/ftp/list_tiger2020.json"
+      output: "./test/data/output/ftp/list_tiger2020.json"
     }
   })) return 1;
 

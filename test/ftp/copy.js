@@ -14,13 +14,13 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dev.dictadata.net/data/dictadata.net/data/input/|*.csv|*",
+      smt: "*|ftp://dev.dictadata.net/dictadata/test/data/input/|*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "*|./data/output/ftp/downloads/|*|*",
+      smt: "*|./test/data/output/ftp/downloads/|*|*",
       options: {
       }
     }
@@ -32,13 +32,13 @@ async function test_2() {
 
   if (await putFiles({
     origin: {
-      smt: "*|./data/input/|*.csv|*",
+      smt: "*|./test/data/input/|*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "*|ftp://dev.dictadata.net/data/dictadata.net/data/output/uploads/|*|*",
+      smt: "*|ftp://dev.dictadata.net/dictadata/test/data/output/uploads/|*|*",
       options: {}
     }
   })) return 1;
@@ -49,13 +49,13 @@ async function test_3() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dev.dictadata.net/data/US/IA/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
+      smt: "*|ftp://dev.dictadata.net/dictadata/US/IA/sos.iowa.gov/shapefiles/City Precincts/|Iowa*.zip|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "*|./data/output/ftp/shapefiles/|*|*",
+      smt: "*|./test/data/output/ftp/shapefiles/|*|*",
       options: {
         use_rpath: true
       }

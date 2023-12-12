@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*"
     },
     terminal: {
-      output: "./data/output/mysql/" + encoding + ".encoding.json"
+      output: "./test/data/output/mysql/" + encoding + ".encoding.json"
     }
   })) return 1;
 

@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
     },
     terminal: {
-      output: "./data/output/elasticsearch/" + encoding + ".encoding.json"
+      output: "./test/data/output/elasticsearch/" + encoding + ".encoding.json"
     }
   })) return 1;
 

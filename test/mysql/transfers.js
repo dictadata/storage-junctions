@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== foofile.csv > mysql.foo_schema");
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,12 +32,12 @@ async function tests() {
   logger.info("=== foofile_01.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_01.json|*"
+      smt: "json|./test/data/input/|foofile_01.json|*"
     },
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./data/input/encodings/foo_schema_01.encoding.json"
+        encoding: "./test/data/input/encodings/foo_schema_01.encoding.json"
       }
     }
   })) return 1;
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== foofile_02.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foofile_02.json|*"
     },
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|=Foo",
       options: {
-        encoding: "./data/input/encodings/foo_schema_02.encoding.json"
+        encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
       }
     }
   })) return 1;
@@ -58,12 +58,12 @@ async function tests() {
   logger.info("=== foofile_two.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_two.json|*"
+      smt: "json|./test/data/input/|foofile_two.json|*"
     },
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_two|*",
       options: {
-        encoding: "./data/input/encodings/foo_schema_two.encoding.json"
+        encoding: "./test/data/input/encodings/foo_schema_two.encoding.json"
       }
     }
   })) return 1;
@@ -84,11 +84,11 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./data/output/mysql/|transfer.csv|*",
+      smt: "csv|./test/data/output/mysql/|transfer.csv|*",
       options: {
         header: true
       },
-      output: "./data/output/mysql/transfer.csv"
+      output: "./test/data/output/mysql/transfer.csv"
     }
   })) return 1;
 }

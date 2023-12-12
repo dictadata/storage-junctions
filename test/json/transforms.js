@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== json_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile.json|*",
+      smt: "json|./test/data/input/|foofile.json|*",
       pattern: {
         match: {
           "Bar": { "wc": "row*" },
@@ -23,15 +23,15 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/json/|transform_1.json|*",
-      output: "./data/output/json/transform_1.json"
+      smt: "json|./test/data/output/json/|transform_1.json|*",
+      output: "./test/data/output/json/transform_1.json"
     }
   })) return 1;
 
   logger.verbose('=== json > json_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     transform: {
       filter: {
@@ -48,19 +48,19 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/json/|transform_2.json|*",
-      output: "./data/output/json/transform_2.json"
+      smt: "json|./test/data/output/json/|transform_2.json|*",
+      output: "./test/data/output/json/transform_2.json"
     }
   })) return 1;
 
   logger.verbose('=== json_transform_3.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_01.json|*"
+      smt: "json|./test/data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "json|./data/output/json/|transform_3.json|*",
-      output: "./data/output/json/transform_3.json"
+      smt: "json|./test/data/output/json/|transform_3.json|*",
+      output: "./test/data/output/json/transform_3.json"
     },
     transform: {
       "filter": {
@@ -97,11 +97,11 @@ async function tests() {
   logger.verbose('=== json_transform_4.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile_01.json|*"
+      smt: "json|./test/data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "json|./data/output/json/|transform_4.json|*",
-      output: "./data/output/json/transform_4.json"
+      smt: "json|./test/data/output/json/|transform_4.json|*",
+      output: "./test/data/output/json/transform_4.json"
     },
     transform: {
       filter: {
@@ -116,11 +116,11 @@ async function tests() {
   logger.verbose('=== json_transform_5.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|file_list.json|*"
+      smt: "json|./test/data/input/|file_list.json|*"
     },
     terminal: {
-      smt: "json|./data/output/json/|transform_5.json|*",
-      output: "./data/output/json/transform_5.json"
+      smt: "json|./test/data/output/json/|transform_5.json|*",
+      output: "./test/data/output/json/transform_5.json"
     },
     transform: {
       mutate: {

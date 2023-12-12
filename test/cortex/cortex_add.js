@@ -32,7 +32,7 @@ async function test(tract_name) {
     logger.verbose('=== store ' + tract_name);
 
     // store tract
-    let entry = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
+    let entry = JSON.parse(fs.readFileSync("./test/data/input/tracts/" + tract_name + ".tract.json", "utf8"));
     entry.name = tract_name;
 
     entry.domain = "foo";

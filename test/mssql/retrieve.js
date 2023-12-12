@@ -20,7 +20,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/mssql/retrieve_0.json"
+      output: "./test/data/output/mssql/retrieve_0.json"
     }
   })) return 1;
 
@@ -29,7 +29,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./data/input/encodings/foo_schema_01.encoding.json"
+        encoding: "./test/data/input/encodings/foo_schema_01.encoding.json"
       },
       pattern: {
         match: {
@@ -38,7 +38,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/mssql/retrieve_1.json"
+      output: "./test/data/output/mssql/retrieve_1.json"
     }
   })) return 1;
 
@@ -47,7 +47,7 @@ async function tests() {
     origin: {
       smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_02|*",
       options: {
-        encoding: "./data/input/encodings/foo_schema_02.encoding.json"
+        encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
       },
       pattern: {
         match: {
@@ -56,7 +56,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/mssql/retrieve_2.json"
+      output: "./test/data/output/mssql/retrieve_2.json"
     }
   })) return 1;
 

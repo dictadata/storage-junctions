@@ -49,7 +49,7 @@ async function test(name) {
       }
     });
 
-    let outputfile = "./data/output/codex/use_" + name + ".json";
+    let outputfile = "./test/data/output/codex/use_" + name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

@@ -16,7 +16,7 @@ async function test_1() {
     logger.info(">>> create junction");
     junction = await Storage.activate({
       model: "*",
-      locus: "./data/input/",
+      locus: "./test/data/input/",
       schema: "*",
       key: "*"
     });

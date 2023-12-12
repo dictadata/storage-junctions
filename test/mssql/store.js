@@ -24,7 +24,7 @@ async function tests() {
       enabled: false
     },
     terminal: {
-      output: "./data/output/mssql/store_01.json"
+      output: "./test/data/output/mssql/store_01.json"
     }
   })) return 1;
 
@@ -42,7 +42,7 @@ async function tests() {
       enabled: true
     },
     terminal: {
-      output: "./data/output/mssql/store_02.json"
+      output: "./test/data/output/mssql/store_02.json"
     }
   })) return 1;
 
@@ -58,7 +58,7 @@ async function tests() {
       enabled: false
     },
     terminal: {
-      output: "./data/output/mssql/store_03.json"
+      output: "./test/data/output/mssql/store_03.json"
     }
   })) return 1;
 
@@ -76,7 +76,7 @@ async function tests() {
       enabled: false
     },
     terminal: {
-      output: "./data/output/mssql/store_04.json"
+      output: "./test/data/output/mssql/store_04.json"
     }
   })) return 1;
 

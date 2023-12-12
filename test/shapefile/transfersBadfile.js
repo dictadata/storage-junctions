@@ -14,11 +14,11 @@ async function tests() {
   logger.verbose("=== Transfer polygons_badfile");
   if (await transfer({
     origin: {
-      smt: "shp|./data/input/shapes/|polygons_badfile|*"
+      smt: "shp|./test/data/input/shapes/|polygons_badfile|*"
     },
     terminal: {
-      smt: "json|./data/output/shapefile/|polygons_badfile.json|*",
-      output: "./data/output/shapefile/polygons_badfile.json"
+      smt: "json|./test/data/output/shapefile/|polygons_badfile.json|*",
+      output: "./test/data/output/shapefile/polygons_badfile.json"
     }
   }, -1))
     return 1;

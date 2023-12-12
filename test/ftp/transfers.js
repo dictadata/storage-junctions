@@ -15,13 +15,13 @@ async function test_read() {
   logger.verbose('=== local output.csv');
   if (await transfer({
     origin: {
-      smt: "csv|ftp://dev.dictadata.net/data/dictadata.net/data/input/|foofile.csv.gz|*",
+      smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./data/output/ftp/|output.csv|*",
+      smt: "csv|./test/data/output/ftp/|output.csv|*",
       options: {
         header: true
       }
@@ -31,11 +31,11 @@ async function test_read() {
   logger.verbose('=== local output.csv.gz');
   if (await transfer({
     origin: {
-      smt: "csv|ftp://dev.dictadata.net/data/dictadata.net/data/input/|foofile.csv|*",
+      smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.csv|*",
       options: {}
     },
     terminal: {
-      smt: "csv|./data/output/ftp/|output.csv.gz|*",
+      smt: "csv|./test/data/output/ftp/|output.csv.gz|*",
       options: {
         header: true
       }
@@ -45,22 +45,22 @@ async function test_read() {
   logger.verbose('=== local output.json');
   if (await transfer({
     origin: {
-      smt: "json|ftp://dev.dictadata.net/data/dictadata.net/data/input/|foofile.json.gz|*",
+      smt: "json|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.json.gz|*",
       options: {}
     },
     terminal: {
-      smt: "json|./data/output/ftp/|output.json|*"
+      smt: "json|./test/data/output/ftp/|output.json|*"
     }
   })) return 1;
 
   logger.verbose('=== local output.json.gz');
   if (await transfer({
     origin: {
-      smt: "json|ftp://dev.dictadata.net/data/dictadata.net/data/input/|foofile.json|*",
+      smt: "json|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.json|*",
       options: {}
     },
     terminal: {
-      smt: "json|./data/output/ftp/|output.json.gz|*"
+      smt: "json|./test/data/output/ftp/|output.json.gz|*"
     }
   })) return 1;
 
@@ -70,17 +70,17 @@ async function test_write() {
   logger.verbose("=== fs to ftp");
 
   logger.verbose('=== ftp output.csv');
-  if (await dullSchema({ smt: "csv|ftp://dev.dictadata.net/data/dictadata.net/data/output/csv/|output.csv|*" })) return 1;
+  if (await dullSchema({ smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv|*" })) return 1;
 
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv.gz|*",
+      smt: "csv|./test/data/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|ftp://dev.dictadata.net/data/dictadata.net/data/output/csv/|output.csv|*",
+      smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv|*",
       options: {
         header: true
       }
@@ -90,13 +90,13 @@ async function test_write() {
     logger.verbose('=== ftp output.csv.gz');
     if (await transfer({
       origin: {
-        smt: "csv|./data/input/|foofile.csv|*",
+        smt: "csv|./test/data/input/|foofile.csv|*",
         options: {
           header: true
         }
       },
       terminal: {
-        smt: "csv|ftp://dev.dictadata.net/data/dictadata.net/data/output/csv/|output.csv.gz|*",
+        smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv.gz|*",
         options: {
           header: true
         }
@@ -106,10 +106,10 @@ async function test_write() {
   logger.verbose('=== ftp output.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile.json.gz|*"
+      smt: "json|./test/data/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|ftp://dev.dictadata.net/data/dictadata.net/data/output/json/|output.json|*",
+      smt: "json|ftp://dev.dictadata.net/dictadata/test/data/output/json/|output.json|*",
       options: {}
     }
   })) return 1;
@@ -117,10 +117,10 @@ async function test_write() {
     logger.verbose('=== ftp output.json.gz');
     if (await transfer({
       origin: {
-        smt: "json|./data/input/|foofile.json|*"
+        smt: "json|./test/data/input/|foofile.json|*"
       },
       terminal: {
-        smt: "json|ftp://dev.dictadata.net/data/dictadata.net/data/output/json/|output.json.gz|*",
+        smt: "json|ftp://dev.dictadata.net/dictadata/test/data/output/json/|output.json.gz|*",
         options: {}
       }
     })) return 1;

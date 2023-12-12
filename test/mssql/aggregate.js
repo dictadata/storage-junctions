@@ -26,7 +26,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './data/output/mssql/aggregate_1.json'
+      output: './test/data/output/mssql/aggregate_1.json'
     }
   })) return 1;
 
@@ -50,7 +50,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './data/output/mssql/aggregate_2.json'
+      output: './test/data/output/mssql/aggregate_2.json'
     }
   })) return 1;
 
@@ -75,7 +75,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './data/output/mssql/aggregate_3.json'
+      output: './test/data/output/mssql/aggregate_3.json'
     }
   })) return 1;
 

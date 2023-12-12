@@ -153,7 +153,7 @@
   - implement dot notation for filter transform
   - testing:
     - fix issue with date comparisons
-    - refactoring of /var/data/country/state directory naming convention
+    - refactoring of /var/dictadata/country/state directory naming convention
   - code cleanup
 - version 1.8.4
   - update dependencies

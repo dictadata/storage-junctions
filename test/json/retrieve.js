@@ -13,22 +13,22 @@ async function tests() {
   logger.info("=== json retrieve");
   if (await retrieve({
     origin: {
-      smt: "json|./data/input/|foofile.json|*",
+      smt: "json|./test/data/input/|foofile.json|*",
       options: {
-        encoding: "./data/input/encodings/foo_schema.encoding.json"
+        encoding: "./test/data/input/encodings/foo_schema.encoding.json"
       }
     },
     terminal: {
-      output: "./data/output/json/retrieve_1.json"
+      output: "./test/data/output/json/retrieve_1.json"
     }
   })) return 1;
 
   logger.info("=== json retrieve w/ cues");
   if (await retrieve({
     origin: {
-      smt: "json|./data/input/|foofile.json|*",
+      smt: "json|./test/data/input/|foofile.json|*",
       options: {
-        encoding: "./data/input/encodings/foo_schema.encoding.json",
+        encoding: "./test/data/input/encodings/foo_schema.encoding.json",
       },
       pattern: {
         match: {
@@ -39,7 +39,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./data/output/json/retrieve_2.json"
+      output: "./test/data/output/json/retrieve_2.json"
     }
   })) return 1;
 

@@ -43,7 +43,7 @@ async function test(domain, tract_name, resolve = false) {
       retCode = results.status;
     }
     else {
-      let outputfile = "./data/output/cortex/" + (resolve ? "resolve_" : "recall_") + tract_name + ".tract.json";
+      let outputfile = "./test/data/output/cortex/" + (resolve ? "resolve_" : "recall_") + tract_name + ".tract.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

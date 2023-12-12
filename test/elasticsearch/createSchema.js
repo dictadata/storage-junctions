@@ -18,7 +18,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
-        encoding: "./data/input/encodings/" + encoding + ".encoding.json",
+        encoding: "./test/data/input/encodings/" + encoding + ".encoding.json",
         refresh: true
       }
     }
@@ -44,7 +44,7 @@ async function test_lg() {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_lg|*",
       options: {
-        encoding: "./data/input/encodings/foo_schema_lg.encoding.json",
+        encoding: "./test/data/input/encodings/foo_schema_lg.encoding.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000
@@ -66,7 +66,7 @@ async function test_origin(schema, encoding) {
     origin: {
       smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
       options: {
-        encoding: "./data/input/encodings/" + encoding + ".encoding.json",
+        encoding: "./test/data/input/encodings/" + encoding + ".encoding.json",
         refresh: true,
         auth: {
           apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="

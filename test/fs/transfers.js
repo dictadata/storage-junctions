@@ -14,13 +14,13 @@ async function tests() {
 
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./data/output/fs/|gzip_output.csv.gz|*",
+      smt: "csv|./test/data/output/fs/|gzip_output.csv.gz|*",
       options: {
         header: true
       }
@@ -30,13 +30,13 @@ async function tests() {
   logger.verbose('=== csv.gz => fs/gzip_output.csv');
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv.gz|*",
+      smt: "csv|./test/data/input/|foofile.csv.gz|*",
       options: {
         header: true
       }
     },
     terminal: {
-      smt: "csv|./data/output/fs/|gzip_output.csv|*",
+      smt: "csv|./test/data/output/fs/|gzip_output.csv|*",
       options: {
         header: true
       }
@@ -46,20 +46,20 @@ async function tests() {
   logger.verbose('=== json => fs/gzip_output.json.gz');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile.json|*"
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     terminal: {
-      smt: "json|./data/output/fs/|gzip_output.json.gz|*"
+      smt: "json|./test/data/output/fs/|gzip_output.json.gz|*"
     }
   })) return 1;
 
   logger.verbose('=== json.gz => fs/gzip_output.json');
   if (await transfer({
     origin: {
-      smt: "json|./data/input/|foofile.json.gz|*"
+      smt: "json|./test/data/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|./data/output/fs/|gzip_output.json|*"
+      smt: "json|./test/data/output/fs/|gzip_output.json|*"
     }
   })) return 1;
 

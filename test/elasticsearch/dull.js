@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./data/output/elasticsearch/dull_ks.json"
+      output: "./test/data/output/elasticsearch/dull_ks.json"
     }
   })) return 1;
 
@@ -38,7 +38,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./data/output/elasticsearch/dull_pk.json"
+      output: "./test/data/output/elasticsearch/dull_pk.json"
     }
   })) return 1;
 

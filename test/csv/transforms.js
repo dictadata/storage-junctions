@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== csv > csv_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       },
@@ -26,15 +26,15 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/csv/|transform_1.json|*",
-      output: "./data/output/csv/transform_1.json"
+      smt: "json|./test/data/output/csv/|transform_1.json|*",
+      output: "./test/data/output/csv/transform_1.json"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -51,15 +51,15 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/csv/|transform_2.json|*",
-      output: "./data/output/csv/transform_2.json"
+      smt: "json|./test/data/output/csv/|transform_2.json|*",
+      output: "./test/data/output/csv/transform_2.json"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_transform_3.json');
   if (await transfer({
     origin: {
-      smt: "csv|./data/input/|foofile.csv|*",
+      smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -91,8 +91,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./data/output/csv/|transform_3.json|*",
-      output: "./data/output/csv/transform_3.json"
+      smt: "json|./test/data/output/csv/|transform_3.json|*",
+      output: "./test/data/output/csv/transform_3.json"
     }
   })) return 1;
 

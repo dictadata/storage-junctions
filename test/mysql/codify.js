@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
-    output: './data/output/mysql/codify_00.json'
+    output: './test/data/output/mysql/codify_00.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_01");
@@ -23,7 +23,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo"
     },
-    output: './data/output/mysql/codify_01.json'
+    output: './test/data/output/mysql/codify_01.json'
   })) return 1;
 
   logger.info("=== codify foo_schema_02");
@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|=Foo"
     },
-    output: './data/output/mysql/codify_02.json'
+    output: './test/data/output/mysql/codify_02.json'
   })) return 1;
 
 }

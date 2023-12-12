@@ -14,13 +14,13 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|file:./data/input/|*.csv|*",
+      smt: "*|file:./test/data/input/|*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "*|./data/output/fs/downloads/|*|*",
+      smt: "*|./test/data/output/fs/downloads/|*|*",
       options: {
       }
     }
@@ -32,13 +32,13 @@ async function test_2() {
 
   if (await putFiles({
     origin: {
-      smt: "*|./data/input/|*.json|*",
+      smt: "*|./test/data/input/|*.json|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      smt: "*|file:./data/output/fs/uploads/|*|*",
+      smt: "*|file:./test/data/output/fs/uploads/|*|*",
       options: {
         use_rpath: true
       }

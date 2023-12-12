@@ -30,14 +30,14 @@ async function tests() {
       Baz: 120
     } ],
     terminal: {
-      output: "./data/output/mysql/store_bulk_01.json"
+      output: "./test/data/output/mysql/store_bulk_01.json"
     }
   })) return 1;
 
   logger.verbose('=== timeseries.csv > mysql');
   if (await transfer({
     origin: {
-      smt: "csv|/var/data/dictadata.net/data/input/|timeseries.csv|*",
+      smt: "csv|/var/dictadata/test/data/input/|timeseries.csv|*",
       options: {
         header: false,
         encoding: {

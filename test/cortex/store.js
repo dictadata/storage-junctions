@@ -33,7 +33,7 @@ async function store(tract_name) {
   try {
     logger.verbose('=== store ' + tract_name);
 
-    entry = JSON.parse(fs.readFileSync("./data/input/tracts/" + tract_name + ".tract.json", "utf8"));
+    entry = JSON.parse(fs.readFileSync("./test/data/input/tracts/" + tract_name + ".tract.json", "utf8"));
     entry.name = tract_name;
 
     if (!entry.tags) {

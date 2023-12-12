@@ -1,0 +1,98 @@
+[
+  {
+    "href": "/dictadata/test/data/input/foo_schema.encoding.json",
+    "name": "foo_schema.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T17:02:00.000Z",
+    "size": 1105,
+    "rpath": "foo_schema.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_01.encoding.json",
+    "name": "foo_schema_01.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T17:09:00.000Z",
+    "size": 2302,
+    "rpath": "foo_schema_01.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_02.encoding.json",
+    "name": "foo_schema_02.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T17:11:00.000Z",
+    "size": 1564,
+    "rpath": "foo_schema_02.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_lg.encoding.json",
+    "name": "foo_schema_lg.encoding.json",
+    "isDir": false,
+    "date": "2021-12-19T00:41:00.000Z",
+    "size": 1077,
+    "rpath": "foo_schema_lg.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_short.encoding.json",
+    "name": "foo_schema_short.encoding.json",
+    "isDir": false,
+    "date": "2021-12-19T00:41:00.000Z",
+    "size": 443,
+    "rpath": "foo_schema_short.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_t.encoding.json",
+    "name": "foo_schema_t.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T17:05:00.000Z",
+    "size": 1102,
+    "rpath": "foo_schema_t.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_two.encoding.json",
+    "name": "foo_schema_two.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T17:05:00.000Z",
+    "size": 443,
+    "rpath": "foo_schema_two.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_schema_typesonly.encoding.json",
+    "name": "foo_schema_typesonly.encoding.json",
+    "isDir": false,
+    "date": "2021-12-18T15:17:00.000Z",
+    "size": 190,
+    "rpath": "foo_schema_typesonly.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/foo_transform.encoding.json",
+    "name": "foo_transform.encoding.json",
+    "isDir": false,
+    "date": "2021-12-18T15:17:00.000Z",
+    "size": 278,
+    "rpath": "foo_transform.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/encodings/shapes.encoding.json",
+    "name": "shapes.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T16:08:00.000Z",
+    "size": 505,
+    "rpath": "shapes/shapes.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/encodings/tl_2020_us_county.encoding.json",
+    "name": "tl_2020_us_county.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T16:08:00.000Z",
+    "size": 2079,
+    "rpath": "shapes/tl_2020_us_county.encoding.json"
+  },
+  {
+    "href": "/dictadata/test/data/input/encodings/tl_2020_us_state.encoding.json",
+    "name": "tl_2020_us_state.encoding.json",
+    "isDir": false,
+    "date": "2021-12-20T16:08:00.000Z",
+    "size": 1929,
+    "rpath": "shapes/tl_2020_us_state.encoding.json"
+  }
+]
