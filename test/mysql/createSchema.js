@@ -74,7 +74,7 @@ async function test_origin(schema, encoding) {
         },
         ssl: {
           ca: ca_file,
-          rejectUnauthorized: true
+          rejectUnauthorized: false
         },
         encoding: "./data/input/encodings/" + encoding + ".encoding.json"
       }
@@ -84,20 +84,11 @@ async function test_origin(schema, encoding) {
 
   if (retCode < 0) {
     // if schema already exists then truncate constructs
+    // using credentials from auth_stash.json file
     logger.info("=== origin dull (truncate) " + schema);
     if (await dull({
       origin: {
-        smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*",
-        options: {
-          auth: {
-            username: "dicta",
-            password: "data"
-          },
-          ssl: {
-            ca: ca_file,
-            rejectUnauthorized: true
-          }
-        }
+        smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*"
       }
     })) return 1;
   }
@@ -109,6 +100,7 @@ async function test_origin(schema, encoding) {
   if (await test("foo_schema_01", "foo_schema_01")) return 1;
   if (await test("foo_schema_02", "foo_schema_02")) return 1;
   if (await test("foo_schema_two", "foo_schema_two")) return 1;
+
   if (await test_lg()) return 1;
 
   if (await test_origin("foo_schema", "foo_schema")) return 1;

@@ -82,19 +82,11 @@ async function test_origin(schema, encoding) {
 
   if (retCode < 0) {
     // if schema already exists then truncate constructs
+    // use credentials from auth_stash.json file
     logger.info("=== dull (truncate) " + schema);
     if (await dull({
       origin: {
-        smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*",
-        options: {
-          auth: {
-            apiKey: "MmdIVVlZY0JsdG9DN2ZieFNsTUQ6bEdGNlkzVHdRNm16bmlJQVNJd1J3Zw=="
-          },
-          tls: {
-            ca: ca_file,
-            rejectUnauthorized: true
-          }
-        }
+        smt: "elasticsearch|https://data-origin.dictadata.net:9200|" + schema + "|*"
       }
     })) return 1;
   }
