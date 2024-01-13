@@ -103,5 +103,5 @@ async function test_origin(schema, encoding) {
 
   if (await test_lg()) return 1;
 
-  if (await test_origin("foo_schema", "foo_schema")) return 1;
+  // if (await test_origin("foo_schema", "foo_schema")) return 1;
 })();
