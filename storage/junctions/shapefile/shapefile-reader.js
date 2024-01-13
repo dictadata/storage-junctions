@@ -72,7 +72,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
     }
     catch (err) {
       logger.error(`ShapeFileReader read error: ${err.message}`);
-      this.destroy(this.stfs.Error(err));
+      this.destroy(this.stfs?.Error(err) ?? err);
     }
   }
 

@@ -51,7 +51,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
         this.ws = await this.stfs.createWriteStream(this.options);
         this.ws.on('error',
           (err) => {
-            this.destroy(this.stfs.Error(err));
+            this.destroy(this.stfs?.Error(err) ?? err);
           });
 
         if (this.stfs.isNewFile && this.options.header) {
@@ -106,7 +106,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(this.stfs.Error(err, 'CSVWriter write error '));
+      callback(this.stfs?.Error(err) ?? err, 'CSVWriter write error ');
     }
   }
 
@@ -130,7 +130,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(this.stfs.Error(err));
+      callback(this.stfs?.Error(err) ?? err);
     }
   }
 
@@ -159,7 +159,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
     catch (err) {
       logger.error(err);
-      callback(this.stfs.Error(err));
+      callback(this.stfs?.Error(err) ?? err);
     }
   }
 

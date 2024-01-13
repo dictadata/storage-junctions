@@ -130,7 +130,7 @@ module.exports = exports = class JSONReader extends StorageReader {
         rs.on('error',
           (err) => {
             logger.error("JSONReader parser error: " + err.message);
-            this.destroy(this.stfs.Error(err));
+            this.destroy(this.stfs?.Error(err) ?? err);
           }
         );
         rs.pipe(this.pipeline);
@@ -138,7 +138,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       }
       catch (err) {
         logger.debug("JSONReader read error: " + err.message);
-        this.destroy(this.stfs.Error(err));
+        this.destroy(this.stfs?.Error(err) ?? err);
       }
     }
     else if (this.myParser.isPaused()) {

@@ -97,7 +97,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         rs.on('error',
           (err) => {
             logger.error(`CSVReader parser error: ${err.message}`);
-            this.destroy(this.stfs.Error(err));
+            this.destroy(this.stfs?.Error(err) ?? err);
           }
         );
         rs.pipe(this.pipeline);
@@ -105,7 +105,7 @@ module.exports = exports = class CSVReader extends StorageReader {
       }
       catch (err) {
         logger.error(`CSVReader read error: ${err.message}`);
-        this.destroy(this.stfs.Error(err));
+        this.destroy(this.stfs?.Error(err) ?? err);
       }
     }
     else if (this.pipeline.isPaused()) {

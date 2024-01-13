@@ -1,5 +1,6 @@
-# CHANGELOG:  @dictadata/storage-junctions
-
+# CH
+- version 0.9.96
+  - improved, consistent error handling
 - version 0.9.95
   - refactor: rename internal Cortex class to Campus (hippocampus)
   - refactor: rename Tracts storage class to and Cortex (cerebral cortex)
