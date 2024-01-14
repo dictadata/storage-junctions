@@ -21,7 +21,7 @@ logger.info("=== Tests: codex use");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|dicta_codex|*");
+    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|storage_codex|*");
     await codex.activate();
     Storage.codex = codex;
   }
