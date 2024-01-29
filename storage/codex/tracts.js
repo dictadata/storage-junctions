@@ -1,9 +1,9 @@
 /**
- * storage/cortex
+ * storage/codex/tracts
  *
- * Storage Cortex is a datastore for ETL tracts definitions.
+ * Tracts is a data directory and dictionary of tract definitions.
  *
- * tract types:
+ * valid codex types:
  *   tract  - ETL tract definitions
  *   alias  -
  *
@@ -12,17 +12,18 @@
  */
 "use strict";
 
-const Campus = require("../campus");
-const { SMT, StorageResults, StorageError } = require("../types");
+const Junctions = require("../junctions");
+const auth = require("./auth");
+const { SMT, Tract, StorageResults, StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 const fs = require("node:fs");
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
-const cortex_encoding = require("./cortex.encoding.json");
+const tracts_encoding = require("./tracts.encoding.json");
 
 const codexTypes = [ "tract", "alias" ];
 
-module.exports = exports = class Cortex {
+module.exports = exports = class Tracts {
 
   /**
    * @param { SMT }    smt an SMT string or SMT object where tracts data will be located. This parameter can NOT be an SMT name!
@@ -32,7 +33,7 @@ module.exports = exports = class Cortex {
     this.smt = new SMT(smt);
     this.options = options || {};
 
-    this._cortex = new Map();
+    this._tracts = new Map();
     this._active = false;
     this._junction = null;
   }
@@ -53,7 +54,7 @@ module.exports = exports = class Cortex {
   }
 
   /**
-   * Activate the Cortex junction
+   * Activate the Codex Tracts junction
    *
    * @returns true if underlying junction was activated successfully
    */
@@ -62,12 +63,18 @@ module.exports = exports = class Cortex {
     try {
       let options = Object.assign({}, this.options);
       if (!options.encoding)
-        options.encoding = cortex_encoding;
+        options.encoding = tracts_encoding;
 
       if (this.smt.key === "*") {
         // use default smt.key which is !domain+name
-        let s = new SMT(cortex_encoding.smt);
+        let s = new SMT(tracts_encoding.smt);
         this.smt.key = s.key;
+      }
+
+      // check for auth options
+      if (!options.auth && auth.has(this.smt.locus)) {
+        let stash = auth.recall(this.smt.locus);
+        options = Object.assign(options, stash);
       }
 
       // check to read certificate authorities from file
@@ -85,23 +92,23 @@ module.exports = exports = class Cortex {
       }
 
       // create the junction
-      this._junction = await Campus.activate(this.smt, options);
+      this._junction = await Junctions.activate(this.smt, options);
 
-      // attempt to create cortex schema
+      // attempt to create tracts schema
       let results = await this._junction.createSchema();
       if (results.status === 0) {
-        logger.info("storage/cortex: created schema, " + this._junction.smt.schema);
+        logger.info("storage/codex/tracts: created schema, " + this._junction.smt.schema);
       }
       else if (results.status === 409) {
-        logger.debug("storage/cortex: schema exists");
+        logger.debug("storage/codex/tracts: schema exists");
       }
       else {
-        throw new StorageError(500, "unable to create cortex schema");
+        throw new StorageError(500, "unable to create tracts schema");
       }
       this._active = true;
     }
     catch (err) {
-      logger.error('storage/cortex: activate failed, ', err.message || err);
+      logger.error('storage/codex/tracts: activate failed, ', err.message || err);
     }
 
     return this._active;
@@ -124,7 +131,7 @@ module.exports = exports = class Cortex {
     // parameter checks
     // note: domain is optional
     if (!entry.name || entry.name === "*") {
-      storageResults.setResults(400, "Invalid cortex name" );
+      storageResults.setResults(400, "Invalid tracts name" );
       return storageResults;
     }
     if (!entry.type || !codexTypes.includes(entry.type)) {
@@ -149,16 +156,16 @@ module.exports = exports = class Cortex {
     }
 
     // save in cache
-    this._cortex.set(key, entry);
+    this._tracts.set(key, entry);
 
     if (this._junction) {
-      // save in source cortex
+      // save in source tracts
       storageResults = await this._junction.store(entry, { key: key });
-      logger.verbose("storage/cortex: " + key + ", " + storageResults.status);
+      logger.verbose("storage/codex/tracts: " + key + ", " + storageResults.status);
       return storageResults;
     }
 
-    storageResults.setResults(500, "Cortex junction not activated");
+    storageResults.setResults(500, "Codex tracts junction not activated");
     return storageResults;
   }
 
@@ -173,21 +180,21 @@ module.exports = exports = class Cortex {
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.urn(match);
 
-    if (this._cortex.has(key)) {
+    if (this._tracts.has(key)) {
       // delete from cache
-      if (!this._cortex.delete(key)) {
+      if (!this._tracts.delete(key)) {
         storageResults.setResults(500, "map delete error");
         return storageResults;
       }
     }
 
     if (this._junction) {
-      // delete from source cortex
+      // delete from source tracts
       storageResults = await this._junction.dull({ key: key });
       return storageResults;
     }
 
-    storageResults.setResults(500, "Cortex junction not activated");
+    storageResults.setResults(500, "Codex tracts junction not activated");
     return storageResults;
   }
 
@@ -202,15 +209,15 @@ module.exports = exports = class Cortex {
     let match = (typeof pattern === "object") ? (pattern.match || pattern) : pattern;
     let key = this.urn(match);
 
-    if (this._cortex.has(key)) {
+    if (this._tracts.has(key)) {
       // entry has been cached
-      let entry = this._cortex.get(key);
+      let entry = this._tracts.get(key);
       storageResults.add(entry, key);
     }
     else if (this._junction) {
-      // go to the source cortex
+      // go to the source tracts
       storageResults = await this._junction.recall({ key: key });
-      logger.verbose("storage/cortex: recall, " + storageResults.status);
+      logger.verbose("storage/codex/tracts: recall, " + storageResults.status);
     }
     else {
       storageResults.setResults(404, "Not Found");
@@ -238,7 +245,7 @@ module.exports = exports = class Cortex {
       // cache tracts definition
       let entry = storageResults.data[ key ];
       if (key === this.urn(entry)) // double check it wasn't an alias lookup
-        this._cortex.set(key, entry);
+        this._tracts.set(key, entry);
     }
 
     return storageResults;
@@ -255,12 +262,12 @@ module.exports = exports = class Cortex {
     if (this._junction) {
       // current design does not cache entries from retrieved list
 
-      // retrieve list from source cortex
+      // retrieve list from source tracts
       storageResults = await this._junction.retrieve(pattern);
-      logger.verbose("storage/cortex: retrieve, " + storageResults.status);
+      logger.verbose("storage/codex/tracts: retrieve, " + storageResults.status);
     }
     else {
-      storageResults.setResults(503, "Cortex Unavailable");
+      storageResults.setResults(503, "Codex tracts Unavailable");
     }
 
     return storageResults;

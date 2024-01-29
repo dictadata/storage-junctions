@@ -1,34 +1,37 @@
 /**
- * test/cortex/cortex_in-memory
+ * test/tracts/tracts_in-memory
  *
  * Test Outline:
- *   Uses cortex with Memory Junction
+ *   Uses tracts with Memory Junction
  *   read tract(s) from file
- *   store tract definition(s) in cortex
- *   recall tract(s) from cortex storage
+ *   store tract definition(s) in tracts
+ *   recall tract(s) from tracts storage
  *   compare results with expected tracts definitions
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
+const { Tract } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: cortex in-memory");
+logger.info("=== Tests: tracts in-memory");
 
 async function init() {
+  let result = 0;
   try {
-    // activate cortex
-    let cortex = new Storage.Cortex("memory|dictadata|cortex|*");
-    await cortex.activate();
-    Storage.cortex = cortex;
+    // activate tracts
+    if (!await Codex.activate("tract", "memory|dictadata|tracts|*"))
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(tract_name) {
@@ -40,17 +43,17 @@ async function test(tract_name) {
     logger.verbose('=== store/recall ' + tract_name);
     tract = JSON.parse(fs.readFileSync("./test/data/input/tracts/" + tract_name + ".tract.json", "utf8"));
 
-    let results = await Storage.cortex.store(tract);
+    let results = await Codex.tracts.store(tract);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall tract
     let urn = tract.domain + ":" + tract.name;
     logger.verbose('--- ' + urn);
-    results = await Storage.cortex.recall(urn);
+    results = await Codex.tracts.recall(urn);
     logger.verbose("recall: " + results.message);
 
     if (results.status === 0) {
-      let outputfile = "./test/data/output/cortex/" + tract_name + ".tract.json";
+      let outputfile = "./test/data/output/tracts/" + tract_name + ".tract.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -71,9 +74,9 @@ async function test(tract_name) {
 }
 
 (async () => {
-  await init();
+  if (await init()) return 1;
 
   if (await test("foo_transfer")) return 1;
 
-  await Storage.cortex.relax();
+  await Codex.tracts.relax();
 })();

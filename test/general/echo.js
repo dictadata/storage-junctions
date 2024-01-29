@@ -17,7 +17,7 @@ async function testStream() {
   var jo;
   try {
     logger.info(">>> adding EchoJunction to StorageJunctions registry");
-    Storage.use("echo", EchoJunction);
+    Storage.Junctions.use("echo", EchoJunction);
 
     logger.info(">>> create junction");
     jo = await Storage.activate({

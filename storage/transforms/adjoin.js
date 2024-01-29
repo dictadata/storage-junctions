@@ -4,7 +4,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const Campus = require("../campus");
+const Storage = require("../storage");
 const { logger, hasOwnProperty } = require("../utils");
 
 /*
@@ -59,7 +59,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
 
     let junction;
     try {
-      junction = await Campus.activate(this.options.smt, this.options.options);
+      junction = await Storage.activate(this.options.smt, this.options.options);
       let results = await junction.retrieve(this.options.pattern);
 
       if (results.status === 0) {

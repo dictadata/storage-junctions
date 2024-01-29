@@ -1,49 +1,56 @@
 /**
- * test/cortex/recall
+ * test/codex/recall
  *
  * Test Outline:
- *   use cortex with Elasticsearch junction
- *   recall tract definition for foo_transfer
- *   compare results to expected foo_transfer definition
+ *   use codex with Elasticsearch junction
+ *   recall engram definition for foo_schema
+ *   compare results to expected foo_schema encoding
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: cortex recall");
+logger.info("=== Tests: codex recall");
 
 async function init() {
   try {
-    // activate cortex
-    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
-    await cortex.activate();
-    Storage.cortex = cortex;
+    // activate codex
+    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
   }
   catch (err) {
     logger.error(err);
   }
 }
 
-async function test(domain, tract_name, resolve = false) {
+async function test(domain, schema, resolve = false) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== recall ' + tract_name);
+    logger.verbose('=== ' + schema);
 
-    // recall tract definition
-    let results = await Storage.cortex.recall({ domain: domain, name: tract_name, resolve });
+    // recall engram definition
+    let pattern = {
+      type: "engram",
+      domain: domain,
+      name: schema,
+      resolve
+    };
+    let results = await Codex.engrams.recall(pattern);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     if (results.status !== 0) {
       retCode = results.status;
     }
     else {
-      let outputfile = "./test/data/output/cortex/" + (resolve ? "resolve_" : "recall_") + tract_name + ".tract.json";
+      let urn = Object.keys(results.data)[ 0 ];
+      //let encoding = results.data[ urn ];
+
+      let outputfile = "./test/data/output/codex/" + (resolve ? "resolve_" : "recall_") + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -64,7 +71,7 @@ async function test(domain, tract_name, resolve = false) {
 (async () => {
   await init();
 
-  if (await test("foo", "foo_transfer"))
+  if (await test("foo", "foo_schema"))
     return 1;
   if (await test("foo", "foo_alias"))
     return 1;
@@ -75,5 +82,5 @@ async function test(domain, tract_name, resolve = false) {
   else
     return 1;
 
-  await Storage.cortex.relax();
+  await Codex.engrams.relax();
 })();

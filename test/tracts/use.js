@@ -1,5 +1,5 @@
 /**
- * test/cortex/cortex_use
+ * test/tracts/tracts_use
  *
  * Test Outline:
  *   retrieve tract and execute transfer
@@ -7,25 +7,27 @@
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { activate, Codex } = require("../../storage");
 const transfer = require('../lib/_transfer');
 const { logger } = require("../../storage/utils");
 
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: cortex use");
+logger.info("=== Tests: tracts use");
 
 async function init() {
+  let result = 0;
   try {
-    // activate cortex
-    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
-    await cortex.activate();
-    Storage.cortex = cortex;
+    // activate tracts
+    if (!await Codex.activate("tract", "elasticsearch|http://dev.dictadata.net:9200/|storage_tracts|*"))
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(tract_name) {
@@ -36,7 +38,7 @@ async function test(tract_name) {
     logger.verbose('=== use ' + urn);
 
     // recall tract definition
-    let results = await Storage.cortex.recall({ match: urn, resolve: true });
+    let results = await Codex.tracts.recall({ match: urn, resolve: true });
     logger.debug(JSON.stringify(results, null, "  "));
     if (results.status !== 0) {
       retCode = results.status;
@@ -67,5 +69,5 @@ async function test(tract_name) {
 
   if (await test("elasticsearch-foo_alias")) return 1;
 
-  await Storage.cortex.relax();
+  await Codex.tracts.relax();
 })();

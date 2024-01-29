@@ -13,9 +13,9 @@
  */
 "use strict";
 
+const Entry = require('./entry');
 const SMT = require('./smt');
 const Field = require('./field');
-const Entry = require('./entry');
 const StorageError = require('./storage-error');
 const { typeOf, hasOwnProperty, getCI } = require("../utils");
 

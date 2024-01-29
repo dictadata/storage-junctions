@@ -1,17 +1,17 @@
 {
-  "name": "storage_codex",
+  "name": "codex_engrams",
   "type": "engram",
-  "title": "storage_codex entry definition",
-  "description": "dictadata Storage Codex encoding definition",
+  "title": "Codex engram entry definition",
+  "description": "dictadata Storage Codex engram encoding definition",
   "tags": [
     "dictadata",
     "codex",
-    "entry"
+    "engram"
   ],
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "storage_codex",
+    "schema": "storage_engrams",
     "key": "!domain+':'+name"
   },
   "fields": [
@@ -31,6 +31,10 @@
       "type": "keyword"
     },
     {
+      "name": "source",
+      "type": "text"
+    },
+    {
       "name": "roles",
       "type": "list",
       "_list": {
@@ -39,8 +43,12 @@
       }
     },
     {
-      "name": "source",
-      "type": "text"
+      "name": "tags",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword"
+      }
     },
     {
       "name": "title",
@@ -55,14 +63,6 @@
       "type": "text"
     },
     {
-      "name": "tags",
-      "type": "list",
-      "_list": {
-        "name": "_list",
-        "type": "keyword"
-      }
-    },
-    {
       "name": "smt",
       "type": "map",
       "fields": {
@@ -70,15 +70,6 @@
         "locus": "text",
         "schema": "keyword",
         "key": "keyword"
-      }
-    },
-    {
-      "name": "auth",
-      "type": "map",
-      "fields": {
-        "username": "keyword",
-        "password": "keyword",
-        "access_key": "keyword"
       }
     },
     {

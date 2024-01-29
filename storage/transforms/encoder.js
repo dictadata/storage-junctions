@@ -5,7 +5,7 @@
  * into storage field encodings.
  */
 
-const Campus = require("../campus");
+const { Junctions } = require("../storage");
 const { StorageError } = require("../types");
 const { hasOwnProperty, logger } = require("../utils");
 
@@ -38,7 +38,7 @@ module.exports = exports = class EncoderTransform extends Transform {
     if (!hasOwnProperty(options, "junction"))
       throw new StorageError(400, "options.junction not defined");
 
-    let junction = Campus._storageJunctions.get(options.junction);
+    let junction = Junctions.get(options.junction);
     if (junction)
       if (hasOwnProperty(junction, "encoder"))
         this.encoder = junction.encoder;

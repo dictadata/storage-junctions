@@ -1,8 +1,8 @@
 /**
- * storage/auth_stash.js
+ * storage/codex/auth.js
  */
 "use strict";
-const { logger } = require("./utils");
+const { logger } = require("../utils");
 const fs = require('fs');
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
@@ -47,7 +47,7 @@ exports.load = (filename) => {
     for (let [ key, options ] of Object.entries(connections)) {
       // check to read certificate authorities from file
       let tls = options.tls || options.ssl;
-      if (tls && tls.ca) {
+      if (tls?.ca) {
         if (typeof tls.ca === "string" && !tls.ca.startsWith("-----BEGIN CERTIFICATE-----")) {
           // assume it's a filename
           if (tls.ca.startsWith("~"))

@@ -1,17 +1,17 @@
 {
-  "name": "dicta_cortex",
-  "type": "tract",
-  "title": "dicta_cortex storage definition",
-  "description": "dictadata storage Cortex encoding definition",
+  "name": "codex_tracts",
+  "type": "engram",
+  "title": "Codex tract entry definition",
+  "description": "dictadata Storage Codex tract encoding definition",
   "tags": [
     "dictadata",
-    "cortex",
-    "tracts"
+    "codex",
+    "tract"
   ],
   "smt": {
     "model": "*",
     "locus": "*",
-    "schema": "dicta_cortex",
+    "schema": "storage_tracts",
     "key": "!domain+':'+name"
   },
   "fields": [
@@ -31,7 +31,19 @@
       "type": "keyword"
     },
     {
+      "name": "source",
+      "type": "text"
+    },
+    {
       "name": "roles",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword"
+      }
+    },
+    {
+      "name": "tags",
       "type": "list",
       "_list": {
         "name": "_list",
@@ -49,14 +61,6 @@
     {
       "name": "notes",
       "type": "text"
-    },
-    {
-      "name": "tags",
-      "type": "list",
-      "_list": {
-        "name": "_list",
-        "type": "keyword"
-      }
     },
     {
       "name": "tracts",

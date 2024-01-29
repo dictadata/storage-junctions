@@ -9,7 +9,7 @@
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { activate, Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
@@ -21,9 +21,7 @@ logger.info("=== Tests: codex use");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|storage_codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
   }
   catch (err) {
     logger.error(err);
@@ -38,7 +36,7 @@ async function test(name) {
     logger.verbose('=== retrieve ' + urn);
 
     // create junction
-    let junction = await Storage.activate(urn, { auth: { "username": "dicta", password: "data" } });
+    let junction = await activate(urn, { auth: { "username": "dicta", password: "data" } });
 
     // retrieve codex entries
     let results = await junction.retrieve({
@@ -77,5 +75,5 @@ async function test(name) {
   if (await test("mssql-foo_schema")) return 1;
   if (await test("mysql-foo_schema")) return 1;
 
-  await Storage.codex.relax();
+  await Codex.engrams.relax();
 })();

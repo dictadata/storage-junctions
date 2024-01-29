@@ -1,50 +1,48 @@
 /**
- * test/cortex/retrieve
+ * test/codex/retrieve
  *
  * Test Outline:
- *   use cortex with Elasticsearch junction
- *   retreive all entries starting with foo_transfer*
- *   compare results to expected cortex entries
+ *   use codex with Elasticsearch junction
+ *   retreive all entries starting with foo_schema*
+ *   compare results to expected codex entries
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: cortex retrieve");
+logger.info("=== Tests: codex retrieve");
 
 async function init() {
   try {
-    // activate cortex
-    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
-    await cortex.activate();
-    Storage.cortex = cortex;
+    // activate codex
+    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
   }
   catch (err) {
     logger.error(err);
   }
 }
 
-async function test(tract_name) {
+async function test(schema) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== retrieve ' + tract_name);
+    logger.verbose('=== ' + schema);
 
-    // retrieve cortex entries
-    let results = await Storage.cortex.retrieve({
+    // retrieve codex entries
+    let results = await Codex.engrams.retrieve({
       match: {
         "name": {
-          wc: tract_name + "*"
+          wc: schema + "*"
         }
       }
     });
 
-    let outputfile = "./test/data/output/cortex/retrieve_" + tract_name + ".tract.json";
+    let outputfile = "./test/data/output/codex/retrieve_" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -64,7 +62,7 @@ async function test(tract_name) {
 (async () => {
   await init();
 
-  if (await test("foo_transfer")) return 1;
+  if (await test("foo_schema")) return 1;
 
-  await Storage.cortex.relax();
+  await Codex.engrams.relax();
 })();

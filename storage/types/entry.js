@@ -26,16 +26,19 @@ module.exports = exports = class Entry {
    * @param {Object} options an object containing common Codex entry properties.
    */
   constructor(options) {
-    // codex properties from codex.options.json
+    // codex properties from codex.encoding.json
     if (options.name) this.name = options.name;
-    if (options.type) this.type = options.type;
-    if (options.roles) this.roles = options.roles;
     if (options.domain) this.domain = options.domain;
+
+    if (options.type) this.type = options.type;
     if (options.source) this.source = options.source;
+
+    if (options.roles) this.roles = options.roles;
+    if (options.tags) this.tags = options.tags;
+
     if (options.title) this.title = options.title;
     if (options.description) this.description = options.description;
     if (options.notes) this.notes = options.notes;
-    if (options.tags) this.tags = options.tags;
   }
 
   get urn() {

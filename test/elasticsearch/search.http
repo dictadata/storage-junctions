@@ -81,7 +81,7 @@ Content-Type: application/json
 }
 
 ### query multiple fields
-POST http://dev.dictadata.net:9200/storage_codex/_search
+POST http://dev.dictadata.net:9200/storage_engrams/_search
 Content-Type: application/json
 
 {

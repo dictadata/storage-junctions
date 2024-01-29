@@ -1,36 +1,35 @@
 /**
- * test/cortex/dull
+ * test/codex/dull
  *
  * Test Outline:
- *   use cortex with Elasticsearch junction
- *   dull tract definition for "foo_transfer_two" in cortex
+ *   use codex with Elasticsearch junction
+ *   dull engram definition for "foo_schema_two" in codex
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 
-logger.info("=== Tests: cortex dull");
+logger.info("=== Tests: codex dull");
 
 async function init() {
   try {
-    // activate cortex
-    let cortex = new Storage.Cortex("elasticsearch|http://dev.dictadata.net:9200/|dicta_cortex|*");
-    await cortex.activate();
-    Storage.cortex = cortex;
+    // activate codex
+    await Codex.activate( "engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
   }
   catch (err) {
     logger.error(err);
   }
 }
 
-async function test(domain, name) {
+async function test(domain, schema) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== dull ' + name);
+    logger.verbose('=== ' + schema);
 
-    let results = await Storage.cortex.dull({ domain: domain, name: name });
+    // dull encoding
+    let results = await Codex.engrams.dull({ domain: domain, name: schema });
     logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
@@ -49,9 +48,10 @@ async function test_keys(keys) {
 
   try {
     for (let key of keys) {
-      logger.verbose('=== dull ' + key);
+      logger.verbose('=== ' + key);
 
-      let results = await Storage.cortex.dull(key);
+      // dull encoding
+      let results = await Codex.engrams.dull(key);
       logger.info(JSON.stringify(results, null, "  "));
     }
   }
@@ -66,12 +66,12 @@ async function test_keys(keys) {
 (async () => {
   await init();
 
-  if (await test("foo", "foo_transfer_two")) return 1;
+  if (await test("", "foo_schema_two")) return 1;
 
   // delete extraneous entries
-  await test_keys(["foo:foo_alias" ]);
+  // await test_keys(["foo:foo_schema_XYZ" ]);
 
-  await Storage.cortex.relax();
+  await Codex.engrams.relax();
 
   // give Elasticsearch time to refresh its index
   await new Promise((r) => setTimeout(r, 1100));

@@ -24,7 +24,7 @@
             "smt": "json|./test/data/input/|foofile.json|*"
           },
           "terminal": {
-            "smt": "json|./test/data/output/cortex/|transfer_foofile.json|*"
+            "smt": "json|./test/data/output/tracts/|transfer_foofile.json|*"
           }
         }
       ]

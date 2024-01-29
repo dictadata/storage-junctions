@@ -1,37 +1,38 @@
 /**
- * test/codex/dull
+ * test/tracts/dull
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
- *   dull engram definition for "foo_schema_two" in codex
+ *   use tracts with Elasticsearch junction
+ *   dull tract definition for "foo_transfer_two" in tracts
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 
-logger.info("=== Tests: codex dull");
+logger.info("=== Tests: tracts dull");
 
 async function init() {
+  let result = 0;
   try {
-    // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|storage_codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    // activate tracts
+    if (!await Codex.activate("tract", "elasticsearch|http://dev.dictadata.net:9200/|storage_tracts|*"))
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
-async function test(domain, schema) {
+async function test(domain, name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== dull ' + name);
 
-    // dull encoding
-    let results = await Storage.codex.dull({ domain: domain, name: schema });
+    let results = await Codex.tracts.dull({ domain: domain, name: name });
     logger.info(JSON.stringify(results, null, "  "));
 
     // compare to expected output
@@ -50,10 +51,9 @@ async function test_keys(keys) {
 
   try {
     for (let key of keys) {
-      logger.verbose('=== ' + key);
+      logger.verbose('=== dull ' + key);
 
-      // dull encoding
-      let results = await Storage.codex.dull(key);
+      let results = await Codex.tracts.dull(key);
       logger.info(JSON.stringify(results, null, "  "));
     }
   }
@@ -68,12 +68,12 @@ async function test_keys(keys) {
 (async () => {
   await init();
 
-  if (await test("", "foo_schema_two")) return 1;
+  if (await test("foo", "foo_transfer_two")) return 1;
 
   // delete extraneous entries
-  // await test_keys(["foo:foo_schema_XYZ" ]);
+  await test_keys(["foo:foo_alias" ]);
 
-  await Storage.codex.relax();
+  await Codex.tracts.relax();
 
   // give Elasticsearch time to refresh its index
   await new Promise((r) => setTimeout(r, 1100));

@@ -8,7 +8,7 @@
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const fs = require('fs');
@@ -18,9 +18,7 @@ logger.info("=== Tests: codex store");
 async function init() {
   try {
     // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|storage_codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
   }
   catch (err) {
     logger.error(err);
@@ -45,8 +43,10 @@ async function store(schema) {
       entry.tags.push("foo");
     }
 
-    let results = await Storage.codex.store(entry);
+    let results = await Codex.engrams.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
+    if (results.status > 201)
+      retCode = 1;
   }
   catch (err) {
     logger.error(err);
@@ -73,8 +73,10 @@ async function alias(alias, urn) {
       tags: [ "foo", "alias" ]
     };
 
-    let results = await Storage.codex.store(entry);
+    let results = await Codex.engrams.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
+    if (results.status > 201)
+      retCode = 1;
   }
   catch (err) {
     logger.error(err);
@@ -94,5 +96,5 @@ async function alias(alias, urn) {
 
   if (await alias("foo_alias", "foo:foo_schema")) return 1;
 
-  await Storage.codex.relax();
+  await Codex.engrams.relax();
 })();

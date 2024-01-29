@@ -10,7 +10,7 @@
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { Engram } = require("../../storage/types");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
@@ -21,15 +21,17 @@ const path = require('path');
 logger.info("=== Tests: codex in-memory");
 
 async function init() {
+  let result = 0;
   try {
     // activate codex
-    let codex = new Storage.Codex("memory|dictadata|codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    if (!await Codex.activate("engram", "memory|dictadata|codex_|*"))
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(schema) {
@@ -43,12 +45,12 @@ async function test(schema) {
     encoding.name = schema;
 
     let entry = new Engram(encoding);
-    let results = await Storage.codex.store(entry);
+    let results = await Codex.engrams.store(entry);
     logger.verbose(JSON.stringify(results, null, "  "));
 
     // recall encoding
     let urn = entry.urn;
-    results = await Storage.codex.recall(urn);
+    results = await Codex.engrams.recall({ type: "engram", key: urn });
     logger.verbose("recall: " + results.message);
 
     if (results.status === 0) {
@@ -75,11 +77,11 @@ async function test(schema) {
 }
 
 (async () => {
-  await init();
+  if (await init()) return 1;
 
   if (await test("foo_schema")) return 1;
   if (await test("foo_schema_short")) return 1;
   if (await test("foo_schema_typesonly")) return 1;
 
-  await Storage.codex.relax();
+  await Codex.engrams.relax();
 })();

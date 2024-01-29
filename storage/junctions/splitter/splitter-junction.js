@@ -3,8 +3,8 @@
  */
 "use strict";
 
+const Storage = require("../../storage");
 const StorageJunction = require("../storage-junction");
-const Campus = require("../../campus");
 const { Engram, StorageError } = require("../../types");
 const { hasOwnProperty, logger } = require("../../utils");
 
@@ -111,7 +111,7 @@ class SplitterJunction extends StorageJunction {
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
     // attempt to create destination schema
-    let junction = this.split_junctions[ sname ] = await Campus.activate(smt, terminal.options);
+    let junction = this.split_junctions[ sname ] = await Storage.activate(smt, terminal.options);
     if (junction.capabilities.encoding)
       await junction.createSchema();
 

@@ -1,14 +1,13 @@
 # CH
 - version 0.9.96
-  - improved, consistent error handling
+  - refactor: improved, consistent error handling
 - version 0.9.95
   - refactor: rename internal Cortex class to Campus (hippocampus)
-  - refactor: rename Tracts storage class to and Cortex (cerebral cortex)
 - version 0.9.94
-  - bug fix: coerce smt strings in cortex entries
+  - bug fix: coerce smt strings in tracts entries
 - version 0.9.93
-  - feature: Cortex storage
-  - testing updates for codex and cortex storage
+  - feature: Tracts storage
+  - testing updates for codex and tracts storage
 - version 0.9.92
   - bug fix: have process.env.HOMEPATH take precedence over os.homedir()
 - version 0.9.91
@@ -62,7 +61,7 @@
 - version 2.4.2
   - refactor: Codex key replace smt_id with smt_urn
 - version 2.4.1
-  - feature: Storage.authStash for username/passwords, apiKey, etc.
+  - feature: Codex.auth for username/passwords, apiKey, etc.
   - refactor: use basic-ftp in place of promise-ftp
   - testing: use dev.dictadata.net instead of localhost in test URL's
 - version 2.4.0
@@ -70,7 +69,7 @@
 - version 2.3.4
   - refactor: add domain and roles to codex entry
 - version 2.3.3
-  - enhancement: Codex.store() validate entry's name and type
+  - enhancement: Engrams.store() validate entry's name and type
   - refactor: add source and notes to codex entry, remove alias_smt
 - version 2.3.2
   - feature: full-text search pattern syntax and elasticsearch-junction

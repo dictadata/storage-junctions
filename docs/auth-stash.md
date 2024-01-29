@@ -1,12 +1,12 @@
-# authStash Credentials
+# Storage.Codex.auth. Credentials
 
-The _Storage.authStash_ is a map type cache of credentials. It is used by the Codex, junctions and filesystems to look up credentials if they were not provided by the application.
+The _Storage.Storage.Codex.auth._ is a map type cache of credentials. It is used by the Codex, junctions and filesystems to look up credentials if they were not provided by the application.
 
-Using the credentials authStash is useful if the Codex entries are going to be displayed to end users and data source credentials are considered a security risk.
+Using the credentials Storage.Codex.auth. is useful if the Codex entries are going to be displayed to end users and data source credentials are considered a security risk.
 
-Credential values don't have to be stored in authStash. Depending upon the data source, applications can also include them in the _smt.locus_ field or an _options.auth_ object.
+Credential values don't have to be stored in Storage.Codex.auth.. Depending upon the data source, applications can also include them in the _smt.locus_ field or an _options.auth_ object.
 
-## authStash Entries
+## Storage.Codex.auth. Entries
 
 ### Key Values
 
@@ -37,15 +37,15 @@ or
 
 ## Loading a Credentials file
 
-A authStash credentials can be loaded using _Storage.authStash.load()_ method.
+A Storage.Codex.auth. credentials can be loaded using _Storage.Storage.Codex.auth..load()_ method.
 
 ```javascript
 var Storage = require("@dictadata/storage-junctions");
 
-Storage.authStash.load("./auth_stash.json");
+Storage.Storage.Codex.auth..load("./auth_stash.json");
 ```
 
-## Example authStash File
+## Example Storage.Codex.auth. File
 
 ```json
 {

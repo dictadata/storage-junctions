@@ -1,25 +1,16 @@
 /**
  * @dictadata/storage-junctions
  *
- * This module is a "superset" of Storage module.
+ * Exposes Class types for:
+ *   StorageJunction, FileSystems, Transforms, Codex
  *
- * Exposes additional class types for:
- *   Codex, StorageJunction, Transforms, FileSystems
- *
- * Registers standard class implementations of:
- *   StorageJunctions, Transforms, FileSystems
+ * Registers standard implementations of several:
+ *   StorageJunctions, FileSystems, Transforms
  */
 "use strict";
 
-var Storage = require("./campus");
+var Storage = require("./storage");
 module.exports = exports = Storage;
-
-//////////
-///// Codex class
-exports.Codex = require("./codex");
-
-///// Cortex class
-exports.Cortex = require("./cortex");
 
 //////////
 ///// register Storage FileSystems
@@ -48,53 +39,53 @@ exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
 exports.StorageEncoder = StorageJunction.StorageEncoder;
-Storage.use('*', StorageJunction);
+Storage.Junctions.use('*', StorageJunction);
 
 var MemoryJunction = require("./junctions/memory");
 exports.MemoryJunction = MemoryJunction;
-Storage.use('memory', MemoryJunction);
+Storage.Junctions.use('memory', MemoryJunction);
 
 var CSVJunction = require("./junctions/csv");
 exports.CSVJunction = CSVJunction;
-Storage.use('csv', CSVJunction);
+Storage.Junctions.use('csv', CSVJunction);
 
 var JSONJunction = require("./junctions/json");
 exports.JSONJunction = JSONJunction;
-Storage.use('json', JSONJunction);   // defaults to json array
-Storage.use('jsons', JSONJunction);  // json stream
-Storage.use('jsonl', JSONJunction);  // json line
-Storage.use('jsona', JSONJunction);  // json array
-Storage.use('jsono', JSONJunction);  // json object
+Storage.Junctions.use('json', JSONJunction);   // defaults to json array
+Storage.Junctions.use('jsons', JSONJunction);  // json stream
+Storage.Junctions.use('jsonl', JSONJunction);  // json line
+Storage.Junctions.use('jsona', JSONJunction);  // json array
+Storage.Junctions.use('jsono', JSONJunction);  // json object
 
 var ParquetJunction = require("./junctions/parquet");
 exports.ParquetJunction = ParquetJunction;
-Storage.use('parquet', ParquetJunction);
+Storage.Junctions.use('parquet', ParquetJunction);
 
 var ElasticsearchJunction = require("./junctions/elasticsearch");
 exports.ElasticsearchJunction = ElasticsearchJunction;
-Storage.use('elastic', ElasticsearchJunction);
-Storage.use('elasticsearch', ElasticsearchJunction);
+Storage.Junctions.use('elastic', ElasticsearchJunction);
+Storage.Junctions.use('elasticsearch', ElasticsearchJunction);
 
 var MSSQLJunction = require("./junctions/mssql");
 exports.MSSQLJunction = MSSQLJunction;
-Storage.use('mssql', MSSQLJunction);
+Storage.Junctions.use('mssql', MSSQLJunction);
 
 var MySQLJunction = require("./junctions/mysql");
 exports.MySQLJunction = MySQLJunction;
-Storage.use('mysql', MySQLJunction);
+Storage.Junctions.use('mysql', MySQLJunction);
 
 var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
-Storage.use('rest', RESTJunction);
+Storage.Junctions.use('rest', RESTJunction);
 
 var ShapeFileJunction = require("./junctions/shapefile");
 exports.ShapeFileJunction = ShapeFileJunction;
-Storage.use('shp', ShapeFileJunction);
+Storage.Junctions.use('shp', ShapeFileJunction);
 
 var SplitterJunction = require("./junctions/splitter");
 exports.SplitterJunction = SplitterJunction;
-Storage.use('splitter', SplitterJunction);
-Storage.use('split', SplitterJunction);
+Storage.Junctions.use('splitter', SplitterJunction);
+Storage.Junctions.use('split', SplitterJunction);
 
 //////////
 ///// register Storage Transforms
@@ -134,3 +125,8 @@ Storage.Transforms.use('row_constructs', exports.RowConstructsTransform);
 
 exports.MapConstructsTransform = require("./transforms/mapConstructs");
 Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
+
+//////////
+///// Codex Classes
+// exports.Engrams = require("./codex/engrams");
+// exports.Tracts = require("./codex/tracts");

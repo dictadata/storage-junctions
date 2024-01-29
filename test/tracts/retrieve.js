@@ -1,50 +1,52 @@
 /**
- * test/codex/retrieve
+ * test/tracts/retrieve
  *
  * Test Outline:
- *   use codex with Elasticsearch junction
- *   retreive all entries starting with foo_schema*
- *   compare results to expected codex entries
+ *   use tracts with Elasticsearch junction
+ *   retreive all entries starting with foo_transfer*
+ *   compare results to expected tracts entries
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
 const fs = require('fs');
 const path = require('path');
 
-logger.info("=== Tests: codex retrieve");
+logger.info("=== Tests: tracts retrieve");
 
 async function init() {
+  let result = 0;
   try {
-    // activate codex
-    let codex = new Storage.Codex("elasticsearch|http://dev.dictadata.net:9200/|storage_codex|*");
-    await codex.activate();
-    Storage.codex = codex;
+    // activate tracts
+    if (!await Codex.activate("tract", "elasticsearch|http://dev.dictadata.net:9200/|storage_tracts|*"))
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
-async function test(schema) {
+async function test(tract_name) {
   let retCode = 0;
 
   try {
-    logger.verbose('=== ' + schema);
+    logger.verbose('=== retrieve ' + tract_name);
 
-    // retrieve codex entries
-    let results = await Storage.codex.retrieve({
+    // retrieve tracts entries
+    let results = await Codex.tracts.retrieve({
       match: {
         "name": {
-          wc: schema + "*"
+          wc: tract_name + "*"
         }
       }
     });
 
-    let outputfile = "./test/data/output/codex/retrieve_" + schema + ".encoding.json";
+    let outputfile = "./test/data/output/tracts/retrieve_" + tract_name + ".tract.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
@@ -64,7 +66,7 @@ async function test(schema) {
 (async () => {
   await init();
 
-  if (await test("foo_schema")) return 1;
+  if (await test("foo_transfer")) return 1;
 
-  await Storage.codex.relax();
+  await Codex.tracts.relax();
 })();

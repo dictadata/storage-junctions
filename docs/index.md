@@ -7,7 +7,7 @@
 * [Storage Campus](campus.md)
 * [Codex Data Directory and Schema Definitions](codex.md)
   * [smt_urn - Codex key field](types/smt_urn.md)
-  * [authStash - credentials file](auth-stash.md)
+  * [auth - credentials file](auth-stash.md)
 * [Plugins - FileSystem and StorageJunction](plugins.md)
 
 ## [Core Data Types](types/)

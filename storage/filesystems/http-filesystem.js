@@ -6,7 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
-const authStash = require("../auth-stash");
+const Codex = require("../codex");
 
 const fs = require('fs');
 const path = require('path');
@@ -65,8 +65,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         params: this.options.params
       }, options.http);
 
-      if (!request.auth && authStash.has(this.url)) {
-        let cred = authStash.recall(this.url) || {};
+      if (!request.auth && Codex.auth.has(this.url)) {
+        let cred = Codex.auth.recall(this.url) || {};
         request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
@@ -199,8 +199,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!request.auth && authStash.has(this.url)) {
-        let cred = authStash.recall(this.url) || {};
+      if (!request.auth && Codex.auth.has(this.url)) {
+        let cred = Codex.auth.recall(this.url) || {};
         request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
@@ -271,8 +271,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!request.auth && authStash.has(this.url)) {
-        let cred = authStash.recall(this.url);
+      if (!request.auth && Codex.auth.has(this.url)) {
+        let cred = Codex.auth.recall(this.url);
         request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
@@ -332,8 +332,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!request.auth && authStash.has(this.url)) {
-        let cred = authStash.recall(this.url) || {};
+      if (!request.auth && Codex.auth.has(this.url)) {
+        let cred = Codex.auth.recall(this.url) || {};
         request.auth = cred.auth.username + ":" + cred.auth.password;
       }
 
