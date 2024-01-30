@@ -1,5 +1,5 @@
 /**
- * test/codex/recall
+ * test/engrams/recall
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
@@ -18,13 +18,18 @@ const path = require('path');
 logger.info("=== Tests: codex recall");
 
 async function init() {
+  let result = 0;
   try {
     // activate codex
-    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    let engrams = Codex.use("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    if (!await engrams.activate())
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(domain, schema, resolve = false) {
@@ -50,7 +55,7 @@ async function test(domain, schema, resolve = false) {
       let urn = Object.keys(results.data)[ 0 ];
       //let encoding = results.data[ urn ];
 
-      let outputfile = "./test/data/output/codex/" + (resolve ? "resolve_" : "recall_") + schema + ".encoding.json";
+      let outputfile = "./test/data/output/engrams/" + (resolve ? "resolve_" : "recall_") + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

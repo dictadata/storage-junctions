@@ -1,5 +1,5 @@
 /**
- * test/codex/codex_in-memory
+ * test/engrams/codex_in-memory
  *
  * Test Outline:
  *   Uses codex with Memory Junction
@@ -24,7 +24,8 @@ async function init() {
   let result = 0;
   try {
     // activate codex
-    if (!await Codex.activate("engram", "memory|dictadata|codex_|*"))
+    let engrams = Codex.use("engram", "memory|dictadata|codex_engrams|*");
+    if (!await engrams.activate())
       result = 1;
   }
   catch (err) {
@@ -56,7 +57,7 @@ async function test(schema) {
     if (results.status === 0) {
       //encoding = results.data[ urn ];
 
-      let outputfile = "./test/data/output/codex/" + schema + ".encoding.json";
+      let outputfile = "./test/data/output/engrams/" + schema + ".encoding.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

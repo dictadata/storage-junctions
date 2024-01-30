@@ -9,8 +9,7 @@ module.exports = exports = {
     'plugin:node/recommended'
   ],
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "script"
+      "sourceType": "script"
   },
   "globals": {
     "config": "readonly",

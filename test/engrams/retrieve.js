@@ -1,5 +1,5 @@
 /**
- * test/codex/retrieve
+ * test/engrams/retrieve
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
@@ -18,13 +18,18 @@ const path = require('path');
 logger.info("=== Tests: codex retrieve");
 
 async function init() {
+  let result = 0;
   try {
     // activate codex
-    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    let engrams = Codex.use("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    if (!await engrams.activate())
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(schema) {
@@ -42,7 +47,7 @@ async function test(schema) {
       }
     });
 
-    let outputfile = "./test/data/output/codex/retrieve_" + schema + ".encoding.json";
+    let outputfile = "./test/data/output/engrams/retrieve_" + schema + ".encoding.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

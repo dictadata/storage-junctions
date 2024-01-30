@@ -6,7 +6,7 @@
 const _pev = require("./_process_events");
 const _init = require("./_init");
 const _output = require("./_output");
-const Storage = require("../../storage");
+const { Storage } = require("../../storage");
 const { logger } = require('../../storage/utils');
 
 module.exports = exports = async function (tract, compareValues = 2) {

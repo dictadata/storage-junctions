@@ -24,7 +24,8 @@ async function init() {
   let result = 0;
   try {
     // activate tracts
-    if (!await Codex.activate("tract", "memory|dictadata|tracts|*"))
+    let tracts = Codex.use("tract", "memory|dictadata|tracts|*");
+    if (!await tracts.activate())
       result = 1;
   }
   catch (err) {

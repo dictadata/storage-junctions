@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const Storage = require("../../storage");
+const { Storage } = require("../../storage");
 const { logger } = require('../../storage/utils');
 
 logger.info("=== Tests: Generic * Junction");

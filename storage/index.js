@@ -10,7 +10,7 @@
 "use strict";
 
 var Storage = require("./storage");
-module.exports = exports = Storage;
+exports.Storage = Storage;
 
 //////////
 ///// register Storage FileSystems
@@ -128,5 +128,4 @@ Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
 
 //////////
 ///// Codex Classes
-// exports.Engrams = require("./codex/engrams");
-// exports.Tracts = require("./codex/tracts");
+exports.Codex = require("./codex");

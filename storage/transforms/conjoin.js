@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
 const Storage = require("../storage");
+const { Transform } = require('stream');
 const { logger, templateReplace } = require("../utils");
 
 /*

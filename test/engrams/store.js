@@ -1,5 +1,5 @@
 /**
- * test/codex/store
+ * test/engrams/store
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
@@ -16,13 +16,18 @@ const fs = require('fs');
 logger.info("=== Tests: codex store");
 
 async function init() {
+  let result = 0;
   try {
     // activate codex
-    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    let engrams = Codex.use("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    if (!await engrams.activate())
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function store(schema) {

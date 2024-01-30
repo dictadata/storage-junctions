@@ -1,5 +1,5 @@
 /**
- * test/codex/codex_use
+ * test/engrams/codex_use
  *
  * Test Outline:
  *   use codex with Elasticsearch junction
@@ -9,7 +9,7 @@
  */
 "use strict";
 
-const { activate, Codex } = require("../../storage");
+const { Storage, Codex } = require("../../storage");
 const { logger } = require("../../storage/utils");
 const _compare = require("../lib/_compare");
 
@@ -19,13 +19,18 @@ const path = require('path');
 logger.info("=== Tests: codex use");
 
 async function init() {
+  let result = 0;
   try {
     // activate codex
-    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    let engrams = Codex.use("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    if (!await engrams.activate())
+      result = 1;
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(name) {
@@ -36,7 +41,7 @@ async function test(name) {
     logger.verbose('=== retrieve ' + urn);
 
     // create junction
-    let junction = await activate(urn, { auth: { "username": "dicta", password: "data" } });
+    let junction = await Storage.activate(urn, { auth: { "username": "dicta", password: "data" } });
 
     // retrieve codex entries
     let results = await junction.retrieve({
@@ -47,7 +52,7 @@ async function test(name) {
       }
     });
 
-    let outputfile = "./test/data/output/codex/use_" + name + ".json";
+    let outputfile = "./test/data/output/engrams/use_" + name + ".json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

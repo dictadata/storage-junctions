@@ -18,7 +18,8 @@ async function init() {
   let result = 0;
   try {
     // activate tracts
-    if (!await Codex.activate("tract", "elasticsearch|http://dev.dictadata.net:9200/|storage_tracts|*"))
+    let tracts = Codex.use("tract", "elasticsearch|http://dev.dictadata.net:9200/|storage_tracts|*");
+    if (!await tracts.activate())
       result = 1;
   }
   catch (err) {

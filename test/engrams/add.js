@@ -1,5 +1,5 @@
 /**
- * test/codex/codex_add
+ * test/engrams/codex_add
  *
  * Test Outline:
  *   use codex with underlying Elasticsearch junction
@@ -18,16 +18,21 @@ logger.info("=== Tests: codex add");
 var encoding;
 
 async function init() {
+  let result = 0;
   try {
     // activate codex
-    await Codex.activate("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    let engrams = Codex.use("engram", "elasticsearch|http://dev.dictadata.net:9200/|storage_engrams|*");
+    if (!await engrams.activate())
+      result = 1;
 
     // read foo_schema encoding
     encoding = JSON.parse(fs.readFileSync("./test/data/input/encodings/foo_schema.encoding.json", "utf8"));
   }
   catch (err) {
     logger.error(err);
+    result = 1;
   }
+  return result;
 }
 
 async function test(name, smt) {
