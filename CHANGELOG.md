@@ -1,4 +1,9 @@
-# CH
+# CHANGELOG @dictadata/storage-junctions
+
+- version 0.9.97
+  - refactor: change Storage to be part of library interface
+  - refactor: revamp Codex interface for auth, engrams, tracts
+  - testing: remove origin server from automatic testing
 - version 0.9.96
   - refactor: improved, consistent error handling
 - version 0.9.95
