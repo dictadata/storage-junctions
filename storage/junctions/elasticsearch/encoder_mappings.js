@@ -74,7 +74,7 @@ module.exports = exports = class ElasticMappings {
       await this.getEncoding();
 
     if (merge) {
-      this.engram.merge(encoding);
+      this.engram.mergeFields(encoding);
     } else {
       this.engram.encoding = encoding;
     }

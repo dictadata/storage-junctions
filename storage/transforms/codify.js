@@ -34,7 +34,7 @@ module.exports = exports = class CodifyTransform extends Transform {
     this.engram = new Engram('*|*|*|*');
 
     if (this.options.encoding)
-      this.engram.merge(this.options.encoding);
+      this.engram.mergeFields(this.options.encoding);
   }
 
   /**

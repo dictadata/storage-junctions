@@ -35,7 +35,7 @@ module.exports = exports = class FlowStatsTransform extends Transform {
     this.engram = new Engram('*|*|*|*');
 
     if (this.options.encoding)
-      this.engram.merge(this.options.encoding);
+      this.engram.mergeFields(this.options.encoding);
 
     if (!this.options.statistics) {
       this.options.statistics = {

@@ -34,7 +34,7 @@ Accesor property where the getter function returns a plain Javascript object con
 * tags [&lt;string&gt;, ...]
 * smt &lt;SMT&gt;
 * fields [&lt;Field&gt;, ...]
-* 
+*
 
 The setter function accepts an encoding parameter of Engram or plain Javascript object containing a fields array or fields object.
 
@@ -44,7 +44,7 @@ The setter function accepts an encoding parameter of Engram or plain Javascript 
 
 Find a field object in the fields.
 
-### engram.merge(encoding)
+### engram.mergeFields(encoding)
 
 * encoding &lt;encoding&gt; an Engram object or plain Javascript object containing an *fields* property.
 

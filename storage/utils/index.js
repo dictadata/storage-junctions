@@ -3,6 +3,7 @@
 
 exports.hasOwnProperty = require('./hasOwnProperty');
 exports.typeOf = require('./typeOf');
+exports.objCopy = require('./objCopy');
 exports.isDate = require('./isDate');
 exports.isUUID = require('./isUUID');
 exports.ynBoolean = require('./ynBoolean');

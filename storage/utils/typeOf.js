@@ -6,7 +6,7 @@
  * @param {*} obj - the object to check
  * @param {*} fullClass - if true return format is "[object <Type>]"
  */
-let typeOf = exports.typeOf = function (obj, fullClass = false) {
+function typeOf(obj, fullClass = false) {
   // use obj.prototype.toString() for deepType (handles all types)
 
   if (fullClass) {

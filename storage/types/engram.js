@@ -17,7 +17,7 @@ const Entry = require('./entry');
 const SMT = require('./smt');
 const Field = require('./field');
 const StorageError = require('./storage-error');
-const { typeOf, hasOwnProperty, getCI } = require("../utils");
+const { typeOf, hasOwnProperty, objCopy, getCI } = require("../utils");
 
 const dot = require('dot-object');
 
@@ -71,7 +71,7 @@ module.exports = exports = class Engram extends Entry {
    * Does not include functions or the fieldsMap property.
    */
   get encoding() {
-    let encoding = Engram._copy({}, this);
+    let encoding = objCopy({}, this);
     delete encoding.fieldsMap;
     return encoding;
   }
@@ -91,8 +91,8 @@ module.exports = exports = class Engram extends Entry {
       }
     }
 
-    this.dullfields();
-    this.mergefields(encoding);
+    this.dullFields();
+    this.mergeFields(encoding);
     /*
         if (encoding?.smt) {
           let smt = new SMT(encoding.smt);
@@ -101,7 +101,7 @@ module.exports = exports = class Engram extends Entry {
     */
     if (encoding?.indices) {
       this.indices = {};
-      Engram._copy(this.indices, encoding.indices);
+      objCopy(this.indices, encoding.indices);
     }
   }
 
@@ -118,7 +118,7 @@ module.exports = exports = class Engram extends Entry {
    * Sets fields and indices to empty
    * smt and other primitive properties added to the engram remain unchanged.
    */
-  dullfields() {
+  dullFields() {
     this.fields = new Array();
     this.fieldsMap = new Map();
     if (this.indices)
@@ -129,7 +129,7 @@ module.exports = exports = class Engram extends Entry {
    * Add or replace fields.
    * @param {Engram|encoding|fields} encoding is an Encoding/Engram object Fields object
    */
-  mergefields(encoding) {
+  mergeFields(encoding) {
     let newFields = encoding.fields || encoding;
 
     if (typeOf(newFields) === "object")
@@ -140,59 +140,6 @@ module.exports = exports = class Engram extends Entry {
 
     for (let field of newFields)
       this.add(field);
-  }
-
-  /**
-   * Copy/replace src properties in dst object.
-   * Deep copy of object properties and top level arrays.
-   * Shallow copy of reference types like Date, sub-arrays, etc.
-   * Objects and arrays will be replaced not merged!
-   * Does not copy functions.
-   * Note, this is a recursive function.
-   * @param {Engram} dst
-   * @param {Engram} src
-   */
-  static _copy(dst, src) {
-    for (let [ key, value ] of Object.entries(src)) {
-      let srcType = typeOf(value);
-
-      if (srcType === "object") {
-        dst[ key ] = {};  // replace
-        Engram._copy(dst[ key ], value);
-      }
-      else if (["date", "regexp"].includes(srcType)) {
-        dst[ key ] = value;
-      }
-      else if (srcType === "array") {
-        dst[ key ] = new Array();  // replace
-        for (let item of value)
-          if (item != null && typeof item === "object")
-            dst[ key ].push(Engram._copy({}, item));
-          else
-            dst[ key ].push(item);
-      }
-      else if (srcType === "map") {
-        dst[ key ] = new Map();  // replace
-        for (let [name, item] of value.entries())
-          if (item != null && typeof item === "object")
-            dst[ key ].set(name, Engram._copy({}, item));
-          else
-            dst[ key ].set(name, item);
-      }
-      else if (srcType === "set") {
-        dst[ key ] = new Set();  // replace
-        for (let item of value.entries())
-          if (item != null && typeof item === "object")
-            dst[ key ].add(Engram._copy({}, item));
-          else
-            dst[ key ].add(item);
-      }
-      else if (srcType !== "function") {
-        dst[ key ] = value;
-      }
-    }
-
-    return dst;
   }
 
   // ----- field related properties -----
