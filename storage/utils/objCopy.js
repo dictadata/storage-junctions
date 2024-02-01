@@ -1,17 +1,17 @@
 // storage/utils/objCopy
 "use strict";
 
-const { typeOf } = require("../utils");
+const { typeOf, hasOwnProperty } = require("../utils");
 
 /**
  * Copy/replace source properties in target object.
- * Deep copy of object properties and top level arrays.
- * Shallow copy of reference types like Date, sub-arrays, etc.
- * Objects and arrays will be replaced not merged!
- * Does not copy functions.
+ * Deep copy of object properties.
+ * Shallow copy of reference types date, regexp.
+ * Arrays, map, sets will be replaced not merged!
+ * Functions will not be copied.
  * Note, this is a recursive function.
- * @param {Object} target
- * @param {Object} source
+ * @param {Object} target destination target object
+ * @param {Object} source one or more source objects
  */
 function objCopy(target, ...source) {
 
@@ -20,7 +20,8 @@ function objCopy(target, ...source) {
       let srcType = typeOf(value);
 
       if (srcType === "object") {
-        target[ key ] = {};  // replace
+        if (!hasOwnProperty(target, key) || typeOf(target[key]) !== "object")
+          target[ key ] = {};  // replace
         objCopy(target[ key ], value);
       }
       else if ([ "date", "regexp" ].includes(srcType)) {
