@@ -42,7 +42,7 @@ async function test(tract_name) {
   try {
     // store tract
     logger.verbose('=== store/recall ' + tract_name);
-    tract = JSON.parse(fs.readFileSync("./test/data/input/tracts/" + tract_name + ".tract.json", "utf8"));
+    tract = JSON.parse(fs.readFileSync("./test/data/input/tracts/" + tract_name + ".tracts.json", "utf8"));
 
     let results = await Codex.tracts.store(tract);
     logger.verbose(JSON.stringify(results, null, "  "));
@@ -54,7 +54,7 @@ async function test(tract_name) {
     logger.verbose("recall: " + results.message);
 
     if (results.status === 0) {
-      let outputfile = "./test/data/output/tracts/" + tract_name + ".tract.json";
+      let outputfile = "./test/data/output/tracts/" + tract_name + ".tracts.json";
       logger.verbose("output file: " + outputfile);
       fs.mkdirSync(path.dirname(outputfile), { recursive: true });
       fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");

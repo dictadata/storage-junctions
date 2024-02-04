@@ -47,7 +47,7 @@ async function test(tract_name) {
       }
     });
 
-    let outputfile = "./test/data/output/tracts/retrieve_" + tract_name + ".tract.json";
+    let outputfile = "./test/data/output/tracts/retrieve_" + tract_name + ".tracts.json";
     logger.verbose("output file: " + outputfile);
     fs.mkdirSync(path.dirname(outputfile), { recursive: true });
     fs.writeFileSync(outputfile, JSON.stringify(results, null, 2), "utf8");
