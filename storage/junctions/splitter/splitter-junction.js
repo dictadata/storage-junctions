@@ -1,5 +1,6 @@
 /**
  * SplitterJunction
+ * // DEPRECATED implemented in tracts
  */
 "use strict";
 

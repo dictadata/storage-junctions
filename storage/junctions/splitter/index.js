@@ -1,4 +1,5 @@
 // junctions/splitter
+// DEPRECATED implemented in tracts
 
 const SplitterJunction = require("./splitter-junction");
 
