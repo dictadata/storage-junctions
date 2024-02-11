@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let { parseDate } = require('../storage/utils');
+let { parseDate } = require('../../storage/utils');
 
 function test () {
   console.log(parseDate("2019-10-01").toISOString());

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let { isDate } = require('../storage/utils');
+let { isDate } = require('../../storage/utils');
 
 function test () {
   console.log(isDate("2019-10-01"));
@@ -44,7 +44,7 @@ function test () {
   console.log(isDate("10-OCT-18"));
 
   console.log("ISO Dates");
-  
+
   console.log(isDate("03-MAY-25"));
   let d1 = new Date("03-MAY-25");
   console.log(d1.toISOString());
