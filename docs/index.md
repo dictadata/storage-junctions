@@ -5,9 +5,8 @@
 ## Core Functionality
 
 * [Storage Campus](campus.md)
-* [Codex Data Directory and Schema Definitions](codex.md)
-  * [smt_urn - Codex key field](types/smt_urn.md)
-  * [auth - credentials file](auth-stash.md)
+* [Engrams Data Directory and Schema Definitions](engrams.md)
+* [auth - credentials file](auth.md)
 * [Plugins - FileSystem and StorageJunction](plugins.md)
 
 ## [Core Data Types](types/)

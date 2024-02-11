@@ -2,7 +2,7 @@
  * @dictadata/storage-junctions
  *
  * Exposes Class types for:
- *   StorageJunction, FileSystems, Transforms, Codex
+ *   StorageJunction, FileSystems, Transforms
  *
  * Registers standard implementations of several:
  *   StorageJunctions, FileSystems, Transforms
@@ -120,7 +120,3 @@ Storage.Transforms.use('row_constructs', exports.RowConstructsTransform);
 
 exports.MapConstructsTransform = require("./transforms/mapConstructs");
 Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
-
-//////////
-///// Codex Classes
-exports.Codex = require("./codex");

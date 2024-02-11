@@ -12,7 +12,7 @@ contains the field information needed to encode and decode constructs for storag
 ### new Engram(SMT|encoding)
 
 * SMT <SMT|string> SMT object or SMT string.
-* encoding <Engram|encoding> Engram object or Javascript object that must have an *SMT* property.  The encoding object may optionally have *fields* array property and Codex related properties.
+* encoding <Engram|encoding> Engram object or Javascript object that must have an *SMT* property.  The encoding object may optionally have *fields* array property and Engram related properties.
 
 ### engram.add(field)
 
@@ -69,11 +69,11 @@ SMT object.
 
 ### engram.name &lt;string&gt;
 
-default is smt.schema.  The engram.name is used by a Codex as the unique key.  If an engram is to be stored in a Codex the name must be unique.  Consider using a dot notation to name engram encodings, e.g. *"myCompany.myGroup.datasource_1"*.
+default is smt.schema.  The engram.name is used by a Engram as the unique key.  If an engram is to be stored in a Engram the name must be unique.  Consider using a dot notation to name engram encodings, e.g. *"myCompany.myGroup.datasource_1"*.
 
 ### engram.type &lt;string&gt;
 
-Possible values  "engram", "tract".  Default value is "engram".
+Possible values  "engram"  Default value is "engram".
 
 ### engram.description &lt;string&gt;
 
@@ -81,7 +81,7 @@ A short human readable description for the engram.
 
 ### engram.tags [&lt;string&gt;, ...]
 
-An array of keyword strings that can be used to retreive a set of engrams from a Codex.
+An array of keyword strings that can be used to retreive a set of engram from a Engram.
 
 ### engram.fields [&lt;Field&gt;, ...]
 

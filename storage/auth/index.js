@@ -1,5 +1,5 @@
 /**
- * storage/codex/auth.js
+ * storage/auth
  */
 "use strict";
 const { logger } = require("../utils");
@@ -9,6 +9,11 @@ const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 var _stash = new Map();
 exports._stash = _stash;
 
+/**
+ * if a URL then pick out the server.
+ * @param {*} key
+ * @returns
+ */
 function origin(key) {
   if (key instanceof URL)
     return key.origin;
@@ -37,16 +42,13 @@ exports.dull = (key) => {
 };
 
 exports.load = (filename) => {
-  // file format:
-  // { key: options, ... }
-  // where key is a connection string
-  // where options is an object with connection options
-  try {
-    var connections = JSON.parse(fs.readFileSync(filename, 'utf8'));
 
-    for (let [ key, options ] of Object.entries(connections)) {
+  try {
+    var entries = JSON.parse(fs.readFileSync(filename, 'utf8'));
+
+    for (let entry of entries) {
       // check to read certificate authorities from file
-      let tls = options.tls || options.ssl;
+      let tls = entry.tls || entry.ssl;
       if (tls?.ca) {
         if (typeof tls.ca === "string" && !tls.ca.startsWith("-----BEGIN CERTIFICATE-----")) {
           // assume it's a filename
@@ -59,7 +61,7 @@ exports.load = (filename) => {
         }
       }
 
-      _stash.set(key, options);
+      _stash.set(entry.locus, entry);
     }
   }
   catch (err) {
@@ -69,9 +71,9 @@ exports.load = (filename) => {
 
 exports.save = (filename) => {
   try {
-    let data = {};
-    for (let [ key, value ] of _stash.entries())
-      data[ key ] = value;
+    let data = [];
+    for (let value of _stash.values())
+      data.push(value);
     fs.writeFileSync(filename, JSON.stringify(data, null, 2), "utf8");
   }
   catch (err) {

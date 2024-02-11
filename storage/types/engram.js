@@ -13,7 +13,6 @@
  */
 "use strict";
 
-const Entry = require('./entry');
 const SMT = require('./smt');
 const Field = require('./field');
 const StorageError = require('./storage-error');
@@ -21,14 +20,13 @@ const { typeOf, hasOwnProperty, objCopy, getCI } = require("../utils");
 
 const dot = require('dot-object');
 
-module.exports = exports = class Engram extends Entry {
+module.exports = exports = class Engram {
 
   /**
    * Engram class
    * @param {SMT|encoding} encoding type object, SMT object or SMT string
    */
   constructor(encoding) {
-    super(encoding);
     this.type = "engram";
 
     let smt = {};
@@ -67,7 +65,7 @@ module.exports = exports = class Engram extends Entry {
 
   /**
    * Returns a simple encoding object with the engram's properties
-   * including fields array, codex properties and any user added properties.
+   * including fields array, entry properties and any user added properties.
    * Does not include functions or the fieldsMap property.
    */
   get encoding() {

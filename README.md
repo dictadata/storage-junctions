@@ -24,13 +24,12 @@ npm install @dictadata/storage-junctions
 
 ## Related Projects
 
-[Storage-ETL](https://github.com/dictadata/storage-etl) is command line interface (CLI) for using _Storage Junctions_ library to transfer data between data sources, perform data transformations and manage data schemas.
+[Storage-ETL](https://github.com/dictadata/storage-etl) is command line interface (CLI) for using _Storage Junctions_ library to transfer data between data sources, perform data transformations and manage data schemas. Features `Engrams` a data dictionary service to manage data sources and schemas amongst users and applications.
 
-[Storage-Node](https://github.com/dictadata/storage-node) is a Node.js with Express.js based HTTP server application with extensible API services. A plugin framework supports all the base junctions and file systems from _Storage Junctions_ library and custom plugins. Features `Codex` a data dictionary service to manage data sources and schemas amongst users and applications.
+[Storage-Node](https://github.com/dictadata/storage-node) is a Node.js with Express.js based HTTP server application with extensible API services. A plugin framework supports all the base junctions and file systems from _Storage Junctions_ library and custom plugins.
 
 [Storage Plugins](https://github.com/dictadata/storage-junctions/docs/plugins.md) List of the various storage junctions and file system plugins that can be used with _Storage-ETL_ and _Storage-Node_.
 
 ---
 
 * [Code repository and issue tracker](https://github.com/dictadata/storage-junctions)
-  

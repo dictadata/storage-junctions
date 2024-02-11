@@ -82,7 +82,7 @@ async function test_origin(schema, encoding) {
 
   if (retCode < 0) {
     // if schema already exists then truncate constructs
-    // use credentials from auth_stash.json file
+    // use credentials from auth_entries.json file
     logger.info("=== dull (truncate) " + schema);
     if (await dull({
       origin: {

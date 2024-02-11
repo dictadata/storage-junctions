@@ -2,23 +2,22 @@
 
 - version 0.9.97
   - refactor: change Storage to be part of library interface
-  - refactor: revamp Codex interface for auth, engrams, tracts
+  - refactor: revamp Engrams interface for auth, engrams
   - testing: remove origin server from automatic testing
 - version 0.9.96
   - refactor: improved, consistent error handling
 - version 0.9.95
   - refactor: rename internal Cortex class to Campus (hippocampus)
 - version 0.9.94
-  - bug fix: coerce smt strings in tracts entries
+  -
 - version 0.9.93
-  - feature: Tracts storage
-  - testing updates for codex and tracts storage
+  - testing updates for engrams storage
 - version 0.9.92
   - bug fix: have process.env.HOMEPATH take precedence over os.homedir()
 - version 0.9.91
-  - bug fix: add logger to auth_stash module
+  - bug fix: add logger to auth_entries module
 - version 0.9.90
-  - bug fix: codex connection, issue overwriting options.tls.ca with file contents
+  - bug fix: engrams connection, issue overwriting options.tls.ca with file contents
 - version 0.9.89
   - refactor: rebrand to dictadata.net for all web sites and URL's
   - feature: support TLS options for Elasticsearch and MySQL connections
@@ -60,22 +59,22 @@
   - refactor: HttpRequest responses include httpVersion, statusMessage
   - bug fix: HttpFileSystem list directory using basic-ftp entry.type
 - version 2.5.0
-  - stable build of codex with smt_urn and auth_stash
+  - stable build of engrams with smt_urn and auth_entries
 - version 2.4.3
-  - refactor: add auth property to auth_stash objects
+  - refactor: add auth property to auth_entries objects
 - version 2.4.2
-  - refactor: Codex key replace smt_id with smt_urn
+  - refactor: Engrams key replace smt_id with smt_urn
 - version 2.4.1
-  - feature: Codex.auth for username/passwords, apiKey, etc.
+  - feature: Engrams.auth for username/passwords, apiKey, etc.
   - refactor: use basic-ftp in place of promise-ftp
   - testing: use dev.dictadata.net instead of localhost in test URL's
 - version 2.4.0
-  - feature: smt_urn used as key for codex directory
+  - feature: smt_urn used as key for engrams directory
 - version 2.3.4
-  - refactor: add domain and roles to codex entry
+  - refactor: add domain and roles to engrams entry
 - version 2.3.3
   - enhancement: Engrams.store() validate entry's name and type
-  - refactor: add source and notes to codex entry, remove alias_smt
+  - refactor: add source and notes to engrams entry, remove alias_smt
 - version 2.3.2
   - feature: full-text search pattern syntax and elasticsearch-junction
 - version 2.3.1
@@ -96,7 +95,7 @@
   - bug fix: issue with ElasticsearchReader sort order
   - testing: compare output of filesystem based transfer tests
 - version 2.2.5
-  - enhancement: codex alias entries
+  - enhancement: engrams alias entries
 - version 2.2.4
   - enhancement: shapefile junction with .zip files, use smt.schema of '~1' to find first .shp file in zip container
   - enhancement: zip filesystem, parse addtional path after .zip filename as prefix for accessing files in zip container
@@ -104,13 +103,13 @@
   - bug fix: improve handling HTTP responses with content-encoding (compressed HTTP message body)
   - bug fix: improve handling of stream errors
 - version 2.2.3
-  - enhancement: add options to Engram codex properties, passed to storage-junctions by campus.activate
+  - enhancement: add options to Engram engrams properties, passed to storage-junctions by campus.activate
   - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
   - testing: st_launcher testing parameters
 - version 2.2.2
-  - add title to predefined codex properties
+  - add title to predefined engrams properties
 - version 2.2.1
-  - refactor: Storage module, Campus and Codex classes
+  - refactor: Storage module, Campus and Engrams classes
 - version 2.1.6
   - update required node engine >= 16.4
 - version 2.1.5
@@ -119,17 +118,17 @@
 - version 2.1.4
   - bug fix: type checking of storage types should be case insensitive
 - version 2.1.3
-  - bug fix: check return code on codex calls
+  - bug fix: check return code on engrams calls
   - testing: ftp tests use IPv4
 - version 2.1.2
-  - refactor: codex function parameters
+  - refactor: engrams function parameters
 - version 2.1.1
-  - refactor: codex entry is an engram definition
+  - refactor: engrams entry is an engram definition
 - version 2.1.0
-  - refactor: Storage, Campus classes; remove codex class
+  - refactor: Storage, Campus classes; remove engrams class
   - refactor: parseSMT() to class SMT
 - version 2.0.8
-  - bug fix: passing options thru codex to underlying junction
+  - bug fix: passing options thru engrams to underlying junction
   - enhancement: dependencies for tedious and elasticsearch client
 - version 2.0.7
   - bug fix: check results before caching during recall()
@@ -140,18 +139,18 @@
 - version 2.0.5
   - bug fixes: stream error handling; use of field.name property
 - version 2.0.4
-  - fix bug in recall codex entry from cache
+  - fix bug in recall engrams entry from cache
 - version 2.0.3
-  - fix codex methods to return results object
+  - fix engrams methods to return results object
 - version 2.0.2
-  - storatge/campus/codex integration testing and updates
+  - storatge/campus/engrams integration testing and updates
 - version 2.0.1
   - improve logic in Engram.encoding setter
 - version 2.0.0
-  - implement Codex class
+  - implement Engrams class
   - change encoding fields to an array
-  - define codex storage: codex.encoding.json
-  - store codex entries in Elasticsearch
+  - define engrams storage: engrams.encoding.json
+  - store engrams entries in Elasticsearch
 - version 1.8.6
   - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint
 - version 1.8.5

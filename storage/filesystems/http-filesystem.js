@@ -6,7 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
-const Codex = require("../codex");
+const auth = require("../auth");
 
 const fs = require('fs');
 const path = require('path');
@@ -65,9 +65,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         params: this.options.params
       }, options.http);
 
-      if (!request.auth && Codex.auth.has(this.url)) {
-        let cred = Codex.auth.recall(this.url) || {};
-        request.auth = cred.auth.username + ":" + cred.auth.password;
+      if (!request.auth && auth.has(this.url)) {
+        let cred = auth.recall(this.url) || {};
+        request.auth = cred.auth?.username + ":" + cred.auth?.password;
       }
 
       request.headers = Object.assign({},
@@ -199,9 +199,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!request.auth && Codex.auth.has(this.url)) {
-        let cred = Codex.auth.recall(this.url) || {};
-        request.auth = cred.auth.username + ":" + cred.auth.password;
+      if (!request.auth && auth.has(this.url)) {
+        let cred = auth.recall(this.url) || {};
+        request.auth = cred.auth?.username + ":" + cred.auth?.password;
       }
 
       request.headers = Object.assign({},
@@ -271,9 +271,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!request.auth && Codex.auth.has(this.url)) {
-        let cred = Codex.auth.recall(this.url);
-        request.auth = cred.auth.username + ":" + cred.auth.password;
+      if (!request.auth && auth.has(this.url)) {
+        let cred = auth.recall(this.url);
+        request.auth = cred.auth?.username + ":" + cred.auth?.password;
       }
 
       request.headers = Object.assign({},
@@ -332,9 +332,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         responseType: "stream"
       }, options.http);
 
-      if (!request.auth && Codex.auth.has(this.url)) {
-        let cred = Codex.auth.recall(this.url) || {};
-        request.auth = cred.auth.username + ":" + cred.auth.password;
+      if (!request.auth && auth.has(this.url)) {
+        let cred = auth.recall(this.url) || {};
+        request.auth = cred.auth?.username + ":" + cred.auth?.password;
       }
 
       // headers set below from HTML form data

@@ -2,8 +2,8 @@
  * storage/test/lib/init.js
  */
 
-var Codex = require("../../storage/codex");
+var auth = require("../../storage/auth");
 
 if (process.env.NODE_ENV === "development") {
-  Codex.auth.load("./test/auth_stash.json");
+  auth.load("./test/auth_entries.json");
 }
