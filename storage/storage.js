@@ -37,8 +37,8 @@ class Storage {
 
     // check for auth options
     if (!options.auth && auth.has(_smt.locus)) {
-      let stash = auth.recall(_smt.locus);
-      options = Object.assign(options, stash);
+      let credentials = auth.recall(_smt.locus);
+      options = Object.assign(options, credentials);
     }
 
     // create the junction

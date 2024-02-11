@@ -6,8 +6,8 @@ const { logger } = require("../utils");
 const fs = require('fs');
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
-var _stash = new Map();
-exports._stash = _stash;
+var _credentials = new Map();
+exports._credentials = _credentials;
 
 /**
  * if a URL then pick out the server.
@@ -26,19 +26,19 @@ function origin(key) {
 }
 
 exports.store = (key, auth) => {
-  return _stash.set(origin(key), auth);
+  return _credentials.set(origin(key), auth);
 };
 
 exports.has = (key) => {
-  return _stash.has(origin(key));
+  return _credentials.has(origin(key));
 };
 
 exports.recall = (key) => {
-  return _stash.get(origin(key));
+  return _credentials.get(origin(key));
 };
 
 exports.dull = (key) => {
-  return _stash.dull(origin(key));
+  return _credentials.dull(origin(key));
 };
 
 exports.load = (filename) => {
@@ -61,7 +61,7 @@ exports.load = (filename) => {
         }
       }
 
-      _stash.set(entry.locus, entry);
+      _credentials.set(entry.locus, entry);
     }
   }
   catch (err) {
@@ -72,7 +72,7 @@ exports.load = (filename) => {
 exports.save = (filename) => {
   try {
     let data = [];
-    for (let value of _stash.values())
+    for (let value of _credentials.values())
       data.push(value);
     fs.writeFileSync(filename, JSON.stringify(data, null, 2), "utf8");
   }
