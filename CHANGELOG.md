@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.98
+  - refactor: reorg storage-junction and storage-tracts projects
 - version 0.9.97
   - refactor: change Storage to be part of library interface
   - refactor: revamp Engrams interface for auth, engrams
