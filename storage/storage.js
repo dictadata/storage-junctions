@@ -6,18 +6,18 @@
  *   StorageJunctions
  *   FileSystems
  *   Transforms
+ *   Authentication
  */
 "use strict";
 
-const auth = require("./auth");
 const Junctions = require("./junctions");
 const FileSystems = require("./filesystems");
 const Transforms = require("./transforms");
+const auth = require("./authentication");
 
-const { SMT, StorageError } = require("./types");
+const { SMT } = require("./types");
 
 class Storage {
-
 
   /**
    * Create and activate a StorageJunction given an SMT.
@@ -48,9 +48,9 @@ class Storage {
 
 }
 
-Storage.auth = auth;
 Storage.Junctions = Junctions;
 Storage.Transforms = Transforms;
 Storage.FileSystems = FileSystems;
+Storage.auth = auth;
 
 module.exports = exports = Storage;

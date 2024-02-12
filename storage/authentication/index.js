@@ -1,5 +1,5 @@
 /**
- * storage/auth
+ * storage/authentication
  */
 "use strict";
 const { logger } = require("../utils");

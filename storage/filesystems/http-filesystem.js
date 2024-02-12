@@ -6,7 +6,7 @@
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
-const auth = require("../auth");
+const auth = require("../authentication");
 
 const fs = require('fs');
 const path = require('path');

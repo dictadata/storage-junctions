@@ -20,14 +20,14 @@ const { typeOf, hasOwnProperty, objCopy, getCI } = require("../utils");
 
 const dot = require('dot-object');
 
-module.exports = exports = class Engram {
+module.exports = exports = class Engram extends Object {
 
   /**
    * Engram class
    * @param {SMT|encoding} encoding type object, SMT object or SMT string
    */
   constructor(encoding) {
-    this.type = "engram";
+    super(encoding);
 
     let smt = {};
     if (encoding?.smt) {
@@ -42,6 +42,8 @@ module.exports = exports = class Engram {
 
     if (!this.name)
       this.name = smt.schema;
+    this.type = "engram";
+
     this.smt = smt;
 
     // junction options
