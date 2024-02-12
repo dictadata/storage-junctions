@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.99
+  - republish
 - version 0.9.98
   - refactor: reorg storage-junction and storage-tracts projects
 - version 0.9.97
