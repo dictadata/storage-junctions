@@ -9,16 +9,16 @@ const { logger, templateReplace } = require("../utils");
 
 /*
   // example conjoin transform
-  transform: {
-    conjoin: {
-      smt: "rest|url/${tfield1}/|${tfield2}",
-      options: {},
-      pattern: {
-        match: {
-          field1: "${tfield3}"
-        },
-        fields: []
-      }
+  {
+    transform: "conjoin",
+
+    smt: "rest|url/${tfield1}/|${tfield2}",
+    options: {},
+    pattern: {
+      match: {
+        field1: "${tfield3}"
+      },
+      fields: []
     }
   };
 */

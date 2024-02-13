@@ -9,12 +9,12 @@ const { typeOf, logger } = require("../utils");
 
 // example decompose transform
 /*
-  transform: {
-    "flatten": {
-      // field names for hierarchy properties
-      // in hierarchical order
-      path: ['name1', 'name2', ...]
-    }
+  {
+    transform: "flatten",
+
+    // field names for hierarchy properties
+    // in hierarchical order
+    path: ['name1', 'name2', ...]
   };
 */
 
@@ -66,7 +66,7 @@ module.exports = exports = class DecomposeTransform extends Transform {
       let level = 0;
       let row = {};
       this.decompose(level, row, construct);
-      
+
       callback();
     }
     catch (err) {

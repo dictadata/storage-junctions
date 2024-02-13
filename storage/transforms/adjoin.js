@@ -9,20 +9,20 @@ const { logger, hasOwnProperty } = require("../utils");
 
 /*
   // example adjoin transform
-  transform: {
-    adjoin: {
-      // properties for loading lookup table
-      smt: "<lookup table>",
-      options: {},
-      pattern: {},
+  {
+    transform: "adjoin",
 
-      // field mapping properties
-      lookup: {
-        "source_field": "lookup_field",
-        ...
-      },
-      inject: "lookup_field" | [lookup_field, ...]
-    }
+    // properties for loading lookup table
+    smt: "<lookup table>",
+    options: {},
+    pattern: {},
+
+    // field mapping properties
+    lookup: {
+      "source_field": "lookup_field",
+      ...
+    },
+    inject: "lookup_field" | [lookup_field, ...]
   };
 */
 

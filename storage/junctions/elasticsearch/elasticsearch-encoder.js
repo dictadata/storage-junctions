@@ -58,7 +58,7 @@ var storageType = exports.storageType = function (elasticType) {
 
     case 'nested':
       // won't get here, have not implemented nested objects
-      // need to use codify transfrom to identify arrays
+      // need to use codify transform to identify arrays
       fldType = 'list';
       break;
   }

@@ -65,13 +65,14 @@ async function transfer4() {
         "encoding": "./test/data/input/encodings/bl_2020_ia_congress.encoding.json"
       }
     },
-    "transforms": {
-      "mutate": {
+    "transforms": [
+      {
+        "transform": "mutate",
         "override": {
           "properties.STATEFP": "19"
         }
       }
-    },
+    ],
     "terminal": {
       "smt": "elasticsearch|http://dev.dictadata.net:9200|bl_2020_us_congress|*",
       "options": {

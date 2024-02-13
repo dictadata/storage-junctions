@@ -18,13 +18,14 @@ async function tests() {
         encoding: "./test/data/input/encodings/foo_schema.encoding.json"
       }
     },
-    transform: {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Baz": { "lte": 500 }
         }
       }
-    },
+    ],
     terminal: [
       {
         terminal: {
@@ -34,8 +35,7 @@ async function tests() {
           },
           output: "./test/data/output/pipelines/tee_1.json"
         },
-        transform: {
-        }
+        transforms: []
       },
       {
         terminal: {
@@ -45,11 +45,12 @@ async function tests() {
           },
           output: "./test/data/output/pipelines/tee_2.json"
         },
-        transform: {
-          mutate: {
+        transforms: [
+          {
+            transform: "mutate",
             select: [ "Dt Test", "Foo", "Baz" ]
           }
-        }
+        ]
       }
     ]
   })) return 1;

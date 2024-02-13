@@ -18,15 +18,16 @@ async function tests() {
         "encoding": "./test/data/input/encodings/foo_schema.encoding.json"
       }
     },
-    transform: {
-      adjoin: {
+    transforms: [
+      {
+        transform: "adjoin",
         smt: "json|./test/data/input/|foofile_01.json|*",
         lookup: {
           "Foo": "Foo"
         },
         inject: [ "tags" ]
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/json/|adjoin_1.json|*",
       options: {
@@ -45,8 +46,9 @@ async function tests() {
         "encoding": "./test/data/input/encodings/foo_schema.encoding.json"
       }
     },
-    transform: {
-      adjoin: {
+    transforms: [
+      {
+        transform: "adjoin",
         smt: "json|./test/data/input/|foofile_02.json|*",
         options: {},
         pattern: {},
@@ -56,7 +58,7 @@ async function tests() {
         },
         inject: [ "tags", "widgets" ]
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/json/|adjoin_2.json|*",
       options: {

@@ -9,13 +9,13 @@ const { hasOwnProperty, logger } = require("../utils");
 
 // example compose transform
 /*
-  transform: {
-    "compose": {
-      // hierarchical order
-      path: ['field1', 'field2', ...]
+  {
+    transform: "compose",
 
-      // all other fields will become properties of the lowest node object
-    }
+    // hierarchical order
+    path: ['field1', 'field2', ...]
+
+    // all other fields will become properties of the lowest node object
   };
 */
 

@@ -31,8 +31,9 @@ async function testConjoin() {
         fields: [ "cwa", "gridX", "gridY" ]
       }
     },
-    transform: {
-      conjoin: {
+    transforms: [
+      {
+        transform: "conjoin",
         smt: "rest|https://api.weather.gov/gridpoints/${cwa}/${gridX},${gridY}/forecast||*",
         options: {
           http: {
@@ -44,7 +45,7 @@ async function testConjoin() {
           extract: "periods"
         }
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/rest/|weather_forecast_conjoin.json|*",
       output: "./test/data/output/rest/weather_forecast_conjoin.json"

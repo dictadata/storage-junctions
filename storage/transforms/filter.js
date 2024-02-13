@@ -7,22 +7,23 @@ const dot = require('dot-object');
 
 // example filter transform
 /*
-  transform: {
-    "filter": {
-      // match all expressions to forward
-      match: {
-        "field1": 'value',
-        "field2": {gt: 100, lt: 200},
-        "field3": ['keyword1','keyword2',...],
-        "field4": /ab+c/i
-      },
-      // match all expressions to drop
-      drop: {
-        "field1": 'value',
-        "field2": { lt: 0 },
-        'field3": [1,2,3],
-        'field4": /ab+c/i
-        }
+  {
+    transform: "filter",
+
+    // match all expressions to forward
+    match: {
+      "field1": 'value',
+      "field2": {gt: 100, lt: 200},
+      "field3": ['keyword1','keyword2',...],
+      "field4": /ab+c/i
+    },
+
+    // match all expressions to drop
+    drop: {
+      "field1": 'value',
+      "field2": { lt: 0 },
+      'field3": [1,2,3],
+      'field4": /ab+c/i
       }
     }
   };

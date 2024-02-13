@@ -13,10 +13,10 @@ const { Transform } = require('stream');
 
 // example encoder transform
 /*
-  transform: {
-    "encoder": {
-      "junction": "mysql"
-    }
+  {
+    transform: "encoder",
+
+    "junction": "mysql"
   };
 */
 

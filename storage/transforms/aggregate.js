@@ -7,7 +7,10 @@ const { typeOf, hasOwnProperty, logger } = require("../utils");
  TBD
    fix issue with csv and json aggregate group by. Not accumulating on other fields.
 
-   aggregate: {
+   {
+      transform: "aggregate",
+
+      fields: {
         "Foo": {
           "baz_sum": { "sum": "Baz" },
           "count": { "count": "Baz" },
@@ -15,14 +18,17 @@ const { typeOf, hasOwnProperty, logger } = require("../utils");
           "dt_max": { "max": "Dt Test" }    <---
         }
       }
+    }
  */
 
 /*
   // example aggregate transform
   // - newField1 = summary total for field1
   // - newField2 = [] grouped on field2 and calculate sum of field3 for each unique value of field2
-  transform: {
-    aggregate: {
+  {
+    transform: "aggregate",
+
+    "fields": {
       "newField1": {"sum": "field1},
       "field2": {"newField2": { "sum": "field3" } }
     }
@@ -57,7 +63,9 @@ module.exports = exports = class AggregateTransform extends Transform {
   _transform(construct, encoding, callback) {
     logger.debug("AggregrateTransform _transform");
 
-    for (let [newfld,exp] of Object.entries(this.options)) {
+    let fields = this.options.fields || [];
+
+    for (let [newfld,exp] of Object.entries(fields)) {
       for (let [func,fld] of Object.entries(exp)) {
         if (typeOf(fld) === "object") {
           // group by aggregation functions
@@ -132,8 +140,11 @@ module.exports = exports = class AggregateTransform extends Transform {
   _flush(callback) {
     // output summary and groupby summaries
     let summary = {};
-    for (let [newfld,exp] of Object.entries(this.options)) {
-      for (let [func,fld] of Object.entries(exp)) {
+
+    let fields = this.options.fields || [];
+
+    for (let [ newfld, exp ] of Object.entries(fields)) {
+      for (let [ func, fld ] of Object.entries(exp)) {
 
         if (typeOf(fld) === "object") {
           // group by aggregation functions

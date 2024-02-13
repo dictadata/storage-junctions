@@ -39,17 +39,19 @@ async function tests() {
         header: true
       }
     },
-    transform: {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Bar": { "wc": "row*" },
           "Baz": [ 456, 789 ]
         }
       },
-      mutate: {
+      {
+        transform: "mutate",
         select: [ "Foo", "Bar", "Baz", "Dt Test" ]
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/csv/|transform_2.json|*",
       output: "./test/data/output/csv/transform_2.json"
@@ -64,8 +66,9 @@ async function tests() {
         header: true
       }
     },
-    transform: {
-      "filter": {
+    transforms: [
+      {
+        transform: "filter",
         "match": {
           "Bar": /row.*/
         },
@@ -73,7 +76,8 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "mutate": {
+      {
+        transform: "mutate",
         "default": {
           "fie": "where's fum?"
         },
@@ -89,7 +93,7 @@ async function tests() {
         },
         "remove": [ "fobe" ],
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/csv/|transform_3.json|*",
       output: "./test/data/output/csv/transform_3.json"

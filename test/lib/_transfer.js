@@ -22,7 +22,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
   var origin = tract.origin || {};
   var terminal = tract.terminal || {};
-  var transforms = tract.transform || tract.transforms || {};
+  var transforms = tract.transforms || [];
   if (!origin.options) origin.options = {};
   if (!terminal.options) terminal.options = {};
 
@@ -52,7 +52,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       let filename = terminal.options.encoding;
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
-    else if (!encoding || Object.keys(transforms).length > 0) {
+    else if (!encoding || transforms.length > 0) {
       // otherwise run some objects through transforms to create terminal encoding
       logger.verbose(">>> codify pipeline");
       let pipes = [];
@@ -68,8 +68,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
       // });
       pipes.push(reader);
 
-      for (let [ tfType, tfOptions ] of Object.entries(transforms))
-        pipes.push(await jo.createTransform(tfType, tfOptions));
+      for (let transform of transforms)
+        pipes.push(await jo.createTransform(transform.transform, transform));
 
       let codify = await jo.createTransform('codify');
       pipes.push(codify);
@@ -111,9 +111,9 @@ module.exports = exports = async function (tract, compareValues = 2) {
     pipes.push(reader);
 
     // transforms
-    for (let [ tfName, tfOptions ] of Object.entries(transforms)) {
-      let tfType = tfName.split("-")[ 0 ];
-      pipes.push(await jo.createTransform(tfType, tfOptions));
+    for (let transform of transforms) {
+      let tfType = transform.transform.split("-")[ 0 ];
+      pipes.push(await jo.createTransform(tfType, transform));
     }
 
     // writer

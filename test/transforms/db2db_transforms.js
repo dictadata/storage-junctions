@@ -21,8 +21,9 @@ async function testDBTransform1(tract) {
       "options": {}
     },
     "terminal": tract.terminal,
-    "transform": {
-      "filter": {
+    "transforms": [
+      {
+        "transform": "filter",
         "match": {
           "Bar": "row"
         },
@@ -30,7 +31,8 @@ async function testDBTransform1(tract) {
           "Baz": { "eq": 456 }
         }
       },
-      "mutate": {
+      {
+        "transform": "mutate",
         "default": {
           "Fie": "where's fum?"
         },
@@ -45,7 +47,7 @@ async function testDBTransform1(tract) {
           "subObj2.subsub.izze": "izze"
         }
       }
-    }
+    ]
   })) return 1;
 
 }
@@ -60,8 +62,9 @@ async function testDBTransform2() {
       "smt": "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
       "options": {}
     },
-    "transform": {
-      "filter": {
+    "transforms": [
+      {
+        "transform": "filter",
         "match": {
           "Bar": { "eq": "row" }
         },
@@ -69,7 +72,8 @@ async function testDBTransform2() {
           "Baz": 5678
         }
       },
-      "mutate": {
+      {
+        "transform": "mutate",
         "default": {
           "Fie": "where's fum?"
         },
@@ -79,7 +83,7 @@ async function testDBTransform2() {
           "Baz": "Bazzy"
         }
       }
-    },
+    ],
     "terminal": {
       "smt": "elasticsearch|http://dev.dictadata.net:9200|foo_dbtransform|=Foo",
       "options": {}
@@ -110,13 +114,14 @@ async function forecastTransform(tract) {
         extract: "periods"
       }
     },
-    "transform": {
-      "mutate": {
+    "transforms": [
+      {
+        "transform": "mutate",
         "override": {
           "Fie": "It's always sunny in Philadelphia?"
         }
       }
-    },
+    ],
     "terminal": tract.terminal
   })) return 1;
 

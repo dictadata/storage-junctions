@@ -15,18 +15,22 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
-    "transform": {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Bar": "row",
           "Baz": { "gte": 0, "lte": 1000 }
         }
       },
-      aggregate: {
-        "baz_sum": { "sum": "Baz" },
-        "fobe_max": { "max": "Fobe" }
+      {
+        transform: "aggregate",
+        "fields": {
+          "baz_sum": { "sum": "Baz" },
+          "fobe_max": { "max": "Fobe" }
+        }
       }
-    },
+    ],
     terminal: {
       "smt": 'json|./test/data/output/transforms/|json_aggregate_1.json|*',
       "output": "./test/data/output/transforms/json_aggregate_1.json"
@@ -38,21 +42,25 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*",
     },
-    "transform": {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Bar": "row",
           "Baz": { "gte": 0, "lte": 1000 }
         }
       },
-      aggregate: {
-        "sum": { "sum": "Baz" },
-        "avg": { "avg": "Baz" },
-        "min": { "min": "Baz" },
-        "max": { "max": "Baz" },
-        "count": { "count": "Baz" }
+      {
+        transform: "aggregate",
+        "fields": {
+          "sum": { "sum": "Baz" },
+          "avg": { "avg": "Baz" },
+          "min": { "min": "Baz" },
+          "max": { "max": "Baz" },
+          "count": { "count": "Baz" }
+        }
       }
-    },
+    ],
     terminal: {
       "smt": 'json|./test/data/output/transforms/|json_aggregate_2.json|*',
       "output": "./test/data/output/transforms/json_aggregate_2.json"
@@ -64,21 +72,25 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
-    transform: {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
         }
       },
-      aggregate: {
-        "Foo": {
-          "baz_sum": { "sum": "Baz" },
-          "count": { "count": "Baz" },
-          "dt_min": { "min": "Dt Test" },
-          "dt_max": { "max": "Dt Test" }
+      {
+        transform: "aggregate",
+        "fields": {
+          "Foo": {
+            "baz_sum": { "sum": "Baz" },
+            "count": { "count": "Baz" },
+            "dt_min": { "min": "Dt Test" },
+            "dt_max": { "max": "Dt Test" }
+          }
         }
       }
-    },
+    ],
     terminal: {
       "smt": 'json|./test/data/output/transforms/|json_aggregate_3.json|*',
       "output": "./test/data/output/transforms/json_aggregate_3.json"

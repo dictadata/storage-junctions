@@ -21,40 +21,40 @@ const dot = require('dot-object');
 
 // example mutate transform
 /*
-  transform: {
-    mutate: {
-      // set default values or inject new fields
-      default: {
-        "field-name": <value>,
-        "new-field-name": <value>
-      },
+  {
+    transform: "mutate",
 
-      // select fields
-      select: ['field-name', 'field-name', ...],
+    // set default values or inject new fields
+    default: {
+      "field-name": <value>,
+      "new-field-name": <value>
+    },
 
-      // map fields
-      map: {
-        "field-name": <new-field-name>,
-        "object-name.field-name":  <new-field-name>
-      },
+    // select fields
+    select: ['field-name', 'field-name', ...],
 
-      // modify field value with a function body
-      // function is passed (value, construct) arguments
-      assign: {
-        "field-name": <value>,
-        "field-name": "function body; return newValue"
-      }
+    // map fields
+    map: {
+      "field-name": <new-field-name>,
+      "object-name.field-name":  <new-field-name>
+    },
 
-      // remove fields from the new construct
-      remove: ["field-name", "field-name"],
-
-      // override field values or inject new fields
-      override: {
-        "field-name": <value>,
-        "new-field-name": <value>
-      }
-
+    // modify field value with a function body
+    // function is passed (value, construct) arguments
+    assign: {
+      "field-name": <value>,
+      "field-name": "function body; return newValue"
     }
+
+    // remove fields from the new construct
+    remove: ["field-name", "field-name"],
+
+    // override field values or inject new fields
+    override: {
+      "field-name": <value>,
+      "new-field-name": <value>
+    }
+
   };
 */
 

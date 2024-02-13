@@ -17,12 +17,9 @@ const stream = require('stream').promises;
 module.exports = exports = async function (tract, compareValues = 2) {
   logger.verbose(">>> create junction");
 
-  if (!hasOwnProperty(tract, "transform")) {
-    if (hasOwnProperty(tract, "transforms"))
-      tract.transform = tract.transforms;  // tract.transforms is deprecated
-    else
-      tract.transform = {};
-  }
+  if (!hasOwnProperty(tract, "transforms"))
+    tract.transforms = [];
+
   let retCode = 0;
 
   var jo;
@@ -57,8 +54,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
     });
     pipes.push(reader);
 
-    for (let [ tfType, tfOptions ] of Object.entries(tract.transform))
-      pipes.push(await jo.createTransform(tfType, tfOptions));
+    for (let transform of tract.transforms)
+      pipes.push(await jo.createTransform(transform.transform, transform));
 
     let codify = await jo.createTransform('codify', tract.origin);
     pipes.push(codify);

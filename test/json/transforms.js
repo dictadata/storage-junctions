@@ -33,20 +33,22 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
-    transform: {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Bar": { "wc": "row*" },
           "Baz": [ 456, 789 ]
         }
       },
-      mutate: {
+      {
+        transform: "mutate",
         select: [ "Foo", "Bar", "Baz", "Dt Test" ],
         assign: {
           "Baz": "return value * 100"
         }
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/json/|transform_2.json|*",
       output: "./test/data/output/json/transform_2.json"
@@ -62,8 +64,9 @@ async function tests() {
       smt: "json|./test/data/output/json/|transform_3.json|*",
       output: "./test/data/output/json/transform_3.json"
     },
-    transform: {
-      "filter": {
+    transforms: [
+      {
+        transform: "filter",
         "match": {
           "Bar": "row"
         },
@@ -71,7 +74,8 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "mutate": {
+      {
+        transform: "mutate",
         "default": {
           "fie": "where's fum?"
         },
@@ -91,7 +95,7 @@ async function tests() {
         },
         "remove": [ "fobe" ],
       }
-    }
+    ]
   })) return 1;
 
   logger.verbose('=== json_transform_4.json');
@@ -103,14 +107,15 @@ async function tests() {
       smt: "json|./test/data/output/json/|transform_4.json|*",
       output: "./test/data/output/json/transform_4.json"
     },
-    transform: {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "subObj2.subsub.izze": 33
         },
         fields: [ "Foo", "Bar", "Baz", "Dt Test", "tags", "subObj2" ]
       }
-    }
+    ]
   })) return 1;
 
   logger.verbose('=== json_transform_5.json');
@@ -122,8 +127,9 @@ async function tests() {
       smt: "json|./test/data/output/json/|transform_5.json|*",
       output: "./test/data/output/json/transform_5.json"
     },
-    transform: {
-      mutate: {
+    transforms: [
+      {
+        transform: "mutate",
         select: [
           "rpath",
           "name",
@@ -131,7 +137,7 @@ async function tests() {
           "date"
         ]
       }
-    }
+    ]
   })) return 1;
 
 }

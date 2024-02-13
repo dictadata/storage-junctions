@@ -15,8 +15,9 @@ async function tests() {
     "origin": {
       "smt": "json|./test/data/input/|foofile.json|*"
     },
-    "transform": {
-      "filter": {
+    "transforms": [
+      {
+        "transform": "filter",
         "match": {
           "Bar": "row"
         },
@@ -26,7 +27,8 @@ async function tests() {
           }
         }
       },
-      "mutate": {
+      {
+        "transform": "mutate",
         "map": {
           "Foo": "foo",
           "Bar": "bar",
@@ -40,7 +42,7 @@ async function tests() {
         },
         "remove": [ "fobe" ]
       }
-    },
+    ],
     "terminal": {
       "smt": "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_etl2|*",
       "options": {
@@ -75,8 +77,9 @@ async function tests() {
         encoding: "./test/data/input/encodings/foo_schema_01.encoding.json"
       }
     },
-    transform: {
-      "filter": {
+    transforms: [
+      {
+        transform: "filter",
         "match": {
           "Bar": "row"
         },
@@ -84,7 +87,8 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "mutate": {
+      {
+        transform: "mutate",
         "default": {
           "fie": "where's fum?"
         },
@@ -101,7 +105,7 @@ async function tests() {
         },
         "remove": [ "fobe" ],
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/mysql/|transform_1.json|*",
       output: "./test/data/output/mysql/transform_1.json"
@@ -116,8 +120,9 @@ async function tests() {
         encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
       }
     },
-    transform: {
-      "filter": {
+    transforms: [
+      {
+        transform: "filter",
         "match": {
           "Bar": "row"
         },
@@ -125,7 +130,8 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "mutate": {
+      {
+        transform: "mutate",
         "default": {
           "fie": "where's fum?"
         },
@@ -142,7 +148,7 @@ async function tests() {
         },
         "remove": [ "fobe" ],
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/mysql/|transform_2.json|*",
       output: "./test/data/output/mysql/transform_2.json"

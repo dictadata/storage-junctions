@@ -25,7 +25,7 @@ module.exports = exports = async function (tract) {
     let writers = [];
 
     logger.info(">>> create origin junction");
-    const origin_transforms = tract.transform || tract.transforms || {};
+    const origin_transforms = tract.transforms || [];
 
     if (typeof tract.origin?.options?.encoding === "string") {
       // read encoding from file
@@ -47,15 +47,15 @@ module.exports = exports = async function (tract) {
       logger.error("_tee reader: " + error.message);
     });
 
-    for (let [ tfType, tfOptions ] of Object.entries(origin_transforms))
-      reader = reader.pipe(await jo.createTransform(tfType, tfOptions));
+    for (let transform of origin_transforms)
+      reader = reader.pipe(await jo.createTransform(transform.transform, transform));
 
     logger.info(">>> create terminal branches");
     if (!Array.isArray(tract.terminal))
       throw new Error("tract.terminal not an Array");
 
     for (const branch of tract.terminal) {
-      const transforms = branch.transform || branch.transforms || {};
+      const transforms = branch.transforms || [];
 
       logger.info(">>> create branch junction");
       if (typeof branch.terminal?.options?.encoding === "string") {
@@ -72,8 +72,8 @@ module.exports = exports = async function (tract) {
       logger.info(">>> create branch pipeline");
       let writer = null;
       // add transforms
-      for (let [ tfType, tfOptions ] of Object.entries(transforms)) {
-        let t = await jt.createTransform(tfType, tfOptions);
+      for (let transform of transforms) {
+        let t = await jt.createTransform(transform.transform, transform);
         writer = (writer) ? writer.pipe(t) : reader.pipe(t);
       }
       // add terminal

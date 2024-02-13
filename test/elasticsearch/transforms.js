@@ -34,8 +34,9 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_01|*"
     },
-    transform: {
-      "filter": {
+    transforms: [
+      {
+        transform: "filter",
         "match": {
           "Bar": "row"
         },
@@ -43,7 +44,8 @@ async function tests() {
           "Baz": { "gt": 500 }
         }
       },
-      "mutate": {
+      {
+        transform: "mutate",
         "default": {
           "fie": "where's fum?"
         },
@@ -61,7 +63,7 @@ async function tests() {
         },
         "remove": [ "fobe" ],
       }
-    },
+    ],
     terminal: {
       smt: "json|./test/data/output/elasticsearch/|transform_2.json|*",
       output: "./test/data/output/elasticsearch/transform_2.json"

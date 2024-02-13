@@ -30,13 +30,14 @@ async function testTransfer1() {
       smt: "shp|./test/data/input/shapes/|polygons|*",
       options: {}
     },
-    transform: {
-      "mutate": {
+    transforms: [
+      {
+        transform: "mutate",
         "default": {
           "id": "=geometry.type+properties.FID"
         }
       }
-    },
+    ],
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
@@ -67,13 +68,14 @@ async function testTransfer2() {
       smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
       options: {}
     },
-    transform: {
-      "mutate": {
+    transforms: [
+      {
+        transform: "mutate",
         "default": {
           "id": "=geometry.type+properties.FID"
         }
       }
-    },
+    ],
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {

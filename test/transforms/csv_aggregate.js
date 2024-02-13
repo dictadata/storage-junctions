@@ -18,18 +18,22 @@ async function tests() {
         header: true
       }
     },
-    "transform": {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Bar": "row",
           "Baz": { "gte": 0, "lte": 1000 }
         }
       },
-      aggregate: {
-        "baz_sum": { "sum": "Baz" },
-        "fobe_max": { "max": "Fobe" }
+      {
+        transform: "aggregate",
+        "fields": {
+          "baz_sum": { "sum": "Baz" },
+          "fobe_max": { "max": "Fobe" }
+        }
       }
-    },
+    ],
     terminal: {
       "smt": 'csv|./test/data/output/transforms/|csv_aggregate_1.csv|*',
       options: {
@@ -47,21 +51,25 @@ async function tests() {
         header: true
       }
     },
-    "transform": {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Bar": "row",
           "Baz": { "gte": 0, "lte": 1000 }
         }
       },
-      aggregate: {
-        "sum": { "sum": "Baz" },
-        "avg": { "avg": "Baz" },
-        "min": { "min": "Baz" },
-        "max": { "max": "Baz" },
-        "count": { "count": "Baz" }
+      {
+        transform: "aggregate",
+        fields: {
+          "sum": { "sum": "Baz" },
+          "avg": { "avg": "Baz" },
+          "min": { "min": "Baz" },
+          "max": { "max": "Baz" },
+          "count": { "count": "Baz" }
+        }
       }
-    },
+    ],
     terminal: {
       "smt": 'csv|./test/data/output/transforms/|csv_aggregate_2.csv|*',
       options: {
@@ -79,21 +87,25 @@ async function tests() {
         header: true
       }
     },
-    transform: {
-      filter: {
+    transforms: [
+      {
+        transform: "filter",
         match: {
           "Baz": { "gte": 0, "lte": 1000 }
         }
       },
-      aggregate: {
-        "Foo": {
-          "baz_sum": { "sum": "Baz" },
-          "count": { "count": "Baz" },
-          "dt_min": { "min": "Dt Test" },
-          "dt_max": { "max": "Dt Test" }
+      {
+        transform: "aggregate",
+        "fields": {
+          "Foo": {
+            "baz_sum": { "sum": "Baz" },
+            "count": { "count": "Baz" },
+            "dt_min": { "min": "Dt Test" },
+            "dt_max": { "max": "Dt Test" }
+          }
         }
       }
-    },
+    ],
     terminal: {
       "smt": 'csv|./test/data/output/transforms/|csv_aggregate_3.csv|*',
       options: {
