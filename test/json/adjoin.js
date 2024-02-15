@@ -49,7 +49,7 @@ async function tests() {
     transforms: [
       {
         transform: "adjoin",
-        smt: "json|./test/data/input/|foofile_02.json|*",
+        smt: "json|./test/data/input/|foo_widgets.json|*",
         options: {},
         pattern: {},
         lookup: {
@@ -62,7 +62,7 @@ async function tests() {
     terminal: {
       smt: "json|./test/data/output/json/|adjoin_2.json|*",
       options: {
-        "encoding": "./test/data/input/encodings/foo_schema_02.encoding.json"
+        "encoding": "./test/data/input/encodings/foo_widgets.encoding.json"
       },
       output: "./test/data/output/json/adjoin_2.json"
     }

@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/csv/|fueltrim.json|*"
+      smt: "json|/var/dictadata/test/data/output/csv/|fueltrim.json|*"
     }
   })) return 1;
 

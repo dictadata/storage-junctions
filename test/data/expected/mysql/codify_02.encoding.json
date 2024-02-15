@@ -3,12 +3,12 @@
   "message": "OK",
   "type": "encoding",
   "data": {
-    "name": "foo_schema_02",
+    "name": "foo_widgets",
     "type": "engram",
     "smt": {
       "model": "mysql",
       "locus": "host=dev.dictadata.net;database=storage_node",
-      "schema": "foo_schema_02",
+      "schema": "foo_widgets",
       "key": "=Foo"
     },
     "fields": [
@@ -137,7 +137,7 @@
       }
     ],
     "indices": {
-      "foo_index_02": {
+      "foo_widgets_index": {
         "fields": [
           {
             "name": "Bar",

@@ -52,10 +52,10 @@ async function tests() {
   logger.info("=== json 02 => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foo_widgets.json|*"
     },
     terminal: {
-      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_02|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_widgets|!Foo"
     }
   })) return 1;
 

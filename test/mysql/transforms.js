@@ -115,9 +115,9 @@ async function tests() {
   logger.verbose('=== mysql > mysql_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_02|*",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
+        encoding: "./test/data/input/encodings/foo_widgets.encoding.json"
       }
     },
     transforms: [

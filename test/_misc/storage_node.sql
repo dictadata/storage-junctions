@@ -30,7 +30,7 @@ DROP TABLE foo_dbtransform;
 DROP TABLE foo_schema_etl;
 DROP TABLE foo_schema_etl2;
 DROP TABLE foo_schema_01;
-DROP TABLE foo_schema_02;
+DROP TABLE foo_widgets;
 DROP TABLE foo_schema_lg;
 DROP TABLE foo_schema_two;
 DROP TABLE weather_forecast;

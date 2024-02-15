@@ -1,8 +1,10 @@
 {
+  "name": "foo_widgets",
+  "type": "engram",
   "smt": {
-    "model": "*",
-    "locus": "*",
-    "schema": "foo_schema_02",
+    "model": "memory",
+    "locus": "testgroup",
+    "schema": "foo_widgets",
     "key": "=Baz+Foo"
   },
   "fields": [
@@ -76,7 +78,7 @@
     }
   ],
   "indices": {
-    "foo_index_02": {
+    "foo_widgets_index": {
       "unique": false,
       "fields": [
         {

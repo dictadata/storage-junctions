@@ -14,7 +14,7 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|file:./test/data/input/|*.csv|*",
+      smt: "*|file:./test/data/input/|foo*.csv|*",
       options: {
         recursive: false
       }

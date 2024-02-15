@@ -1,10 +1,10 @@
 {
-  "name": "foofile_02.json",
+  "name": "foo_widgets.json",
   "type": "engram",
   "smt": {
     "model": "json",
     "locus": "./test/data/input/",
-    "schema": "foofile_02.json",
+    "schema": "foo_widgets.json",
     "key": "*"
   },
   "fields": [

@@ -194,9 +194,9 @@ class MySQLJunction extends StorageJunction {
       logger.verbose(sql);
       let results = await this.pool.query(sql);
 
-      // if successfull update engram
+      // if successful update engram
       this.engram.encoding = encoding;
-      return new StorageResults("encoding", null, this.engram.encoding);
+      return new StorageResults(0);
     }
     catch (err) {
       logger.warn(err);

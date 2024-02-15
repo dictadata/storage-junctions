@@ -180,7 +180,7 @@ class ElasticsearchJunction extends StorageJunction {
       // if successfull update encoding
       this.engram.encoding = encoding;
 
-      return new StorageResults("encoding", null, this.engram.encoding);
+      return new StorageResults(0);
     }
     catch (err) {
       if (err.statusCode === 400 && err.message === "resource_already_exists_exception")

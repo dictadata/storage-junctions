@@ -45,10 +45,10 @@ async function tests() {
   logger.info("=== json 02 => memory");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foo_widgets.json|*"
     },
     terminal: {
-      smt: "memory|testgroup|foo_schema_02|!Foo"
+      smt: "memory|testgroup|foo_widgets|!Foo"
     }
   })) return 1;
 

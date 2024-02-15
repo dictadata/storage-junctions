@@ -14,11 +14,11 @@
     "rpath": "foofile_01.json"
   },
   {
-    "name": "foofile_02.json",
+    "name": "foo_widgets.json",
     "type": "-",
     "size": 2599,
     "date": "2021-12-18T15:17:00.000Z",
-    "rpath": "foofile_02.json"
+    "rpath": "foo_widgets.json"
   },
   {
     "name": "foofile_03.json",

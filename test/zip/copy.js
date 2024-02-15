@@ -13,7 +13,7 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|zip:./test/data/input/foofile.zip|*.json|*",
+      smt: "*|zip:./test/data/input/foofile.zip|foo*.json|*",
       options: {
         recursive: false
       }

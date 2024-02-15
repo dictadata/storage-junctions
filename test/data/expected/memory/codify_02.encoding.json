@@ -3,12 +3,12 @@
   "message": "OK",
   "type": "encoding",
   "data": {
-    "name": "foo_schema_02",
+    "name": "foo_widgets",
     "type": "engram",
     "smt": {
       "model": "memory",
       "locus": "testgroup",
-      "schema": "foo_schema_02",
+      "schema": "foo_widgets",
       "key": "!Foo"
     },
     "fields": [

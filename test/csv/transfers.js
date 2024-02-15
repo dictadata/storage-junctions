@@ -100,8 +100,8 @@ async function tests() {
       },
     },
     terminal: {
-      smt: "json|./test/data/output/csv/|transfer_timeseries.json|*",
-      "output": "./test/data/output/csv/transfer_timeseries.json"
+      smt: "json|/var/dictadata/test/data/output/csv/|transfer_timeseries.json|*",
+      "output": "/var/dictadata/test/data/output/csv/transfer_timeseries.json"
     }
   })) return 1;
 

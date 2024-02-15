@@ -1,10 +1,10 @@
 {
-  "name": "foo_schema_02",
+  "name": "foo_widgets",
   "type": "engram",
   "smt": {
     "model": "elasticsearch",
     "locus": "http://dev.dictadata.net:9200",
-    "schema": "foo_schema_02",
+    "schema": "foo_widgets",
     "key": "*"
   },
   "fields": [

@@ -58,7 +58,7 @@ async function tests() {
   logger.info("=== elasticsearch retrieve range");
   if (await retrieve({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_02|*",
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_widgets|*",
       pattern: {
         match: {
           "Foo": "first",

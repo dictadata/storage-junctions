@@ -1,10 +1,10 @@
 {
-  "name": "foo_schema_02",
+  "name": "foo_widgets",
   "type": "engram",
   "smt": {
     "model": "mssql",
     "locus": "server=dev.dictadata.net;database=storage_node",
-    "schema": "foo_schema_02",
+    "schema": "foo_widgets",
     "key": "*"
   },
   "fields": [
@@ -21,7 +21,7 @@
         "precision": 0,
         "scale": 0,
         "is_nullable": false,
-        "default": null
+        "default": "(NULL)"
       },
       "key": 2
     },
@@ -38,7 +38,7 @@
         "precision": 0,
         "scale": 0,
         "is_nullable": true,
-        "default": null
+        "default": "(NULL)"
       }
     },
     {
@@ -54,7 +54,7 @@
         "precision": 10,
         "scale": 0,
         "is_nullable": false,
-        "default": null
+        "default": "(NULL)"
       },
       "key": 1
     },
@@ -71,7 +71,7 @@
         "precision": 53,
         "scale": 0,
         "is_nullable": true,
-        "default": null
+        "default": "(NULL)"
       }
     },
     {
@@ -87,7 +87,7 @@
         "precision": 23,
         "scale": 3,
         "is_nullable": true,
-        "default": null
+        "default": "(NULL)"
       }
     },
     {
@@ -103,7 +103,7 @@
         "precision": 1,
         "scale": 0,
         "is_nullable": true,
-        "default": null
+        "default": "(NULL)"
       }
     },
     {
@@ -140,7 +140,7 @@
     }
   ],
   "indices": {
-    "foo_index_02": {
+    "foo_widgets_index": {
       "fields": [
         {
           "name": "Bar",

@@ -24,10 +24,10 @@ async function tests() {
     output: './test/data/output/memory/codify_01.json'
   })) return 1;
 
-  logger.info("=== codify foo_schema_02");
+  logger.info("=== codify foo_widgets");
   if (await codify({
     origin: {
-      smt: "memory|testgroup|foo_schema_02|!Foo"
+      smt: "memory|testgroup|foo_widgets|!Foo"
     },
     output: './test/data/output/memory/codify_02.json'
   })) return 1;

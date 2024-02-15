@@ -16,12 +16,12 @@
     "rpath": "foofile_01.json"
   },
   {
-    "href": "/dictadata/test/data/input/foofile_02.json",
-    "name": "foofile_02.json",
+    "href": "/dictadata/test/data/input/foo_widgets.json",
+    "name": "foo_widgets.json",
     "isDir": false,
     "date": "2021-12-18T15:17:00.000Z",
     "size": 2599,
-    "rpath": "foofile_02.json"
+    "rpath": "foo_widgets.json"
   },
   {
     "href": "/dictadata/test/data/input/foofile_03.json",

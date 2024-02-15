@@ -43,7 +43,7 @@ async function tests() {
   logger.info("=== memory retrieve w/ pattern");
   if (await retrieve({
     origin: {
-      smt: "memory|testgroup|foo_schema_02|*",
+      smt: "memory|testgroup|foo_widgets|*",
       pattern: {
         match: {
           "Foo": "first",

@@ -7,5 +7,5 @@ INNER JOIN sys.types st ON st.user_type_id = sc.user_type_id
 LEFT JOIN sys.syscomments sm ON sm.id = sc.default_object_id
 LEFT OUTER JOIN sys.index_columns ic ON ic.object_id = sc.object_id AND ic.column_id = sc.column_id
 LEFT OUTER JOIN sys.indexes si ON ic.object_id = si.object_id AND ic.index_id = si.index_id
-WHERE sc.object_id = OBJECT_ID('foo_schema_02')
+WHERE sc.object_id = OBJECT_ID('foo_widgets')
 GO

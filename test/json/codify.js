@@ -34,10 +34,10 @@ async function tests() {
     output: './test/data/output/json/codify_m1.json'
   })) return 1;
 
-  logger.info("=== codify foofile_02.json");
+  logger.info("=== codify foo_widgets.json");
   if (await codify({
     origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foo_widgets.json|*"
     },
     output: './test/data/output/json/codify_l1.json'
   })) return 1;

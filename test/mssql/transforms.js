@@ -115,9 +115,9 @@ async function tests() {
   logger.verbose('=== mssql > mssql_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_02|*",
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_widgets|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
+        encoding: "./test/data/input/encodings/foo_widgets.encoding.json"
       }
     },
     transforms: [

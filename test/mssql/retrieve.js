@@ -45,9 +45,9 @@ async function tests() {
   logger.info("=== mssql retrieve");
   if (await retrieve({
     origin: {
-      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_02|*",
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_widgets|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
+        encoding: "./test/data/input/encodings/foo_widgets.encoding.json"
       },
       pattern: {
         match: {

@@ -42,15 +42,15 @@ async function tests() {
     }
   })) return 1;
 
-  logger.info("=== foofile_02.json > mssql");
+  logger.info("=== foo_widgets.json > mssql");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_02.json|*"
+      smt: "json|./test/data/input/|foo_widgets.json|*"
     },
     terminal: {
-      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_schema_02|=Foo",
+      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_widgets|=Foo",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_02.encoding.json"
+        encoding: "./test/data/input/encodings/foo_widgets.encoding.json"
       }
     }
   })) return 1;

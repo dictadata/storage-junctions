@@ -26,10 +26,10 @@ async function tests() {
     output: './test/data/output/elasticsearch/codify_01.json'
   })) return 1;
 
-  logger.info("=== codify foo_schema_02");
+  logger.info("=== codify foo_widgets");
   if (await codify({
     origin: {
-      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_02|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_widgets|!Foo"
     },
     output: './test/data/output/elasticsearch/codify_02.json'
   })) return 1;

@@ -16,12 +16,12 @@
     "rpath": "foofile_01.json"
   },
   {
-    "href": "foofile_02.json",
-    "name": "foofile_02.json",
+    "href": "foo_widgets.json",
+    "name": "foo_widgets.json",
     "isDir": false,
     "date": "2021-10-02T19:03:00.000Z",
     "size": 2451,
-    "rpath": "foofile_02.json"
+    "rpath": "foo_widgets.json"
   },
   {
     "href": "foofile_03.json",

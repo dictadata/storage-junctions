@@ -14,7 +14,7 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|ftp://dev.dictadata.net/dictadata/test/data/input/|*.csv|*",
+      smt: "*|ftp://dev.dictadata.net/dictadata/test/data/input/|foo*.csv|*",
       options: {
         recursive: false
       }
