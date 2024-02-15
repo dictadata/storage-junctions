@@ -126,7 +126,7 @@ class StorageFileSystem {
         return true;
     }
     catch (err) {
-      logger.error(`storage-filesystem exists error: ${err.message}`);
+      logger.warn(`storage-filesystem exists error: ${err.message}`);
     }
 
     return false;

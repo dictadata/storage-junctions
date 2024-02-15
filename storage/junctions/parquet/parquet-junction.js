@@ -61,7 +61,7 @@ class ParquetJunction extends StorageJunction {
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {
-          logger.error("parquet codify reader: " + error.message);
+          logger.warn("parquet codify reader: " + error.message);
         });
 
         let codify = await this.createTransform('codify', options);
@@ -73,7 +73,7 @@ class ParquetJunction extends StorageJunction {
       return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }

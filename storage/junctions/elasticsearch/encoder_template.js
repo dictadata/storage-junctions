@@ -34,7 +34,7 @@ module.exports = exports = class ElasticTemplate {
       this.template = await elastic.getTemplate(this.template_name);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw err;
     }
 
@@ -116,7 +116,7 @@ module.exports = exports = class ElasticTemplate {
       return true;
     }
     catch (err) {
-      logger.error("putTemplate", err);
+      logger.warn("putTemplate", err);
       throw err;
     }
   }

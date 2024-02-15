@@ -71,7 +71,7 @@ class MySQLJunction extends StorageJunction {
       }
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
 
   }
@@ -92,7 +92,7 @@ class MySQLJunction extends StorageJunction {
       await this.pool.end();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
   }
 
@@ -130,7 +130,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -163,7 +163,7 @@ class MySQLJunction extends StorageJunction {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
         return new StorageResults(404, 'no such table');
 
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -199,7 +199,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -223,7 +223,7 @@ class MySQLJunction extends StorageJunction {
       if (err.errno === 1051)  // ER_BAD_TABLE_ERROR
         return new StorageResults(404, 'no such table');
 
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -257,7 +257,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(409, 'duplicate entry');
       }
 
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -291,7 +291,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(409, 'duplicate entry');
       }
 
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -324,7 +324,7 @@ class MySQLJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -355,7 +355,7 @@ class MySQLJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -391,7 +391,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults("message", null, { deleted: results.affectedRows });
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }

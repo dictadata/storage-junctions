@@ -57,7 +57,7 @@ class RESTJunction extends StorageJunction {
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {
-          logger.error("rest codify reader: " + error.message);
+          logger.warn("rest codify reader: " + error.message);
         });
 
         let codify = await this.createTransform('codify', options);
@@ -69,7 +69,7 @@ class RESTJunction extends StorageJunction {
       return new StorageResults("encoding", null, this.engram.encoding);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -111,7 +111,7 @@ class RESTJunction extends StorageJunction {
       throw new StorageError(501);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -179,7 +179,7 @@ class RESTJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -248,7 +248,7 @@ class RESTJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -268,7 +268,7 @@ class RESTJunction extends StorageJunction {
       throw new StorageError(501);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }

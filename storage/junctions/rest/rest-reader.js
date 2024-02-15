@@ -81,8 +81,8 @@ module.exports = exports = class RESTReader extends StorageReader {
 
     }
     catch (err) {
-      logger.error(err);
-      logger.error("rest reader: " + err.message);
+      logger.warn(err);
+      logger.warn("rest reader: " + err.message);
       this.destroy(err);
     }
 

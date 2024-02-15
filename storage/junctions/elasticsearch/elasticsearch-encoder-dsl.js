@@ -51,7 +51,7 @@ exports.matchQuery = function (keys, pattern) {
     return dsl;
   }
   catch (err) {
-    logger.error(err);
+    logger.warn(err);
     throw err;
   }
 };
@@ -77,7 +77,7 @@ exports.searchQuery = function (pattern) {
     return dsl;
   }
   catch (err) {
-    logger.error(err);
+    logger.warn(err);
     throw err;
   }
 };

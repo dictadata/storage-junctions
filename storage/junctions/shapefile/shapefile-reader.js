@@ -45,12 +45,12 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
 
         this.shp.on('error',
           (err) => {
-            logger.error("ShapeFileReader .shp stream error: " + err.message);
+            logger.warn("ShapeFileReader .shp stream error: " + err.message);
           }
         );
         this.dbf.on('error',
           (err) => {
-            logger.error("ShapeFileReader .dbf stream error: " + err.message);
+            logger.warn("ShapeFileReader .dbf stream error: " + err.message);
           }
         );
 
@@ -71,7 +71,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
       }
     }
     catch (err) {
-      logger.error(`ShapeFileReader read error: ${err.message}`);
+      logger.warn(`ShapeFileReader read error: ${err.message}`);
       this.destroy(this.stfs?.Error(err) ?? err);
     }
   }

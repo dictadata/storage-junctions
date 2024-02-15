@@ -90,7 +90,7 @@ module.exports = exports = class StorageWriter extends Writable {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
@@ -102,7 +102,7 @@ module.exports = exports = class StorageWriter extends Writable {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error writer._final').inner(err));
     }
   }

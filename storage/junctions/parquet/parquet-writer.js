@@ -66,7 +66,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'ParquetWriter write error').inner(err));
     }
 
@@ -91,7 +91,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
@@ -117,7 +117,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error _final').inner(err));
     }
   }

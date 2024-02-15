@@ -71,7 +71,7 @@ class SplitterJunction extends StorageJunction {
       }
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
   }
 
@@ -118,7 +118,7 @@ class SplitterJunction extends StorageJunction {
 
     let writer = await junction.createWriter();
     writer.on('error', (error) => {
-      logger.error("splitter-junction writer: " + error.message);
+      logger.warn("splitter-junction writer: " + error.message);
     });
     pipes.push(writer);
 

@@ -70,7 +70,7 @@ module.exports = exports = class DecomposeTransform extends Transform {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(err);
     }
   }

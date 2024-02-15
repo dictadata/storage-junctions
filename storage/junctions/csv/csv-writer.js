@@ -105,7 +105,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(this.stfs?.Error(err) ?? err, 'CSVWriter write error ');
     }
   }
@@ -129,7 +129,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(this.stfs?.Error(err) ?? err);
     }
   }
@@ -158,7 +158,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(this.stfs?.Error(err) ?? err);
     }
   }

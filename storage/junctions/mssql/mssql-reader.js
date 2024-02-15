@@ -40,7 +40,7 @@ module.exports = exports = class MSSQLReader extends StorageReader {
           // when done reading from source
           this.push(null);
           if (err) {
-            logger.error(err);
+            logger.warn(err);
           } else {
             logger.debug(rowCount + ' rows');
           }
@@ -54,7 +54,7 @@ module.exports = exports = class MSSQLReader extends StorageReader {
         this.junction.connection.execSql(request);
       }
       catch (err) {
-        logger.error("mssql reader: " + err.message);
+        logger.warn("mssql reader: " + err.message);
         this.destroy(err);
       }
     }

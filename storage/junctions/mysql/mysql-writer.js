@@ -36,7 +36,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(err);
     }
 
@@ -61,11 +61,11 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
       }
       if (this.options.bulkLoad)
         await this.junction.storeBulk(constructs);
-      
+
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
@@ -79,7 +79,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error writer._final').inner(err));
     }
   }

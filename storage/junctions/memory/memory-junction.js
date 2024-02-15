@@ -79,7 +79,7 @@ class MemoryJunction extends StorageJunction {
           list.push(name.substring(this.smt.locus.length + 1));
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
 
@@ -101,7 +101,7 @@ class MemoryJunction extends StorageJunction {
       return new StorageResults("encoding", null, entry.engram.encoding);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -129,7 +129,7 @@ class MemoryJunction extends StorageJunction {
       return new StorageResults(0);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -155,7 +155,7 @@ class MemoryJunction extends StorageJunction {
       return new StorageResults(0);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -184,7 +184,7 @@ class MemoryJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -217,7 +217,7 @@ class MemoryJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -250,7 +250,7 @@ class MemoryJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
 
@@ -275,7 +275,7 @@ class MemoryJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
 
@@ -310,7 +310,7 @@ class MemoryJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }

@@ -48,7 +48,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
         this.junction = await Storage.activate(this.options.smt, this.options.options);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
   }
 
@@ -97,7 +97,7 @@ module.exports = exports = class ConjoinTransform extends Transform {
       }
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
     finally {
       if (!this.options.keepAlive) {

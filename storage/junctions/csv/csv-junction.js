@@ -63,7 +63,7 @@ class CSVJunction extends StorageJunction {
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {
-          logger.error(`csv getEncoding reader: ${error.message}`);
+          logger.warn(`csv getEncoding reader: ${error.message}`);
         });
 
         let codify = await this.createTransform("codify", options);
@@ -77,7 +77,7 @@ class CSVJunction extends StorageJunction {
     catch (err) {
       if (e instanceof StorageError)
         throw err;
-      // logger.error(err);
+      // logger.warn(err);
       throw this.Error(err);
     }
   }

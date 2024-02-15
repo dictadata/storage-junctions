@@ -48,7 +48,7 @@ module.exports = exports = class CodifyTransform extends Transform {
         return this.engram.encoding;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw err;
     }
   }
@@ -61,7 +61,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       this.engram.encoding = encoding;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw err;
     }
   }
@@ -82,7 +82,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       this.processConstruct(construct, this.engram.fields);
     }
     catch (err) {
-      logger.error("codify error", err);
+      logger.warn("codify error", err);
     }
 
     callback();
@@ -200,7 +200,7 @@ module.exports = exports = class CodifyTransform extends Transform {
             this.processValue(item, field._list);
         }
         catch (err) {
-          logger.error(err);
+          logger.warn(err);
         }
       }
     }

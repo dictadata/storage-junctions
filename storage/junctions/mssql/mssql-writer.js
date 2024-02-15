@@ -37,7 +37,7 @@ module.exports = exports = class MSSQLWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(err);
     }
 
@@ -62,11 +62,11 @@ module.exports = exports = class MSSQLWriter extends StorageWriter {
       }
       if (this.options.bulkLoad)
         await this.junction.storeBulk(constructs);
-      
+
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
@@ -77,10 +77,10 @@ module.exports = exports = class MSSQLWriter extends StorageWriter {
     try {
       // close connection, cleanup resources, ...
       this._count(null);
-      callback();      
+      callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error writer._final').inner(err));
     }
   }

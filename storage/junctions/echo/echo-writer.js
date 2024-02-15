@@ -18,7 +18,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
 
   async _write(construct, encoding, callback) {
     logger.debug("EchoWriter._write");
-    //logger.debug(JSON.stringify(construct));    
+    //logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
       callback();
@@ -30,7 +30,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
       logger.info(JSON.stringify(construct));
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error storing construct').inner(err));
     }
 
@@ -51,7 +51,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error storing construct').inner(err));
     }
   }
@@ -65,7 +65,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       callback(new StorageError(500, 'Error writer._final').inner(err));
     }
   }

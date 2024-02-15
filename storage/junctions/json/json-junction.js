@@ -60,7 +60,7 @@ class JSONJunction extends StorageJunction {
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {
-          logger.error(`json codify reader: ${error.message}`);
+          logger.warn(`json codify reader: ${error.message}`);
         });
 
         let codify = await this.createTransform('codify', options);
@@ -75,7 +75,7 @@ class JSONJunction extends StorageJunction {
     catch (err) {
       if (err instanceof StorageError)
         throw err;
-      // logger.error(err);
+      // logger.warn(err);
       throw this.Error(err);
     }
   }

@@ -73,7 +73,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
         this.options.inject = [ this.options.inject ];
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
     finally {
       logger.debug("adjoin relax");
@@ -106,7 +106,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
       this.push(construct);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
     }
 
     callback();

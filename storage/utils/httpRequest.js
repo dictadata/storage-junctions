@@ -155,7 +155,7 @@ function http1Request(Url, request, data) {
     }
 
     req.on('error', (err) => {
-      logger.error(err);
+      logger.warn(err);
       reject(err);
     });
 
@@ -181,7 +181,7 @@ function http2Request(Url, request, data) {
     const client = http2.connect(Url);
 
     client.on('error', (err) => {
-      logger.error(err);
+      logger.warn(err);
       reject(err);
     });
 

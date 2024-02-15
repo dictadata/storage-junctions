@@ -73,7 +73,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     });
 
     pipeline.on('error', function (err) {
-      logger.error(err);
+      logger.warn(err);
       // throw err;
     });
 
@@ -96,7 +96,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         rs.setEncoding(this.options.fileEncoding || "utf8");
         rs.on('error',
           (err) => {
-            logger.error(`CSVReader parser error: ${err.message}`);
+            logger.warn(`CSVReader parser error: ${err.message}`);
             this.destroy(this.stfs?.Error(err) ?? err);
           }
         );
@@ -104,7 +104,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         this.started = true;
       }
       catch (err) {
-        logger.error(`CSVReader read error: ${err.message}`);
+        logger.warn(`CSVReader read error: ${err.message}`);
         this.destroy(this.stfs?.Error(err) ?? err);
       }
     }

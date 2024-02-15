@@ -84,7 +84,7 @@ module.exports = exports = class JSONReader extends StorageReader {
     });
 
     pipeline.on('error', function (err) {
-      logger.error("JSONReader parser err " + err.message);
+      logger.warn("JSONReader parser err " + err.message);
       // throw err;
     });
 
@@ -129,7 +129,7 @@ module.exports = exports = class JSONReader extends StorageReader {
         rs.setEncoding(this.options.fileEncoding || "utf8");
         rs.on('error',
           (err) => {
-            logger.error("JSONReader parser error: " + err.message);
+            logger.warn("JSONReader parser error: " + err.message);
             this.destroy(this.stfs?.Error(err) ?? err);
           }
         );

@@ -122,7 +122,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.error("ZipFileSystem list: " + err.message);
+      logger.warn("ZipFileSystem list: " + err.message);
       throw this.Error(err);
     }
   }
@@ -192,7 +192,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.error("ZipFileSystem createReadStream: " + err.message);
+      logger.warn("ZipFileSystem createReadStream: " + err.message);
       throw this.Error(err);
     }
   }
@@ -229,7 +229,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return ws;
     }
     catch (err) {
-      logger.error("ZipFileSystem createWriteStream: " + err.message);
+      logger.warn("ZipFileSystem createWriteStream: " + err.message);
       throw this.Error(err);
     }
   }
@@ -269,7 +269,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.error("ZipFileSystem getFile: " + err.message);
+      logger.warn("ZipFileSystem getFile: " + err.message);
       throw this.Error(err);
     }
   }
@@ -308,7 +308,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.error("ZipFileSystem putFile: " + err.message);
+      logger.warn("ZipFileSystem putFile: " + err.message);
       throw this.Error(err);
     }
   }

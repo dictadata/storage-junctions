@@ -99,7 +99,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -124,7 +124,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(0);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -156,7 +156,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -200,7 +200,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return ws;
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -237,7 +237,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }
@@ -274,7 +274,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.error(err);
+      logger.warn(err);
       throw this.Error(err);
     }
   }

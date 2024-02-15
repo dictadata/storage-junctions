@@ -69,7 +69,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
     });
 
     parser.on('error', function (err) {
-      logger.error(err);
+      logger.warn(err);
     });
 
     this.started = false;

@@ -69,7 +69,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
       }
     }
     catch (err) {
-      logger.error("elastic reader: ", err.message);
+      logger.warn("elastic reader: ", err.message);
       this.destroy(err);
     }
 
