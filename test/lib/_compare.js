@@ -144,7 +144,7 @@ function compareFiles(filename_expected, filename_output, compareValues = 1) {
 
   let ext1 = path.extname(filename_expected);
   let ext2 = path.extname(filename_output);
-  logger.info(">>> " + filename_output + " === " + filename_expected);
+  logger.info(">>> " + filename_expected + " === " + filename_output);
 
   // unzip, if needed
   if (ext1 === ".gz")
