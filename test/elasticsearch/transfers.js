@@ -96,7 +96,6 @@ async function tests() {
       pattern: {
         order: { "Foo": "asc" }
       }
-
     },
     terminal: {
       smt: "json|./test/data/output/elasticsearch/|transfer_foo_j.json|*",
@@ -105,6 +104,27 @@ async function tests() {
       }
     },
     output: "./test/data/output/elasticsearch/transfer_foo_j.json"
+  })) return 1;
+
+
+  logger.info("=== elasticsearch not found");
+  if (await transfer({
+    origin: {
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo",
+      options: {},
+      pattern: {
+        "match": {
+          "Foo": "none"
+        }
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/elasticsearch/|transfer_foo_notfound.json|*",
+      options: {
+        append: false
+      }
+    },
+    output: "./test/data/output/elasticsearch/transfer_foo_notfound.json"
   })) return 1;
 
 }

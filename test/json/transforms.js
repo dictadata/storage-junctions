@@ -140,6 +140,22 @@ async function tests() {
     ]
   })) return 1;
 
+  logger.verbose('=== json > json_transform_none.json');
+  if (await transfer({
+    origin: {
+      smt: "json|./test/data/input/|foofile.json|*",
+      pattern: {
+        match: {
+          "Foo": "none"
+        }
+      }
+    },
+    terminal: {
+      smt: "json|./test/data/output/json/|transform_none.json|*",
+      output: "./test/data/output/json/transform_none.json"
+    }
+  })) return 1;
+
 }
 
 (async () => {

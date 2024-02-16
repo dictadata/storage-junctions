@@ -10,6 +10,29 @@ logger.info("=== Test: csv transforms");
 
 async function tests() {
 
+  logger.verbose('=== csv > csv_transform_none.json');
+  if (await transfer({
+    origin: {
+      smt: "csv|./test/data/input/|foofile.csv|*",
+      options: {
+        header: true,
+        encoding: "./test/data/input/encodings/foo_schema.encoding.json"
+      },
+      pattern: {
+        match: {
+          "Foo": "none"
+        }
+      }
+    },
+    terminal: {
+      smt: "csv|./test/data/output/csv/|transform_none.csv|*",
+      options: {
+        header: true
+      },
+      output: "./test/data/output/csv/transform_none.csv"
+    }
+  })) return 1;
+
   logger.verbose('=== csv > csv_transform_1.json');
   if (await transfer({
     origin: {
