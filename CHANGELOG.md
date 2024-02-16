@@ -1,5 +1,9 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.101
+  - refactor: implement StorageWriter _construct()
+  - refactor: StorageWriter autoClose option for dependent write streams
+  - refactor: change all  logger.error to logger.warn
 - version 0.9.100
   - refactor: refactor tract.transforms to array
 - version 0.9.99
