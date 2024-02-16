@@ -380,7 +380,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     if (err instanceof StorageError)
       return err;
 
-    let status = statusCode in err ? err.statusCode : 500;
+    let status = ('statusCode' in err) ? err.statusCode : 500;
 
     // StorageError.status is based on HTTP status codes
 

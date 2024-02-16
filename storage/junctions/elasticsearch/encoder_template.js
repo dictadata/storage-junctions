@@ -52,7 +52,7 @@ module.exports = exports = class ElasticTemplate {
 
     for (let i = 0; i < names.length; i++) {
       let name = names[ i ];
-      if (name in exclude === false) {
+      if ('name' in exclude === false) {
         let field = {
           "name": name,
           "type": properties[ name ].type
@@ -89,7 +89,7 @@ module.exports = exports = class ElasticTemplate {
       let keys = Object.keys(properties);
       for (let i = 0; i < keys.length; i++) {
         let key = keys[ i ];
-        if (key in exclude === false)
+        if ('key' in exclude === false)
           delete properties[ key ];
       }
     }
@@ -111,8 +111,8 @@ module.exports = exports = class ElasticTemplate {
       this.write();
 
       //let _results =
-      await elastic.putTemplate(this.template_name, this.template);
-      logger.debug(_results);
+      let results = await elastic.putTemplate(this.template_name, this.template);
+      logger.debug(results);
       return true;
     }
     catch (err) {
@@ -132,7 +132,7 @@ module.exports = exports = class ElasticTemplate {
       logger.debug(templateFile);
       this.template = JSON.parse(fs.readFileSync(templateFile, "utf8"));
     } else {
-      logger.debug(templateDefault);
+      logger.debug(this.defaultTemplate);
       this.template = JSON.parse(fs.readFileSync(this.defaultTemplate, "utf8"));
       this.template.index_patterns.length = 0;
       this.template.index_patterns.push(this.template_name + "*");

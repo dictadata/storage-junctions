@@ -50,7 +50,7 @@ module.exports = exports = class ElasticMappings {
     let names = Object.keys(properties);
     for (let i = 0; i < names.length; i++) {
       let name = names[ i ];
-      if (name in exclude === false) {
+      if ('name' in exclude === false) {
         let field = {
           "name": name,
           "type": properties[ name ].type    // should translate from elasticsearch types to storage types

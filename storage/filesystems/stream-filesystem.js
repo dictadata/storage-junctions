@@ -79,7 +79,7 @@ module.exports = exports = class StreamFileSystem extends StorageFileSystem {
     if (err instanceof StorageError)
       return err;
 
-    let status = status in err ? err.status : 500;
+    let status = ('status' in err) ? err.status : 500;
 
     // derived classes should override method
     // and implement error conversion logic
