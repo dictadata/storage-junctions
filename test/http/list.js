@@ -55,53 +55,6 @@ async function testIIS() {
 
 }
 
-async function testNGINX() {
-
-  logger.info("=== NGINX get list of foo files - forEach");
-  if (await list({
-    origin: {
-      smt: "*|http://api-origin.dictadata.net/dictadata/test/data/input/|foofile*.json|*",
-      options: {
-        forEach: (entry) => {
-          logger.info("- " + entry.name);
-        }
-      }
-    },
-    terminal: {
-      output: "./test/data/output/http/NGINX/list_1.json"
-    }
-  })) return 1;
-
-  logger.info("=== NGINX get list of encoding files (recursive)");
-  if (await list({
-    origin: {
-      smt: {
-        model: "*",
-        locus: "http://api-origin.dictadata.net/dictadata/test/data/input/encodings/",
-        schema: "*.encoding.json",
-        key: "*"
-      },
-      options: {
-        recursive: true,
-        http: {
-          httpVersion: 1.1,
-          headers: {
-            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'accept-language': 'en-US,en;q=0.5',
-            'accept-encoding': "gzip, deflate, br;q=0.1",
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0',
-            'cache-control': "max-age=0"
-          }
-        }
-      }
-    },
-    terminal: {
-      output: "./test/data/output/http/NGINX/list_2.json"
-    }
-  })) return 1;
-
-}
-
 async function testSOS() {
 
   logger.info("=== get list of shapefiles from sos.iowa.gov");
@@ -121,6 +74,5 @@ async function testSOS() {
 
 (async () => {
   if (await testIIS()) return;
-  if (await testNGINX()) return;
   if (await testSOS()) return;
 })();

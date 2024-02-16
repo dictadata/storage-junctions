@@ -173,7 +173,6 @@
   - update dependencies
   - testing updates:
     - standardize file name convention for encoding as abc123.encoding.json
-    - use api-origin.dictadata.net (NGINX) for ftp and http testing
 - version 1.8.3
   - extensive testing and bug fixes
 - version 1.8.2

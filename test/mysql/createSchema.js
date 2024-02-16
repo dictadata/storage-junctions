@@ -58,42 +58,6 @@ async function test_lg() {
 
 }
 
-async function test_origin(schema, encoding) {
-
-  let ca_file = fs.readFileSync(homedir + "/.dictadata/ec2_mysql-ca.pem");
-  // console.log(typeOf(ca_file));
-
-  logger.info("=== origin createSchema " + schema);
-  let retCode = await createSchema({
-    origin: {
-      smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*",
-      options: {
-        auth: {
-          username: "dicta",
-          password: "data"
-        },
-        ssl: {
-          ca: ca_file,
-          rejectUnauthorized: false
-        },
-        encoding: "./test/data/input/encodings/" + encoding + ".encoding.json"
-      }
-    }
-  });
-  if (retCode > 0) return 1;
-
-  if (retCode < 0) {
-    // if schema already exists then truncate constructs
-    // using credentials from auth_entries.json file
-    logger.info("=== origin dull (truncate) " + schema);
-    if (await dull({
-      origin: {
-        smt: "mysql|host=data-origin.dictadata.net;database=storage_node|" + schema + "|*"
-      }
-    })) return 1;
-  }
-}
-
 (async () => {
   if (await test("foo_schema", "foo_schema")) return 1;
   if (await test("foo_schema_x", "foo_schema")) return 1;    // for dullSchema.js
@@ -102,6 +66,4 @@ async function test_origin(schema, encoding) {
   if (await test("foo_schema_two", "foo_schema_two")) return 1;
 
   if (await test_lg()) return 1;
-
-  // if (await test_origin("foo_schema", "foo_schema")) return 1;
 })();
