@@ -62,6 +62,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
     try {
       // close connection, cleanup resources, ...
       this._count(null);
+
       callback();
     }
     catch (err) {

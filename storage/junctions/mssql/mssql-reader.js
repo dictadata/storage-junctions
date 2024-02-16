@@ -22,6 +22,20 @@ module.exports = exports = class MSSQLReader extends StorageReader {
     this.started = false;
   }
 
+  async _construct(callback) {
+    logger.debug("MSSQLReader._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('MSSQLReader construct error'));
+    }
+  }
+
   /**
    * Fetch data from the underlying resource.
    * @param {*} size <number> Number of bytes to read asynchronously
@@ -36,6 +50,7 @@ module.exports = exports = class MSSQLReader extends StorageReader {
       try {
         let pattern = this.options.pattern || {};
         let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
+
         let request = new tedious.Request(sql, (err, rowCount) => {
           // when done reading from source
           this.push(null);
@@ -54,7 +69,7 @@ module.exports = exports = class MSSQLReader extends StorageReader {
         this.junction.connection.execSql(request);
       }
       catch (err) {
-        logger.warn("mssql reader: " + err.message);
+        logger.warn("MSSQLReader reader: " + err.message);
         this.destroy(err);
       }
     }

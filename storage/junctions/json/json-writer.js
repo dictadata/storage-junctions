@@ -64,12 +64,41 @@ module.exports = exports = class JSONWriter extends StorageWriter {
 
   /**
    *
+   * @param {*} callback
+   */
+  async _construct(callback) {
+    logger.debug("JSONWriter._construct");
+
+    try {
+      // open file stream
+      this.stfs = await this.junction.getFileSystem();
+      this.ws = await this.stfs.createWriteStream(this.options);
+
+      this.ws.on('error', (err) => {
+        this.destroy(this.Error(err));
+      });
+
+      // write opening, if any
+      if (this.formation.opening)
+        await this.ws.write(this.formation.opening);
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('JSONWriter construct error'));
+    }
+  }
+
+  /**
+   *
    * @param {*} construct
    * @param {*} encoding
    * @param {*} callback
    */
   async _write(construct, encoding, callback) {
     logger.debug("JSONWriter._write");
+
     // check for empty construct
     if (!construct || Object.keys(construct).length === 0) {
       callback();
@@ -79,19 +108,6 @@ module.exports = exports = class JSONWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-
-      // check if file is open
-      if (this.ws === null) {
-        this.stfs = await this.junction.getFileSystem();
-        this.ws = await this.stfs.createWriteStream(this.options);
-        this.ws.on('error',
-          (err) => {
-            this.destroy(this.Error(err));
-          });
-        // write opening, if any
-        if (this.formation.opening) await this.ws.write(this.formation.opening);
-      }
-
       let data = (this._statistics.count === 0) ? "" : this.formation.delimiter;
       if (this.engram.smt.model === 'jsono') {
         let key = this.engram.get_uid(construct);
@@ -127,9 +143,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('JSONWriter write error'));
+      callback(new Error('JSONWriter write error'));
     }
-
   }
 
   /**
@@ -169,17 +184,16 @@ module.exports = exports = class JSONWriter extends StorageWriter {
         if (this.formation.closing)
           await this.ws.write(this.formation.closing);
 
-        await this.ws.end();
+        if (this.autoClose) {
+          await new Promise((resolve) => {
+            this.ws.end(resolve);
+          });
+        }
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
-        else
-          await new Promise(
-            (fulfill) => {
-              this.ws.on("finish", fulfill);
-            }
-          );
       }
+
       this._count(null);
       callback();
     }

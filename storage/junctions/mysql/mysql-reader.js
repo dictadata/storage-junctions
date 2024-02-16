@@ -18,6 +18,24 @@ module.exports = exports = class MySQLReader extends StorageReader {
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
+    this.rows;
+  }
+
+  async _construct(callback) {
+    logger.debug("MySQLReader._construct");
+
+    try {
+      // open output stream
+      let pattern = this.options.pattern || {};
+      let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
+      this.rows = await this.junction.pool.query(sql);
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('MySQLReader construct error'));
+    }
   }
 
   /**
@@ -25,16 +43,12 @@ module.exports = exports = class MySQLReader extends StorageReader {
    * @param {*} size <number> Number of bytes to read asynchronously
    */
   async _read(size) {
-    logger.debug('mysql _read');
+    logger.debug('MySQLReader _read');
 
     // read up to size constructs
     try {
-      let pattern = this.options.pattern || {};
-      let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
-      let rows = await this.junction.pool.query(sql);
-
-      for (let i = 0; i < rows.length; i++) {
-        let construct = rows[ i ];
+      for (let i = 0; i < this.rows.length; i++) {
+        let construct = this.rows[ i ];
         sqlEncoder.decodeResults(this.engram, construct);
         this.push(construct);
       }
@@ -43,7 +57,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
       this.push(null);
     }
     catch (err) {
-      logger.warn("mysql reader: " + err.message);
+      logger.warn("MySQLReader: " + err.message);
       this.destroy(err);
     }
 

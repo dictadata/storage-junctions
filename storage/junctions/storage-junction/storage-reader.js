@@ -57,6 +57,20 @@ module.exports = exports = class StorageReader extends Readable {
     super.push(chunk, encoding);
   }
 
+  async _construct(callback) {
+    logger.debug("StorageReader._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(new Error('StorageReader construct error'));
+    }
+  }
+
   /**
    * Fetch data from the underlying resource.
    * @param {*} size <number> Number of constructs to read asynchronously

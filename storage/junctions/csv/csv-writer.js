@@ -24,6 +24,33 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     this.ws = null;
   }
 
+  async _construct(callback) {
+    logger.debug("CSVWriter._construct");
+
+    try {
+      // open output stream
+      this.stfs = await this.junction.getFileSystem();
+      this.ws = await this.stfs.createWriteStream(this.options);
+
+      this.ws.on('error',
+        (err) => {
+          this.destroy(this.stfs?.Error(err) ?? err);
+        });
+
+      if (this.stfs.isNewFile && this.options.header) {
+        // new file, write header line
+        let headers = '"' + this.engram.names.join('","') + '"\n';
+        await this.ws.write(headers);
+      }
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('CsvWriter construct error'));
+    }
+  }
+
   /**
    * _write
    * @param {*} construct
@@ -40,28 +67,11 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       return;
     }
 
-    let stfs;
     try {
       // save construct to .schema
       //this.junction.store(construct);  // not sure if this would be better
 
-      // check if file is open
-      if (!this.ws) {
-        this.stfs = await this.junction.getFileSystem();
-        this.ws = await this.stfs.createWriteStream(this.options);
-        this.ws.on('error',
-          (err) => {
-            this.destroy(this.stfs?.Error(err) ?? err);
-          });
-
-        if (this.stfs.isNewFile && this.options.header) {
-          // new file, write header line
-          let headers = '"' + this.engram.names.join('","') + '"\n';
-          await this.ws.write(headers);
-        }
-      }
-
-      // create data line
+        // create data line
       var data = '';
       var first = true;
       for (let field of this.engram.fields) {
@@ -143,17 +153,16 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
     try {
       if (this.ws) {
-        await this.ws.end();
+        if (this.autoClose) {
+          await new Promise((resolve) => {
+            this.ws.end(resolve);
+          });
+        }
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
-        else
-          await new Promise(
-            (fulfill) => {
-              this.ws.on("finish", fulfill);
-            }
-          );
       }
+
       this._count(null);
       callback();
     }

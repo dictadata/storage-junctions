@@ -20,6 +20,20 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
 
   }
 
+  async _construct(callback) {
+    logger.debug("MySQLWriter._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('MySQLWriter construct error'));
+    }
+  }
+
   async _write(construct, encoding, callback) {
     logger.debug("MySQLWriter._write");
     //logger.debug(JSON.stringify(construct));

@@ -27,10 +27,14 @@ module.exports = exports = class StorageWriter extends Writable {
 
     this.options = Object.assign({}, options);
 
+    // if autoClose is true StorageWriters should close dependent write streams in _final().
+    this.autoClose = ('autoClose' in this.options) ? this.options.autoClose : true;
+
     this._statistics = {
       count: 0,
       elapsed: 0
-    }
+    };
+
     this._startms = 0;
     this.progress = this.options.progress || null;
     this.progressModula = this.options.progressModula || 1000;
@@ -54,8 +58,23 @@ module.exports = exports = class StorageWriter extends Writable {
     }
   }
 
+  async _construct(callback) {
+    logger.debug("StorageWriter._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(new Error('StorageWriter construct error'));
+    }
+  }
+
   async _write(construct, encoding, callback) {
     logger.debug("StorageWriter._write");
+
     //logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
@@ -97,6 +116,7 @@ module.exports = exports = class StorageWriter extends Writable {
 
   async _final(callback) {
     logger.debug('StorageWriter._final');
+
     try {
       this._count(null);
       callback();

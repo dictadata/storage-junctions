@@ -18,10 +18,45 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
 
     this.schemafile = this.options?.schema || options?.name || this.smt.schema;
 
-    this.started = false;
     this.done = false;
     this.source = null;
     this.bbox = null;
+  }
+
+  async _construct(callback) {
+    logger.debug("ShapeFileReader._construct");
+
+    try {
+      // start the reader
+      logger.debug('ShapeFileReader start');
+      this.stfs = await this.junction.getFileSystem();
+
+      if (! await this.stfs.exists({ schema: this.schemafile + '.shp' }))
+        throw new StorageError(404);
+
+      this.shp = await this.stfs.createReadStream({ schema: this.schemafile + '.shp' });
+      this.dbf = await this.stfs.createReadStream({ schema: this.schemafile + '.dbf' });
+
+      this.shp.on('error',
+        (err) => {
+          logger.warn("ShapeFileReader .shp stream error: " + err.message);
+        }
+      );
+      this.dbf.on('error',
+        (err) => {
+          logger.warn("ShapeFileReader .dbf stream error: " + err.message);
+        }
+      );
+
+      this.source = await shapefile.open(this.shp, this.dbf);
+      this.bbox = this.source.bbox;
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('ShapeFileReader construct error'));
+    }
   }
 
   /**
@@ -32,33 +67,6 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
     logger.debug('ShapeFileReader _read');
 
     try {
-      if (!this.started) {
-        // start the reader
-        logger.debug('ShapeFileReader start');
-        this.stfs = await this.junction.getFileSystem();
-
-        if (! await this.stfs.exists({ schema: this.schemafile + '.shp' }))
-          throw new StorageError(404);
-
-        this.shp = await this.stfs.createReadStream({ schema: this.schemafile + '.shp' });
-        this.dbf = await this.stfs.createReadStream({ schema: this.schemafile + '.dbf' });
-
-        this.shp.on('error',
-          (err) => {
-            logger.warn("ShapeFileReader .shp stream error: " + err.message);
-          }
-        );
-        this.dbf.on('error',
-          (err) => {
-            logger.warn("ShapeFileReader .dbf stream error: " + err.message);
-          }
-        );
-
-        this.started = true;
-        this.source = await shapefile.open(this.shp, this.dbf);
-        this.bbox = this.source.bbox;
-      }
-
       if (!this.done) {
         logger.debug('ShapeFileReader source.read');
         let record = await this.source.read();

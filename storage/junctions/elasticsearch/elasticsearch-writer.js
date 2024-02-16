@@ -24,6 +24,20 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
 
   }
 
+  async _construct(callback) {
+    logger.debug("ElasticsearchWriter._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('ElasticsearchWriter construct error'));
+    }
+  }
+
   async _write(construct, encoding, callback) {
     logger.debug("ElasticsearchWriter._write");
     //logger.debug(JSON.stringify(construct));
@@ -37,7 +51,7 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
       // save construct to .schema
       this._count(1);
       let response = await this.junction.store(construct);
-      logger.verbose("status: " + JSON.stringify(response));
+      logger.debug("status: " + JSON.stringify(response));
       callback();
     }
     catch (err) {

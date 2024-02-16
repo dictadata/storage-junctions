@@ -75,6 +75,20 @@ module.exports = exports = class ParquetReader extends StorageReader {
     this.started = false;
   }
 
+  async _construct(callback) {
+    logger.debug("ParquetReader._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('ParquetReader construct error'));
+    }
+  }
+
   /**
    * An internal call to fetch data from the underlying resource.
    * @param {*} size <number> Number of constructs to read asynchronously

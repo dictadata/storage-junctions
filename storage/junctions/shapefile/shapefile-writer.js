@@ -29,6 +29,29 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
     this.closeTag = '\n]';
   }
 
+  async _construct(callback) {
+    logger.debug("ShapeFileWriter._construct");
+
+    try {
+      // open output stream
+      let stfs = await this.junction.getFileSystem();
+      this.ws = await stfs.createWriteStream(this.options);
+      this.ws.on('error',
+        (err) => {
+          this.destroy(err);
+        });
+
+      // write opening, if any
+      await this.ws.write(this.openTag);
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('ShapeFileWriter construct error'));
+    }
+  }
+
   /**
    *
    * @param {*} construct
@@ -46,20 +69,6 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-
-      // check if file is open
-      if (this.ws === null) {
-        let stfs = await this.junction.getFileSystem();
-        this.ws = await stfs.createWriteStream(this.options);
-        this.ws.on('error',
-          (err) => {
-            this.destroy(err);
-          });
-
-        // write opening, if any
-        await this.ws.write(this.openTag);
-      }
-
       let data = (this._statistics.count === 0) ? "" : this.delim;
       if (this.engram.smt.model === 'shp')
         data += '"' + this._statistics.count + '": ';
@@ -125,14 +134,17 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
 
     try {
       if (this.ws) {
-        // write close tag
-        await this.ws.end(this.closeTag);
+        if (this.autoClose) {
+          // write close tag
+          await new Promise((resolve) => {
+            this.ws.end(this.closeTag, resolve);
+          });
+        }
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
-        else
-          await new Promise((fulfill) => this.ws.on("finish", fulfill));
       }
+
       this._count(null);
       callback();
     }

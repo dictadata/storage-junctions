@@ -15,6 +15,20 @@ module.exports = exports = class MemoryReader extends StorageReader {
     super(storageJunction, options);
   }
 
+  async _construct(callback) {
+    logger.debug("MemoryReader._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('MemoryReader construct error'));
+    }
+  }
+
   /**
    * Fetch data from the underlying resource.
    * @param {*} size <number> Number of bytes to read asynchronously

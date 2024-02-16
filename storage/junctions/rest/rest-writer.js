@@ -16,6 +16,20 @@ module.exports = exports = class RESTWriter extends StorageWriter {
 
   }
 
+  async _construct(callback) {
+    logger.debug("RESTWriter._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('RESTWriter construct error'));
+    }
+  }
+
   async _write(construct, encoding, callback) {
     logger.debug("RESTWriter._write");
     //logger.debug(JSON.stringify(construct));
@@ -32,7 +46,7 @@ module.exports = exports = class RESTWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(new StorageError(500, 'RESTWriter Error storing construct').inner(err));
     }
 
     callback();
@@ -53,7 +67,7 @@ module.exports = exports = class RESTWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(new StorageError(500, 'RESTWriter Error storing construct').inner(err));
     }
   }
 
@@ -67,7 +81,7 @@ module.exports = exports = class RESTWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      callback(new StorageError(500, 'RESTWriter Error writer._final').inner(err));
     }
   }
 

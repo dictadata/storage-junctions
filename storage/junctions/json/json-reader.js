@@ -25,7 +25,6 @@ module.exports = exports = class JSONReader extends StorageReader {
     //if (this.options.schema && path.extname(this.options.schema) === '')
     //  this.options.schema = this.options.schema + '.json';
 
-    this.started = false;
     var encoder = this.junction.createEncoder(options);
 
     /***** create the parser, pipieline and data handlers *****/
@@ -113,6 +112,33 @@ module.exports = exports = class JSONReader extends StorageReader {
     this.stfs;
   }
 
+  async _construct(callback) {
+    logger.debug("JSONReader._construct");
+
+    try {
+      // start the reader
+      this.stfs = await this.junction.getFileSystem();
+      var rs = await this.stfs.createReadStream(this.options);
+
+      rs.setEncoding(this.options.fileEncoding || "utf8");
+
+      rs.on('error',
+        (err) => {
+          logger.warn("JSONReader parser error: " + err.message);
+          this.destroy(this.stfs?.Error(err) ?? err);
+        }
+      );
+
+      rs.pipe(this.pipeline);
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('JSONReader construct error'));
+    }
+  }
+
   /**
    * An internal call to fetch data from the underlying resource.
    * @param {*} size <number> Number of constructs to read asynchronously
@@ -120,34 +146,19 @@ module.exports = exports = class JSONReader extends StorageReader {
   async _read(_size) {
     logger.debug('JSONReader _read');
 
-    if (!this.started) {
-      // start the reader
-      try {
-        this.stfs = await this.junction.getFileSystem();
-        var rs = await this.stfs.createReadStream(this.options);
-
-        rs.setEncoding(this.options.fileEncoding || "utf8");
-        rs.on('error',
-          (err) => {
-            logger.warn("JSONReader parser error: " + err.message);
-            this.destroy(this.stfs?.Error(err) ?? err);
-          }
-        );
-        rs.pipe(this.pipeline);
-        this.started = true;
+    try {
+      if (this.myParser.isPaused()) {
+        logger.debug("json reader parser paused");
+        this.myParser.resume();
       }
-      catch (err) {
-        logger.debug("JSONReader read error: " + err.message);
-        this.destroy(this.stfs?.Error(err) ?? err);
+      else if (this.myParser.destroyed || !this.myParser.readable) {
+        logger.debug("json reader parser problem");
+        this.push(null);
       }
     }
-    else if (this.myParser.isPaused()) {
-      logger.debug("json reader parser paused");
-      this.myParser.resume();
-    }
-    else if (this.myParser.destroyed || !this.myParser.readable) {
-      logger.debug("json reader parser problem");
-      this.push(null);
+    catch (err) {
+      logger.debug("JSONReader read error: " + err.message);
+      this.destroy(err);
     }
   }
 

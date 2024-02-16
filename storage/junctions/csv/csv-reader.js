@@ -29,7 +29,6 @@ module.exports = exports = class CSVReader extends StorageReader {
     /***** create the pipeline and data handlers *****/
     var reader = this;
     var encoding = this.engram;
-    this.started = false;
     var encoder = this.junction.createEncoder(options);
 
     var statistics = this._statistics;
@@ -63,9 +62,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         else if (construct && !reader.push(construct)) {
           //pipeline.pause();  // If push() returns false stop reading from source.
         }
-
       }
-
     });
 
     pipeline.on('end', () => {
@@ -80,14 +77,10 @@ module.exports = exports = class CSVReader extends StorageReader {
     this.stfs;
   }
 
-  /**
-   * An internal call to fetch data from the underlying resource.
-   * @param {*} size <number> Number of constructs to read asynchronously
-   */
-  async _read(_size) {
-    logger.debug('CSVReader _read');
+  async _construct(callback) {
+    logger.debug("CSVReader._construct");
 
-    if (!this.started) {
+    try {
       // start the reader
       let rs;
       try {
@@ -101,19 +94,39 @@ module.exports = exports = class CSVReader extends StorageReader {
           }
         );
         rs.pipe(this.pipeline);
-        this.started = true;
       }
       catch (err) {
         logger.warn(`CSVReader read error: ${err.message}`);
         this.destroy(this.stfs?.Error(err) ?? err);
       }
+
+      callback();
     }
-    else if (this.pipeline.isPaused()) {
-      // resume reading
-      this.pipeline.resume();
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('CSVReader construct error'));
     }
-    else if (this.pipeline.destroyed || !this.pipeline.readable)
-      this.push(null);
+  }
+
+  /**
+   * An internal call to fetch data from the underlying resource.
+   * @param {*} size <number> Number of constructs to read asynchronously
+   */
+  async _read(_size) {
+    logger.debug('CSVReader _read');
+
+    try {
+      if (this.pipeline.isPaused()) {
+        // resume reading
+        this.pipeline.resume();
+      }
+      else if (this.pipeline.destroyed || !this.pipeline.readable)
+        this.push(null);
+    }
+    catch (err) {
+      logger.debug("CSVReader read error: " + err.message);
+      this.destroy(err);
+    }
   }
 
 };

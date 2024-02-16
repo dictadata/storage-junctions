@@ -24,6 +24,20 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
     this.ws = null;
   }
 
+  async _construct(callback) {
+    logger.debug("ParquetWriter._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('ParquetWriter construct error'));
+    }
+  }
+
   /**
    *
    * @param {*} construct
@@ -105,13 +119,15 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
 
     try {
       if (this.ws) {
-        // write footer line
-        await this.ws.end(this.close);
+        if (this.autoClose) {
+          // write footer line
+          await new Promise((resolve) => {
+            this.ws.end(this.close, resolve);
+          });
+        }
 
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
-        else
-          await new Promise((fulfill) => this.ws.on("finish", fulfill));
       }
       this._count(null);
       callback();

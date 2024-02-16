@@ -20,6 +20,20 @@ module.exports = exports = class MSSQLWriter extends StorageWriter {
 
   }
 
+  async _construct(callback) {
+    logger.debug("MSSQLWriter._construct");
+
+    try {
+      // open output stream
+
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('MSSQLWriter construct error'));
+    }
+  }
+
   async _write(construct, encoding, callback) {
     logger.debug("MSSQLWriter._write");
     //logger.debug(JSON.stringify(construct));
@@ -67,7 +81,7 @@ module.exports = exports = class MSSQLWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(new StorageError(500, 'MSSQLWriter Error storing construct').inner(err));
     }
   }
 
@@ -81,7 +95,7 @@ module.exports = exports = class MSSQLWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      callback(new StorageError(500, 'MSSQLWriter Error writer._final').inner(err));
     }
   }
 
