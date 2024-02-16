@@ -1,20 +1,19 @@
-function typeOf(obj, fullClass = false) {
-  // use obj.prototype.toString() for deepType (handles all types)
+const http = require('http')
 
-  if (fullClass) {
-    // return type as "[object deepType]" format
-    // Note, early JS environments return '[object Object]' for null.
-    return (obj === null) ? '[object Null]' : Object.prototype.toString.call(obj);
+function typeOf(obj, constructor = false) {
+
+  // "[object BaseType]"
+  let baseType = Object.prototype.toString.call(obj).slice(8, -1);
+
+  if (constructor && baseType !== "Null") {
+    let name = obj?.constructor.name;
+    return  name;
+  }
+  else {
+    return baseType.toLowerCase();
   }
 
-  // really old bug in Javascript that where typeof null returns 'object'
-  if (obj == null) {                  // null or undefined
-    return (obj + '').toLowerCase(); // implicit toString() conversion
-  }
-
-  var deepType = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
-  console.log('deepType ' + deepType);
-
+  /*
   if (deepType === 'generatorfunction') {
     return 'function';
   }
@@ -26,15 +25,22 @@ function typeOf(obj, fullClass = false) {
   // Account for functionish Regexp (Android <=2.3), functionish <object> element (Chrome <=57, Firefox <=52), etc.
   // String.prototype.match is universally supported.
 
-  return deepType.match(/^(array|map|set|bigint|date|error|function|generator|regexp|symbol)$/) ? deepType :
-    (typeof obj === 'object' || typeof obj === 'function') ? 'object' : typeof obj;
+  let ot;
+  if (deepType.match(/^(Array|Map|Set|BigInt|Date|Error|Function|Generator|RegExp|Symbol)$/))
+    ot = deepType;
+  else if (typeof obj === 'object')
+    ot = 'object'
+  else
+    ot = typeof obj;
+
+  return ot;
+  */
 }
 
 function logTypeOf(obj) {
-  console.log("typeof   " + typeof obj);
-  //console.log(Object.prototype.toString.call(obj));
-  //console.log(type(obj,true));
-  console.log("typeOf   " + typeOf(obj));
+  console.log("typeof     : " + typeof obj);
+  console.log("typeOf     : " + typeOf(obj));
+  console.log("constructor: " + typeOf(obj, true));
   console.log("");
 }
 
@@ -99,5 +105,12 @@ class myClass {
   }
 }
 
+console.log('myClass');
+logTypeOf(myClass);
+
 console.log('new myClass()');
 logTypeOf(new myClass());
+
+console.log('new OutgoingMessage');
+let msg = new http.OutgoingMessage();
+logTypeOf(msg);
