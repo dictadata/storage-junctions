@@ -1,5 +1,5 @@
 /**
- * test/getEncoding
+ * test/getEngram
  */
 "use strict";
 
@@ -20,7 +20,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
   var jo;
   try {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
-    let results = await jo.getEncoding();
+    let results = await jo.getEngram();
     let encoding = results.data;
     //logger.debug(JSON.stringify(encoding));
 

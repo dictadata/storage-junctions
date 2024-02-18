@@ -47,7 +47,7 @@ class RESTJunction extends StorageJunction {
    *  Get the encoding for the storage node.
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
-  async getEncoding() {
+  async getEngram() {
 
     try {
       if (!this.engram.isDefined) {

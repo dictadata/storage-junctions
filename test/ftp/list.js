@@ -31,12 +31,12 @@ async function test_1() {
     origin: {
       smt: {
         model: "json",
-        locus: "ftp://dev.dictadata.net/dictadata/test/data/input/encodings/",
+        locus: "ftp://dev.dictadata.net/dictadata/test/data/input/engrams/",
         schema: "*.json",
         key: "*"
       },
       options: {
-        schema: "*.encoding.json",
+        schema: "*.engram.json",
         recursive: true
       }
     },

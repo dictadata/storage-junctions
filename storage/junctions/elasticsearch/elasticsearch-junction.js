@@ -126,7 +126,7 @@ class ElasticsearchJunction extends StorageJunction {
   /**
    *
    */
-  async getEncoding() {
+  async getEngram() {
     logger.debug("ElasticJunction get encoding");
 
     try {
@@ -225,7 +225,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let data = dslEncoder.encodeValues(this.engram, construct);
       let key = null;
@@ -263,7 +263,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       if (this.isKeyStore) {
         // get by _id
@@ -312,7 +312,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let dsl = dslEncoder.searchQuery(pattern);
       logger.verbose(JSON.stringify(dsl));
@@ -356,7 +356,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       const match = pattern?.match || pattern || {};
       let response;

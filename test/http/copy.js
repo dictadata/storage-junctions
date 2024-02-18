@@ -23,7 +23,7 @@ async function downloads_IIS() {
   logger.info("=== IIS download encoding files");
   if (await getFiles({
     origin: {
-      smt: "*|http://dev.dictadata.net/dictadata/test/data/input/encodings/|*.encoding.json|*",
+      smt: "*|http://dev.dictadata.net/dictadata/test/data/input/engrams/|*.engram.json|*",
       options: {
         recursive: true
       }

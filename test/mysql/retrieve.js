@@ -29,7 +29,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_01.encoding.json",
+        encoding: "./test/data/input/engrams/foo_schema_01.engram.json",
       },
       pattern: {
         match: {
@@ -47,7 +47,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_widgets.encoding.json",
+        encoding: "./test/data/input/engrams/foo_widgets.engram.json",
       },
       pattern: {
         match: {

@@ -18,7 +18,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
-        encoding: "./test/data/input/encodings/" + encoding + ".encoding.json",
+        encoding: "./test/data/input/engrams/" + encoding + ".engram.json",
         refresh: true
       }
     }
@@ -44,7 +44,7 @@ async function test_lg() {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_lg.encoding.json",
+        encoding: "./test/data/input/engrams/foo_schema_lg.engram.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

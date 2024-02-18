@@ -1,20 +1,20 @@
 /**
- * test/memory/getEncoding
+ * test/memory/getEngram
  */
 "use strict";
 
-const getEncoding = require('../lib/_getEncoding');
+const getEngram = require('../lib/_getEngram');
 const { logger } = require('../../storage/utils');
 
 async function test(schema, encoding) {
 
-  logger.info("=== getEncoding " + schema);
-  if (await getEncoding({
+  logger.info("=== getEngram " + schema);
+  if (await getEngram({
     origin: {
       smt: "memory|testgroup|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/memory/" + encoding + ".encoding.json"
+      output: "./test/data/output/memory/" + encoding + ".engram.json"
     }
   })) return 1;
 

@@ -1,22 +1,22 @@
 /**
- * test/elasticsearch/getEncoding
+ * test/elasticsearch/getEngram
  */
 "use strict";
 
-const getEncoding = require('../lib/_getEncoding');
+const getEngram = require('../lib/_getEngram');
 const { logger } = require('../../storage/utils');
 
-logger.info("===== elasticsearch getEncoding ");
+logger.info("===== elasticsearch getEngram ");
 
 async function test(schema, encoding) {
 
-  logger.info("=== getEncoding " + schema);
-  if (await getEncoding({
+  logger.info("=== getEngram " + schema);
+  if (await getEngram({
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/" + encoding + ".encoding.json"
+      output: "./test/data/output/elasticsearch/" + encoding + ".engram.json"
     }
   })) return 1;
 

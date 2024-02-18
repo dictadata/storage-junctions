@@ -3,21 +3,21 @@
  */
 "use strict";
 
-const getEncoding = require('../lib/_getEncoding');
+const getEngram = require('../lib/_getEngram');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: shapefile encoding");
 
 async function test1() {
 
-  logger.info("=== shapefile getEncoding polygons");
-  if (await getEncoding({
+  logger.info("=== shapefile getEngram polygons");
+  if (await getEngram({
     origin: {
       smt: "shp|./test/data/input/shapes/|polygons|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/polygons.encoding.json'
+      output: './test/data/output/shapefile/polygons.engram.json'
     }
   })) return 1;
 
@@ -25,14 +25,14 @@ async function test1() {
 
 async function test2() {
 
-  logger.info("=== shapefile getEncoding points");
-  if (await getEncoding({
+  logger.info("=== shapefile getEngram points");
+  if (await getEngram({
     origin: {
       smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/points.encoding.json'
+      output: './test/data/output/shapefile/points.engram.json'
     }
   })) return 1;
 
@@ -40,14 +40,14 @@ async function test2() {
 
 async function test3() {
 
-  logger.info("=== shapefile getEncoding tl_2020_us_state");
-  if (await getEncoding({
+  logger.info("=== shapefile getEngram tl_2020_us_state");
+  if (await getEngram({
     origin: {
       smt: "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_state.encoding.json'
+      output: './test/data/output/shapefile/tl_2020_us_state.engram.json'
     }
   })) return 1;
 
@@ -55,14 +55,14 @@ async function test3() {
 
 async function test4() {
 
-  logger.info("=== shapefile getEncoding tl_2020_us_county");
-  if (await getEncoding({
+  logger.info("=== shapefile getEngram tl_2020_us_county");
+  if (await getEngram({
     origin: {
       smt: "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_county.encoding.json'
+      output: './test/data/output/shapefile/tl_2020_us_county.engram.json'
     }
   })) return 1;
 
@@ -70,14 +70,14 @@ async function test4() {
 
 async function test5() {
 
-  logger.info("=== shapefile getEncoding from Ames.zip");
-  if (await getEncoding({
+  logger.info("=== shapefile getEngram from Ames.zip");
+  if (await getEngram({
     origin: {
       smt: "shp|zip:/var/dictadata/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|~1|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/ames_precincts.encoding.json'
+      output: './test/data/output/shapefile/ames_precincts.engram.json'
     }
   })) return 1;
 

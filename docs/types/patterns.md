@@ -83,7 +83,7 @@ Note, for constructs that contain nested fields field_name supports dot notation
 - Storage patterns are used by the following:
   - StorageJunction.retrieve() method.
   - StorageReader based classes.
-  - In [StorageETL](https://github.com/dictadata/storage-etl) tract definitions.
+  - In [StorageTracts](https://github.com/dictadata/storage-tracts) tract definitions.
 
 ## Examples
 

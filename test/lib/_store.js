@@ -20,7 +20,7 @@ module.exports = exports = async function (tract, compareValues = 2, keyValues =
   var jo;
   try {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
-    let results = await jo.getEncoding();
+    let results = await jo.getEngram();
     let encoding = results.data;
 
     results = await jo.store(tract.construct, tract.origin.pattern);

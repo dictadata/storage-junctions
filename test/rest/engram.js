@@ -1,17 +1,17 @@
 /**
- * test/rest/encoding
+ * test/rest/engram
  */
 "use strict";
 
-const getEncoding = require('../lib/_getEncoding');
+const getEngram = require('../lib/_getEngram');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest encoding");
 
 async function tests() {
 
-  logger.info("=== rest getEncoding (forecast)");
-  if (await getEncoding({
+  logger.info("=== rest getEngram (forecast)");
+  if (await getEngram({
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
@@ -26,7 +26,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_forecast.encoding.json'
+      output: './test/data/output/rest/weather_forecast.engram.json'
     }
   }, 1)) return 1;
 

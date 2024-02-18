@@ -90,8 +90,8 @@ class MemoryJunction extends StorageJunction {
    *  Get the encoding for the storage node.
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
-  async getEncoding() {
-    logger.debug("MemoryJunction getEncoding");
+  async getEngram() {
+    logger.debug("MemoryJunction getEngram");
 
     try {
       let entry = _storage.get(this.storage_key);

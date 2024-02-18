@@ -1,22 +1,22 @@
 /**
- * test/mssql/getEncoding
+ * test/mysql/getEngram
  */
 "use strict";
 
-const getEncoding = require('../lib/_getEncoding');
+const getEngram = require('../lib/_getEngram');
 const { logger } = require('../../storage/utils');
 
-logger.info("===== mssql getEncoding ");
+logger.info("===== mysql getEngram ");
 
 async function test(schema, encoding) {
 
-  logger.info("=== getEncoding " + schema);
-  if (await getEncoding({
+  logger.info("=== getEngram " + schema);
+  if (await getEngram({
     origin: {
-      smt: "mssql|server=dev.dictadata.net;database=storage_node|" + schema + "|*"
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/mssql/" + encoding + ".encoding.json"
+      output: "./test/data/output/mysql/" + encoding + ".engram.json"
     }
   })) return 1;
 

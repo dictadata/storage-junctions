@@ -8,7 +8,7 @@
 
 ## Methods
 
-### getEncoding()
+### getEngram()
 
 ### putEncoding(encoding)
 

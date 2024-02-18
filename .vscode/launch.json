@@ -23,8 +23,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "generic encodings",
-      "program": "${workspaceFolder}/test/general/encodings.js",
+      "name": "generic engrams",
+      "program": "${workspaceFolder}/test/general/engrams.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -352,8 +352,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "elasticsearch getEncoding",
-      "program": "${workspaceFolder}/test/elasticsearch/getEncoding.js",
+      "name": "elasticsearch getEngram",
+      "program": "${workspaceFolder}/test/elasticsearch/getEngram.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -506,8 +506,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mssql getEncoding",
-      "program": "${workspaceFolder}/test/mssql/getEncoding.js",
+      "name": "mssql getEngram",
+      "program": "${workspaceFolder}/test/mssql/getEngram.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -649,8 +649,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "mysql getEncoding",
-      "program": "${workspaceFolder}/test/mysql/getEncoding.js",
+      "name": "mysql getEngram",
+      "program": "${workspaceFolder}/test/mysql/getEngram.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -851,8 +851,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "shapefile encoding",
-      "program": "${workspaceFolder}/test/shapefile/encoding.js",
+      "name": "shapefile engram",
+      "program": "${workspaceFolder}/test/shapefile/engram.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -906,8 +906,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "rest encoding",
-      "program": "${workspaceFolder}/test/rest/encoding.js",
+      "name": "rest engram",
+      "program": "${workspaceFolder}/test/rest/engram.js",
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

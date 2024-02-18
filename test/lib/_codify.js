@@ -29,11 +29,11 @@ module.exports = exports = async function (tract, compareValues = 2) {
     if (jo.capabilities.encoding) {
       logger.verbose(">>> get encoding");
       // *** get encoding for junction's schema
-      let results = await jo.getEncoding();
+      let results = await jo.getEngram();
       let encoding = results.data;
       //logger.debug(JSON.stringify(encoding, null, "  "));
 
-      let filename = tract.output.replace(".json", ".encoding.json");
+      let filename = tract.output.replace(".json", ".engram.json");
       let retCode = _output(filename, results, compareValues);
       if (retCode)
         return process.exitCode = 1;

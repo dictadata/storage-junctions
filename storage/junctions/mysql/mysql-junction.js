@@ -139,7 +139,7 @@ class MySQLJunction extends StorageJunction {
    *  Get the encoding for the storage node.
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
-  async getEncoding() {
+  async getEngram() {
     logger.debug("MySQLJunction get encoding");
 
     try {
@@ -243,7 +243,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let sql = sqlEncoder.sqlInsertUpdate(this.engram, construct);
       logger.debug(sql);
@@ -277,7 +277,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let sql = sqlEncoder.sqlBulkInsert(this.engram, constructs);
       logger.debug(sql);
@@ -307,7 +307,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
       logger.verbose(sql);
@@ -338,7 +338,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
       logger.verbose(sql);
@@ -372,7 +372,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let results = null;
       if (this.engram.keyof === 'primary') {

@@ -26,8 +26,8 @@ module.exports = exports = class ElasticTemplate {
   /**
    *
    */
-  async getEncoding() {
-    logger.debug('elastic template getEncoding');
+  async getEngram() {
+    logger.debug('elastic template getEngram');
 
     let elastic = new Elastic(this.options);
     try {
@@ -76,7 +76,7 @@ module.exports = exports = class ElasticTemplate {
 
     if (merge) {
       if (!this.template)
-        await this.getEncoding();
+        await this.getEngram();
       this.engram.encoding = encoding;
     }
     else {

@@ -28,8 +28,8 @@ module.exports = exports = class ElasticMappings {
   /**
    *
    */
-  async getEncoding() {
-    logger.debug('mappings getEncoding');
+  async getEngram() {
+    logger.debug('mappings getEngram');
 
     this._read(false);  // read default index configuration file
 
@@ -71,7 +71,7 @@ module.exports = exports = class ElasticMappings {
     logger.debug('mappings putEncoding');
 
     if (!this.mappings)
-      await this.getEncoding();
+      await this.getEngram();
 
     if (merge) {
       this.engram.mergeFields(encoding);

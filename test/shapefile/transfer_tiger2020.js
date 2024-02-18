@@ -34,7 +34,7 @@ async function transfer2() {
     "terminal": {
       "smt": "elastic|http://dev.dictadata.net:9200/|tl_2020_us_state|*",
       "options": {
-        "encoding": "./test/data/input/encodings/tl_YYYY_us_state.encoding.json"
+        "encoding": "./test/data/input/engrams/tl_YYYY_us_state.engram.json"
       }
     }
   })) return 1;
@@ -62,7 +62,7 @@ async function transfer4() {
     "origin": {
       "smt": "shp|zip:/var/dictadata/US/IA/legis.iowa.gov/Plan2/SHP/IA_ProposedPlan2_Oct2021.zip|Plan2_Congress|*",
       "options": {
-        "encoding": "./test/data/input/encodings/bl_2020_ia_congress.encoding.json"
+        "encoding": "./test/data/input/engrams/bl_2020_ia_congress.engram.json"
       }
     },
     "transforms": [
@@ -76,7 +76,7 @@ async function transfer4() {
     "terminal": {
       "smt": "elasticsearch|http://dev.dictadata.net:9200|bl_2020_us_congress|*",
       "options": {
-        "encoding": "./test/data/input/encodings/bl_2020_ia_congress.encoding.json"
+        "encoding": "./test/data/input/engrams/bl_2020_ia_congress.engram.json"
       }
     }
   })) return 1;

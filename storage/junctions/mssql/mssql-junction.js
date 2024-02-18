@@ -184,7 +184,7 @@ class MSSQLJunction extends StorageJunction {
    *  Get the encoding for the storage node.
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
-  async getEncoding() {
+  async getEngram() {
     logger.debug("MSSQLJunction.get encoding");
 
     try {
@@ -283,7 +283,7 @@ class MSSQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined) {
-        let results = await this.getEncoding();
+        let results = await this.getEngram();
         //logger.debug(JSON.stringify(results));
       }
 
@@ -328,7 +328,7 @@ class MSSQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let sql = sqlEncoder.sqlBulkInsert(this.engram, constructs);
       logger.debug(sql);
@@ -357,7 +357,7 @@ class MSSQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let resultRow = null;
       let sql = "SELECT * FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
@@ -390,7 +390,7 @@ class MSSQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let resultRows = [];
       let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
@@ -427,7 +427,7 @@ class MSSQLJunction extends StorageJunction {
 
     try {
       if (!this.engram.isDefined)
-        await this.getEncoding();
+        await this.getEngram();
 
       let sql = '';
       if (this.engram.keyof === 'primary') {

@@ -22,7 +22,7 @@ async function test(schema, encoding) {
           username: "dicta",
           password: "data"
         },
-        encoding: "./test/data/input/encodings/" + encoding + ".encoding.json"
+        encoding: "./test/data/input/engrams/" + encoding + ".engram.json"
       }
     }
   });
@@ -46,7 +46,7 @@ async function test_lg() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/encodings/foo_schema_lg.encoding.json",
+        encoding: "./test/data/input/engrams/foo_schema_lg.engram.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

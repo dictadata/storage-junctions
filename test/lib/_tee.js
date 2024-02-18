@@ -37,7 +37,7 @@ module.exports = exports = async function (tract) {
     logger.debug(">>> get origin encoding");
     let encoding;
     if (jo.capabilities.encoding) {
-      let results = await jo.getEncoding();
+      let results = await jo.getEngram();
       encoding = results.data;
     }
 

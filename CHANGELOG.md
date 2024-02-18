@@ -159,7 +159,7 @@
 - version 2.0.0
   - implement Engrams class
   - change encoding fields to an array
-  - define engrams storage: engrams.encoding.json
+  - define engrams storage: engrams.engram.json
   - store engrams entries in Elasticsearch
 - version 1.8.6
   - support Elasticsearch geo_shape queries; contains, within, intersects, disjoint
@@ -172,7 +172,7 @@
 - version 1.8.4
   - update dependencies
   - testing updates:
-    - standardize file name convention for encoding as abc123.encoding.json
+    - standardize file name convention for encoding as abc123.engram.json
 - version 1.8.3
   - extensive testing and bug fixes
 - version 1.8.2

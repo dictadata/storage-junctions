@@ -50,7 +50,7 @@ class JSONJunction extends StorageJunction {
   /**
    *  Get the encoding for the storage junction.
    */
-  async getEncoding() {
+  async getEngram() {
 
     try {
       if (!this.engram.isDefined) {

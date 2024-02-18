@@ -41,7 +41,7 @@ async function testTransfer1() {
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
-        encoding: "./test/data/input/encodings/shapes.encoding.json"
+        encoding: "./test/data/input/engrams/shapes.engram.json"
       }
     }
   }, compareValues)) return 1;
@@ -79,7 +79,7 @@ async function testTransfer2() {
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
-        encoding: "./test/data/input/encodings/shapes.encoding.json"
+        encoding: "./test/data/input/engrams/shapes.engram.json"
       }
     }
   }, compareValues)) return 1;

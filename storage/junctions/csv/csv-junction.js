@@ -52,7 +52,7 @@ class CSVJunction extends StorageJunction {
   /**
    *  Get the encoding for the storage junction.
    */
-  async getEncoding() {
+  async getEngram() {
     logger.debug("CSVJunction get encoding");
 
     try {
@@ -63,7 +63,7 @@ class CSVJunction extends StorageJunction {
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {
-          logger.warn(`csv getEncoding reader: ${error.message}`);
+          logger.warn(`csv getEngram reader: ${error.message}`);
         });
 
         let codify = await this.createTransform("codify", options);

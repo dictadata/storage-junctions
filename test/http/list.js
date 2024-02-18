@@ -30,8 +30,8 @@ async function testIIS() {
     origin: {
       smt: {
         model: "*",
-        locus: "http://dev.dictadata.net/dictadata/test/data/input/encodings/",
-        schema: "*.encoding.json",
+        locus: "http://dev.dictadata.net/dictadata/test/data/input/engrams/",
+        schema: "*.engram.json",
         key: "*"
       },
       options: {

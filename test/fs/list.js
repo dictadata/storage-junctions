@@ -31,12 +31,12 @@ async function tests() {
     origin: {
       smt: {
         model: "*",
-        locus: "./test/data/input/encodings/",
+        locus: "./test/data/input/engrams/",
         schema: "*.json",
         key: "*"
       },
       options: {
-        schema: "*.encoding.json",
+        schema: "*.engram.json",
         recursive: true
       }
     },

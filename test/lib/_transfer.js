@@ -42,7 +42,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     logger.debug(">>> get origin encoding");
     let encoding = origin.options.encoding;
     if (!encoding && jo.capabilities.encoding) {
-      let results = await jo.getEncoding();  // load encoding from origin for validation
+      let results = await jo.getEngram();  // load encoding from origin for validation
       encoding = results.data;
     }
 
@@ -85,7 +85,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       throw new Error("invalid terminal encoding");
 
     //logger.debug(">>> encoding results");
-    //logger.debug(JSON.stringify(terminal.options.encoding.fields, null, " "));
+    //logger.debug(JSON.stringify(terminal.options.engram.fields, null, " "));
 
     /// create terminal junction
     logger.debug("create the terminal");

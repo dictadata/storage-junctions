@@ -123,8 +123,8 @@ module.exports = exports = class StorageJunction {
    * Get the schema's encoding.
    * If not defined, request encoding from the storage source.
    */
-  async getEncoding() {
-    logger.debug('StorageJunction getEncoding');
+  async getEngram() {
+    logger.debug('StorageJunction getEngram');
     if (!this.capabilities.encoding)
       throw new StorageError(405);
     return new StorageError(501);
