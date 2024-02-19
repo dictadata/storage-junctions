@@ -1,87 +1,82 @@
 {
-  "status": 0,
-  "message": "OK",
-  "type": "encoding",
-  "data": {
-    "name": "foo_widgets",
-    "type": "engram",
-    "smt": {
-      "model": "elasticsearch",
-      "locus": "http://dev.dictadata.net:9200",
-      "schema": "foo_widgets",
-      "key": "!Foo"
-    },
-    "fields": [
-      {
-        "name": "Bar",
-        "type": "text",
-        "_elasticsearch": {
-          "type": "text"
-        }
-      },
-      {
-        "name": "Baz",
-        "type": "integer",
-        "_elasticsearch": {
-          "type": "integer"
-        }
-      },
-      {
-        "name": "Dt Test",
-        "type": "date",
-        "_elasticsearch": {
-          "type": "date"
-        }
-      },
-      {
-        "name": "Fobe",
-        "type": "number",
-        "_elasticsearch": {
-          "type": "double"
-        }
-      },
-      {
-        "name": "Foo",
-        "type": "keyword",
-        "_elasticsearch": {
-          "type": "keyword"
-        },
-        "key": 1
-      },
-      {
-        "name": "enabled",
-        "type": "boolean",
-        "_elasticsearch": {
-          "type": "boolean"
-        }
-      },
-      {
-        "name": "tags",
-        "type": "keyword",
-        "_elasticsearch": {
-          "type": "keyword"
-        }
-      },
-      {
-        "name": "widgets",
-        "type": "map",
-        "fields": [
-          {
-            "name": "count",
-            "type": "integer",
-            "_elasticsearch": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "part",
-            "type": "keyword",
-            "_elasticsearch": {
-              "type": "keyword"
-            }
-          }
-        ]
+  "name": "foo_widgets",
+  "type": "engram",
+  "smt": {
+    "model": "elasticsearch",
+    "locus": "http://dev.dictadata.net:9200",
+    "schema": "foo_widgets",
+    "key": "!Foo"
+  },
+  "fields": [
+    {
+      "name": "Bar",
+      "type": "text",
+      "_elasticsearch": {
+        "type": "text"
       }
-    ]
-  }
+    },
+    {
+      "name": "Baz",
+      "type": "integer",
+      "_elasticsearch": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "Dt Test",
+      "type": "date",
+      "_elasticsearch": {
+        "type": "date"
+      }
+    },
+    {
+      "name": "Fobe",
+      "type": "number",
+      "_elasticsearch": {
+        "type": "double"
+      }
+    },
+    {
+      "name": "Foo",
+      "type": "keyword",
+      "_elasticsearch": {
+        "type": "keyword"
+      },
+      "key": 1
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "_elasticsearch": {
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "tags",
+      "type": "keyword",
+      "_elasticsearch": {
+        "type": "keyword"
+      }
+    },
+    {
+      "name": "widgets",
+      "type": "map",
+      "fields": [
+        {
+          "name": "count",
+          "type": "integer",
+          "_elasticsearch": {
+            "type": "integer"
+          }
+        },
+        {
+          "name": "part",
+          "type": "keyword",
+          "_elasticsearch": {
+            "type": "keyword"
+          }
+        }
+      ]
+    }
+  ]
 }

@@ -34,7 +34,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       //logger.debug(JSON.stringify(encoding, null, "  "));
 
       let filename = tract.output.replace(".json", ".engram.json");
-      let retCode = _output(filename, results, compareValues);
+      let retCode = _output(filename, encoding || results, compareValues);
       if (retCode)
         return process.exitCode = 1;
     }
@@ -68,7 +68,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
     let encoding2 = codify.encoding;
 
     //logger.debug(JSON.stringify(encoding2, null, "  "));
-    retCode = _output(tract.output, encoding2, compareValues);
+    let filename = tract.output.replace(".json", ".results.json");
+    retCode = _output(filename, encoding2, compareValues);
 
     logger.info(">>> completed");
   }

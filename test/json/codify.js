@@ -6,11 +6,11 @@
 const codify = require('../lib/_codify');
 const { logger } = require('../../storage/utils');
 
-logger.info("=== tests: Codify");
+logger.info("=== tests: json codify");
 
 async function tests() {
 
-  logger.info("=== codify foofile.json");
+  logger.info("=== codify foofile.engram.json");
   if (await codify({
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
@@ -18,7 +18,7 @@ async function tests() {
     output: './test/data/output/json/codify_1.json'
   })) return 1;
 
-  logger.info("=== codify foofile.json.gz");
+  logger.info("=== codify foofile.engram.json.gz");
   if (await codify({
     origin: {
       smt: "json|./test/data/input/|foofile.json.gz|*"
@@ -26,7 +26,7 @@ async function tests() {
     output: './test/data/output/json/codify_g1.json'
   })) return 1;
 
-  logger.info("=== codify foofile_01.json");
+  logger.info("=== codify foofile_01.engram.json");
   if (await codify({
     origin: {
       smt: "json|./test/data/input/|foofile_01.json|*"
@@ -34,7 +34,7 @@ async function tests() {
     output: './test/data/output/json/codify_m1.json'
   })) return 1;
 
-  logger.info("=== codify foo_widgets.json");
+  logger.info("=== codify foo_widgets.engram.json");
   if (await codify({
     origin: {
       smt: "json|./test/data/input/|foo_widgets.json|*"

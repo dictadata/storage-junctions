@@ -1,10 +1,10 @@
 {
-  "name": "foofile.csv",
+  "name": "*",
   "type": "engram",
   "smt": {
-    "model": "csv",
-    "locus": "./test/data/input/",
-    "schema": "foofile.csv",
+    "model": "*",
+    "locus": "*",
+    "schema": "*",
     "key": "*"
   },
   "fields": [
