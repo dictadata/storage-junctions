@@ -42,6 +42,13 @@ module.exports = exports = class JSONWriter extends StorageWriter {
             closing: ''
           };
           break;
+        case 'jsonw':
+          this.formation = {
+            opening: '',
+            delimiter: ',\n',
+            closing: '\n'
+          };
+          break;
         case 'jsono':
           this.formation = {
             opening: '{\n',

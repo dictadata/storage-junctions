@@ -56,6 +56,7 @@ Storage.Junctions.use('jsons', JSONJunction);  // json stream
 Storage.Junctions.use('jsonl', JSONJunction);  // json line
 Storage.Junctions.use('jsona', JSONJunction);  // json array
 Storage.Junctions.use('jsono', JSONJunction);  // json object
+Storage.Junctions.use('jsonw', JSONJunction);  // json stream writer
 
 var ParquetJunction = require("./junctions/parquet");
 exports.ParquetJunction = ParquetJunction;
