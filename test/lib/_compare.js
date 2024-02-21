@@ -171,7 +171,7 @@ function compareFiles(filename_expected, filename_output, compareValues = 1) {
     return compareJSON(JSON.parse(expected), JSON.parse(output), compareValues);
   else if (ext1 === '.csv')
     return compareText(expected, output, compareValues);
-  else if (ext1 === '.txt')
+  else if ([ '.txt', '.jsons', '.jsono', '.jsonl', 'jsona' ].includes(ext1))
     return compareText(expected, output, compareValues);
   else {
     logger.error("compare unknown file extension");
