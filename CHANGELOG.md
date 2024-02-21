@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.102
+  - refactor: refactor .encoding.json to .engram.json
 - version 0.9.101
   - refactor: implement StorageWriter _construct()
   - refactor: StorageWriter autoClose option for dependent write streams
