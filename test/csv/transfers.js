@@ -94,8 +94,10 @@ async function tests() {
       options: {
         header: false,
         encoding: {
-          "time": "date",
-          "temp": "number"
+          fields: {
+            "time": "date",
+            "temp": "number"
+          }
         }
       },
     },

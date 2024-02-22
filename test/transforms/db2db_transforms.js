@@ -149,7 +149,7 @@ async function forecastTransform(tract) {
       smt: "elasticsearch|http://dev.dictadata.net:9200|weather_forecast|=Foo"
     }
   })) return;
-
+/*
   if (await forecastTransform({
     terminal: {
       smt: "mssql|server=dev.dictadata.net;database=storage_node|weather_forecast|*"
@@ -161,5 +161,5 @@ async function forecastTransform(tract) {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|weather_forecast|*"
     }
   })) return;
-
+*/
 })();

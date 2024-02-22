@@ -85,7 +85,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       throw new Error("invalid terminal encoding");
 
     //logger.debug(">>> encoding results");
-    //logger.debug(JSON.stringify(terminal.options.engram.fields, null, " "));
+    //logger.debug(JSON.stringify(terminal.options.encoding.fields, null, " "));
 
     /// create terminal junction
     logger.debug("create the terminal");

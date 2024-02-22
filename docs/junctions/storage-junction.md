@@ -4,13 +4,11 @@
 
 ### smt
 
-### encoding
+### engram
 
 ## Methods
 
 ### getEngram()
-
-### putEncoding(encoding)
 
 ### createSchema(options)
 
