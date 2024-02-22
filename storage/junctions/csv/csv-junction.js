@@ -72,7 +72,7 @@ class CSVJunction extends StorageJunction {
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
       }
-      return new StorageResults("encoding", "", this.engram.encoding);
+      return new StorageResults("engram", "", this.engram.encoding);
     }
     catch (err) {
       if (e instanceof StorageError)

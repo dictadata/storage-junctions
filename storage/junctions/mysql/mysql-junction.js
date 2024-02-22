@@ -157,7 +157,7 @@ class MySQLJunction extends StorageJunction {
       columns = await this.pool.query(sql);
       sqlEncoder.decodeIndexResults(this.engram, columns);
 
-      return new StorageResults("encoding", null, this.engram.encoding);
+      return new StorageResults("engram", null, this.engram.encoding);
     }
     catch (err) {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE

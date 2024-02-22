@@ -98,7 +98,7 @@ class MemoryJunction extends StorageJunction {
       if (!entry)
         return new StorageResults(404, "schema not found");
 
-      return new StorageResults("encoding", null, entry.engram.encoding);
+      return new StorageResults("engram", null, entry.engram.encoding);
     }
     catch (err) {
       logger.warn(err);

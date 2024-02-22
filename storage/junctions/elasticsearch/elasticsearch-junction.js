@@ -135,7 +135,7 @@ class ElasticsearchJunction extends StorageJunction {
       // convert to encoding fields
       this.engram.encoding = this.encoder.mappingsToFields(mappings);
 
-      return new StorageResults("encoding", null, this.engram.encoding);
+      return new StorageResults("engram", null, this.engram.encoding);
     }
     catch (err) {
       if (err.statusCode === 404)  // index_not_found_exception

@@ -32,12 +32,16 @@ class StorageResults {
           this.type = "construct";
           break;
         case "encoding":
-          this.type = "encoding";
+        case "engram":
+          this.type = "engram";
           break;
         case "message":
         case "object":
-        default:
           this.type = "message";
+          break;
+        default:
+          this.type = type_code;
+          break;
       }
       type_code = 0; // set to default
     }
@@ -82,7 +86,7 @@ class StorageResults {
       else {
         this.type = "message";
       }
-      // "construct" and "encoding" types needs to be explicitly set by constructor
+      // "construct" and "engram" types needs to be explicitly set by constructor
     }
 
     // allocate storage
@@ -94,7 +98,7 @@ class StorageResults {
         this.data = new Array();
         break;
       case "construct":
-      case "encoding":
+      case "engram":
       case "message":
       default:
         this.data = {};
@@ -131,7 +135,7 @@ class StorageResults {
           throw new Error("add data missing key value");
         break;
       case "construct":
-      case "encoding":
+      case "engram":
         if (typeof data === "object")
           this.data = Object.assign({}, data);  // replace data
         else

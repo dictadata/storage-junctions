@@ -201,7 +201,7 @@ class MSSQLJunction extends StorageJunction {
         sqlEncoder.decodeIndexResults(this.engram, column);
       });
 
-      return new StorageResults("encoding", null, this.engram.encoding);
+      return new StorageResults("engram", null, this.engram.encoding);
     }
     catch (err) {
       logger.warn(err);
