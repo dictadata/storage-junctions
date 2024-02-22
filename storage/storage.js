@@ -42,7 +42,11 @@ class Storage {
     }
 
     // create the junction
-    let junction = Junctions.activate(_smt, options);
+    let junction;
+    if (_smt.model === "$" && options.junction)
+      junction = options.junction;
+    else
+      junction = Junctions.activate(_smt, options);
     return junction;
   }
 
