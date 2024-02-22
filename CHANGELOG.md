@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.103
+  - feature: implement smt $ model with options.junction
 - version 0.9.102
   - refactor: refactor .encoding.json to .engram.json
 - version 0.9.101
