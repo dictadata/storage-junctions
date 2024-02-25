@@ -14,7 +14,8 @@ const dot = require('dot-object');
 
 // order of operations:
 //   default
-//   select | map
+//   select
+//   map
 //   assign
 //   remove
 //   override

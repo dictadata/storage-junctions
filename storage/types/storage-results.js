@@ -83,6 +83,9 @@ class StorageResults {
       else if (Array.isArray(data)) {
         this.type = "list";
       }
+      else if (typeof data === "object") {
+        this.type = "construct";
+      }
       else {
         this.type = "message";
       }

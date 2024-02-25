@@ -3,7 +3,7 @@
  *
  * This code module is copied from stream-csv-as-json/AsObjects
  *
- * This module should be DEPRECATED???
+ * Should this module be DEPRECATED???
  *
  */
 'use strict';

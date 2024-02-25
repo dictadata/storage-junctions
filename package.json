@@ -3,19 +3,17 @@
   "version": "0.9.103",
   "description": "Node.js library for normalized data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
+  "license": "MIT",
   "keywords": [
     "dictadata",
-    "storage"
+    "storage",
+    "junctions"
   ],
-  "license": "MIT",
-  "main": "index.js",
   "type": "commonjs",
-  "directories": {},
-  "repository": "gitlab:dictadata/js/storage-junctions",
-  "bugs": {
-    "url": "https://gitlab.com/dictadata/js/storage-junctions/issues"
+  "engines": {
+    "node": ">=18.0.0"
   },
-  "homepage": "https://gitlab.com/dictadata/js/storage-junctions#readme",
+  "main": "index.js",
   "scripts": {
     "lint": "eslint storage/**/*.js",
     "lint-fix": "eslint --fix storage/**/*.js",
@@ -24,8 +22,16 @@
   "bin": {
     "st_launcher": "./test/st_launcher.js"
   },
-  "engines": {
-    "node": ">=17.0.0"
+  "repository": "github:dictadata/storage-junctions",
+  "homepage": "https://github.com/dictadata/storage-junctions#readme",
+  "bugs": {
+    "url": "https://github.com/dictadata/storage-junctions/issues"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.11.0",
@@ -43,11 +49,5 @@
     "tedious": "^16.6.1",
     "tsqlstring": "^1.0.1",
     "winston": "^3.11.0"
-  },
-  "devDependencies": {
-    "colors": "^1.4.0",
-    "eslint": "^8.56.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1"
   }
 }
