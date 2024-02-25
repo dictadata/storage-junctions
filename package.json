@@ -1,4 +1,4 @@
- {
+{
   "name": "@dictadata/storage-junctions",
   "version": "0.9.103",
   "description": "Node.js library for normalized data storage access and streaming transfers.",
@@ -20,9 +20,12 @@
     "test": "./testrunner.bat"
   },
   "bin": {
-    "st_launcher": "./test/st_launcher.js"
+    "st_launcher": "test/st_launcher.js"
   },
-  "repository": "github:dictadata/storage-junctions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dictadata/storage-junctions.git"
+  },
   "homepage": "https://github.com/dictadata/storage-junctions#readme",
   "bugs": {
     "url": "https://github.com/dictadata/storage-junctions/issues"
