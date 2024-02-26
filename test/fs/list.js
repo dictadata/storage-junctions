@@ -36,7 +36,7 @@ async function tests() {
         key: "*"
       },
       options: {
-        schema: "*.engram.json",
+        schema: "foo?schema*.engram.json",
         recursive: true
       }
     },

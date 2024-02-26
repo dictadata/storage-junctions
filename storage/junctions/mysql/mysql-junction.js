@@ -114,6 +114,7 @@ class MySQLJunction extends StorageJunction {
 
       let rx = '^' + schema + '$';
       rx = rx.replace('.', '\\.');
+      rx = rx.replace('?', '.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
 

@@ -52,6 +52,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let filespec = schema || '*';
       let rx = '^' + filespec + '$';
       rx = rx.replace('.', '\\.');
+      rx = rx.replace('?', '.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
 

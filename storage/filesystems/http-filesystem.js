@@ -79,6 +79,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let filespec = schema || '*';
       let rx = '^' + filespec + '$';
       rx = rx.replace('.', '\\.');
+      rx = rx.replace('?', '.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
 

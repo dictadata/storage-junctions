@@ -162,6 +162,7 @@ class MSSQLJunction extends StorageJunction {
     try {
       let rx = '^' + schema + '$';
       rx = rx.replace('.', '\\.');
+      rx = rx.replace('?', '.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
 

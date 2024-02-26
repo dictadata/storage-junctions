@@ -105,6 +105,7 @@ class ElasticsearchJunction extends StorageJunction {
       let list = [];
 
       // get Lucene catalog list of indexes
+      schema = schema.replace('?', '*'); // cat query doesn't support '?' (because it's in a URL???)
       let catalog = await this.elasticQuery.cat(schema);
       //logger.debug(response);
 

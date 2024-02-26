@@ -70,6 +70,7 @@ class MemoryJunction extends StorageJunction {
     try {
       let rx = '^' + this.smt.locus + '_' + schema + '$';
       rx = rx.replace('.', '\\.');
+      rx = rx.replace('?', '.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
 

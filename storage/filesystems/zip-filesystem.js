@@ -94,6 +94,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let rx = '^' + filespec + '$';
       rx = rx.replace('/', '\\/');
       rx = rx.replace('.', '\\.');
+      rx = rx.replace('?', '.');
       rx = rx.replace('*', '.*');
       rx = new RegExp(rx);
 

@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|*|*",
       options: {
-        schema: "foo*"
+        schema: "foo?schema*"
       }
     },
     terminal: {
