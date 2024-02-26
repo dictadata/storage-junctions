@@ -92,10 +92,10 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
       let filespec = this.prefix + (schema || '*');
       let rx = '^' + filespec + '$';
-      rx = rx.replace('/', '\\/');
-      rx = rx.replace('.', '\\.');
-      rx = rx.replace('?', '.');
-      rx = rx.replace('*', '.*');
+      rx = rx.replace(/\//g, '\\/');
+      rx = rx.replace(/\./g, '\\.');
+      rx = rx.replace(/\?/g, '.');
+      rx = rx.replace(/\*/g, '.*');
       rx = new RegExp(rx);
 
       const count = await this.zip.entriesCount;

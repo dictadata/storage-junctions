@@ -69,9 +69,9 @@ class MemoryJunction extends StorageJunction {
 
     try {
       let rx = '^' + this.smt.locus + '_' + schema + '$';
-      rx = rx.replace('.', '\\.');
-      rx = rx.replace('?', '.');
-      rx = rx.replace('*', '.*');
+      rx = rx.replace(/\./g, '\\.');
+      rx = rx.replace(/\?/g, '.');
+      rx = rx.replace(/\*/g, '.*');
       rx = new RegExp(rx);
 
       // fetch schema list from storage source

@@ -105,12 +105,19 @@ class ElasticsearchJunction extends StorageJunction {
       let list = [];
 
       // get Lucene catalog list of indexes
-      schema = schema.replace('?', '*'); // cat query doesn't support '?' (because it's in a URL???)
-      let catalog = await this.elasticQuery.cat(schema);
+      let index = schema.replace(/\?+/g, '*'); // cat query doesn't support '?' (because it's in a URL???)
+      let catalog = await this.elasticQuery.cat(index);
       //logger.debug(response);
 
+      let rx = '^' + schema + '$';
+      rx = rx.replace(/\./g, '\\.');
+      rx = rx.replace(/\?/g, '.');
+      rx = rx.replace(/\*/g, '.*');
+      rx = new RegExp(rx);
+
       for (let entry of catalog) {
-        list.push(entry[ 'index' ]);
+        if (rx.test(entry[ 'index' ]))
+          list.push(entry[ 'index' ]);
       }
 
       return new StorageResults(0, null, list);

@@ -113,9 +113,9 @@ class MySQLJunction extends StorageJunction {
       let list = [];
 
       let rx = '^' + schema + '$';
-      rx = rx.replace('.', '\\.');
-      rx = rx.replace('?', '.');
-      rx = rx.replace('*', '.*');
+      rx = rx.replace(/\./g, '\\.');
+      rx = rx.replace(/\?/g, '.');
+      rx = rx.replace(/\*/g, '.*');
       rx = new RegExp(rx);
 
       // fetch encoding form storage source
