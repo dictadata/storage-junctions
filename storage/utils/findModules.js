@@ -3,9 +3,14 @@
  */
 const { access, constants } = require("node:fs/promises");
 const { parse, join } = require("node:path");
+const { cwd } = require("node:process");
 
-module.exports = exports = async () => {
-  let dir = __dirname;
+/**
+ * @param {String} dir - fully qualified directory path, e.g. ___dirname
+ */
+module.exports = exports = async (dir) => {
+  if (!dir)
+    dir = cwd();
 
   let found = false;
   let dp = parse(dir);
