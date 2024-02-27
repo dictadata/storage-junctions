@@ -1,5 +1,8 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.104
+  - feature: support ? as a wildcard for list() methods
+  - feature: findModules() utility to find node_modules folder from cwd
 - version 0.9.103
   - feature: implement smt $ model with options.junction
 - version 0.9.102
