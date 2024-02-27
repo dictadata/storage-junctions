@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.105
+  - refactor: adjoin transform (lookup table)
 - version 0.9.104
   - feature: support ? as a wildcard for list() methods
   - feature: findModules() utility to find node_modules folder from cwd
