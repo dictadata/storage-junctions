@@ -2,10 +2,11 @@
 
 ## Standard Transforms
 
-* Codify - Infer field encodings from examining a stream of objects.
-* Aggregate - Summarize a data stream similar to SQL GROUP BY and SUM
-* Mutate - field selection and mappings.
-* Filter - select constructs to forward or drop.
-* FlowStats - calculate meta statistics about fields for a stream of constructs.
+* [Filter](filter.md) - select constructs to forward or drop.
+* [Mutate](mutage.md) - field selection and mappings.
+* [Adjoin](adjoin.md) - use a lookup table to inject fields.
+* [Aggregate](aggregate.md) - Summarize a data stream similar to SQL GROUP BY and SUM.
+* [Codify](codify.md) - Infer field encodings from examining a stream of objects.
+*
 
-## Tranform Plugins
+## Transform Plugins
