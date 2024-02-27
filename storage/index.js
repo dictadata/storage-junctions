@@ -116,8 +116,8 @@ Storage.Transforms.use('encoder', exports.EncoderTransform);
 exports.FlowStatsTransform = require("./transforms/flowstats");
 Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
 
-exports.RowConstructsTransform = require("./transforms/rowConstructs");
-Storage.Transforms.use('row_constructs', exports.RowConstructsTransform);
+exports.RowAsConstructTransform = require("./transforms/arrayAsConstruct");
+Storage.Transforms.use('rowAsConstruct', exports.RowAsConstructsTransform);
 
-exports.MapConstructsTransform = require("./transforms/mapConstructs");
-Storage.Transforms.use('map_constructs', exports.MapConstructsTransform);
+exports.MapAsConstructsTransform = require("./transforms/mapAsConstructs");
+Storage.Transforms.use('mapAsConstructs', exports.MapAsConstructsTransform);

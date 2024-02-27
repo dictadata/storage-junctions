@@ -12,7 +12,7 @@ const { typeOf, hasOwnProperty, logger } = require("../utils");
 
       fields: {
         "Foo": {
-          "baz_sum": { "sum": "Baz" },
+          "aggField": { "sum": "Baz" },
           "count": { "count": "Baz" },
           "dt_min": { "min": "Dt Test" },   <---
           "dt_max": { "max": "Dt Test" }    <---
@@ -29,8 +29,8 @@ const { typeOf, hasOwnProperty, logger } = require("../utils");
     transform: "aggregate",
 
     "fields": {
-      "newField1": {"sum": "field1},
-      "field2": {"newField2": { "sum": "field3" } }
+      "aggField1": {"sum": "field1},
+      "field2": {"aggField2": { "sum": "field3" } }
     }
   };
 */
