@@ -21,9 +21,11 @@ async function tests() {
     transforms: [
       {
         transform: "adjoin",
-        smt: "json|./test/data/input/|foofile_01.json|*",
+        lookup_table: {
+          smt: "json|./test/data/input/|foofile_01.json|*"
+        },
         lookup: {
-          "Foo": "Foo"
+          "Foo": "=Foo"
         },
         inject: [ "tags" ]
       }
@@ -49,12 +51,14 @@ async function tests() {
     transforms: [
       {
         transform: "adjoin",
-        smt: "json|./test/data/input/|foo_widgets.json|*",
-        options: {},
-        pattern: {},
+        lookup_table: {
+          smt: "json|./test/data/input/|foo_widgets.json|*",
+          options: {},
+          pattern: {}
+        },
         lookup: {
-          "Baz": "Baz",
-          "Foo": "Foo"
+          "Baz": "=Baz",
+          "Foo": "=Foo"
         },
         inject: [ "tags", "widgets" ]
       }

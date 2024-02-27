@@ -135,6 +135,7 @@
       "request": "launch",
       "name": "json adjoin",
       "program": "${workspaceFolder}/test/json/adjoin.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

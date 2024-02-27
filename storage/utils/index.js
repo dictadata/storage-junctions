@@ -1,15 +1,21 @@
 // storage/utils
 "use strict";
 
+exports.logger = require('./logger');
+
 exports.hasOwnProperty = require('./hasOwnProperty');
 exports.typeOf = require('./typeOf');
 exports.objCopy = require('./objCopy');
-exports.isDate = require('./isDate');
-exports.isUUID = require('./isUUID');
+
 exports.ynBoolean = require('./ynBoolean');
+exports.isUUID = require('./isUUID');
+exports.isDate = require('./isDate');
 
 exports.parseDate = require('./parseDate');
 exports.formatDate = require('./formatDate');
+
+exports.match = require('./match');
+exports.evaluate = require('./evaluate');
 
 //exports.formatCurrency = require("./formatCurrency");
 
@@ -18,8 +24,6 @@ exports.ifOptions = require('./ifOptions');
 
 exports.httpRequest = require('./httpRequest');
 exports.htmlParseDir = require('./htmlParseDir');
-
-exports.logger = require('./logger');
 
 exports.templateReplace = require('./templateReplace');
 

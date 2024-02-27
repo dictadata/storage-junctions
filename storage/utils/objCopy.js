@@ -13,7 +13,7 @@ const { typeOf, hasOwnProperty } = require("../utils");
  * @param {Object} target destination target object
  * @param {Object} source one or more source objects
  */
-function objCopy(target, ...source) {
+module.exports = exports = function objCopy(target, ...source) {
 
   for (const src of source) {
     for (let [ key, value ] of Object.entries(src)) {
@@ -59,5 +59,3 @@ function objCopy(target, ...source) {
 
   return target;
 }
-
-module.exports = exports = objCopy;

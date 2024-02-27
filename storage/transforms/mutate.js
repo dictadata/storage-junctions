@@ -7,10 +7,10 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
-const { typeOf, hasOwnProperty } = require("../utils");
-
 const dot = require('dot-object');
+
+const { Transform } = require('stream');
+const { evaluate, hasOwnProperty } = require("../utils");
 
 // order of operations:
 //   default
@@ -97,27 +97,6 @@ module.exports = exports = class MutateTransform extends Transform {
   }
 
   /**
-   * Assign field value from existing field(s) and/or literal values
-   * @param {*} stmt in the form "=dot.fieldname+'literal'+..."
-   * @param {*} obj object to pick values from
-   */
-  assignment(stmt, obj) {
-    let result = "";
-
-    let parts = stmt.substr(1, stmt.length - 1).split('+');
-    for (let p of parts) {
-      if (p && p[ 0 ] === "'")
-        // literal string
-        result += p.substr(1, p.length - 2);
-      else
-        // field in construct
-        result += dot.pick(p, obj);
-    }
-
-    return result;
-  }
-
-  /**
    * Internal call from streamWriter to process an object
    * @param {*} construct
    * @param {*} encoding
@@ -130,7 +109,7 @@ module.exports = exports = class MutateTransform extends Transform {
     if (this.options.default)
       for (let [ name, value ] of Object.entries(this.options.default)) {
         if (value && value[ 0 ] === '=')
-          newConstruct[ name ] = this.assignment(value, construct);
+          newConstruct[ name ] = evaluate(value, construct);
         else
           newConstruct[ name ] = value;
       }
@@ -157,7 +136,7 @@ module.exports = exports = class MutateTransform extends Transform {
     if (this.options.assign) {
       for (let [ name, value ] of Object.entries(this.options.assign)) {
         if (value && value[ 0 ] === '=')
-          newConstruct[ name ] = this.assignment(value, newConstruct);
+          newConstruct[ name ] = evaluate(value, newConstruct);
         else if (hasOwnProperty(this.mutations, name))
           newConstruct[ name ] = this.mutations[ name ](newConstruct[ name ], newConstruct);
       }
@@ -173,7 +152,7 @@ module.exports = exports = class MutateTransform extends Transform {
     if (this.options.override) {
       for (let [ name, value ] of Object.entries(this.options.override)) {
         if (value && value[ 0 ] === '=')
-          newConstruct[ name ] = this.assignment(value, newConstruct);
+          newConstruct[ name ] = evaluate(value, newConstruct);
         else
           newConstruct[ name ] = value;
       }

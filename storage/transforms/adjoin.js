@@ -3,27 +3,47 @@
  */
 "use strict";
 
-const Storage = require("../storage");
 const { Transform } = require('stream');
-const { logger, hasOwnProperty } = require("../utils");
+const Storage = require("../storage");
+const { evaluate, match, logger, hasOwnProperty } = require("../utils");
 
-/*
-  // example adjoin transform
+/* adjoin transform definition
+
   {
     transform: "adjoin",
-
-    // properties for loading lookup table
-    smt: "<lookup table>",
-    options: {},
-    pattern: {},
-
-    // field mapping properties
-    lookup: {
-      "source_field": "lookup_field",
-      ...
+    lookup_table: {
+      smt: "",
+      options: {},
+      pattern: {}
     },
-    inject: "lookup_field" | [lookup_field, ...]
+    lookup: {
+      "lookup_field": "=construct_field|'literal'+..."
+    }
+    "inject": "inject_field" | [ "inject_field", ... ]
   };
+
+  lookup_table - contains rows retrieved from lookup_table data source
+  lookup - is a match expression for the lookup_table
+  lookup_field - fields(s) to match in the lookup_table
+  construct_field - get values from the streaming constructs
+  inject_field - field(s) from the found lookup row to inject into construct
+*/
+
+/* example adjoin transform
+
+var transform = {
+  "transform": "adjoin",
+  "lookup_table": {
+    "smt": "census.gov:ansi_county",
+    "pattern": {
+      "STATE": "IA"
+    }
+  },
+  "lookup": {
+    "STATENAME": "=County+' County'"
+  },
+  "inject": [ "STATEFP" ]
+};
 */
 
 module.exports = exports = class AdjoinTransform extends Transform {
@@ -40,37 +60,25 @@ module.exports = exports = class AdjoinTransform extends Transform {
     super(streamOptions);
 
     this.options = Object.assign({}, options);
+    if (typeof this.options.inject === "string")
+      this.options.inject = [ this.options.inject ];
 
-    this.lookupMap = new Map();
-  }
-
-  _createKey(construct, keys) {
-    let key = "";
-
-    for (const fld of keys) {
-      key += construct[ fld ];
-    }
-
-    return key;
+    this.lookupTable;
   }
 
   async activate() {
     logger.debug("adjoin activate");
 
+    let origin = this.options.lookup_table;
+
     let junction;
     try {
-      junction = await Storage.activate(this.options.smt, this.options.options);
-      let results = await junction.retrieve(this.options.pattern);
+      junction = await Storage.activate(origin.smt, origin.options);
 
+      let results = await junction.retrieve(origin.pattern);
       if (results.status === 0) {
-        for (const values of results.data) {
-          let key = this._createKey(values, Object.values(this.options.lookup));
-          this.lookupMap.set(key, values);
-        }
+        this.lookupTable = results.data;
       }
-
-      if (typeof this.options.inject === "string")
-        this.options.inject = [ this.options.inject ];
     }
     catch (err) {
       logger.warn(err);
@@ -91,15 +99,25 @@ module.exports = exports = class AdjoinTransform extends Transform {
     logger.debug("adjoin _transform");
 
     try {
+      let expression = Object.assign({}, this.options.lookup);
+      for (let [ name, criteria ] of Object.entries(expression)) {
+        expression[ name ] = evaluate(criteria, construct);
+      }
+
       // lookup values in lookup table
-      let key = this._createKey(construct, Object.keys(this.options.lookup));
-      let values = this.lookupMap.get(key);
+      let found;
+      for (let row of this.lookupTable) {
+        if (match(expression, row)) {
+          found = row;
+          break;
+        }
+      }
 
       // inject fields from lookup table
-      if (values) {
+      if (found) {
         for (const fld of this.options.inject) {
-          if (hasOwnProperty(values, fld))
-            construct[ fld ] = values[ fld ];
+          if (hasOwnProperty(found, fld))
+            construct[ fld ] = found[ fld ];
         }
       }
 

@@ -69,7 +69,7 @@
     - refactor: rename StorageResults.resultText to StorageResults.resultMessage
   - feature: new transforms RowConstructs (arrays), MapConstructs (map/object)
   - feature: new StreamFileSystem "stream:*" for reading/writing to any provided stream
-  - enhancement: support function body definitions in MutateTransform assignment
+  - enhancement: support function body definitions in MutateTransform assignments
   - enhancement: support regular expressions in FilterTransform expressions
   - refactor: using '*' instead of 'any' for generic smt models
   - refactor: HttpFileSystem options rename urlParams to urlReplace
