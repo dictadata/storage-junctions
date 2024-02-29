@@ -5,7 +5,9 @@
 
 const { Transform } = require('stream');
 const Storage = require("../storage");
-const { evaluate, match, logger, hasOwnProperty } = require("../utils");
+const { logger, hasOwnProperty } = require("../utils");
+const evaluate = require("../utils/evaluate");
+const match = require("../utils/match");
 
 /* adjoin transform definition
 
@@ -77,7 +79,10 @@ module.exports = exports = class AdjoinTransform extends Transform {
 
       let results = await junction.retrieve(origin.pattern);
       if (results.status === 0) {
-        this.lookupTable = results.data;
+        if (results.type === "map")
+          this.lookupTable = Object.values(results.data);
+        else
+          this.lookupTable = results.data;
       }
     }
     catch (err) {

@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const typeOf = require("./typeOf");
 const dot = require('dot-object');
 
 /* example match expression
@@ -40,7 +41,7 @@ function makeRegExp(criteria) {
     if (criteria instanceof RegExp)
       return criteria;
 
-    if (typeof criteria === "string" && criteria && criteria[ 0 ] === '/') {
+    if (typeOf(criteria) === "string" && criteria && criteria[ 0 ] === '/') {
       let l = criteria.lastIndexOf('/');
       if (l > 0) {
         let pattern = criteria.substring(1, l);
@@ -72,55 +73,55 @@ function wildcard(value, rule) {
 }
 
 module.exports = exports =
-/**
- *
- * @param {*} match - match expression
- * @param {*} construct - construct with fields to check against
- */
-function match(expression, construct) {
-  if (typeof expression !== "object")
-    return false;
-  let matched = true;
+  /**
+   *
+   * @param {*} match - match expression
+   * @param {*} construct - construct with fields to check against
+   */
+  function match(expression, construct) {
+    if (typeOf(expression) !== "object")
+      return false;
+    let matched = true;
 
-  // match all expressions
-  for (let [ name, criteria ] of Object.entries(expression)) {
-    let value = dot.pick(name, construct);
-    let rx = makeRegExp(criteria); // could be null
+    // match all expressions
+    for (let [ name, criteria ] of Object.entries(expression)) {
+      let value = dot.pick(name, construct);
+      let rx = makeRegExp(criteria); // could be null
 
-    let exists = typeof (value) !== "undefined";
-    //let exists = hasOwnProperty(construct,name);
+      let exists = typeOf(value) !== "undefined";
+      //let exists = hasOwnProperty(construct,name);
 
-    if (Array.isArray(criteria)) {
-      matched = exists && criteria.includes(value);
-    }
-    else if (rx) {
-      matched = exists && rx.test(value);
-    }
-    else if (typeof criteria === 'object') {
-      // criteria(s) { op: value, ...}
-      for (let [ op, opValue ] of Object.entries(criteria)) {
-        switch (op) {
-          case 'eq': matched = exists && (value == opValue); break;
-          case 'neq': matched = !exists || (value != opValue); break;
-          case 'lt': matched = exists && (value < opValue); break;
-          case 'lte': matched = exists && (value <= opValue); break;
-          case 'gt': matched = exists && (value > opValue); break;
-          case 'gte': matched = exists && (value >= opValue); break;
-          case 'wc': matched = exists && wildcard(value, opValue); break;
-          case 'exists': matched = exists; break;
-          default: break;  // ignore bad operators
+      if (Array.isArray(criteria)) {
+        matched = exists && criteria.includes(value);
+      }
+      else if (rx) {
+        matched = exists && rx.test(value);
+      }
+      else if (typeOf(criteria) === 'object') {
+        // criteria(s) { op: value, ...}
+        for (let [ op, opValue ] of Object.entries(criteria)) {
+          switch (op) {
+            case 'eq': matched = exists && (value == opValue); break;
+            case 'neq': matched = !exists || (value != opValue); break;
+            case 'lt': matched = exists && (value < opValue); break;
+            case 'lte': matched = exists && (value <= opValue); break;
+            case 'gt': matched = exists && (value > opValue); break;
+            case 'gte': matched = exists && (value >= opValue); break;
+            case 'wc': matched = exists && wildcard(value, opValue); break;
+            case 'exists': matched = exists; break;
+            default: break;  // ignore bad operators
+          }
         }
       }
-    }
-    else {
-      // single property { field: value }
-      matched = exists && (value == criteria);
+      else {
+        // single property { field: value }
+        matched = exists && (value == criteria);
+      }
+
+      // check short-circuit
+      if (!matched)
+        break;
     }
 
-    // check short-circuit
-    if (!matched)
-      break;
-  }
-
-  return matched;
-}
+    return matched;
+  };

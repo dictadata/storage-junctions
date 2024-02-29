@@ -7,10 +7,11 @@
  */
 "use strict";
 
-const dot = require('dot-object');
-
 const { Transform } = require('stream');
-const { evaluate, hasOwnProperty } = require("../utils");
+const { hasOwnProperty } = require("../utils");
+const evaluate = require("../utils/evaluate");
+
+const dot = require('dot-object');
 
 // order of operations:
 //   default

@@ -4,7 +4,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { match } = require("../utils");
+const match = require("../utils/match");
 
 // example filter transform
 /*
@@ -55,7 +55,13 @@ module.exports = exports = class FilterTransform extends Transform {
   _transform(construct, encoding, callback) {
 
     // do some match filterin'
-    if (match(this.options.match, construct) && !match(this.options.drop, construct))
+    let matched = true;
+    if (this.options.match)
+      matched = match(this.options.match, construct);
+    if (matched && this.options.drop)
+      matched = !match(this.options.drop, construct);
+
+    if (matched)
       this.push(construct);
 
     callback();
