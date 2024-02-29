@@ -1,5 +1,8 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.107
+  - bug fix: regexp expressions in filter and mutate transforms
+  - refactor: refactor dot.pick into a project module
 - version 0.9.106
   - feature: counter transform
   - refactor: Storage activate method
