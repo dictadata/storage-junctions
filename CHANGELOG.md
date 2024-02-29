@@ -1,5 +1,10 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.106
+  - feature: counter transform
+  - refactor: Storage activate method
+  - refactor: put evaluate and match function in utils
+  - bug fix: replace subst with substring
 - version 0.9.105
   - refactor: adjoin transform (lookup table)
 - version 0.9.104
