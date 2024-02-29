@@ -23,7 +23,7 @@
         "is_nullable": false,
         "default": "(NULL)"
       },
-      "key": 2
+      "key": 1
     },
     {
       "name": "Bar",
@@ -46,17 +46,16 @@
       "type": "integer",
       "size": 4,
       "default": null,
-      "nullable": false,
+      "nullable": true,
       "_mssql": {
         "name": "Baz",
         "type": "int",
         "size": 4,
         "precision": 10,
         "scale": 0,
-        "is_nullable": false,
+        "is_nullable": true,
         "default": "(NULL)"
-      },
-      "key": 1
+      }
     },
     {
       "name": "Fobe",

@@ -5,7 +5,7 @@
     "model": "memory",
     "locus": "testgroup",
     "schema": "foo_widgets",
-    "key": "=Baz+Foo"
+    "key": "=Foo"
   },
   "fields": [
     {
@@ -14,7 +14,7 @@
       "size": 64,
       "default": null,
       "nullable": false,
-      "key": 2
+      "key": 1
     },
     {
       "name": "Bar",
@@ -27,8 +27,7 @@
       "name": "Baz",
       "type": "integer",
       "default": null,
-      "nullable": true,
-      "key": 1
+      "nullable": true
     },
     {
       "name": "Fobe",

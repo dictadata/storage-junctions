@@ -22,7 +22,7 @@
       },
       "default": null,
       "nullable": false,
-      "key": 2
+      "key": 1
     },
     {
       "name": "Bar",
@@ -47,14 +47,13 @@
       "_mysql": {
         "Field": "Baz",
         "Type": "int",
-        "Null": "NO",
-        "Key": "PRI",
+        "Null": "YES",
+        "Key": "",
         "Default": null,
         "Extra": ""
       },
       "default": null,
-      "nullable": false,
-      "key": 1
+      "nullable": true
     },
     {
       "name": "Fobe",
