@@ -31,7 +31,8 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
           console.log(config.name.bgBlue);
           let script = config.program.replace("${workspaceFolder}", ".");
 
-          let args = [ script ];
+          let args = config.runtimeArgs || [];
+          args.push( script );
           if (config.args) {
             for (let arg of config.args) {
               arg = arg.replace("${workspaceFolder}", ".");

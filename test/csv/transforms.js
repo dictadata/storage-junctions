@@ -108,11 +108,11 @@ async function tests() {
           "fum": "here"
         },
         "map": {
-          "Dt Test": "dt_date",
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe"
+          "dt_test": "=Dt Test",
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe"
         },
         "remove": [ "fobe" ],
       }

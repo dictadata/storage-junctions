@@ -50,13 +50,13 @@ async function tests() {
           "fum": "here"
         },
         "map": {
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "tags": "tags",
-          "subObj1.state": "sub.state",
-          "subObj2.subsub.izze": "sub.izze"
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe",
+          "tags": "=tags",
+          "sub.state": "=subObj1.state",
+          "sub.izze": "=subObj2.subsub.izze"
         },
         "remove": [ "fobe" ],
       }

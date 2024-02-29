@@ -30,12 +30,12 @@ async function tests() {
       {
         "transform": "mutate",
         "map": {
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "Dt Test": "dt_test",
-          "subObj1.state": "state"
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe",
+          "dt_test": "=Dt Test",
+          "state": "=subObj1.state",
         },
         "override": {
           "fie": "where's fum?"
@@ -96,12 +96,12 @@ async function tests() {
           "fum": "here"
         },
         "map": {
-          "Dt Test": "dt_date",
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "subObj1": "subObj1"
+          "dt_test": "=Dt Test",
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe",
+          "subObj1": "=subObj1"
         },
         "remove": [ "fobe" ],
       }
@@ -139,12 +139,12 @@ async function tests() {
           "fum": "here"
         },
         "map": {
-          "Dt Test": "dt_date",
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "tags": "tags"
+          "dt_test": "=Dt Test",
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe",
+          "tags": "=tags"
         },
         "remove": [ "fobe" ],
       }

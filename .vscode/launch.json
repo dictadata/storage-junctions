@@ -14,6 +14,7 @@
       "request": "launch",
       "name": "generic junction",
       "program": "${workspaceFolder}/test/general/generic.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "production",
@@ -25,6 +26,7 @@
       "request": "launch",
       "name": "generic engrams",
       "program": "${workspaceFolder}/test/general/engrams.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -36,6 +38,7 @@
       "request": "launch",
       "name": "echo junction",
       "program": "${workspaceFolder}/test/general/echo.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "production",
@@ -47,6 +50,7 @@
       "request": "launch",
       "name": "csv codify",
       "program": "${workspaceFolder}/test/csv/codify.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -58,6 +62,7 @@
       "request": "launch",
       "name": "csv retrieve",
       "program": "${workspaceFolder}/test/csv/retrieve.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -69,6 +74,7 @@
       "request": "launch",
       "name": "csv transfer",
       "program": "${workspaceFolder}/test/csv/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -80,6 +86,7 @@
       "request": "launch",
       "name": "csv transform",
       "program": "${workspaceFolder}/test/csv/transforms.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -91,6 +98,7 @@
       "request": "launch",
       "name": "json codify",
       "program": "${workspaceFolder}/test/json/codify.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -102,6 +110,7 @@
       "request": "launch",
       "name": "json retrieve",
       "program": "${workspaceFolder}/test/json/retrieve.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -113,6 +122,7 @@
       "request": "launch",
       "name": "json transfer",
       "program": "${workspaceFolder}/test/json/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -124,17 +134,6 @@
       "request": "launch",
       "name": "json transform",
       "program": "${workspaceFolder}/test/json/transforms.js",
-      "outputCapture": "std",
-      "env": {
-        "NODE_ENV": "development",
-        "LOG_LEVEL": "verbose"
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "json adjoin",
-      "program": "${workspaceFolder}/test/json/adjoin.js",
       "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
@@ -152,6 +151,7 @@
       "request": "launch",
       "name": "fs list",
       "program": "${workspaceFolder}/test/fs/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -163,6 +163,7 @@
       "request": "launch",
       "name": "fs transfer",
       "program": "${workspaceFolder}/test/fs/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -174,6 +175,7 @@
       "request": "launch",
       "name": "fs copy",
       "program": "${workspaceFolder}/test/fs/copy.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -185,6 +187,7 @@
       "request": "launch",
       "name": "ftp list",
       "program": "${workspaceFolder}/test/ftp/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -196,6 +199,7 @@
       "request": "launch",
       "name": "ftp transfer",
       "program": "${workspaceFolder}/test/ftp/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -207,6 +211,7 @@
       "request": "launch",
       "name": "ftp copy",
       "program": "${workspaceFolder}/test/ftp/copy.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -218,6 +223,7 @@
       "request": "launch",
       "name": "http list",
       "program": "${workspaceFolder}/test/http/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -229,6 +235,7 @@
       "request": "launch",
       "name": "http transfer",
       "program": "${workspaceFolder}/test/http/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -240,6 +247,7 @@
       "request": "launch",
       "name": "http copy",
       "program": "${workspaceFolder}/test/http/copy.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -251,6 +259,7 @@
       "request": "launch",
       "name": "zip list",
       "program": "${workspaceFolder}/test/zip/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -262,6 +271,7 @@
       "request": "launch",
       "name": "zip badfile",
       "program": "${workspaceFolder}/test/zip/transfersBadfile.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -273,6 +283,7 @@
       "request": "launch",
       "name": "zip transfer",
       "program": "${workspaceFolder}/test/zip/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -284,6 +295,7 @@
       "request": "launch",
       "name": "zip copy",
       "program": "${workspaceFolder}/test/zip/copy.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -300,6 +312,7 @@
       "request": "launch",
       "name": "memory schemas",
       "program": "${workspaceFolder}/test/memory/schemas.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -311,6 +324,7 @@
       "request": "launch",
       "name": "memory store/recall",
       "program": "${workspaceFolder}/test/memory/store_recall.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -322,6 +336,7 @@
       "request": "launch",
       "name": "memory pipeline",
       "program": "${workspaceFolder}/test/memory/pipelines.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -333,6 +348,7 @@
       "request": "launch",
       "name": "elasticsearch createSchema",
       "program": "${workspaceFolder}/test/elasticsearch/createSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -344,6 +360,7 @@
       "request": "launch",
       "name": "elasticsearch dullSchema",
       "program": "${workspaceFolder}/test/elasticsearch/dullSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -355,6 +372,7 @@
       "request": "launch",
       "name": "elasticsearch getEngram",
       "program": "${workspaceFolder}/test/elasticsearch/getEngram.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -366,6 +384,7 @@
       "request": "launch",
       "name": "elasticsearch store_uid",
       "program": "${workspaceFolder}/test/elasticsearch/store_uid.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -377,6 +396,7 @@
       "request": "launch",
       "name": "elasticsearch store",
       "program": "${workspaceFolder}/test/elasticsearch/store.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -388,6 +408,7 @@
       "request": "launch",
       "name": "elasticsearch dull",
       "program": "${workspaceFolder}/test/elasticsearch/dull.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -399,6 +420,7 @@
       "request": "launch",
       "name": "elasticsearch recall",
       "program": "${workspaceFolder}/test/elasticsearch/recall.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -410,6 +432,7 @@
       "request": "launch",
       "name": "elasticsearch transfer",
       "program": "${workspaceFolder}/test/elasticsearch/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -421,6 +444,7 @@
       "request": "launch",
       "name": "elasticsearch retrieve",
       "program": "${workspaceFolder}/test/elasticsearch/retrieve.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -432,6 +456,7 @@
       "request": "launch",
       "name": "elasticsearch refresh",
       "program": "${workspaceFolder}/test/elasticsearch/refresh.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -443,6 +468,7 @@
       "request": "launch",
       "name": "elasticsearch codify",
       "program": "${workspaceFolder}/test/elasticsearch/codify.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -454,6 +480,7 @@
       "request": "launch",
       "name": "elasticsearch transform",
       "program": "${workspaceFolder}/test/elasticsearch/transforms.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -465,6 +492,7 @@
       "request": "launch",
       "name": "elasticsearch aggregate",
       "program": "${workspaceFolder}/test/elasticsearch/aggregate.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -476,6 +504,7 @@
       "request": "launch",
       "name": "elasticsearch list",
       "program": "${workspaceFolder}/test/elasticsearch/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -487,6 +516,7 @@
       "request": "launch",
       "name": "mssql createSchema",
       "program": "${workspaceFolder}/test/mssql/createSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -498,6 +528,7 @@
       "request": "launch",
       "name": "mssql dullSchema",
       "program": "${workspaceFolder}/test/mssql/dullSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -509,6 +540,7 @@
       "request": "launch",
       "name": "mssql getEngram",
       "program": "${workspaceFolder}/test/mssql/getEngram.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -520,6 +552,7 @@
       "request": "launch",
       "name": "mssql store",
       "program": "${workspaceFolder}/test/mssql/store.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -531,6 +564,7 @@
       "request": "launch",
       "name": "mssql store bulk",
       "program": "${workspaceFolder}/test/mssql/store_bulk.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -542,6 +576,7 @@
       "request": "launch",
       "name": "mssql dull",
       "program": "${workspaceFolder}/test/mssql/dull.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -553,6 +588,7 @@
       "request": "launch",
       "name": "mssql recall",
       "program": "${workspaceFolder}/test/mssql/recall.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -564,6 +600,7 @@
       "request": "launch",
       "name": "mssql transfer",
       "program": "${workspaceFolder}/test/mssql/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -575,6 +612,7 @@
       "request": "launch",
       "name": "mssql retrieve",
       "program": "${workspaceFolder}/test/mssql/retrieve.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -586,6 +624,7 @@
       "request": "launch",
       "name": "mssql codify",
       "program": "${workspaceFolder}/test/mssql/codify.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -597,6 +636,7 @@
       "request": "launch",
       "name": "mssql transform",
       "program": "${workspaceFolder}/test/mssql/transforms.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -608,6 +648,7 @@
       "request": "launch",
       "name": "mssql aggregate",
       "program": "${workspaceFolder}/test/mssql/aggregate.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -619,6 +660,7 @@
       "request": "launch",
       "name": "mssql list",
       "program": "${workspaceFolder}/test/mssql/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -630,6 +672,7 @@
       "request": "launch",
       "name": "mysql createSchema",
       "program": "${workspaceFolder}/test/mysql/createSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -641,6 +684,7 @@
       "request": "launch",
       "name": "mysql dullSchema",
       "program": "${workspaceFolder}/test/mysql/dullSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -652,6 +696,7 @@
       "request": "launch",
       "name": "mysql getEngram",
       "program": "${workspaceFolder}/test/mysql/getEngram.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -663,6 +708,7 @@
       "request": "launch",
       "name": "mysql store",
       "program": "${workspaceFolder}/test/mysql/store.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -674,6 +720,7 @@
       "request": "launch",
       "name": "mysql store bulk",
       "program": "${workspaceFolder}/test/mysql/store_bulk.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -685,6 +732,7 @@
       "request": "launch",
       "name": "mysql dull",
       "program": "${workspaceFolder}/test/mysql/dull.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -696,6 +744,7 @@
       "request": "launch",
       "name": "mysql recall",
       "program": "${workspaceFolder}/test/mysql/recall.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -707,6 +756,7 @@
       "request": "launch",
       "name": "mysql transfer",
       "program": "${workspaceFolder}/test/mysql/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -718,6 +768,7 @@
       "request": "launch",
       "name": "mysql retrieve",
       "program": "${workspaceFolder}/test/mysql/retrieve.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -729,6 +780,7 @@
       "request": "launch",
       "name": "mysql codify",
       "program": "${workspaceFolder}/test/mysql/codify.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -740,6 +792,7 @@
       "request": "launch",
       "name": "mysql transform",
       "program": "${workspaceFolder}/test/mysql/transforms.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -751,6 +804,7 @@
       "request": "launch",
       "name": "mysql aggregate",
       "program": "${workspaceFolder}/test/mysql/aggregate.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -762,6 +816,7 @@
       "request": "launch",
       "name": "mysql list",
       "program": "${workspaceFolder}/test/mysql/list.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -776,8 +831,33 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "counter transforms",
-      "program": "${workspaceFolder}/test/transforms/counter_transforms.js",
+      "name": "transforms counter",
+      "program": "${workspaceFolder}/test/transforms/counter.js",
+      "runtimeArgs": ["--trace-warnings"],
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "transforms mutate",
+      "program": "${workspaceFolder}/test/transforms/mutate.js",
+      "runtimeArgs": ["--trace-warnings", "--preserve-symlinks"],
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "transforms adjoin",
+      "program": "${workspaceFolder}/test/transforms/adjoin.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -788,7 +868,8 @@
       "type": "node",
       "request": "launch",
       "name": "transforms aggregate csv",
-      "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
+      "program": "${workspaceFolder}/test/transforms/aggregate_csv.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -799,7 +880,8 @@
       "type": "node",
       "request": "launch",
       "name": "transforms aggregate json",
-      "program": "${workspaceFolder}/test/transforms/json_aggregate.js",
+      "program": "${workspaceFolder}/test/transforms/aggregate_json.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -810,7 +892,8 @@
       "type": "node",
       "request": "launch",
       "name": "transforms db2db",
-      "program": "${workspaceFolder}/test/transforms/db2db_transforms.js",
+      "program": "${workspaceFolder}/test/transforms/db2db.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -825,8 +908,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "pipelines extract data",
+      "name": "pipelines pickdata",
       "program": "${workspaceFolder}/test/pipelines/pickdata.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -838,6 +922,7 @@
       "request": "launch",
       "name": "pipelines tee",
       "program": "${workspaceFolder}/test/pipelines/tee.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -854,6 +939,7 @@
       "request": "launch",
       "name": "shapefile createSchema",
       "program": "${workspaceFolder}/test/shapefile/createSchema.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -865,6 +951,7 @@
       "request": "launch",
       "name": "shapefile engram",
       "program": "${workspaceFolder}/test/shapefile/engram.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -876,6 +963,7 @@
       "request": "launch",
       "name": "shapefile badfile",
       "program": "${workspaceFolder}/test/shapefile/transfersBadfile.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -887,6 +975,7 @@
       "request": "launch",
       "name": "shapefile transfer",
       "program": "${workspaceFolder}/test/shapefile/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -898,6 +987,7 @@
       "request": "launch",
       "name": "shapefile transfer tiger2020",
       "program": "${workspaceFolder}/test/shapefile/transfer_tiger2020.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -909,6 +999,7 @@
       "request": "launch",
       "name": "rest retrieve",
       "program": "${workspaceFolder}/test/rest/retrieve.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -920,6 +1011,7 @@
       "request": "launch",
       "name": "rest engram",
       "program": "${workspaceFolder}/test/rest/engram.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -931,6 +1023,7 @@
       "request": "launch",
       "name": "rest transfer",
       "program": "${workspaceFolder}/test/rest/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
@@ -942,6 +1035,7 @@
       "request": "launch",
       "name": "rest conjoin",
       "program": "${workspaceFolder}/test/rest/conjoin.js",
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",

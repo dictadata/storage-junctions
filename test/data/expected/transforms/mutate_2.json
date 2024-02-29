@@ -1,0 +1,4 @@
+[
+  {"fie":"where's fum?","foo":"first","bar":"row","fobe":100,"sub":{"state":"running","izze":12},"fum":"here"},
+  {"fie":"where's fum?","foo":"second","bar":"row","fobe":210,"sub":{"state":"stopped","izze":88},"fum":"here"}
+  ]

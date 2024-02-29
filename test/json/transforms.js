@@ -45,7 +45,7 @@ async function tests() {
         transform: "mutate",
         select: [ "Foo", "Bar", "Baz", "Dt Test" ],
         assign: {
-          "Baz": "return value * 100"
+          "Baz": "return (construct.Baz * 100);"
         }
       }
     ],
@@ -79,21 +79,22 @@ async function tests() {
         "default": {
           "fie": "where's fum?"
         },
+        "map": {
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe",
+          "tags": "=tags",
+          "sub.state": "=subObj1.state",
+          "sub.izze": "=subObj2.subsub.izze"
+        },
+        "assign": {
+          "fobe": "return (construct.fobe * 100);"
+        },
         "override": {
           "fum": "here"
         },
-        "map": {
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "subObj1.state": "sub.state",
-          "subObj2.subsub.izze": "sub.izze"
-        },
-        "assign": {
-          "fobe": "return value * 100"
-        },
-        "remove": [ "fobe" ],
+        "remove": [ "baz" ]
       }
     ]
   })) return 1;

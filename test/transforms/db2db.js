@@ -37,14 +37,14 @@ async function testDBTransform1(tract) {
           "Fie": "where's fum?"
         },
         "map": {
-          "Foo": "foo",
-          "Bar": "bar",
-          "Baz": "baz",
-          "Fobe": "fobe",
-          "Dt Test": "dt_test",
-          "enabled": "enabled",
-          "subObj1.state": "state",
-          "subObj2.subsub.izze": "izze"
+          "foo": "=Foo",
+          "bar": "=Bar",
+          "baz": "=Baz",
+          "fobe": "=Fobe",
+          "dt_test": "=Dt Test",
+          "enabled": "=enabled",
+          "state": "=subObj1.state",
+          "izze": "=subObj2.subsub.izze"
         }
       }
     ]
@@ -78,9 +78,9 @@ async function testDBTransform2() {
           "Fie": "where's fum?"
         },
         "map": {
-          "Foo": "Foo",
-          "Bar": "Bar",
-          "Baz": "Bazzy"
+          "Foo": "=Foo",
+          "Bar": "=Bar",
+          "Bazzy": "=Baz"
         }
       }
     ],

@@ -1,5 +1,5 @@
 /**
- * test/csv
+ * test/json
  */
 "use strict";
 
@@ -10,13 +10,10 @@ logger.info("=== Tests: retreive");
 
 async function tests() {
 
-  logger.info("=== csv aggregate");
+  logger.info("=== json aggregate");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
-      options: {
-        header: true
-      }
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -35,21 +32,15 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'csv|./test/data/output/transforms/|csv_aggregate_1.csv|*',
-      options: {
-        header: true
-      },
-      output: "./test/data/output/transforms/csv_aggregate_1.csv"
+      "smt": 'json|./test/data/output/transforms/|aggregate_json_1.json|*',
+      "output": "./test/data/output/transforms/aggregate_json_1.json"
     }
   })) return 1;
 
-  logger.info("=== csv aggregate summary");
+  logger.info("=== json aggregate summary");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
-      options: {
-        header: true
-      }
+      smt: "json|./test/data/input/|foofile.json|*",
     },
     transforms: [
       {
@@ -61,7 +52,7 @@ async function tests() {
       },
       {
         transform: "aggregate",
-        fields: {
+        "fields": {
           "sum": { "sum": "Baz" },
           "avg": { "avg": "Baz" },
           "min": { "min": "Baz" },
@@ -71,21 +62,15 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'csv|./test/data/output/transforms/|csv_aggregate_2.csv|*',
-      options: {
-        header: true
-      },
-      output: "./test/data/output/transforms/csv_aggregate_2.csv"
+      "smt": 'json|./test/data/output/transforms/|aggregate_json_2.json|*',
+      "output": "./test/data/output/transforms/aggregate_json_2.json"
     }
   })) return 1;
 
-  logger.info("=== csv aggregate w/ groupby");
+  logger.info("=== json aggregate w/ groupby");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
-      options: {
-        header: true
-      }
+      smt: "json|./test/data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -107,11 +92,8 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'csv|./test/data/output/transforms/|csv_aggregate_3.csv|*',
-      options: {
-        header: true
-      },
-      output: "./test/data/output/transforms/csv_aggregate_3.csv"
+      "smt": 'json|./test/data/output/transforms/|aggregate_json_3.json|*',
+      "output": "./test/data/output/transforms/aggregate_json_3.json"
     }
   })) return 1;
 

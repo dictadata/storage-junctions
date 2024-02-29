@@ -31,11 +31,11 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/json/|adjoin_1.json|*",
+      smt: "json|./test/data/output/transforms/|adjoin_1.json|*",
       options: {
         "encoding": "./test/data/input/engrams/foo_schema_01.engram.json"
       },
-      output: "./test/data/output/json/adjoin_1.json"
+      output: "./test/data/output/transforms/adjoin_1.json"
     }
   })) return 1;
 
@@ -64,11 +64,11 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/json/|adjoin_2.json|*",
+      smt: "json|./test/data/output/transforms/|adjoin_2.json|*",
       options: {
         "encoding": "./test/data/input/engrams/foo_widgets.engram.json"
       },
-      output: "./test/data/output/json/adjoin_2.json"
+      output: "./test/data/output/transforms/adjoin_2.json"
     }
   })) return 1;
 

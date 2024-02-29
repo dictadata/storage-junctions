@@ -1,0 +1,10 @@
+[
+{"Foo":"first","Bar":"row","Baz":12300,"Dt Test":"2018-10-07T00:00:00.000Z"},
+{"Foo":"second","Bar":"row","Baz":45600,"Dt Test":"2018-10-07T05:00:00.000Z"},
+{"Foo":"third","Bar":"row your boat","Baz":78900,"Dt Test":"2018-10-18T05:00:00.000Z"},
+{"Foo":"fourth","Bar":" boat ","Baz":0,"Dt Test":"2018-10-10T14:13:30.500Z"},
+{"Foo":"fifth","Bar":"downstream","Baz":-1200,"Dt Test":"2018-10-18T05:00:00.000Z"},
+{"Foo":"sixth","Bar":null,"Baz":0,"Dt Test":null},
+{"Foo":"seventh","Bar":"big data","Baz":100000000,"Dt Test":"2018-10-10T19:13:30.000Z"},
+{"Foo":"eighth","Bar":"bigger data","Baz":1200,"Dt Test":"2018-10-10T05:00:00.000Z"}
+]
