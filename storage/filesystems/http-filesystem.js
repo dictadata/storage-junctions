@@ -285,7 +285,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       // smt.locus is destination folder
       let smt = new SMT(options.smt);
-      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substring(5) : smt.locus;
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
@@ -342,7 +342,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       // smt.locus is source folder
       let smt = new SMT(options.smt);
-      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substring(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
       let filename = (options.use_rpath ? options.entry.rpath : options.entry.name);

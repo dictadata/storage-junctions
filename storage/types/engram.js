@@ -236,7 +236,7 @@ module.exports = exports = class Engram extends Object {
       for (let kname of this.keys) {
         if (kname && kname[ 0 ] === "'") {
           // strip quotes
-          uid += kname.substr(1, kname.length - 2);
+          uid += kname.substring(1, kname.length - 1);
         }
         else {
           let value;

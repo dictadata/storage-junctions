@@ -31,7 +31,7 @@ class StorageFileSystem {
     let fstype = "file";
     let posPrefix = locus.indexOf(":");
     if (posPrefix > 1) {    // ignore drive letters
-      fstype = locus.substr(0, posPrefix);
+      fstype = locus.substring(0, posPrefix);
     }
     if (!StorageFileSystem.fileSystemModels.includes(fstype))
       throw new StorageError(400, "Invalid filesystem type " + fstype);
@@ -39,7 +39,7 @@ class StorageFileSystem {
     // ensure local paths are properly formatted
     if (fstype === "file") {
       if (locus.startsWith("file:"))
-        locus = locus.substr(5);
+        locus = locus.substring(5);
 
       if (this.options.dataPath) {
         // locus is relative to dataPath

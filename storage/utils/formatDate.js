@@ -37,7 +37,7 @@ function formatDate (value) {
   }
 
   if (!includesTime)
-    iso = iso.substr(0,10);  // return just the date
+    iso = iso.substring(0,10);  // return just the date
 
   return iso;
 };

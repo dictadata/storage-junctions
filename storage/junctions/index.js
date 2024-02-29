@@ -38,7 +38,7 @@ class Junctions {
       return junction;
     }
     else
-      throw new StorageError(400, "Unknown SMT model: " + _smt.model);
+      throw new StorageError(400, "Unknown SMT model: " + smt.toString());
   }
 
   /**

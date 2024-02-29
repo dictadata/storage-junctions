@@ -224,7 +224,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let src = path.join(url.fileURLToPath(this.url), options.entry.rpath);
 
       let smt = new SMT(options.smt); // smt.locus is destination folder
-      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substring(5) : smt.locus;
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
@@ -259,7 +259,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let status = 0;
 
       let smt = new SMT(options.smt); // smt.locus is source folder
-      let folder = smt.locus.startsWith("file:") ? smt.locus.substr(5) : smt.locus;
+      let folder = smt.locus.startsWith("file:") ? smt.locus.substring(5) : smt.locus;
       let src = path.join(folder, options.entry.rpath);
 
       let dest = path.join(url.fileURLToPath(this.url), (options.use_rpath ? options.entry.rpath : options.entry.name));

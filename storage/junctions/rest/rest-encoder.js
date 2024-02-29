@@ -9,6 +9,7 @@
 
 const StorageEncoder = require('../storage-junction/storage-encoder');
 const { typeOf, hasOwnProperty } = require('../../utils');
+
 const dot = require('dot-object');
 
 
