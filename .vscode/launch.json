@@ -776,6 +776,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "counter transforms",
+      "program": "${workspaceFolder}/test/transforms/counter_transforms.js",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "transforms aggregate csv",
       "program": "${workspaceFolder}/test/transforms/csv_aggregate.js",
       "outputCapture": "std",
