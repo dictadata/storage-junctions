@@ -8,47 +8,46 @@ Default, assign and override field values.
 
 // order of operations:
 //   default
-//   select
-//   map
+//   select | map | (all fields)
 //   assign
-//   remove
 //   override
+//   remove
 
 // example mutate transform
 /*
   {
     transform: "mutate",
 
-    // set default values or inject new fields
+    // set default values or inject new fields first
     default: {
       "field-name": <value>,
-      "new-field-name": <value>
+      ...
     },
 
     // select fields
-    select: ['field-name', 'field-name', ...],
+    select: ['field-name', 'field-name', ...]
 
     // map fields
     map: {
-      "field-name": <new-field-name>,
-      "object-name.field-name":  <new-field-name>
+      <new-field-name>: <value>,
+      ...
     },
 
     // modify field value with a function body
-    // function is passed (value, construct) arguments
+    // (construct) => { return some-value; }
     assign: {
+      "field-name": "function body",
+      ...
+    }
+
+    // override field values or inject new fields last
+    override: {
       "field-name": <value>,
-      "field-name": "function body; return newValue"
+      ...
     }
 
     // remove fields from the new construct
-    remove: ["field-name", "field-name"],
-
-    // override field values or inject new fields
-    override: {
-      "field-name": <value>,
-      "new-field-name": <value>
-    }
+    remove: ["field-name", "field-name", ...]
 
   };
 */
@@ -63,4 +62,5 @@ Default, assign and override field values.
 //
 // exp-value
 //   field-name | 'literal string'
+
 ```
