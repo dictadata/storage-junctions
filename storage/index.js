@@ -113,6 +113,9 @@ Storage.Transforms.use('codify', exports.CodifyTransform);
 exports.EncoderTransform = require("./transforms/encoder");
 Storage.Transforms.use('encoder', exports.EncoderTransform);
 
+exports.CounterTransform = require("./transforms/counter");
+Storage.Transforms.use('counter', exports.CounterTransform);
+
 exports.FlowStatsTransform = require("./transforms/flowstats");
 Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
 
