@@ -5,9 +5,7 @@
 
 const { Transform } = require('stream');
 const Storage = require("../storage");
-const { logger, hasOwnProperty } = require("../utils");
-const evaluate = require("../utils/evaluate");
-const match = require("../utils/match");
+const { dot, evaluate, match, logger, hasOwnProperty } = require("../utils");
 
 /* adjoin transform definition
 
@@ -106,7 +104,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
     try {
       let expression = Object.assign({}, this.options.lookup);
       for (let [ name, criteria ] of Object.entries(expression)) {
-        expression[ name ] = evaluate(criteria, construct);
+        dot.assign(name, expression, evaluate(criteria, construct));
       }
 
       // lookup values in lookup table

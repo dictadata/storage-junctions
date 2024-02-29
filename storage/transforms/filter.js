@@ -4,7 +4,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const match = require("../utils/match");
+const { match } = require("../utils");
 
 // example filter transform
 /*

@@ -3,7 +3,7 @@
 const { StorageError } = require("../../types");
 const { typeOf, hasOwnProperty, isDate, ynBoolean } = require("../../utils");
 
-const dot = require('dot-object');
+//const dot = require('dot-object');
 
 module.exports = exports = class StorageEncoder {
 
@@ -135,10 +135,11 @@ module.exports = exports = class StorageEncoder {
         if (hasOwnProperty(construct, name))
           newConstruct[ name ] = construct[ name ];
     }
-    else if (typeOf(pattern.fields) === "object")
+    else if (typeOf(pattern.fields) === "object") {
       // field mapping
       // JSON object with 'source': 'target' properties in dot notation
-      dot.transform(pattern.fields, construct, newConstruct);
+      //dot.transform(pattern.fields, construct, newConstruct);
+    }
     else
       // copy the entire construct
       newConstruct = construct;

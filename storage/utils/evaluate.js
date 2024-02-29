@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const dot = require('dot-object');
+const dot = require('./dot');
 
 // expression
 //   literal
@@ -22,9 +22,6 @@ const dot = require('dot-object');
 // field-name
 //   name | dot-notation
 //
-// function
-//   func(field, arg1, arg2)
-//
 // field-name/regexp/replace/
 //   field-name a field that contains string values
 //   regexp regular expression
@@ -34,7 +31,7 @@ const dot = require('dot-object');
 //   An expression-value of a single field name results in underlying type, e.g. string, number, boolean.
 //   Concatenation will result in a string if any exp-value results in a string.
 //   Concatenating boolean values will have unexpected results.
-//   Regular expressions can not contain + characters.
+//   Regular expressions can not contain + characters use {1,} instead.
 //
 
 // example expressions
@@ -48,7 +45,7 @@ module.exports = exports =
      * @param {*} expression in the form "=[prop.]fieldname+'literal'+..."
      */
   function evaluate(expression, construct) {
-    if (!expression || expression[ 0 ] !== '=')
+    if (!expression || typeof expression != "string" || expression[ 0 ] !== '=')
       return expression;
 
     let parts = expression.substring(1, expression.length).split('+');
@@ -72,14 +69,15 @@ module.exports = exports =
       else if (p.indexOf('/') > 0) {
         // regexp
         let exp = p.split('/');
-        value = dot.pick(exp[ 0 ], construct);
-        if (exp.length !== 3 || typeof value !== "string")
-          value = p;
-        else {
-          let rx = new RegExp(exp[ 1 ]);
-          let v2 = value.replace(rx, exp[ 2 ]);
-          if (v2)
-            value = v2;
+        if (exp.length === 3) {
+          let val = dot.pick(exp[ 0 ], construct);
+          let rx = RegExp(exp[ 1 ]);
+          let res = rx.exec(val);
+          if (res && res.length) {
+            value = exp[ 2 ];
+            for (let i = 0; i < res.length; i++)
+              value = value.replace('$' + i, res[ i ]);
+          }
         }
       }
       else {

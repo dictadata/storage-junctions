@@ -4,7 +4,7 @@
 "use strict";
 
 const typeOf = require("./typeOf");
-const dot = require('dot-object');
+const dot = require('./dot');
 
 /* example match expression
   // must match all criteria to return true

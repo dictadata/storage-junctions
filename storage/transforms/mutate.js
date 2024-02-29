@@ -8,54 +8,50 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { hasOwnProperty } = require("../utils");
-const evaluate = require("../utils/evaluate");
-
-const dot = require('dot-object');
+const { dot, evaluate, hasOwnProperty } = require("../utils");
 
 // order of operations:
 //   default
-//   select
-//   map
+//   select | map | (all fields)
 //   assign
-//   remove
 //   override
+//   remove
 
 // example mutate transform
 /*
   {
     transform: "mutate",
 
-    // set default values or inject new fields
+    // set default values or inject new fields first
     default: {
       "field-name": <value>,
-      "new-field-name": <value>
+      ...
     },
 
     // select fields
-    select: ['field-name', 'field-name', ...],
+    select: ['field-name', 'field-name', ...]
 
     // map fields
     map: {
-      "field-name": <new-field-name>,
-      "object-name.field-name":  <new-field-name>
+      <new-field-name>: <value>,
+      ...
     },
 
     // modify field value with a function body
-    // function is passed (value, construct) arguments
+    // (construct) => { return some-value; }
     assign: {
+      "field-name": "function body",
+      ...
+    }
+
+    // override field values or inject new fields last
+    override: {
       "field-name": <value>,
-      "field-name": "function body; return newValue"
+      ...
     }
 
     // remove fields from the new construct
-    remove: ["field-name", "field-name"],
-
-    // override field values or inject new fields
-    override: {
-      "field-name": <value>,
-      "new-field-name": <value>
-    }
+    remove: ["field-name", "field-name", ...]
 
   };
 */
@@ -91,8 +87,7 @@ module.exports = exports = class MutateTransform extends Transform {
     this.mutations = {};
     if (hasOwnProperty(options, 'assign')) {
       for (let [ name, body ] of Object.entries(options.assign)) {
-        if (name[0] !== '=')
-          this.mutations[ name ] = new Function('value', 'construct', body);
+        this.mutations[ name ] = new Function('construct', body);
       }
     }
   }
@@ -109,25 +104,21 @@ module.exports = exports = class MutateTransform extends Transform {
     // default
     if (this.options.default)
       for (let [ name, value ] of Object.entries(this.options.default)) {
-        if (value && value[ 0 ] === '=')
-          newConstruct[ name ] = evaluate(value, construct);
-        else
-          newConstruct[ name ] = value;
+        dot.assign(name, newConstruct, evaluate(value, construct));
       }
 
     // select
     if (this.options.select) {
       for (let name of this.options.select)
         if (hasOwnProperty(construct, name))
-          newConstruct[ name ] = construct[ name ];
+          dot.assign(name, newConstruct, dot.pick(name, construct));
     }
-
     // map
     else if (this.options.map) {
-      // JSON object with 'source': 'target' properties in dot notation
-      dot.transform(this.options.map, construct, newConstruct);
+      for (let [ name, value ] of Object.entries(this.options.map)) {
+        dot.assign(name, newConstruct, evaluate(value, construct));
+      }
     }
-
     else {
       // copy the entire construct
       Object.assign(newConstruct, construct);
@@ -135,11 +126,15 @@ module.exports = exports = class MutateTransform extends Transform {
 
     // assign values
     if (this.options.assign) {
-      for (let [ name, value ] of Object.entries(this.options.assign)) {
-        if (value && value[ 0 ] === '=')
-          newConstruct[ name ] = evaluate(value, newConstruct);
-        else if (hasOwnProperty(this.mutations, name))
-          newConstruct[ name ] = this.mutations[ name ](newConstruct[ name ], newConstruct);
+      for (let name of Object.keys(this.options.assign)) {
+        dot.assign(name, newConstruct, this.mutations[ name ](newConstruct));
+      }
+    }
+
+    // override
+    if (this.options.override) {
+      for (let [ name, value ] of Object.entries(this.options.override)) {
+        dot.assign(name, newConstruct, evaluate(value, newConstruct));
       }
     }
 
@@ -147,16 +142,6 @@ module.exports = exports = class MutateTransform extends Transform {
     if (this.options.remove) {
       for (let name of this.options.remove)
         delete newConstruct[ name ];
-    }
-
-    // override
-    if (this.options.override) {
-      for (let [ name, value ] of Object.entries(this.options.override)) {
-        if (value && value[ 0 ] === '=')
-          newConstruct[ name ] = evaluate(value, newConstruct);
-        else
-          newConstruct[ name ] = value;
-      }
     }
 
     this.push(newConstruct);

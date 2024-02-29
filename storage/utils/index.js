@@ -6,6 +6,7 @@ exports.logger = require('./logger');
 exports.hasOwnProperty = require('./hasOwnProperty');
 exports.typeOf = require('./typeOf');
 exports.objCopy = require('./objCopy');
+exports.dot = require('./dot');
 
 exports.ynBoolean = require('./ynBoolean');
 exports.isUUID = require('./isUUID');

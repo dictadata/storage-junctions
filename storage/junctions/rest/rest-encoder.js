@@ -8,10 +8,7 @@
 "use strict";
 
 const StorageEncoder = require('../storage-junction/storage-encoder');
-const { typeOf, hasOwnProperty } = require('../../utils');
-
-const dot = require('dot-object');
-
+const { typeOf, hasOwnProperty, dot } = require('../../utils');
 
 module.exports = exports = class RestEncoder extends StorageEncoder {
 

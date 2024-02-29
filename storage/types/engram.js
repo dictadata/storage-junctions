@@ -16,9 +16,7 @@
 const SMT = require('./smt');
 const Field = require('./field');
 const StorageError = require('./storage-error');
-const { typeOf, hasOwnProperty, objCopy, getCI } = require("../utils");
-
-const dot = require('dot-object');
+const { typeOf, hasOwnProperty, objCopy, getCI, dot } = require("../utils");
 
 module.exports = exports = class Engram extends Object {
 
