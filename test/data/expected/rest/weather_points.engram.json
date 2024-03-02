@@ -1,0 +1,25 @@
+{
+  "name": "",
+  "type": "engram",
+  "smt": {
+    "model": "rest",
+    "locus": "https://api.weather.gov/points/${latitude},${longitude}",
+    "schema": "",
+    "key": "*"
+  },
+  "fields": [
+    {
+      "name": "cwa",
+      "type": "keyword",
+      "size": 3
+    },
+    {
+      "name": "gridX",
+      "type": "integer"
+    },
+    {
+      "name": "gridY",
+      "type": "integer"
+    }
+  ]
+}
