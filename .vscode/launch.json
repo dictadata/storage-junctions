@@ -997,8 +997,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "rest retrieve",
-      "program": "${workspaceFolder}/test/rest/retrieve.js",
+      "name": "rest engram",
+      "program": "${workspaceFolder}/test/rest/engram.js",
       "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
@@ -1009,8 +1009,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "rest engram",
-      "program": "${workspaceFolder}/test/rest/engram.js",
+      "name": "rest retrieve",
+      "program": "${workspaceFolder}/test/rest/retrieve.js",
       "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
