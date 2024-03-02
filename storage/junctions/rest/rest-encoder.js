@@ -20,7 +20,7 @@ module.exports = exports = class RestEncoder extends StorageEncoder {
     if (typeof data !== 'object')
       throw new Error("invalid json data");
 
-    data = (options.extract && dot.pick(options.extract, data)) || data;
+    data = (options.extract && dot.get(options.extract, data)) || data;
 
     if (typeOf(data) === "object") {
       if (options.objects) {

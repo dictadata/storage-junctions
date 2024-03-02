@@ -70,7 +70,7 @@ module.exports = exports =
         // regexp
         let exp = p.split('/');
         if (exp.length === 3) {
-          let val = dot.pick(exp[ 0 ], construct);
+          let val = dot.get(exp[ 0 ], construct);
           let rx = RegExp(exp[ 1 ]);
           let res = rx.exec(val);
           if (res && res.length) {
@@ -82,7 +82,7 @@ module.exports = exports =
       }
       else {
         // field name
-        value = dot.pick(p, construct);
+        value = dot.get(p, construct);
       }
 
       if (typeof result === "undefined")

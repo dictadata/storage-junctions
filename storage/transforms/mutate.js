@@ -104,19 +104,19 @@ module.exports = exports = class MutateTransform extends Transform {
     // default
     if (this.options.default)
       for (let [ name, value ] of Object.entries(this.options.default)) {
-        dot.assign(name, newConstruct, evaluate(value, construct));
+        dot.set(name, newConstruct, evaluate(value, construct));
       }
 
     // select
     if (this.options.select) {
       for (let name of this.options.select)
         if (hasOwnProperty(construct, name))
-          dot.assign(name, newConstruct, dot.pick(name, construct));
+          dot.set(name, newConstruct, dot.get(name, construct));
     }
     // map
     else if (this.options.map) {
       for (let [ name, value ] of Object.entries(this.options.map)) {
-        dot.assign(name, newConstruct, evaluate(value, construct));
+        dot.set(name, newConstruct, evaluate(value, construct));
       }
     }
     else {
@@ -127,14 +127,14 @@ module.exports = exports = class MutateTransform extends Transform {
     // assign values
     if (this.options.assign) {
       for (let name of Object.keys(this.options.assign)) {
-        dot.assign(name, newConstruct, this.mutations[ name ](newConstruct));
+        dot.set(name, newConstruct, this.mutations[ name ](newConstruct));
       }
     }
 
     // override
     if (this.options.override) {
       for (let [ name, value ] of Object.entries(this.options.override)) {
-        dot.assign(name, newConstruct, evaluate(value, newConstruct));
+        dot.set(name, newConstruct, evaluate(value, newConstruct));
       }
     }
 

@@ -164,7 +164,7 @@ module.exports = exports = class StorageEncoder {
     // do some match filterin'
     // match all expessions to forward
     for (let [ fldname, criteria ] of Object.entries(match)) {
-      let cvalue = dot.pick(fldname, construct);
+      let cvalue = dot.get(fldname, construct);
       let exists = typeof (cvalue) !== "undefined";
       //let exists = hasOwnProperty(construct,fldname);
 

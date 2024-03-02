@@ -3,42 +3,39 @@
  */
 "use strict";
 
-exports.pick = function pick(dotname, construct) {
-  let value;
-  let names = dotname.split(".");
+exports.get = function get(dotname, construct) {
+  let props = dotname.split('.');
 
+  let prop;
   try {
-    for (let i = 0; i < names.length; i++) {
-      if (i === names.length - 1)
-        value = construct[ names[ i ] ];
-      else
-        construct = construct[ names[ i ] ];
-    }
+    prop = props.reduce((prop, name) => prop[ name ], construct);
   }
   catch (err) {
-    // probably couldn't walk path
+    console.warn(err.message);
   }
 
-  return value;
+  return prop;
 };
 
-exports.assign = function assign(dotname, construct, value) {
+exports.set = function set(dotname, construct, value) {
   let names = dotname.split(".");
+  let vname = names.pop();
 
+  let prop = construct;
   try {
-    for (let i = 0; i < names.length; i++) {
-      if (i === names.length - 1)
-        construct[ names[ i ] ] = value;
-      else {
-        if (!Object.prototype.hasOwnProperty.call(construct, names[ i ]))
-          construct[ names[ i ] ] = {};
-        construct = construct[ names[ i ] ];
-      }
+    for (let name of names) {
+      if (!Object.prototype.hasOwnProperty.call(prop, name))
+        prop[ name ] = {};
+      prop = prop[ name ];
     }
   }
   catch (err) {
-    // probably couldn't walk path
+    console.warn(err.message);
   }
 
-  return value;
+  if (typeof prop !== "object")
+    return false;
+
+  prop[ vname ] = value;
+  return true;
 };

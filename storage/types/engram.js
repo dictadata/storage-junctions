@@ -45,7 +45,8 @@ module.exports = exports = class Engram extends Object {
     this.smt = smt;
 
     // junction options
-    if (encoding.options) this.options = encoding.options;
+    if (encoding.options)
+      this.options = encoding.options;
 
     // field definitions
     this.fields = new Array();
@@ -241,7 +242,7 @@ module.exports = exports = class Engram extends Object {
           if (this.caseInsensitive)
             value = getCI(construct, kname);
           else
-            value = dot.pick(kname, construct);
+            value = dot.get(kname, construct);
 
           if (value !== undefined)
             uid += value;

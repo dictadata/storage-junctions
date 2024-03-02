@@ -85,7 +85,7 @@ module.exports = exports =
 
     // match all expressions
     for (let [ name, criteria ] of Object.entries(expression)) {
-      let value = dot.pick(name, construct);
+      let value = dot.get(name, construct);
       let rx = makeRegExp(criteria); // could be null
 
       let exists = typeOf(value) !== "undefined";
