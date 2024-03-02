@@ -127,7 +127,7 @@ class RESTJunction extends StorageJunction {
 
       if (response.statusCode >= 500 && retries > 0) {
         console.warn("REST retry: " + this.retries - retries + 1 + " " + url)
-        await Promise(resolve => setTimeout(resolve, this.retryTimer));
+        await new Promise(resolve => setTimeout(resolve, this.retryTimer));
       }
       --retries;
     }
