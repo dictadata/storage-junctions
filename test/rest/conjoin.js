@@ -25,7 +25,8 @@ async function testConjoin() {
             "Accept": "application/ld+json",
             "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
           }
-        }
+        },
+        retries: 1
       },
       pattern: {
         fields: [ "cwa", "gridX", "gridY" ]
@@ -42,6 +43,7 @@ async function testConjoin() {
               "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
             }
           },
+          retries: 1,
           extract: "periods"
         }
       }

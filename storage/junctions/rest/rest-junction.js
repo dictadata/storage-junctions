@@ -41,6 +41,8 @@ class RESTJunction extends StorageJunction {
     logger.debug("RESTJunction");
 
     //this.cookies = [];
+    this.retries = options.retries || 0;
+    this.retryTimer = options.retryTimer || 500; // milliseconds
   }
 
   /**
@@ -116,6 +118,23 @@ class RESTJunction extends StorageJunction {
     }
   }
 
+  async httpRequest(url, request, data) {
+    let response = { statusCode: 0 };
+    let retries = this.retries;
+
+    while (response.statusCode !== 200 && retries >= 0) {
+      response = await httpRequest(url, request, data);
+
+      if (response.statusCode >= 500 && retries > 0) {
+        console.warn("REST retry: " + this.retries - retries + 1 + " " + url)
+        await Promise(resolve => setTimeout(resolve, this.retryTimer));
+      }
+      --retries;
+    }
+
+    return response;
+  }
+
   /**
    *
    */
@@ -158,7 +177,7 @@ class RESTJunction extends StorageJunction {
           data = params;
       }
 
-      let response = await httpRequest(url, request, data);
+      let response = await this.httpRequest(url, request, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
@@ -223,7 +242,7 @@ class RESTJunction extends StorageJunction {
           data = params;
       }
 
-      let response = await httpRequest(url, request, data);
+      let response = await this.httpRequest(url, request, data);
 
       let results;
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))

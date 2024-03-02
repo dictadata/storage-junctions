@@ -111,6 +111,7 @@ async function forecastTransform(tract) {
             "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
           }
         },
+        retries: 1,
         extract: "periods"
       }
     },

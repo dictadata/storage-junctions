@@ -22,6 +22,7 @@ async function tests() {
           },
           //auth: "username:password"
         },
+        retries: 1,
         extract: "periods"
       }
     },

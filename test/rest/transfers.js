@@ -17,6 +17,7 @@ async function transfer_weather() {
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
+        retries: 1,
         extract: "properties.periods"
       }
     },
@@ -42,6 +43,7 @@ async function transfer_weather() {
             "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
           }
         },
+        retries: 1,
         extract: "periods"
       }
     },
@@ -62,6 +64,7 @@ async function transfer_census() {
       smt: "rest|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=county:*&in=state:19||*",
       options: {
         header: true,
+        retries: 1,
         encoding: {
           fields: {
             "NAME": "string",
@@ -90,6 +93,7 @@ async function transfer_census() {
           "in": "state:19"
         },
         header: true,
+        retries: 1,
         encoding: {
           fields: {
             "NAME": "string",

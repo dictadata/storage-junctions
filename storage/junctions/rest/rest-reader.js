@@ -18,29 +18,11 @@ module.exports = exports = class RESTReader extends StorageReader {
     super(storageJunction, options);
 
     this.encoder = this.junction.createEncoder(options);
+    this.results;
   }
 
   async _construct(callback) {
     logger.debug("RESTReader._construct");
-
-    try {
-      // open output stream
-
-      callback();
-    }
-    catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('RESTReader construct error'));
-    }
-  }
-
-  /**
-   * Fetch data from the underlying resource.
-   * @param {*} size <number> Number of bytes to read asynchronously
-   */
-  async _read(size) {
-    logger.debug('REST _read');
-    // read up to size constructs
 
     try {
       let baseURL = this.smt.locus;
@@ -71,8 +53,7 @@ module.exports = exports = class RESTReader extends StorageReader {
           data = params;
       }
 
-      let results;
-      let response = await httpRequest(url, request, data);
+      let response = await this.junction.httpRequest(url, request, data);
 
       if (response.statusCode !== 200) {
         let msg = typeof response.data === "string" ? response.data : null;
@@ -80,12 +61,29 @@ module.exports = exports = class RESTReader extends StorageReader {
       }
 
       if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
-        results = JSON.parse(response.data);
+        this.results = JSON.parse(response.data);
       else
-        results = response.data;
+        this.results = response.data;
 
+      callback();
+    }
+    catch (err) {
+      logger.warn(err);
+      callback(this.stfs?.Error(err) || new Error('RESTReader construct error'));
+    }
+  }
+
+  /**
+   * Fetch data from the underlying resource.
+   * @param {*} size <number> Number of bytes to read asynchronously
+   */
+  async _read(size) {
+    logger.debug('REST _read');
+    // read up to size constructs
+
+    try {
       // push results to stream
-      this.encoder.parseData(results, this.options, (construct) => {
+      this.encoder.parseData(this.results, this.options, (construct) => {
         construct = this.encoder.cast(construct);
         construct = this.encoder.filter(construct);
         construct = this.encoder.select(construct);
