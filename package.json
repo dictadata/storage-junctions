@@ -1,6 +1,6 @@
 {
   "name": "@dictadata/storage-junctions",
-  "version": "0.9.107",
+  "version": "0.9.108",
   "description": "Node.js library for normalized data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "license": "MIT",
@@ -20,7 +20,7 @@
   "scripts": {
     "lint": "eslint storage/**/*.js",
     "lint-fix": "eslint --fix storage/**/*.js",
-    "test": "./testrunner.bat"
+    "test": "testrunner.bat"
   },
   "directories": {
     "doc": "docs",

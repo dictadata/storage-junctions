@@ -1,8 +1,13 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.108
+  - feature: RESTjunction add retries option for HTTP status >= 500
+  - refactor: change domain to realm
+  - refactor: adjoin transform remove lookup_table object around smt
+  - refactor: refactor dot.get() and dot.set()
 - version 0.9.107
   - bug fix: regexp expressions in filter and mutate transforms
-  - refactor: refactor dot.pick into a project module
+  - refactor: refactor dot.get into a project module
 - version 0.9.106
   - feature: counter transform
   - refactor: Storage activate method
@@ -98,7 +103,7 @@
 - version 2.4.0
   - feature: smt_urn used as key for engrams directory
 - version 2.3.4
-  - refactor: add domain and roles to engrams entry
+  - refactor: add realm and roles to engrams entry
 - version 2.3.3
   - enhancement: Engrams.store() validate entry's name and type
   - refactor: add source and notes to engrams entry, remove alias_smt
