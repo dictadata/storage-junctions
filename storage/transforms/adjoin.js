@@ -11,11 +11,9 @@ const { dot, evaluate, match, logger, hasOwnProperty } = require("../utils");
 
   {
     transform: "adjoin",
-    lookup_table: {
-      smt: "",
-      options: {},
-      pattern: {}
-    },
+    smt: "",
+    options: {},
+    pattern: {},
     lookup: {
       "lookup_field": "=construct_field|'literal'+..."
     }
@@ -69,7 +67,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
   async activate() {
     logger.debug("adjoin activate");
 
-    let origin = this.options.lookup_table;
+    let origin = this.options;
 
     let junction;
     try {

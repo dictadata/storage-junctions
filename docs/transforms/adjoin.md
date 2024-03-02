@@ -6,15 +6,13 @@
 ```javascript
   {
     transform: "adjoin",
-    lookup_table: {
-      smt: "",
-      options: {},
-      pattern: {}
-    },
+    smt: "",
+    options: {},
+    pattern: {},
     lookup: {
       "lookup_field": "=construct_field|'literal'+..."
     }
-    "inject": "inject_field" | [ "inject_field", ... ]
+    inject: "inject_field" | [ "inject_field", ... ]
   };
 ```
 

@@ -21,9 +21,7 @@ async function tests() {
     transforms: [
       {
         transform: "adjoin",
-        lookup_table: {
-          smt: "json|./test/data/input/|foofile_01.json|*"
-        },
+        smt: "json|./test/data/input/|foofile_01.json|*",
         lookup: {
           "Foo": "=Foo"
         },
@@ -51,11 +49,9 @@ async function tests() {
     transforms: [
       {
         transform: "adjoin",
-        lookup_table: {
-          smt: "json|./test/data/input/|foo_widgets.json|*",
-          options: {},
-          pattern: {}
-        },
+        smt: "json|./test/data/input/|foo_widgets.json|*",
+        options: {},
+        pattern: {},
         lookup: {
           "Baz": "=Baz",
           "Foo": "=Foo"
