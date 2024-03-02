@@ -17,12 +17,16 @@ async function transfer_weather() {
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
+        encoding: "./test/data/input/engrams/weather_forecast.engram.json",
         retries: 1,
         extract: "properties.periods"
       }
     },
     terminal: {
       smt: "json|./test/data/output/rest/|weather_forecast_transfer_1.json|*",
+      options: {
+        encoding: "./test/data/input/engrams/weather_forecast.engram.json"
+      },
       output: "./test/data/output/rest/weather_forecast_transfer_1.json"
     }
   }, compareValues)) return 1;
@@ -37,6 +41,7 @@ async function transfer_weather() {
           "gridX": 34,
           "gridY": 71
         },
+        encoding: "./test/data/input/engrams/weather_forecast.engram.json",
         http: {
           headers: {
             "Accept": "application/ld+json",
@@ -49,6 +54,9 @@ async function transfer_weather() {
     },
     terminal: {
       smt: "json|./test/data/output/rest/|weather_forecast_transfer_2.json|*",
+      options: {
+        encoding: "./test/data/input/engrams/weather_forecast.engram.json"
+      },
       output: "./test/data/output/rest/weather_forecast_transfer_2.json"
     }
   }, compareValues)) return 1;

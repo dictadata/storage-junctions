@@ -68,8 +68,14 @@ module.exports = exports = async function (tract, compareValues = 2) {
       // });
       pipes.push(reader);
 
-      for (let transform of transforms)
+      for (let transform of transforms) {
+        if (typeof transform.options?.encoding === "string") {
+          // read encoding from file
+          let filename = transform.options.encoding;
+          transform.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
+        }
         pipes.push(await jo.createTransform(transform.transform, transform));
+      }
 
       let codify = await jo.createTransform('codify');
       pipes.push(codify);
@@ -112,8 +118,12 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
     // transforms
     for (let transform of transforms) {
-      let tfType = transform.transform.split("-")[ 0 ];
-      pipes.push(await jo.createTransform(tfType, transform));
+      if (typeof transform.options?.encoding === "string") {
+        // read encoding from file
+        let filename = transform.options.encoding;
+        transform.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
+      }
+      pipes.push(await jo.createTransform(transform.transform, transform));
     }
 
     // writer

@@ -16,6 +16,7 @@ async function retrieve_1() {
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
+        encoding: "./test/data/input/engrams/weather_forecast.engram.json",
         http: {
           headers: {
             "Accept": "application/ld+json",
