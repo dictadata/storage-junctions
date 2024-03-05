@@ -58,8 +58,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
     for (let transform of tract.transforms)
       pipes.push(await jo.createTransform(transform.transform, transform));
 
-    // if tract.origin.encoding is specified use it as a seed encoding
-    let codify = await jo.createTransform("codify", tract.origin);
+    // if tract.encoding is specified use it as a seed encoding
+    let codify = await jo.createTransform("codify", tract);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding

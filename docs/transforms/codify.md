@@ -7,12 +7,18 @@ It is up to the application to provide a representative sample of constructs as 
 ## example using codify transform
 
 ```javascript
+/**
+ *
+ * @param {String|Object} smt SMT of data source to codify
+ * @param {Object} options
+ * @param {Object} options.encoding optional engram encoding to use as a seed
+ */
 async function codifyCSV(smt, options) {
 
   try {
     let jo = await Storage.activate("csv|file:/pathtofile/|somefile.csv|*", {headers: true});
     let reader = jo.createReader();
-    let codify = await jo.createTransform("codify");
+    let codify = await jo.createTransform("codify", options);
 
     await stream.pipeline(reader, codify);
 
