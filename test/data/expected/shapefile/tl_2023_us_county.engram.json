@@ -1,10 +1,10 @@
 {
-  "name": "tl_2020_us_county",
+  "name": "tl_2023_us_county",
   "type": "engram",
   "smt": {
     "model": "shp",
-    "locus": "zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip",
-    "schema": "tl_2020_us_county",
+    "locus": "zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2023/COUNTY/tl_2023_us_county.zip",
+    "schema": "tl_2023_us_county",
     "key": "*"
   },
   "fields": [
@@ -34,18 +34,24 @@
           "type": "integer"
         },
         {
+          "name": "GEOIDFQ",
+          "type": "keyword",
+          "size": 14
+        },
+        {
           "name": "NAME",
           "type": "text",
-          "size": 21
+          "size": 30
         },
         {
           "name": "NAMELSAD",
           "type": "text",
-          "size": 33
+          "size": 46
         },
         {
           "name": "LSAD",
-          "type": "integer"
+          "type": "keyword",
+          "size": 2
         },
         {
           "name": "CLASSFP",

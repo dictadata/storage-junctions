@@ -146,7 +146,7 @@
   - update required node engine >= 16.4
 - version 2.1.5
   - encoding.smt.key, if defined and more specific, takes precedence over junction's engram.smt.key
-  - rename tiger2020 schemas
+  - rename tiger2023 schemas
 - version 2.1.4
   - bug fix: type checking of storage types should be case insensitive
 - version 2.1.3

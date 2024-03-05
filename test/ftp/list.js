@@ -45,18 +45,18 @@ async function test_1() {
     }
   })) return 1;
 
-  // "ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2020PL/LAYER/VTD/2020/|tl_2020_??_vtd20.zip"
-  // "ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip"
-  logger.info("=== list tiger2020");
+  // "ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2023PL/LAYER/VTD/2020/|tl_2023_??_vtd20.zip"
+  // "ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2023/COUNTY/|*.zip"
+  logger.info("=== list tiger2023");
   if (await list({
     origin: {
-      smt: "*|ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2020/COUNTY/|*.zip|*",
+      smt: "*|ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2023/COUNTY/|*.zip|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_tiger2020.json"
+      output: "./test/data/output/ftp/list_tiger2023.json"
     }
   })) return 1;
 

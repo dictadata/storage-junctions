@@ -985,8 +985,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "shapefile transfer tiger2020",
-      "program": "${workspaceFolder}/test/shapefile/transfer_tiger2020.js",
+      "name": "shapefile transfer tiger2023",
+      "program": "${workspaceFolder}/test/shapefile/transfer_tiger2023.js",
       "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {

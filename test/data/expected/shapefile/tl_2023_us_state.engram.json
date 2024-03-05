@@ -1,10 +1,10 @@
 {
-  "name": "tl_2020_us_state",
+  "name": "tl_2023_us_state",
   "type": "engram",
   "smt": {
     "model": "shp",
-    "locus": "zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip",
-    "schema": "tl_2020_us_state",
+    "locus": "zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2023/STATE/tl_2023_us_state.zip",
+    "schema": "tl_2023_us_state",
     "key": "*"
   },
   "fields": [
@@ -36,6 +36,11 @@
         {
           "name": "GEOID",
           "type": "integer"
+        },
+        {
+          "name": "GEOIDFQ",
+          "type": "keyword",
+          "size": 11
         },
         {
           "name": "STUSPS",

@@ -40,14 +40,14 @@ async function test2() {
 
 async function test3() {
 
-  logger.info("=== shapefile getEngram tl_2020_us_state");
+  logger.info("=== shapefile getEngram tl_2023_us_state");
   if (await getEngram({
     origin: {
-      smt: "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2020/STATE/tl_2020_us_state.zip|tl_2020_us_state|*",
+      smt: "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2023/STATE/tl_2023_us_state.zip|tl_2023_us_state|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_state.engram.json'
+      output: './test/data/output/shapefile/tl_2023_us_state.engram.json'
     }
   })) return 1;
 
@@ -55,14 +55,14 @@ async function test3() {
 
 async function test4() {
 
-  logger.info("=== shapefile getEngram tl_2020_us_county");
+  logger.info("=== shapefile getEngram tl_2023_us_county");
   if (await getEngram({
     origin: {
-      smt: "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2020/COUNTY/tl_2020_us_county.zip|tl_2020_us_county|*",
+      smt: "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2023/COUNTY/tl_2023_us_county.zip|tl_2023_us_county|*",
       options: {}
     },
     terminal: {
-      output: './test/data/output/shapefile/tl_2020_us_county.engram.json'
+      output: './test/data/output/shapefile/tl_2023_us_county.engram.json'
     }
   })) return 1;
 
