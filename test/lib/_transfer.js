@@ -77,7 +77,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
         pipes.push(await jo.createTransform(transform.transform, transform));
       }
 
-      let codify = await jo.createTransform('codify');
+      let codify = await jo.createTransform("codify");
       pipes.push(codify);
 
       await stream.pipeline(pipes);

@@ -12,7 +12,7 @@ async function codifyCSV(smt, options) {
   try {
     let jo = await Storage.activate("csv|file:/pathtofile/|somefile.csv|*", {headers: true});
     let reader = jo.createReader();
-    let codify = await jo.createTransform('codify');
+    let codify = await jo.createTransform("codify");
 
     await stream.pipeline(reader, codify);
 

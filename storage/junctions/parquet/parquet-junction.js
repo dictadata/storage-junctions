@@ -64,7 +64,7 @@ class ParquetJunction extends StorageJunction {
           logger.warn("parquet codify reader: " + error.message);
         });
 
-        let codify = await this.createTransform('codify', options);
+        let codify = await this.createTransform("codify", options);
         await stream.pipeline(reader, codify);
 
         let encoding = codify.encoding;
