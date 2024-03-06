@@ -32,8 +32,8 @@ module.exports = exports = class JSONReader extends StorageReader {
     var myParser = this.myParser = parser({ jsonStreaming: jstream });
     var pipes = [ myParser ];
 
-    if (this.options.extract) {
-      pipes.push(pick({ filter: this.options.extract }));
+    if (this.options.pick) {
+      pipes.push(pick({ filter: this.options.pick }));
     }
 
     if (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl')

@@ -24,7 +24,7 @@ async function retrieve_1() {
           }
         },
         retries: 1,
-        extract: "periods"
+        pick: "periods"
       }
     },
     terminal: {

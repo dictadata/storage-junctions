@@ -47,7 +47,7 @@ class ShapeFileJunction extends StorageJunction {
   async activate() {
     super.activate();
 
-    if (this.smt.locus.startsWith("zip:") && this.smt.schema === "~1") {
+    if (this.smt.locus.startsWith("zip:") && this.smt.schema === "$1") {
       // find first .shp file in .zip file
       let stfs = await this.getFileSystem();
       let list = await stfs.list({ schema: "*.shp", recursive: true });

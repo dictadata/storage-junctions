@@ -1,4 +1,4 @@
-// junctions/mysql
+// storage/junctions/mysql
 
 const MySQLJunction = require("./mysql-junction");
 

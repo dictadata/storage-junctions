@@ -1,4 +1,4 @@
-// junctions/parquet
+// storage/junctions/parquet
 
 const ParquetJunction = require("./parquet-junction");
 

@@ -1,4 +1,4 @@
-// junctions/shapes
+// storage/junctions/shapes
 
 const ShapeFileJunction = require("./shapefile-junction");
 

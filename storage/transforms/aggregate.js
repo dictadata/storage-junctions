@@ -117,22 +117,28 @@ module.exports = exports = class AggregateTransform extends Transform {
     accumulator.total += value;
     if (!hasOwnProperty(accumulator, "min"))
       accumulator.min = value;
-    else if (value > accumulator.min)
+    else if (value < accumulator.min)
       accumulator.min = value;
     if (!hasOwnProperty(accumulator, "max"))
       accumulator.max = value;
-    else if (value < accumulator.max)
+    else if (value > accumulator.max)
       accumulator.max = value;
   }
 
   accumulatorValue(accumulator, func) {
     switch (func) {
-      case 'sum': return accumulator.total;
-      case 'avg': return accumulator.count ? accumulator.total / accumulator.count : 0;
-      case 'min': return accumulator.min;
-      case 'max': return accumulator.max;
-      case 'count': return accumulator.count;
-      default: return 0;
+      case 'sum':
+        return accumulator.total;
+      case 'avg':
+        return accumulator.count ? accumulator.total / accumulator.count : 0;
+      case 'min':
+        return accumulator.min;
+      case 'max':
+        return accumulator.max;
+      case 'count':
+        return accumulator.count;
+      default:
+        return 0;
     }
   }
 

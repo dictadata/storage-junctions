@@ -52,7 +52,12 @@ module.exports = exports = async function (tract, compareValues = 2) {
       let filename = terminal.options.encoding;
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
-    else if (!encoding || transforms.length > 0) {
+    else if (!terminal.options?.encoding) {
+      // use origin encoding
+      terminal.options.encoding = encoding;
+    }
+
+    if (!terminal.options?.encoding || transforms.length > 0) {
       // otherwise run some objects through transforms to create terminal encoding
       logger.verbose(">>> codify pipeline");
       let pipes = [];
@@ -77,15 +82,12 @@ module.exports = exports = async function (tract, compareValues = 2) {
         pipes.push(await jo.createTransform(transform.transform, transform));
       }
 
-      let codify = await jo.createTransform("codify");
+      let codify = await jo.createTransform("codify", terminal.options);
       pipes.push(codify);
 
       await stream.pipeline(pipes);
       terminal.options.encoding = codify.encoding;
     }
-    else
-      // use origin encoding
-      terminal.options.encoding = encoding;
 
     if (typeof terminal.options.encoding !== "object")
       throw new Error("invalid terminal encoding");

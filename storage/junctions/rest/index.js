@@ -1,4 +1,4 @@
-// junctions/rest
+// storage/junctions/rest
 
 const RESTJunction = require("./rest-junction");
 

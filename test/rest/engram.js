@@ -49,7 +49,7 @@ async function tests() {
           }
         },
         retries: 1,
-        extract: "periods"
+        pick: "periods"
       }
     },
     terminal: {

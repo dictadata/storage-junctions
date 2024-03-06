@@ -32,7 +32,7 @@
     },
     {
       "name": "enabled",
-      "type": "boolean"
+      "type": "integer"
     },
     {
       "name": "subObj1",

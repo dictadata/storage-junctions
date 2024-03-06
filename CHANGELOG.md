@@ -129,7 +129,7 @@
 - version 2.2.5
   - enhancement: engrams alias entries
 - version 2.2.4
-  - enhancement: shapefile junction with .zip files, use smt.schema of '~1' to find first .shp file in zip container
+  - enhancement: shapefile junction with .zip files, use smt.schema of '$1' to find first .shp file in zip container
   - enhancement: zip filesystem, parse addtional path after .zip filename as prefix for accessing files in zip container
   - refactor: filesystem copy functions options.use_rpath for making destination path
   - bug fix: improve handling HTTP responses with content-encoding (compressed HTTP message body)

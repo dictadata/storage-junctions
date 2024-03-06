@@ -194,7 +194,7 @@ class StorageFileSystem {
    * @param {boolean} options.use_rpath If true replicate folder structure of remote filesystem in local filesystem.
    * @returns StorageResults object with status;
    */
-  async geFile(options) {
+  async getFile(options) {
     logger.debug("StorageFileSystem getFile");
     throw new StorageError(501);
 

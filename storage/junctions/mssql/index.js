@@ -1,4 +1,4 @@
-// junctions/mssql
+// storage/junctions/mssql
 
 const MSSQLJunction = require("./mssql-junction");
 

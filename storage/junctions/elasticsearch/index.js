@@ -1,4 +1,4 @@
-// junctions/elasticsearch
+// storage/junctions/elasticsearch
 
 const ElasticsearchJunction = require("./elasticsearch-junction");
 

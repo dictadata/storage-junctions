@@ -1,4 +1,4 @@
-// junctions/json
+// storage/junctions/json
 
 const JSONJunction = require("./json-junction");
 

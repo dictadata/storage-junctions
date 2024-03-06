@@ -112,7 +112,7 @@ async function forecastTransform(tract) {
           }
         },
         retries: 1,
-        extract: "periods"
+        pick: "periods"
       }
     },
     "transforms": [

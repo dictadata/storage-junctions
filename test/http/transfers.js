@@ -104,7 +104,7 @@ async function test_weather_data() {
     origin: {
       smt: "json|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
-        extract: "properties.periods"
+        pick: "properties.periods"
       }
     },
     terminal: {

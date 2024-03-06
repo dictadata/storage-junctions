@@ -112,6 +112,8 @@ module.exports = exports = class CodifyTransform extends Transform {
     // loop through the construct
     for (let [ name, value ] of Object.entries(construct)) {
       // get field definition
+      if (!fields.find)
+        debugger;
       let field = fields.find((f) => f.name === name);
       if (!field) {
         field = new Field(name);
@@ -138,7 +140,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       // null value, skip the type checks
     }
     else if (field.type === "boolean") {
-      if (stype !== "boolean")
+      if ((stype !== "boolean") && !(stype === "integer" && (value === 0 || value === 1)))
         field.type = stype;
     }
     else if (field.type === "integer") {

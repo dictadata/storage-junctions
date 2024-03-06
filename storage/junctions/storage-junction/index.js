@@ -1,4 +1,4 @@
-// junctions/storage
+// storage/junctions/storage-junction
 
 const StorageJunction = require("./storage-junction");
 

@@ -8,10 +8,6 @@ const _init = require("./_init");
 const _output = require("./_output");
 const { Storage } = require("../../storage");
 const { logger, hasOwnProperty } = require('../../storage/utils');
-
-const fs = require('fs');
-const path = require('path');
-//const stream = require('stream/promises');
 const stream = require('stream').promises;
 
 module.exports = exports = async function (tract, compareValues = 2) {
@@ -25,7 +21,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
   var jo;
   try {
     jo = await Storage.activate(tract.origin.smt, tract.origin.options);
-
+/*
     if (jo.capabilities.encoding) {
       logger.verbose(">>> get encoding");
       // *** get encoding for junction's schema
@@ -38,7 +34,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
       if (retCode)
         return process.exitCode = 1;
     }
-
+*/
     // *** otherwise use CodifyTransform to determine field types including transforms
     logger.verbose(">>> build codify pipeline");
     let pipes = [];

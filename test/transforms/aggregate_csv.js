@@ -30,6 +30,7 @@ async function tests() {
         transform: "aggregate",
         "fields": {
           "baz_sum": { "sum": "Baz" },
+          "fobe_min": { "min": "Fobe" },
           "fobe_max": { "max": "Fobe" }
         }
       }
@@ -37,7 +38,14 @@ async function tests() {
     terminal: {
       "smt": 'csv|./test/data/output/transforms/|aggregate_csv_1.csv|*',
       options: {
-        header: true
+        header: true,
+        encoding: {
+          "fields": [
+            { "name": "baz_sum", "type": "integer" },
+            { "name": "fobe_min", "type": "number" },
+            { "name": "fobe_max", "type": "number" }
+          ]
+        }
       },
       output: "./test/data/output/transforms/aggregate_csv_1.csv"
     }

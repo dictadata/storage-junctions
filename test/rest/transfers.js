@@ -19,7 +19,7 @@ async function transfer_weather() {
       options: {
         encoding: "./test/data/input/engrams/weather_forecast.engram.json",
         retries: 1,
-        extract: "properties.periods"
+        pick: "properties.periods"
       }
     },
     terminal: {
@@ -49,7 +49,7 @@ async function transfer_weather() {
           }
         },
         retries: 1,
-        extract: "periods"
+        pick: "periods"
       }
     },
     terminal: {

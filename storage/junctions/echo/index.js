@@ -1,4 +1,4 @@
-// junctions/echo
+// storage/junctions/echo
 
 const EchoJunction = require("./echo-junction");
 

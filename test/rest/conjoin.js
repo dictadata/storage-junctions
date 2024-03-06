@@ -46,7 +46,7 @@ async function testConjoin() {
             }
           },
           retries: 1,
-          extract: "periods"
+          pick: "periods"
         }
       }
     ],

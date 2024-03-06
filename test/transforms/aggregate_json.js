@@ -27,6 +27,7 @@ async function tests() {
         transform: "aggregate",
         "fields": {
           "baz_sum": { "sum": "Baz" },
+          "fobe_min": { "min": "Fobe" },
           "fobe_max": { "max": "Fobe" }
         }
       }
