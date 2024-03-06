@@ -82,6 +82,10 @@ var ShapeFileJunction = require("./junctions/shapefile");
 exports.ShapeFileJunction = ShapeFileJunction;
 Storage.Junctions.use('shp', ShapeFileJunction);
 
+var TemplateJunction = require("./junctions/template");
+exports.TemplateJunction = TemplateJunction;
+Storage.Junctions.use('template', TemplateJunction);
+
 //////////
 ///// register Storage Transforms
 exports.FilterTransform = require("./transforms/filter");
