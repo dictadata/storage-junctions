@@ -1,5 +1,9 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.109
+  - feature: implement TemplateJunction, write data into a JSON doc using a JSON template
+  - refactor: dot and replace utilities
+  - refactor: rename options.extract to options.pick
 - version 0.9.108
   - feature: RESTjunction add retries option for HTTP status >= 500
   - refactor: change domain to realm
