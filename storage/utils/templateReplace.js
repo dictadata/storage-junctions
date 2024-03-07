@@ -1,19 +1,23 @@
 // storage/utils/templates.js
 "use strict";
 
+/// DEPRECATED  use replace.js
+
+const templateRx = /\$\{\s?([^{}\s]*)\s?\}/g;
+
 /**
  * string template style replacement
  *  template: "a string ${value1} ${cnt} ${value3}"
- *  source: { value1: "with", cnt: 3, value3: "replacements"}
+ *  params: { value1: "with", cnt: 3, value3: "replacements"}
  *  returns: "a string with 3 replacements"
- * @param {*} template a string containing replacement expressions of form ${propname}
- * @param {*} source source of replacement values, i.e. source[propname]
+ * @param {String} template a string containing replacement expressions of form ${name}
+ * @param {Object} params params of replacement values, i.e. params: { name: value }
  */
-function stringReplace(template, source) {
-  const templateMatcher = /\$\{\s?([^{}\s]*)\s?\}/g;
-  let text = template.replace(templateMatcher, (matched, p1) => {
-    if (Object.prototype.hasOwnProperty.call(source, p1))
-      return source[ p1 ];
+function stringReplace(template, params) {
+  // find and replace all ${xxx} values in template string
+  let text = template.replace(templateRx, (matched, name) => {
+    if (Object.hasOwn(params, name))
+      return params[ name ];
     else
       return matched;
   });
@@ -22,23 +26,26 @@ function stringReplace(template, source) {
 
 /**
  * loop through an object running replacement on all string properties
- * @param {*} template
- * @param {*} source
+ * @param {Object|Array|String} template source containing replacement expressions of form ${name}
+ * @param {Object} params object containing replacement values, i.e. params: { name: value }
  */
-function templateReplace(template, source) {
+function replace(template, params) {
+  if (template)
+    throw "templateReplace DEPRECATED";
+
   if (typeof template === "string") {
-    return stringReplace(template, source);
+    return stringReplace(template, params);
   }
   else if (Array.isArray(template)) {
     for (let i = 0; i < template.length; i++)
-      template[ i ] = templateReplace(template[ i ], source);
+      template[ i ] = replace(template[ i ], params);
   }
   else if (typeof template === "object") {
     for (let [ name, value ] of Object.entries(template)) {
-      template[ name ] = templateReplace(value, source);
+      template[ name ] = replace(value, params);
     }
   }
   return template;
 }
 
-module.exports = exports = templateReplace;
+module.exports = exports = replace;

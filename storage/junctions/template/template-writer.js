@@ -2,6 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { logger, dot, replace } = require("../../utils");
+const fs = require("node:fs/promises");
 
 module.exports = exports = class TemplateWriter extends StorageWriter {
 
@@ -16,8 +17,8 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
   constructor(junction, options) {
     super(junction, options);
 
-    this.jsonObject;
-    this.store;
+    this.template;
+    this.storeTo;
   }
 
   /**
@@ -29,15 +30,15 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
 
     try {
       let text = await fs.readFile(this.options.template);
-      this.jsonObject = JSON.parse(text);
-      replace(this.jsonObject, this.options.params);
-      this.store = dot.get(this.options.storeTo, jsonObject);
+      this.template = JSON.parse(text);
+      replace(this.template, this.options.params);
+      this.storeTo = dot.get(this.options.storeTo, this.template);
 
       callback();
     }
     catch (err) {
       logger.warn(err);
-      callback(new Error('TemplateWriter _construct error'));
+      callback(new Error('TemplateWriter _construct error', { cause: err }));
     }
   }
 
@@ -59,13 +60,13 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
 
     try {
       // store construct in array
-      this.store.push(construct);
+      this.storeTo.push(construct);
 
       callback();
     }
     catch (err) {
       logger.warn(err);
-      callback(new Error('TemplateWriter _write error'));
+      callback(new Error('TemplateWriter _write error', { cause: err }));
     }
   }
 
@@ -89,7 +90,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err);
-      callback(this.stfs?.Error('TemplateWriter _writev error') || new Error("TemplateWriter _writev error"));
+      callback(new Error("TemplateWriter _writev error", { cause: err }));
     }
   }
 
@@ -111,9 +112,9 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       });
 
       // write results to file
-      let data = JSON.stringify(this.jsonObject);
-      if (data.length > 0) {
-        await ws.write(data);
+      let text = JSON.stringify(this.template,null,this.options.space);
+      if (text.length > 0) {
+        await ws.write(text);
       }
 
       if (this.autoClose) {
@@ -126,7 +127,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
     }
     catch (err) {
       // logger.warn(err);
-      callback(stfs?.Error(err) || new Error('Error _final'));
+      callback(new Error('Error _final', { cause: err }));
     }
   }
 
