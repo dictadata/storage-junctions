@@ -2,7 +2,7 @@
 
 const StorageJunction = require("../storage-junction");
 const { StorageResults, StorageError } = require("../../types");
-const { typeOf, logger, httpRequest, templateReplace } = require("../../utils");
+const { typeOf, logger, httpRequest, replace } = require("../../utils");
 
 const RESTReader = require("./rest-reader");
 const RESTWriter = require("./rest-writer");
@@ -150,8 +150,8 @@ class RESTJunction extends StorageJunction {
       let url = this.options.url || this.engram.smt.schema || '';
       let urlReplace = pattern.urlReplace || this.options.urlReplace;
       if (urlReplace) {
-        baseURL = templateReplace(baseURL, urlReplace);
-        url = templateReplace(url, urlReplace);
+        baseURL = replace(baseURL, urlReplace);
+        url = replace(url, urlReplace);
       }
 
       let encoder = this.createEncoder({ pattern: pattern });
@@ -215,8 +215,8 @@ class RESTJunction extends StorageJunction {
       let url = this.options.url || this.engram.smt.schema || '';
       let urlReplace = pattern.urlReplace || this.options.urlReplace;
       if (urlReplace) {
-        baseURL = templateReplace(baseURL, urlReplace);
-        url = templateReplace(url, urlReplace);
+        baseURL = replace(baseURL, urlReplace);
+        url = replace(url, urlReplace);
       }
 
       let encoder = this.createEncoder({ pattern: pattern });

@@ -392,7 +392,7 @@ class ElasticsearchJunction extends StorageJunction {
       let storageResults = new StorageResults("message");
       if (response.result)
         storageResults.add(response.result, key);
-      else if (response.hasOwnProperty("deleted"))
+      else if (Object.hasOwn(response, "deleted"))
         storageResults.add(response.deleted, "deleted");
       return storageResults;
     }

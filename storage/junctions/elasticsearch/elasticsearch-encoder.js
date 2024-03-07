@@ -4,7 +4,7 @@
 "use strict";
 
 const { Engram, StorageError } = require("../../types");
-const { hasOwnProperty, typeOf, logger } = require("../../utils");
+const { typeOf, logger } = require("../../utils");
 
 var excludeProperties = [ "@timestamp", "_meta" ];
 
@@ -122,7 +122,7 @@ var storageField = exports.storageField = function (name, property) {
     // add additional elasticsearch fields
   };
 
-  if (hasOwnProperty(property, "null_value"))  // default if value is null
+  if (Object.hasOwn(property, "null_value"))  // default if value is null
     field.default = property[ "null_value" ];
 
   // add elasticsearch definition
@@ -144,7 +144,7 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
       continue;
 
     // check for Elasticsearch object  fields
-    if (hasOwnProperty(property, "properties")) {
+    if (Object.hasOwn(property, "properties")) {
       if (property.type === "nested") {
         // won't get here, nested not implemented
         // need to use codify tranform to identify arrays

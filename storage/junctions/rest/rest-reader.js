@@ -4,7 +4,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger, httpRequest, templateReplace } = require('../../utils');
+const { logger, httpRequest, replace } = require('../../utils');
 const { StorageError } = require('../../types');
 
 module.exports = exports = class RESTReader extends StorageReader {
@@ -29,8 +29,8 @@ module.exports = exports = class RESTReader extends StorageReader {
       let url = this.options.url || this.engram.smt.schema || '';
       let urlReplace = this.options.urlReplace;
       if (urlReplace) {
-        baseURL = templateReplace(baseURL, urlReplace);
-        url = templateReplace(url, urlReplace);
+        baseURL = replace(baseURL, urlReplace);
+        url = replace(url, urlReplace);
       }
 
       let request = Object.assign({

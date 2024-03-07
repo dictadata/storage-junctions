@@ -2,7 +2,7 @@
 
 const { Writable } = require('stream');
 const { StorageError } = require("../../types");
-const { hasOwnProperty, logger } = require("../../utils");
+const { logger } = require("../../utils");
 
 module.exports = exports = class StorageWriter extends Writable {
 
@@ -12,7 +12,7 @@ module.exports = exports = class StorageWriter extends Writable {
    * @param {*} options
    */
   constructor(storageJunction, options) {
-    if (!hasOwnProperty(storageJunction, "engram"))
+    if (!Object.hasOwn(storageJunction, "engram"))
       throw new StorageError(400, "Invalid parameter: storageJunction");
 
     let streamOptions = {

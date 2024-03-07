@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { hasOwnProperty, ynBoolean } = require('../../utils');
+const { ynBoolean } = require('../../utils');
 const { Types } = require('mysql2');
 
 var stringBreakpoints = require('../../types/stringBreakpoints');
@@ -120,9 +120,9 @@ exports.storageField = function (column) {
     }
   };
 
-  if (hasOwnProperty(column, "Default"))
+  if (Object.hasOwn(column, "Default"))
     field.default = column[ "Default" ];
-  if (hasOwnProperty(column, "Null"))
+  if (Object.hasOwn(column, "Null"))
     field.nullable = ynBoolean(column.Null);
   if (column.Key)
     field.key = 1;

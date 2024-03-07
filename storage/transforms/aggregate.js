@@ -1,7 +1,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { typeOf, hasOwnProperty, logger } = require("../utils");
+const { typeOf, logger } = require("../utils");
 
 /*
  TBD
@@ -74,22 +74,22 @@ module.exports = exports = class AggregateTransform extends Transform {
           let exp = fld;
 
           // check to create group
-          if (!hasOwnProperty(this.groups, groupby))
+          if (!Object.hasOwn(this.groups, groupby))
             this.groups[groupby] = {};
 
-          if (hasOwnProperty(construct, groupby)) {
+          if (Object.hasOwn(construct, groupby)) {
             let groupby_value = construct[groupby];
 
             // check to create groupby_value group
-            if (!hasOwnProperty(this.groups[groupby], groupby_value))
+            if (!Object.hasOwn(this.groups[groupby], groupby_value))
               this.groups[groupby][groupby_value] = {};
 
             // groupby expressions
             for (let [func,fld] of Object.entries(exp)) {
-              if (hasOwnProperty(construct, fld)) {
+              if (Object.hasOwn(construct, fld)) {
                 let value = construct[fld];
                 // check to create accumulator
-                if (!hasOwnProperty(this.groups[groupby][groupby_value], fld))
+                if (!Object.hasOwn(this.groups[groupby][groupby_value], fld))
                   this.groups[groupby][groupby_value][fld] = {count: 0, total: 0};
                 this.accumulatorUpdate(this.groups[groupby][groupby_value][fld], value);
               }
@@ -98,10 +98,10 @@ module.exports = exports = class AggregateTransform extends Transform {
         }
         else {
           // totals for aggregation functions
-          if (hasOwnProperty(construct, fld)) {
+          if (Object.hasOwn(construct, fld)) {
             let value = construct[fld];
             // check to create accumulator
-            if (!hasOwnProperty(this.accumulator, fld))
+            if (!Object.hasOwn(this.accumulator, fld))
               this.accumulator[fld] = {count: 0, total: 0};
             this.accumulatorUpdate(this.accumulator[fld], value);
           }
@@ -115,11 +115,11 @@ module.exports = exports = class AggregateTransform extends Transform {
   accumulatorUpdate(accumulator, value) {
     accumulator.count++;
     accumulator.total += value;
-    if (!hasOwnProperty(accumulator, "min"))
+    if (!Object.hasOwn(accumulator, "min"))
       accumulator.min = value;
     else if (value < accumulator.min)
       accumulator.min = value;
-    if (!hasOwnProperty(accumulator, "max"))
+    if (!Object.hasOwn(accumulator, "max"))
       accumulator.max = value;
     else if (value > accumulator.max)
       accumulator.max = value;
@@ -164,7 +164,7 @@ module.exports = exports = class AggregateTransform extends Transform {
             summary[groupby] = groupby_value;
 
             for (let [func,fld] of Object.entries(exp)) {
-              if (hasOwnProperty(group, fld)) {
+              if (Object.hasOwn(group, fld)) {
                 let accumulator = this.groups[groupby][groupby_value][fld];
                 summary[newfld] = this.accumulatorValue(accumulator, func);
               }
@@ -174,7 +174,7 @@ module.exports = exports = class AggregateTransform extends Transform {
         }
         else {
           // overall summary
-          if (hasOwnProperty(this.accumulator, fld)) {
+          if (Object.hasOwn(this.accumulator, fld)) {
             summary[newfld] = this.accumulatorValue(this.accumulator[fld], func);
           }
         }

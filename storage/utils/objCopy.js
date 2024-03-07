@@ -1,7 +1,7 @@
 // storage/utils/objCopy
 "use strict";
 
-const { typeOf, hasOwnProperty } = require("../utils");
+const { typeOf } = require("../utils");
 
 /**
  * Copy/replace source properties in target object.
@@ -20,7 +20,7 @@ module.exports = exports = function objCopy(target, ...source) {
       let srcType = typeOf(value);
 
       if (srcType === "object") {
-        if (!hasOwnProperty(target, key) || typeOf(target[key]) !== "object")
+        if (!Object.hasOwn(target, key) || typeOf(target[key]) !== "object")
           target[ key ] = {};  // replace
         objCopy(target[ key ], value);
       }

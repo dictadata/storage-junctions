@@ -7,7 +7,7 @@
 
 const encoder = require('./template-encoder');
 const { StorageError } = require('.');
-const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../utils');
+const { typeOf, isDate, parseDate, logger } = require('../utils');
 
 module.exports = exports = class StorageEncoderSQL {
 
@@ -76,15 +76,15 @@ module.exports = exports = class StorageEncoderSQL {
 
   decodeIndexResults(engram, column) {
     let index_name = column[ "index_name" ].value;
-    if (hasOwnProperty(column, "is_primary_key") && column[ "is_primary_key" ].value) {
+    if (Object.hasOwn(column, "is_primary_key") && column[ "is_primary_key" ].value) {
       // primary key index
       let field = engram.find(column[ "column_name" ].value);
       field.key = column[ "key_ordinal" ].value;
     }
     else {
       // other index
-      if (!hasOwnProperty(engram, "indices")) engram.indices = {};
-      if (!hasOwnProperty(engram.indices, index_name)) engram.indices[ index_name ] = { fields: [] };
+      if (!Object.hasOwn(engram, "indices")) engram.indices = {};
+      if (!Object.hasOwn(engram.indices, index_name)) engram.indices[ index_name ] = { fields: [] };
       let index = engram.indices[ index_name ];
       index.unique = column[ "is_unique" ].value;
       index.fields[ column[ "key_ordinal" ].value - 1 ] = {

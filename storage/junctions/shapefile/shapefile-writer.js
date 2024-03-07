@@ -2,7 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
-const { hasOwnProperty, logger } = require("../../utils");
+const { logger } = require("../../utils");
 
 const path = require('path');
 
@@ -78,7 +78,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       if (this.options.orderFields) {
         let ordered = {};
         for (let field of this.engram.fields) {
-          if (hasOwnProperty(construct, field.name) && construct[ field.name ] !== null)
+          if (Object.hasOwn(construct, field.name) && construct[ field.name ] !== null)
             ordered[ field.name ] = construct[ field.name ];
           else if (field.hasDefault)
             ordered[ field.name ] = field.default;

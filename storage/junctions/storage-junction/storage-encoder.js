@@ -1,7 +1,7 @@
 "use strict";
 
 const { StorageError } = require("../../types");
-const { typeOf, hasOwnProperty, isDate, ynBoolean } = require("../../utils");
+const { typeOf, isDate, ynBoolean } = require("../../utils");
 
 //const dot = require('dot-object');
 
@@ -13,7 +13,7 @@ module.exports = exports = class StorageEncoder {
    * @param {*} options
    */
   constructor(storageJunction, options) {
-    if (!hasOwnProperty(storageJunction, "engram"))
+    if (!Object.hasOwn(storageJunction, "engram"))
       throw new StorageError(400, "Invalid parameter: storageJunction");
 
     this.junction = storageJunction;
@@ -132,7 +132,7 @@ module.exports = exports = class StorageEncoder {
     if (Array.isArray(pattern.fields)) {
       // select fields
       for (let name of pattern.fields)
-        if (hasOwnProperty(construct, name))
+        if (Object.hasOwn(construct, name))
           newConstruct[ name ] = construct[ name ];
     }
     else if (typeOf(pattern.fields) === "object") {
@@ -166,7 +166,7 @@ module.exports = exports = class StorageEncoder {
     for (let [ fldname, criteria ] of Object.entries(match)) {
       let cvalue = dot.get(fldname, construct);
       let exists = typeof (cvalue) !== "undefined";
-      //let exists = hasOwnProperty(construct,fldname);
+      //let exists = Object.hasOwn(construct,fldname);
 
       if (Array.isArray(criteria)) {
         forward = exists && criteria.includes(cvalue);

@@ -4,7 +4,7 @@
 "use strict";
 
 const encoder = require('./mysql-encoder');
-const { typeOf, hasOwnProperty, isDate, parseDate, logger } = require('../../utils');
+const { typeOf, isDate, parseDate, logger } = require('../../utils');
 const sqlString = require('sqlstring');
 const fs = require('node:fs');
 
@@ -109,8 +109,8 @@ exports.decodeIndexResults = (engram, columns) => {
     }
     else {
       // other index
-      if (!hasOwnProperty(engram, "indices")) engram.indices = {};
-      if (!hasOwnProperty(engram.indices, column[ "Key_name" ])) engram.indices[ column[ "Key_name" ] ] = { fields: [] };
+      if (!Object.hasOwn(engram, "indices")) engram.indices = {};
+      if (!Object.hasOwn(engram.indices, column[ "Key_name" ])) engram.indices[ column[ "Key_name" ] ] = { fields: [] };
       let index = engram.indices[ column[ "Key_name" ] ];
       index.unique = !column[ "Non_unique" ];
       index.fields[ column[ "Seq_in_index" ] - 1 ] = {

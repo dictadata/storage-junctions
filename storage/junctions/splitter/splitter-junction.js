@@ -7,7 +7,7 @@
 const Storage = require("../../storage");
 const StorageJunction = require("../storage-junction");
 const { Engram, StorageError } = require("../../types");
-const { hasOwnProperty, logger } = require("../../utils");
+const { logger } = require("../../utils");
 
 const SplitterWriter = require("./splitter-writer");
 
@@ -45,10 +45,10 @@ class SplitterJunction extends StorageJunction {
 
     this._writerClass = SplitterWriter;
 
-    if (!hasOwnProperty(this.options, "tract"))
+    if (!Object.hasOwn(this.options, "tract"))
       throw new StorageError(400, "tract not defined in terminal.options");
     this.split_tract = this.options.tract;
-    if (!hasOwnProperty(this.split_tract, "terminal"))
+    if (!Object.hasOwn(this.split_tract, "terminal"))
       throw new StorageError(400, "terminal not defined in terminal.options.tract");
 
     this.split_junctions = {};
@@ -84,14 +84,14 @@ class SplitterJunction extends StorageJunction {
   async getTractStream(sname) {
     logger.debug("SplitterJunction createTract");
 
-    if (hasOwnProperty(this.split_junctions, sname))
+    if (Object.hasOwn(this.split_junctions, sname))
       return this.split_streams[ sname ].pipes[ 0 ];
 
     // create pipeline
     let pipes = [];
 
     // add transforms, if any
-    if (hasOwnProperty(this.split_tract, "transforms")) {
+    if (Object.hasOwn(this.split_tract, "transforms")) {
       let transforms = this.split_tract.transforms || [];
       for (let transform of transforms) {
         pipes.push(await this.createTransform(transform.transform, transform));

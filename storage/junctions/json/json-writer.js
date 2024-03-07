@@ -2,7 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
-const { hasOwnProperty, logger } = require("../../utils");
+const { logger } = require("../../utils");
 
 const path = require('path');
 
@@ -128,7 +128,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       if (this.options.orderFields) {
         let ordered = {};
         for (let field of this.engram.fields) {
-          if (hasOwnProperty(construct, field.name)) {
+          if (Object.hasOwn(construct, field.name)) {
             if (construct[ field.name ] === null && field.hasDefault)
               ordered[ field.name ] = field.default;
             else

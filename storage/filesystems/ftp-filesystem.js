@@ -5,7 +5,7 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
-const { hasOwnProperty, logger } = require("../utils");
+const { logger } = require("../utils");
 const auth = require("../authentication");
 
 const fs = require('fs');
@@ -51,7 +51,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       port: this.url.port || 21,
       user: this.url.username || cred.auth?.username || 'anonymous',
       password: this.url.password || cred.auth?.password || 'anonymous@dictadata',
-      secure: hasOwnProperty(ftpOptions, "secure") ? ftpOptions.secure : false
+      secure: Object.hasOwn(ftpOptions, "secure") ? ftpOptions.secure : false
     });
 
     this.isActive = true;

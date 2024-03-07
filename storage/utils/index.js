@@ -3,7 +3,6 @@
 
 exports.logger = require('./logger');
 
-exports.hasOwnProperty = require('./hasOwnProperty');
 exports.typeOf = require('./typeOf');
 exports.objCopy = require('./objCopy');
 exports.dot = require('./dot');
@@ -26,6 +25,6 @@ exports.ifOptions = require('./ifOptions');
 exports.httpRequest = require('./httpRequest');
 exports.htmlParseDir = require('./htmlParseDir');
 
-exports.templateReplace = require('./templateReplace');
+exports.replace = require('./replace');
 
 exports.findModules = require('./findModules');

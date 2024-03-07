@@ -7,7 +7,7 @@
 
 const { Junctions } = require("../storage");
 const { StorageError } = require("../types");
-const { hasOwnProperty, logger } = require("../utils");
+const { logger } = require("../utils");
 
 const { Transform } = require('stream');
 
@@ -35,12 +35,12 @@ module.exports = exports = class EncoderTransform extends Transform {
 
     this.options = Object.assign({}, options);
 
-    if (!hasOwnProperty(options, "junction"))
+    if (!Object.hasOwn(options, "junction"))
       throw new StorageError(400, "options.junction not defined");
 
     let junction = Junctions.get(options.junction);
     if (junction)
-      if (hasOwnProperty(junction, "encoder"))
+      if (Object.hasOwn(junction, "encoder"))
         this.encoder = junction.encoder;
       else
         throw new StorageError(400, "Junction does not have encoder " + options.junction);

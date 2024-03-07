@@ -6,7 +6,7 @@
 "use strict";
 
 const StorageError = require('./storage-error');
-const { typeOf, hasOwnProperty } = require("../utils");
+const { typeOf } = require("../utils");
 
 module.exports = exports = class SMT {
   /**
@@ -32,8 +32,8 @@ module.exports = exports = class SMT {
       this.key = a[ 3 ] || '';
     }
     else if (typeOf(smt) === "object") {
-      if (!hasOwnProperty(smt, "model") && !hasOwnProperty(smt, "locus")
-        && !hasOwnProperty(smt, "schema") && !hasOwnProperty(smt, "key"))
+      if (!Object.hasOwn(smt, "model") && !Object.hasOwn(smt, "locus")
+        && !Object.hasOwn(smt, "schema") && !Object.hasOwn(smt, "key"))
         throw new StorageError(400, "Invalid parameter: smt");
 
       this.model = smt.model || '';

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { hasOwnProperty, ynBoolean } = require('../../utils');
+const { ynBoolean } = require('../../utils');
 const TYPES = require('tedious').TYPES;
 
 var stringBreakpoints = require('../../types/stringBreakpoints');
@@ -101,12 +101,12 @@ exports.storageField = (column) => {
     size: column[ "size" ].value,
   };
 
-  if (hasOwnProperty(column, "default")) {
+  if (Object.hasOwn(column, "default")) {
     field.default = (column[ "default" ].value === "(NULL)") ? null : column[ "default" ].value;
   }
-  if (hasOwnProperty(column, "is_nullable"))
+  if (Object.hasOwn(column, "is_nullable"))
     field.nullable = ynBoolean(column[ "is_nullable" ].value);
-  if (hasOwnProperty(column, "key_ordinal"))
+  if (Object.hasOwn(column, "key_ordinal"))
     field.key = column[ "key_ordinal" ].value;
 
   // add MSSQL definition

@@ -5,7 +5,7 @@
  */
 
 const { Transform } = require('stream');
-const { hasOwnProperty, logger } = require("../utils");
+const { logger } = require("../utils");
 
 // example compose transform
 /*
@@ -55,7 +55,7 @@ module.exports = exports = class ComposeTransform extends Transform {
     let node = this._composition;
     for (let name of this.options.path) {
       let cname = construct[ name ];
-      if (!hasOwnProperty(node, cname))
+      if (!Object.hasOwn(node, cname))
         node[ cname ] = {};
       node = node[ cname ];
     }

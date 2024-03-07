@@ -16,7 +16,7 @@
 const SMT = require('./smt');
 const Field = require('./field');
 const StorageError = require('./storage-error');
-const { typeOf, hasOwnProperty, objCopy, getCI, dot } = require("../utils");
+const { typeOf, objCopy, getCI, dot } = require("../utils");
 
 module.exports = exports = class Engram extends Object {
 
@@ -53,7 +53,7 @@ module.exports = exports = class Engram extends Object {
     this.fieldsMap = new Map();
     this.indices;  // optional, indices will be created if part of the encoding definition
 
-    if (hasOwnProperty(encoding, "fields"))
+    if (Object.hasOwn(encoding, "fields"))
       this.encoding = encoding.fields;
   }
 

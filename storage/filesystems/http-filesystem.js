@@ -5,7 +5,7 @@
 
 const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
-const { logger, httpRequest, htmlParseDir, hasOwnProperty } = require("../utils");
+const { logger, httpRequest, htmlParseDir } = require("../utils");
 const auth = require("../authentication");
 
 const fs = require('fs');
@@ -96,7 +96,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         if (response.statusCode !== 200)
           throw this.Error(response);
 
-        if (!hasOwnProperty(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
+        if (!Object.hasOwn(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
           logger.warn(JSON.stringify(response, null, 2));
           throw new StorageError(400, 'invalid content-type');
         }

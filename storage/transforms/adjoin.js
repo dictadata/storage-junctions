@@ -5,7 +5,7 @@
 
 const { Transform } = require('stream');
 const Storage = require("../storage");
-const { dot, evaluate, match, logger, hasOwnProperty } = require("../utils");
+const { dot, evaluate, match, logger } = require("../utils");
 
 /* adjoin transform definition
 
@@ -117,7 +117,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
       // inject fields from lookup table
       if (found) {
         for (const fld of this.options.inject) {
-          if (hasOwnProperty(found, fld))
+          if (Object.hasOwn(found, fld))
             construct[ fld ] = found[ fld ];
         }
       }

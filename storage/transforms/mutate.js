@@ -8,7 +8,7 @@
 "use strict";
 
 const { Transform } = require('stream');
-const { dot, evaluate, hasOwnProperty } = require("../utils");
+const { dot, evaluate } = require("../utils");
 
 // order of operations:
 //   default
@@ -85,7 +85,7 @@ module.exports = exports = class MutateTransform extends Transform {
 
     // mutation functions
     this.mutations = {};
-    if (hasOwnProperty(options, 'assign')) {
+    if (Object.hasOwn(options, 'assign')) {
       for (let [ name, body ] of Object.entries(options.assign)) {
         this.mutations[ name ] = new Function('construct', body);
       }
@@ -110,7 +110,7 @@ module.exports = exports = class MutateTransform extends Transform {
     // select
     if (this.options.select) {
       for (let name of this.options.select)
-        if (hasOwnProperty(construct, name))
+        if (Object.hasOwn(construct, name))
           dot.set(name, newConstruct, dot.get(name, construct));
     }
     // map

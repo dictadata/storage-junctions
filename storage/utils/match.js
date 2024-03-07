@@ -89,7 +89,7 @@ module.exports = exports =
       let rx = makeRegExp(criteria); // could be null
 
       let exists = typeOf(value) !== "undefined";
-      //let exists = hasOwnProperty(construct,name);
+      //let exists = Object.hasOwn(construct,name);
 
       if (Array.isArray(criteria)) {
         matched = exists && criteria.includes(value);

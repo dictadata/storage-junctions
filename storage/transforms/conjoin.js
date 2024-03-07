@@ -5,7 +5,7 @@
 
 const Storage = require("../storage");
 const { Transform } = require('stream');
-const { logger, templateReplace } = require("../utils");
+const { logger, replace } = require("../utils");
 
 /*
   // example conjoin transform
@@ -68,12 +68,12 @@ module.exports = exports = class ConjoinTransform extends Transform {
 
     try {
       // do the template replacements
-      let options = templateReplace(this.options.options, construct);
-      let pattern = templateReplace(this.options.pattern, construct);
+      let options = replace(this.options.options, construct);
+      let pattern = replace(this.options.pattern, construct);
 
       if (!this.junction) {
         logger.debug("conjoin activate junction");
-        let smt = templateReplace(this.options.smt, construct);
+        let smt = replace(this.options.smt, construct);
         logger.debug(JSON.stringify(smt, null, 2));
         this.junction = await Storage.activate(smt, options);
       }

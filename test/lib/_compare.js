@@ -8,7 +8,7 @@ const { logger, isDate } = require('../../storage/utils');
 const fs = require('fs');
 const path = require('path');
 const { unzipSync } = require('zlib');
-const { typeOf, hasOwnProperty } = require("../../storage/utils");
+const { typeOf } = require("../../storage/utils");
 
 function compareText(expected, output, compareValues) {
 
@@ -109,7 +109,7 @@ function compareJSON(var1, var2, compareValues) {
     }
 
     for (let key of keys1) {
-      if (!hasOwnProperty(var2, key)) {
+      if (!Object.hasOwn(var2, key)) {
         logger.error("compare object2 does not contain property: " + key);
         return 1;
       }
