@@ -11,11 +11,11 @@ GZip compression is handled seemlessly based on filename extension .gz.
 
 | model        | list  | read  | write | scan  | upload | download |
 | ------------ | :---: | :---: | :---: | :---: | :---:  |   :---:  |
-| [local](fs-filesystem.md)        |  yes  |  yes  |  yes  |  yes  |   -    |     -    |
-| [FTP](ftp-filesystem.md)          |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
-| [HTTP](http-filesystem.md)         |  yes  |  yes  |  \*no |  yes  |  yes   |   \*no   |
-| [AWS S3](s3-filesystem.md)       |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
-| [ZIP file](zip-filesystem.md)     |  yes  |  yes  |  no   |  yes  |  no    |    yes   |
+| [file](fs-filesystem.md)        |  yes  |  yes  |  yes  |  yes  |   -    |     -    |
+| [ftp](ftp-filesystem.md)          |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
+| [http](http-filesystem.md)         |  yes  |  yes  |  \*no |  yes  |  yes   |   \*no   |
+| [s3](s3-filesystem.md)       |  yes  |  yes  |  yes  |  yes  |  yes   |    yes   |
+| [zip](zip-filesystem.md)     |  yes  |  yes  |  no   |  yes  |  no    |    yes   |
 | \*scp        |   -   |   -   |   -   |   -   |   -    |     -    |
 | \*Azure ADLS |   -   |   -   |   -   |   -   |   -    |     -    |
 | \*Google CS  |   -   |   -   |   -   |   -   |   -    |     -    |

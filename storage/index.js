@@ -80,6 +80,7 @@ Storage.Junctions.use('rest', RESTJunction);
 
 var ShapeFileJunction = require("./junctions/shapefile");
 exports.ShapeFileJunction = ShapeFileJunction;
+Storage.Junctions.use('shapefile', ShapeFileJunction);
 Storage.Junctions.use('shp', ShapeFileJunction);
 
 var TemplateJunction = require("./junctions/template");

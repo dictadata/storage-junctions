@@ -4,9 +4,13 @@
 
 ### smt
 
+### options
+
 ### engram
 
 ## Methods
+
+### constructor(smt, options)
 
 ### getEngram()
 
@@ -22,6 +26,6 @@
 
 ### createWriter(options)
 
-### createTransform(tfType, options)
+### createTransform(name, options)
 
 ### getFileSystem()
