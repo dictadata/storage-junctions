@@ -115,11 +115,11 @@ module.exports = exports = class StorageEncoder {
           srcType = "double";
           break;
         case "keyword":
-          mssqlType = "varchar(" + (field.size > 0 ? field.size : stringBreakpoints.keyword) + ")";
+          srcType = "varchar(" + (field.size > 0 ? field.size : stringBreakpoints.keyword) + ")";
           break;
         case "string":
         case "text":
-          mssqlType = "varchar(" + (field.size > 0 ? field.size : stringBreakpoints.text) + ")";
+          srcType = "varchar(" + (field.size > 0 ? field.size : stringBreakpoints.text) + ")";
           break;
         case "date":
           srcType = "datetime";

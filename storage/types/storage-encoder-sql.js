@@ -5,7 +5,7 @@
  */
 "use strict";
 
-const encoder = require('./template-encoder');
+const encoder = require('./storage-encoder');
 const { StorageError } = require('.');
 const { typeOf, isDate, parseDate, logger } = require('../utils');
 
@@ -45,7 +45,7 @@ module.exports = exports = class StorageEncoderSQL {
   }
 
   decodeResults(engram, columns) {
-    logger.debug("mssql decodeResults");
+    logger.debug("decodeResults");
     if (typeOf(columns) !== "object") return {};
 
     let construct = {};
@@ -120,7 +120,7 @@ WHERE si.object_id = OBJECT_ID('${tblname}')`;
     for (let field of engram.fields) {
       (first) ? first = false : sql += ",";
       sql += " " + this.escapeId(field.name);
-      sql += " " + encoder.mssqlType(field);
+      sql += " " + encoder.srcType(field);
 
       if (field.isKey) {
         primaryKeys[ field.key - 1 ] = this.escapeId(field.name);

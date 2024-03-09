@@ -132,12 +132,6 @@ async function forecastTransform(tract) {
 
   if (await testDBTransform1({
     terminal: {
-      smt: "mssql|server=dev.dictadata.net;database=storage_node|foo_dbtransform|=foo"
-    }
-  })) return;
-
-  if (await testDBTransform1({
-    terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_dbtransform|=foo"
     }
   })) return;
@@ -151,12 +145,6 @@ async function forecastTransform(tract) {
     }
   })) return;
 /*
-  if (await forecastTransform({
-    terminal: {
-      smt: "mssql|server=dev.dictadata.net;database=storage_node|weather_forecast|*"
-    }
-  })) return;
-
   if (await forecastTransform({
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|weather_forecast|*"

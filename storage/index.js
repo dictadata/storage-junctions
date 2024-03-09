@@ -66,10 +66,6 @@ exports.ElasticsearchJunction = ElasticsearchJunction;
 Storage.Junctions.use('elastic', ElasticsearchJunction);
 Storage.Junctions.use('elasticsearch', ElasticsearchJunction);
 
-var MSSQLJunction = require("./junctions/mssql");
-exports.MSSQLJunction = MSSQLJunction;
-Storage.Junctions.use('mssql', MSSQLJunction);
-
 var MySQLJunction = require("./junctions/mysql");
 exports.MySQLJunction = MySQLJunction;
 Storage.Junctions.use('mysql', MySQLJunction);

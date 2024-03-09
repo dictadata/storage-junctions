@@ -44,7 +44,7 @@ const StorageError = require("./storage-error");
  *   ordinal = 0;     // {Integer} ordinal position in datastore structure
  *
  * Datastore specific properties
- *   _<model>      // {Object} _elasticsearch, _mssql, _mysql, ...
+ *   _<model>      // {Object} _elasticsearch, _mysql, ...
  *
  * Display properties
  *   label = "";   // {String} display name
