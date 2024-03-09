@@ -13,7 +13,7 @@ const { dot, evaluate } = require("../utils");
 // order of operations:
 //   default
 //   select | map | (all fields)
-//   assign
+//   assign function
 //   override
 //   remove
 
@@ -124,7 +124,7 @@ module.exports = exports = class MutateTransform extends Transform {
       Object.assign(newConstruct, construct);
     }
 
-    // assign values
+    // assign values with function
     if (this.options.assign) {
       for (let name of Object.keys(this.options.assign)) {
         dot.set(name, newConstruct, this.mutations[ name ](newConstruct));
