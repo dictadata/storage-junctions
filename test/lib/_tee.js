@@ -8,9 +8,10 @@ const _init = require("./_init");
 const { Storage } = require("../../storage");
 const { typeOf } = require("../../storage/utils");
 const { logger } = require('../../storage/utils');
+const _compare = require("./_compare");
 
-const fs = require('fs');
-const { finished } = require('stream/promises');
+const fs = require('node:fs');
+const { finished } = require('node:stream/promises');
 
 /**
  * tee function
@@ -19,9 +20,10 @@ module.exports = exports = async function (tract) {
   let retCode = 0;
 
   var jo;
-  var jtlist = [];
+  var jts= [];
   try {
     let reader = null;
+    let transforms = [];
     let writers = [];
 
     logger.info(">>> create origin junction");
@@ -41,55 +43,60 @@ module.exports = exports = async function (tract) {
       encoding = results.data;
     }
 
-    logger.info(">>> create origin pipeline");
+    logger.info(">>> create reader");
     reader = jo.createReader({ pattern: tract.origin.pattern });
     reader.on('error', (error) => {
       logger.error("_tee reader: " + error.message);
     });
 
+    logger.info(">>> create transforms");
     for (let transform of origin_transforms)
-      reader = reader.pipe(await jo.createTransform(transform.transform, transform));
+      transforms.push(await jo.createTransform(transform.transform, transform));
 
-    logger.info(">>> create terminal branches");
-    if (!Array.isArray(tract.terminal))
+    if (!Array.isArray(tract.terminals))
       throw new Error("tract.terminal not an Array");
 
-    for (const branch of tract.terminal) {
-      const transforms = branch.transforms || [];
+    for (const terminal of tract.terminals) {
 
-      logger.info(">>> create branch junction");
-      if (typeof branch.terminal?.options?.encoding === "string") {
+      logger.info(">>> create terminal junction");
+      if (typeof terminal?.options?.encoding === "string") {
         // read encoding from file
-        let filename = branch.terminal.options.encoding;
-        branch.terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
+        let filename = terminal.options.encoding;
+        terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
       }
-      let jt = await Storage.activate(branch.terminal.smt, branch.terminal.options);
+      let jt = await Storage.activate(terminal.smt, terminal.options);
       if (jt.capabilities.encoding)
         await jt.createSchema();
 
-      jtlist.push(jt);  // save reference to branch junctions
+      jts.push(jt);  // save reference to terminal junctions
 
-      logger.info(">>> create branch pipeline");
-      let writer = null;
-      // add transforms
-      for (let transform of transforms) {
-        let t = await jt.createTransform(transform.transform, transform);
-        writer = (writer) ? writer.pipe(t) : reader.pipe(t);
-      }
       // add terminal
-      let w = jt.createWriter();
-      w.on('error', (error) => {
+      let writer = jt.createWriter();
+      writer.on('error', (error) => {
         logger.error("_tee writer: " + error.message);
       });
-
-      writer = (writer) ? writer.pipe(w) : reader.pipe(w);
       writers.push(writer);
     }
 
-    logger.info(">>> wait on pipelines");
+    logger.info(">>> start pipelines");
+    let pipe = reader;
+    for (let transform of transforms)
+      pipe = pipe.pipe(transform);
+    for (let writer of writers)
+      pipe.pipe(writer)
+
     await finished(reader);
     for (let writer of writers)
       await finished(writer);
+
+    /// check results
+    for (const terminal of tract.terminals) {
+      if (terminal?.output) {
+        logger.info("<<< compare results " + terminal.output);
+        let expected_output = terminal.output.replace("output", "expected");
+        retCode = _compare(expected_output, terminal.output, 2);
+      }
+    }
 
     logger.info(">>> completed");
   }
@@ -100,7 +107,7 @@ module.exports = exports = async function (tract) {
   finally {
     if (jo)
       await jo.relax();
-    for (let j of jtlist)
+    for (let j of jts)
       await j.relax();
   }
 

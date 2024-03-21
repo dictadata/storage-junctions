@@ -26,33 +26,25 @@ async function tests() {
         }
       }
     ],
-    terminal: [
+    terminals: [
       {
-        terminal: {
-          smt: "json|./test/data/output/pipelines/|tee_1.json|*",
-          options: {
-            encoding: "./test/data/input/engrams/foo_schema.engram.json"
-          },
-          output: "./test/data/output/pipelines/tee_1.json"
+        smt: "json|./test/data/output/pipelines/|tee_1.json|*",
+        options: {
+          encoding: "./test/data/input/engrams/foo_schema.engram.json"
         },
-        transforms: []
+        output: "./test/data/output/pipelines/tee_1.json"
+
       },
       {
-        terminal: {
-          smt: "json|./test/data/output/pipelines/|tee_2.json|*",
-          options: {
-            encoding: "./test/data/input/engrams/foo_transform.engram.json"
-          },
-          output: "./test/data/output/pipelines/tee_2.json"
+        smt: "json|./test/data/output/pipelines/|tee_2.json|*",
+        options: {
+          encoding: "./test/data/input/engrams/foo_transform.engram.json"
         },
-        transforms: [
-          {
-            transform: "mutate",
-            select: [ "Dt Test", "Foo", "Baz" ]
-          }
-        ]
+        output: "./test/data/output/pipelines/tee_2.json"
       }
     ]
+
+
   })) return 1;
 }
 
