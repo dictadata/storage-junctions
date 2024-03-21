@@ -8,7 +8,7 @@ const Encoder = require("./storage-encoder");
 const Reader = require("./storage-reader");
 const Writer = require("./storage-writer");
 
-const stream = require('stream');
+const stream = require('node:stream');
 const { threadId } = require('worker_threads');
 
 module.exports = exports = class StorageJunction {
@@ -251,9 +251,9 @@ module.exports = exports = class StorageJunction {
 
   // should not need to be overriden, generic transform of JSON objects
   async createTransform(tfType, options) {
-    // options = Object.assign({}, this.options, options);
+    let opts = Object.assign({}, this.options, options);
     // let transform_options = options.transform || options.transforms || options || {};
-    let transform = await Transforms.activate(tfType, options);
+    let transform = await Transforms.activate(tfType, opts);
     return transform;
   }
 

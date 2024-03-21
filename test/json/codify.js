@@ -12,6 +12,7 @@ async function tests() {
 
   logger.info("=== codify foofile.engram.json");
   if (await codify({
+    name: "foofile",
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
