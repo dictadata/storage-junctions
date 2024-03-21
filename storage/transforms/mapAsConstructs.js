@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 
 /**
  * Transforms map (object map) data to construct objects.
@@ -42,7 +42,14 @@ module.exports = exports = class MapConstructsTransform extends Transform {
     callback();
   }
 
-  _flush(callback) {
-    callback();
-  }
+  /*
+    _flush(callback) {
+      logger.debug("transform _flush");
+
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
+  */
 };

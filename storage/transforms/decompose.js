@@ -4,7 +4,7 @@
  * Decompose (flatten) a hierarchical object into a stream of flattened (row) objects.
  */
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { typeOf, logger } = require("../utils");
 
 // example decompose transform
@@ -38,9 +38,9 @@ module.exports = exports = class DecomposeTransform extends Transform {
 
     if (level < this.options.path.length) {
       // flatten this level
-      let fname = this.options.path[level];
-      for (let [name, value] of Object.entries(data)) {
-        row[fname] = name;
+      let fname = this.options.path[ level ];
+      for (let [ name, value ] of Object.entries(data)) {
+        row[ fname ] = name;
         if (typeOf(value) == "object") {
           let rRow = Object.assign({}, row);
           this.decompose(level + 1, rRow, value, cb);
@@ -75,14 +75,14 @@ module.exports = exports = class DecomposeTransform extends Transform {
     }
   }
 
-  /* optional */
   /*
-  _flush(callback) {
+    _flush(callback) {
+      logger.debug("transform _flush");
 
-    // push some final object(s)
-    this.push({results: 'x'})
-    callback();
-  }
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
   */
-
 };

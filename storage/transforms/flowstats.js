@@ -8,7 +8,7 @@
 // Calculate summary statistics from a stream of constructs.
 // It is up to the application to provide a representative sample of constructs as input.
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { Field, Engram } = require('../types');
 const { logger } = require('../utils');
 
@@ -33,9 +33,10 @@ module.exports = exports = class FlowStatsTransform extends Transform {
 
     // engram for storing encoding
     this.engram = new Engram('*|*|*|*');
-
-    if (this.options.encoding)
-      this.engram.mergeFields(this.options.encoding);
+    this.engram.name = options.name || options.encoding?.name || "codify";
+    if (this.options.encoding) {
+      this.engram.encoding = options.encoding;
+    }
 
     if (!this.options.statistics) {
       this.options.statistics = {
@@ -55,19 +56,6 @@ module.exports = exports = class FlowStatsTransform extends Transform {
   get encoding() {
     try {
       return this.engram.encoding;
-    }
-    catch (err) {
-      logger.warn(err);
-      throw err;
-    }
-  }
-
-  /**
-   *  Put an existing encoding.  Call before pipeline is started to initialize the encoding.
-   */
-  set encoding(encoding) {
-    try {
-      this.engram.encoding = encoding;
     }
     catch (err) {
       logger.warn(err);
@@ -101,10 +89,11 @@ module.exports = exports = class FlowStatsTransform extends Transform {
     callback();
   }
 
-  _final(callback) {
-    logger.debug("flowstats _final");
+  _flush(callback) {
+    logger.debug("flowstats _flush");
 
     this.push(this.engram.fields);
+
     callback();
   }
 

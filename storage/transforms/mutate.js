@@ -7,7 +7,7 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { dot, evaluate } = require("../utils");
 
 // order of operations:
@@ -148,13 +148,14 @@ module.exports = exports = class MutateTransform extends Transform {
     callback();
   }
 
-  /* optional */
   /*
-  _flush(callback) {
-    // push some final object(s)
-    this.push({results: 'x'})
-    callback();
-  }
-  */
+    _flush(callback) {
+      logger.debug("transform _flush");
 
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
+  */
 };

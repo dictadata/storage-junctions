@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { match } = require("../utils");
 
 // example filter transform
@@ -67,14 +67,14 @@ module.exports = exports = class FilterTransform extends Transform {
     callback();
   }
 
-  /* optional */
   /*
-  _flush(callback) {
+    _flush(callback) {
+      logger.debug("transform _flush");
 
-    // push some final object(s)
-    this.push({results: 'x'})
-    callback();
-  }
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
   */
-
 };

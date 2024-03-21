@@ -6,7 +6,7 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { logger } = require('../utils');
 
 module.exports = exports = class CounterTransform extends Transform {
@@ -58,10 +58,14 @@ module.exports = exports = class CounterTransform extends Transform {
     callback();
   }
 
-/*
-  _final(callback) {
-    logger.debug("counter _final");
-    callback();
-  }
-*/
+  /*
+    _flush(callback) {
+      logger.debug("counter _flush");
+
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
+  */
 };

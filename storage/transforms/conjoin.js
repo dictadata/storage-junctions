@@ -4,7 +4,7 @@
 "use strict";
 
 const Storage = require("../storage");
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { logger, replace } = require("../utils");
 
 /*
@@ -110,9 +110,14 @@ module.exports = exports = class ConjoinTransform extends Transform {
     callback();
   }
 
-  /* optional */
-  _flush(callback) {
-    callback();
-  }
+  /*
+    _flush(callback) {
+      logger.debug("transform _flush");
 
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
+  */
 };

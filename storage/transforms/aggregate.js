@@ -1,6 +1,6 @@
 "use strict";
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { typeOf, logger } = require("../utils");
 
 /*
@@ -142,7 +142,6 @@ module.exports = exports = class AggregateTransform extends Transform {
     }
   }
 
-  /* optional */
   _flush(callback) {
     // output summary and groupby summaries
     let summary = {};

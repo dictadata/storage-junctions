@@ -4,7 +4,7 @@
  * Build a hierarchical object from a stream of flat (row) objects.
  */
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { logger } = require("../utils");
 
 // example compose transform
@@ -79,12 +79,4 @@ module.exports = exports = class ComposeTransform extends Transform {
     callback();
   }
 
-  async _final(callback) {
-    logger.debug("compose _final");
-
-    // push some final object(s)
-    //this.push(this._composition);
-
-    callback();
-  }
 };

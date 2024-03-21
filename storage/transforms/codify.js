@@ -7,7 +7,7 @@
 // Usage: Pipe a stream of constructs to codifyTransform then read the stream output or get encoding property.
 // It is up to the application to provide a representative sample of constructs as input.
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 const { Field, Engram, storageType } = require('../types');
 const { logger } = require("../utils");
 
@@ -32,9 +32,10 @@ module.exports = exports = class CodifyTransform extends Transform {
 
     // engram for storing encoding
     this.engram = new Engram('*|*|*|*');
-
-    if (this.options.encoding)
-      this.engram.mergeFields(this.options.encoding);
+    this.engram.name = options.name || options.encoding?.name || "codify";
+    if (this.options.encoding) {
+      this.engram.encoding = options.encoding;
+    }
   }
 
   /**
@@ -46,19 +47,6 @@ module.exports = exports = class CodifyTransform extends Transform {
         return this.flatten();
       else
         return this.engram.encoding;
-    }
-    catch (err) {
-      logger.warn(err);
-      throw err;
-    }
-  }
-
-  /**
-   *  Put an existing encoding.  Call before pipeline is started to initialize the encoding.
-   */
-  set encoding(encoding) {
-    try {
-      this.engram.encoding = encoding;
     }
     catch (err) {
       logger.warn(err);
@@ -88,14 +76,14 @@ module.exports = exports = class CodifyTransform extends Transform {
     callback();
   }
 
-  _final(callback) {
-    logger.debug("codify _final");
+  _flush(callback) {
+    logger.debug("codify _flush");
 
     // check if any fields are still undefined, i.e. all nulls; default to text
     let default_type = this.options.default_type || "text";
     this.checkDefaults(this.engram.fields, default_type);
 
-    this.push(this.engram.fields);
+    this.push(this.engram.encoding);
     callback();
   }
 

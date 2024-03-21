@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 
 /**
  * Transforms row (array) data to construct object.
@@ -48,7 +48,14 @@ module.exports = exports = class RowConstructsTransform extends Transform {
     callback();
   }
 
-  _flush(callback) {
-    callback();
-  }
+  /*
+    _flush(callback) {
+      logger.debug("transform _flush");
+
+      // push some final object(s)
+      //this.push(this._composition);
+
+      callback();
+    }
+  */
 };

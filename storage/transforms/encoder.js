@@ -9,7 +9,7 @@ const { Junctions } = require("../storage");
 const { StorageError } = require("../types");
 const { logger } = require("../utils");
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 
 // example encoder transform
 /*
@@ -74,12 +74,4 @@ module.exports = exports = class EncoderTransform extends Transform {
     callback();
   }
 
-  async _final(callback) {
-    logger.debug("encoder _final");
-
-    // push some final object(s)
-    //this.push(this._composition);
-
-    callback();
-  }
 };
