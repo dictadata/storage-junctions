@@ -9,7 +9,7 @@ const MemoryReader = require("./memory-reader");
 const MemoryWriter = require("./memory-writer");
 //const encoder = require('./memory-encoder');
 
-const stream = require('stream/promises');
+const stream = require('node:stream/promises');
 
 var _storage = new Map();
 
@@ -64,7 +64,7 @@ class MemoryJunction extends StorageJunction {
   async list(options) {
     logger.debug('MemoryJunction list');
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema || options?.name || this.smt.schema;
+    let schema = options?.schema ||  this.smt.schema;
     let list = [];
 
     try {
@@ -143,7 +143,7 @@ class MemoryJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('MemoryJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema || options?.name || this.smt.schema;
+    let schema = options?.schema ||  this.smt.schema;
 
     try {
       let entry = _storage.get(this.smt.locus + schema);

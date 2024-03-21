@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 
 // valid joins
 console.log(path.resolve(path.join("/var/dictadata/test", "foofile.json")));

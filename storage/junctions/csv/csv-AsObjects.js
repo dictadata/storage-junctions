@@ -8,7 +8,7 @@
  */
 'use strict';
 
-const { Transform } = require('stream');
+const { Transform } = require('node:stream');
 
 const withParser = require('stream-json/utils/withParser');
 

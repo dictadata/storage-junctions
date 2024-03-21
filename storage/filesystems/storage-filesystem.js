@@ -6,7 +6,7 @@
 const { SMT, StorageError } = require("../types");
 const { logger } = require("../utils");
 
-const path = require('path');
+const path = require('node:path');
 
 class StorageFileSystem {
 
@@ -95,7 +95,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema || options?.name || this.smt.schema;
+    //let schema = options?.schema ||  this.smt.schema;
     //let list = [];
 
     // implement directory list in overrides
@@ -116,7 +116,7 @@ class StorageFileSystem {
     logger.debug("StorageFileSystem exists");
 
     try {
-      const name = options?.schema || options?.name || this.smt.schema;
+      const name = options?.schema ||  this.smt.schema;
 
       const response = await this.list(options);
       const list = response.data;
@@ -157,7 +157,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema || options?.name || this.smt.schema;
+    //let schema = options?.schema ||  this.smt.schema;
     //let rs = null;
 
     // implement readstream creation in overrides
@@ -177,7 +177,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema || options?.name || this.smt.schema;
+    //let schema = options?.schema ||  this.smt.schema;
     //let ws = false;
 
     // implement writestream creation in overrides
@@ -199,7 +199,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema || options?.name || this.smt.schema;
+    //let schema = options?.schema ||  this.smt.schema;
     //let result = false;
 
     //return new StorageResults(0);
@@ -218,7 +218,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema || options?.name || this.smt.schema;
+    //let schema = options?.schema ||  this.smt.schema;
     //let result = false;
 
     //return new StorageResults(0);

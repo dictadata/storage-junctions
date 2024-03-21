@@ -8,7 +8,7 @@ const _init = require("./_init");
 const _output = require("./_output");
 const { Storage } = require("../../storage");
 const { logger } = require('../../storage/utils');
-const stream = require('stream').promises;
+const stream = require('node:stream').promises;
 
 module.exports = exports = async function (tract, compareValues = 2) {
   logger.verbose(">>> create junction");

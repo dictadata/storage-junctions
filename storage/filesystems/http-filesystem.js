@@ -8,15 +8,15 @@ const { SMT, StorageResults, StorageError } = require("../types");
 const { logger, httpRequest, htmlParseDir } = require("../utils");
 const auth = require("../authentication");
 
-const fs = require('fs');
-const path = require('path');
-const zlib = require('zlib');
+const fs = require('node:fs');
+const path = require('node:path');
+const zlib = require('node:zlib');
 
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
 const storageError = require("../types/storage-error");
 //const { runInThisContext } = require("vm");
-//const { URLSearchParams } = require("url");
+//const { URLSearchParams } = require("node:url");
 
 module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
@@ -55,7 +55,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let pathname = this.url.pathname || "/";
       let list = [];
 
@@ -170,7 +170,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug('http-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema || options?.name || this.smt.schema;
+    let schema = options?.schema ||  this.smt.schema;
 
     throw new StorageError(501);
 
@@ -189,7 +189,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let filename = schema;
       let rs = null;
 
@@ -241,7 +241,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // implement writestream creation in overrides
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema || options?.name || this.smt.schema;
+    //let schema = options?.schema ||  this.smt.schema;
     //let ws = false;
 
     //this.isNewFile = true | false

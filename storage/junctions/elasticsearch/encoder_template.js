@@ -1,7 +1,7 @@
 "use strict";
 
 const Elastic = require("./query_elastic");
-const fs = require('fs');
+const fs = require('node:fs');
 const { logger } = require("../../utils");
 
 module.exports = exports = class ElasticTemplate {

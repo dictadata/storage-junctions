@@ -8,11 +8,11 @@ const FSFileSystem = require("./fs-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
 const { logger } = require("../utils");
 
-const fs = require('fs');
-const fsp = require('fs/promises');
-const path = require('path');
-const url = require('url');
-const zlib = require('zlib');
+const fs = require('node:fs');
+const fsp = require('node:fs/promises');
+const path = require('node:path');
+const url = require('node:url');
+const zlib = require('node:zlib');
 
 const StreamZip = require('node-stream-zip');
 
@@ -87,7 +87,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
         throw new StorageError(404);
 
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       var list = [];
 
       let filespec = this.prefix + (schema || '*');
@@ -151,7 +151,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug('zip-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema || options?.name || this.smt.schema;
+    let schema = options?.schema ||  this.smt.schema;
 
     throw new StorageError(501);
 
@@ -173,7 +173,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       if (!this.zipexists)
         throw new StorageError(404);
 
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let rs = null;
 
       let filename = (this.prefix ?? '') + schema;
@@ -212,7 +212,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);

@@ -9,7 +9,7 @@
 const { StorageReader } = require('../storage-junction');
 const { logger } = require('../../utils');
 
-const path = require('path');
+const path = require('node:path');
 
 
 module.exports = exports = class ParquetReader extends StorageReader {

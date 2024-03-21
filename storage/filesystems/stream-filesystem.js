@@ -9,7 +9,7 @@ const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageError } = require("../types");
 const { logger } = require("../utils");
 
-const path = require('path');
+const path = require('node:path');
 
 module.exports = exports = class StreamFileSystem extends StorageFileSystem {
 

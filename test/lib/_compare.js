@@ -5,9 +5,9 @@
 
 const { logger, isDate } = require('../../storage/utils');
 
-const fs = require('fs');
-const path = require('path');
-const { unzipSync } = require('zlib');
+const fs = require('node:fs');
+const path = require('node:path');
+const { unzipSync } = require('node:zlib');
 const { typeOf } = require("../../storage/utils");
 
 function compareText(expected, output, compareValues) {

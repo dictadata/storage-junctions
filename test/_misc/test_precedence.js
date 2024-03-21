@@ -7,7 +7,7 @@ var smt = {
   schema: "smtSchema"
 }
 
-let filename = (prefix || '') + (options?.name || options?.schema || smt.schema);
+let filename = (prefix || '') + ( options?.schema || smt.schema);
 
 console.log(filename)
 console.log(prefix ?? '' + options.name)

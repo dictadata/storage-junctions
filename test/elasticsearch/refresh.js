@@ -6,7 +6,7 @@
 const { Storage } = require("../../storage");
 const compare = require("../lib/_compare");
 const { logger } = require('../../storage/utils');
-const fs = require('fs');
+const fs = require('node:fs');
 
 logger.info("=== Tests: elasticsearch");
 

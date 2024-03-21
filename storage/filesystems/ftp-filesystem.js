@@ -8,11 +8,11 @@ const { SMT, StorageResults, StorageError } = require("../types");
 const { logger } = require("../utils");
 const auth = require("../authentication");
 
-const fs = require('fs');
-const fsp = require('fs/promises');
-const path = require('path');
-const stream = require('stream');
-const zlib = require('zlib');
+const fs = require('node:fs');
+const fsp = require('node:fs/promises');
+const path = require('node:path');
+const stream = require('node:stream');
+const zlib = require('node:zlib');
 const ftp = require("basic-ftp");
 
 
@@ -85,7 +85,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let list = [];
 
       let wdPath = decodeURI(this.url.pathname);
@@ -153,7 +153,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let filename = schema;
 
       await this._client.cd(decodeURI(this.url.pathname));
@@ -178,7 +178,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
 
       // ftp writes to passthrough and app reads from passthrough
       let rs = new stream.PassThrough();
@@ -216,7 +216,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
 
       // create the read stream
       await this._client.ensureDir(decodeURI(this.url.pathname));

@@ -12,8 +12,8 @@ const { logger } = require('../../utils');
 const encoder = require("./elasticsearch-encoder");
 const dslEncoder = require("./elasticsearch-encoder-dsl");
 const ElasticQuery = require("./elasticsearch-query");
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 
 class ElasticsearchJunction extends StorageJunction {
@@ -101,7 +101,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let list = [];
 
       // get Lucene catalog list of indexes
@@ -207,7 +207,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
 
       let response = await this.elasticQuery.deleteIndex(schema);
 

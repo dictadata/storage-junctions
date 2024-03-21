@@ -7,11 +7,11 @@ const StorageFileSystem = require("./storage-filesystem");
 const { SMT, StorageResults, StorageError } = require("../types");
 const { logger } = require("../utils");
 
-const fs = require('fs');
-const fsp = require('fs/promises');
-const path = require('path');
-const url = require('url');
-const zlib = require('zlib');
+const fs = require('node:fs');
+const fsp = require('node:fs/promises');
+const path = require('node:path');
+const url = require('node:url');
+const zlib = require('node:zlib');
 
 module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
@@ -44,7 +44,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       var list = [];
 
       let dirpath = url.fileURLToPath(this.url);
@@ -117,7 +117,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
       await fsp.unlink(filename);
@@ -141,7 +141,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let rs = null;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
@@ -174,7 +174,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);

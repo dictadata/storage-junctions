@@ -8,7 +8,7 @@ const RESTReader = require("./rest-reader");
 const RESTWriter = require("./rest-writer");
 const RESTEncoder = require('./rest-encoder');
 
-const stream = require('stream/promises');
+const stream = require('node:stream/promises');
 
 class RESTJunction extends StorageJunction {
 
@@ -93,7 +93,7 @@ class RESTJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('RESTJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema || options?.name || this.smt.schema;
+    let schema = options?.schema ||  this.smt.schema;
 
     // junctions that don't use filesystems should override the dullSchema() method
     throw new StorageError(501);

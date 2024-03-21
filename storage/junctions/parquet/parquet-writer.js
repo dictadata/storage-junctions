@@ -4,7 +4,7 @@ const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
 const { logger } = require('../../utils');
 
-const path = require('path');
+const path = require('node:path');
 
 
 module.exports = exports = class ParquetWriter extends StorageWriter {

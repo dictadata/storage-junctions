@@ -1,10 +1,10 @@
 // storage/utils/httpRequest
 "use strict";
 
-const http = require('http');
-const https = require('https');
-const http2 = require('http2');
-const zlib = require('zlib');
+const http = require('node:http');
+const https = require('node:https');
+const http2 = require('node:http2');
+const zlib = require('node:zlib');
 const logger = require('./logger');
 
 /**

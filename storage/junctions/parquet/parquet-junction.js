@@ -10,8 +10,8 @@ const { logger } = require('../../utils');
 const ParquetReader = require("./parquet-reader");
 const ParquetWriter = require("./parquet-writer");
 
-const path = require('path');
-const stream = require('stream/promises');
+const path = require('node:path');
+const stream = require('node:stream/promises');
 
 
 class ParquetJunction extends StorageJunction {

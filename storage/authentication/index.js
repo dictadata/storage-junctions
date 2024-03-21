@@ -3,7 +3,7 @@
  */
 "use strict";
 const { logger } = require("../utils");
-const fs = require('fs');
+const fs = require('node:fs');
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
 
 var _credentials = new Map();

@@ -9,8 +9,8 @@ const _output = require("./_output");
 const { Storage } = require("../../storage");
 const { typeOf } = require("../../storage/utils");
 const { logger } = require('../../storage/utils');
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 module.exports = exports = async function (tract, compareValues = 2) {
   logger.info(">>> create junction");

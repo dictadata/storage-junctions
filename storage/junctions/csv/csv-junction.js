@@ -9,8 +9,8 @@ const { logger } = require("../../utils");
 const CSVReader = require("./csv-reader");
 const CSVWriter = require("./csv-writer");
 
-const path = require('path');
-const stream = require('stream/promises');
+const path = require('node:path');
+const stream = require('node:stream/promises');
 
 
 class CSVJunction extends StorageJunction {

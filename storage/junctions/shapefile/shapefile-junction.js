@@ -10,7 +10,7 @@ const { logger } = require("../../utils");
 const ShapeFileReader = require("./shapefile-reader");
 const ShapeFileWriter = require("./shapefile-writer");
 
-const stream = require('stream/promises');
+const stream = require('node:stream/promises');
 const shapefile = require('shapefile');
 
 class ShapeFileJunction extends StorageJunction {

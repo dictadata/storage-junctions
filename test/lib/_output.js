@@ -5,8 +5,8 @@
 
 const _compare = require("./_compare");
 const { logger } = require('../../storage/utils');
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 module.exports = exports = function (filename, data, compareValues = 1) {
   let retCode = 0;

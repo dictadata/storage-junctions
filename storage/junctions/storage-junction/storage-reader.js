@@ -1,6 +1,6 @@
 "use strict";
 
-const { Readable } = require('stream');
+const { Readable } = require('node:stream');
 const { StorageError } = require("../../types");
 const { logger } = require("../../utils");
 

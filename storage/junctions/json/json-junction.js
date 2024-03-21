@@ -9,8 +9,8 @@ const { logger } = require("../../utils");
 const JSONReader = require("./json-reader");
 const JSONWriter = require("./json-writer");
 
-const path = require('path');
-const stream = require('stream/promises');
+const path = require('node:path');
+const stream = require('node:stream/promises');
 
 
 class JSONJunction extends StorageJunction {

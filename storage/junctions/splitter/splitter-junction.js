@@ -11,8 +11,8 @@ const { logger } = require("../../utils");
 
 const SplitterWriter = require("./splitter-writer");
 
-const fs = require("fs");
-const stream = require('stream/promises');
+const fs = require("node:fs");
+const stream = require('node:stream/promises');
 
 class SplitterJunction extends StorageJunction {
 
