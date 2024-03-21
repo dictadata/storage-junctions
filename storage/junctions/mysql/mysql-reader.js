@@ -33,7 +33,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
       callback();
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLReader: " + (err.code || err.message));
       callback(this.stfs?.Error(err) || new Error('MySQLReader construct error'));
     }
   }
@@ -57,7 +57,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
       this.push(null);
     }
     catch (err) {
-      logger.warn("MySQLReader: " + err.message);
+      logger.warn("MySQLReader: " + (err.code || err.message));
       this.destroy(err);
     }
 

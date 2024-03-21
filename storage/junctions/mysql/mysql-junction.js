@@ -71,7 +71,7 @@ class MySQLJunction extends StorageJunction {
       }
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
     }
 
   }
@@ -92,7 +92,7 @@ class MySQLJunction extends StorageJunction {
       await this.pool.end();
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
     }
   }
 
@@ -109,7 +109,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || options?.name || this.smt.schema;
+      let schema = options?.schema ||  this.smt.schema;
       let list = [];
 
       let rx = '^' + schema + '$';
@@ -131,7 +131,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -164,7 +164,7 @@ class MySQLJunction extends StorageJunction {
       if (err.errno === 1146)  // ER_NO_SUCH_TABLE
         return new StorageResults(404, 'no such table');
 
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -200,7 +200,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults(0);
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -213,7 +213,7 @@ class MySQLJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('MySQLJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema || options?.name || this.smt.schema;
+    let schema = options?.schema ||  this.smt.schema;
 
     try {
       let sql = "DROP TABLE " + schema + ";";
@@ -224,7 +224,7 @@ class MySQLJunction extends StorageJunction {
       if (err.errno === 1051)  // ER_BAD_TABLE_ERROR
         return new StorageResults(404, 'no such table');
 
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -258,7 +258,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(409, 'duplicate entry');
       }
 
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -292,7 +292,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(409, 'duplicate entry');
       }
 
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -325,7 +325,7 @@ class MySQLJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -356,7 +356,7 @@ class MySQLJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
@@ -392,7 +392,7 @@ class MySQLJunction extends StorageJunction {
       return new StorageResults("message", null, { deleted: results.affectedRows });
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn("MySQLJunction: " + (err.code || err.message));
       throw this.Error(err);
     }
   }
