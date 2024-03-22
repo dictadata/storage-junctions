@@ -369,22 +369,20 @@ class ElasticsearchJunction extends StorageJunction {
       const match = pattern?.match || pattern || {};
       let response;
 
-      let key;
-      if (this.isKeyStore) {
-        // delete by _id
-        key = (match.key) || this.engram.get_uid(match) || null;
-        if (!key)
-          throw new StorageError(400, "no storage key specified");
+      let key = this.isKeyStore ? (match.key) || this.engram.get_uid(match) : null;
 
+      if (key) {
+        // delete by _id
         response = await this.elasticQuery.delete(key);
       }
-      else if (this.engram.keyof === 'primary') {
+      else if (Object.keys(match).length > 0) {
         // delete by query
         let dsl = dslEncoder.matchQuery(this.engram.keys, pattern);
         response = await this.elasticQuery.deleteByQuery(dsl);
         logger.debug(response);
       }
       else {
+        // delete all docs
         response = await this.elasticQuery.truncate();
         logger.debug(response);
       }
