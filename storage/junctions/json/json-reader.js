@@ -45,7 +45,7 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     // create variables that will be in the scope of data handler callbacks
     var reader = this;
-    var encoding = this.engram;
+    //var encoding = this.engram;
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
     var header = this.options.header;
