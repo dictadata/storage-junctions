@@ -188,7 +188,16 @@ module.exports = exports = class StorageJunction {
     logger.debug("StorageJunction storeBulk");
     if (!this.capabilities.store)
       throw new StorageError(405);
-    throw new StorageError(501);
+
+    let results = new StorageResults("message", null, { stored: 0 });
+    for (let construct of constructs) {
+      let res = await this.store(construct);
+      if (results.status !== 0)
+        return res;
+      results.data.stored += res.data.stored ? res.data.stored : 1;
+    }
+
+    return results;
   }
 
   /**
