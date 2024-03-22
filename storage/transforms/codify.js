@@ -9,7 +9,7 @@
 
 const { Transform } = require('node:stream');
 const { Field, Engram, storageType } = require('../types');
-const { logger } = require("../utils");
+const { logger, typeOf } = require("../utils");
 
 
 module.exports = exports = class CodifyTransform extends Transform {
@@ -167,6 +167,9 @@ module.exports = exports = class CodifyTransform extends Transform {
         // process nested fields
         if (!field.fields)
           field.fields = [];
+        else if (typeOf(field.fields) === "object")
+          field.fields = Engram._convert(field.fields);
+
         this.processConstruct(value, field.fields);
       }
     }
