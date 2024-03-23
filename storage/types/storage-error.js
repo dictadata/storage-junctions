@@ -13,7 +13,7 @@ module.exports = exports = class StorageError extends Error {
     this.name = 'StorageError';
 
     // StorageError result information
-    this.status = status;
+    this.status = status || 500;
     if (!this.message)
       this.message = StorageResults.RESULT_CODES[ this.status ] || 'unknown error';
 
