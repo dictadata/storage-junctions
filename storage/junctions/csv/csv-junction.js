@@ -140,4 +140,4 @@ class CSVJunction extends StorageJunction {
 
 };
 
-module.exports = CSVJunction;
+module.exports = exports = CSVJunction;

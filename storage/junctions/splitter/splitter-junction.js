@@ -170,4 +170,4 @@ class SplitterJunction extends StorageJunction {
 
 };
 
-module.exports = SplitterJunction;
+module.exports = exports = SplitterJunction;

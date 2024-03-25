@@ -322,4 +322,4 @@ class MemoryJunction extends StorageJunction {
 // define module exports
 //MemoryJunction.encoder = encoder;
 MemoryJunction._storage = _storage;
-module.exports = MemoryJunction;
+module.exports = exports = MemoryJunction;

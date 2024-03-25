@@ -5,7 +5,7 @@
  */
 'use strict';
 
-module.exports = (value, { default: _default } = {}) => {
+module.exports = exports = (value, { default: _default } = {}) => {
   if (_default !== undefined && typeof _default !== 'boolean') {
     throw new TypeError(`Expected the \`default\` option to be of type \`boolean\`, got \`${typeof _default}\``);
   }

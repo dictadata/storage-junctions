@@ -134,4 +134,4 @@ class ShapeFileJunction extends StorageJunction {
 
 };
 
-module.exports = ShapeFileJunction;
+module.exports = exports = ShapeFileJunction;

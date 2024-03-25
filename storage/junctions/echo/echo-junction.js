@@ -85,4 +85,4 @@ class EchoJunction extends StorageJunction {
 
 };
 
-module.exports = EchoJunction;
+module.exports = exports = EchoJunction;

@@ -20,7 +20,7 @@ function isDate (value) {
   if (/^\d{2}-[A-Za-z]{3}-\d{2}$/.test(value) ||
     /^\d{2}-[A-Za-z]{3}-\d{2} \d{2}:\d{2}:\d{2}$/.test(value))
     return 3;
-  
+
   let part = "";
   for (let i = 0; i < value.length; i++) {
     // first character must be digit
@@ -54,7 +54,7 @@ function isDate (value) {
         return false;  // contains non-numeric
     }
     else if (inTime) {
-      if ('+-0123456789'.includes(value[i])) { 
+      if ('+-0123456789'.includes(value[i])) {
         part += value[i];
       }
       else if (':.Z'.includes(value[i])) {
@@ -79,7 +79,7 @@ function isDate (value) {
 
   if (separator !== '-' || parts[0].length < 4)
     return 2;  // non-ISO date string
-  
+
   return 1;  // ISO compatiable date string
 };
 

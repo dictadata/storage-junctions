@@ -407,4 +407,4 @@ class ElasticsearchJunction extends StorageJunction {
 
 ElasticsearchJunction.encoder = encoder;
 ElasticsearchJunction.dslEncoder = dslEncoder;
-module.exports = ElasticsearchJunction;
+module.exports = exports = ElasticsearchJunction;

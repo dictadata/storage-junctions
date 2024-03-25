@@ -5,12 +5,12 @@
 
 /**
  * Parse directory entries from an HTML snippet
- * @param {*} response full HTTP response 
+ * @param {*} response full HTTP response
  * @param {*} html rawText of the inner HTML content to process for directory entries
  * @returns an array of directory entries
  */
 module.exports = exports = function (serverType, html, direxp) {
-  
+
   if (!direxp) {
 
     if (serverType.indexOf("IIS") >= 0)
@@ -50,8 +50,8 @@ module.exports = exports = function (serverType, html, direxp) {
 
 /**
  * decode HTML text entities that may be in the directory entry string
- * @param {*} encodedString 
- * @returns 
+ * @param {*} encodedString
+ * @returns
  */
 function decodeEntities(encodedString) {
   var translate_re = /&(nbsp|amp|quot|lt|gt);/g;

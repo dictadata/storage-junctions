@@ -402,4 +402,4 @@ class MySQLJunction extends StorageJunction {
 // define module exports
 MySQLJunction.encoder = encoder;
 MySQLJunction.sqlEncoder = sqlEncoder;
-module.exports = MySQLJunction;
+module.exports = exports = MySQLJunction;

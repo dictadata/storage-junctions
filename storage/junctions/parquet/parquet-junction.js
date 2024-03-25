@@ -149,4 +149,4 @@ class ParquetJunction extends StorageJunction {
 
 };
 
-module.exports = ParquetJunction;
+module.exports = exports = ParquetJunction;

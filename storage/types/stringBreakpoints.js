@@ -3,7 +3,7 @@
 
 /**
  * stringBreakPoints
- * 
+ *
  * Three "types" of strings: keyword, string, blobText
  *    keywords   - short strings that may be used as index values
  *    short text - used for titles, descriptions, etc. may be full-text indexed

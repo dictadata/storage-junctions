@@ -295,4 +295,4 @@ class RESTJunction extends StorageJunction {
 };
 
 // define module exports
-module.exports = RESTJunction;
+module.exports = exports = RESTJunction;

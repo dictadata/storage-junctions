@@ -152,4 +152,4 @@ class CsvAsObjects extends Transform {
 CsvAsObjects.CsvAsObjects = CsvAsObjects.make;
 CsvAsObjects.make.Constructor = CsvAsObjects;
 
-module.exports = CsvAsObjects;
+module.exports = exports = CsvAsObjects;

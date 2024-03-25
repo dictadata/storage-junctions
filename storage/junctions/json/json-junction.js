@@ -136,4 +136,4 @@ class JSONJunction extends StorageJunction {
 
 };
 
-module.exports = JSONJunction;
+module.exports = exports = JSONJunction;
