@@ -10,7 +10,7 @@ const { logger } = require("../../utils");
 const ShapeFileReader = require("./shapefile-reader");
 const ShapeFileWriter = require("./shapefile-writer");
 
-const stream = require('node:stream/promises');
+const { pipeline, finished } = require('node:stream/promises');
 const shapefile = require('shapefile');
 
 class ShapeFileJunction extends StorageJunction {
@@ -80,7 +80,7 @@ class ShapeFileJunction extends StorageJunction {
         });
 
         let codify = await this.createTransform("codify", options);
-        await stream.pipeline(reader, codify);
+        await pipeline(reader, codify);
 
         let encoding = codify.encoding;
         this.engram.encoding = encoding;

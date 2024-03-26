@@ -9,8 +9,6 @@ const MemoryReader = require("./memory-reader");
 const MemoryWriter = require("./memory-writer");
 //const encoder = require('./memory-encoder');
 
-const stream = require('node:stream/promises');
-
 var _storage = new Map();
 
 class MemoryJunction extends StorageJunction {

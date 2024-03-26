@@ -12,7 +12,7 @@ const { logger } = require('../../utils');
 const encoder = require("./elasticsearch-encoder");
 const dslEncoder = require("./elasticsearch-encoder-dsl");
 const ElasticQuery = require("./elasticsearch-query");
-const fs = require('node:fs');
+const { readFile } = require('node:fs/promises');
 const path = require('node:path');
 
 
@@ -172,7 +172,7 @@ class ElasticsearchJunction extends StorageJunction {
       }
 
       // load the default config containing index settings
-      let defaultMappings = JSON.parse(fs.readFileSync(path.join(__dirname, "default_mappings.json")));
+      let defaultMappings = JSON.parse(await readFile(path.join(__dirname, "default_mappings.json")));
       let indexConfig = Object.assign({}, defaultMappings);
       // overwrite with any options properties
       Object.assign(indexConfig, this.options.indexConfig);

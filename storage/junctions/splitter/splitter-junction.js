@@ -11,8 +11,8 @@ const { logger } = require("../../utils");
 
 const SplitterWriter = require("./splitter-writer");
 
-const fs = require("node:fs");
-const stream = require('node:stream/promises');
+const { readFile } = require("node:fs/promises");
+const { pipeline } = require('node:stream/promises');
 
 class SplitterJunction extends StorageJunction {
 
@@ -109,7 +109,7 @@ class SplitterJunction extends StorageJunction {
     if (typeof terminal.options?.encoding === "string") {
       // read encoding from file
       let filename = terminal.options.encoding;
-      terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
+      terminal.options.encoding = JSON.parse(await readFile(filename, "utf8"));
     }
     // attempt to create destination schema
     let junction = this.split_junctions[ sname ] = await Storage.activate(smt, terminal.options);
@@ -125,7 +125,7 @@ class SplitterJunction extends StorageJunction {
     // pipeline is ready
     this.split_streams[ sname ] = {
       pipes: pipes,
-      pipeline: stream.pipeline(pipes)
+      pipeline: pipeline(pipes)
     }
     return pipes[ 0 ];
   }

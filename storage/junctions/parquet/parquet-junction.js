@@ -11,7 +11,7 @@ const ParquetReader = require("./parquet-reader");
 const ParquetWriter = require("./parquet-writer");
 
 const path = require('node:path');
-const stream = require('node:stream/promises');
+const { pipeline, finished } = require('node:stream/promises');
 
 
 class ParquetJunction extends StorageJunction {
@@ -65,7 +65,7 @@ class ParquetJunction extends StorageJunction {
         });
 
         let codify = await this.createTransform("codify", options);
-        await stream.pipeline(reader, codify);
+        await pipeline(reader, codify);
 
         let encoding = codify.encoding;
         this.engram.encoding = encoding;
@@ -142,7 +142,7 @@ class ParquetJunction extends StorageJunction {
       storageResults = this.Error(err);
     });
 
-    await stream.finished(rs);
+    await finished(rs);
 
     return storageResults;
   }

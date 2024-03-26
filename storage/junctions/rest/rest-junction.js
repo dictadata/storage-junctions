@@ -8,7 +8,7 @@ const RESTReader = require("./rest-reader");
 const RESTWriter = require("./rest-writer");
 const RESTEncoder = require('./rest-encoder');
 
-const stream = require('node:stream/promises');
+const { pipeline, finished } = require('node:stream/promises');
 
 class RESTJunction extends StorageJunction {
 
@@ -63,7 +63,7 @@ class RESTJunction extends StorageJunction {
         });
 
         let codify = await this.createTransform("codify", options);
-        await stream.pipeline(reader, codify);
+        await pipeline(reader, codify);
 
         let encoding = codify.encoding;
         this.engram.encoding = encoding;

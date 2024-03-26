@@ -2,7 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { logger, dot, replace } = require("../../utils");
-const fs = require("node:fs/promises");
+const { readFile } = require("node:fs/promises");
 
 module.exports = exports = class TemplateWriter extends StorageWriter {
 
@@ -29,7 +29,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
     logger.debug("TemplateWriter._construct");
 
     try {
-      let text = await fs.readFile(this.options.template);
+      let text = await readFile(this.options.template);
       this.template = JSON.parse(text);
       replace(this.template, this.options.params);
       this.storeTo = dot.get(this.options.storeTo, this.template);
