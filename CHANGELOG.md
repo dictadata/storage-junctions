@@ -1,5 +1,13 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.110
+  - feature: implement tee transform
+  - feature: storage-junction storeBulk fill-in
+  - feature: implement codify action terminal.smt
+  - refactor: move mssql-junction to it's own plugin project
+  - bug fix: elasticsearch-junction fix dull by pattern
+  - bug fix: transforms _flush()
+  - bug fix: mysql-junction log errors
 - version 0.9.109
   - feature: implement TemplateJunction, write data into a JSON doc using a JSON template
   - refactor: dot and replace utilities
