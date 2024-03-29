@@ -88,8 +88,8 @@ class ShapeFileJunction extends StorageJunction {
       return new StorageResults("engram", null, this.engram.encoding);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      logger.warn(err.message);
+      throw this.StorageError(err);
     }
   }
 

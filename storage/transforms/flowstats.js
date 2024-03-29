@@ -58,7 +58,7 @@ module.exports = exports = class FlowStatsTransform extends Transform {
       return this.engram.encoding;
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
       throw err;
     }
   }
@@ -83,7 +83,7 @@ module.exports = exports = class FlowStatsTransform extends Transform {
 
     }
     catch (err) {
-      logger.warn("flowstats error", err);
+      logger.warn("flowstats error: " + err.message);
     }
 
     callback();

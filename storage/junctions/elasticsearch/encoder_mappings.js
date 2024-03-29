@@ -37,7 +37,7 @@ module.exports = exports = class ElasticMappings {
       this.mappings = await this.elastic.getMapping();
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
     }
 
     logger.debug("translate encoding")
@@ -102,8 +102,9 @@ module.exports = exports = class ElasticMappings {
       if (err.statusCode === 404)
         create = true;
       else {
-        logger.warn("putEncoding error: ", err);
-        throw err;
+        let sterr = this.StorageError(err);
+        logger.warn(sterr);
+        throw sterr;
       }
     }
 
@@ -113,7 +114,7 @@ module.exports = exports = class ElasticMappings {
       }
     }
     catch (err) {
-      logger.warn("putEncoding error: ", err);
+      logger.warn("putEncoding error: ", err.message);
     }
 
   }

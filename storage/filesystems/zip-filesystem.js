@@ -123,8 +123,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.warn("ZipFileSystem list: " + err.message);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -193,8 +194,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.warn("ZipFileSystem createReadStream: " + err.message);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -230,8 +232,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return ws;
     }
     catch (err) {
-      logger.warn("ZipFileSystem createWriteStream: " + err.message);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -270,8 +273,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn("ZipFileSystem getFile: " + err.message);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -309,8 +313,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn("ZipFileSystem putFile: " + err.message);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -320,7 +325,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {*} err a ZIP error object
    * @returns a new StorageError object
    */
-  Error(err) {
+StoreageError(err) {
     if (err instanceof StorageError)
       return err;
 
@@ -352,7 +357,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
         status = 500;
     }
 
-    return new StorageError(status).inner(err);
+    return new StorageError(status, { cause: err });
   }
 
 };

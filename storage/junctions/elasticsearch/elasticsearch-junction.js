@@ -127,7 +127,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(0, null, []); // empty list
 
       logger.warn(err.message);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 
@@ -150,7 +150,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(404, 'index not found');
 
       logger.warn(err.message);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 
@@ -195,7 +195,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(409, 'index exists');
 
       logger.warn(err.message);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 
@@ -218,7 +218,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(404, 'index not found');
 
       logger.warn(err.message);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 
@@ -256,8 +256,7 @@ class ElasticsearchJunction extends StorageJunction {
     }
     catch (err) {
       logger.warn("elasticsearch store: " + err.message);
-      logger.warn(err);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 
@@ -306,8 +305,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(404);
 
       logger.warn(err.message);
-      logger.warn(err);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 
@@ -350,9 +348,8 @@ class ElasticsearchJunction extends StorageJunction {
     }
     catch (err) {
       let msg = err.body?.error?.reason || err.message;
-      logger.debug(msg);
-      logger.warn(err);
-      throw new StorageError(err.statusCode || 500, msg).inner(err);
+      logger.warn(msg);
+      throw new StorageError(err.statusCode || 500, msg, { cause: err });
     }
   }
 
@@ -399,7 +396,7 @@ class ElasticsearchJunction extends StorageJunction {
         return new StorageResults(404);
 
       logger.warn(err.message);
-      throw new StorageError(err.statusCode || 500, err.message).inner(err);
+      throw new StorageError(err.statusCode || 500, err.message, { cause: err });
     }
   }
 

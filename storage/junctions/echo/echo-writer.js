@@ -30,8 +30,8 @@ module.exports = exports = class EchoWriter extends StorageWriter {
       logger.info(JSON.stringify(construct));
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error storing construct', { cause: err }));
     }
 
     callback();
@@ -51,8 +51,8 @@ module.exports = exports = class EchoWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error storing construct', { cause: err }));
     }
   }
 
@@ -66,8 +66,8 @@ module.exports = exports = class EchoWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error writer._final', { cause: err }));
     }
   }
 

@@ -47,8 +47,8 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('ShapeFileWriter construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('ShapeFileWriter construct error'));
     }
   }
 
@@ -95,8 +95,8 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'ShapeFileWriter write error').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'ShapeFileWriter write error', { cause: err }));
     }
 
   }
@@ -120,8 +120,8 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error storing construct', { cause: err }));
     }
   }
 
@@ -149,8 +149,8 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error _final').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error _final', { cause: err }));
     }
   }
 

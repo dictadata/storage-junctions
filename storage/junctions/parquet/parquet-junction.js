@@ -73,8 +73,9 @@ class ParquetJunction extends StorageJunction {
       return new StorageResults("engram", null, this.engram.encoding);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -139,7 +140,7 @@ class ParquetJunction extends StorageJunction {
       // console.log('There will be no more data.');
     });
     rs.on('error', (err) => {
-      storageResults = this.Error(err);
+      storageResults = this.StorageError(err);
     });
 
     await finished(rs);

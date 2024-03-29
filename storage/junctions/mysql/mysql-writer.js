@@ -30,7 +30,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn("MySQLWriter: " + (err.code || err.message));
-      callback(this.stfs?.Error(err) || new Error('MySQLWriter construct error'));
+      callback(this.stfs?.StorageError(err) || new StorageError('MySQLWriter construct error'));
     }
   }
 
@@ -80,7 +80,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn("MySQLWriter: " + (err.code || err.message));
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      callback(new StorageError(500, 'Error storing construct', { cause: err }));
     }
   }
 
@@ -94,7 +94,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn("MySQLWriter: " + (err.code || err.message));
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      callback(new StorageError(500, 'Error writer._final', { cause: err }));
     }
   }
 

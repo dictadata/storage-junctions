@@ -71,7 +71,7 @@ class SplitterJunction extends StorageJunction {
       }
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
     }
   }
 

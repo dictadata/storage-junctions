@@ -18,7 +18,7 @@ module.exports = exports = class RestEncoder extends StorageEncoder {
 
   parseData(data, options, callback) {
     if (typeof data !== 'object')
-      throw new Error("invalid json data");
+      throw new StorageError("invalid json data");
 
     data = (options.pick && dot.get(options.pick, data)) || data;
 

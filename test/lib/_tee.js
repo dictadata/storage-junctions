@@ -54,7 +54,7 @@ module.exports = exports = async function (tract) {
       transforms.push(await jo.createTransform(transform.transform, transform));
 
     if (!Array.isArray(tract.terminals))
-      throw new Error("tract.terminal not an Array");
+      throw new StorageError("tract.terminal not an Array");
 
     for (const terminal of tract.terminals) {
 

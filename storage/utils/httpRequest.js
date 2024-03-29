@@ -37,7 +37,7 @@ function httpRequest(url, request, data) {
   else if (typeof url === "object" && url instanceof URL)
     Url = url;
   else {
-    throw new Error(`Invalid url ${url}`);
+    throw new StorageError(`Invalid url ${url}`);
   }
 
   if (request.params) {
@@ -119,7 +119,7 @@ function http1Request(Url, request, data) {
             else if (encoding === 'br')
               response.data = zlib.brotliDecompressSync(buffer).toString();
             else
-              throw new Error(`unkonwn content-encoding: ${encoding}`);
+              throw new StorageError(`unkonwn content-encoding: ${encoding}`);
           }
           else {
             // otherwise assume text
@@ -155,7 +155,7 @@ function http1Request(Url, request, data) {
     }
 
     req.on('error', (err) => {
-      logger.warn(err);
+      logger.warn(err.message);
       reject(err);
     });
 
@@ -181,7 +181,7 @@ function http2Request(Url, request, data) {
     const client = http2.connect(Url);
 
     client.on('error', (err) => {
-      logger.warn(err);
+      logger.warn(err.message);
       reject(err);
     });
 

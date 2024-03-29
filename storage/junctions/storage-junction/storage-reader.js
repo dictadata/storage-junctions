@@ -66,8 +66,8 @@ module.exports = exports = class StorageReader extends Readable {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new Error('StorageReader construct error'));
+      logger.warn(err.message);
+      callback(new StorageError('StorageReader construct error'));
     }
   }
 

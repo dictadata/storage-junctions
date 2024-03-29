@@ -135,14 +135,14 @@ class StorageResults {
         else if (data instanceof Map)
           Object.assign(this.data, Object.fromEntries(data.entries()));
         else
-          throw new Error("add data missing key value");
+          throw new StorageError("add data missing key value");
         break;
       case "construct":
       case "engram":
         if (typeof data === "object")
           this.data = Object.assign({}, data);  // replace data
         else
-          throw new Error("data type is not supported");
+          throw new StorageError("data type is not supported");
         break;
       case "message":
       default:
@@ -151,7 +151,7 @@ class StorageResults {
         else if (typeof data === "object")
           this.data = Object.assign(this.data, data); // merge data
         else
-          throw new Error("data type is not supported");
+          throw new StorageError("data type is not supported");
         break;
     }
   }

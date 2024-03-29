@@ -44,7 +44,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       var list = [];
 
       let dirpath = url.fileURLToPath(this.url);
@@ -100,8 +100,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -117,7 +118,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
       await fsp.unlink(filename);
@@ -125,8 +126,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(0);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -141,7 +143,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let rs = null;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
@@ -157,8 +159,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -174,7 +177,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
@@ -201,8 +204,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return ws;
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -238,8 +242,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -275,8 +280,9 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -287,7 +293,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
    * @param {*} err a filesystem error object
    * @returns a new StorageError object
    */
-  Error(err) {
+  StoreageError(err) {
     if (err instanceof StorageError)
       return err;
 
@@ -340,7 +346,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         status = 500;
     }
 
-    return new StorageError(status).inner(err);
+    return new StorageError(status, { cause: err });
   };
 
 };

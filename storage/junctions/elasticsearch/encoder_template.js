@@ -34,8 +34,9 @@ module.exports = exports = class ElasticTemplate {
       this.template = await elastic.getTemplate(this.template_name);
     }
     catch (err) {
-      logger.warn(err);
-      throw err;
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
 
     if (!this.template)

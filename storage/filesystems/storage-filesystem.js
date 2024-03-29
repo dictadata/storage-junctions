@@ -126,7 +126,9 @@ class StorageFileSystem {
         return true;
     }
     catch (err) {
-      logger.warn(`storage-filesystem exists error: ${err.message}`);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
 
     return false;
@@ -230,7 +232,7 @@ class StorageFileSystem {
  * @param {*} err a filesystem error object
  * @returns a new StorageError object
  */
-  Error(err) {
+  StorageError(err) {
     if (err instanceof StorageError)
       return err;
 
@@ -239,7 +241,7 @@ class StorageFileSystem {
     // derived classes should override method
     // and implement error conversion logic
 
-    return new StorageError(status).inner(err);
+    return new StorageError(status, { cause: err });
   }
 
 };

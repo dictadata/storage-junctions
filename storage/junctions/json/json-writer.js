@@ -82,7 +82,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       this.ws = await this.stfs.createWriteStream(this.options);
 
       this.ws.on('error', (err) => {
-        this.destroy(this.Error(err));
+        this.destroy(this.StorageError(err));
       });
 
       // write opening, if any
@@ -92,8 +92,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('JSONWriter construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('JSONWriter construct error'));
     }
   }
 
@@ -149,8 +149,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new Error('JSONWriter write error'));
+      logger.warn(err.message);
+      callback(new StorageError('JSONWriter write error'));
     }
   }
 
@@ -173,8 +173,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error('JSONWriter writev error') || new Error("JSONWriter writev error"));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError('JSONWriter writev error') || new StorageError("JSONWriter writev error"));
     }
   }
 
@@ -205,8 +205,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      // logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('Error _final'));
+      // logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('Error _final'));
     }
   }
 

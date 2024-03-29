@@ -37,8 +37,8 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new Error('TemplateWriter _construct error', { cause: err }));
+      logger.warn(err.message);
+      callback(new StorageError('TemplateWriter _construct error', { cause: err }));
     }
   }
 
@@ -65,8 +65,8 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new Error('TemplateWriter _write error', { cause: err }));
+      logger.warn(err.message);
+      callback(new StorageError('TemplateWriter _write error', { cause: err }));
     }
   }
 
@@ -89,8 +89,8 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new Error("TemplateWriter _writev error", { cause: err }));
+      logger.warn(err.message);
+      callback(new StorageError("TemplateWriter _writev error", { cause: err }));
     }
   }
 
@@ -108,7 +108,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       let ws = await stfs.createWriteStream(this.options);
 
       ws.on('error', (err) => {
-        this.destroy(this.Error(err));
+        this.destroy(this.StorageError(err));
       });
 
       // write results to file
@@ -126,8 +126,8 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      // logger.warn(err);
-      callback(new Error('Error _final', { cause: err }));
+      // logger.warn(err.message);
+      callback(new StorageError('Error _final', { cause: err }));
     }
   }
 

@@ -6,7 +6,7 @@ function thecode() {
       console.log("trying outer");
     try {
       console.log("trying inner");
-      throw new Error('oops');
+      throw new StorageError('oops');
       return "gotcha";
     } catch (ex) {
       console.error('inner', ex.message);

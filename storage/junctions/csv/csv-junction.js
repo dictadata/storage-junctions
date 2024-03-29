@@ -75,10 +75,9 @@ class CSVJunction extends StorageJunction {
       return new StorageResults("engram", "", this.engram.encoding);
     }
     catch (err) {
-      if (e instanceof StorageError)
-        throw err;
-      // logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -130,7 +129,7 @@ class CSVJunction extends StorageJunction {
       storageResults.setResults(0);
     });
     rs.on('error', (err) => {
-      storageResults = this.Error(err);
+      storageResults = this.StorageError(err);
     });
 
     await finished(rs);

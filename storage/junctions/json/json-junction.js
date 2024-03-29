@@ -76,7 +76,7 @@ class JSONJunction extends StorageJunction {
       if (err instanceof StorageError)
         throw err;
       // logger.warn(err);
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -126,7 +126,7 @@ class JSONJunction extends StorageJunction {
       // console.log('There will be no more data.');
     });
     rs.on('error', (err) => {
-      storageResults = this.Error(err);
+      storageResults = this.StorageError(err);
     });
 
     await finished(rs);

@@ -69,7 +69,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
     });
 
     parser.on('error', function (err) {
-      logger.warn(err);
+      logger.warn(err.message);
     });
 
     this.started = false;
@@ -84,8 +84,8 @@ module.exports = exports = class ParquetReader extends StorageReader {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('ParquetReader construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('ParquetReader construct error'));
     }
   }
 

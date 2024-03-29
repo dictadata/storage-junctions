@@ -52,7 +52,7 @@ module.exports = exports = class CounterTransform extends Transform {
       this.push(construct);
     }
     catch (err) {
-      logger.warn("counter error", err);
+      logger.warn("counter error: " + err.message);
     }
 
     callback();

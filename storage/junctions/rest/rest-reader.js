@@ -68,8 +68,8 @@ module.exports = exports = class RESTReader extends StorageReader {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('RESTReader construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('RESTReader construct error'));
     }
   }
 
@@ -93,7 +93,7 @@ module.exports = exports = class RESTReader extends StorageReader {
 
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
       logger.warn("RESTReader: " + err.message);
       this.destroy(err);
     }

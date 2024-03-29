@@ -94,11 +94,13 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         let response = await httpRequest(dirpath, request);
         logger.debug(response);
         if (response.statusCode !== 200)
-          throw this.Error(response);
+          throw this.StorageError(response);
 
-        if (!Object.hasOwn(response.headers, 'content-type') || !response.headers[ 'content-type' ].startsWith('text/html')) {
-          logger.warn(JSON.stringify(response, null, 2));
-          throw new StorageError(400, 'invalid content-type');
+        let contentType = response?.headers[ 'content-type' ];
+        if (!contentType || !contentType.startsWith('text/html')) {
+          let sterr = new StorageError(400, 'invalid content-type: ' + contentType);
+          logger.warn(sterr);
+          throw sterr;
         }
 
         // parse the html page into a simple DOM
@@ -153,8 +155,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -222,8 +225,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.warn(err);
-      throw new this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -304,8 +308,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -366,8 +371,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -377,7 +383,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {*} err a HTTP error object
    * @returns a new StorageError object
    */
-  Error(err) {
+StoreageError(err) {
     if (err instanceof StorageError)
       return err;
 
@@ -385,7 +391,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // StorageError.status is based on HTTP status codes
 
-    return new StorageError(status).inner(err);
+    return new StorageError(status, { cause: err });
   }
 
 };

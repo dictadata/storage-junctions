@@ -54,8 +54,8 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('ShapeFileReader construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('ShapeFileReader construct error'));
     }
   }
 
@@ -80,7 +80,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
     }
     catch (err) {
       logger.warn(`ShapeFileReader read error: ${err.message}`);
-      this.destroy(this.stfs?.Error(err) ?? err);
+      this.destroy(this.stfs?.StorageError(err) ?? new StorageError(err));
     }
   }
 

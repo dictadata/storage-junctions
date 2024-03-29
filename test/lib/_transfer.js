@@ -90,7 +90,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     }
 
     if (typeof terminal.options.encoding !== "object")
-      throw new Error("invalid terminal encoding");
+      throw new StorageError("invalid terminal encoding");
 
     //logger.debug(">>> encoding results");
     //logger.debug(JSON.stringify(terminal.options.encoding.fields, null, " "));

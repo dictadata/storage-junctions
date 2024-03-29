@@ -136,8 +136,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -162,8 +163,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       return new StorageResults(0);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -199,8 +201,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -246,8 +249,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       return ws;
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -287,8 +291,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -322,8 +327,9 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      throw sterr;
     }
   }
 
@@ -380,7 +386,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
    * @param {*} err a FTP error object
    * @returns a new StorageError object
    */
-  Error(err) {
+StoreageError(err) {
     if (err instanceof StorageError)
       return err;
 
@@ -395,7 +401,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
         status = 500;
     }
 
-    return new StorageError(status).inner(err);
+    return new StorageError(status, { cause: err });
   }
 
 };

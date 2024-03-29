@@ -71,8 +71,8 @@ class RESTJunction extends StorageJunction {
       return new StorageResults("engram", null, this.engram.encoding);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      logger.warn(err.message);
+      throw this.StorageError(err);
     }
   }
 
@@ -113,8 +113,8 @@ class RESTJunction extends StorageJunction {
       throw new StorageError(501);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      logger.warn(err.message);
+      throw this.StorageError(err);
     }
   }
 
@@ -198,8 +198,8 @@ class RESTJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      logger.warn(err.message);
+      throw this.StorageError(err);
     }
   }
 
@@ -267,8 +267,8 @@ class RESTJunction extends StorageJunction {
       return storageResults;
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      logger.warn(err.message);
+      throw this.StorageError(err);
     }
   }
 
@@ -287,8 +287,8 @@ class RESTJunction extends StorageJunction {
       throw new StorageError(501);
     }
     catch (err) {
-      logger.warn(err);
-      throw this.Error(err);
+      logger.warn(err.message);
+      throw this.StorageError(err);
     }
   }
 

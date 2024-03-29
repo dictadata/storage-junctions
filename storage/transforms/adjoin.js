@@ -82,7 +82,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
       }
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
     }
     finally {
       logger.debug("adjoin relax");
@@ -125,7 +125,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
       this.push(construct);
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
     }
 
     callback();

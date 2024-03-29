@@ -70,8 +70,9 @@ module.exports = exports = class CSVReader extends StorageReader {
     });
 
     pipeline.on('error', function (err) {
-      logger.warn(err);
-      // throw err;
+      let sterr = this.StorageError(err);
+      logger.warn(sterr);
+      //throw sterr;
     });
 
     this.stfs;
@@ -90,21 +91,21 @@ module.exports = exports = class CSVReader extends StorageReader {
         rs.on('error',
           (err) => {
             logger.warn(`CSVReader parser error: ${err.message}`);
-            this.destroy(this.stfs?.Error(err) ?? err);
+            this.destroy(this.stfs?.StorageError(err) ?? new StorageError(err));
           }
         );
         rs.pipe(this.pipeline);
       }
       catch (err) {
         logger.warn(`CSVReader read error: ${err.message}`);
-        this.destroy(this.stfs?.Error(err) ?? err);
+        this.destroy(this.stfs?.StorageError(err) ?? new StorageError(err));
       }
 
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('CSVReader construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('CSVReader construct error'));
     }
   }
 

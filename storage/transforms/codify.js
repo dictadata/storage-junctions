@@ -49,7 +49,7 @@ module.exports = exports = class CodifyTransform extends Transform {
         return this.engram.encoding;
     }
     catch (err) {
-      logger.warn(err);
+      logger.warn(err.message);
       throw err;
     }
   }
@@ -70,7 +70,7 @@ module.exports = exports = class CodifyTransform extends Transform {
       this.processConstruct(construct, this.engram.fields);
     }
     catch (err) {
-      logger.warn("codify error", err);
+      logger.warn("codify error: " + err.message);
     }
 
     callback();
@@ -193,7 +193,7 @@ module.exports = exports = class CodifyTransform extends Transform {
             this.processValue(item, field._list);
         }
         catch (err) {
-          logger.warn(err);
+          logger.warn(err.message);
         }
       }
     }

@@ -24,8 +24,8 @@ module.exports = exports = class MemoryReader extends StorageReader {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('MemoryReader construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('MemoryReader construct error'));
     }
   }
 

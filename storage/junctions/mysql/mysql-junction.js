@@ -132,7 +132,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -165,7 +165,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(404, 'no such table');
 
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -201,7 +201,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -225,7 +225,7 @@ class MySQLJunction extends StorageJunction {
         return new StorageResults(404, 'no such table');
 
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -259,7 +259,7 @@ class MySQLJunction extends StorageJunction {
       }
 
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -293,7 +293,7 @@ class MySQLJunction extends StorageJunction {
       }
 
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -326,7 +326,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -357,7 +357,7 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
@@ -393,10 +393,29 @@ class MySQLJunction extends StorageJunction {
     }
     catch (err) {
       logger.warn("MySQLJunction: " + (err.code || err.message));
-      throw this.Error(err);
+      throw this.StorageError(err);
     }
   }
 
+
+  /**
+   * Convert a source datastore error into a StorageError
+   *
+   * @param {*} err a data source error object
+   * @returns a new StorageError object
+   */
+  StorageError(err) {
+    if (err instanceof StorageError)
+      return err;
+
+    let status = 500;
+    let message = err.code;
+
+    // derived classes should override method
+    // and implement error conversion logic
+
+    return new StorageError(status, message, { cause: err });
+  }
 };
 
 // define module exports

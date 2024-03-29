@@ -33,8 +33,8 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(this.stfs?.Error(err) || new Error('ElasticsearchWriter construct error'));
+      logger.warn(err.message);
+      callback(this.stfs?.StorageError(err) || new StorageError('ElasticsearchWriter construct error'));
     }
   }
 

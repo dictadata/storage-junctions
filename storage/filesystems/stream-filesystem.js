@@ -75,7 +75,7 @@ module.exports = exports = class StreamFileSystem extends StorageFileSystem {
    * @param {*} err a stream error object
    * @returns a new StorageError object
    */
-  Error(err) {
+StoreageError(err) {
     if (err instanceof StorageError)
       return err;
 
@@ -84,7 +84,7 @@ module.exports = exports = class StreamFileSystem extends StorageFileSystem {
     // derived classes should override method
     // and implement error conversion logic
 
-    return new StorageError(status).inner(err);
+    return new StorageError(status, { cause: err });
   }
 
 };

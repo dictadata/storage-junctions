@@ -51,8 +51,9 @@ exports.matchQuery = function (keys, pattern) {
     return dsl;
   }
   catch (err) {
-    logger.warn(err);
-    throw err;
+    let sterr = this.StorageError(err);
+    logger.warn(sterr);
+    throw sterr;
   }
 };
 
@@ -77,8 +78,9 @@ exports.searchQuery = function (pattern) {
     return dsl;
   }
   catch (err) {
-    logger.warn(err);
-    throw err;
+    let sterr = this.StorageError(err);
+    logger.warn(sterr);
+    throw sterr;
   }
 };
 

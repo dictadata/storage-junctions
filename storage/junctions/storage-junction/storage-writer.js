@@ -67,8 +67,8 @@ module.exports = exports = class StorageWriter extends Writable {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new Error('StorageWriter construct error'));
+      logger.warn(err.message);
+      callback(new StorageError('StorageWriter construct error'));
     }
   }
 
@@ -109,8 +109,8 @@ module.exports = exports = class StorageWriter extends Writable {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error storing construct').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error storing construct', { cause: err }));
     }
   }
 
@@ -122,8 +122,8 @@ module.exports = exports = class StorageWriter extends Writable {
       callback();
     }
     catch (err) {
-      logger.warn(err);
-      callback(new StorageError(500, 'Error writer._final').inner(err));
+      logger.warn(err.message);
+      callback(new StorageError(500, 'Error writer._final', { cause: err }));
     }
   }
 
