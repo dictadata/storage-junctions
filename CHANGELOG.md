@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.111
+  - refactor: StorageError constructor() and toJSON()
 - version 0.9.110
   - feature: implement tee transform
   - feature: storage-junction storeBulk fill-in
