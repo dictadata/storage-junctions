@@ -287,7 +287,7 @@ module.exports = exports = class StorageJunction {
   }
 
   /**
-   * Convert a source datastore error into a StorageError
+   * Convert a data source's error into a StorageError
    *
    * @param {*} err a data source error object
    * @returns a new StorageError object
@@ -296,11 +296,9 @@ module.exports = exports = class StorageJunction {
     if (err instanceof StorageError)
       return err;
 
-    let status = ('status' in err) ? err.status : 500;
-
     // derived classes should override method
     // and implement error conversion logic
 
-    return new StorageError(status, { cause: err });
+    return new StorageError(err);
   }
 };

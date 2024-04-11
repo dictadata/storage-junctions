@@ -20,9 +20,9 @@ class StorageError extends Error {
       this.cause = status;
 
     if (!Object.hasOwn(this, "status"))
-      this.status = 500;
+      this.status = status?.status || 500;
     if (!Object.hasOwn(this, "message"))
-      this.message = StorageResults.RESULT_CODES[ this.status ] || 'unknown error';
+      this.message = status?.message || StorageResults.RESULT_CODES[ this.status ] || 'unknown error';
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (!Object.hasOwn(this, "stack",) && Error.captureStackTrace) {
