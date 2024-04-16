@@ -1,9 +1,11 @@
+/**
+ * storage/junctions/storage-junction/storage-encoder.js
+ *
+ */
 "use strict";
 
 const { StorageError } = require("../../types");
-const { typeOf, isDate, ynBoolean } = require("../../utils");
-
-//const dot = require('dot-object');
+const { typeOf, isDate, ynBoolean, dot } = require("../../utils");
 
 module.exports = exports = class StorageEncoder {
 

@@ -168,7 +168,7 @@ module.exports = exports = class StorageJunction {
   /**
    *
    * @param {Object} constuct object to be save
-   * @param {Object} pattern Should contain a meta key used to identify the construct
+   * @param {Object} pattern Should contain a key used to identify the construct
    *                     If null will insert a new construct into the source
    */
   async store(construct, pattern) {
@@ -181,7 +181,7 @@ module.exports = exports = class StorageJunction {
   /**
    *
    * @param {Array} constuct object to be save
-   * @param {Object} pattern Should contain a meta key used to identify the construct
+   * @param {Object} pattern Should contain a key used to identify the construct
    *                     If null will insert a new construct into the source
    */
   async storeBulk(constructs, pattern) {
@@ -201,7 +201,7 @@ module.exports = exports = class StorageJunction {
   }
 
   /**
-   * @param {*} pattern Should contain a meta key used to identify the construct.
+   * @param {*} pattern Should contain a key used to identify the construct.
    */
   async recall(pattern) {
     logger.debug("StorageJunction recall");
@@ -221,7 +221,7 @@ module.exports = exports = class StorageJunction {
   }
 
   /**
-   * pattern can contain a meta key OR a match
+   * pattern can contain a key OR a match
    */
   async dull(pattern) {
     logger.debug("StorageJunction dull");
