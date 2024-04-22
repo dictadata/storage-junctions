@@ -9,7 +9,7 @@ const path = require('node:path');
 // import shapefiles reader
 
 
-module.exports = exports = class ShapeFileWriter extends StorageWriter {
+module.exports = exports = class ShapefileWriter extends StorageWriter {
 
   /**
    *
@@ -30,7 +30,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
   }
 
   async _construct(callback) {
-    logger.debug("ShapeFileWriter._construct");
+    logger.debug("ShapefileWriter._construct");
 
     try {
       // open output stream
@@ -48,7 +48,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err.message);
-      callback(this.stfs?.StorageError(err) || new StorageError('ShapeFileWriter construct error'));
+      callback(this.stfs?.StorageError(err) || new StorageError('ShapefileWriter construct error'));
     }
   }
 
@@ -59,7 +59,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
    * @param {*} callback
    */
   async _write(construct, encoding, callback) {
-    logger.debug("ShapeFileWriter._write");
+    logger.debug("ShapefileWriter._write");
     //logger.debug(JSON.stringify(construct));
     // check for empty construct
     if (Object.keys(construct).length === 0) {
@@ -96,7 +96,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
     }
     catch (err) {
       logger.warn(err.message);
-      callback(new StorageError(500, 'ShapeFileWriter write error', { cause: err }));
+      callback(new StorageError(500, 'ShapefileWriter write error', { cause: err }));
     }
 
   }
@@ -107,7 +107,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
    * @param {*} callback
    */
   async _writev(chunks, callback) {
-    logger.debug("ShapeFileWriter._write");
+    logger.debug("ShapefileWriter._write");
 
     try {
       for (var i = 0; i < chunks.length; i++) {
@@ -130,7 +130,7 @@ module.exports = exports = class ShapeFileWriter extends StorageWriter {
    * @param {*} callback
    */
   async _final(callback) {
-    logger.debug("ShapeFileWriter._final");
+    logger.debug("ShapefileWriter._final");
 
     try {
       if (this.ws) {

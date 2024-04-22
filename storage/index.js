@@ -74,10 +74,10 @@ var RESTJunction = require("./junctions/rest");
 exports.RESTJunction = RESTJunction;
 Storage.Junctions.use('rest', RESTJunction);
 
-var ShapeFileJunction = require("./junctions/shapefile");
-exports.ShapeFileJunction = ShapeFileJunction;
-Storage.Junctions.use('shapefile', ShapeFileJunction);
-Storage.Junctions.use('shp', ShapeFileJunction);
+var ShapefileJunction = require("./junctions/shapefile");
+exports.ShapefileJunction = ShapefileJunction;
+Storage.Junctions.use('shapefile', ShapefileJunction);
+Storage.Junctions.use('shp', ShapefileJunction);
 
 var TemplateJunction = require("./junctions/template");
 exports.TemplateJunction = TemplateJunction;

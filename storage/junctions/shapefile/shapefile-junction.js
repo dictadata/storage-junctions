@@ -1,5 +1,5 @@
 /**
- * ShapeFileJunction
+ * ShapefileJunction
  */
 "use strict";
 
@@ -7,13 +7,13 @@ const StorageJunction = require("../storage-junction");
 const { StorageResults, StorageError } = require("../../types");
 const { logger } = require("../../utils");
 
-const ShapeFileReader = require("./shapefile-reader");
-const ShapeFileWriter = require("./shapefile-writer");
+const ShapefileReader = require("./shapefile-reader");
+const ShapefileWriter = require("./shapefile-writer");
 
 const { pipeline, finished } = require('node:stream/promises');
 const shapefile = require('shapefile');
 
-class ShapeFileJunction extends StorageJunction {
+class ShapefileJunction extends StorageJunction {
 
   // storage capabilities, sub-class must override
   capabilities = {
@@ -30,8 +30,8 @@ class ShapeFileJunction extends StorageJunction {
   }
 
   // assign stream constructor functions, sub-class must override
-  _readerClass = ShapeFileReader;
-  _writerClass = ShapeFileWriter;
+  _readerClass = ShapefileReader;
+  _writerClass = ShapefileWriter;
 
   /**
    *
@@ -39,7 +39,7 @@ class ShapeFileJunction extends StorageJunction {
    * @param {*} options
    */
   constructor(smt, options) {
-    logger.debug("ShapeFileJunction");
+    logger.debug("ShapefileJunction");
     super(smt, options);
   }
 
@@ -67,6 +67,9 @@ class ShapeFileJunction extends StorageJunction {
    *  Get the encoding for the storage junction.
    */
   async getEngram() {
+    logger.debug("ShapefileJunction getEncoding");
+    if (!this.capabilities.encoding)
+      throw new StorageError(405);
 
     try {
       if (!this.engram.isDefined) {
@@ -106,7 +109,7 @@ class ShapeFileJunction extends StorageJunction {
    * @param {*} construct
    */
   async store(construct, pattern) {
-    logger.debug("ShapeFileJunction store");
+    logger.debug("ShapefileJunction store");
     throw new StorageError(501);
   }
 
@@ -134,4 +137,4 @@ class ShapeFileJunction extends StorageJunction {
 
 };
 
-module.exports = exports = ShapeFileJunction;
+module.exports = exports = ShapefileJunction;

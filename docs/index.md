@@ -33,7 +33,7 @@
 * [MySQLJunction](junctions/mysql-junction.md)
 * [OracleDBJunction](junctions/oracledb-junction.md)
 * [RESTJunction](junctions/rest-junction.md)
-* [ShapeFileJunction](junctions/shapes-junction.md)
+* [ShapefileJunction](junctions/shapes-junction.md)
 * [XlsxJunction](junctions/xlsx-junction.md)
 
 ## File Systems

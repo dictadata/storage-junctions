@@ -6,7 +6,7 @@ const { logger } = require('../../utils');
 
 const shapefile = require('shapefile');
 
-module.exports = exports = class ShapeFileReader extends StorageReader {
+module.exports = exports = class ShapefileReader extends StorageReader {
 
   /**
    *
@@ -24,11 +24,11 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
   }
 
   async _construct(callback) {
-    logger.debug("ShapeFileReader._construct");
+    logger.debug("ShapefileReader._construct");
 
     try {
       // start the reader
-      logger.debug('ShapeFileReader start');
+      logger.debug('ShapefileReader start');
       this.stfs = await this.junction.getFileSystem();
 
       if (! await this.stfs.exists({ schema: this.schemafile + '.shp' }))
@@ -39,12 +39,12 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
 
       this.shp.on('error',
         (err) => {
-          logger.warn("ShapeFileReader .shp stream error: " + err.message);
+          logger.warn("ShapefileReader .shp stream error: " + err.message);
         }
       );
       this.dbf.on('error',
         (err) => {
-          logger.warn("ShapeFileReader .dbf stream error: " + err.message);
+          logger.warn("ShapefileReader .dbf stream error: " + err.message);
         }
       );
 
@@ -55,7 +55,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
     }
     catch (err) {
       logger.warn(err.message);
-      callback(this.stfs?.StorageError(err) || new StorageError('ShapeFileReader construct error'));
+      callback(this.stfs?.StorageError(err) || new StorageError('ShapefileReader construct error'));
     }
   }
 
@@ -64,11 +64,11 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
    * @param {*} size <number> Number of constructs to read asynchronously
    */
   async _read(_size) {
-    logger.debug('ShapeFileReader _read');
+    logger.debug('ShapefileReader _read');
 
     try {
       if (!this.done) {
-        logger.debug('ShapeFileReader source.read');
+        logger.debug('ShapefileReader source.read');
         let record = await this.source.read();
         if (record.value)
           this.push(record.value);  // geoJSON feature
@@ -79,7 +79,7 @@ module.exports = exports = class ShapeFileReader extends StorageReader {
       }
     }
     catch (err) {
-      logger.warn(`ShapeFileReader read error: ${err.message}`);
+      logger.warn(`ShapefileReader read error: ${err.message}`);
       this.destroy(this.stfs?.StorageError(err) ?? new StorageError(err));
     }
   }

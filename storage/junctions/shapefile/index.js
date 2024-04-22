@@ -1,8 +1,8 @@
 // storage/junctions/shapes
 
-const ShapeFileJunction = require("./shapefile-junction");
+const ShapefileJunction = require("./shapefile-junction");
 
-module.exports = exports = ShapeFileJunction;
-exports.ShapeFileReader = require("./shapefile-reader");
-exports.ShapeFileWriter = require("./shapefile-writer");
-//exports.ShapeFileEncoder = require("./shapefile-encoder");
+module.exports = exports = ShapefileJunction;
+exports.ShapefileReader = require("./shapefile-reader");
+exports.ShapefileWriter = require("./shapefile-writer");
+//exports.ShapefileEncoder = require("./shapefile-encoder");
