@@ -1,10 +1,10 @@
 {
-  "name": "codify",
+  "name": "foofile_01.json",
   "type": "engram",
   "smt": {
-    "model": "*",
-    "locus": "*",
-    "schema": "*",
+    "model": "json",
+    "locus": "./test/data/input/",
+    "schema": "foofile_01.json",
     "key": "*"
   },
   "fields": [
@@ -32,7 +32,7 @@
     },
     {
       "name": "enabled",
-      "type": "integer"
+      "type": "boolean"
     },
     {
       "name": "subObj1",

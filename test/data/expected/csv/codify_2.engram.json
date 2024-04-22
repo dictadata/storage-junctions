@@ -1,10 +1,10 @@
 {
-  "name": "codify",
+  "name": "foo_missing.csv",
   "type": "engram",
   "smt": {
-    "model": "*",
-    "locus": "*",
-    "schema": "*",
+    "model": "csv",
+    "locus": "./test/data/input/",
+    "schema": "foo_missing.csv",
     "key": "*"
   },
   "fields": [

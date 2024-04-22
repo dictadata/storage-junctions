@@ -9,65 +9,44 @@
   },
   "fields": [
     {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 7
+    },
+    {
       "name": "Bar",
       "type": "text",
-      "_elasticsearch": {
-        "type": "text"
-      }
+      "size": 13
     },
     {
       "name": "Baz",
-      "type": "integer",
-      "_elasticsearch": {
-        "type": "integer"
-      }
-    },
-    {
-      "name": "Dt Test",
-      "type": "date",
-      "_elasticsearch": {
-        "type": "date"
-      }
+      "type": "integer"
     },
     {
       "name": "Fobe",
-      "type": "number",
-      "_elasticsearch": {
-        "type": "double"
-      }
+      "type": "number"
     },
     {
-      "name": "Foo",
-      "type": "keyword",
-      "_elasticsearch": {
-        "type": "keyword"
-      },
-      "key": 1
+      "name": "Dt Test",
+      "type": "date"
     },
     {
       "name": "enabled",
-      "type": "boolean",
-      "_elasticsearch": {
-        "type": "boolean"
-      }
+      "type": "boolean"
     },
     {
       "name": "subObj1",
       "type": "map",
       "fields": [
         {
-          "name": "ex-state",
-          "type": "keyword",
-          "_elasticsearch": {
-            "type": "keyword"
-          }
-        },
-        {
           "name": "state",
           "type": "keyword",
-          "_elasticsearch": {
-            "type": "keyword"
-          }
+          "size": 7
+        },
+        {
+          "name": "ex-state",
+          "type": "keyword",
+          "size": 4
         }
       ]
     },
@@ -81,10 +60,7 @@
           "fields": [
             {
               "name": "izze",
-              "type": "integer",
-              "_elasticsearch": {
-                "type": "integer"
-              }
+              "type": "integer"
             }
           ]
         }
@@ -92,9 +68,11 @@
     },
     {
       "name": "tags",
-      "type": "keyword",
-      "_elasticsearch": {
-        "type": "keyword"
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword",
+        "size": 6
       }
     }
   ]

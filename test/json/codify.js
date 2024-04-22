@@ -16,7 +16,9 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json|*"
     },
-    output: './test/data/output/json/codify_1.json'
+    terminal: {
+      output: './test/data/output/json/codify_1.json'
+    }
   })) return 1;
 
   logger.info("=== codify foofile.engram.json.gz");
@@ -24,7 +26,9 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile.json.gz|*"
     },
-    output: './test/data/output/json/codify_g1.json'
+    terminal: {
+      output: './test/data/output/json/codify_g1.json'
+    }
   })) return 1;
 
   logger.info("=== codify foofile_01.engram.json");
@@ -32,7 +36,9 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foofile_01.json|*"
     },
-    output: './test/data/output/json/codify_m1.json'
+    terminal: {
+      output: './test/data/output/json/codify_m1.json'
+    }
   })) return 1;
 
   logger.info("=== codify foo_widgets.engram.json");
@@ -40,7 +46,9 @@ async function tests() {
     origin: {
       smt: "json|./test/data/input/|foo_widgets.json|*"
     },
-    output: './test/data/output/json/codify_l1.json'
+    terminal: {
+      output: './test/data/output/json/codify_l1.json'
+    }
   })) return 1;
 }
 

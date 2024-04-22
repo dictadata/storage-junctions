@@ -11,138 +11,69 @@
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 64,
-      "_mysql": {
-        "Field": "Foo",
-        "Type": "varchar(64)",
-        "Null": "NO",
-        "Key": "PRI",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": false,
-      "key": 1
+      "size": 7
     },
     {
       "name": "Bar",
       "type": "text",
-      "size": 256,
-      "_mysql": {
-        "Field": "Bar",
-        "Type": "varchar(256)",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "size": 13
     },
     {
       "name": "Baz",
-      "type": "integer",
-      "size": null,
-      "_mysql": {
-        "Field": "Baz",
-        "Type": "int",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "type": "integer"
     },
     {
       "name": "Fobe",
-      "type": "number",
-      "size": null,
-      "_mysql": {
-        "Field": "Fobe",
-        "Type": "double",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "type": "number"
     },
     {
       "name": "Dt Test",
-      "type": "date",
-      "size": null,
-      "_mysql": {
-        "Field": "Dt Test",
-        "Type": "datetime",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "type": "date"
     },
     {
       "name": "enabled",
-      "type": "boolean",
-      "size": 1,
-      "_mysql": {
-        "Field": "enabled",
-        "Type": "tinyint(1)",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "type": "integer"
     },
     {
       "name": "subObj1",
       "type": "map",
-      "size": null,
-      "_mysql": {
-        "Field": "subObj1",
-        "Type": "json",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "fields": [
+        {
+          "name": "state",
+          "type": "keyword",
+          "size": 7
+        },
+        {
+          "name": "ex-state",
+          "type": "keyword",
+          "size": 4
+        }
+      ]
     },
     {
       "name": "subObj2",
       "type": "map",
-      "size": null,
-      "_mysql": {
-        "Field": "subObj2",
-        "Type": "json",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "fields": [
+        {
+          "name": "subsub",
+          "type": "map",
+          "fields": [
+            {
+              "name": "izze",
+              "type": "integer"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "tags",
-      "type": "map",
-      "size": null,
-      "_mysql": {
-        "Field": "tags",
-        "Type": "json",
-        "Null": "YES",
-        "Key": "",
-        "Default": null,
-        "Extra": ""
-      },
-      "default": null,
-      "nullable": true
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword",
+        "size": 6
+      }
     }
   ]
 }

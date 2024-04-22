@@ -10,40 +10,36 @@ const { Storage } = require("../../storage");
 const { logger } = require('../../storage/utils');
 const stream = require('node:stream').promises;
 
-module.exports = exports = async function (tract, compareValues = 2) {
+module.exports = exports = async function (fiber, compareValues = 2) {
   logger.verbose(">>> create junction");
 
-  if (!Object.hasOwn(tract, "transforms"))
-    tract.transforms = [];
+  if (!Object.hasOwn(fiber, "transforms"))
+    fiber.transforms = [];
 
   let retCode = 0;
 
   var jo;
   try {
-    jo = await Storage.activate(tract.origin.smt, tract.origin.options);
-/*
-    if (jo.capabilities.encoding) {
-      logger.verbose(">>> get encoding");
-      // *** get encoding for junction's schema
-      let results = await jo.getEngram();
-      let encoding = results.data;
-      //logger.debug(JSON.stringify(encoding, null, "  "));
+    jo = await Storage.activate(fiber.origin.smt, fiber.origin.options);
+    /*
+        if (jo.capabilities.encoding) {
+          logger.verbose(">>> get encoding");
+          // *** get encoding for junction's schema
+          let results = await jo.getEngram();
+          let encoding = results.data;
+          //logger.debug(JSON.stringify(encoding, null, "  "));
 
-      let filename = tract.output.replace(".json", ".engram.json");
-      let retCode = _output(filename, encoding || results, compareValues);
-      if (retCode)
-        return process.exitCode = 1;
-    }
-*/
+          let filename = fiber.terminal.output.replace(".json", ".engram.json");
+          let retCode = _output(filename, encoding || results, compareValues);
+          if (retCode)
+            return process.exitCode = 1;
+        }
+    */
     // *** otherwise use CodifyTransform to determine field types including transforms
     logger.verbose(">>> build codify pipeline");
     let pipes = [];
 
-    let options = Object.assign({
-      max_read: tract.origin?.options?.max_read || 100,
-    });
-    if (tract.origin.pattern)
-      options[ "pattern" ] = tract.origin.pattern;
+    let options = Object.assign({ max_read: 100 }, fiber.origin.options);
 
     let reader = jo.createReader(options);
     reader.on('error', (error) => {
@@ -51,11 +47,11 @@ module.exports = exports = async function (tract, compareValues = 2) {
     });
     pipes.push(reader);
 
-    for (let transform of tract.transforms)
+    for (let transform of fiber.transforms)
       pipes.push(await jo.createTransform(transform.transform, transform));
 
-    // if tract.encoding is specified use it as a seed encoding
-    let codify = await jo.createTransform("codify", tract);
+    // if fiber.encoding is specified use it as a seed encoding
+    let codify = await jo.createTransform("codify", fiber);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding
@@ -64,9 +60,11 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
     // save the codify results
     let encoding2 = codify.encoding;
+    encoding2.name = jo.engram.name || jo.smt.schema;
+    encoding2.smt = jo.smt;
 
     //logger.debug(JSON.stringify(encoding2, null, "  "));
-    let filename = tract.output.replace(".json", ".results.json");
+    let filename = fiber.terminal.output.replace(".json", ".engram.json");
     retCode = _output(filename, encoding2, compareValues);
 
     logger.info(">>> completed");

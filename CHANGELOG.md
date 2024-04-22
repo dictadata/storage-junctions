@@ -219,7 +219,7 @@
 - version 1.8.0
   - filesystem getFile/putFile methods, replaces download/upload methods
   - ZipFileSystem read-only implemention
-  - ShapeFileJunction read-only implemention
+  - ShapefileJunction read-only implemention
   - add new geometry storage type
   - Elasticsearch geoJSON support
   - updated project index pages for /types and / utils

@@ -18,7 +18,9 @@ async function tests() {
         header: true
       }
     },
-    output: './test/data/output/csv/codify_1.json'
+    terminal: {
+      output: './test/data/output/csv/codify_1.json'
+    }
   })) return 1;
 
   logger.verbose("=== csv.gz > csv_codify_gz");
@@ -29,7 +31,23 @@ async function tests() {
         header: true
       }
     },
-    output: './test/data/output/csv/codify_g1.json'
+    terminal: {
+      output: './test/data/output/csv/codify_g1.json'
+    }
+  })) return 1;
+
+  logger.verbose("=== csv missing values");
+  if (await codify({
+    missingValue: '*',
+    origin: {
+      smt: "csv|./test/data/input/|foo_missing.csv|*",
+      options: {
+        header: true
+      }
+    },
+    terminal: {
+      output: './test/data/output/csv/codify_2.json'
+    }
   })) return 1;
 
 }

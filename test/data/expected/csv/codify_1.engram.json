@@ -1,17 +1,17 @@
 {
-  "name": "codify",
+  "name": "foofile.csv",
   "type": "engram",
   "smt": {
-    "model": "*",
-    "locus": "*",
-    "schema": "*",
+    "model": "csv",
+    "locus": "./test/data/input/",
+    "schema": "foofile.csv",
     "key": "*"
   },
   "fields": [
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 10
+      "size": 7
     },
     {
       "name": "Bar",
@@ -32,7 +32,7 @@
     },
     {
       "name": "enabled",
-      "type": "integer"
+      "type": "boolean"
     }
   ]
 }

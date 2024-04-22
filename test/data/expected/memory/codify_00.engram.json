@@ -11,8 +11,7 @@
     {
       "name": "Foo",
       "type": "keyword",
-      "size": 7,
-      "key": 1
+      "size": 7
     },
     {
       "name": "Bar",

@@ -1,10 +1,10 @@
 {
-  "name": "codify",
+  "name": "foofile.json.gz",
   "type": "engram",
   "smt": {
-    "model": "*",
-    "locus": "*",
-    "schema": "*",
+    "model": "json",
+    "locus": "./test/data/input/",
+    "schema": "foofile.json.gz",
     "key": "*"
   },
   "fields": [

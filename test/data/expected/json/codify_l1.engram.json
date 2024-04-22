@@ -1,10 +1,10 @@
 {
-  "name": "codify",
+  "name": "foo_widgets.json",
   "type": "engram",
   "smt": {
-    "model": "*",
-    "locus": "*",
-    "schema": "*",
+    "model": "json",
+    "locus": "./test/data/input/",
+    "schema": "foo_widgets.json",
     "key": "*"
   },
   "fields": [
@@ -32,7 +32,7 @@
     },
     {
       "name": "enabled",
-      "type": "integer"
+      "type": "boolean"
     },
     {
       "name": "tags",
