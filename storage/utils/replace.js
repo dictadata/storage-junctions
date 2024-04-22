@@ -7,7 +7,7 @@ const typeOf = require("./typeOf");
  * Text replacement of "${name}" in template's string properties.
  * Will recurse through objects and arrays.
  * @param {Object|Array|String} template source containing template expressions of form ${name}
- * @param {Object} params object containing replacement values, i.e. params: { name: value }
+ * @param {object} params object containing replacement values, i.e. params: { name: value }
  * @returns the template object with any replacements
  */
 module.exports = exports = function replace(template, params) {

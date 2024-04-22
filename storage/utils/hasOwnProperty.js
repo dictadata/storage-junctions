@@ -5,8 +5,8 @@
 
 /**
  * utility function for Object.hasOwnProperty
- * @param {Object} obj
- * @param {String} propname
+ * @param {object} obj
+ * @param {string} propname
  */
 function hasOwnProperty(obj, propname) {
   if (obj)

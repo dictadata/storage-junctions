@@ -13,7 +13,7 @@ module.exports = exports = class MapConstructsTransform extends Transform {
   /**
    *
    *
-   * @param {Object} options
+   * @param {object} options
    * @param {Array} options.key_name
    */
   constructor(options = {}) {

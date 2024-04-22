@@ -9,10 +9,10 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
   /**
    *
    * @param {StorageJunction} junction - parent storage-junction
-   * @param {Object} options
-   * @param {String} options.template file path .json file to use as a template
-   * @param {Object} options.params name/value pairs to replace in the template, e.g. ${name}
-   * @param {String} options.storeTo do notation path to the array to store constructs
+   * @param {object} options
+   * @param {string} options.template file path .json file to use as a template
+   * @param {object} options.params name/value pairs to replace in the template, e.g. ${name}
+   * @param {string} options.storeTo do notation path to the array to store constructs
    */
   constructor(junction, options) {
     super(junction, options);

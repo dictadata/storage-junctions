@@ -132,7 +132,7 @@ module.exports = exports = class StorageJunction {
 
   /**
    * Create schema at the storage locus.
-   * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
+   * @param {object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async createSchema(options = {}) {
     logger.debug('StorageJunction createSchema');
@@ -144,7 +144,7 @@ module.exports = exports = class StorageJunction {
   /**
    * Dull schema at the storage locus.
    * Junction implementations will translate to delete file, DROP TABLE, delete index, etc.
-   * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
+   * @param {object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async dullSchema(options) {
     logger.debug('StorageJunction dullSchema');
@@ -167,8 +167,8 @@ module.exports = exports = class StorageJunction {
 
   /**
    *
-   * @param {Object} constuct object to be save
-   * @param {Object} pattern Should contain a key used to identify the construct
+   * @param {object} constuct object to be save
+   * @param {object} pattern Should contain a key used to identify the construct
    *                     If null will insert a new construct into the source
    */
   async store(construct, pattern) {
@@ -181,7 +181,7 @@ module.exports = exports = class StorageJunction {
   /**
    *
    * @param {Array} constuct object to be save
-   * @param {Object} pattern Should contain a key used to identify the construct
+   * @param {object} pattern Should contain a key used to identify the construct
    *                     If null will insert a new construct into the source
    */
   async storeBulk(constructs, pattern) {

@@ -3,7 +3,7 @@
 ```javascript
   /**
    * Get value from field(s) and/or literal values
-   * @param {Object} construct - the object to pick values from
+   * @param {object} construct - the object to pick values from
    * @param {String|Number|Boolean} expression in the form "=[prop.]fieldname+'literal'+..."
    */
   function evaluate(expression, construct)

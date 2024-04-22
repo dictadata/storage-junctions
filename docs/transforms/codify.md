@@ -10,8 +10,8 @@ It is up to the application to provide a representative sample of constructs as 
 /**
  *
  * @param {String|Object} smt SMT of data source to codify
- * @param {Object} options
- * @param {Object} options.encoding optional engram encoding to use as a seed
+ * @param {object} options
+ * @param {object} options.encoding optional engram encoding to use as a seed
  */
 async function codifyCSV(smt, options) {
 

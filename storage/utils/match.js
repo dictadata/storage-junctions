@@ -32,7 +32,7 @@ const dot = require('./dot');
 
 /**
  * If criteria is a regexp, "/.../g", then create a RegExp
- * @param {String} criteria
+ * @param {string} criteria
  * @returns a RegExp or null
  */
 function makeRegExp(criteria) {
@@ -59,8 +59,8 @@ function makeRegExp(criteria) {
 
 /**
  * test str with a RegExp created from rule containing wildcard characters
- * @param {String} value - string to compare
- * @param {String} rule - string to compare against, may contain wildcard characters
+ * @param {string} value - string to compare
+ * @param {string} rule - string to compare against, may contain wildcard characters
  * @returns
  */
 function wildcard(value, rule) {

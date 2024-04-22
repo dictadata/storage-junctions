@@ -218,7 +218,7 @@ module.exports = exports = class Engram extends Object {
 
   /**
    * Creates a unique ID value by concatenating key or primary field values.
-   * @param {Object} construct
+   * @param {object} construct
    */
   get_uid(construct) {
     if (this.keyof === 'uid') {
@@ -256,7 +256,7 @@ module.exports = exports = class Engram extends Object {
 
   /**
    * Find a field object in the fields.
-   * @param {String} name
+   * @param {string} name
    */
   find(name) {
     let fname = (this.caseInsensitive) ? name.toUpperCase() : name;

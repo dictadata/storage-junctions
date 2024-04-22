@@ -48,15 +48,15 @@ let SMT = {
 
 `MSSQLJunction` constructor takes an options object with the following fields.
 
-`{Object} encoding` - an Engram or plain object containing a Fields property with column definitions, optional.
+`{object} encoding` - an Engram or plain object containing a Fields property with column definitions, optional.
 
-`{Boolean} bulkLoad` - MSSQLJunction.store() and MSSQLWriter will use bulk load when possible, default is false.
+`{boolean} bulkLoad` - MSSQLJunction.store() and MSSQLWriter will use bulk load when possible, default is false.
 
-`{Object} auth` - a plain object containing connection authentication information. See also auth_entries.json file.
+`{object} auth` - a plain object containing connection authentication information. See also auth_entries.json file.
 
-`{String} auth.username` - username for the database connection.
+`{string} auth.username` - username for the database connection.
 
-`{String} auth.password` - password for the database connection.
+`{string} auth.password` - password for the database connection.
 
 ## Examples
 

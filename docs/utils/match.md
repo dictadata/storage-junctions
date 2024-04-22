@@ -3,8 +3,8 @@
 ```javascript
 /**
  *
- * @param {Object} match - match expression
- * @param {Object} construct - object with fields to check
+ * @param {object} match - match expression
+ * @param {object} construct - object with fields to check
  */
 function match(expression, construct)
 ```

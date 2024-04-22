@@ -5,7 +5,7 @@
  * typeOf returns base type of objects like "string", "array", "date", "regexp"
  * or the object's constructor name
  * @param {any} obj the object to check
- * @param {Boolean} cname return for constructor.name for Objects
+ * @param {boolean} cname return for constructor.name for Objects
  */
 function typeOf(obj, name = false) {
 

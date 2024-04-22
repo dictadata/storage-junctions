@@ -14,7 +14,7 @@ module.exports = exports = class RowConstructsTransform extends Transform {
   /**
    * If headers are not set in options then the first row seen is assumed to be the headers.
    *
-   * @param {Object} options
+   * @param {object} options
    * @param {Array} options.headers
    */
   constructor(options = {}) {

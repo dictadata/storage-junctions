@@ -33,32 +33,32 @@ const StorageError = require("./storage-error");
  * ****************************************************************************
  *
  * Required properties
- *   name = "<field name>"   // {String} field name, unique within Engram fields collection
- *   type = '<field type>';  // {String} field type
+ *   name = "<field name>"   // {string} field name, unique within Engram fields collection
+ *   type = '<field type>';  // {string} field type
  *
  * Common datastore properties
  *   key = 0;         // {Boolean|Integer} true|false or key ordinal position, 1 based
- *   size = 0;        // {Integer} varies by type: allocation size, integer size, max character length, ...
- *   nullable = true; // {Boolean} null values allowed
+ *   size = 0;        // {number} varies by type: allocation size, integer size, max character length, ...
+ *   nullable = true; // {boolean} null values allowed
  *   default = null;  // {any} default value
- *   ordinal = 0;     // {Integer} ordinal position in datastore structure
+ *   ordinal = 0;     // {number} ordinal position in datastore structure
  *
  * Datastore specific properties
- *   _<model>      // {Object} _elasticsearch, _mysql, ...
+ *   _<model>      // {object} _elasticsearch, _mysql, ...
  *
  * Display properties
- *   label = "";   // {String} display name
- *   width = "";   // {Integer} suggested display|edit box width (characters)
+ *   label = "";   // {string} display name
+ *   width = "";   // {number} suggested display|edit box width (characters)
  *
  * Edit properties
- *   editWith    // {String}  "input", "checkbox", "radio", "select", "fields" (recursive)
- *   noEdit      // {Boolean} do not show in form, default false
- *   missing     // {Boolean} show in form if missing value, default false
- *   disabled    // {Boolean} show in from, but not changeable, default false
- *   input       // {Object}  HTML <input> attributes: type, min, max
- *   checkbox    // {Object}  options list
- *   radio       // {Object}  options list
- *   select      // {Object}  options list and attributes: multiple
+ *   editWith    // {string}  "input", "checkbox", "radio", "select", "fields" (recursive)
+ *   noEdit      // {boolean} do not show in form, default false
+ *   missing     // {boolean} show in form if missing value, default false
+ *   disabled    // {boolean} show in from, but not changeable, default false
+ *   input       // {object}  HTML <input> attributes: type, min, max
+ *   checkbox    // {object}  options list
+ *   radio       // {object}  options list
+ *   select      // {object}  options list and attributes: multiple
  */
 
 /**

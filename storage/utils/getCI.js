@@ -4,7 +4,7 @@
 /**
  * get property with case-insensitive key
  * returns value of property of undefined if not found
- * @param {Object} object
+ * @param {object} object
  * @param {string} key
  * @return {any} value
  */

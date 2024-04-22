@@ -208,7 +208,7 @@ class MySQLJunction extends StorageJunction {
   /**
    * Dull a schema at the locus.
    * Junction implementations will translate to delete file, DROP TABLE, delete index, etc.
-   * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
+   * @param {object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async dullSchema(options) {
     logger.debug('MySQLJunction dullSchema');
@@ -231,8 +231,8 @@ class MySQLJunction extends StorageJunction {
 
   /**
    *
-   * @param {Object} construct - data object to store
-   * @param {Object} pattern - optional parameters, source dependent
+   * @param {object} construct - data object to store
+   * @param {object} pattern - optional parameters, source dependent
    */
   async store(construct, pattern) {
     logger.debug("MySQLJunction store");
@@ -266,7 +266,7 @@ class MySQLJunction extends StorageJunction {
   /**
    *
    * @param {Array} constructs - array of data objects to store
-   * @param {Object} pattern - optional parameters, source dependent
+   * @param {object} pattern - optional parameters, source dependent
    */
   async storeBulk(constructs, pattern) {
     logger.debug("MySQLJunction store");

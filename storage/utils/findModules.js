@@ -6,7 +6,7 @@ const { parse, join } = require("node:path");
 const { cwd } = require("node:process");
 
 /**
- * @param {String} dir - fully qualified directory path, e.g. ___dirname
+ * @param {string} dir - fully qualified directory path, e.g. ___dirname
  */
 module.exports = exports = async (dir) => {
   if (!dir)

@@ -10,8 +10,8 @@ const { typeOf } = require("../utils");
  * Arrays, map, sets will be replaced not merged!
  * Functions will not be copied.
  * Note, this is a recursive function.
- * @param {Object} target destination target object
- * @param {Object} source one or more source objects
+ * @param {object} target destination target object
+ * @param {object} source one or more source objects
  */
 module.exports = exports = function objCopy(target, ...source) {
 

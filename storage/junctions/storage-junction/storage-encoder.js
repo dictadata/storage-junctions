@@ -27,7 +27,7 @@ module.exports = exports = class StorageEncoder {
 
   /**
    * Convert string values to types defined in the storage encoding.
-   * @param {Object} construct
+   * @param {object} construct
    */
   cast(construct) {
     if (typeOf(construct) !== "object")
@@ -120,7 +120,7 @@ module.exports = exports = class StorageEncoder {
   /**
    * Select fields to include in the output.
    * Logic is the same as the fields clause of Mutate transform.
-   * @param {Object} construct
+   * @param {object} construct
    * @returns
    */
   select(construct) {

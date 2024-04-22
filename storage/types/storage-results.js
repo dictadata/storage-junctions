@@ -5,7 +5,7 @@ class StorageResults {
 
   /**
    * The results type returned by storage methods.
-   * @param {integer} type_code overloaded, response type OR a HTTP like status code
+   * @param {number} type_code overloaded, response type OR a HTTP like status code
    * @param {string} message a string with a HTTP like statusMessage
    * @param {*} data an Array or Map of constructs, or single construct
    * @param {*} key optional key for keystores (map) storage sources

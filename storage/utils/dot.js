@@ -7,8 +7,8 @@ const typeOf = require("./typeOf");
 
 /**
    * find an object property using dot notation
-   * @param {String} dotname property name using dot notation
-   * @param {Object} construct object to pick
+   * @param {string} dotname property name using dot notation
+   * @param {object} construct object to pick
    * @returns the object property
    */
 exports.get = function get(dotname, construct) {
@@ -33,8 +33,8 @@ exports.get = function get(dotname, construct) {
 
 /**
    * set an object property to value using dot notation
-   * @param {String} dotname property name using dot notation
-   * @param {Object} construct object to pick
+   * @param {string} dotname property name using dot notation
+   * @param {object} construct object to pick
    * @param {*} value new value for property
    * @returns true if successful, false if invalid dot notation for construct
    */
