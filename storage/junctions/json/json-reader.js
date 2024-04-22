@@ -17,6 +17,11 @@ module.exports = exports = class JSONReader extends StorageReader {
    *
    * @param {*} storageJunction
    * @param {*} options
+   * @param {boolean}  options.header input includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
+   * @param {string}   options.pick property name to pick from source object(s)
+   * @param {number}   options.max_read maximum number of rows to read, default all
+   * @param {string}   options.fileEncoding  default "utf8"
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);

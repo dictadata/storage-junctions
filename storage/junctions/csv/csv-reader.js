@@ -14,11 +14,16 @@ module.exports = exports = class CSVReader extends StorageReader {
 
   /**
    *
-   * @param {*} storageJunction
-   * @param {*} options
+   * @param {object}   junction parent CSVJunction
+   * @param {object}   options
+   * @param {string}   options.separator field separator value, default ','
+   * @param {boolean}  options.header input includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
+   * @param {number}   options.max_read maximum number of rows to read, default all
+   * @param {string}   options.fileEncoding  default "utf8"
    */
-  constructor(storageJunction, options) {
-    super(storageJunction, options);
+  constructor(junction, options) {
+    super(junction, options);
 
     // check schema's extension
     //if (this.options.schema && path.extname(this.options.schema) === '')
@@ -38,7 +43,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     var pipeline = this.pipeline = new chain([
       parser,
       new CsvAsObjects({
-        keys: options.keys || options.headers || encoding.names,
+        keys: options.keys || options.headers,
         header: options.header
       }),
       new StreamValues()
