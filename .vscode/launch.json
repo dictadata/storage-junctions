@@ -805,8 +805,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "shapefile engram",
-      "program": "${workspaceFolder}/test/shapefile/engram.js",
+      "name": "shapefile codify",
+      "program": "${workspaceFolder}/test/shapefile/codify.js",
       "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
@@ -853,8 +853,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "rest engram",
-      "program": "${workspaceFolder}/test/rest/engram.js",
+      "name": "rest codify",
+      "program": "${workspaceFolder}/test/rest/codify.js",
       "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
