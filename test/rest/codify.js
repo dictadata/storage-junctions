@@ -3,15 +3,15 @@
  */
 "use strict";
 
-const getEngram = require('../lib/_getEngram');
+const codify = require('../lib/_codify');
 const { logger } = require('../../storage/utils');
 
 logger.info("=== Test: rest encoding");
 
 async function tests() {
 
-  logger.info("=== rest getEngram (points)");
-  if (await getEngram({
+  logger.info("=== rest codify (points)");
+  if (await codify({
     origin: {
       smt: "rest|https://api.weather.gov/points/${latitude},${longitude}||*",
       options: {
@@ -32,13 +32,13 @@ async function tests() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_points.engram.json'
+      output: './test/data/output/rest/weather_points.json'
     }
   }, 1)) return 1;
 
 
-  logger.info("=== rest getEngram (forecast)");
-  if (await getEngram({
+  logger.info("=== rest codify (forecast)");
+  if (await codify({
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
@@ -53,7 +53,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_forecast.engram.json'
+      output: './test/data/output/rest/weather_forecast.json'
     }
   }, 1)) return 1;
 
