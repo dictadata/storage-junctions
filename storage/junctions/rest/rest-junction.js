@@ -50,6 +50,9 @@ class RESTJunction extends StorageJunction {
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
   async getEngram() {
+    logger.debug("RESTJunction getEncoding");
+    if (!this.capabilities.encoding)
+      throw new StorageError(405);
 
     try {
       if (!this.engram.isDefined) {
@@ -88,7 +91,7 @@ class RESTJunction extends StorageJunction {
   /**
    * Dull a schema at the locus.
    * Junction implementations will translate to delete file, DROP TABLE, delete index, etc.
-   * @param {Object} options optional, options.schema name to use instead of junction's smt.schema
+   * @param {object} options optional, options.schema name to use instead of junction's smt.schema
    */
   async dullSchema(options) {
     logger.debug('RESTJunction dullSchema');

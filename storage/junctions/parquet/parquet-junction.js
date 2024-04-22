@@ -52,6 +52,9 @@ class ParquetJunction extends StorageJunction {
    *  Get the encoding for the storage junction.
    */
   async getEngram() {
+    logger.debug("ParquetJunction getEncoding");
+    if (!this.capabilities.encoding)
+      throw new StorageError(405);
 
     try {
       if (!this.engram.isDefined) {

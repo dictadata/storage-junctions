@@ -135,7 +135,7 @@ class ElasticsearchJunction extends StorageJunction {
    *
    */
   async getEngram() {
-    logger.debug("ElasticJunction get encoding");
+    logger.debug("ElasticJunction getEncoding");
 
     try {
       // get encoding from elasticsearch

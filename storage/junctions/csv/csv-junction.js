@@ -53,7 +53,9 @@ class CSVJunction extends StorageJunction {
    *  Get the encoding for the storage junction.
    */
   async getEngram() {
-    logger.debug("CSVJunction get encoding");
+    logger.debug("CSVJunction getEncoding");
+    if (!this.capabilities.encoding)
+      throw new StorageError(405);
 
     try {
       if (!this.engram.isDefined) {
