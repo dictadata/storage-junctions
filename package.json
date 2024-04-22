@@ -38,24 +38,20 @@
   },
   "devDependencies": {
     "colors": "^1.4.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint": "^9.1.0"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^8.13.0",
+    "@elastic/elasticsearch": "^8.13.1",
     "basic-ftp": "^5.0.4",
     "form-data": "^4.0.0",
-    "mysql2": "^3.9.3",
-    "node-html-parser": "^6.1.12",
+    "mysql2": "^3.9.7",
+    "node-html-parser": "^6.1.13",
     "node-stream-zip": "^1.15.0",
     "shapefile": "^0.6.6",
     "sqlstring": "^2.3.3",
     "stream-chain": "^2.2.4",
     "stream-csv-as-json": "^1.0.4",
     "stream-json": "^1.8.0",
-    "tedious": "^18.1.0",
-    "tsqlstring": "^1.0.1",
     "winston": "^3.13.0"
   }
 }
