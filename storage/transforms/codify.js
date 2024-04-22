@@ -11,15 +11,14 @@ const { Transform } = require('node:stream');
 const { Field, Engram, storageType } = require('../types');
 const { logger, typeOf } = require("../utils");
 
-
 module.exports = exports = class CodifyTransform extends Transform {
 
   /**
    *
-   * @param {*} options transform options
-   *   options.encoding       defaults to null
-   *   options.default_type   defaults to "text"
-   *   options.notation       defaults to null (json nesting), other values: "dot"
+   * @param {object} options transform options
+   * @param {object} options.encoding      start with an encoding, defaults to undefined
+   * @param {string} options.defaultType   a storage type, defaults to 'text'
+   * @param {string} options.missingValue  a value like '-' or '*' that represents missing values in the source, defaults to undefined
    */
   constructor(options) {
     let streamOptions = {
@@ -43,10 +42,7 @@ module.exports = exports = class CodifyTransform extends Transform {
    */
   get encoding() {
     try {
-      if (this.options.notation === "dot")
-        return this.flatten();
-      else
-        return this.engram.encoding;
+      return this.engram.encoding;
     }
     catch (err) {
       logger.warn(err.message);
@@ -80,8 +76,8 @@ module.exports = exports = class CodifyTransform extends Transform {
     logger.debug("codify _flush");
 
     // check if any fields are still undefined, i.e. all nulls; default to text
-    let default_type = this.options.default_type || "text";
-    this.checkDefaults(this.engram.fields, default_type);
+    let defaultType = this.options.defaultType || "text";
+    this.checkDefaults(this.engram.fields, defaultType);
 
     this.push(this.engram.encoding);
     callback();
@@ -90,9 +86,8 @@ module.exports = exports = class CodifyTransform extends Transform {
   /**
    * check construct against current encoding
    * recursive function
-   * @param {*} parent - The parent name used for dot notation, can be a nested dot notation name.
-   * @param {*} fields - The child field encodings.
    * @param {*} construct - A construct containing sample data of the schema.
+   * @param {*} fields - The child field encodings.
    */
   processConstruct(construct, fields) {
     logger.debug("processConstruct");
@@ -115,6 +110,11 @@ module.exports = exports = class CodifyTransform extends Transform {
   processValue(value, field) {
     // determine type of value
     let stype = storageType(value);
+
+    if (Object.hasOwn(this.options, "missingValue") && (value === this.options.missingValue)) {
+      stype = "unknown";
+      value = null;
+    }
 
     // check if field needs an initial type
     if (field.type === "unknown" && stype !== "unknown") {
@@ -203,29 +203,26 @@ module.exports = exports = class CodifyTransform extends Transform {
   }
 
   /**
-   * checkDefaults by scanning the encodings looking for undefined field.type values and sets them to options.default_type.
+   * checkDefaults by scanning the encodings looking for undefined field.type values and sets them to options.defaultType.
    * recursive function
    * @param {*} fields
-   * @param {*} default_type
+   * @param {*} defaultType
    */
-  checkDefaults(fields, default_type) {
+  checkDefaults(fields, defaultType) {
 
     for (let field of fields) {
       if (field.type === "unknown")
-        field.type = default_type;
+        field.type = defaultType;
       else if (field.type === "list") {
         if (field._list?.type === "unknown")
-          field._list.type = default_type;
+          field._list.type = defaultType;
       }
       else if (field.type === "map") {
         if (field.fields)
-          this.checkDefaults(field.fields, default_type);  // recurse sub-fields
+          this.checkDefaults(field.fields, defaultType);  // recurse sub-fields
       }
     }
 
   }
 
-  flatten() {
-
-  }
 };
