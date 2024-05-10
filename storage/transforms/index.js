@@ -7,23 +7,23 @@ const { StorageError } = require("../types");
 
 class Transforms {
 
-  static use(tfType, transformClass) {
+  static use(transformName, transformClass) {
     // need to do some validation
-    Transforms._transforms.set(tfType, transformClass);
+    Transforms._transforms.set(transformName, transformClass);
   }
 
-  static async activate(tfType, options) {
-    if (!tfType)
+  static async activate(transformName, options) {
+    if (!transformName)
       throw new StorageError(400, "invalid transform type");
 
-    if (Transforms._transforms.has(tfType)) {
-      let transform = new (Transforms._transforms.get(tfType))(options);
+    if (Transforms._transforms.has(transformName)) {
+      let transform = new (Transforms._transforms.get(transformName))(options);
       if (typeof transform.activate === "function")
         await transform.activate();
       return transform;
     }
     else
-      throw new StorageError(400, "Unknown transform type: " + tfType);
+      throw new StorageError(400, "Unknown transform type: " + transformName);
   }
 
 }
