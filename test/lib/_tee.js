@@ -94,7 +94,7 @@ module.exports = exports = async function (tract) {
       if (terminal?.output) {
         logger.info("<<< compare results " + terminal.output);
         let expected_output = terminal.output.replace("output", "expected");
-        retCode = _compare(expected_output, terminal.output, 2);
+        retCode = _compare(terminal.output, expected_output, 2);
       }
     }
 

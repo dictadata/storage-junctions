@@ -147,7 +147,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     if (terminal?.output) {
       logger.info("<<< compare results " + terminal.output);
       let expected_output = terminal.output.replace("output", "expected");
-      retCode = _compare(expected_output, terminal.output, compareValues);
+      retCode = _compare(terminal.output, expected_output, compareValues);
     }
 
     logger.info(">>> completed");

@@ -16,7 +16,7 @@ module.exports = exports = function (filename, data, compareValues = 1) {
   fs.writeFileSync(filename, JSON.stringify(data, null, "  "), "utf8");
 
   let expected_output = filename.replace("output", "expected");
-  retCode = _compare(expected_output, filename, compareValues);
+  retCode = _compare(filename, expected_output, compareValues);
 
   return retCode;
 };
