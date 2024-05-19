@@ -3,7 +3,7 @@
   "type": "engram",
   "smt": {
     "model": "shp",
-    "locus": "zip:/var/dictadata/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/",
+    "locus": "zip:/var/dictadata/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/",
     "schema": "Ames Precincts",
     "key": "*"
   },

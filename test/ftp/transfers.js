@@ -32,7 +32,9 @@ async function test_read() {
   if (await transfer({
     origin: {
       smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.csv|*",
-      options: {}
+      options: {
+        header: true
+      }
     },
     terminal: {
       smt: "csv|./test/data/output/ftp/|output.csv.gz|*",

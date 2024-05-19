@@ -8,7 +8,7 @@ const { logger } = require('../../storage/utils');
 
 logger.info("===== mysql dullSchema ");
 
-async function test(schema, encoding) {
+async function test(schema) {
 
   logger.info("=== dullSchema" + schema);
   if (await dullSchema({
@@ -18,5 +18,6 @@ async function test(schema, encoding) {
 }
 
 (async () => {
-  if (await test("foo_schema_x", "foo_schema")) return;
+  if (await test("foo_schema_x")) return;
+  if (await test("timeseries")) return;
 })();

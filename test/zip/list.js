@@ -42,7 +42,7 @@ async function test() {
   logger.info("=== list zip files - recursive");
   if (await list({
     origin: {
-      smt: "*|zip:/var/dictadata/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip|*|*",
+      smt: "*|zip:/var/dictadata/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip|*|*",
       options: {
         recursive: true
       }
@@ -55,7 +55,7 @@ async function test() {
   logger.info("=== list zip by prefix ");
   if (await list({
     origin: {
-      smt: "*|zip:/var/dictadata/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|*|*",
+      smt: "*|zip:/var/dictadata/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|*|*",
       options: {
         recursive: false
       }

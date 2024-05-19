@@ -73,7 +73,7 @@ async function test5() {
   logger.info("=== shapefile codify from Ames.zip");
   if (await codify({
     origin: {
-      smt: "shp|zip:/var/dictadata/US/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|$1|*",
+      smt: "shp|zip:/var/dictadata/IA/sos.iowa.gov/shapefiles/City Precincts/Ames.zip/Ames/|$1|*",
       options: {}
     },
     terminal: {
