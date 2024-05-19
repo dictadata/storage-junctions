@@ -9,8 +9,9 @@ Default, assign and override field values.
 // order of operations:
 //   default
 //   select | map | (all fields)
+//   list
+//   func
 //   assign
-//   override
 //   remove
 
 // example mutate transform
@@ -25,29 +26,39 @@ Default, assign and override field values.
     },
 
     // select fields
-    select: ['field-name', 'field-name', ...]
+    select: ["field-name", ...]
 
     // map fields
     map: {
-      <new-field-name>: <value>,
+      "new-field-name": <value>,
       ...
     },
 
-    // modify field value with a function body
-    // (construct) => { return some-value; }
-    assign: {
-      "field-name": "function body",
+    // list, create array from fields and/or constants
+    list: {
+      "new-field_name": <value>,
+      "new-field_name": [ <value>, ... ],
       ...
     }
 
-    // override field values or inject new fields last
-    override: {
+    // modify field value with a function body
+    func: {
+      "field-name": "function body",
+      ...
+    }
+    // where "function body" = "[statements...]; return some-value;"
+    //
+    // function call definition
+    //   (construct, newConstruct) => { return some-value; }
+
+    // assign field values, override values or inject new fields at end of object
+    assign: {
       "field-name": <value>,
       ...
     }
 
     // remove fields from the new construct
-    remove: ["field-name", "field-name", ...]
+    remove: ["field-name", ...]
 
   };
 */

@@ -24,10 +24,10 @@
         "Bar": "Bar",
         "Baz": "Bazzy"
       },
-      "remove": [ "Fobe" ],
-      "override": {
+      "assign": {
         "Fie": "override the fum"
-      }
+      },
+      "remove": [ "Fobe" ]
     }
   ]
 }
@@ -76,24 +76,26 @@
       "object1.subfield":  "FlatField"
     },
 
-    // remove fields from the new construct
-    "remove": ["field1", "field2"],
-
     // inject new fields or override existing values
-    "override": {
+    "assign": {
       "newField": <value>,
       "existingField": <override value>
-    }
+    },
+
+    // remove fields from the new construct
+    "remove": ["field1", "field2"]
+
   };
 ```
 
-### order of operations
+### order of mutate operations
 
 * default
-* select | map
+* select | map | (all)
+* list
+* func
 * assign
 * remove
-* override
 
 ### AggregateTransform
 

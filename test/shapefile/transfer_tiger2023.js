@@ -60,7 +60,7 @@ async function transfer4() {
   logger.verbose("=== Transfer shapefile to elasticsearch");
   if (await transfer({
     "origin": {
-      "smt": "shp|zip:/var/dictadata/US/IA/legis.iowa.gov/Plan2/SHP/IA_ProposedPlan2_Oct2021.zip|Plan2_Congress|*",
+      "smt": "shp|zip:/var/dictadata/IA/legis.iowa.gov/Plan2/SHP/IA_ProposedPlan2_Oct2021.zip|Plan2_Congress|*",
       "options": {
         "encoding": "./test/data/input/engrams/bl_2020_ia_congress.engram.json"
       }
@@ -68,7 +68,7 @@ async function transfer4() {
     "transforms": [
       {
         "transform": "mutate",
-        "override": {
+        "assign": {
           "properties.STATEFP": "19"
         }
       }

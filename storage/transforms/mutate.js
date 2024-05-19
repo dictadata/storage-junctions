@@ -3,7 +3,7 @@
  *
  * Select, inject and remove fields.
  * Map field names with ability to flatten or expand construct structure.
- * Default, assign and override field values.
+ * Set defaults, map and override field values.
  */
 "use strict";
 
@@ -13,8 +13,9 @@ const { dot, evaluate } = require("../utils");
 // order of operations:
 //   default
 //   select | map | (all fields)
-//   assign function
-//   override
+//   list
+//   func
+//   assign
 //   remove
 
 // example mutate transform
@@ -29,29 +30,39 @@ const { dot, evaluate } = require("../utils");
     },
 
     // select fields
-    select: ['field-name', 'field-name', ...]
+    select: ["field-name", ...]
 
     // map fields
     map: {
-      <new-field-name>: <value>,
+      "new-field-name": <value>,
       ...
     },
 
-    // modify field value with a function body
-    // (construct) => { return some-value; }
-    assign: {
-      "field-name": "function body",
+    // list, create array from fields and/or constants
+    list: {
+      "new-field_name": <value>,
+      "new-field_name": [ <value>, ... ],
       ...
     }
 
-    // override field values or inject new fields last
-    override: {
+    // modify field value with a function body
+    func: {
+      "field-name": "function body",
+      ...
+    }
+    // where "function body" = "[statements...]; return some-value;"
+    //
+    // function call definition
+    //   (construct, newConstruct) => { return some-value; }
+
+    // assign field values, override values or inject new fields at end of object
+    assign: {
       "field-name": <value>,
       ...
     }
 
     // remove fields from the new construct
-    remove: ["field-name", "field-name", ...]
+    remove: ["field-name", ...]
 
   };
 */
@@ -85,9 +96,9 @@ module.exports = exports = class MutateTransform extends Transform {
 
     // mutation functions
     this.mutations = {};
-    if (Object.hasOwn(options, 'assign')) {
-      for (let [ name, body ] of Object.entries(options.assign)) {
-        this.mutations[ name ] = new Function('construct', body);
+    if (Object.hasOwn(options, 'func')) {
+      for (let [ name, body ] of Object.entries(options.func)) {
+        this.mutations[ name ] = new Function('construct', 'newConstruct', body);
       }
     }
   }
@@ -124,16 +135,31 @@ module.exports = exports = class MutateTransform extends Transform {
       Object.assign(newConstruct, construct);
     }
 
-    // assign values with function
-    if (this.options.assign) {
-      for (let name of Object.keys(this.options.assign)) {
-        dot.set(name, newConstruct, this.mutations[ name ](newConstruct));
+    // list, create array from fields and/or constants
+    if (this.options.list) {
+      for (let [ name, items ] of Object.entries(this.options.list)) {
+        let arr = [];
+        if (typeof items === "string") {
+          arr.push(evaluate(items, construct));
+        }
+        else if (Array.isArray(items)) {
+          for (let item of items)
+            arr.push(evaluate(item, construct))
+        }
+        dot.set(name, newConstruct, arr);
       }
     }
 
-    // override
-    if (this.options.override) {
-      for (let [ name, value ] of Object.entries(this.options.override)) {
+    // func, assign values with function
+    if (this.options.func) {
+      for (let name of Object.keys(this.options.func)) {
+        dot.set(name, newConstruct, this.mutations[ name ](construct, newConstruct));
+      }
+    }
+
+    // assign, override values or inject fields
+    if (this.options.assign) {
+      for (let [ name, value ] of Object.entries(this.options.assign)) {
         dot.set(name, newConstruct, evaluate(value, newConstruct));
       }
     }

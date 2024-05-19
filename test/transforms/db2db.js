@@ -118,7 +118,7 @@ async function forecastTransform(tract) {
     "transforms": [
       {
         "transform": "mutate",
-        "override": {
+        "assign": {
           "Fie": "It's always sunny in Philadelphia?"
         }
       }

@@ -46,7 +46,7 @@ async function tests() {
         "default": {
           "fie": "where's fum?"
         },
-        "override": {
+        "assign": {
           "fum": "here"
         },
         "map": {

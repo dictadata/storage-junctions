@@ -44,7 +44,7 @@ async function tests() {
       {
         transform: "mutate",
         select: [ "Foo", "Bar", "Baz", "Dt Test" ],
-        assign: {
+        func: {
           "Baz": "return (construct.Baz * 100);"
         }
       }
@@ -89,10 +89,10 @@ async function tests() {
           "sub.izze": "=subObj2.subsub.izze"
         },
         "assign": {
-          "fobe": "return (construct.fobe * 100);"
-        },
-        "override": {
           "fum": "here"
+        },
+        "func": {
+          "fobe": "return (construct.Fobe * 100);"
         },
         "remove": [ "baz" ]
       }
