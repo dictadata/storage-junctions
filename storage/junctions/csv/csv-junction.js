@@ -84,7 +84,7 @@ class CSVJunction extends StorageJunction {
   }
 
   /**
-   * Sets the encoding for the storage node.
+   * create source schema
    * @param {*}
    */
   async createSchema(options = {}) {

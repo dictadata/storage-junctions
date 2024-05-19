@@ -16,9 +16,9 @@ module.exports = exports = class CSVReader extends StorageReader {
    *
    * @param {object}   junction parent CSVJunction
    * @param {object}   options
-   * @param {string}   options.separator field separator value, default ','
    * @param {boolean}  options.header input includes a header row, default false
-   * @param {string[]} options.headers values to use for field names, default undefined
+   * @param {string[]} options.headers values to use for headers instead of engram field names, default undefined
+   * @param {string}   options.separator field separator value, default ','
    * @param {number}   options.max_read maximum number of rows to read, default all
    * @param {string}   options.fileEncoding  default "utf8"
    */
@@ -33,11 +33,13 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     /***** create the pipeline and data handlers *****/
     var reader = this;
-    var encoding = this.engram;
     var encoder = this.junction.createEncoder(options);
 
     var statistics = this._statistics;
     var max = this.options.max_read || -1;
+
+    if (!options.header && !options.keys && !options.headers)
+      options.headers = this.engram.names;
 
     var parser = CsvParser({ separator: options.separator });
     var pipeline = this.pipeline = new chain([

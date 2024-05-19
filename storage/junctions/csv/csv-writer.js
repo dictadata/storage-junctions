@@ -9,8 +9,10 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
   /**
    *
-   * @param {*} storageJunction
-   * @param {*} options
+   * @param {object}   junction parent CSVJunction
+   * @param {object}   options
+   * @param {boolean}  options.header output includes a header row, default false
+   * @param {string[]} options.headers values to use for engram field names, default undefined
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
@@ -39,7 +41,8 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
       if (this.stfs.isNewFile && this.options.header) {
         // new file, write header line
-        let headers = '"' + this.engram.names.join('","') + '"\n';
+        let names = this.options.headers || this.engram.names;
+        let headers = '"' + names.join('","') + '"\n';
         await this.ws.write(headers);
       }
 
