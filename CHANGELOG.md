@@ -1,5 +1,9 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.113
+  - refactor: mutate transform, rename operations func, assign; add list (array)
+  - bug fix: CSV use engram field names for default headers values
+  - testing: refactor compare(output, expected, comparValues)
 - version 0.9.112
   - feature: codify options missingValue, defaultType
   - refactor: remove getEngram() for file based storage junctions
