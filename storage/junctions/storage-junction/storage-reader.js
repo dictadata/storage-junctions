@@ -8,12 +8,12 @@ module.exports = exports = class StorageReader extends Readable {
 
   /**
    *
-   * @param {*} storageJunction
+   * @param {*} junction
    * @param {*} options
    */
-  constructor(storageJunction, options) {
-    if (!Object.hasOwn(storageJunction, "engram"))
-      throw new StorageError(400, "Invalid parameter: storageJunction");
+  constructor(junction, options) {
+    if (!Object.hasOwn(junction, "engram"))
+      throw new StorageError(400, "Invalid parameter: junction");
 
     let streamOptions = {
       objectMode: true,
@@ -22,9 +22,9 @@ module.exports = exports = class StorageReader extends Readable {
     };
     super(streamOptions);
 
-    this.junction = storageJunction;
-    this.smt = storageJunction.smt;
-    this.engram = storageJunction.engram;
+    this.junction = junction;
+    this.smt = junction.smt;
+    this.engram = junction.engram;
 
     this.options = Object.assign({}, options);
 
