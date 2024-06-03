@@ -21,6 +21,7 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
     let l = fs.readFileSync("./.vscode/launch.json", "utf8");
     let lj = l.replace(/\/\/.*/g, "");  // remove comments
     var launch = JSON.parse(lj);
+    var cwd = process.cwd();
 
     for (let config of launch.configurations) {
       if (!testName || config.name.indexOf(testName) >= 0) {
@@ -30,6 +31,11 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
 
           console.log(config.name.bgBlue);
           let script = config.program.replace("${workspaceFolder}", ".");
+
+          if (Object.hasOwn(config, "cwd")) {
+            let wd = config.cwd.replace("${workspaceFolder}", ".");
+            process.chdir(wd);
+          }
 
           let args = config.runtimeArgs || [];
           args.push( script );
@@ -43,6 +49,10 @@ let testName = process.argv.length > 2 ? process.argv[ 2 ] : "";
           let exitcode = await runTest(args);
           if (exitcode !== 0)
             break;
+
+          if (Object.hasOwn(config, "cwd")) {
+            process.chdir(cwd);
+          }
         }
       }
     }
