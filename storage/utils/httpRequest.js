@@ -9,7 +9,7 @@ const logger = require('./logger');
 
 /**
  * httpRequest takes some Axios style request config options.
- * These request options are coverted to Node.js options for HTTP, HTTPS, HTTP/2
+ * These request options are converted to Node.js options for HTTP, HTTPS, HTTP/2
  *
  * @param {*} url The absolute or relative input URL to options.
  * @param {*} request HTTP options parameters.
