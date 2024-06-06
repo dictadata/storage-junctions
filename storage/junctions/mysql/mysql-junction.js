@@ -5,7 +5,8 @@
 
 const StorageJunction = require("../storage-junction");
 const { Engram, StorageResults, StorageError } = require("../../types");
-const { typeOf, logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
+const { typeOf } = require("@dictadata/lib/utils");
 
 const MySQLReader = require("./mysql-reader");
 const MySQLWriter = require("./mysql-writer");

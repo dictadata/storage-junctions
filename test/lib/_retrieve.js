@@ -5,9 +5,9 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _output = require("./_output");
 const { Storage } = require("../../storage");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
+const { output } = require("@dictadata/lib/test");
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -33,7 +33,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
     logger.verbose("result: " + results.status + " count: " + (results.data ? results.data.length : 0));
     if (tract.terminal?.output)
-      retCode = _output(tract.terminal.output, results, compareValues);
+      retCode = output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));
 

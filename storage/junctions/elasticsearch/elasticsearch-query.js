@@ -5,7 +5,8 @@
 
 const elasticsearch = require("@elastic/elasticsearch");
 const { StorageError } = require("../../types");
-const { typeOf, logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
+const { typeOf } = require("@dictadata/lib/utils");
 const fs = require('node:fs');
 
 /**

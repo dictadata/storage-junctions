@@ -4,7 +4,7 @@
 "use strict";
 
 const { Storage } = require("../../storage");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== Tests: Generic * Junction");
 

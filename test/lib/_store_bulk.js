@@ -5,9 +5,9 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _output = require("./_output");
 const { Storage } = require("../../storage");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
+const { output } = require("@dictadata/lib/test");
 
 module.exports = exports = async function (tract, compareValues = 2, keyValues = null) {
   logger.info(">>> create junction");
@@ -23,7 +23,7 @@ module.exports = exports = async function (tract, compareValues = 2, keyValues =
     let results = await jo.storeBulk(tract.constructs, tract.origin.pattern);
 
     if (tract.terminal?.output)
-      retCode = _output(tract.terminal.output, results, compareValues);
+      retCode = output(tract.terminal.output, results, compareValues);
     else
       logger.verbose(JSON.stringify(results, null, "  "));
 

@@ -1,4 +1,4 @@
-const dot = require('../../storage/utils/dot');
+const dot = require('require("@dictadata/lib/utils");/dot');
 
 let obj = {
   t1: "top",

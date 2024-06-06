@@ -2,7 +2,7 @@
 
 const { FileSystems, Transforms } = require('../../storage');
 const { Engram, StorageResults, StorageError } = require("../../types");
-const { logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
 
 const Encoder = require("./storage-encoder");
 const Reader = require("./storage-reader");

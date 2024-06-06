@@ -5,7 +5,8 @@
 
 const Storage = require("../storage");
 const { Transform } = require('node:stream');
-const { logger, replace } = require("../utils");
+const { logger } = require("@dictadata/lib");
+const { replace } = require("@dictadata/lib/utils");
 
 /*
   // example conjoin transform

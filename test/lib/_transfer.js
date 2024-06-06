@@ -9,8 +9,8 @@
 const _pev = require("./_process_events");
 const _init = require("./_init");
 const { Storage } = require("../../storage");
-const { logger } = require("../../storage/utils");
-const _compare = require("./_compare");
+const { logger } = require("@dictadata/lib");
+const { compare } = require("@dictadata/lib/test");
 const fs = require('node:fs');
 const stream = require('node:stream').promises;
 
@@ -147,7 +147,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     if (terminal?.output) {
       logger.info("<<< compare results " + terminal.output);
       let expected_output = terminal.output.replace("output", "expected");
-      retCode = _compare(terminal.output, expected_output, compareValues);
+      retCode = compare(terminal.output, expected_output, compareValues);
     }
 
     logger.info(">>> completed");

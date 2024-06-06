@@ -6,7 +6,7 @@
 const store = require('../lib/_store');
 const recall = require('../lib/_recall');
 const dull = require('../lib/_dull');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== Tests: elasticsearch");
 

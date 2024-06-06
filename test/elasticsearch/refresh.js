@@ -4,8 +4,8 @@
 "use strict";
 
 const { Storage } = require("../../storage");
-const compare = require("../lib/_compare");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
+const { compare } = require("@dictadata/lib/test");
 const fs = require('node:fs');
 
 logger.info("=== Tests: elasticsearch");

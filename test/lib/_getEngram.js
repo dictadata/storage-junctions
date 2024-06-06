@@ -5,10 +5,11 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _output = require("./_output");
 const { Storage } = require("../../storage");
-const { typeOf } = require("../../storage/utils");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
+const { typeOf } = require("@dictadata/lib/utils");
+const { output } = require("@dictadata/lib/test");
+
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -26,7 +27,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
 
     if (typeOf(encoding) === 'object') {
       if (tract.terminal?.output)
-        retCode = _output(tract.terminal.output, results.data, compareValues);
+        retCode = output(tract.terminal.output, results.data, compareValues);
     }
     else
       logger.warn("storage schema was: " + encoding);

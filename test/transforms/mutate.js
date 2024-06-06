@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== Test: transforms mutate");
 
@@ -30,7 +30,7 @@ async function tests() {
           "Baz": "let x = (construct.Baz * 100); return x;"
         },
         assign: {
-          "bar_b": "=Bar/.*(b)/$1"
+          "bar_b": "=Bar/.*(boat)/$1"
         }
       }
     ],

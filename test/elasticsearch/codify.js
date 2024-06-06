@@ -4,7 +4,7 @@
 "use strict";
 
 const codify = require('../lib/_codify');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== tests: ElasticSearch Codify ");
 

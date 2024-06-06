@@ -5,7 +5,7 @@
  */
 
 const { Transform } = require('node:stream');
-const { logger } = require("../utils");
+const { logger } = require("@dictadata/lib");
 
 // example compose transform
 /*

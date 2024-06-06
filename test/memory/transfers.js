@@ -5,7 +5,7 @@
 
 const transfer = require('../lib/_transfer');
 
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 async function tests() {
 

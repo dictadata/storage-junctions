@@ -5,7 +5,7 @@
 
 const getFiles = require('../lib/_getFiles');
 const putFiles = require('../lib/_putFiles');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== tests: fs file copy");
 

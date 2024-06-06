@@ -3,7 +3,6 @@
  */
 
 exports.codify = require("./_codify");
-exports.compare = require("./_compare");
 exports.createSchema = require("./_createSchema.js");
 exports.dull = require("./_dull.js");
 exports.dullSchema = require("./_dullSchema.js");

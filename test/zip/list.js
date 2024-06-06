@@ -4,7 +4,7 @@
 "use strict";
 
 const list = require('../lib/_list');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== tests: zip list");
 

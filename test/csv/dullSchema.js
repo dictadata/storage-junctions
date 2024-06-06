@@ -4,7 +4,7 @@
 "use strict";
 
 const dullSchema = require('../lib/_dullSchema');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== Test: csv dullSchema");
 

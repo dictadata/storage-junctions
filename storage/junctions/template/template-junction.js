@@ -1,6 +1,6 @@
 "use strict";
 
-const { logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
 
 const StorageJunction = require("../storage-junction");
 //const Encoder = require("./template-encoder");

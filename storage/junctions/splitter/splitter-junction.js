@@ -7,7 +7,7 @@
 const Storage = require("../../storage");
 const StorageJunction = require("../storage-junction");
 const { Engram, StorageError } = require("../../types");
-const { logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
 
 const SplitterWriter = require("./splitter-writer");
 

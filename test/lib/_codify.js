@@ -5,9 +5,9 @@
 
 const _pev = require("./_process_events");
 const _init = require("./_init");
-const _output = require("./_output");
 const { Storage } = require("../../storage");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
+const { output } = require("@dictadata/lib/test");
 const stream = require('node:stream').promises;
 
 module.exports = exports = async function (fiber, compareValues = 2) {
@@ -30,7 +30,7 @@ module.exports = exports = async function (fiber, compareValues = 2) {
           //logger.debug(JSON.stringify(encoding, null, "  "));
 
           let filename = fiber.terminal.output.replace(".json", ".engram.json");
-          let retCode = _output(filename, encoding || results, compareValues);
+          let retCode = output(filename, encoding || results, compareValues);
           if (retCode)
             return process.exitCode = 1;
         }
@@ -65,7 +65,7 @@ module.exports = exports = async function (fiber, compareValues = 2) {
 
     //logger.debug(JSON.stringify(encoding2, null, "  "));
     let filename = fiber.terminal.output.replace(".json", ".engram.json");
-    retCode = _output(filename, encoding2, compareValues);
+    retCode = output(filename, encoding2, compareValues);
 
     logger.info(">>> completed");
   }

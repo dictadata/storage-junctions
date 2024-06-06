@@ -5,7 +5,7 @@
 
 const StorageJunction = require("../storage-junction");
 const { StorageResults, StorageError } = require("../../types");
-const { logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
 const JSONReader = require("./json-reader");
 const JSONWriter = require("./json-writer");
 

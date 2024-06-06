@@ -5,7 +5,8 @@
 
 const { Transform } = require('node:stream');
 const Storage = require("../storage");
-const { dot, evaluate, match, logger } = require("../utils");
+const { logger } = require("@dictadata/lib");
+const { dot, evaluate, match } = require("@dictadata/lib/utils");
 
 /* adjoin transform definition
 

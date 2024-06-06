@@ -1,7 +1,7 @@
 // storage/types/StorageError
 "use strict";
 
-const { typeOf } = require("../utils");
+const { typeOf } = require("@dictadata/lib/utils");
 const StorageResults = require("./storage-results");
 
 class StorageError extends Error {

@@ -4,7 +4,7 @@
 "use strict";
 
 const getFiles = require('../lib/_getFiles');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 logger.info("=== Tests: http file downloads");
 

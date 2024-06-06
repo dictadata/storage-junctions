@@ -4,7 +4,7 @@
 "use strict";
 
 const { SMT, StorageError } = require("../types");
-const { logger } = require("../utils");
+const { logger } = require("@dictadata/lib");
 
 const path = require('node:path');
 

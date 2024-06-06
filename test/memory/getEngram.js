@@ -4,7 +4,7 @@
 "use strict";
 
 const getEngram = require('../lib/_getEngram');
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 
 async function test(schema, encoding) {
 

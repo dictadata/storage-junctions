@@ -5,7 +5,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require("../../types");
-const { logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
 
 module.exports = exports = class SplitterWriter extends StorageWriter {
 

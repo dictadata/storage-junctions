@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { logger } = require("../../utils");
+const { logger } = require("@dictadata/lib");
 const fs = require('node:fs');
 const { logger } = require('../../utils');
 

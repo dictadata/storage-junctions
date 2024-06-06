@@ -9,7 +9,8 @@
 
 const { Transform } = require('node:stream');
 const { Field, Engram, storageType } = require('../types');
-const { logger, typeOf } = require("../utils");
+const { logger } = require("@dictadata/lib");
+const { typeOf } = require("@dictadata/lib/utils");
 
 module.exports = exports = class CodifyTransform extends Transform {
 

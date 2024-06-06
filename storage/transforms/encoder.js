@@ -7,7 +7,7 @@
 
 const { Junctions } = require("../storage");
 const { StorageError } = require("../types");
-const { logger } = require("../utils");
+const { logger } = require("@dictadata/lib");
 
 const { Transform } = require('node:stream');
 

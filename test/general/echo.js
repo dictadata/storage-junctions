@@ -5,7 +5,7 @@
 
 const { Storage } = require("../../storage");
 const EchoJunction = require("../../storage/junctions/echo");
-const { logger } = require('../../storage/utils');
+const { logger } = require("@dictadata/lib");
 const stream = require('node:stream/promises');
 
 logger.info("=== Tests: EchoJunction");
