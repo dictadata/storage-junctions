@@ -4,9 +4,9 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger } = require('../../utils');
+const { logger } = require('@dictadata/storage-lib');
 
-const dslEncoder = require("./elasticsearch-encoder-dsl");
+const dslEncoder = require('./elasticsearch-encoder-dsl');
 
 
 module.exports = exports = class ElasticsearchReader extends StorageReader {

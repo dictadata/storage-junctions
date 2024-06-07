@@ -3,12 +3,12 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
+const StorageJunction = require('../storage-junction');
+const { StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
-const ShapefileReader = require("./shapefile-reader");
-const ShapefileWriter = require("./shapefile-writer");
+const ShapefileReader = require('./shapefile-reader');
+const ShapefileWriter = require('./shapefile-writer');
 
 const { pipeline, finished } = require('node:stream/promises');
 const shapefile = require('shapefile');

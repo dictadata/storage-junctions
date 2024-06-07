@@ -5,9 +5,9 @@
  * into storage field encodings.
  */
 
-const { Junctions } = require("../storage");
-const { StorageError } = require("../types");
-const { logger } = require("@dictadata/lib");
+const { Junctions } = require('../storage');
+const { StorageError } = require('../types');
+const { logger } = require('@dictadata/storage-lib');
 
 const { Transform } = require('node:stream');
 

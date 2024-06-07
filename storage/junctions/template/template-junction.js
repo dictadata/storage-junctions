@@ -1,11 +1,11 @@
 "use strict";
 
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
-const StorageJunction = require("../storage-junction");
-//const Encoder = require("./template-encoder");
-//const Reader = require("./template-reader");
-const Writer = require("./template-writer");
+const StorageJunction = require('../storage-junction');
+//const Encoder = require('./template-encoder');
+//const Reader = require('./template-reader');
+const Writer = require('./template-writer');
 
 module.exports = exports = class TemplateJunction extends StorageJunction {
 

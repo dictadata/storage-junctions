@@ -6,7 +6,7 @@
 const createSchema = require('./createSchema');
 const dullSchema = require('./dullSchema');
 const getEngram = require('./getEngram');
-const list = require("./list");
+const list = require('./list');
 
 (async () => {
   if (await createSchema.runTests())

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { StorageError } = require("../types");
+const { StorageError } = require('../types');
 
 class FileSystems {
 

@@ -8,7 +8,7 @@
 "use strict";
 
 const StorageEncoder = require('../storage-junction/storage-encoder');
-const { typeOf, dot } = require('../../utils');
+const { typeOf, dot } = require('@dictadata/storage-lib/utils');
 
 module.exports = exports = class RestEncoder extends StorageEncoder {
 

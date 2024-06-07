@@ -3,12 +3,12 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const EchoReader = require("./echo-reader");
-const EchoWriter = require("./echo-writer");
-const { StorageError } = require("../../types");
-const { typeOf } = require("@dictadata/lib/utils");
-const { logger } = require('../../utils');
+const StorageJunction = require('../storage-junction');
+const EchoReader = require('./echo-reader');
+const EchoWriter = require('./echo-writer');
+const { StorageError } = require('../../types');
+const { typeOf } = require('@dictadata/storage-lib/utils');
+const { logger } = require('@dictadata/storage-lib');
 
 class EchoJunction extends StorageJunction {
 

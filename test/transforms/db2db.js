@@ -4,9 +4,9 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const dullSchema = require("../lib/_dullSchema");
+const dullSchema = require('../lib/_dullSchema');
 const Engram = require('../../storage/types/engram');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== Test: db2db_transforms");
 

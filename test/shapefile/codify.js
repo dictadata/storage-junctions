@@ -4,7 +4,7 @@
 "use strict";
 
 const codify = require('../lib/_codify');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== Test: shapefile encoding");
 

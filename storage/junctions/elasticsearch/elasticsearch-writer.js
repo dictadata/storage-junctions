@@ -4,8 +4,8 @@
 "use strict";
 
 const { StorageWriter } = require('../storage-junction');
-const { StorageError } = require("../../types");
-const { logger } = require('../../utils');
+const { StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
 module.exports = exports = class ElasticsearchWriter extends StorageWriter {
 

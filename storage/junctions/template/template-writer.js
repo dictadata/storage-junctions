@@ -1,9 +1,9 @@
 "use strict";
 
 const { StorageWriter } = require('../storage-junction');
-const { logger } = require("@dictadata/lib");
-const { dot, replace } = require("@dictadata/lib/utils");
-const { readFile } = require("node:fs/promises");
+const { logger } = require('@dictadata/storage-lib');
+const { dot, replace } = require('@dictadata/storage-lib/utils');
+const { readFile } = require('node:fs/promises');
 
 module.exports = exports = class TemplateWriter extends StorageWriter {
 

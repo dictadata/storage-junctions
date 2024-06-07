@@ -1,9 +1,9 @@
 "use strict";
 
 const { StorageWriter } = require('../storage-junction');
-const { StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");;
-const { formatDate } = require("@dictadata/lib/utils");
+const { StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');;
+const { formatDate } = require('@dictadata/storage-lib/utils');
 
 
 module.exports = exports = class CSVWriter extends StorageWriter {

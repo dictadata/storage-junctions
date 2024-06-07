@@ -1,8 +1,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { StorageError } = require("../../types");
-const { logger } = require('../../utils');
+const { StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
 const shapefile = require('shapefile');
 

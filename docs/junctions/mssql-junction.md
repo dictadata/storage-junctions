@@ -13,8 +13,8 @@ npm install @dictadata/mssql-junctions
 Import the _Storage Junctions_ library and the _MSSQL Junction_ plugin.  Then register _MSSQL Junction_ with the _Storage Junctions_' `Storage` module. This will register _MSSQL Junction_ for use with storage model `"mssql"`.
 
 ```javascript
-const { Storage } = require("@dictadata/storage-junctions");
-const MSSQLJunction = require("@dictadata/mssql-junction");
+const { Storage } = require('@dictadata/storage-junctions');
+const MSSQLJunction = require('@dictadata/mssql-junction');
 
 Storage.Junctions.use("mssql", MSSQLJunction);
 ```
@@ -63,8 +63,8 @@ let SMT = {
 ### Retrieve Rows
 
 ```javascript
-  const { Storage } = require("@dictadata/storage-junctions");
-  const MSSQLJunction = require("../storage/junctions/mssql");
+  const { Storage } = require('@dictadata/storage-junctions');
+  const MSSQLJunction = require('../storage/junctions/mssql');
 
   function registerPlugins() {
     Storage.Junctions.use("mssql", MSSQLJunction);
@@ -117,8 +117,8 @@ let SMT = {
 The following example creates an instance of `MSSQLReader` and collects streamed data into an array. In this case the storage construct is an object representing a row of columns from the MSSQL table. `MSSQLReader` is derived from Node.js stream Readable. So the reader can be the source of any Node.js pipeline.
 
 ```javascript
-  const { Storage } = require("@dictadata/storage-junctions");
-  const MSSQLJunction = require("../storage/junctions/mssql");
+  const { Storage } = require('@dictadata/storage-junctions');
+  const MSSQLJunction = require('../storage/junctions/mssql');
 
   function registerPlugins() {
     Storage.Junctions.use("mssql", MSSQLJunction);

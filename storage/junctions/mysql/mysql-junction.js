@@ -3,15 +3,15 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const { Engram, StorageResults, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
-const { typeOf } = require("@dictadata/lib/utils");
+const StorageJunction = require('../storage-junction');
+const { Engram, StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
+const { typeOf } = require('@dictadata/storage-lib/utils');
 
-const MySQLReader = require("./mysql-reader");
-const MySQLWriter = require("./mysql-writer");
-const encoder = require("./mysql-encoder");
-const sqlEncoder = require("./mysql-encoder-sql");
+const MySQLReader = require('./mysql-reader');
+const MySQLWriter = require('./mysql-writer');
+const encoder = require('./mysql-encoder');
+const sqlEncoder = require('./mysql-encoder-sql');
 
 const mysql = require('mysql2');
 const util = require('util');

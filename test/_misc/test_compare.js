@@ -1,5 +1,5 @@
 
-const _compare = require("../lib/_compare");
+const _compare = require('../lib/_compare');
 
 let retCode = _compare("./test/data/input/foofile.json.gz", "./test/data/input/foofile.json");
 console.log(retCode);

@@ -4,7 +4,7 @@
 "use strict";
 
 const retrieve = require('../lib/_retrieve');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== Tests: csv retrieve");
 

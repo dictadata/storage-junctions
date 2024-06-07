@@ -3,17 +3,17 @@
  */
 "use strict";
 
-const StorageFileSystem = require("./storage-filesystem");
-const { SMT, StorageResults, StorageError } = require("../types");
-const { logger } = require("@dictadata/lib");
-const auth = require("../authentication");
+const StorageFileSystem = require('./storage-filesystem');
+const { SMT, StorageResults, StorageError } = require('../types');
+const { logger } = require('@dictadata/storage-lib');
+const auth = require('../authentication');
 
 const fs = require('node:fs');
 const fsp = require('node:fs/promises');
 const path = require('node:path');
 const stream = require('node:stream');
 const zlib = require('node:zlib');
-const ftp = require("basic-ftp");
+const ftp = require('basic-ftp');
 
 
 module.exports = exports = class FTPFileSystem extends StorageFileSystem {

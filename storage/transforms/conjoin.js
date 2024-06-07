@@ -3,10 +3,10 @@
  */
 "use strict";
 
-const Storage = require("../storage");
+const Storage = require('../storage');
 const { Transform } = require('node:stream');
-const { logger } = require("@dictadata/lib");
-const { replace } = require("@dictadata/lib/utils");
+const { logger } = require('@dictadata/storage-lib');
+const { replace } = require('@dictadata/storage-lib/utils');
 
 /*
   // example conjoin transform

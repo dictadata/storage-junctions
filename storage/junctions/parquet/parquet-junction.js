@@ -3,12 +3,12 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
-const { logger } = require('../../utils');
+const StorageJunction = require('../storage-junction');
+const { StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
-const ParquetReader = require("./parquet-reader");
-const ParquetWriter = require("./parquet-writer");
+const ParquetReader = require('./parquet-reader');
+const ParquetWriter = require('./parquet-writer');
 
 const path = require('node:path');
 const { pipeline, finished } = require('node:stream/promises');

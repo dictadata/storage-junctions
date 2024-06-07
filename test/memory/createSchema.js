@@ -4,7 +4,7 @@
 "use strict";
 
 const _createSchema = require('../lib/_createSchema');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 async function test(schema, encoding) {
 

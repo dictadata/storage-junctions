@@ -6,10 +6,10 @@
  */
 "use strict";
 
-const _pev = require("./_process_events");
-const _init = require("./_init");
-const { Storage } = require("../../storage");
-const { logger } = require("@dictadata/lib");
+const _pev = require('./_process_events');
+const _init = require('./_init');
+const { Storage } = require('../../storage');
+const { logger } = require('@dictadata/storage-lib');
 const path = require('node:path');
 
 module.exports = exports = async function (tract) {

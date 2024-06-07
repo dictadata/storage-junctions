@@ -10,12 +10,12 @@
  */
 "use strict";
 
-const Junctions = require("./junctions");
-const FileSystems = require("./filesystems");
-const Transforms = require("./transforms");
-const auth = require("./authentication");
+const Junctions = require('./junctions');
+const FileSystems = require('./filesystems');
+const Transforms = require('./transforms');
+const auth = require('./authentication');
 
-const { SMT } = require("./types");
+const { SMT } = require('./types');
 
 /**
  * Create and activate a StorageJunction given an SMT.

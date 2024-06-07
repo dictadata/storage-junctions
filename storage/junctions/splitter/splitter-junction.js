@@ -4,14 +4,14 @@
  */
 "use strict";
 
-const Storage = require("../../storage");
-const StorageJunction = require("../storage-junction");
-const { Engram, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
+const Storage = require('../../storage');
+const StorageJunction = require('../storage-junction');
+const { Engram, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
-const SplitterWriter = require("./splitter-writer");
+const SplitterWriter = require('./splitter-writer');
 
-const { readFile } = require("node:fs/promises");
+const { readFile } = require('node:fs/promises');
 const { pipeline } = require('node:stream/promises');
 
 class SplitterJunction extends StorageJunction {

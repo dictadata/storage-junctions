@@ -5,9 +5,9 @@
  */
 "use strict";
 
-const StorageFileSystem = require("./storage-filesystem");
-const { SMT, StorageError } = require("../types");
-const { logger } = require("@dictadata/lib");
+const StorageFileSystem = require('./storage-filesystem');
+const { SMT, StorageError } = require('../types');
+const { logger } = require('@dictadata/storage-lib');
 
 const path = require('node:path');
 

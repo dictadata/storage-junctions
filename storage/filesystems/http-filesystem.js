@@ -3,11 +3,11 @@
  */
 "use strict";
 
-const StorageFileSystem = require("./storage-filesystem");
-const { SMT, StorageResults, StorageError } = require("../types");
-const { logger } = require("@dictadata/lib");
-const { httpRequest, htmlParseDir } = require("@dictadata/lib/utils");
-const auth = require("../authentication");
+const StorageFileSystem = require('./storage-filesystem');
+const { SMT, StorageResults, StorageError } = require('../types');
+const { logger } = require('@dictadata/storage-lib');
+const { httpRequest, htmlParseDir } = require('@dictadata/storage-lib/utils');
+const auth = require('../authentication');
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -15,9 +15,9 @@ const zlib = require('node:zlib');
 
 const HTMLParser = require('node-html-parser');
 const FormData = require('form-data');
-const storageError = require("../types/storage-error");
-//const { runInThisContext } = require("vm");
-//const { URLSearchParams } = require("node:url");
+const storageError = require('../types/storage-error');
+//const { runInThisContext } = require('vm');
+//const { URLSearchParams } = require('node:url');
 
 module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 

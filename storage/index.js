@@ -8,47 +8,47 @@
  *   StorageJunctions, FileSystems, Transforms
  */
 
-var Storage = require("./storage");
+var Storage = require('./storage');
 exports.Storage = Storage;
 
 //////////
 ///// register Storage FileSystems
-exports.StorageFileSystem = require("./filesystems/storage-filesystem");
+exports.StorageFileSystem = require('./filesystems/storage-filesystem');
 
-exports.FSFileSystem = require("./filesystems/fs-filesystem");
+exports.FSFileSystem = require('./filesystems/fs-filesystem');
 Storage.FileSystems.use('file', exports.FSFileSystem);
 
-exports.FTPFileSystem = require("./filesystems/ftp-filesystem");
+exports.FTPFileSystem = require('./filesystems/ftp-filesystem');
 Storage.FileSystems.use('ftp', exports.FTPFileSystem);
 
-exports.HTTPFileSystem = require("./filesystems/http-filesystem");
+exports.HTTPFileSystem = require('./filesystems/http-filesystem');
 Storage.FileSystems.use('http', exports.HTTPFileSystem);
 Storage.FileSystems.use('https', exports.HTTPFileSystem);
 
-exports.StreamFileSystem = require("./filesystems/stream-filesystem");
+exports.StreamFileSystem = require('./filesystems/stream-filesystem');
 Storage.FileSystems.use('stream', exports.StreamFileSystem);
 
-exports.ZipFileSystem = require("./filesystems/zip-filesystem");
+exports.ZipFileSystem = require('./filesystems/zip-filesystem');
 Storage.FileSystems.use('zip', exports.ZipFileSystem);
 
 //////////
 ///// register Storage Junctions
-var StorageJunction = require("./junctions/storage-junction");
+var StorageJunction = require('./junctions/storage-junction');
 exports.StorageJunction = StorageJunction;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
 exports.StorageEncoder = StorageJunction.StorageEncoder;
 Storage.Junctions.use('*', StorageJunction);
 
-var MemoryJunction = require("./junctions/memory");
+var MemoryJunction = require('./junctions/memory');
 exports.MemoryJunction = MemoryJunction;
 Storage.Junctions.use('memory', MemoryJunction);
 
-var CSVJunction = require("./junctions/csv");
+var CSVJunction = require('./junctions/csv');
 exports.CSVJunction = CSVJunction;
 Storage.Junctions.use('csv', CSVJunction);
 
-var JSONJunction = require("./junctions/json");
+var JSONJunction = require('./junctions/json');
 exports.JSONJunction = JSONJunction;
 Storage.Junctions.use('json', JSONJunction);   // defaults to json array
 Storage.Junctions.use('jsons', JSONJunction);  // json stream
@@ -57,70 +57,70 @@ Storage.Junctions.use('jsona', JSONJunction);  // json array
 Storage.Junctions.use('jsono', JSONJunction);  // json object
 Storage.Junctions.use('jsonw', JSONJunction);  // json stream writer
 
-var ParquetJunction = require("./junctions/parquet");
+var ParquetJunction = require('./junctions/parquet');
 exports.ParquetJunction = ParquetJunction;
 Storage.Junctions.use('parquet', ParquetJunction);
 
-var ElasticsearchJunction = require("./junctions/elasticsearch");
+var ElasticsearchJunction = require('./junctions/elasticsearch');
 exports.ElasticsearchJunction = ElasticsearchJunction;
 Storage.Junctions.use('elastic', ElasticsearchJunction);
 Storage.Junctions.use('elasticsearch', ElasticsearchJunction);
 
-var MySQLJunction = require("./junctions/mysql");
+var MySQLJunction = require('./junctions/mysql');
 exports.MySQLJunction = MySQLJunction;
 Storage.Junctions.use('mysql', MySQLJunction);
 
-var RESTJunction = require("./junctions/rest");
+var RESTJunction = require('./junctions/rest');
 exports.RESTJunction = RESTJunction;
 Storage.Junctions.use('rest', RESTJunction);
 
-var ShapefileJunction = require("./junctions/shapefile");
+var ShapefileJunction = require('./junctions/shapefile');
 exports.ShapefileJunction = ShapefileJunction;
 Storage.Junctions.use('shapefile', ShapefileJunction);
 Storage.Junctions.use('shp', ShapefileJunction);
 
-var TemplateJunction = require("./junctions/template");
+var TemplateJunction = require('./junctions/template');
 exports.TemplateJunction = TemplateJunction;
 Storage.Junctions.use('template', TemplateJunction);
 
 //////////
 ///// register Storage Transforms
-exports.FilterTransform = require("./transforms/filter");
+exports.FilterTransform = require('./transforms/filter');
 Storage.Transforms.use('filter', exports.FilterTransform);
 
-exports.MutateTransform = require("./transforms/mutate");
+exports.MutateTransform = require('./transforms/mutate');
 Storage.Transforms.use('mutate', exports.MutateTransform);
 
-exports.ComposeTransform = require("./transforms/compose");
+exports.ComposeTransform = require('./transforms/compose');
 Storage.Transforms.use('compose', exports.ComposeTransform);
 
-exports.DecomposeTransform = require("./transforms/decompose");
+exports.DecomposeTransform = require('./transforms/decompose');
 Storage.Transforms.use('decompose', exports.DecomposeTransform);
 Storage.Transforms.use('flatten', exports.DecomposeTransform);
 
-exports.AdjoinTransform = require("./transforms/adjoin");
+exports.AdjoinTransform = require('./transforms/adjoin');
 Storage.Transforms.use('adjoin', exports.AdjoinTransform);
 
-exports.ConjoinTransform = require("./transforms/conjoin");
+exports.ConjoinTransform = require('./transforms/conjoin');
 Storage.Transforms.use('conjoin', exports.ConjoinTransform);
 
-exports.AggregateTransform = require("./transforms/aggregate");
+exports.AggregateTransform = require('./transforms/aggregate');
 Storage.Transforms.use('aggregate', exports.AggregateTransform);
 
-exports.CodifyTransform = require("./transforms/codify");
+exports.CodifyTransform = require('./transforms/codify');
 Storage.Transforms.use('codify', exports.CodifyTransform);
 
-exports.EncoderTransform = require("./transforms/encoder");
+exports.EncoderTransform = require('./transforms/encoder');
 Storage.Transforms.use('encoder', exports.EncoderTransform);
 
-exports.CounterTransform = require("./transforms/counter");
+exports.CounterTransform = require('./transforms/counter');
 Storage.Transforms.use('counter', exports.CounterTransform);
 
-exports.FlowStatsTransform = require("./transforms/flowstats");
+exports.FlowStatsTransform = require('./transforms/flowstats');
 Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
 
-exports.RowAsConstructTransform = require("./transforms/arrayAsConstruct");
+exports.RowAsConstructTransform = require('./transforms/arrayAsConstruct');
 Storage.Transforms.use('rowAsConstruct', exports.RowAsConstructsTransform);
 
-exports.MapAsConstructsTransform = require("./transforms/mapAsConstructs");
+exports.MapAsConstructsTransform = require('./transforms/mapAsConstructs');
 Storage.Transforms.use('mapAsConstructs', exports.MapAsConstructsTransform);

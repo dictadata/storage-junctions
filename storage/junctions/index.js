@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { SMT, StorageError } = require("../types");
+const { SMT, StorageError } = require('../types');
 
 class Junctions {
   /**

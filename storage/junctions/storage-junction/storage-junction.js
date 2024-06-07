@@ -1,12 +1,12 @@
 "use strict";
 
 const { FileSystems, Transforms } = require('../../storage');
-const { Engram, StorageResults, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
+const { Engram, StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
-const Encoder = require("./storage-encoder");
-const Reader = require("./storage-reader");
-const Writer = require("./storage-writer");
+const Encoder = require('./storage-encoder');
+const Reader = require('./storage-reader');
+const Writer = require('./storage-writer');
 
 const stream = require('node:stream');
 const { threadId } = require('worker_threads');

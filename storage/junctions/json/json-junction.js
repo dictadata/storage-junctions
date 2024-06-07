@@ -3,11 +3,11 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
-const JSONReader = require("./json-reader");
-const JSONWriter = require("./json-writer");
+const StorageJunction = require('../storage-junction');
+const { StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
+const JSONReader = require('./json-reader');
+const JSONWriter = require('./json-writer');
 
 const path = require('node:path');
 const { pipeline, finished } = require('node:stream/promises');

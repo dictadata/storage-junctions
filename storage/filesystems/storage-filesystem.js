@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const { SMT, StorageError } = require("../types");
-const { logger } = require("@dictadata/lib");
+const { SMT, StorageError } = require('../types');
+const { logger } = require('@dictadata/storage-lib');
 
 const path = require('node:path');
 

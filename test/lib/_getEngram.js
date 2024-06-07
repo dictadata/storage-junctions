@@ -3,12 +3,12 @@
  */
 "use strict";
 
-const _pev = require("./_process_events");
-const _init = require("./_init");
-const { Storage } = require("../../storage");
-const { logger } = require("@dictadata/lib");
-const { typeOf } = require("@dictadata/lib/utils");
-const { output } = require("@dictadata/lib/test");
+const _pev = require('./_process_events');
+const _init = require('./_init');
+const { Storage } = require('../../storage');
+const { logger } = require('@dictadata/storage-lib');
+const { typeOf } = require('@dictadata/storage-lib/utils');
+const { output } = require('@dictadata/storage-lib/test');
 
 const fs = require('node:fs');
 const path = require('node:path');

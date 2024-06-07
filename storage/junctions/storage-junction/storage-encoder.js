@@ -4,8 +4,8 @@
  */
 "use strict";
 
-const { StorageError } = require("../../types");
-const { typeOf, isDate, ynBoolean, dot } = require("@dictadata/lib/utils");
+const { StorageError } = require('../../types');
+const { typeOf, isDate, ynBoolean, dot } = require('@dictadata/storage-lib/utils');
 
 module.exports = exports = class StorageEncoder {
 

@@ -4,7 +4,7 @@
 "use strict";
 
 const tee = require('../lib/_tee');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== Test: pipeline tee");
 

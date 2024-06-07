@@ -2,7 +2,7 @@
 
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
-const { logger } = require('../../utils');
+const { logger } = require('@dictadata/storage-lib');
 
 const chain = require('stream-chain');
 const CsvParser = require('stream-csv-as-json');

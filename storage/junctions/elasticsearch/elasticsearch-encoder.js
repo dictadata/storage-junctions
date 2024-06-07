@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const { Engram, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
-const { typeOf } = require("@dictadata/lib/utils");
+const { Engram, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
+const { typeOf } = require('@dictadata/storage-lib/utils');
 
 var excludeProperties = [ "@timestamp", "_meta" ];
 

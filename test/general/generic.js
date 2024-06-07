@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const { Storage } = require("../../storage");
-const { logger } = require("@dictadata/lib");
+const { Storage } = require('../../storage');
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== Tests: Generic * Junction");
 

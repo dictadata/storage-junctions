@@ -2,7 +2,7 @@
 
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
-const { logger } = require('../../utils');
+const { logger } = require('@dictadata/storage-lib');
 
 const { parser } = require('stream-json/Parser');
 const { streamValues } = require('stream-json/streamers/StreamValues');

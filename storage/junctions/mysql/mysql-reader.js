@@ -4,8 +4,8 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger } = require('../../utils');
-const sqlEncoder = require("./mysql-encoder-sql");
+const { logger } = require('@dictadata/storage-lib');
+const sqlEncoder = require('./mysql-encoder-sql');
 
 
 module.exports = exports = class MySQLReader extends StorageReader {

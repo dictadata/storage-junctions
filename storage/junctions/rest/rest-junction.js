@@ -1,12 +1,12 @@
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const { StorageResults, StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
-const { typeOf, httpRequest, replace } = require("@dictadata/lib/utils");
+const StorageJunction = require('../storage-junction');
+const { StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
+const { typeOf, httpRequest, replace } = require('@dictadata/storage-lib/utils');
 
-const RESTReader = require("./rest-reader");
-const RESTWriter = require("./rest-writer");
+const RESTReader = require('./rest-reader');
+const RESTWriter = require('./rest-writer');
 const RESTEncoder = require('./rest-encoder');
 
 const { pipeline, finished } = require('node:stream/promises');

@@ -4,12 +4,12 @@
 "use strict";
 
 const _createSchema = require('../lib/_createSchema');
-const store = require("./store");
-const recall = require("./recall");
-//const retrieve = require("./retrieve");
+const store = require('./store');
+const recall = require('./recall');
+//const retrieve = require('./retrieve');
 //const aggregate = require('./aggregate');
-const dull = require("./dull");
-const { logger } = require("@dictadata/lib");
+const dull = require('./dull');
+const { logger } = require('@dictadata/storage-lib');
 
 (async () => {
 

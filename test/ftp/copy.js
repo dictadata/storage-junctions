@@ -5,7 +5,7 @@
 
 const getFiles = require('../lib/_getFiles');
 const putFiles = require('../lib/_putFiles');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== tests: ftp downloads");
 

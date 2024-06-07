@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const { logger } = require("@dictadata/lib");
-const { typeOf, isDate, parseDate } = require('@dictadata/lib/utils');
+const { logger } = require('@dictadata/storage-lib');
+const { typeOf, isDate, parseDate } = require('@dictadata/storage-lib/utils');
 
 exports.encodeValues = function (engram, construct) {
   let data = {};

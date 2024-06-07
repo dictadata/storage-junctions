@@ -3,15 +3,15 @@
  */
 "use strict";
 
-const StorageJunction = require("../storage-junction");
-const ElasticsearchReader = require("./elasticsearch-reader");
-const ElasticsearchWriter = require("./elasticsearch-writer");
-const { StorageResults, StorageError } = require("../../types");
-const { logger } = require('../../utils');
+const StorageJunction = require('../storage-junction');
+const ElasticsearchReader = require('./elasticsearch-reader');
+const ElasticsearchWriter = require('./elasticsearch-writer');
+const { StorageResults, StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
-const encoder = require("./elasticsearch-encoder");
-const dslEncoder = require("./elasticsearch-encoder-dsl");
-const ElasticQuery = require("./elasticsearch-query");
+const encoder = require('./elasticsearch-encoder');
+const dslEncoder = require('./elasticsearch-encoder-dsl');
+const ElasticQuery = require('./elasticsearch-query');
 const { readFile } = require('node:fs/promises');
 const path = require('node:path');
 

@@ -7,7 +7,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger } = require('../../utils');
+const { logger } = require('@dictadata/storage-lib');
 
 const path = require('node:path');
 

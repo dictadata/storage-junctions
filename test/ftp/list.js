@@ -4,7 +4,7 @@
 "use strict";
 
 const list = require('../lib/_list');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 logger.info("=== tests: FTP list");
 

@@ -1,8 +1,8 @@
 "use strict";
 
 const { Writable } = require('node:stream');
-const { StorageError } = require("../../types");
-const { logger } = require("@dictadata/lib");
+const { StorageError } = require('../../types');
+const { logger } = require('@dictadata/storage-lib');
 
 module.exports = exports = class StorageWriter extends Writable {
 

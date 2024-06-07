@@ -16,12 +16,24 @@
   "main": "index.js",
   "exports": {
     ".": "./storage/index.js",
+    "./package.json": "./package.json",
     "./types": "./storage/types/index.js",
     "./types/*": "./storage/types/*.js",
     "./types/*.js": "./storage/types/*.js",
-    "./package.json": "./package.json"
+    "./lib": "./lib/index.js",
+    "./lib/*": "./lib/*.js",
+    "./lib/*.js": "./lib/*.js",
+    "./utils": "./lib/utils/index.js",
+    "./utils/*": "./lib/utils/*.js",
+    "./utils/*.js": "./lib/utils/*.js",
+    "./test": "./lib/test/index.js",
+    "./test/*": "./lib/test/*.js",
+    "./test/*.js": "./lib/test/*.js"
   },
-  "bin": {},
+  "bin": {
+    "st_launcher": "lib/test/st_launcher.js",
+    "st_node_client": "lib/test/st_node_client.js"
+  },
   "scripts": {
     "lint": "eslint storage/**/*.js",
     "lint-fix": "eslint --fix storage/**/*.js",
@@ -57,6 +69,7 @@
     "stream-chain": "^2.2.4",
     "stream-csv-as-json": "^1.0.4",
     "stream-json": "^1.8.0",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
   }
 }

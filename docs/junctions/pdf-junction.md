@@ -15,8 +15,8 @@ npm install @dictadata/storage-junctions @dictadata/pdf-junction
 Import the _Storage Junctions_ library and the _PDF Junction_ plugin.  Then register _PDF Junction_ with the _Storage Junctions_' `Storage` module. This will register _PDF Junction_ for use with storage model `"pdf"`.
 
 ```javascript
-const { Storage } = require("@dictadata/storage-junctions");
-const PdfJunction = require("@dictadata/pdf-junction");
+const { Storage } = require('@dictadata/storage-junctions');
+const PdfJunction = require('@dictadata/pdf-junction');
 
 Storage.Junctions.use("pdf", PdfJunction);
 ```

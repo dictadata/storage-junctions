@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 const fs = require('node:fs');
-const { logger } = require('../../utils');
+const { logger } = require('@dictadata/storage-lib');
 
 module.exports = exports = class ElasticMappings {
 

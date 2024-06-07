@@ -7,8 +7,8 @@
 
 const encoder = require('./storage-encoder');
 const { StorageError } = require('.');
-const { logger } = require("@dictadata/lib");
-const { typeOf, isDate, parseDate } = require('@dictadata/lib/utils');
+const { logger } = require('@dictadata/storage-lib');
+const { typeOf, isDate, parseDate } = require('@dictadata/storage-lib/utils');
 
 module.exports = exports = class StorageEncoderSQL {
 

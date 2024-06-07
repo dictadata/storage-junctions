@@ -9,4 +9,4 @@ exports.StorageResults = require('./storage-results');
 exports.StorageError = require('./storage-error');
 
 exports.storageType = require('./storageType');
-exports.stringBreakpoints = require("./stringBreakpoints");
+exports.stringBreakpoints = require('./stringBreakpoints');

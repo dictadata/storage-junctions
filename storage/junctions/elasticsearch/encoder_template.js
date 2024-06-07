@@ -1,8 +1,8 @@
 "use strict";
 
-const Elastic = require("./query_elastic");
+const Elastic = require('./query_elastic');
 const fs = require('node:fs');
-const { logger } = require("@dictadata/lib");
+const { logger } = require('@dictadata/storage-lib');
 
 module.exports = exports = class ElasticTemplate {
 

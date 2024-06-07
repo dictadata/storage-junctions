@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const StorageError = require("./storage-error");
+const StorageError = require('./storage-error');
 
 /**
  * dictadata Field types
