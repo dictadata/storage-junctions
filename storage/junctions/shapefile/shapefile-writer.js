@@ -2,7 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require('../../types');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 const path = require('node:path');
 

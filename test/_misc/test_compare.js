@@ -1,8 +1,8 @@
 
-const _compare = require('../lib/_compare');
+const { compare } = require('@dictadata/lib/test');
 
-let retCode = _compare("./test/data/input/foofile.json.gz", "./test/data/input/foofile.json");
+let retCode = compare("./test/data/input/foofile.json.gz", "./test/data/input/foofile.json");
 console.log(retCode);
 
-retCode = _compare("./test/data/input/foofile_01.json", "./test/data/input/foofile.json");
+retCode = compare("./test/data/input/foofile_01.json", "./test/data/input/foofile.json");
 console.log(retCode);

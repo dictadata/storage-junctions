@@ -6,7 +6,7 @@
 const transfer = require('../lib/_transfer');
 const dullSchema = require('../lib/_dullSchema');
 const Engram = require('../../storage/types/engram');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: db2db_transforms");
 

@@ -5,7 +5,7 @@
 
 const StorageJunction = require('../storage-junction');
 const { StorageResults, StorageError } = require('../../types');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 const ParquetReader = require('./parquet-reader');
 const ParquetWriter = require('./parquet-writer');

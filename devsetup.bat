@@ -1,2 +1,2 @@
-call npm link @dictadata/storage-lib
+call npm link @dictadata/lib
 dir node_modules\@dictadata

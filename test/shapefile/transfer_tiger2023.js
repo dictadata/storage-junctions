@@ -4,7 +4,7 @@
 "use strict";
 
 const transfer = require('../lib/_transfer');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 
 logger.info("=== Test: transfer tl_2023_us_state");

@@ -6,7 +6,7 @@
 const StorageFileSystem = require('./storage-filesystem');
 const FSFileSystem = require('./fs-filesystem');
 const { SMT, StorageResults, StorageError } = require('../types');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 const fs = require('node:fs');
 const fsp = require('node:fs/promises');

@@ -5,8 +5,8 @@
 
 const StorageFileSystem = require('./storage-filesystem');
 const { SMT, StorageResults, StorageError } = require('../types');
-const { logger } = require('@dictadata/storage-lib');
-const { httpRequest, htmlParseDir } = require('@dictadata/storage-lib/utils');
+const { logger } = require('@dictadata/lib');
+const { httpRequest, htmlParseDir } = require('@dictadata/lib/utils');
 const auth = require('../authentication');
 
 const fs = require('node:fs');

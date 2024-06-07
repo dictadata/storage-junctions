@@ -10,7 +10,7 @@
 
 const { Transform } = require('node:stream');
 const { Field, Engram } = require('../types');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 
 const _meta = [ "first_date", "last_date", "count", "nulls", "min_length", "max_length", "min_value", "max_value" ];

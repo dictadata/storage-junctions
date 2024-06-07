@@ -2,7 +2,7 @@
 
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 module.exports = exports = class EchoReader extends StorageReader {
 

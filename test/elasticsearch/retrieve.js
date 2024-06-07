@@ -4,7 +4,7 @@
 "use strict";
 
 const retrieve = require('../lib/_retrieve');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");
 

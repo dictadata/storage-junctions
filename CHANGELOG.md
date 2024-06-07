@@ -2,7 +2,7 @@
 
 - version 0.9.114
   - refactor: mutate transform, for evaluate expression use string.replace and implement padding, e.g. =field/regexp/replace:padding
-  - testing: st_launcher.js support for "cwd" in launch.json
+  - testing: tr_launcher.js support for "cwd" in launch.json
 - version 0.9.113
   - refactor: mutate transform, rename operations func, assign; add list (array)
   - bug fix: CSV use engram field names for default headers values
@@ -162,7 +162,7 @@
 - version 2.2.3
   - enhancement: add options to Engram engrams properties, passed to storage-junctions by campus.activate
   - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
-  - testing: st_launcher testing parameters
+  - testing: tr_launcher testing parameters
 - version 2.2.2
   - add title to predefined engrams properties
 - version 2.2.1
@@ -242,7 +242,7 @@
   - implement junction capabilities
   - improvements to REST junction and httpRequest for querystring and web form parameters
 - version 1.7.4
-  - update test/st_launcher.js program
+  - update test/tr_launcher.js program
   - update dependencies
 - version 1.7.3
   - httpRequest improvements

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let { parseDate } = require('@dictadata/storage-lib/utils');
+let { parseDate } = require('@dictadata/lib/utils');
 
 function test () {
   console.log(parseDate("2019-10-01").toISOString());

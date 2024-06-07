@@ -4,7 +4,7 @@
 "use strict";
 
 const list = require('../lib/_list');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: HTTP list");
 

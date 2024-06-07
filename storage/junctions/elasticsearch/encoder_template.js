@@ -2,7 +2,7 @@
 
 const Elastic = require('./query_elastic');
 const fs = require('node:fs');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 module.exports = exports = class ElasticTemplate {
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let { isDate } = require('@dictadata/storage-lib/utils');
+let { isDate } = require('@dictadata/lib/utils');
 
 function test () {
   console.log(isDate("2019-10-01"));

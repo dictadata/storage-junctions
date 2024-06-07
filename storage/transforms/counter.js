@@ -7,7 +7,7 @@
 "use strict";
 
 const { Transform } = require('node:stream');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 module.exports = exports = class CounterTransform extends Transform {
 

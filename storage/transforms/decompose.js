@@ -5,7 +5,7 @@
  */
 
 const { Transform } = require('node:stream');
-const { typeOf } = require('@dictadata/storage-lib/utils');
+const { typeOf } = require('@dictadata/lib/utils');
 
 // example decompose transform
 /*

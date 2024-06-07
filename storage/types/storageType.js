@@ -1,7 +1,7 @@
 // storage/types/storageType
 "use strict";
 
-const { typeOf, isDate, isUUID, ynBoolean } = require('@dictadata/storage-lib/utils');
+const { typeOf, isDate, isUUID, ynBoolean } = require('@dictadata/lib/utils');
 const stringBreakpoints = require('./stringBreakpoints');
 
 

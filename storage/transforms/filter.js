@@ -4,7 +4,7 @@
 "use strict";
 
 const { Transform } = require('node:stream');
-const { match } = require('@dictadata/storage-lib/utils');
+const { match } = require('@dictadata/lib/utils');
 
 // example filter transform
 /*

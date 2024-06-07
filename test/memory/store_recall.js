@@ -9,7 +9,7 @@ const recall = require('./recall');
 //const retrieve = require('./retrieve');
 //const aggregate = require('./aggregate');
 const dull = require('./dull');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 (async () => {
 

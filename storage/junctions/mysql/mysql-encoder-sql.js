@@ -4,8 +4,8 @@
 "use strict";
 
 const encoder = require('./mysql-encoder');
-const { logger } = require('@dictadata/storage-lib');
-const { typeOf, isDate, parseDate } = require('@dictadata/storage-lib/utils');
+const { logger } = require('@dictadata/lib');
+const { typeOf, isDate, parseDate } = require('@dictadata/lib/utils');
 const sqlString = require('sqlstring');
 const fs = require('node:fs');
 

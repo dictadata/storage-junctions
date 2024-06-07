@@ -2,7 +2,7 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 module.exports = exports = class MemoryReader extends StorageReader {
 

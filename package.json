@@ -30,10 +30,7 @@
     "./test/*": "./lib/test/*.js",
     "./test/*.js": "./lib/test/*.js"
   },
-  "bin": {
-    "st_launcher": "lib/test/st_launcher.js",
-    "st_node_client": "lib/test/st_node_client.js"
-  },
+  "bin": {},
   "scripts": {
     "lint": "eslint storage/**/*.js",
     "lint-fix": "eslint --fix storage/**/*.js",

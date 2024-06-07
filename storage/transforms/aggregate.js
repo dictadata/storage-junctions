@@ -1,8 +1,8 @@
 "use strict";
 
 const { Transform } = require('node:stream');
-const { logger } = require('@dictadata/storage-lib');
-const { typeOf } = require('@dictadata/storage-lib/utils');
+const { logger } = require('@dictadata/lib');
+const { typeOf } = require('@dictadata/lib/utils');
 
 /*
  TBD

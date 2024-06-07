@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { ynBoolean } = require('@dictadata/storage-lib/utils');
+const { ynBoolean } = require('@dictadata/lib/utils');
 const { Types } = require('mysql2');
 
 var stringBreakpoints = require('../../types/stringBreakpoints');

@@ -2,7 +2,7 @@
 
 const { Readable } = require('node:stream');
 const { StorageError } = require('../../types');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 module.exports = exports = class StorageReader extends Readable {
 

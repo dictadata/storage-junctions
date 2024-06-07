@@ -5,7 +5,7 @@
 
 const storeBulk = require('../lib/_store_bulk');
 const transfer = require('../lib/_transfer');
-const { logger } = require('@dictadata/storage-lib');
+const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql bulk storage");
 
