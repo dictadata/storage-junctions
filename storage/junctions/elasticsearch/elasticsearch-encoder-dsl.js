@@ -4,7 +4,7 @@
 "use strict";
 
 const { logger } = require('@dictadata/lib');
-const { typeOf, isDate, parseDate } = require('@dictadata/lib/utils');
+const { typeOf, isDate, parseDate } = require('@dictadata/lib');
 
 exports.encodeValues = function (engram, construct) {
   let data = {};

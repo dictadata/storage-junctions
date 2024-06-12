@@ -2,7 +2,7 @@
 
 const { StorageWriter } = require('../storage-junction');
 const { logger } = require('@dictadata/lib');
-const { dot, replace } = require('@dictadata/lib/utils');
+const { dot, replace } = require('@dictadata/lib');
 const { readFile } = require('node:fs/promises');
 
 module.exports = exports = class TemplateWriter extends StorageWriter {

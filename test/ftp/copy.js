@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const getFiles = require('../lib/_getFiles');
-const putFiles = require('../lib/_putFiles');
+const getFiles = require('../_getFiles');
+const putFiles = require('../_putFiles');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: ftp downloads");

@@ -3,7 +3,7 @@
 const StorageJunction = require('../storage-junction');
 const { StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
-const { typeOf, httpRequest, replace } = require('@dictadata/lib/utils');
+const { typeOf, httpRequest, replace } = require('@dictadata/lib');
 
 const RESTReader = require('./rest-reader');
 const RESTWriter = require('./rest-writer');

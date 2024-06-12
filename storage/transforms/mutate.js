@@ -8,7 +8,7 @@
 "use strict";
 
 const { Transform } = require('node:stream');
-const { dot, evaluate } = require('@dictadata/lib/utils');
+const { dot, evaluate } = require('@dictadata/lib');
 
 // order of operations:
 //   default

@@ -5,7 +5,7 @@
 "use strict";
 
 const { StorageError } = require('../../types');
-const { typeOf, isDate, ynBoolean, dot } = require('@dictadata/lib/utils');
+const { typeOf, isDate, isBoolean, dot } = require('@dictadata/lib');
 
 module.exports = exports = class StorageEncoder {
 
@@ -43,7 +43,7 @@ module.exports = exports = class StorageEncoder {
         newValue = field.default || null;
       }
       else if (field.type === 'boolean') {
-        newValue = ynBoolean(value);
+        newValue = isBoolean(value);
         if (typeof newValue === "undefined")
           newValue = field.default;
       }
@@ -110,7 +110,7 @@ module.exports = exports = class StorageEncoder {
     if (/^\s*\(?(\$?\d{1,3}(?:,?\d{3})*(?:\.\d{2})?|\.\d{2})?\)?\s*$/.test(value))
       return Number(value.replace(/[\$\(,\)]/g, ''));
 
-    let b = ynBoolean(value);
+    let b = isBoolean(value);
     if (typeof b !== "undefined")
       return b;
 

@@ -5,7 +5,7 @@
 
 const { StorageReader } = require('../storage-junction');
 const { logger } = require('@dictadata/lib');
-const { httpRequest, replace } = require('@dictadata/lib/utils');
+const { httpRequest, replace } = require('@dictadata/lib');
 const { StorageError } = require('../../types');
 
 module.exports = exports = class RESTReader extends StorageReader {

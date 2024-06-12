@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const list = require('../lib/_list');
+const list = require('../_list');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: mysql list");

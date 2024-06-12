@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const createSchema = require('../lib/_createSchema');
-const dull = require('../lib/_dull');
+const createSchema = require('../_createSchema');
+const dull = require('../_dull');
 const { logger } = require('@dictadata/lib');
 const fs = require('node:fs');
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();

@@ -20,15 +20,9 @@
     "./types": "./storage/types/index.js",
     "./types/*": "./storage/types/*.js",
     "./types/*.js": "./storage/types/*.js",
-    "./lib": "./lib/index.js",
-    "./lib/*": "./lib/*.js",
-    "./lib/*.js": "./lib/*.js",
-    "./utils": "./lib/utils/index.js",
-    "./utils/*": "./lib/utils/*.js",
-    "./utils/*.js": "./lib/utils/*.js",
-    "./test": "./lib/test/index.js",
-    "./test/*": "./lib/test/*.js",
-    "./test/*.js": "./lib/test/*.js"
+    "./test": "./test/index.js",
+    "./test/*": "./test/*.js",
+    "./test/*.js": "./test/*.js"
   },
   "bin": {},
   "scripts": {
@@ -52,9 +46,10 @@
   },
   "devDependencies": {
     "colors": "^1.4.0",
-    "eslint": "^9.1.0"
+    "eslint": "^9.4.0"
   },
   "dependencies": {
+    "@dictadata/lib": "github:dictadata/lib#semver:1.0",
     "@elastic/elasticsearch": "^8.13.1",
     "basic-ftp": "^5.0.4",
     "form-data": "^4.0.0",

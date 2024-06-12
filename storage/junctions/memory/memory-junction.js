@@ -4,7 +4,7 @@
 const StorageJunction = require('../storage-junction/storage-junction');
 const { StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
-const { typeOf } = require('@dictadata/lib/utils');
+const { typeOf } = require('@dictadata/lib');
 
 const MemoryReader = require('./memory-reader');
 const MemoryWriter = require('./memory-writer');

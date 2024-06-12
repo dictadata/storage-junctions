@@ -11,7 +11,7 @@
 "use strict";
 
 const stringBreakpoints = require('./stringBreakpoints');
-const { ynBoolean } = require('../utils');
+const { isBoolean } = require('../utils');
 
 module.exports = exports = class StorageEncoder {
 
@@ -84,7 +84,7 @@ module.exports = exports = class StorageEncoder {
     if (Object.hasOwn(srcdef, "Default"))
       field.default = srcdef[ "Default" ];
     if (Object.hasOwn(srcdef, "Null"))
-      field.nullable = ynBoolean(srcdef[ "Null" ]);
+      field.nullable = isBoolean(srcdef[ "Null" ]);
     if (Object.hasOwn(srcdef, "Key"))
       field.key = srcdef[ "Key" ];
 

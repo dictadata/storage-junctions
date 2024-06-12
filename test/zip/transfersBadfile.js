@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../lib/_transfer');
+const transfer = require('../_transfer');
 const { logger } = require('@dictadata/lib');
 
 

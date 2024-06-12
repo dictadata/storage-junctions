@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const _createSchema = require('../lib/_createSchema');
+const _createSchema = require('../_createSchema');
 const store = require('./store');
 const recall = require('./recall');
 //const retrieve = require('./retrieve');

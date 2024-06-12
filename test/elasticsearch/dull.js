@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const dull = require('../lib/_dull');
+const dull = require('../_dull');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");

@@ -1,7 +1,7 @@
 // storage/types/storageType
 "use strict";
 
-const { typeOf, isDate, isUUID, ynBoolean } = require('@dictadata/lib/utils');
+const { typeOf, isDate, isUUID, isBoolean } = require('@dictadata/lib');
 const stringBreakpoints = require('./stringBreakpoints');
 
 
@@ -40,7 +40,7 @@ function storageType (value) {
       /^\s*\(?(\$?\d{1,3}(?:,?\d{3})*(?:\.\d{2})?|\.\d{2})?\)?\s*$/.test(value))
       return "number";
 
-    let b = ynBoolean(value);
+    let b = isBoolean(value);
     if (typeof b !== "undefined")
       return "boolean";
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { ynBoolean } = require('@dictadata/lib/utils');
+const { isBoolean } = require('@dictadata/lib');
 const { Types } = require('mysql2');
 
 var stringBreakpoints = require('../../types/stringBreakpoints');
@@ -123,7 +123,7 @@ exports.storageField = function (column) {
   if (Object.hasOwn(column, "Default"))
     field.default = column[ "Default" ];
   if (Object.hasOwn(column, "Null"))
-    field.nullable = ynBoolean(column.Null);
+    field.nullable = isBoolean(column.Null);
   if (column.Key)
     field.key = 1;
 

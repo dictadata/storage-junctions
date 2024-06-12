@@ -5,7 +5,7 @@
 
 const encoder = require('./mysql-encoder');
 const { logger } = require('@dictadata/lib');
-const { typeOf, isDate, parseDate } = require('@dictadata/lib/utils');
+const { typeOf, isDate, parseDate } = require('@dictadata/lib');
 const sqlString = require('sqlstring');
 const fs = require('node:fs');
 

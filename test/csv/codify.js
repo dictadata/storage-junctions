@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const codify = require('../lib/_codify');
+const codify = require('../_codify');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: csv codify");

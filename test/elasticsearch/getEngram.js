@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getEngram = require('../lib/_getEngram');
+const getEngram = require('../_getEngram');
 const { logger } = require('@dictadata/lib');
 
 logger.info("===== elasticsearch getEngram ");

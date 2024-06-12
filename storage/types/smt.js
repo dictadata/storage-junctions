@@ -6,7 +6,7 @@
 "use strict";
 
 const StorageError = require('./storage-error');
-const { typeOf } = require('@dictadata/lib/utils');
+const { typeOf } = require('@dictadata/lib');
 
 module.exports = exports = class SMT {
   /**

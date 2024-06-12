@@ -2,7 +2,7 @@
 
 const { Transform } = require('node:stream');
 const { logger } = require('@dictadata/lib');
-const { typeOf } = require('@dictadata/lib/utils');
+const { typeOf } = require('@dictadata/lib');
 
 /*
  TBD

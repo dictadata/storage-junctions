@@ -1,8 +1,8 @@
 /**
- * storage/test/lib/init.js
+ * test/lib/auth.js
  */
 
-var auth = require('../../storage/authentication');
+var auth = require('../storage/authentication');
 
 if (process.env.NODE_ENV === "development") {
   auth.load("./test/auth_entries.json");

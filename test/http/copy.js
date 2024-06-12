@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getFiles = require('../lib/_getFiles');
+const getFiles = require('../_getFiles');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: http file downloads");

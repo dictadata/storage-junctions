@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const transfer = require('../lib/_transfer');
-const dullSchema = require('../lib/_dullSchema');
+const transfer = require('../_transfer');
+const dullSchema = require('../_dullSchema');
 const Engram = require('../../storage/types/engram');
 const { logger } = require('@dictadata/lib');
 

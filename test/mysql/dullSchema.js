@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const dullSchema = require('../lib/_dullSchema');
+const dullSchema = require('../_dullSchema');
 const { logger } = require('@dictadata/lib');
 
 logger.info("===== mysql dullSchema ");

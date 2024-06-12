@@ -33,8 +33,8 @@ class StorageFileSystem {
     if (posPrefix > 1) {    // ignore drive letters
       fstype = locus.substring(0, posPrefix);
     }
-    if (!StorageFileSystem.fileSystemModels.includes(fstype))
-      throw new StorageError(400, "Invalid filesystem type " + fstype);
+    //if (!StorageFileSystem.fileSystemModels.includes(fstype))
+    //  throw new StorageError(400, "Invalid filesystem type " + fstype);
 
     // ensure local paths are properly formatted
     if (fstype === "file") {
@@ -248,4 +248,4 @@ class StorageFileSystem {
 
 module.exports = exports = StorageFileSystem;
 
-StorageFileSystem.fileSystemModels = [ "file", "ftp", "http", "https", "stream", "zip" ];
+//StorageFileSystem.fileSystemModels = [ "file", "ftp", "http", "https", "stream", "zip" ];

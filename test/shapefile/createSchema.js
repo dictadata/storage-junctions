@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const createSchema = require('../lib/_createSchema');
+const createSchema = require('../_createSchema');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: shapefile schema");

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const recall = require('../lib/_recall');
+const recall = require('../_recall');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql");

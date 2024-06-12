@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const _pev = require('./_process_events');
-const _init = require('./_init');
-const { Storage } = require('../../storage');
+const _pev = require('@dictadata/lib/test');
+const _auth = require('./_auth');
+const { Storage } = require('../storage');
 const { logger } = require('@dictadata/lib');
 const { compare } = require('@dictadata/lib/test');
 

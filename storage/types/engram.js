@@ -16,7 +16,7 @@
 const SMT = require('./smt');
 const Field = require('./field');
 const StorageError = require('./storage-error');
-const { typeOf, objCopy, getCI, dot } = require('@dictadata/lib/utils');
+const { typeOf, objCopy, getCI, dot } = require('@dictadata/lib');
 
 module.exports = exports = class Engram extends Object {
 

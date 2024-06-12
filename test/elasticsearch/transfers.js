@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const transfer = require('../lib/_transfer');
-const dullSchema = require('../lib/_dullSchema');
+const transfer = require('../_transfer');
+const dullSchema = require('../_dullSchema');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");

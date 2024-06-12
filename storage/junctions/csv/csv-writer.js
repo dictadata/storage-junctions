@@ -3,7 +3,7 @@
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');;
-const { formatDate } = require('@dictadata/lib/utils');
+const { formatDate } = require('@dictadata/lib');
 
 
 module.exports = exports = class CSVWriter extends StorageWriter {

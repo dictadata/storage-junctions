@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const storeBulk = require('../lib/_store_bulk');
-const transfer = require('../lib/_transfer');
+const storeBulk = require('../_store_bulk');
+const transfer = require('../_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql bulk storage");

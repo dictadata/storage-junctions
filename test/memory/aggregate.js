@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const retrieve = require('../lib/_retrieve');
+const retrieve = require('../_retrieve');
 const { logger } = require('@dictadata/lib');
 
 async function tests() {
