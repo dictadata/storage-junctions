@@ -1,7 +1,8 @@
 # CHANGELOG @dictadata/storage-junctions
 
 - version 0.9.114
-  - refactor: mutate transform, for evaluate expression use string.replace and implement padding, e.g. =field/regexp/replace:padding
+  - refactor: moved utils modules to @dictadata/lib project
+  - refactor: mutate transform, in evaluate expression use string.replace and implement padding, e.g. =field/regexp/replace:padding
   - testing: tr_launcher.js support for "cwd" in launch.json
 - version 0.9.113
   - refactor: mutate transform, rename operations func, assign; add list (array)
