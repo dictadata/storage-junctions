@@ -1,8 +1,8 @@
 "use strict";
 
-const { StorageWriter } = require('../storage-junction');
 const { logger } = require('@dictadata/lib');
 const { dot, replace } = require('@dictadata/lib');
+const { StorageWriter } = require('../storage-junction');
 const { readFile } = require('node:fs/promises');
 
 module.exports = exports = class TemplateWriter extends StorageWriter {
@@ -109,7 +109,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       let ws = await stfs.createWriteStream(this.options);
 
       ws.on('error', (err) => {
-        this.destroy(this.StorageError(err));
+        this.destroy(this.junction.StorageError(err));
       });
 
       // write results to file

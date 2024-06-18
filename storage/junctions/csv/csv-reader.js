@@ -32,7 +32,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     // this.options.header = false;  // default value
 
     /***** create the pipeline and data handlers *****/
-    var reader = this;
+    var self = this;
     var encoder = this.junction.createEncoder(options);
 
     var statistics = this._statistics;
@@ -63,21 +63,21 @@ module.exports = exports = class CSVReader extends StorageReader {
           logger.debug(statistics.count);
 
         if (max >= 0 && statistics.count >= max) {
-          reader.push(null);
+          self.push(null);
           pipeline.destroy();
         }
-        else if (construct && !reader.push(construct)) {
+        else if (construct && !self.push(construct)) {
           //pipeline.pause();  // If push() returns false stop reading from source.
         }
       }
     });
 
     pipeline.on('end', () => {
-      reader.push(null);
+      self.push(null);
     });
 
     pipeline.on('error', function (err) {
-      let sterr = this.StorageError(err);
+      let sterr = self.junction.StorageError(err);
       logger.warn(sterr);
       //throw sterr;
     });

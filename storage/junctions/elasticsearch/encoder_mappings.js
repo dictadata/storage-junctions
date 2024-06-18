@@ -4,8 +4,8 @@
 "use strict";
 
 const { logger } = require('@dictadata/lib');
+const { StorageError } = require('../../types');
 const fs = require('node:fs');
-const { logger } = require('@dictadata/lib');
 
 module.exports = exports = class ElasticMappings {
 
@@ -102,7 +102,7 @@ module.exports = exports = class ElasticMappings {
       if (err.statusCode === 404)
         create = true;
       else {
-        let sterr = this.StorageError(err);
+        let sterr = StorageError(err);
         logger.warn(sterr);
         throw sterr;
       }

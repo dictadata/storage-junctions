@@ -5,6 +5,7 @@
 
 const { logger } = require('@dictadata/lib');
 const { typeOf, isDate, parseDate } = require('@dictadata/lib');
+const { StorageError } = require('../../types');
 
 exports.encodeValues = function (engram, construct) {
   let data = {};
@@ -52,7 +53,7 @@ exports.matchQuery = function (keys, pattern) {
     return dsl;
   }
   catch (err) {
-    let sterr = this.StorageError(err);
+    let sterr = StorageError(err);
     logger.warn(sterr);
     throw sterr;
   }
@@ -79,7 +80,7 @@ exports.searchQuery = function (pattern) {
     return dsl;
   }
   catch (err) {
-    let sterr = this.StorageError(err);
+    let sterr = StorageError(err);
     logger.warn(sterr);
     throw sterr;
   }
