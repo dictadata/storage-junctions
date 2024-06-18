@@ -44,8 +44,9 @@ function storageType (value) {
     if (typeof b !== "undefined")
       return "boolean";
 
-    if (value.length > 0 && value.length <= stringBreakpoints.keyword && !(/\s/g.test(value)))
+    if (value.length > 0 && value.length <= stringBreakpoints.keyword && !stringBreakpoints.kw_regex.test(value)) {
       return "keyword";
+    }
 
     return "text";
   }
