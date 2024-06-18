@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const dull = require('../_dull');
+const dull = require('../_lib/_dull');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql");
@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/dull_01.json"
+      output: "./test/_data/output/mysql/dull_01.json"
     }
   })) return 1;
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const store = require('../_store');
+const store = require('../_lib/_store');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");
@@ -24,7 +24,7 @@ async function keystore() {
       "enabled": false
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/store_ks1.json"
+      output: "./test/_data/output/elasticsearch/store_ks1.json"
     }
   }, 1)) return 1;
 
@@ -45,7 +45,7 @@ async function keystore() {
       enabled: false
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/store_ks2.json"
+      output: "./test/_data/output/elasticsearch/store_ks2.json"
     }
   }, 1)) return 1;
 
@@ -63,7 +63,7 @@ async function keystore() {
       enabled: true
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/store_ks3.json"
+      output: "./test/_data/output/elasticsearch/store_ks3.json"
     }
   }, 1)) return 1;
 
@@ -85,7 +85,7 @@ async function primarykey() {
       enabled: true
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/store_pk1.json"
+      output: "./test/_data/output/elasticsearch/store_pk1.json"
     }
   }, 0)) return 1;
 
@@ -103,7 +103,7 @@ async function primarykey() {
       enabled: true
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/store_pk2.json"
+      output: "./test/_data/output/elasticsearch/store_pk2.json"
     }
   }, 0)) return 1;
 

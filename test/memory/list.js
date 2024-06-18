@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const list = require('../_list');
+const list = require('../_lib/_list');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: memory list");
@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/list.json"
+      output: "./test/_data/output/memory/list.json"
     }
   })) return 1;
 

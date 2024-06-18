@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const list = require('../_list');
+const list = require('../_lib/_list');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: elasticsearch list");
@@ -19,7 +19,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/list.json"
+      output: "./test/_data/output/elasticsearch/list.json"
     }
   }, 1)) return 1;
 

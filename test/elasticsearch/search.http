@@ -68,7 +68,7 @@ Content-Type: application/json
     "bool":{
       "filter":[{
         "multi_match":{
-          "query": "big data",
+          "query": "big data*",
           "fields": [ "Bar" ],
           "operator": "AND"
         }
@@ -92,7 +92,7 @@ Content-Type: application/json
           "multi_match": {
             "query": "iowa",
             "fields": [
-              "title",
+              "name",
               "description",
               "tags"
             ],

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: elasticsearch transforms");
@@ -24,8 +24,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transform_1.json|*",
-      output: "./test/data/output/elasticsearch/transform_1.json"
+      smt: "json|./test/_data/output/elasticsearch/|transform_1.json|*",
+      output: "./test/_data/output/elasticsearch/transform_1.json"
     }
   })) return 1;
 
@@ -65,8 +65,8 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transform_2.json|*",
-      output: "./test/data/output/elasticsearch/transform_2.json"
+      smt: "json|./test/_data/output/elasticsearch/|transform_2.json|*",
+      output: "./test/_data/output/elasticsearch/transform_2.json"
     }
   })) return 1;
 

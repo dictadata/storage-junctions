@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: transforms mutate");
@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose('=== mutate_1.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -35,19 +35,19 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/transforms/|mutate_1.json|*",
-      output: "./test/data/output/transforms/mutate_1.json"
+      smt: "json|./test/_data/output/transforms/|mutate_1.json|*",
+      output: "./test/_data/output/transforms/mutate_1.json"
     }
   })) return 1;
 
   logger.verbose('=== mutate_2.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_01.json|*"
+      smt: "json|./test/_data/input/|foofile_01.json|*"
     },
     terminal: {
-      smt: "json|./test/data/output/transforms/|mutate_2.json|*",
-      output: "./test/data/output/transforms/mutate_2.json"
+      smt: "json|./test/_data/output/transforms/|mutate_2.json|*",
+      output: "./test/_data/output/transforms/mutate_2.json"
     },
     transforms: [
       {
@@ -85,11 +85,11 @@ async function tests() {
   logger.verbose('=== mutate_3.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|file_list.json|*"
+      smt: "json|./test/_data/input/|file_list.json|*"
     },
     terminal: {
-      smt: "json|./test/data/output/transforms/|mutate_3.json|*",
-      output: "./test/data/output/transforms/mutate_3.json"
+      smt: "json|./test/_data/output/transforms/|mutate_3.json|*",
+      output: "./test/_data/output/transforms/mutate_3.json"
     },
     transforms: [
       {
@@ -108,7 +108,7 @@ async function tests() {
   logger.verbose('=== mutate_4.json');
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -120,8 +120,8 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/transforms/|mutate_4.json|*",
-      output: "./test/data/output/transforms/mutate_4.json"
+      smt: "json|./test/_data/output/transforms/|mutate_4.json|*",
+      output: "./test/_data/output/transforms/mutate_4.json"
     }
   })) return 1;
 

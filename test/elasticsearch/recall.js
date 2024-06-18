@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const recall = require('../_recall');
+const recall = require('../_lib/_recall');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");
@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/recall_1.json"
+      output: "./test/_data/output/elasticsearch/recall_1.json"
     }
   })) return 1;
 
@@ -32,7 +32,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/recall_ks.json"
+      output: "./test/_data/output/elasticsearch/recall_ks.json"
     }
   })) return 1;
 
@@ -51,7 +51,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/recall_pk.json"
+      output: "./test/_data/output/elasticsearch/recall_pk.json"
     }
   })) return 1;
 

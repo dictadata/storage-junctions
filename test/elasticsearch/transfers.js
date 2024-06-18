@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
-const dullSchema = require('../_dullSchema');
+const transfer = require('../_lib/_transfer');
+const dullSchema = require('../_lib/_dullSchema');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");
@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== csv => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,7 +32,7 @@ async function tests() {
   logger.info("=== json => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_j|!Foo"
@@ -42,7 +42,7 @@ async function tests() {
   logger.info("=== json 01 => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_01.json|*"
+      smt: "json|./test/_data/input/|foofile_01.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_01|!Foo"
@@ -52,7 +52,7 @@ async function tests() {
   logger.info("=== json 02 => elasticsearch");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foo_widgets.json|*"
+      smt: "json|./test/_data/input/|foo_widgets.json|*"
     },
     terminal: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_widgets|!Foo"
@@ -79,12 +79,12 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/elasticsearch/|transfer_foo.csv|*",
+      smt: "csv|./test/_data/output/elasticsearch/|transfer_foo.csv|*",
       options: {
         header: true,
         append: false
       },
-      output: "./test/data/output/elasticsearch/transfer_foo.csv"
+      output: "./test/_data/output/elasticsearch/transfer_foo.csv"
     }
   })) return 1;
 
@@ -98,12 +98,12 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transfer_foo_j.json|*",
+      smt: "json|./test/_data/output/elasticsearch/|transfer_foo_j.json|*",
       options: {
         append: false
       }
     },
-    output: "./test/data/output/elasticsearch/transfer_foo_j.json"
+    output: "./test/_data/output/elasticsearch/transfer_foo_j.json"
   })) return 1;
 
 
@@ -119,12 +119,12 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/elasticsearch/|transfer_foo_notfound.json|*",
+      smt: "json|./test/_data/output/elasticsearch/|transfer_foo_notfound.json|*",
       options: {
         append: false
       }
     },
-    output: "./test/data/output/elasticsearch/transfer_foo_notfound.json"
+    output: "./test/_data/output/elasticsearch/transfer_foo_notfound.json"
   })) return 1;
 
 }

@@ -34,7 +34,7 @@ async function codifyCSV(smt, options) {
   }
 }
 
-let smt = "csv|./test/data/input/|foofile.csv|*";
+let smt = "csv|./test/_data/input/|foofile.csv|*";
 let options: {
   header: true
 }

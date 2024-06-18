@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getFiles = require('../_getFiles');
+const getFiles = require('../_lib/_getFiles');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: http file downloads");
@@ -16,7 +16,7 @@ async function downloads_IIS() {
       smt: "*|http://dev.dictadata.net/dictadata/test/data/input/|foofile*.json|*",
     },
     terminal: {
-      smt: "*|./test/data/output/http/IIS/|*|*",
+      smt: "*|./test/_data/output/http/IIS/|*|*",
     }
   })) return 1;
 
@@ -29,7 +29,7 @@ async function downloads_IIS() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/http/IIS/|*|*",
+      smt: "*|./test/_data/output/http/IIS/|*|*",
       options: {
         use_rpath: true
       }
@@ -49,7 +49,7 @@ async function downloads_SOS() {
       }
     },
     "terminal": {
-      "smt": "*|file:./test/data/output/http/SOS/|*|*",
+      "smt": "*|file:./test/_data/output/http/SOS/|*|*",
       "options": {
         "use_rpath": false
       }

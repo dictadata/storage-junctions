@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getEngram = require('../_getEngram');
+const getEngram = require('../_lib/_getEngram');
 const { logger } = require('@dictadata/lib');
 
 logger.info("===== elasticsearch getEngram ");
@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/" + encoding + ".engram.json"
+      output: "./test/_data/output/elasticsearch/" + encoding + ".engram.json"
     }
   })) return 1;
 

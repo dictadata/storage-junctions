@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const retrieve = require('../_retrieve');
+const retrieve = require('../_lib/_retrieve');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: memory");
@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/retrieve_1.json"
+      output: "./test/_data/output/memory/retrieve_1.json"
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/retrieve_2.json"
+      output: "./test/_data/output/memory/retrieve_2.json"
     }
   })) return 1;
 
@@ -55,7 +55,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/retrieve_3.json"
+      output: "./test/_data/output/memory/retrieve_3.json"
     }
   })) return 1;
 

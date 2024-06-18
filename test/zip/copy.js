@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getFiles = require('../_getFiles');
+const getFiles = require('../_lib/_getFiles');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: zip downloads");
@@ -13,13 +13,13 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|zip:./test/data/input/foofile.zip|foo*.json|*",
+      smt: "*|zip:./test/_data/input/foofile.zip|foo*.json|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "*|./test/data/output/zip/downloads/|*|*",
+      smt: "*|./test/_data/output/zip/downloads/|*|*",
       options: {
       }
     }
@@ -31,13 +31,13 @@ async function test_2() {
 
   if (await getFiles({
     origin: {
-      smt: "*|zip:./test/data/input/foofile.zip|subfolder/*|*",
+      smt: "*|zip:./test/_data/input/foofile.zip|subfolder/*|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      smt: "*|./test/data/output/zip/downloads/|*|*",
+      smt: "*|./test/_data/output/zip/downloads/|*|*",
       options: {
         use_rpath: true
       }

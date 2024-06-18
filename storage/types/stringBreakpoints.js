@@ -11,7 +11,7 @@
  */
 var stringBreakpoints = {
   keyword: 64,
-  kw_regex: /[^A-Za-z0-9_\-, ]/, // fails if other characters are found (^)
+  kw_regex: /[^A-Za-z0-9_\-+!@#$%*&,. ]/, // fails if other characters are found (^)
   text: 4000
   // otherwise long text
 };

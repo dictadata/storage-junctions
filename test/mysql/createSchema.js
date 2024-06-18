@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const createSchema = require('../_createSchema');
-const dull = require('../_dull');
+const createSchema = require('../_lib/_createSchema');
+const dull = require('../_lib/_dull');
 const { logger } = require('@dictadata/lib');
 const fs = require('node:fs');
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
@@ -22,7 +22,7 @@ async function test(schema, encoding) {
           username: "dicta",
           password: "data"
         },
-        encoding: "./test/data/input/engrams/" + encoding + ".engram.json"
+        encoding: "./test/_data/input/engrams/" + encoding + ".engram.json"
       }
     }
   });
@@ -46,7 +46,7 @@ async function test_lg() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_lg.engram.json",
+        encoding: "./test/_data/input/engrams/foo_schema_lg.engram.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

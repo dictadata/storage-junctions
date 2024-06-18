@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const retrieve = require('../_retrieve');
+const retrieve = require('../_lib/_retrieve');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch shape queries");
@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/shapefile/retrieve_1.json"
+      output: "./test/_data/output/shapefile/retrieve_1.json"
     }
   })) return 1;
 
@@ -38,7 +38,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/shapefile/retrieve_2.json"
+      output: "./test/_data/output/shapefile/retrieve_2.json"
     }
   })) return 1;
 
@@ -56,7 +56,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/shapefile/retrieve_3.json"
+      output: "./test/_data/output/shapefile/retrieve_3.json"
     }
   })) return 1;
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const codify = require('../_codify');
+const codify = require('../_lib/_codify');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: rest encoding");
@@ -32,7 +32,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_points.json'
+      output: './test/_data/output/rest/weather_points.json'
     }
   }, 1)) return 1;
 
@@ -53,7 +53,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_forecast.json'
+      output: './test/_data/output/rest/weather_forecast.json'
     }
   }, 1)) return 1;
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql transforms");
@@ -13,7 +13,7 @@ async function tests() {
   logger.verbose("=== json => mysql foo_schema_etl2");
   if (await transfer({
     "origin": {
-      "smt": "json|./test/data/input/|foofile.json|*"
+      "smt": "json|./test/_data/input/|foofile.json|*"
     },
     "transforms": [
       {
@@ -46,7 +46,7 @@ async function tests() {
     "terminal": {
       "smt": "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_etl2|*",
       "options": {
-        "encoding": "./test/data/input/engrams/foo_schema_t.engram.json"
+        "encoding": "./test/_data/input/engrams/foo_schema_t.engram.json"
       }
     }
   })) return 1;
@@ -64,8 +64,8 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_0.json|*",
-      output: "./test/data/output/mysql/transform_0.json"
+      smt: "json|./test/_data/output/mysql/|transform_0.json|*",
+      output: "./test/_data/output/mysql/transform_0.json"
     }
   })) return 1;
 
@@ -74,7 +74,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_01.engram.json"
+        encoding: "./test/_data/input/engrams/foo_schema_01.engram.json"
       }
     },
     transforms: [
@@ -107,8 +107,8 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_1.json|*",
-      output: "./test/data/output/mysql/transform_1.json"
+      smt: "json|./test/_data/output/mysql/|transform_1.json|*",
+      output: "./test/_data/output/mysql/transform_1.json"
     }
   })) return 1;
 
@@ -117,7 +117,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_widgets.engram.json"
+        encoding: "./test/_data/input/engrams/foo_widgets.engram.json"
       }
     },
     transforms: [
@@ -150,8 +150,8 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/mysql/|transform_2.json|*",
-      output: "./test/data/output/mysql/transform_2.json"
+      smt: "json|./test/_data/output/mysql/|transform_2.json|*",
+      output: "./test/_data/output/mysql/transform_2.json"
     }
   })) return 1;
 

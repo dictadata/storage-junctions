@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const recall = require('../_recall');
+const recall = require('../_lib/_recall');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: memory");
@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/recall_1.json"
+      output: "./test/_data/output/memory/recall_1.json"
     }
   })) return 1;
 
@@ -37,7 +37,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./test/data/output/memory/recall_2.json"
+      output: "./test/_data/output/memory/recall_2.json"
     }
   })) return 1;
 

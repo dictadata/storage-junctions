@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getEngram = require('../_getEngram');
+const getEngram = require('../_lib/_getEngram');
 const { logger } = require('@dictadata/lib');
 
 async function test(schema, encoding) {
@@ -14,7 +14,7 @@ async function test(schema, encoding) {
       smt: "memory|testgroup|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/memory/" + encoding + ".engram.json"
+      output: "./test/_data/output/memory/" + encoding + ".engram.json"
     }
   })) return 1;
 

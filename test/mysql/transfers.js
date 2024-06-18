@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
-const dullSchema = require('../_dullSchema');
+const transfer = require('../_lib/_transfer');
+const dullSchema = require('../_lib/_dullSchema');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql transfers");
@@ -19,7 +19,7 @@ async function tests() {
   logger.info("=== foofile.csv > mysql.foo_schema");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -32,12 +32,12 @@ async function tests() {
   logger.info("=== foofile_01.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_01.json|*"
+      smt: "json|./test/_data/input/|foofile_01.json|*"
     },
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_01.engram.json"
+        encoding: "./test/_data/input/engrams/foo_schema_01.engram.json"
       }
     }
   })) return 1;
@@ -45,12 +45,12 @@ async function tests() {
   logger.info("=== foo_widgets.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foo_widgets.json|*"
+      smt: "json|./test/_data/input/|foo_widgets.json|*"
     },
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|=Foo",
       options: {
-        encoding: "./test/data/input/engrams/foo_widgets.engram.json"
+        encoding: "./test/_data/input/engrams/foo_widgets.engram.json"
       }
     }
   })) return 1;
@@ -58,12 +58,12 @@ async function tests() {
   logger.info("=== foofile_two.json > mysql");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile_two.json|*"
+      smt: "json|./test/_data/input/|foofile_two.json|*"
     },
     terminal: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_two|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_two.engram.json"
+        encoding: "./test/_data/input/engrams/foo_schema_two.engram.json"
       }
     }
   })) return 1;
@@ -84,11 +84,11 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_transfer|*"
     },
     terminal: {
-      smt: "csv|./test/data/output/mysql/|transfer.csv|*",
+      smt: "csv|./test/_data/output/mysql/|transfer.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/mysql/transfer.csv"
+      output: "./test/_data/output/mysql/transfer.csv"
     }
   })) return 1;
 }

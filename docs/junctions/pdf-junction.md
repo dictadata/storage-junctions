@@ -129,7 +129,7 @@ An ETL Tracts file is a JSON object describing the storage source and storage de
   "transfer": {
     "action": "transfer",
     "origin": {
-      "smt": "pdf|./test/data/input/|foofile.pdf|*",
+      "smt": "pdf|./test/_data/input/|foofile.pdf|*",
       "options": {
         "heading": "pdf section heading",
         "cells": 7,
@@ -137,7 +137,7 @@ An ETL Tracts file is a JSON object describing the storage source and storage de
       }
     },
     "terminal": {
-      "smt": "json|./test/data/output/|foofile.json|*"
+      "smt": "json|./test/_data/output/|foofile.json|*"
     }
   }
 }
@@ -147,7 +147,7 @@ An ETL Tracts file is a JSON object describing the storage source and storage de
 
 ### Hello World
 
-[HelloWorld.pdf](./test/data/input/pdf/helloworld.pdf) is a single page PDF document with the string "Hello, world!" positioned on the page. The parser output is one row with one cell.
+[HelloWorld.pdf](./test/_data/input/pdf/helloworld.pdf) is a single page PDF document with the string "Hello, world!" positioned on the page. The parser output is one row with one cell.
 
 Create an ETL tract file named mytracts.json with one tract name hello_world.
 
@@ -156,10 +156,10 @@ Create an ETL tract file named mytracts.json with one tract name hello_world.
   "hello_world": {
     "action": "transfer",
     "origin": {
-      "smt": "pdf|./test/data/input/pdf/|helloworld.pdf|*",
+      "smt": "pdf|./test/_data/input/pdf/|helloworld.pdf|*",
     },
     "terminal": {
-      "smt": "json|./test/data/output/pdf/|helloworld.json|*"
+      "smt": "json|./test/_data/output/pdf/|helloworld.json|*"
     }
   },
   "plugins": {

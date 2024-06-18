@@ -20,9 +20,9 @@
     "./types": "./storage/types/index.js",
     "./types/*": "./storage/types/*.js",
     "./types/*.js": "./storage/types/*.js",
-    "./test": "./test/index.js",
-    "./test/*": "./test/*.js",
-    "./test/*.js": "./test/*.js"
+    "./test": "./test/_lib/index.js",
+    "./test/*": "./test/_lib/*.js",
+    "./test/*.js": "./test/_lib/*.js"
   },
   "bin": {},
   "scripts": {

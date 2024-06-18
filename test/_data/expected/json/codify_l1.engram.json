@@ -1,0 +1,66 @@
+{
+  "name": "foo_widgets.json",
+  "type": "engram",
+  "smt": {
+    "model": "json",
+    "locus": "./test/_data/input/",
+    "schema": "foo_widgets.json",
+    "key": "*"
+  },
+  "fields": [
+    {
+      "name": "Foo",
+      "type": "keyword",
+      "size": 7
+    },
+    {
+      "name": "Bar",
+      "type": "text",
+      "size": 13
+    },
+    {
+      "name": "Baz",
+      "type": "integer"
+    },
+    {
+      "name": "Fobe",
+      "type": "number"
+    },
+    {
+      "name": "Dt Test",
+      "type": "date"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean"
+    },
+    {
+      "name": "tags",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "keyword",
+        "size": 8
+      }
+    },
+    {
+      "name": "widgets",
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "map",
+        "fields": [
+          {
+            "name": "part",
+            "type": "keyword",
+            "size": 6
+          },
+          {
+            "name": "count",
+            "type": "integer"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 
@@ -18,7 +18,7 @@ async function transfer1() {
       "smt": "shp|zip:/var/dictadata/US/census.gov/geo/tiger/TIGER2023/STATE/tl_2023_us_state.zip|tl_2023_us_state|*"
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|tl_2023_us_state.json|*"
+      "smt": "json|./test/_data/output/shapefile/|tl_2023_us_state.json|*"
     }
   })) return 1;
 
@@ -34,7 +34,7 @@ async function transfer2() {
     "terminal": {
       "smt": "elastic|http://dev.dictadata.net:9200/|tl_2023_us_state|*",
       "options": {
-        "encoding": "./test/data/input/engrams/tl_YYYY_us_state.engram.json"
+        "encoding": "./test/_data/input/engrams/tl_YYYY_us_state.engram.json"
       }
     }
   })) return 1;
@@ -49,7 +49,7 @@ async function transfer3() {
       "smt": "elastic|http://dev.dictadata.net:9200/|tl_2023_us_state|*"
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|tl_2023_us_state_elastic.json|*"
+      "smt": "json|./test/_data/output/shapefile/|tl_2023_us_state_elastic.json|*"
     }
   })) return 1;
 
@@ -62,7 +62,7 @@ async function transfer4() {
     "origin": {
       "smt": "shp|zip:/var/dictadata/IA/legis.iowa.gov/Plan2/SHP/IA_ProposedPlan2_Oct2021.zip|Plan2_Congress|*",
       "options": {
-        "encoding": "./test/data/input/engrams/bl_2020_ia_congress.engram.json"
+        "encoding": "./test/_data/input/engrams/bl_2020_ia_congress.engram.json"
       }
     },
     "transforms": [
@@ -76,7 +76,7 @@ async function transfer4() {
     "terminal": {
       "smt": "elasticsearch|http://dev.dictadata.net:9200|bl_2020_us_congress|*",
       "options": {
-        "encoding": "./test/data/input/engrams/bl_2020_ia_congress.engram.json"
+        "encoding": "./test/_data/input/engrams/bl_2020_ia_congress.engram.json"
       }
     }
   })) return 1;

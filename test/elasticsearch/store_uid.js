@@ -3,9 +3,9 @@
  */
 "use strict";
 
-const store = require('../_store');
-const recall = require('../_recall');
-const dull = require('../_dull');
+const store = require('../_lib/_store');
+const recall = require('../_lib/_recall');
+const dull = require('../_lib/_dull');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");

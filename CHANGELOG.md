@@ -164,8 +164,6 @@
   - enhancement: add options to Engram engrams properties, passed to storage-junctions by campus.activate
   - bug fix: Elasticsearch DSL queries for patterns with "eq", "neq"
   - testing: tr_launcher testing parameters
-- version 2.2.2
-  - add title to predefined engrams properties
 - version 2.2.1
   - refactor: Storage module, Campus and Engrams classes
 - version 2.1.6

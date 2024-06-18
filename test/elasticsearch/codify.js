@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const codify = require('../_codify');
+const codify = require('../_lib/_codify');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: ElasticSearch Codify ");
@@ -16,7 +16,7 @@ async function tests() {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo"
     },
     terminal: {
-      output: './test/data/output/elasticsearch/codify_00.json'
+      output: './test/_data/output/elasticsearch/codify_00.json'
     }
   })) return 1;
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_01|!Foo"
     },
     terminal: {
-      output: './test/data/output/elasticsearch/codify_01.json'
+      output: './test/_data/output/elasticsearch/codify_01.json'
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_widgets|!Foo"
     },
     terminal: {
-      output: './test/data/output/elasticsearch/codify_02.json'
+      output: './test/_data/output/elasticsearch/codify_02.json'
     }
   })) return 1;
 

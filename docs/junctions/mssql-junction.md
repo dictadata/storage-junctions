@@ -189,11 +189,11 @@ An ETL Tracts file is a JSON object describing the storage source and storage de
     "name": "foo_transfer",
     "action": "transfer",
     "origin": {
-      "smt": "mssql|./test/data/input/|foofile.mssql|*",
+      "smt": "mssql|./test/_data/input/|foofile.mssql|*",
       "options": {}
     },
     "terminal": {
-      "smt": "json|./test/data/output/|foofile.json|*"
+      "smt": "json|./test/_data/output/|foofile.json|*"
     }
   }
 }

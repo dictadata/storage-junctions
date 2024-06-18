@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: shapefile transfer");
@@ -15,19 +15,19 @@ async function testTransfer1() {
   logger.verbose("=== Transfer polygons to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|./test/data/input/shapes/|polygons|*",
+      smt: "shp|./test/_data/input/shapes/|polygons|*",
       options: {}
     },
     terminal: {
-      smt: "json|./test/data/output/shapefile/|polygons.json|*",
-      output: "./test/data/output/shapefile/polygons.json"
+      smt: "json|./test/_data/output/shapefile/|polygons.json|*",
+      output: "./test/_data/output/shapefile/polygons.json"
     }
   }, compareValues)) return 1;
 
   logger.verbose("=== Transfer polygons to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|./test/data/input/shapes/|polygons|*",
+      smt: "shp|./test/_data/input/shapes/|polygons|*",
       options: {}
     },
     transforms: [
@@ -41,7 +41,7 @@ async function testTransfer1() {
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
-        encoding: "./test/data/input/engrams/shapes.engram.json"
+        encoding: "./test/_data/input/engrams/shapes.engram.json"
       }
     }
   }, compareValues)) return 1;
@@ -53,19 +53,19 @@ async function testTransfer2() {
   logger.verbose("=== Transfer2 points.zip to geoJSON");
   if (await transfer({
     origin: {
-      smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/_data/input/shapes/points.zip|points|*",
       options: {}
     },
     terminal: {
-      smt: "json|./test/data/output/shapefile/|points.json|*",
-      output: "./test/data/output/shapefile/points.json"
+      smt: "json|./test/_data/output/shapefile/|points.json|*",
+      output: "./test/_data/output/shapefile/points.json"
     }
   }, compareValues)) return 1;
 
   logger.verbose("=== Transfer2 points.zip to elasticsearch");
   if (await transfer({
     origin: {
-      smt: "shp|zip:./test/data/input/shapes/points.zip|points|*",
+      smt: "shp|zip:./test/_data/input/shapes/points.zip|points|*",
       options: {}
     },
     transforms: [
@@ -79,7 +79,7 @@ async function testTransfer2() {
     terminal: {
       smt: "elastic|http://dev.dictadata.net:9200/|shapes|!id",
       options: {
-        encoding: "./test/data/input/engrams/shapes.engram.json"
+        encoding: "./test/_data/input/engrams/shapes.engram.json"
       }
     }
   }, compareValues)) return 1;
@@ -102,8 +102,8 @@ async function testTransfer3() {
       }
     },
     "terminal": {
-      "smt": "json|./test/data/output/shapefile/|shapes.json|*",
-      "output": "./test/data/output/shapefile/shapes.json"
+      "smt": "json|./test/_data/output/shapefile/|shapes.json|*",
+      "output": "./test/_data/output/shapefile/shapes.json"
     }
   }, compareValues)) return 1;
 

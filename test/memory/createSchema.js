@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const _createSchema = require('../_createSchema');
+const _createSchema = require('../_lib/_createSchema');
 const { logger } = require('@dictadata/lib');
 
 async function test(schema, encoding) {
@@ -13,7 +13,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "memory|testgroup|" + schema + "|*",
       options: {
-        encoding: "./test/data/input/engrams/" + encoding + ".engram.json"
+        encoding: "./test/_data/input/engrams/" + encoding + ".engram.json"
       }
     }
   });
@@ -28,7 +28,7 @@ async function test_lg() {
     origin: {
       smt: "memory|testgroup|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_lg.engram.json",
+        encoding: "./test/_data/input/engrams/foo_schema_lg.engram.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

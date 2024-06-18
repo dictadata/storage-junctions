@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const _createSchema = require('../_createSchema');
+const _createSchema = require('../_lib/_createSchema');
 const store = require('./store');
 const recall = require('./recall');
 //const retrieve = require('./retrieve');
@@ -18,7 +18,7 @@ const { logger } = require('@dictadata/lib');
     origin: {
       smt: "memory|testgroup|foo_schema|!Foo",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema.engram.json"
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       }
     }
   });

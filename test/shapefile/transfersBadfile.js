@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== shapefile transfer badfile");
@@ -14,11 +14,11 @@ async function tests() {
   logger.verbose("=== Transfer polygons_badfile");
   if (await transfer({
     origin: {
-      smt: "shp|./test/data/input/shapes/|polygons_badfile|*"
+      smt: "shp|./test/_data/input/shapes/|polygons_badfile|*"
     },
     terminal: {
-      smt: "json|./test/data/output/shapefile/|polygons_badfile.json|*",
-      output: "./test/data/output/shapefile/polygons_badfile.json"
+      smt: "json|./test/_data/output/shapefile/|polygons_badfile.json|*",
+      output: "./test/_data/output/shapefile/polygons_badfile.json"
     }
   }, -1))
     return 1;

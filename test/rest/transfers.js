@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 const { stringBreakpoints } = require('../../storage/types');
 
@@ -17,17 +17,17 @@ async function transfer_weather() {
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
-        encoding: "./test/data/input/engrams/weather_forecast.engram.json",
+        encoding: "./test/_data/input/engrams/weather_forecast.engram.json",
         retries: 1,
         pick: "properties.periods"
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|weather_forecast_transfer_1.json|*",
+      smt: "json|./test/_data/output/rest/|weather_forecast_transfer_1.json|*",
       options: {
-        encoding: "./test/data/input/engrams/weather_forecast.engram.json"
+        encoding: "./test/_data/input/engrams/weather_forecast.engram.json"
       },
-      output: "./test/data/output/rest/weather_forecast_transfer_1.json"
+      output: "./test/_data/output/rest/weather_forecast_transfer_1.json"
     }
   }, compareValues)) return 1;
 
@@ -41,7 +41,7 @@ async function transfer_weather() {
           "gridX": 34,
           "gridY": 71
         },
-        encoding: "./test/data/input/engrams/weather_forecast.engram.json",
+        encoding: "./test/_data/input/engrams/weather_forecast.engram.json",
         http: {
           headers: {
             "Accept": "application/ld+json",
@@ -53,11 +53,11 @@ async function transfer_weather() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|weather_forecast_transfer_2.json|*",
+      smt: "json|./test/_data/output/rest/|weather_forecast_transfer_2.json|*",
       options: {
-        encoding: "./test/data/input/engrams/weather_forecast.engram.json"
+        encoding: "./test/_data/input/engrams/weather_forecast.engram.json"
       },
-      output: "./test/data/output/rest/weather_forecast_transfer_2.json"
+      output: "./test/_data/output/rest/weather_forecast_transfer_2.json"
     }
   }, compareValues)) return 1;
 
@@ -85,8 +85,8 @@ async function transfer_census() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|census_population_transfer_1.json|*",
-      output: "./test/data/output/rest/census_population_transfer_1.json"
+      smt: "json|./test/_data/output/rest/|census_population_transfer_1.json|*",
+      output: "./test/_data/output/rest/census_population_transfer_1.json"
     }
   }, compareValues)) return 1;
 
@@ -114,8 +114,8 @@ async function transfer_census() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/rest/|census_population_transfer_2.json|*",
-      output: "./test/data/output/rest/census_population_transfer_2.json"
+      smt: "json|./test/_data/output/rest/|census_population_transfer_2.json|*",
+      output: "./test/_data/output/rest/census_population_transfer_2.json"
     }
   }, compareValues)) return 1;
 

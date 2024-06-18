@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const list = require('../_list');
+const list = require('../_lib/_list');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: FTP list");
@@ -22,7 +22,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_1.json"
+      output: "./test/_data/output/ftp/list_1.json"
     }
   })) return 1;
 
@@ -41,7 +41,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_2.json"
+      output: "./test/_data/output/ftp/list_2.json"
     }
   })) return 1;
 
@@ -56,7 +56,7 @@ async function test_1() {
       }
     },
     terminal: {
-      output: "./test/data/output/ftp/list_tiger2023.json"
+      output: "./test/_data/output/ftp/list_tiger2023.json"
     }
   })) return 1;
 

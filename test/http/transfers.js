@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 
@@ -18,11 +18,11 @@ async function test_transfers() {
       smt: "json|http://dev.dictadata.net/dictadata/test/data/input/|foofile.json|*",
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|foofile.csv|*",
+      smt: "csv|./test/_data/output/http/|foofile.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/http/foofile.csv"
+      output: "./test/_data/output/http/foofile.csv"
     }
   }, compareValues)) return 1;
 
@@ -32,12 +32,12 @@ async function test_transfers() {
       smt: "csv|http://dev.dictadata.net/dictadata/test/data/input/|foofile.csv|*",
       options: {
         header: true,
-        encoding: "./test/data/input/engrams/foo_schema.engram.json"
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile.json|*",
-      output: "./test/data/output/http/foofile.json"
+      smt: "json|./test/_data/output/http/|foofile.json|*",
+      output: "./test/_data/output/http/foofile.json"
     }
   }, compareValues)) return 1;
 
@@ -52,22 +52,26 @@ async function test_uncompress() {
       smt: "json|http://dev.dictadata.net/dictadata/test/data/input/|foofile.json.gz|*"
     },
     terminal: {
-      smt: "json|./test/data/output/http/|foofile_gunzip.json|*",
-      output: "./test/data/output/http/foofile_gunzip.json"
+      smt: "json|./test/_data/output/http/|foofile_gunzip.json|*",
+      output: "./test/_data/output/http/foofile_gunzip.json"
     }
   }, compareValues)) return 1;
 
   logger.verbose('=== http .gz to local csv');
   if (await transfer({
     origin: {
-      smt: "csv|http://dev.dictadata.net/dictadata/test/data/input/|foofile.csv.gz|*"
+      smt: "csv|http://dev.dictadata.net/dictadata/test/data/input/|foofile.csv.gz|*",
+      options: {
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json"
+      }
     },
     terminal: {
-      smt: "csv|./test/data/output/http/|foofile_gunzip.csv|*",
+      smt: "csv|./test/_data/output/http/|foofile_gunzip.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/http/foofile_gunzip.csv"
+      output: "./test/_data/output/http/foofile_gunzip.csv"
     }
   }, compareValues)) return 1;
 
@@ -89,8 +93,8 @@ async function test_census_data() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|census_transfer_1.json|*",
-      output: "./test/data/output/http/census_transfer_1.json"
+      smt: "json|./test/_data/output/http/|census_transfer_1.json|*",
+      output: "./test/_data/output/http/census_transfer_1.json"
     }
   }, compareValues)) return 1;
 
@@ -108,8 +112,8 @@ async function test_weather_data() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/http/|weather_forecast_transfer.json|*",
-      output: "./test/data/output/http/weather_forecast_transfer.json"
+      smt: "json|./test/_data/output/http/|weather_forecast_transfer.json|*",
+      output: "./test/_data/output/http/weather_forecast_transfer.json"
     }
   }, compareValues)) return 1;
 

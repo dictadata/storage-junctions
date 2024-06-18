@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const store = require('../_store');
+const store = require('../_lib/_store');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: memory");

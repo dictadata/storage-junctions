@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const getFiles = require('../_getFiles');
-const putFiles = require('../_putFiles');
+const getFiles = require('../_lib/_getFiles');
+const putFiles = require('../_lib/_putFiles');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: fs file copy");
@@ -14,13 +14,13 @@ async function test_1() {
 
   if (await getFiles({
     origin: {
-      smt: "*|file:./test/data/input/|foo*.csv|*",
+      smt: "*|file:./test/_data/input/|foo*.csv|*",
       options: {
         recursive: false
       }
     },
     terminal: {
-      smt: "*|./test/data/output/fs/downloads/|*|*",
+      smt: "*|./test/_data/output/fs/downloads/|*|*",
       options: {
       }
     }
@@ -32,13 +32,13 @@ async function test_2() {
 
   if (await putFiles({
     origin: {
-      smt: "*|./test/data/input/|*.json|*",
+      smt: "*|./test/_data/input/|*.json|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      smt: "*|file:./test/data/output/fs/uploads/|*|*",
+      smt: "*|file:./test/_data/output/fs/uploads/|*|*",
       options: {
         use_rpath: true
       }

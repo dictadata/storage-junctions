@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const storeBulk = require('../_store_bulk');
-const transfer = require('../_transfer');
+const storeBulk = require('../_lib/_store_bulk');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql bulk storage");
@@ -30,7 +30,7 @@ async function tests() {
       Baz: 120
     } ],
     terminal: {
-      output: "./test/data/output/mysql/store_bulk_01.json"
+      output: "./test/_data/output/mysql/store_bulk_01.json"
     }
   })) return 1;
 

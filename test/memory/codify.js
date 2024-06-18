@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const codify = require('../_codify');
+const codify = require('../_lib/_codify');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: memory codify");
@@ -16,7 +16,7 @@ async function tests() {
       smt: "memory|testgroup|foo_schema|!Foo"
     },
     terminal: {
-      output: './test/data/output/memory/codify_00.json'
+      output: './test/_data/output/memory/codify_00.json'
     }
   })) return 1;
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "memory|testgroup|foo_schema_01|!Foo"
     },
     terminal: {
-      output: './test/data/output/memory/codify_01.json'
+      output: './test/_data/output/memory/codify_01.json'
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       smt: "memory|testgroup|foo_widgets|!Foo"
     },
     terminal: {
-      output: './test/data/output/memory/codify_02.json'
+      output: './test/_data/output/memory/codify_02.json'
     }
   })) return 1;
 

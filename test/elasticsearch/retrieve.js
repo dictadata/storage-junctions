@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const retrieve = require('../_retrieve');
+const retrieve = require('../_lib/_retrieve');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");
@@ -21,7 +21,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_1.json"
+      output: "./test/_data/output/elasticsearch/retrieve_1.json"
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_2.json"
+      output: "./test/_data/output/elasticsearch/retrieve_2.json"
     }
   })) return 1;
 
@@ -51,7 +51,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_3.json"
+      output: "./test/_data/output/elasticsearch/retrieve_3.json"
     }
   })) return 1;
 
@@ -70,7 +70,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_4.json"
+      output: "./test/_data/output/elasticsearch/retrieve_4.json"
     }
   })) return 1;
 
@@ -84,7 +84,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_5.json"
+      output: "./test/_data/output/elasticsearch/retrieve_5.json"
     }
   })) return 1;
 
@@ -100,7 +100,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_6.json"
+      output: "./test/_data/output/elasticsearch/retrieve_6.json"
     }
   })) return 1;
 
@@ -118,7 +118,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_7.json"
+      output: "./test/_data/output/elasticsearch/retrieve_7.json"
     }
   })) return 1;
 
@@ -137,7 +137,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_8.json"
+      output: "./test/_data/output/elasticsearch/retrieve_8.json"
     }
   })) return 1;
 
@@ -156,7 +156,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_9.json"
+      output: "./test/_data/output/elasticsearch/retrieve_9.json"
     }
   })) return 1;
 
@@ -167,7 +167,7 @@ async function tests() {
       pattern: {
         match: {
           "~search": {
-            'search': 'big data',
+            'search': 'big data*',
             'fields': [ "Bar" ],
             "op": "AND"
           }
@@ -176,7 +176,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/retrieve_10.json"
+      output: "./test/_data/output/elasticsearch/retrieve_10.json"
     }
   })) return 1;
 

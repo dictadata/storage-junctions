@@ -231,15 +231,15 @@ let results = await junction.retrieve({
 
 ### Retrieve full-text search multiple fields
 
-The following examples returns constructs where fields _title, description OR tags contains the terms 'big' AND 'data'_.
+The following examples returns constructs where fields name, description OR tags contains the terms 'big' AND 'data'_.
 In this pattern the field name "~search" is ignored, any value could be used.
 
 ```javascript
 let results = await junction.retrieve({
   match: {
     "~search": {
-      'search': 'big data',
-      'fields': [ "title", "description", "tags" ],
+      'search': 'big data*',
+      'fields': [ "name", "description", "tags" ],
       "operator": "AND"
     }
   }

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const list = require('../_list');
+const list = require('../_lib/_list');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: zip list");
@@ -13,7 +13,7 @@ async function test() {
   logger.info("=== list zip directory - forEach");
   if (await list({
     origin: {
-      smt: "json|zip:./test/data/input/foofile.zip|*.json|*",
+      smt: "json|zip:./test/_data/input/foofile.zip|*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -22,20 +22,20 @@ async function test() {
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_1.json"
+      output: "./test/_data/output/zip/list_1.json"
     }
   })) return 1;
 
   logger.info("=== list zip directory - recursive");
   if (await list({
     origin: {
-      smt: "json|zip:./test/data/input/foofile.zip|*.json|*",
+      smt: "json|zip:./test/_data/input/foofile.zip|*.json|*",
       options: {
         recursive: true
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_2.json"
+      output: "./test/_data/output/zip/list_2.json"
     }
   })) return 1;
 
@@ -48,7 +48,7 @@ async function test() {
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_AmesZip.json"
+      output: "./test/_data/output/zip/list_AmesZip.json"
     }
   })) return 1;
 
@@ -61,7 +61,7 @@ async function test() {
       }
     },
     terminal: {
-      output: "./test/data/output/zip/list_AmesPrefix.json"
+      output: "./test/_data/output/zip/list_AmesPrefix.json"
     }
   })) return 1;
 

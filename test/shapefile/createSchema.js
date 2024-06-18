@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const createSchema = require('../_createSchema');
+const createSchema = require('../_lib/_createSchema');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: shapefile schema");
@@ -15,7 +15,7 @@ async function test(schema) {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
-        encoding: "./test/data/input/engrams/" + schema + ".engram.json"
+        encoding: "./test/_data/input/engrams/" + schema + ".engram.json"
       }
     }
   });

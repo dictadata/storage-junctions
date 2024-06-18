@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const list = require('../_list');
+const list = require('../_lib/_list');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: fs list");
@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== list fs directory (forEach)");
   if (await list({
     origin: {
-      smt: "*|file:./test/data/input/|foofile*.json|*",
+      smt: "*|file:./test/_data/input/|foofile*.json|*",
       options: {
         recursive: false,
         forEach: (entry) => {
@@ -22,7 +22,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/fs/list_1.json"
+      output: "./test/_data/output/fs/list_1.json"
     }
   })) return 1;
 
@@ -31,7 +31,7 @@ async function tests() {
     origin: {
       smt: {
         model: "*",
-        locus: "./test/data/input/engrams/",
+        locus: "./test/_data/input/engrams/",
         schema: "*.json",
         key: "*"
       },
@@ -41,7 +41,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/fs/list_2.json"
+      output: "./test/_data/output/fs/list_2.json"
     }
   })) return 1;
 

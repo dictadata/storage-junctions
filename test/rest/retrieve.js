@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const retrieve = require('../_retrieve');
+const retrieve = require('../_lib/_retrieve');
 const { logger } = require('@dictadata/lib');
 
 
@@ -16,7 +16,7 @@ async function retrieve_1() {
     origin: {
       smt: "rest|https://api.weather.gov/gridpoints/DVN/34,71/|forecast|*",
       options: {
-        encoding: "./test/data/input/engrams/weather_forecast.engram.json",
+        encoding: "./test/_data/input/engrams/weather_forecast.engram.json",
         http: {
           headers: {
             "Accept": "application/ld+json",
@@ -28,7 +28,7 @@ async function retrieve_1() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/weather_forecast_retrieve.json'
+      output: './test/_data/output/rest/weather_forecast_retrieve.json'
     }
   }, 1)) return 1;
 
@@ -50,7 +50,7 @@ async function retrieve_2() {
       }
     },
     terminal: {
-      output: './test/data/output/rest/census_population_retrieve.json'
+      output: './test/_data/output/rest/census_population_retrieve.json'
     }
   }, 2)) return 1;
 

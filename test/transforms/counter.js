@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: counter transform");
@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== add counter");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -21,15 +21,15 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|counter_1.json|*',
-      "output": "./test/data/output/transforms/counter_1.json"
+      "smt": 'json|./test/_data/output/transforms/|counter_1.json|*',
+      "output": "./test/_data/output/transforms/counter_1.json"
     }
   })) return 1;
 
   logger.info("=== rename counter");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -38,15 +38,15 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|counter_rename.json|*',
-      "output": "./test/data/output/transforms/counter_rename.json"
+      "smt": 'json|./test/_data/output/transforms/|counter_rename.json|*',
+      "output": "./test/_data/output/transforms/counter_rename.json"
     }
   })) return 1;
 
   logger.info("=== add/remove counter");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -64,8 +64,8 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|counter_remove.json|*',
-      "output": "./test/data/output/transforms/counter_remove.json"
+      "smt": 'json|./test/_data/output/transforms/|counter_remove.json|*',
+      "output": "./test/_data/output/transforms/counter_remove.json"
     }
   })) return 1;
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const store = require('../_store');
+const store = require('../_lib/_store');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql");
@@ -24,7 +24,7 @@ async function tests() {
       enabled: false
     },
     terminal: {
-      output: "./test/data/output/mysql/store_01.json"
+      output: "./test/_data/output/mysql/store_01.json"
     }
   })) return 1;
 
@@ -42,7 +42,7 @@ async function tests() {
       enabled: true
     },
     terminal: {
-      output: "./test/data/output/mysql/store_02.json"
+      output: "./test/_data/output/mysql/store_02.json"
     }
   })) return 1;
 
@@ -58,7 +58,7 @@ async function tests() {
       enabled: false
     },
     terminal: {
-      output: "./test/data/output/mysql/store_03.json"
+      output: "./test/_data/output/mysql/store_03.json"
     }
   })) return 1;
 
@@ -76,7 +76,7 @@ async function tests() {
       enabled: false
     },
     terminal: {
-      output: "./test/data/output/mysql/store_04.json"
+      output: "./test/_data/output/mysql/store_04.json"
     }
   })) return 1;
 

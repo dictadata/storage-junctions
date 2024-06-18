@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const dull = require('../_dull');
+const dull = require('../_lib/_dull');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: elasticsearch");
@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/dull_ks.json"
+      output: "./test/_data/output/elasticsearch/dull_ks.json"
     }
   })) return 1;
 
@@ -38,7 +38,7 @@ async function primarykey() {
       }
     },
     terminal: {
-      output: "./test/data/output/elasticsearch/dull_pk.json"
+      output: "./test/_data/output/elasticsearch/dull_pk.json"
     }
   })) return 1;
 

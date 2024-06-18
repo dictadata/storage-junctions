@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: rest conjoin");
@@ -20,7 +20,7 @@ async function testConjoin() {
           latitude: 39.7456,
           longitude: -97.0892
         },
-        encoding: "./test/data/input/engrams/weather_points.engram.json",
+        encoding: "./test/_data/input/engrams/weather_points.engram.json",
         http: {
           headers: {
             "Accept": "application/ld+json",
@@ -38,7 +38,7 @@ async function testConjoin() {
         transform: "conjoin",
         smt: "rest|https://api.weather.gov/gridpoints/${cwa}/${gridX},${gridY}/forecast||*",
         options: {
-          encoding: "./test/data/input/engrams/weather_forecast.engram.json",
+          encoding: "./test/_data/input/engrams/weather_forecast.engram.json",
           http: {
             headers: {
               "Accept": "application/ld+json",
@@ -51,11 +51,11 @@ async function testConjoin() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/rest/|weather_forecast_conjoin.json|*",
+      smt: "json|./test/_data/output/rest/|weather_forecast_conjoin.json|*",
       options: {
-        encoding: "./test/data/input/engrams/weather_forecast.engram.json"
+        encoding: "./test/_data/input/engrams/weather_forecast.engram.json"
       },
-      output: "./test/data/output/rest/weather_forecast_conjoin.json"
+      output: "./test/_data/output/rest/weather_forecast_conjoin.json"
     }
   }, compareValues)) return 1;
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: csv transforms");
@@ -13,10 +13,10 @@ async function tests() {
   logger.verbose('=== csv > csv_transform_none.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true,
-        encoding: "./test/data/input/engrams/foo_schema.engram.json"
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       },
       pattern: {
         match: {
@@ -25,18 +25,18 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "csv|./test/data/output/csv/|transform_none.csv|*",
+      smt: "csv|./test/_data/output/csv/|transform_none.csv|*",
       options: {
         header: true
       },
-      output: "./test/data/output/csv/transform_none.csv"
+      output: "./test/_data/output/csv/transform_none.csv"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_transform_1.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       },
@@ -49,15 +49,15 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/data/output/csv/|transform_1.json|*",
-      output: "./test/data/output/csv/transform_1.json"
+      smt: "json|./test/_data/output/csv/|transform_1.json|*",
+      output: "./test/_data/output/csv/transform_1.json"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_transform_2.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -76,15 +76,15 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/csv/|transform_2.json|*",
-      output: "./test/data/output/csv/transform_2.json"
+      smt: "json|./test/_data/output/csv/|transform_2.json|*",
+      output: "./test/_data/output/csv/transform_2.json"
     }
   })) return 1;
 
   logger.verbose('=== csv > csv_transform_3.json');
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -118,8 +118,8 @@ async function tests() {
       }
     ],
     terminal: {
-      smt: "json|./test/data/output/csv/|transform_3.json|*",
-      output: "./test/data/output/csv/transform_3.json"
+      smt: "json|./test/_data/output/csv/|transform_3.json|*",
+      output: "./test/_data/output/csv/transform_3.json"
     }
   })) return 1;
 

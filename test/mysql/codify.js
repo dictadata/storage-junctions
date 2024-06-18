@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const codify = require('../_codify');
+const codify = require('../_lib/_codify');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: MySQL Codify ");
@@ -16,7 +16,7 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
     terminal: {
-      output: './test/data/output/mysql/codify_00.json'
+      output: './test/_data/output/mysql/codify_00.json'
     }
   })) return 1;
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo"
     },
     terminal: {
-      output: './test/data/output/mysql/codify_01.json'
+      output: './test/_data/output/mysql/codify_01.json'
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|=Foo"
     },
     terminal: {
-      output: './test/data/output/mysql/codify_02.json'
+      output: './test/_data/output/mysql/codify_02.json'
     }
   })) return 1;
 

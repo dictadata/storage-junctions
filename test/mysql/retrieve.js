@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const retrieve = require('../_retrieve');
+const retrieve = require('../_lib/_retrieve');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Test: mysql retrieve");
@@ -20,7 +20,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/retrieve_0.json"
+      output: "./test/_data/output/mysql/retrieve_0.json"
     }
   })) return 1;
 
@@ -29,7 +29,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_01.engram.json",
+        encoding: "./test/_data/input/engrams/foo_schema_01.engram.json",
       },
       pattern: {
         match: {
@@ -38,7 +38,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/retrieve_1.json"
+      output: "./test/_data/output/mysql/retrieve_1.json"
     }
   })) return 1;
 
@@ -47,7 +47,7 @@ async function tests() {
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_widgets.engram.json",
+        encoding: "./test/_data/input/engrams/foo_widgets.engram.json",
       },
       pattern: {
         match: {
@@ -57,7 +57,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: "./test/data/output/mysql/retrieve_2.json"
+      output: "./test/_data/output/mysql/retrieve_2.json"
     }
   })) return 1;
 

@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: retreive");
@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== csv aggregate");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -36,7 +36,7 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'csv|./test/data/output/transforms/|aggregate_csv_1.csv|*',
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_csv_1.csv|*',
       options: {
         header: true,
         encoding: {
@@ -47,14 +47,14 @@ async function tests() {
           ]
         }
       },
-      output: "./test/data/output/transforms/aggregate_csv_1.csv"
+      output: "./test/_data/output/transforms/aggregate_csv_1.csv"
     }
   })) return 1;
 
   logger.info("=== csv aggregate summary");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -79,18 +79,18 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'csv|./test/data/output/transforms/|aggregate_csv_2.csv|*',
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_csv_2.csv|*',
       options: {
         header: true
       },
-      output: "./test/data/output/transforms/aggregate_csv_2.csv"
+      output: "./test/_data/output/transforms/aggregate_csv_2.csv"
     }
   })) return 1;
 
   logger.info("=== csv aggregate w/ groupby");
   if (await transfer({
     origin: {
-      smt: "csv|./test/data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         header: true
       }
@@ -115,11 +115,11 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'csv|./test/data/output/transforms/|aggregate_csv_3.csv|*',
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_csv_3.csv|*',
       options: {
         header: true
       },
-      output: "./test/data/output/transforms/aggregate_csv_3.csv"
+      output: "./test/_data/output/transforms/aggregate_csv_3.csv"
     }
   })) return 1;
 

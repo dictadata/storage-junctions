@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const createSchema = require('../_createSchema');
-const dull = require('../_dull');
+const createSchema = require('../_lib/_createSchema');
+const dull = require('../_lib/_dull');
 const { logger } = require('@dictadata/lib');
 const fs = require('node:fs');
 const homedir = process.env[ "HOMEPATH" ] || require('os').homedir();
@@ -18,7 +18,7 @@ async function test(schema, encoding) {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
       options: {
-        encoding: "./test/data/input/engrams/" + encoding + ".engram.json",
+        encoding: "./test/_data/input/engrams/" + encoding + ".engram.json",
         refresh: true
       }
     }
@@ -44,7 +44,7 @@ async function test_lg() {
     origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema_lg|*",
       options: {
-        encoding: "./test/data/input/engrams/foo_schema_lg.engram.json",
+        encoding: "./test/_data/input/engrams/foo_schema_lg.engram.json",
         stringBreakpoints: {
           keyword: 120,
           text: 2000

@@ -3,8 +3,8 @@
  */
 "use strict";
 
-const getFiles = require('../_getFiles');
-const putFiles = require('../_putFiles');
+const getFiles = require('../_lib/_getFiles');
+const putFiles = require('../_lib/_putFiles');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== tests: ftp downloads");
@@ -20,7 +20,7 @@ async function test_1() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/ftp/downloads/|*|*",
+      smt: "*|./test/_data/output/ftp/downloads/|*|*",
       options: {
       }
     }
@@ -32,7 +32,7 @@ async function test_2() {
 
   if (await putFiles({
     origin: {
-      smt: "*|./test/data/input/|*.csv|*",
+      smt: "*|./test/_data/input/|*.csv|*",
       options: {
         recursive: false
       }
@@ -55,7 +55,7 @@ async function test_3() {
       }
     },
     terminal: {
-      smt: "*|./test/data/output/ftp/shapefiles/|*|*",
+      smt: "*|./test/_data/output/ftp/shapefiles/|*|*",
       options: {
         use_rpath: true
       }

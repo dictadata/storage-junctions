@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const getEngram = require('../_getEngram');
+const getEngram = require('../_lib/_getEngram');
 const { logger } = require('@dictadata/lib');
 
 logger.info("===== mysql getEngram ");
@@ -16,7 +16,7 @@ async function test(schema, encoding) {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*"
     },
     terminal: {
-      output: "./test/data/output/mysql/" + encoding + ".engram.json"
+      output: "./test/_data/output/mysql/" + encoding + ".engram.json"
     }
   })) return 1;
 

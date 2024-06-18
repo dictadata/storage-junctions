@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const transfer = require('../_transfer');
+const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
 logger.info("=== Tests: retreive");
@@ -13,7 +13,7 @@ async function tests() {
   logger.info("=== json aggregate");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -33,15 +33,15 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|aggregate_json_1.json|*',
-      "output": "./test/data/output/transforms/aggregate_json_1.json"
+      "smt": 'json|./test/_data/output/transforms/|aggregate_json_1.json|*',
+      "output": "./test/_data/output/transforms/aggregate_json_1.json"
     }
   })) return 1;
 
   logger.info("=== json aggregate summary");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*",
+      smt: "json|./test/_data/input/|foofile.json|*",
     },
     transforms: [
       {
@@ -63,15 +63,15 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|aggregate_json_2.json|*',
-      "output": "./test/data/output/transforms/aggregate_json_2.json"
+      "smt": 'json|./test/_data/output/transforms/|aggregate_json_2.json|*',
+      "output": "./test/_data/output/transforms/aggregate_json_2.json"
     }
   })) return 1;
 
   logger.info("=== json aggregate w/ groupby");
   if (await transfer({
     origin: {
-      smt: "json|./test/data/input/|foofile.json|*"
+      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
@@ -93,8 +93,8 @@ async function tests() {
       }
     ],
     terminal: {
-      "smt": 'json|./test/data/output/transforms/|aggregate_json_3.json|*',
-      "output": "./test/data/output/transforms/aggregate_json_3.json"
+      "smt": 'json|./test/_data/output/transforms/|aggregate_json_3.json|*',
+      "output": "./test/_data/output/transforms/aggregate_json_3.json"
     }
   })) return 1;
 
