@@ -50,6 +50,7 @@ async function tests() {
       output: './test/_data/output/json/codify_l1.json'
     }
   })) return 1;
+
 }
 
 (async () => {

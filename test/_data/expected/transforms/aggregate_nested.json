@@ -1,0 +1,30 @@
+[
+  {
+    "category": "tools",
+    "item": "widget_1",
+    "count": 2,
+    "qty": 20,
+    "value": 20.00
+  },
+  {
+    "category": "tools",
+    "item": "widget_2",
+    "count": 2,
+    "qty": 20,
+    "value": 20.00
+  },
+  {
+    "category": "supplies",
+    "item": "whatsit_1",
+    "count": 2,
+    "qty": 40,
+    "value": 20.00
+  },
+  {
+    "category": "supplies",
+    "item": "whatsit_2",
+    "count": 2,
+    "qty": 40,
+    "value": 20.00
+  }
+]

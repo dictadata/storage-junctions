@@ -6,125 +6,157 @@
 const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
-logger.info("=== Tests: retreive");
+logger.info("=== Tests: retrieve");
 
-async function tests() {
-
-  logger.info("=== csv aggregate");
-  if (await transfer({
-    origin: {
-      smt: "csv|./test/_data/input/|foofile.csv|*",
-      options: {
-        header: true
-      }
-    },
-    transforms: [
-      {
-        transform: "filter",
-        match: {
-          "Bar": "row",
-          "Baz": { "gte": 0, "lte": 1000 }
-        }
-      },
-      {
-        transform: "aggregate",
-        "fields": {
-          "baz_sum": { "sum": "Baz" },
-          "fobe_min": { "min": "Fobe" },
-          "fobe_max": { "max": "Fobe" }
-        }
-      }
-    ],
-    terminal: {
-      "smt": 'csv|./test/_data/output/transforms/|aggregate_csv_1.csv|*',
-      options: {
-        header: true,
-        encoding: {
-          "fields": [
-            { "name": "baz_sum", "type": "integer" },
-            { "name": "fobe_min", "type": "number" },
-            { "name": "fobe_max", "type": "number" }
-          ]
-        }
-      },
-      output: "./test/_data/output/transforms/aggregate_csv_1.csv"
-    }
-  })) return 1;
+async function testSummary() {
 
   logger.info("=== csv aggregate summary");
   if (await transfer({
     origin: {
-      smt: "csv|./test/_data/input/|foofile.csv|*",
+      smt: "csv|./test/_data/input/|foodata.csv|*",
       options: {
         header: true
       }
     },
     transforms: [
-      {
-        transform: "filter",
-        match: {
-          "Bar": "row",
-          "Baz": { "gte": 0, "lte": 1000 }
-        }
-      },
       {
         transform: "aggregate",
         fields: {
-          "sum": { "sum": "Baz" },
-          "avg": { "avg": "Baz" },
-          "min": { "min": "Baz" },
-          "max": { "max": "Baz" },
-          "count": { "count": "Baz" }
-        }
-      }
-    ],
-    terminal: {
-      "smt": 'csv|./test/_data/output/transforms/|aggregate_csv_2.csv|*',
-      options: {
-        header: true
-      },
-      output: "./test/_data/output/transforms/aggregate_csv_2.csv"
-    }
-  })) return 1;
-
-  logger.info("=== csv aggregate w/ groupby");
-  if (await transfer({
-    origin: {
-      smt: "csv|./test/_data/input/|foofile.csv|*",
-      options: {
-        header: true
-      }
-    },
-    transforms: [
-      {
-        transform: "filter",
-        match: {
-          "Baz": { "gte": 0, "lte": 1000 }
-        }
-      },
-      {
-        transform: "aggregate",
-        "fields": {
-          "Foo": {
-            "baz_sum": { "sum": "Baz" },
-            "count": { "count": "Baz" },
-            "dt_min": { "min": "Dt Test" },
-            "dt_max": { "max": "Dt Test" }
+          "__summary": {
+            "totals": "totals",
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
           }
         }
       }
     ],
     terminal: {
-      "smt": 'csv|./test/_data/output/transforms/|aggregate_csv_3.csv|*',
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_summary.csv|*',
+      options: {
+        header: true,
+        encoding: {}
+      },
+      output: "./test/_data/output/transforms/aggregate_summary.csv"
+    }
+  })) return 1;
+}
+
+async function testGroupBy() {
+  logger.info("=== csv aggregate group by");
+  if (await transfer({
+    origin: {
+      smt: "csv|./test/_data/input/|foodata.csv|*",
+      options: {
+        header: true
+      }
+    },
+    transforms: [
+      {
+        transform: "aggregate",
+        fields: {
+          "category": {
+            "count": "=count()",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          },
+          "__summary": {
+            "category": "totals",
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          }
+        }
+      }
+    ],
+    terminal: {
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_groupby.csv|*',
       options: {
         header: true
       },
-      output: "./test/_data/output/transforms/aggregate_csv_3.csv"
+      output: "./test/_data/output/transforms/aggregate_groupby.csv"
     }
   })) return 1;
+}
 
+async function testNestedGroupBy() {
+  logger.info("=== csv aggregate nested group by");
+  if (await transfer({
+    origin: {
+      smt: "csv|./test/_data/input/|foodata.csv|*",
+      options: {
+        header: true
+      }
+    },
+    transforms: [
+      {
+        transform: "aggregate",
+        "fields": {
+          "category": {
+            "item": {
+              "count": "=count()",
+              "qty": "=sum(quantity)",
+              "value": "=sum(quantity*cost)"
+            }
+          }
+        }
+      }
+    ],
+    terminal: {
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_nested.csv|*',
+      options: {
+        header: true
+      },
+      output: "./test/_data/output/transforms/aggregate_nested.csv"
+    }
+  })) return 1;
+}
+
+async function testMultipleGroupBy() {
+  logger.info("=== csv aggregate multiple group by");
+  if (await transfer({
+    origin: {
+      smt: "csv|./test/_data/input/|foodata.csv|*",
+      options: {
+        header: true
+      }
+    },
+    transforms: [
+      {
+        transform: "aggregate",
+        "fields": {
+          "category": {
+            "count": "=count()",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          },
+          "item": {
+            "count": "=count()",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+            },
+          "__summary": {
+            "category": "totals",
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          }
+        }
+      }
+    ],
+    terminal: {
+      "smt": 'csv|./test/_data/output/transforms/|aggregate_multiple.csv|*',
+      options: {
+        header: true
+      },
+      output: "./test/_data/output/transforms/aggregate_multiple.csv"
+    }
+  })) return 1;
 }
 
 (async () => {
-  if (await tests()) return;
+  if (await testSummary()) return;
+  if (await testGroupBy()) return;
+  if (await testNestedGroupBy()) return;
+  if (await testMultipleGroupBy()) return;
 })();

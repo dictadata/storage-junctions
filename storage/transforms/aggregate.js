@@ -2,39 +2,122 @@
 
 const { Transform } = require('node:stream');
 const { logger } = require('@dictadata/lib');
-const { typeOf } = require('@dictadata/lib');
+const { typeOf, evaluate } = require('@dictadata/lib');
 
-/*
- TBD
-   fix issue with csv and json aggregate group by. Not accumulating on other fields.
-
-   {
-      transform: "aggregate",
-
-      fields: {
-        "Foo": {
-          "aggField": { "sum": "Baz" },
-          "count": { "count": "Baz" },
-          "dt_min": { "min": "Dt Test" },   <---
-          "dt_max": { "max": "Dt Test" }    <---
+/* example aggregate transform
+  // output format "{ "myField1": <value>, ..., "name1": <value1>, ... }
+  {
+    "transform": "aggregate",
+    "fields": {
+      "myField1": {
+        "name1": "=sum(myField)",
+        "name2": "=avg(myField)",
+        "name3": "=min(myField)",
+        "name4": "=max(myField)",
+        "name5": "=var(myField)",
+        "name6": "=stdev(myField)"
+      },
+      "myField2": {
+        "myField3": {
+          ...
+          "name1": "=sum(myField)",
+          "name2": "=avg(myField)",
+          "name3": "=min(myField)",
+          "name4": "=max(myField)",
+          "name5": "=var(myField)",
+          "name6": "=stdev(myField)"
         }
+        ...
+      },
+      ...,
+      "__summary": {
+        "myField": "literal",
+        "name1": "=sum(myField)",
+        "name2": "=avg(myField)",
+        "name3": "=min(myField)",
+        "name4": "=max(myField)",
+        "name5": "=var(myField)",
+        "name6": "=stdev(myField)"
       }
     }
+  }
  */
 
-/*
-  // example aggregate transform
-  // - newField1 = summary total for field1
-  // - newField2 = [] grouped on field2 and calculate sum of field3 for each unique value of field2
-  {
-    transform: "aggregate",
+// expression: "=this.func(evaluate)"
+// evaluate: "field1 op field2"
+// op: +-*/
+var rx = new RegExp(/=([a-z]+)\((.+)\)/);
 
-    "fields": {
-      "aggField1": {"sum": "field1},
-      "field2": {"aggField2": { "sum": "field3" } }
+class Accumulator {
+
+  constructor(expression) {
+    this.expression = expression;
+    let rxs = rx.exec(expression);
+    if (rxs) {
+      this.func = rxs[ 1 ];
+      this.eval = "=" + rxs[ 2 ];
+
+      this.count = 0;
+      this.total = 0;
     }
-  };
-*/
+  }
+
+  update(construct) {
+    if (!this.func)
+      return;
+
+    let value = evaluate(this.eval, construct);
+
+    this.count++;
+    if (this.func === "sum" || this.func === "avg")
+      this.total += value;
+    else if (this.func === "min") {
+      if (this.min === undefined)
+        this.min = value;
+      else if (value < this.min)
+        this.min = value;
+    }
+    else if (this.func === "max"){
+      if (this.max === undefined)
+        this.max = value;
+      else if (value > this.max)
+        this.max = value;
+    }
+    else if (this.func === "var" || this.func === "stdev") {
+      if (this.mean === undefined) {
+        this.mean = value;
+        this.var = 0;
+      }
+      else {
+        let m = this.mean;
+        this.mean = this.mean + ((value - m) / this.count);
+        this.var = this.var + (value - m) * (value - this.mean);
+      }
+    }
+  }
+
+  getValue() {
+    switch (this.func) {
+      case 'count':
+        return this.count;
+      case 'sum':
+        return this.total;
+      case 'avg':
+        return this.count ? this.total / this.count : 0;
+      case 'min':
+        return this.min;
+      case 'max':
+        return this.max;
+      case 'var':
+        return this.var;
+      case 'stdev':
+        return Math.sqrt(this.var);
+      default:
+        return null;
+    }
+  }
+
+}
 
 module.exports = exports = class AggregateTransform extends Transform {
 
@@ -51,141 +134,62 @@ module.exports = exports = class AggregateTransform extends Transform {
 
     this.options = Object.assign({}, options);
 
-    this.accumulator = {};  // accumulator for totals
-    this.groups = {};  // accumulators for groupby totals
+    this.fields = {};  // accumulators
   }
 
-  /**
-   * Internal call from streamWriter to process an object
-   * @param {*} construct
-   * @param {*} encoding
-   * @param {*} callback
-   */
-  _transform(construct, encoding, callback) {
-    logger.debug("AggregrateTransform _transform");
-
-    let fields = this.options.fields || [];
-
-    for (let [newfld,exp] of Object.entries(fields)) {
-      for (let [func,fld] of Object.entries(exp)) {
-        if (typeOf(fld) === "object") {
-          // group by aggregation functions
-          let groupby = newfld;  // group by field name
-          newfld = func;
-          let exp = fld;
-
-          // check to create group
-          if (!Object.hasOwn(this.groups, groupby))
-            this.groups[groupby] = {};
-
-          if (Object.hasOwn(construct, groupby)) {
-            let groupby_value = construct[groupby];
-
-            // check to create groupby_value group
-            if (!Object.hasOwn(this.groups[groupby], groupby_value))
-              this.groups[groupby][groupby_value] = {};
-
-            // groupby expressions
-            for (let [func,fld] of Object.entries(exp)) {
-              if (Object.hasOwn(construct, fld)) {
-                let value = construct[fld];
-                // check to create accumulator
-                if (!Object.hasOwn(this.groups[groupby][groupby_value], fld))
-                  this.groups[groupby][groupby_value][fld] = {count: 0, total: 0};
-                this.accumulatorUpdate(this.groups[groupby][groupby_value][fld], value);
-              }
-            }
-          }
-        }
-        else {
-          // totals for aggregation functions
-          if (Object.hasOwn(construct, fld)) {
-            let value = construct[fld];
-            // check to create accumulator
-            if (!Object.hasOwn(this.accumulator, fld))
-              this.accumulator[fld] = {count: 0, total: 0};
-            this.accumulatorUpdate(this.accumulator[fld], value);
-          }
-        }
-      }
-    }
-
+  _construct(callback) {
+    logger.debug("AggregrateTransform _construct");
+    this.accumulatorInit(this.options.fields, this.fields);
     callback();
   }
 
-  accumulatorUpdate(accumulator, value) {
-    accumulator.count++;
-    accumulator.total += value;
-    if (!Object.hasOwn(accumulator, "min"))
-      accumulator.min = value;
-    else if (value < accumulator.min)
-      accumulator.min = value;
-    if (!Object.hasOwn(accumulator, "max"))
-      accumulator.max = value;
-    else if (value > accumulator.max)
-      accumulator.max = value;
-  }
-
-  accumulatorValue(accumulator, func) {
-    switch (func) {
-      case 'sum':
-        return accumulator.total;
-      case 'avg':
-        return accumulator.count ? accumulator.total / accumulator.count : 0;
-      case 'min':
-        return accumulator.min;
-      case 'max':
-        return accumulator.max;
-      case 'count':
-        return accumulator.count;
-      default:
-        return 0;
-    }
+  _transform(construct, encoding, callback) {
+    logger.debug("AggregrateTransform _transform");
+    this.accumulatorUpdate(this.fields, construct);
+    callback();
   }
 
   _flush(callback) {
-    // output summary and groupby summaries
-    let summary = {};
+    logger.debug("AggregrateTransform _flush");
+    this.accumulatorOutput(this.fields, this.accumulator);
+    callback();
+  }
 
-    let fields = this.options.fields || [];
+  accumulatorInit(fields, accumulators) {
 
-    for (let [ newfld, exp ] of Object.entries(fields)) {
-      for (let [ func, fld ] of Object.entries(exp)) {
-
-        if (typeOf(fld) === "object") {
-          // group by aggregation functions
-          let groupby = newfld;
-          newfld = func;
-          let exp = fld;
-
-          // loop through accumulator groupby_value's
-          for (let [groupby_value,group] of Object.entries(this.groups[groupby])) {
-            let summary = {};
-            summary[groupby] = groupby_value;
-
-            for (let [func,fld] of Object.entries(exp)) {
-              if (Object.hasOwn(group, fld)) {
-                let accumulator = this.groups[groupby][groupby_value][fld];
-                summary[newfld] = this.accumulatorValue(accumulator, func);
-              }
-            }
-            this.push(summary);
-          }
-        }
-        else {
-          // overall summary
-          if (Object.hasOwn(this.accumulator, fld)) {
-            summary[newfld] = this.accumulatorValue(this.accumulator[fld], func);
-          }
-        }
-
+    for (let [ name, value ] of Object.entries(fields)) {
+      if (typeof value === "object") {
+        accumulators[ name ] = {};
+        this.accumulatorInit(value, accumulators[ name ]);
+      }
+      else {
+        accumulators[ name ] = new Accumulator(value);
       }
     }
+  }
 
-    if (Object.keys(summary).length > 0)
-      this.push(summary);
+  accumulatorUpdate(fields, construct) {
 
-    callback();
+    for (let [ name, value ] of Object.entries(fields)) {
+      if (value instanceof Accumulator)
+        value.update(construct);
+      else
+        this.accumulatorUpdate(value, construct);
+    }
+  }
+
+  accumulatorOutput(fields) {
+    let construct = {};
+
+    for (let [ name, value ] of Object.entries(fields)) {
+      if (value instanceof Accumulator)
+        construct[ name ] = value.getValue();
+      else
+        this.accumulatorOutput(value);
+    }
+
+    if (Object.keys(construct).length > 0)
+      this.push(construct);
   }
 
 };

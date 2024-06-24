@@ -6,7 +6,7 @@
 const retrieve = require('../_lib/_retrieve');
 const { logger } = require('@dictadata/lib');
 
-logger.info("=== Tests: retreive");
+logger.info("=== Tests: retrieve");
 
 async function tests() {
 

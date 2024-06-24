@@ -81,7 +81,7 @@ A short human readable description for the engram.
 
 ### engram.tags [&lt;string&gt;, ...]
 
-An array of keyword strings that can be used to retreive a set of engram from a Engram.
+An array of keyword strings that can be used to retrieve a set of engram from a Engram.
 
 ### engram.fields [&lt;Field&gt;, ...]
 

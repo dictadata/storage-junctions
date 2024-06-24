@@ -6,100 +6,157 @@
 const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
-logger.info("=== Tests: retreive");
+logger.info("=== Tests: retrieve");
 
-async function tests() {
-
-  logger.info("=== json aggregate");
-  if (await transfer({
-    origin: {
-      smt: "json|./test/_data/input/|foofile.json|*"
-    },
-    transforms: [
-      {
-        transform: "filter",
-        match: {
-          "Bar": "row",
-          "Baz": { "gte": 0, "lte": 1000 }
-        }
-      },
-      {
-        transform: "aggregate",
-        "fields": {
-          "baz_sum": { "sum": "Baz" },
-          "fobe_min": { "min": "Fobe" },
-          "fobe_max": { "max": "Fobe" }
-        }
-      }
-    ],
-    terminal: {
-      "smt": 'json|./test/_data/output/transforms/|aggregate_json_1.json|*',
-      "output": "./test/_data/output/transforms/aggregate_json_1.json"
-    }
-  })) return 1;
+async function testSummary() {
 
   logger.info("=== json aggregate summary");
   if (await transfer({
     origin: {
-      smt: "json|./test/_data/input/|foofile.json|*",
-    },
-    transforms: [
-      {
-        transform: "filter",
-        match: {
-          "Bar": "row",
-          "Baz": { "gte": 0, "lte": 1000 }
-        }
-      },
-      {
-        transform: "aggregate",
-        "fields": {
-          "sum": { "sum": "Baz" },
-          "avg": { "avg": "Baz" },
-          "min": { "min": "Baz" },
-          "max": { "max": "Baz" },
-          "count": { "count": "Baz" }
-        }
+      smt: "json|./test/_data/input/|foodata.json|*",
+      options: {
+        header: true
       }
-    ],
-    terminal: {
-      "smt": 'json|./test/_data/output/transforms/|aggregate_json_2.json|*',
-      "output": "./test/_data/output/transforms/aggregate_json_2.json"
-    }
-  })) return 1;
-
-  logger.info("=== json aggregate w/ groupby");
-  if (await transfer({
-    origin: {
-      smt: "json|./test/_data/input/|foofile.json|*"
     },
     transforms: [
       {
-        transform: "filter",
-        match: {
-          "Baz": { "gte": 0, "lte": 1000 }
-        }
-      },
-      {
         transform: "aggregate",
-        "fields": {
-          "Foo": {
-            "baz_sum": { "sum": "Baz" },
-            "count": { "count": "Baz" },
-            "dt_min": { "min": "Dt Test" },
-            "dt_max": { "max": "Dt Test" }
+        fields: {
+          "__summary": {
+            "totals": "totals",
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
           }
         }
       }
     ],
     terminal: {
-      "smt": 'json|./test/_data/output/transforms/|aggregate_json_3.json|*',
-      "output": "./test/_data/output/transforms/aggregate_json_3.json"
+      "smt": 'json|./test/_data/output/transforms/|aggregate_summary.json|*',
+      options: {
+        header: true,
+        encoding: {}
+      },
+      output: "./test/_data/output/transforms/aggregate_summary.json"
     }
   })) return 1;
+}
 
+async function testGroupBy() {
+  logger.info("=== json aggregate group by");
+  if (await transfer({
+    origin: {
+      smt: "json|./test/_data/input/|foodata.json|*",
+      options: {
+        header: true
+      }
+    },
+    transforms: [
+      {
+        transform: "aggregate",
+        fields: {
+          "category": {
+            "count": "=count()",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          },
+          "__summary": {
+            "category": "totals",
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          }
+        }
+      }
+    ],
+    terminal: {
+      "smt": 'json|./test/_data/output/transforms/|aggregate_groupby.json|*',
+      options: {
+        header: true
+      },
+      output: "./test/_data/output/transforms/aggregate_groupby.json"
+    }
+  })) return 1;
+}
+
+async function testNestedGroupBy() {
+  logger.info("=== json aggregate nested group by");
+  if (await transfer({
+    origin: {
+      smt: "json|./test/_data/input/|foodata.json|*",
+      options: {
+        header: true
+      }
+    },
+    transforms: [
+      {
+        transform: "aggregate",
+        "fields": {
+          "category": {
+            "item": {
+              "count": "=count()",
+              "qty": "=sum(quantity)",
+              "value": "=sum(quantity*cost)"
+            }
+          }
+        }
+      }
+    ],
+    terminal: {
+      "smt": 'json|./test/_data/output/transforms/|aggregate_nested.json|*',
+      options: {
+        header: true
+      },
+      output: "./test/_data/output/transforms/aggregate_nested.json"
+    }
+  })) return 1;
+}
+
+async function testMultipleGroupBy() {
+  logger.info("=== json aggregate multiple group by");
+  if (await transfer({
+    origin: {
+      smt: "json|./test/_data/input/|foodata.json|*",
+      options: {
+        header: true
+      }
+    },
+    transforms: [
+      {
+        transform: "aggregate",
+        "fields": {
+          "category": {
+            "count": "=count()",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          },
+          "item": {
+            "count": "=count()",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+            },
+          "__summary": {
+            "category": "totals",
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
+          }
+        }
+      }
+    ],
+    terminal: {
+      "smt": 'json|./test/_data/output/transforms/|aggregate_multiple.json|*',
+      options: {
+        header: true
+      },
+      output: "./test/_data/output/transforms/aggregate_multiple.json"
+    }
+  })) return 1;
 }
 
 (async () => {
-  if (await tests()) return;
+  if (await testSummary()) return;
+  if (await testGroupBy()) return;
+  if (await testNestedGroupBy()) return;
+  if (await testMultipleGroupBy()) return;
 })();

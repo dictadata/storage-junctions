@@ -102,34 +102,43 @@
 Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GROUP BY and aggregate functions like SUM or Elasticsearch's _search aggregations.
 
 ```json
-  // example aggregate Summary transform
-  // summary totals for field1
-  // format "newField: { "function": "field name" }
+  // example aggregate field summary
   {
     "transforms": [
       {
         "transform": "aggregate",
         "fields": {
-          "mySum": {"sum": "myField"},
-          "myMin": {"min": "myField"},
-          "myMax": {"max": "myField"},
-          "myAvg": {"avg": "myField"},
-          "myCount": {"count": "myField"}
+          "__summary": {
+            "totals": "totals",
+            "count": "=count(myField)",
+            "sum": "=sum(myField)",
+            "min": "=min(myField)",
+            "max": "=max(myField)",
+            "avg": "=avg(myField)",
+            "var": "=var(myField)",
+            "stdev": "=stdev(myField)"
+          }
         }
       }
     ]
   }
 
-  // Example aggregate Group By transform
-  // format: "group by field": { "newField": { "function": "field name" }}
+  // example aggregate with Group By and Summary
   {
     "transforms": [
       {
         "transform": "aggregate",
         "fields": {
-          "field1": {
-            "subTotal": { "sum": "field2" },
-            "count": { "count": "field2" }
+          "myField1": {
+            "count": "=count(myField2)",
+            "sum": "=sum(myField2)",
+            "avg": "=avg(myField2)"
+          },
+          "__summary": {
+            "totals": "totals",
+            "count": "=count(myField2)",
+            "sum": "=sum(myField2)",
+            "min": "=min(myField2)",
           }
         }
       }
