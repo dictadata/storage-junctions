@@ -188,18 +188,24 @@ module.exports = exports = class AggregateTransform { //extends Transform {
     }
   }
 
-  accumulatorOutput(fields) {
+  accumulatorOutput(fields, output = []) {
     let construct = {};
 
     for (let [ name, value ] of Object.entries(fields)) {
       if (value instanceof Accumulator)
         construct[ name ] = value.getValue();
+      else if (typeof value === "object")
+        this.accumulatorOutput(value, output);
       else
-        this.accumulatorOutput(value);
+        construct[ name ] = value;
     }
 
-    if (Object.keys(construct).length > 0)
-      this.push(construct);
+    if (Object.keys(construct).length > 0) {
+      output.push(construct);
+      //this.push(construct);
+    }
+
+    return output;
   }
 
 };

@@ -6,6 +6,7 @@ var aggregators;
 
 var foo = fs.readFileSync("test/_data/input/foodata.json", { encoding: 'utf-8' });
 var foodata = JSON.parse(foo);
+var output;
 
 var summary = {
   "__summary": {
@@ -17,10 +18,12 @@ var summary = {
 }
 aggregators = {};
 aggregate.accumulatorInit(summary, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/summary_init.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/summary_init.json", JSON.stringify(aggregators,null,2));
 for (construct of foodata)
   aggregate.accumulatorUpdate(aggregators, construct);
-fs.writeFileSync("test/_data/output/aggregator/summary_data.json", JSON.stringify(aggregators, null, 2));
+fs.writeFileSync("test/_data/output/aggregate/summary_data.json", JSON.stringify(aggregators, null, 2));
+output = aggregate.accumulatorOutput(aggregators);
+fs.writeFileSync("test/_data/output/aggregate/summary_output.json", JSON.stringify(output, null, 2));
 
 var groupby = {
   "category": {
@@ -31,7 +34,12 @@ var groupby = {
 }
 aggregators = {};
 aggregate.accumulatorInit(groupby, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/groupby.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/groupby_init.json", JSON.stringify(aggregators,null,2));
+for (construct of foodata)
+  aggregate.accumulatorUpdate(aggregators, construct);
+fs.writeFileSync("test/_data/output/aggregate/groupby_data.json", JSON.stringify(aggregators, null, 2));
+output = aggregate.accumulatorOutput(aggregators);
+fs.writeFileSync("test/_data/output/aggregate/groupby_output.json", JSON.stringify(output, null, 2));
 
 var groupbysummary = {
   "category": {
@@ -48,7 +56,7 @@ var groupbysummary = {
 }
 aggregators = {};
 aggregate.accumulatorInit(groupbysummary, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/groupbysummary.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/groupbysummary.json", JSON.stringify(aggregators,null,2));
 
 var nested = {
   "category": {
@@ -61,7 +69,7 @@ var nested = {
 }
 aggregators = {};
 aggregate.accumulatorInit(nested, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/nested.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/nested.json", JSON.stringify(aggregators,null,2));
 
 var nestedsummary = {
   "category": {
@@ -86,7 +94,7 @@ var nestedsummary = {
 }
 aggregators = {};
 aggregate.accumulatorInit(nestedsummary, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/nestedsummary.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/nestedsummary.json", JSON.stringify(aggregators,null,2));
 
 var multiple = {
   "category": {
@@ -102,7 +110,7 @@ var multiple = {
 }
 aggregators = {};
 aggregate.accumulatorInit(multiple, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/multiple.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/multiple.json", JSON.stringify(aggregators,null,2));
 
 var multiplesummary = {
   "category": {
@@ -124,4 +132,4 @@ var multiplesummary = {
 }
 aggregators = {};
 aggregate.accumulatorInit(multiplesummary, aggregators);
-fs.writeFileSync("test/_data/output/aggregator/multiplesummary.json", JSON.stringify(aggregators,null,2));
+fs.writeFileSync("test/_data/output/aggregate/multiplesummary.json", JSON.stringify(aggregators,null,2));
