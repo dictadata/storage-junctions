@@ -1,5 +1,7 @@
 # Aggregate Transform
 
+Sample aggregate transforms with internal structures
+
 ## Sample Dataset
 
 ```csv
@@ -17,9 +19,9 @@
 
 ## Aggregate Fields Summary
 
-Aggregate summary values for the dataset.
+Aggregate summary values (totals) for the dataset.
 
-`__` denotes the summary fields. Any characters after `__` are used as the field value. In this case there is no aggregate field
+`__summary` denotes the summary fields, i.e. not a a group by field name.
 
 ```javascript
   {
@@ -48,9 +50,17 @@ Aggregate summary values for the dataset.
 ]
 ```
 
-```csv
-"totals","count","qty","value"
-"totals",8,120,80.00
+### internal structure
+
+```javascript
+this.accumulators = {
+  "__summary": {
+    "totals": "totals",
+    "count": Accumulator,
+    "qty": Accumulator,
+    "value": Accumulator
+  }
+}
 ```
 
 
@@ -102,11 +112,31 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ]
 ```
 
-```csv
-"category","count","qty","value"
-"tools",4,40,40.00
-"supplies",4,80,40.00
-"totals",8,120,80.00
+### internal structure
+
+```javascript
+this.accumulators = {
+  "category": {
+    __accumulators: {
+      "tools": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      },
+      "supplies": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      }
+    }
+  },
+  "__summary": {
+    "category": "totals",
+    "count": Accumulator,
+    "qty": Accumulator,
+    "value": Accumulator
+  }
+}
 ```
 
 
@@ -126,7 +156,6 @@ Group by `category` field and aggregate values. Aggregate summary values for the
     }
   };
 ```
-
 ### output
 
 ```json
@@ -162,16 +191,51 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ]
 ```
 
-```csv
-"category","item","count","qty","value"
-"tools","widget_1",2,20,20.00
-"tools","widget_2",2,20,20.00
-"supplies","whatsit_1",2,40,20.00
-"supplies","whatsit2_",2,40,20.00
+### internal structure
+
+```javascript
+this.accumulators = {
+  "category": {
+    __accumulators: {
+      "tools": {
+        "item": {
+          __accumulators: {
+            "widget_1": {
+              "count": Accumulator,
+              "qty": Accumulator,
+              "value": Accumulator
+            },
+            "widget_2": {
+              "count": Accumulator,
+              "qty": Accumulator,
+              "value": Accumulator
+            }
+          }
+        }
+      },
+      "supplies": {
+        "item": {
+          __accumulators: {
+            "whatsit_1": {
+              "count": Accumulator,
+              "qty": Accumulator,
+              "value": Accumulator
+            },
+            "whatsit_2": {
+              "count": Accumulator,
+              "qty": Accumulator,
+              "value": Accumulator
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 
-## Aggregate with Multiple Group By
+## Aggregate with Multiple Group By and Summary
 
 ```javascript
   {
@@ -186,9 +250,9 @@ Group by `category` field and aggregate values. Aggregate summary values for the
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
-        },
+      },
       "__summary": {
-        "category": "totals",
+        "totals": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
@@ -196,7 +260,6 @@ Group by `category` field and aggregate values. Aggregate summary values for the
     }
   };
 ```
-
 ### output
 
 ```json
@@ -238,7 +301,7 @@ Group by `category` field and aggregate values. Aggregate summary values for the
     "value": 20.00
   },
   {
-    "category": "totals",
+    "totals": "totals",
     "count": 8,
     "qty": 120,
     "value": 80.00
@@ -246,13 +309,53 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ]
 ```
 
-```csv
-"category","item","count","qty","value"
-"tools",,4,40,40.00
-"supplies",,4,80,40.00
-"","widget_1",2,20,20.00
-"","widget_2",2,20,20.00
-"","whatsit_1",2,40,20.00
-"","whatsit2_",2,40,20.00
-"totals",,8,120,80.00
+### internal structure
+
+```javascript
+this.accumulators = {
+  "category": {
+    __accumulators: {
+      "tools": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      },
+      "supplies": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      }
+    }
+  },
+  "item": {
+    __accumulators: {
+      "widget_1": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      },
+      "widget_2": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      },
+      "whatsit_1": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      },
+      "whatsit_2": {
+        "count": Accumulator,
+        "qty": Accumulator,
+        "value": Accumulator
+      }
+    }
+  },
+  "__summary": {
+    "totals": "totals",
+    "count": Accumulator,
+    "qty": Accumulator,
+    "value": Accumulator
+  }
+}
 ```

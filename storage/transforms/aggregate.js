@@ -119,7 +119,7 @@ class Accumulator {
 
 }
 
-module.exports = exports = class AggregateTransform extends Transform {
+module.exports = exports = class AggregateTransform { //extends Transform {
 
   /**
    *
@@ -130,40 +130,50 @@ module.exports = exports = class AggregateTransform extends Transform {
       objectMode: true,
       highWaterMark: 128
     };
-    super(streamOptions);
+    //super(streamOptions);
 
     this.options = Object.assign({}, options);
 
-    this.fields = {};  // accumulators
+    this.aggregates = {};
   }
 
   _construct(callback) {
     logger.debug("AggregrateTransform _construct");
-    this.accumulatorInit(this.options.fields, this.fields);
+    this.accumulatorInit(this.options.fields, this.aggregates);
     callback();
   }
 
   _transform(construct, encoding, callback) {
     logger.debug("AggregrateTransform _transform");
-    this.accumulatorUpdate(this.fields, construct);
+    this.accumulatorUpdate(this.aggregates, construct);
     callback();
   }
 
   _flush(callback) {
     logger.debug("AggregrateTransform _flush");
-    this.accumulatorOutput(this.fields, this.accumulator);
+    this.accumulatorOutput(this.aggregates);
     callback();
   }
 
-  accumulatorInit(fields, accumulators) {
+  accumulatorInit(fields, aggregates) {
 
     for (let [ name, value ] of Object.entries(fields)) {
       if (typeof value === "object") {
-        accumulators[ name ] = {};
-        this.accumulatorInit(value, accumulators[ name ]);
-      }
-      else {
-        accumulators[ name ] = new Accumulator(value);
+        let agg = aggregates[ name ] = {};
+
+        if (name === "__summary") {
+          for (let [ field, expression ] of Object.entries(value)) {
+            if (expression && expression[ 0 ] === "=")
+              agg[ field ] = new Accumulator(expression);
+            else
+              agg[ field ] = expression;
+          }
+        }
+        else {
+          agg.__fields = value;
+          agg.__aggregators = {};
+          //this.accumulatorInit(value, agg);
+        }
       }
     }
   }
@@ -173,7 +183,7 @@ module.exports = exports = class AggregateTransform extends Transform {
     for (let [ name, value ] of Object.entries(fields)) {
       if (value instanceof Accumulator)
         value.update(construct);
-      else
+      else if (typeof value === "object")
         this.accumulatorUpdate(value, construct);
     }
   }
