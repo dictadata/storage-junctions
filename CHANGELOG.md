@@ -1,5 +1,10 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- verison 0.9.115
+  - refactor: aggregate transform
+  - refactor: keywords can contain alphanumeric ' ', '_', '-', ','
+  - refactor: csv use quotes for keyword fields
+  - bug fix: StorageError instantiation in junctions
 - version 0.9.114
   - refactor: moved utils modules to @dictadata/lib project
   - refactor: mutate transform, in evaluate expression use string.replace and implement padding, e.g. =field/regexp/replace:padding
