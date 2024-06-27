@@ -98,9 +98,9 @@ module.exports = exports = class CSVWriter extends StorageWriter {
               break;
             case "number":
             case "integer":
-            case "keyword":
               data += value;
               break;
+            case "keyword":
             case "string":
             case "text":
               data += '"' + value + '"';
