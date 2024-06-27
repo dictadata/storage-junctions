@@ -17,23 +17,21 @@ Sample aggregate transforms with internal structures
 ```
 
 
-## Aggregate Fields Summary
+## Aggregate Summary
 
 Aggregate summary values (totals) for the dataset.
-
-`__summary` denotes the summary fields, i.e. not a a group by field name.
 
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "__summary": {
+    fields: [
+      {
         "totals": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   }
 ```
 
@@ -53,37 +51,38 @@ Aggregate summary values (totals) for the dataset.
 ### internal structure
 
 ```javascript
-this.accumulators = {
-  "__summary": {
+this.aggregators = [
+  {
     "totals": "totals",
     "count": Accumulator,
     "qty": Accumulator,
     "value": Accumulator
   }
-}
+]
 ```
 
 
 ## Aggregate with Group By and Summary
 
-Group by `category` field and aggregate values. Aggregate summary values for the dataset.
+Group by `category` field and aggregate values. Second group aggregates summary values for the entire dataset.
 
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "category": {
+    fields: [
+      {
+        "_groupby": "category",
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       },
-      "__summary": {
+      {
         "category": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   }
 ```
 
@@ -115,28 +114,25 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ### internal structure
 
 ```javascript
-this.accumulators = {
-  "category": {
-    __accumulators: {
-      "tools": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      },
-      "supplies": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      }
-    }
+this.aggregators = [
+  {
+    "_fields": {
+      "_groupby": [
+        "category"
+      ],
+      "count": "=count(category)",
+      "qty": "=sum(quantity)",
+      "value": "=sum(quantity*cost)"
+    },
+    "_groups": []
   },
-  "__summary": {
+  {
     "category": "totals",
     "count": Accumulator,
     "qty": Accumulator,
     "value": Accumulator
   }
-}
+]
 ```
 
 
@@ -145,15 +141,14 @@ this.accumulators = {
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "category": {
-        "item": {
-          "count": "=count()",
-          "qty": "=sum(quantity)",
-          "value": "=sum(quantity*cost)"
-        }
+    fields: [
+      {
+        "_groupby": [ "category", "item" ],
+        "count": "=count()",
+        "qty": "=sum(quantity)",
+        "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   };
 ```
 ### output
@@ -194,44 +189,20 @@ this.accumulators = {
 ### internal structure
 
 ```javascript
-this.accumulators = {
-  "category": {
-    __accumulators: {
-      "tools": {
-        "item": {
-          __accumulators: {
-            "widget_1": {
-              "count": Accumulator,
-              "qty": Accumulator,
-              "value": Accumulator
-            },
-            "widget_2": {
-              "count": Accumulator,
-              "qty": Accumulator,
-              "value": Accumulator
-            }
-          }
-        }
-      },
-      "supplies": {
-        "item": {
-          __accumulators: {
-            "whatsit_1": {
-              "count": Accumulator,
-              "qty": Accumulator,
-              "value": Accumulator
-            },
-            "whatsit_2": {
-              "count": Accumulator,
-              "qty": Accumulator,
-              "value": Accumulator
-            }
-          }
-        }
-      }
-    }
+this.aggregators = [
+  {
+    "_fields": {
+      "_groupby": [
+        "category",
+        "item"
+      ],
+      "count": "=count(item)",
+      "qty": "=sum(quantity)",
+      "value": "=sum(quantity*cost)"
+    },
+    "_groups": []
   }
-}
+]
 ```
 
 
@@ -240,24 +211,26 @@ this.accumulators = {
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "category": {
+    fields: [
+      {
+        "_groupby": "category",
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       },
-      "item": {
+      {
+        "_groupby": "item",
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       },
-      "__summary": {
+      {
         "totals": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   };
 ```
 ### output
@@ -312,50 +285,34 @@ this.accumulators = {
 ### internal structure
 
 ```javascript
-this.accumulators = {
-  "category": {
-    __accumulators: {
-      "tools": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      },
-      "supplies": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      }
-    }
+this.aggregators = [
+  {
+    "_fields": {
+      "_groupby": [
+        "category"
+      ],
+      "count": "=count(category)",
+      "qty": "=sum(quantity)",
+      "value": "=sum(quantity*cost)"
+    },
+    "_groups": []
   },
-  "item": {
-    __accumulators: {
-      "widget_1": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      },
-      "widget_2": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      },
-      "whatsit_1": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      },
-      "whatsit_2": {
-        "count": Accumulator,
-        "qty": Accumulator,
-        "value": Accumulator
-      }
-    }
+  {
+    "_fields": {
+      "_groupby": [
+        "item"
+      ],
+      "count": "=count(item)",
+      "qty": "=sum(quantity)",
+      "value": "=sum(quantity*cost)"
+    },
+    "_groups": []
   },
-  "__summary": {
+  {
     "totals": "totals",
     "count": Accumulator,
     "qty": Accumulator,
     "value": Accumulator
   }
-}
+]
 ```

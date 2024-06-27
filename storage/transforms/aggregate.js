@@ -8,8 +8,9 @@ const { typeOf, evaluate } = require('@dictadata/lib');
   // output format "{ "myField1": <value>, ..., "name1": <value1>, ... }
   {
     "transform": "aggregate",
-    "fields": {
-      "myField1": {
+    "fields": [
+      {
+        "_groupby": "myField1",
         "name1": "=sum(myField)",
         "name2": "=avg(myField)",
         "name3": "=min(myField)",
@@ -17,21 +18,17 @@ const { typeOf, evaluate } = require('@dictadata/lib');
         "name5": "=var(myField)",
         "name6": "=stdev(myField)"
       },
-      "myField2": {
-        "myField3": {
-          ...
-          "name1": "=sum(myField)",
-          "name2": "=avg(myField)",
-          "name3": "=min(myField)",
-          "name4": "=max(myField)",
-          "name5": "=var(myField)",
-          "name6": "=stdev(myField)"
-        }
-        ...
+      {
+        "_groupby": [ "myField2", "myField3" ],
+        "name1": "=sum(myField)",
+        "name2": "=avg(myField)",
+        "name3": "=min(myField)",
+        "name4": "=max(myField)",
+        "name5": "=var(myField)",
+        "name6": "=stdev(myField)"
       },
-      ...,
-      "__summary": {
-        "myField": "literal",
+      {
+        "totals": "literal",
         "name1": "=sum(myField)",
         "name2": "=avg(myField)",
         "name3": "=min(myField)",
@@ -39,7 +36,7 @@ const { typeOf, evaluate } = require('@dictadata/lib');
         "name5": "=var(myField)",
         "name6": "=stdev(myField)"
       }
-    }
+    ]
   }
  */
 
@@ -119,7 +116,7 @@ class Accumulator {
 
 }
 
-module.exports = exports = class AggregateTransform { //extends Transform {
+module.exports = exports = class AggregateTransform extends Transform {
 
   /**
    *
@@ -130,79 +127,145 @@ module.exports = exports = class AggregateTransform { //extends Transform {
       objectMode: true,
       highWaterMark: 128
     };
-    //super(streamOptions);
+    super(streamOptions);
 
     this.options = Object.assign({}, options);
 
-    this.aggregates = {};
+    this.aggregators = [];
   }
 
   _construct(callback) {
     logger.debug("AggregrateTransform _construct");
-    this.accumulatorInit(this.options.fields, this.aggregates);
+    this.accumulatorInit(this.options.fields, this.aggregators);
     callback();
   }
 
   _transform(construct, encoding, callback) {
     logger.debug("AggregrateTransform _transform");
-    this.accumulatorUpdate(this.aggregates, construct);
+    this.accumulatorUpdate(this.aggregators, construct);
     callback();
   }
 
   _flush(callback) {
     logger.debug("AggregrateTransform _flush");
-    this.accumulatorOutput(this.aggregates);
+    this.accumulatorOutput(this.aggregators);
     callback();
   }
 
-  accumulatorInit(fields, aggregates) {
+  accumulatorInit(fields, aggregators) {
 
-    for (let [ name, value ] of Object.entries(fields)) {
-      if (typeof value === "object") {
-        let agg = aggregates[ name ] = {};
+    for (let group of fields) {
+      let agg = {};
+      aggregators.push(agg);
 
-        if (name === "__summary") {
-          for (let [ field, expression ] of Object.entries(value)) {
-            if (expression && expression[ 0 ] === "=")
-              agg[ field ] = new Accumulator(expression);
-            else
-              agg[ field ] = expression;
-          }
+      for (let [ field, expression ] of Object.entries(group)) {
+        if (field === "_groupby") {
+          agg._fields = Object.assign(group);
+          if (typeof expression === "string")
+            agg._fields._groupby = expression.split(",");
+          agg._groups = [];
+          break;
         }
         else {
-          agg.__fields = value;
-          agg.__aggregators = {};
-          //this.accumulatorInit(value, agg);
+          // summary accumulator
+          if (expression && expression[ 0 ] === "=")
+            agg[ field ] = new Accumulator(expression);
+          else
+            agg[ field ] = expression;
         }
       }
     }
   }
 
-  accumulatorUpdate(fields, construct) {
+  accumulatorUpdate(aggregators, construct) {
 
-    for (let [ name, value ] of Object.entries(fields)) {
-      if (value instanceof Accumulator)
-        value.update(construct);
-      else if (typeof value === "object")
-        this.accumulatorUpdate(value, construct);
+    for (let agg of aggregators) {
+      for (let [ name, value ] of Object.entries(agg)) {
+        if (value instanceof Accumulator) {
+          // summary accumulator
+          value.update(construct);
+        }
+        else if (name === "_fields") {
+          // get groupby values from construct
+          let keys = {};
+          for (let field of value._groupby) {
+            if (Object.hasOwn(construct, field))
+              keys[ field ] = construct[ field ];
+            else
+              break;
+          }
+
+          // find object in agg._groups
+          let group = agg._groups.find(item => {
+            for (let [ name, value ] of Object.entries(keys))
+              if (value !== item[ name ])
+                return false;
+            return true;
+          })
+
+          if (group === undefined) {
+            // create data group
+            group = keys;
+            for (let [ field, expression ] of Object.entries(agg._fields)) {
+              if (field !== '_groupby') {
+                if (expression && expression[ 0 ] === "=")
+                  group[ field ] = new Accumulator(expression);
+                else
+                  group[ field ] = expression;
+              }
+            }
+            agg._groups.push(group);
+          }
+
+          // update the data group
+          for (let acc of Object.values(group))
+            if (acc instanceof Accumulator) {
+              acc.update(construct);
+            }
+        }
+        else {
+          // a literal field or _fields
+        }
+      }
     }
   }
 
-  accumulatorOutput(fields, output = []) {
-    let construct = {};
+  accumulatorOutput(aggregators, output = []) {
 
-    for (let [ name, value ] of Object.entries(fields)) {
-      if (value instanceof Accumulator)
-        construct[ name ] = value.getValue();
-      else if (typeof value === "object")
-        this.accumulatorOutput(value, output);
-      else
-        construct[ name ] = value;
-    }
+    for (let agg of aggregators) {
+      if (Object.hasOwn(agg, "_groups")) {
+        for (let group of agg._groups) {
+          let construct = {};
 
-    if (Object.keys(construct).length > 0) {
-      output.push(construct);
-      //this.push(construct);
+          for (let [ name, value ] of Object.entries(group)) {
+            if (value instanceof Accumulator)
+              construct[ name ] = value.getValue();
+            else
+              construct[ name ] = value;
+          }
+
+          if (Object.keys(construct).length > 0) {
+            output.push(construct);
+            this.push(construct);
+          }
+        }
+      }
+      else {
+        let construct = {};
+
+        for (let [ name, value ] of Object.entries(agg)) {
+          if (value instanceof Accumulator)
+            construct[ name ] = value.getValue();
+          else
+            construct[ name ] = value;
+        }
+
+        if (Object.keys(construct).length > 0) {
+          output.push(construct);
+          this.push(construct);
+        }
+      }
+
     }
 
     return output;

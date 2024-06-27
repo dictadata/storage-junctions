@@ -6,36 +6,37 @@
 const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
-logger.info("=== Tests: retrieve");
+logger.info("=== Tests: aggregate json");
 
 async function testSummary() {
 
   logger.info("=== json aggregate summary");
   if (await transfer({
     origin: {
-      smt: "json|./test/_data/input/|foodata.json|*",
+      smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        fields: {
-          "__summary": {
+        fields: [
+          {
             "totals": "totals",
             "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_summary.json|*',
       options: {
         header: true,
-        encoding: {}
+        encoding: { totals: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_summary.json"
     }
@@ -46,33 +47,36 @@ async function testGroupBy() {
   logger.info("=== json aggregate group by");
   if (await transfer({
     origin: {
-      smt: "json|./test/_data/input/|foodata.json|*",
+      smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        fields: {
-          "category": {
-            "count": "=count()",
+        fields: [
+          {
+            "_groupby": "category",
+            "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           },
-          "__summary": {
+          {
             "category": "totals",
             "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_groupby.json|*',
       options: {
-        header: true
+        header: true,
+        encoding: { category: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_groupby.json"
     }
@@ -83,29 +87,30 @@ async function testNestedGroupBy() {
   logger.info("=== json aggregate nested group by");
   if (await transfer({
     origin: {
-      smt: "json|./test/_data/input/|foodata.json|*",
+      smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        "fields": {
-          "category": {
-            "item": {
-              "count": "=count()",
-              "qty": "=sum(quantity)",
-              "value": "=sum(quantity*cost)"
-            }
+        "fields": [
+          {
+            "_groupby": [ "category", "item" ],
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_nested.json|*',
       options: {
-        header: true
+        header: true,
+        encoding: { category: "keyword", item: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_nested.json"
     }
@@ -116,38 +121,42 @@ async function testMultipleGroupBy() {
   logger.info("=== json aggregate multiple group by");
   if (await transfer({
     origin: {
-      smt: "json|./test/_data/input/|foodata.json|*",
+      smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        "fields": {
-          "category": {
-            "count": "=count()",
+        "fields": [
+          {
+            "_groupby": "category",
+            "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           },
-          "item": {
-            "count": "=count()",
+          {
+            "_groupby": "item",
+            "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
-            },
-          "__summary": {
+          },
+          {
             "category": "totals",
             "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_multiple.json|*',
       options: {
-        header: true
+        header: true,
+        encoding: { category: "keyword", item: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_multiple.json"
     }

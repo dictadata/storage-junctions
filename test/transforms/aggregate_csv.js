@@ -6,36 +6,37 @@
 const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
-logger.info("=== Tests: retrieve");
+logger.info("=== Tests: aggregate csv");
 
 async function testSummary() {
 
   logger.info("=== csv aggregate summary");
   if (await transfer({
     origin: {
-      smt: "csv|./test/_data/input/|foodata.csv|*",
+      smt: "csv|./test/_data/input/|foo_data.csv|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        fields: {
-          "__summary": {
+        fields: [
+          {
             "totals": "totals",
             "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'csv|./test/_data/output/transforms/|aggregate_summary.csv|*',
       options: {
         header: true,
-        encoding: {}
+        encoding: { totals: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_summary.csv"
     }
@@ -46,33 +47,36 @@ async function testGroupBy() {
   logger.info("=== csv aggregate group by");
   if (await transfer({
     origin: {
-      smt: "csv|./test/_data/input/|foodata.csv|*",
+      smt: "csv|./test/_data/input/|foo_data.csv|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        fields: {
-          "category": {
-            "count": "=count()",
+        fields: [
+          {
+            "_groupby": "category",
+            "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           },
-          "__summary": {
+          {
             "category": "totals",
             "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'csv|./test/_data/output/transforms/|aggregate_groupby.csv|*',
       options: {
-        header: true
+        header: true,
+        encoding: { category: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_groupby.csv"
     }
@@ -83,29 +87,30 @@ async function testNestedGroupBy() {
   logger.info("=== csv aggregate nested group by");
   if (await transfer({
     origin: {
-      smt: "csv|./test/_data/input/|foodata.csv|*",
+      smt: "csv|./test/_data/input/|foo_data.csv|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        "fields": {
-          "category": {
-            "item": {
-              "count": "=count()",
-              "qty": "=sum(quantity)",
-              "value": "=sum(quantity*cost)"
-            }
+        "fields": [
+          {
+            "_groupby": [ "category", "item" ],
+            "count": "=count(item)",
+            "qty": "=sum(quantity)",
+            "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'csv|./test/_data/output/transforms/|aggregate_nested.csv|*',
       options: {
-        header: true
+        header: true,
+        encoding: { category: "keyword", item: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_nested.csv"
     }
@@ -116,38 +121,42 @@ async function testMultipleGroupBy() {
   logger.info("=== csv aggregate multiple group by");
   if (await transfer({
     origin: {
-      smt: "csv|./test/_data/input/|foodata.csv|*",
+      smt: "csv|./test/_data/input/|foo_data.csv|*",
       options: {
-        header: true
+        header: true,
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     transforms: [
       {
         transform: "aggregate",
-        "fields": {
-          "category": {
-            "count": "=count()",
+        "fields": [
+          {
+            "_groupby": "category",
+            "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           },
-          "item": {
-            "count": "=count()",
+          {
+            "_groupby": "item",
+            "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
-            },
-          "__summary": {
+          },
+          {
             "category": "totals",
             "count": "=count(item)",
             "qty": "=sum(quantity)",
             "value": "=sum(quantity*cost)"
           }
-        }
+        ]
       }
     ],
     terminal: {
       "smt": 'csv|./test/_data/output/transforms/|aggregate_multiple.csv|*',
       options: {
-        header: true
+        header: true,
+        encoding: { category: "keyword", item: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_multiple.csv"
     }

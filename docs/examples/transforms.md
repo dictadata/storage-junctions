@@ -107,8 +107,8 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
     "transforms": [
       {
         "transform": "aggregate",
-        "fields": {
-          "__summary": {
+        "fields": [
+          {
             "totals": "totals",
             "count": "=count(myField)",
             "sum": "=sum(myField)",
@@ -118,7 +118,7 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
             "var": "=var(myField)",
             "stdev": "=stdev(myField)"
           }
-        }
+        ]
       }
     ]
   }
@@ -128,19 +128,20 @@ Summarize and/or aggregate a stream of objects.  Functionality similar to SQL GR
     "transforms": [
       {
         "transform": "aggregate",
-        "fields": {
-          "myField1": {
+        "fields": [
+          {
+            "_groupby": "myField1",
             "count": "=count(myField2)",
             "sum": "=sum(myField2)",
             "avg": "=avg(myField2)"
           },
-          "__summary": {
-            "totals": "totals",
+          {
+            "myField1": "totals",
             "count": "=count(myField2)",
             "sum": "=sum(myField2)",
             "min": "=min(myField2)",
           }
-        }
+        ]
       }
     ]
   }

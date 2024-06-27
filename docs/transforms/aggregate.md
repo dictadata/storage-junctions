@@ -24,14 +24,14 @@ Aggregate summary values for the dataset.
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "__summary": {
+    fields: [
+      {
         "totals": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   }
 ```
 
@@ -61,19 +61,20 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "category": {
+    fields: [
+      {
+        "_groupby": "category",
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       },
-      "__summary": {
+      {
         "category": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   }
 ```
 
@@ -115,15 +116,14 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "category": {
-        "item": {
-          "count": "=count()",
-          "qty": "=sum(quantity)",
-          "value": "=sum(quantity*cost)"
-        }
+    fields: [
+      {
+        "_groupby": [ "category", "item" ],
+        "count": "=count()",
+        "qty": "=sum(quantity)",
+        "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   };
 ```
 
@@ -171,29 +171,31 @@ Group by `category` field and aggregate values. Aggregate summary values for the
 ```
 
 
-## Aggregate with Multiple Group By
+## Aggregate with Multiple Group By and Summary
 
 ```javascript
   {
     transform: "aggregate",
-    fields: {
-      "category": {
+    fields: [
+      {
+        "_groupby": "category",
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       },
-      "item": {
+      {
+        "_groupby": "item",
         "count": "=count()",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
-        },
-      "__summary": {
-        "category": "totals",
+      },
+      {
+        "totals": "totals",
         "count": "=count(item)",
         "qty": "=sum(quantity)",
         "value": "=sum(quantity*cost)"
       }
-    }
+    ]
   };
 ```
 
@@ -238,21 +240,10 @@ Group by `category` field and aggregate values. Aggregate summary values for the
     "value": 20.00
   },
   {
-    "category": "totals",
+    "totals": "totals",
     "count": 8,
     "qty": 120,
     "value": 80.00
   }
 ]
-```
-
-```csv
-"category","item","count","qty","value"
-"tools",,4,40,40.00
-"supplies",,4,80,40.00
-"","widget_1",2,20,20.00
-"","widget_2",2,20,20.00
-"","whatsit_1",2,40,20.00
-"","whatsit2_",2,40,20.00
-"totals",,8,120,80.00
 ```

@@ -1,44 +1,9 @@
 [
-  {
-    "category": "tools",
-    "count": 4,
-    "qty": 40,
-    "value": 40.00
-  },
-  {
-    "category": "supplies",
-    "count": 4,
-    "qty": 80,
-    "value": 40.00
-  }
-  {
-    "item": "widget_1",
-    "count": 2,
-    "qty": 20,
-    "value": 20.00
-  },
-  {
-    "item": "widget_2",
-    "count": 2,
-    "qty": 20,
-    "value": 20.00
-  },
-  {
-    "item": "whatsit_1",
-    "count": 2,
-    "qty": 40,
-    "value": 20.00
-  },
-  {
-    "item": "whatsit_2",
-    "count": 2,
-    "qty": 40,
-    "value": 20.00
-  },
-  {
-    "category": "totals",
-    "count": 8,
-    "qty": 120,
-    "value": 80.00
-  }
-]
+  {"category":"tools","count":4,"qty":40,"value":40},
+  {"category":"supplies","count":4,"qty":80,"value":40},
+  {"item":"widget_1","count":2,"qty":20,"value":20},
+  {"item":"widget_2","count":2,"qty":20,"value":20},
+  {"item":"whatsit_1","count":2,"qty":40,"value":20},
+  {"item":"whatsit_2","count":2,"qty":40,"value":20},
+  {"category":"totals","count":8,"qty":120,"value":80}
+  ]
