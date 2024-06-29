@@ -116,6 +116,11 @@ class Accumulator {
 
 }
 
+function isValidKey(construct, field) {
+  let value = construct[ field ];
+  return (value !== undefined && value !== null && value !== "")
+}
+
 module.exports = exports = class AggregateTransform extends Transform {
 
   /**
@@ -163,7 +168,7 @@ module.exports = exports = class AggregateTransform extends Transform {
           agg._fields = Object.assign(group);
           if (typeof expression === "string")
             agg._fields._groupby = expression.split(",");
-          agg._groups = [];
+          agg._groups = new Map();
           break;
         }
         else {
@@ -187,22 +192,25 @@ module.exports = exports = class AggregateTransform extends Transform {
         }
         else if (name === "_fields") {
           // get groupby values from construct
+          let key = "";
           let keys = {};
           for (let field of value._groupby) {
-            if (Object.hasOwn(construct, field))
+            if (isValidKey(construct, field)) {
+              key += field + construct[ field ];
               keys[ field ] = construct[ field ];
-            else
+            }
+            else {
+              key = null;
+              keys = null;
               break;
+            }
           }
 
-          // find object in agg._groups
-          let group = agg._groups.find(item => {
-            for (let [ name, value ] of Object.entries(keys))
-              if (value !== item[ name ])
-                return false;
-            return true;
-          })
+          if (!key)
+            continue;
 
+          // find object in agg._groups
+          let group = agg._groups.get(key);
           if (group === undefined) {
             // create data group
             group = keys;
@@ -214,7 +222,7 @@ module.exports = exports = class AggregateTransform extends Transform {
                   group[ field ] = expression;
               }
             }
-            agg._groups.push(group);
+            agg._groups.set(key, group);
           }
 
           // update the data group
@@ -224,7 +232,7 @@ module.exports = exports = class AggregateTransform extends Transform {
             }
         }
         else {
-          // a literal field or _fields
+          // a literal field or _groups
         }
       }
     }
@@ -234,7 +242,7 @@ module.exports = exports = class AggregateTransform extends Transform {
 
     for (let agg of aggregators) {
       if (Object.hasOwn(agg, "_groups")) {
-        for (let group of agg._groups) {
+        for (let group of agg._groups.values()) {
           let construct = {};
 
           for (let [ name, value ] of Object.entries(group)) {
