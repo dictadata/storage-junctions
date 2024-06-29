@@ -5,7 +5,7 @@
 "use strict";
 
 const { StorageError } = require('../../types');
-const { typeOf, isDate, isBoolean, dot } = require('@dictadata/lib');
+const { typeOf, isDate, isBoolean, dot, match } = require('@dictadata/lib');
 
 module.exports = exports = class StorageEncoder {
 
@@ -30,7 +30,7 @@ module.exports = exports = class StorageEncoder {
    * @param {object} construct
    */
   cast(construct) {
-    if (typeOf(construct) !== "object")
+    if (this.options.raw || typeOf(construct) !== "object")
       return construct;
 
     var encoding = this.engram;
@@ -124,7 +124,7 @@ module.exports = exports = class StorageEncoder {
    * @returns
    */
   select(construct) {
-    if (typeOf(construct) !== "object")
+    if (!this.options?.pattern || typeOf(construct) !== "object")
       return construct;
 
     let pattern = this.options.pattern || {};
@@ -143,7 +143,7 @@ module.exports = exports = class StorageEncoder {
       //dot.transform(pattern.fields, construct, newConstruct);
     }
     else
-      // copy the entire construct
+      // return construct
       newConstruct = construct;
 
     return newConstruct;
@@ -156,69 +156,19 @@ module.exports = exports = class StorageEncoder {
    * @returns
    */
   filter(construct) {
-    if (typeOf(construct) !== "object")
+    if (!this.options?.pattern || typeOf(construct) !== "object")
       return construct;
 
     const pattern = this.options.pattern || {};
-    const match = pattern.match || {};
-    let forward = true;
 
     // do some match filterin'
-    // match all expessions to forward
-    for (let [ fldname, criteria ] of Object.entries(match)) {
-      let cvalue = dot.get(fldname, construct);
-      let exists = typeof (cvalue) !== "undefined";
-      //let exists = Object.hasOwn(construct,fldname);
+    let matched = true;
+    if (pattern.match)
+      matched = match(pattern.match, construct);
+    if (matched && pattern.drop)
+      matched = !match(pattern.drop, construct);
 
-      if (Array.isArray(criteria)) {
-        forward = exists && criteria.includes(cvalue);
-      }
-      else if (criteria instanceof RegExp) {
-        forward = exists && criteria.test(cvalue);
-      }
-      else if (typeOf(criteria) === 'object') {
-        // expression(s) { op: value, ...}
-        for (let [ op, value ] of Object.entries(criteria)) {
-          switch (op) {
-            case 'eq': forward = exists && (cvalue === value); break;
-            case 'neq': forward = !exists || (cvalue !== value); break;
-            case 'lt': forward = exists && (cvalue < value); break;
-            case 'lte': forward = exists && (cvalue <= value); break;
-            case 'gt': forward = exists && (cvalue > value); break;
-            case 'gte': forward = exists && (cvalue >= value); break;
-            case 'wc': forward = exists && this.wildcardTest(cvalue, value); break;
-            case 'exists': forward = exists; break;
-            default: break;  // ignore bad operators
-          }
-        }
-      }
-      else {
-        // single property { field: value }
-        forward = exists && (cvalue === criteria);
-      }
-
-      // check short-circuit
-      if (!forward)
-        break;
-    }
-
-    return forward ? construct : null;
-  }
-
-  /**
-   * Test if str matches the regex rule.
-   * @param {string} str string to test
-   * @param {string} rule regex expression
-   * @returns
-   */
-  wildcardTest(str, rule) {
-    // remove anything that could interfere with regex
-    rule = rule.replace(/([.+^=!:${}()|\[\]\/\\])/g, "\\$1");
-    rule = rule.split("?").join(".");
-    rule = rule.split("*").join(".*");
-
-    let result = new RegExp("^" + rule + "$").test(str);
-    return result;
+    return matched ? construct : null;
   }
 
 };

@@ -41,7 +41,7 @@ module.exports = exports = class RESTWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-      this._count(1);
+      this._stats.count += 1;
       //logger.debug(JSON.stringify(construct));
     }
     catch (err) {
@@ -76,7 +76,6 @@ module.exports = exports = class RESTWriter extends StorageWriter {
 
     try {
       // close connection, cleanup resources, ...
-      this._count(null);
       callback();
     }
     catch (err) {

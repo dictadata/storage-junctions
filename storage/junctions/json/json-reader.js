@@ -51,7 +51,7 @@ module.exports = exports = class JSONReader extends StorageReader {
     // create variables that will be in the scope of data handler callbacks
     var reader = this;
     //var encoding = this.engram;
-    var statistics = this._statistics;
+    var stats = this._stats;
     var max = this.options.max_read || -1;
     var header = this.options.header;
     var headers = this.options.headers || (Array.isArray(this.options.header) ? this.options.header : null);
@@ -69,15 +69,17 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
 
-        if (statistics.count % 1000 === 0)
-          logger.debug(statistics.count);
+        if (stats.count % 10000 === 0)
+          logger.verbose(stats.count + " " + stats.interval + "ms");
 
-        if (max >= 0 && statistics.count >= max) {
+        if (max > 0 && stats.count > max) {
           reader.push(null);
           pipeline.destroy();
         }
-        else if (construct && !reader.push(construct)) {
-          //myParser.pause();  // If push() returns false stop reading from source.
+        else if (construct) {
+          reader._stats.count += 1;
+          if (!reader.push(construct))
+            myParser.pause();  // If push() returns false stop reading from source.
         }
       }
     });

@@ -36,7 +36,7 @@ module.exports = exports = class SplitterWriter extends StorageWriter {
       let wstream = await this.junction.getTractStream(sname);
 
       // store
-      this._count(1);
+      this._stats.count += 1;
       await wstream.write(construct);
       callback();
     }
@@ -72,7 +72,6 @@ module.exports = exports = class SplitterWriter extends StorageWriter {
     try {
       // close connection, cleanup resources, ...
       this.junction.endTractStream();
-      this._count(null);
       callback();
     }
     catch (err) {

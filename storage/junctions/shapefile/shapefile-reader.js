@@ -70,8 +70,10 @@ module.exports = exports = class ShapefileReader extends StorageReader {
       if (!this.done) {
         logger.debug('ShapefileReader source.read');
         let record = await this.source.read();
-        if (record.value)
+        if (record.value) {
+          this._stats.count += 1;
           this.push(record.value);  // geoJSON feature
+        }
         if (record.done) {
           this.done = true;
           this.push(null);

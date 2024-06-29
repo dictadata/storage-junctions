@@ -47,6 +47,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
 
     // read up to size constructs
     try {
+      this._stats.count += this.rows.length;
       for (let i = 0; i < this.rows.length; i++) {
         let construct = this.rows[ i ];
         sqlEncoder.decodeResults(this.engram, construct);

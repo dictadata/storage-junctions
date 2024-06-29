@@ -42,6 +42,7 @@ module.exports = exports = class MemoryReader extends StorageReader {
       // this.pattern
 
       for (let construct of this.junction._constructs.values()) {
+        this._stats.count += 1;
         this.push(construct);
       }
     }

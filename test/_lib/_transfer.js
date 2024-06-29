@@ -151,7 +151,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     }
 
     logger.info(">>> completed");
-    let stats = writer.statistics;
+    let stats = writer._stats;
     logger.info(stats.count + " in " + stats.elapsed / 1000 + "s, " + Math.round(stats.count / (stats.elapsed / 1000)) + "/sec");
   }
   catch (err) {

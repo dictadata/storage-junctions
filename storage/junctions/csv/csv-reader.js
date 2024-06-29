@@ -31,53 +31,65 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     // this.options.header = false;  // default value
 
-    /***** create the pipeline and data handlers *****/
-    var self = this;
+    /***** create the csvchain and data handlers *****/
+    var reader = this;
     var encoder = this.junction.createEncoder(options);
 
-    var statistics = this._statistics;
+    var stats = this._stats;
     var max = this.options.max_read || -1;
 
     if (!options.header && !options.keys && !options.headers)
       options.headers = this.engram.names;
 
     var parser = CsvParser({ separator: options.separator });
-    var pipeline = this.pipeline = new chain([
-      parser,
-      new CsvAsObjects({
+
+    let pipes = [];
+    pipes.push(parser);
+
+    if (!this.options.raw) {
+      pipes.push(new CsvAsObjects({
         keys: options.keys || options.headers,
         header: options.header
-      }),
-      new StreamValues()
-    ]);
+      }));
+    }
+
+    pipes.push(new StreamValues());
+
+    var csvchain = this.csvchain = new chain(pipes);
 
     // eslint-disable-next-line arrow-parens
-    pipeline.on('data', (data) => {
+    csvchain.on('data', (data) => {
       if (data.value) {
-        let construct = encoder.cast(data.value);
-        construct = encoder.filter(construct);
-        construct = encoder.select(construct);
+        let construct = data.value;
+        if (!this.options.raw) {
+          construct = encoder.cast(construct);
+          construct = encoder.filter(construct);
+          construct = encoder.select(construct);
+        }
         //logger.debug(JSON.stringify(construct));
 
-        if (statistics.count % 1000 === 0)
-          logger.debug(statistics.count);
-
-        if (max >= 0 && statistics.count >= max) {
-          self.push(null);
-          pipeline.destroy();
+        if (stats.count % 10000 === 0) {
+          logger.verbose(stats.count + " " + stats.interval + "ms");
         }
-        else if (construct && !self.push(construct)) {
-          //pipeline.pause();  // If push() returns false stop reading from source.
+
+        if (max > 0 && stats.count > max) {
+          reader.push(null);
+          csvchain.destroy();
+        }
+        else if (construct) {
+          reader._stats.count += 1;
+          if (!reader.push(construct))
+            csvchain.pause();  // If push() returns false stop reading from source.
         }
       }
     });
 
-    pipeline.on('end', () => {
-      self.push(null);
+    csvchain.on('end', () => {
+      reader.push(null);
     });
 
-    pipeline.on('error', function (err) {
-      let sterr = self.junction.StorageError(err);
+    csvchain.on('error', function (err) {
+      let sterr = reader.junction.StorageError(err);
       logger.warn(sterr);
       //throw sterr;
     });
@@ -101,7 +113,7 @@ module.exports = exports = class CSVReader extends StorageReader {
             this.destroy(this.stfs?.StorageError(err) ?? new StorageError(err));
           }
         );
-        rs.pipe(this.pipeline);
+        rs.pipe(this.csvchain);
       }
       catch (err) {
         logger.warn(`CSVReader read error: ${err.message}`);
@@ -124,11 +136,11 @@ module.exports = exports = class CSVReader extends StorageReader {
     logger.debug('CSVReader _read');
 
     try {
-      if (this.pipeline.isPaused()) {
+      if (this.csvchain.isPaused()) {
         // resume reading
-        this.pipeline.resume();
+        this.csvchain.resume();
       }
-      else if (this.pipeline.destroyed || !this.pipeline.readable)
+      else if (this.csvchain.destroyed || !this.csvchain.readable)
         this.push(null);
     }
     catch (err) {

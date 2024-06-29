@@ -115,11 +115,11 @@ module.exports = exports = class JSONWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-      let data = (this._statistics.count === 0) ? "" : this.formation.delimiter;
+      let data = (this._stats.count === 0) ? "" : this.formation.delimiter;
       if (this.engram.smt.model === 'jsono') {
         let key = this.engram.get_uid(construct);
         if (!key)
-          key = this._statistics.count;
+          key = this._stats.count;
         data += '"' + key + '": ';
       }
 
@@ -142,7 +142,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
 
       data += JSON.stringify(ordered ? ordered : construct);
       if (data.length > 0) {
-        this._count(1);
+        this._stats.count += 1;
         await this.ws.write(data);
       }
 
@@ -201,7 +201,6 @@ module.exports = exports = class JSONWriter extends StorageWriter {
           await this.ws.fs_ws_promise;
       }
 
-      this._count(null);
       callback();
     }
     catch (err) {

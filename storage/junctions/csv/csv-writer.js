@@ -112,7 +112,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       // write data line
       if (data.length > 0) {
         data += "\n";
-        this._count(1);
+        this._stats.count += 1;
         await this.ws.write(data);
       }
 
@@ -167,7 +167,6 @@ module.exports = exports = class CSVWriter extends StorageWriter {
           await this.ws.fs_ws_promise;
       }
 
-      this._count(null);
       callback();
     }
     catch (err) {

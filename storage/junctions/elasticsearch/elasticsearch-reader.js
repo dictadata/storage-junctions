@@ -67,6 +67,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
       this.scrollParams.scroll_id = this.response._scroll_id;
       const hits = this.response.hits.hits;
 
+      this._stats.count += hits.length;
       for (const hit of hits) {
         this.push(hit._source);
       }

@@ -26,7 +26,7 @@ module.exports = exports = class EchoWriter extends StorageWriter {
     }
     try {
       // save construct to .schema
-      this._count(1);
+      this._stats.count += 1;
       logger.info(JSON.stringify(construct));
     }
     catch (err) {
@@ -61,8 +61,6 @@ module.exports = exports = class EchoWriter extends StorageWriter {
 
     try {
       // close connection, cleanup resources, ...
-      this._count(null);
-
       callback();
     }
     catch (err) {

@@ -30,31 +30,20 @@ module.exports = exports = class StorageWriter extends Writable {
     // if autoClose is true StorageWriters should close dependent write streams in _final().
     this.autoClose = ('autoClose' in this.options) ? this.options.autoClose : true;
 
-    this._statistics = {
+    this._stats = {
+      start: Date.now(),
+      timer: Date.now(),
       count: 0,
-      elapsed: 0
-    };
 
-    this._startms = 0;
-    this.progress = this.options.progress || null;
-    this.progressModula = this.options.progressModula || 1000;
-  }
+      get interval() {
+        let lt = this.timer;
+        this.timer = Date.now();
+        return (this.timer - lt);
+      },
 
-  get statistics() {
-    return this._statistics;
-  }
-
-  _count(count) {
-    if (this._startms <= 0)
-      this._startms = Date.now();
-    if (count === null)
-      this._statistics.elapsed = Date.now() - this._startms;
-    else
-      this._statistics.count += count;
-
-    if (this.progress && (this._statistics.count % this.progressModula === 0)) {
-      this._statistics.elapsed = Date.now() - this._startms;
-      this.progress(this._statistics);
+      get elapsed() {
+        return Date.now() - this.start;
+      }
     }
   }
 
@@ -83,7 +72,7 @@ module.exports = exports = class StorageWriter extends Writable {
     }
 
     try {
-      this._count(1);
+      this._stats.count += 1;
       await this.junction.store(construct);
       callback();
     }
@@ -97,7 +86,7 @@ module.exports = exports = class StorageWriter extends Writable {
     logger.debug("StorageWriter._writev");
 
     try {
-      this._count(chunks.length);
+      this._stats.count += chunks.length;
 
       for (var i = 0; i < chunks.length; i++) {
         let construct = chunks[ i ].chunk;
@@ -118,7 +107,6 @@ module.exports = exports = class StorageWriter extends Writable {
     logger.debug('StorageWriter._final');
 
     try {
-      this._count(null);
       callback();
     }
     catch (err) {

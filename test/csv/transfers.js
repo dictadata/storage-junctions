@@ -78,7 +78,7 @@ async function tests() {
       smt: "csv|./test/_data/input/|foofile.txt|*",
       options: {
         header: true,
-        separator: "|"
+        separator: "\t"
       }
     },
     terminal: {

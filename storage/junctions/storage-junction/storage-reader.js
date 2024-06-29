@@ -28,46 +28,20 @@ module.exports = exports = class StorageReader extends Readable {
 
     this.options = Object.assign({}, options);
 
-    this._statistics = {
+    this._stats = {
+      start: Date.now(),
+      timer: Date.now(),
       count: 0,
-      elapsed: 0
-    };
-    this._startms = 0;
-    this.progress = this.options.progress || null;
-    this.progressModula = this.options.progressModula || 1000;
-  }
 
-  get statistics() {
-    return this._statistics;
-  }
+      get interval() {
+        let lt = this.timer;
+        this.timer = Date.now();
+        return (this.timer - lt);
+      },
 
-  push(chunk, encoding) {
-    if (this._startms <= 0)
-      this._startms = Date.now();
-    if (chunk === null)
-      this._statistics.elapsed = Date.now() - this._startms;
-    else
-      this._statistics.count++;
-
-    if (this.progress && (this._statistics.count % this.progressModula === 0)) {
-      this._statistics.elapsed = Date.now() - this._startms;
-      this.progress(this._statistics);
-    }
-
-    super.push(chunk, encoding);
-  }
-
-  async _construct(callback) {
-    logger.debug("StorageReader._construct");
-
-    try {
-      // open output stream
-
-      callback();
-    }
-    catch (err) {
-      logger.warn(err.message);
-      callback(new StorageError('StorageReader construct error'));
+      get elapsed() {
+        return Date.now() - this.start;
+      }
     }
   }
 

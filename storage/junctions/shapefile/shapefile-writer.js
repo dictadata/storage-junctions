@@ -69,9 +69,9 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-      let data = (this._statistics.count === 0) ? "" : this.delim;
+      let data = (this._stats.count === 0) ? "" : this.delim;
       if (this.engram.smt.model === 'shp')
-        data += '"' + this._statistics.count + '": ';
+        data += '"' + this._stats.count + '": ';
 
       // rewrite construct to keep fields in order
       let ordered;
@@ -88,7 +88,7 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
 
       data += JSON.stringify(ordered ? ordered : construct);
       if (data.length > 0) {
-        this._count(1);
+        this._stats.count += 1;
         await this.ws.write(data);
       }
 
@@ -145,7 +145,6 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
           await this.ws.fs_ws_promise;
       }
 
-      this._count(null);
       callback();
     }
     catch (err) {

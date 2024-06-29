@@ -32,7 +32,8 @@ module.exports = exports = class EchoReader extends StorageReader {
       if (i >= size)
         break;
 
-      let construct = results[i];
+      let construct = results[ i ];
+      this._stats.count += 1;
       if (!this.push(construct))
         break;
     }

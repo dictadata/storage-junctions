@@ -89,6 +89,7 @@ module.exports = exports = class RESTReader extends StorageReader {
         construct = this.encoder.filter(construct);
         construct = this.encoder.select(construct);
         if (construct)
+          this._stats.count += 1;
           this.push(construct);
       });
 

@@ -49,7 +49,7 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-      this._count(1);
+      this._stats.count += 1;
       let response = await this.junction.store(construct);
       logger.debug("status: " + JSON.stringify(response));
       callback();
@@ -64,7 +64,7 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
     logger.debug("ElasticsearchWriter._writev");
 
     try {
-      this._count(chunks.length);
+      this._stats.count += chunks.length;
 
       let response;
       for (var i = 0; i < chunks.length; i++) {
@@ -89,7 +89,6 @@ module.exports = exports = class ElasticsearchWriter extends StorageWriter {
   async _final(callback) {
     logger.debug('ElasticsearchWriter._final');
     try {
-      this._count(null);
       callback();
     }
     catch (err) {

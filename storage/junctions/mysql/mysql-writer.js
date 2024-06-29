@@ -45,7 +45,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
 
     try {
       // save construct to .schema
-      this._count(1)
+      this._stats.count += 1
       await this.junction.store(construct);
       callback();
     }
@@ -60,7 +60,7 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
     logger.debug("MySQLWriter._writev");
 
     try {
-      this._count(chunks.length);
+      this._stats.count += chunks.length;
       let constructs = [];
       for (var i = 0; i < chunks.length; i++) {
         if (this.options.bulkLoad) {
@@ -89,7 +89,6 @@ module.exports = exports = class MySQLWriter extends StorageWriter {
 
     try {
       // close connection, cleanup resources, ...
-      this._count(null);
       callback();
     }
     catch (err) {
