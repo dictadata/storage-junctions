@@ -40,10 +40,6 @@ exports.StorageWriter = StorageJunction.StorageWriter;
 exports.StorageEncoder = StorageJunction.StorageEncoder;
 Storage.Junctions.use('*', StorageJunction);
 
-var MemoryJunction = require('./junctions/memory');
-exports.MemoryJunction = MemoryJunction;
-Storage.Junctions.use('memory', MemoryJunction);
-
 var CSVJunction = require('./junctions/csv');
 exports.CSVJunction = CSVJunction;
 Storage.Junctions.use('csv', CSVJunction);
@@ -78,6 +74,19 @@ var ShapefileJunction = require('./junctions/shapefile');
 exports.ShapefileJunction = ShapefileJunction;
 Storage.Junctions.use('shapefile', ShapefileJunction);
 Storage.Junctions.use('shp', ShapefileJunction);
+
+var TextJunction = require('./junctions/text');
+exports.TextJunction = TextJunction;
+Storage.Junctions.use('txt', TextJunction);
+Storage.Junctions.use('text', TextJunction);
+
+var NullWriterJunction = require('./junctions/nullwriter');
+exports.NullWriterJunction = NullWriterJunction;
+Storage.Junctions.use('null', NullWriterJunction);
+
+var MemoryJunction = require('./junctions/memory');
+exports.MemoryJunction = MemoryJunction;
+Storage.Junctions.use('memory', MemoryJunction);
 
 var TemplateJunction = require('./junctions/template');
 exports.TemplateJunction = TemplateJunction;

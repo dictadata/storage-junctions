@@ -1,0 +1,30 @@
+{
+  "name": "foo_data.txt",
+  "type": "engram",
+  "smt": {
+    "model": "txt",
+    "locus": "./test/_data/input/",
+    "schema": "foo_data.txt",
+    "key": "*"
+  },
+  "fields": [
+    {
+      "name": "category",
+      "type": "keyword",
+      "size": 8
+    },
+    {
+      "name": "item",
+      "type": "keyword",
+      "size": 9
+    },
+    {
+      "name": "quantity",
+      "type": "integer"
+    },
+    {
+      "name": "cost",
+      "type": "number"
+    }
+  ]
+}

@@ -142,6 +142,42 @@
       }
     },
     {
+      "type": "node",
+      "request": "launch",
+      "name": "text codify",
+      "program": "${workspaceFolder}/test/text/codify.js",
+      "runtimeArgs": ["--trace-warnings"],
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "text transfer",
+      "program": "${workspaceFolder}/test/text/transfers.js",
+      "runtimeArgs": ["--trace-warnings"],
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "text transform",
+      "program": "${workspaceFolder}/test/text/transforms.js",
+      "runtimeArgs": ["--trace-warnings"],
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "verbose"
+      }
+    },
+    {
       "type": "node-terminal",
       "name": "--- filesystems",
       "request": "launch"
