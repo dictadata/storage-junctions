@@ -18,11 +18,12 @@
    string value, without inner ' delimiter characters
 
  expression-value
+   field-name/regexp/replace/:padding
    exp-value
    exp-value + exp-value + ...
 
  exp-value
-   field-name | 'string' | number | boolean | field-name/regexp/replace/
+   field-name | 'string' | number | boolean [:padding]
 
  field-name
    name | dot-notation

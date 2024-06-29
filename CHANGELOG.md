@@ -1,6 +1,10 @@
 # CHANGELOG @dictadata/storage-junctions
 
-- verison 0.9.115
+- version 0.9.116
+  - feature: implement text-junction and null-junction
+  - refactor: use a Map for groupby data structure
+  - refactor: junction reader/writer _stats
+- version 0.9.115
   - refactor: aggregate transform
   - refactor: keywords can contain alphanumeric ' ', '_', '-', ','
   - refactor: csv use quotes for keyword fields

@@ -33,4 +33,5 @@ function match(expression, construct)
   'gt'     - field greater than value
   'gte'    - field greater than or equal to value
   'wc'     - field matches a string value containing wildcard characters '?', '*'
+  'in'     - field value is in given array
   'exists' - field exists in construct, value is ignored
