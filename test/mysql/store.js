@@ -31,15 +31,15 @@ async function tests() {
   logger.info("=== mysql store 20");
   if (await store({
     origin: {
-      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 30,
+      Baz: 20,
       Fobe: 20.20,
       "Dt Test": "2020-10-07T08:00:00",
-      enabled: false
+      enabled: true
     },
     terminal: {
       output: "./test/_data/output/mysql/store_02.json"
@@ -50,12 +50,15 @@ async function tests() {
   if (await store({
     origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
+      options: {
+        withUpdate: true
+      }
     },
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 20,
-      enabled: true
+      Baz: 30,
+      enabled: false
     },
     terminal: {
       output: "./test/_data/output/mysql/store_03.json"
@@ -77,6 +80,21 @@ async function tests() {
     },
     terminal: {
       output: "./test/_data/output/mysql/store_04.json"
+    }
+  })) return 1;
+
+  logger.info("=== mysql store update");
+  if (await store({
+    origin: {
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
+    },
+    construct: {
+      Foo: 'twenty',
+      Baz: 20,
+      enabled: true
+    },
+    terminal: {
+      output: "./test/_data/output/mysql/store_dup.json"
     }
   })) return 1;
 
