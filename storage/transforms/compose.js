@@ -51,7 +51,7 @@ module.exports = exports = class ComposeTransform extends Transform {
    */
   _transform(construct, encoding, callback) {
 
-    // walk the heirarchy
+    // walk the hierarchy
     let node = this._composition;
     for (let name of this.options.path) {
       let cname = construct[ name ];

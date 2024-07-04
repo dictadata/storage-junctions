@@ -15,6 +15,7 @@ const { dot, evaluate, match } = require('@dictadata/lib');
     smt: "",
     options: {},
     pattern: {},
+    ignoreCase: true|false,
     lookup: {
       "lookup_field": "=construct_field|'literal'+..."
     }
@@ -38,6 +39,7 @@ var transform = {
       "STATE": "IA"
     }
   },
+  ignoreCase: true,
   "lookup": {
     "STATENAME": "=County+' County'"
   },
@@ -60,7 +62,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
 
     this.options = Object.assign({}, options);
     if (typeof this.options.inject === "string")
-      this.options.inject = [ this.options.inject ];
+      this.options.inject = this.options.inject.split(",");
 
     this.lookupTable;
   }
