@@ -171,6 +171,53 @@ exports.sqlCreateTable = function (engram, options) {
   return sql;
 };
 
+exports.sqlInsert = function (engram, construct) {
+
+  let names = Object.keys(construct);
+  let values = Object.values(construct);
+
+  let sql = "INSERT INTO " + engram.smt.schema + " (";
+  let first = true;
+  for (let name of names) {
+    (first) ? first = false : sql += ",";
+    sql += sqlString.escapeId(name);
+  }
+  sql += ") VALUES (";
+  first = true;
+  for (let i = 0; i < names.length; i++) {
+    let name = names[ i ];
+    let value = values[ i ];
+    let field = engram.find(name);
+    (first) ? first = false : sql += ",";
+    sql += encodeValue(field, value);
+  }
+  sql += ")";
+
+  logger.debug(sql);
+  return sql;
+};
+
+exports.sqlUpdate = function (engram, construct) {
+
+  let names = Object.keys(construct);
+  let values = Object.values(construct);
+
+  let sql = "UPDATE " + engram.smt.schema + " SET";
+  let first = true;
+  for (let i = 0; i < names.length; i++) {
+    let name = names[ i ];
+    if (!engram.keys.includes(name)) {
+      let field = engram.find(name);
+      let value = values[ i ];
+      (first) ? first = false : sql += ",";
+      sql += sqlString.escapeId(name) + "=" + encodeValue(field, value);
+    }
+  }
+
+  logger.debug(sql);
+  return sql;
+};
+
 exports.sqlInsertUpdate = function (engram, construct) {
 
   let names = Object.keys(construct);

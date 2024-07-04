@@ -89,7 +89,7 @@
       "Baz": 10,
       "Fobe": 0.1,
       "Dt Test": "2020-10-07T00:00:00.000Z",
-      "enabled": false
+      "enabled": true
     },
     {
       "Foo": "third",
@@ -102,10 +102,10 @@
     {
       "Foo": "twenty",
       "Bar": "Jackson",
-      "Baz": 30,
+      "Baz": 20,
       "Fobe": 20.2,
       "Dt Test": "2020-10-07T08:00:00.000Z",
-      "enabled": false
+      "enabled": true
     }
   ]
 }

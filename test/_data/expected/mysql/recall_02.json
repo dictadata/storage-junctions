@@ -8,6 +8,6 @@
     "Baz": 10,
     "Fobe": 0.1,
     "Dt Test": "2020-10-07T00:00:00.000Z",
-    "enabled": false
+    "enabled": true
   }
 }

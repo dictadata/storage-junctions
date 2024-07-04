@@ -19,7 +19,7 @@ async function keystore() {
       }
     },
     terminal: {
-      output: "./test/_data/output/elasticsearch/recall_1.json"
+      output: "./test/_data/output/elasticsearch/recall_nk.json"
     }
   })) return 1;
 

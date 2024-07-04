@@ -185,7 +185,7 @@ class ElasticsearchJunction extends StorageJunction {
 
       let response = await this.elasticQuery.createIndex(indexConfig);
 
-      // if successfull update encoding
+      // if successful update encoding
       this.engram.encoding = encoding;
 
       return new StorageResults(0);
@@ -235,12 +235,28 @@ class ElasticsearchJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEngram();
 
+      if (this.options.update) {
+        let orig;
+        if (this.isKeyStore) {
+          let key = pattern?.key || this.engram.get_uid(construct) || null;
+          let results = await this.recall({ key: key });
+          if (results.status === 0 || results.status === 200)
+            orig = results.data[ key ];
+        }
+        else {
+          let results = await this.recall(construct);
+          if (results.status === 0 || results.status === 200)
+            orig = results.data;
+        }
+        if (orig)
+          construct = Object.assign(orig, construct);
+      }
+
       let data = dslEncoder.encodeValues(this.engram, construct);
-      let key = null;
       let response = null;
       if (this.isKeyStore) {
         // store by _id
-        key = pattern?.key || this.engram.get_uid(construct) || null;
+        let key = pattern?.key || this.engram.get_uid(construct) || null;
         //logger.debug(key + " " + JSON.stringify(data));
         response = await this.elasticQuery.put(key, data);
       }

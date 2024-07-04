@@ -206,6 +206,18 @@ module.exports = exports = class Engram extends Object {
   }
 
   /**
+   * Returns an object with key field/value pairs.
+   * @param {*} construct object that contains key fields
+   */
+  get_keys(construct) {
+    let obj = {};
+    for (let key of this.keys) {
+      obj[ key ] = construct[ key ];
+    }
+    return obj;
+  }
+
+  /**
    * Get UID value if the smt points to an individual piece of data, i.e. smt.key value.
    */
   get uid() {

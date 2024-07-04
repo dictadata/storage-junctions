@@ -36,10 +36,10 @@ async function tests() {
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 20,
+      Baz: 30,
       Fobe: 20.20,
       "Dt Test": "2020-10-07T08:00:00",
-      enabled: true
+      enabled: false
     },
     terminal: {
       output: "./test/_data/output/mysql/store_02.json"
@@ -54,8 +54,8 @@ async function tests() {
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 30,
-      enabled: false
+      Baz: 20,
+      enabled: true
     },
     terminal: {
       output: "./test/_data/output/mysql/store_03.json"
@@ -73,10 +73,28 @@ async function tests() {
       Baz: 10,
       Fobe: 0.10,
       "Dt Test": "2020-10-07",
-      enabled: false
+      enabled: true
     },
     terminal: {
       output: "./test/_data/output/mysql/store_04.json"
+    }
+  })) return 1;
+
+  logger.info("=== mysql store update");
+  if (await store({
+    origin: {
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo",
+      options: {
+        update: true
+      }
+    },
+    construct: {
+      Foo: 'twenty',
+      Baz: 20,
+      enabled: true
+    },
+    terminal: {
+      output: "./test/_data/output/mysql/store_update.json"
     }
   })) return 1;
 

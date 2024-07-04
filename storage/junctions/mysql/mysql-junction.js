@@ -247,7 +247,13 @@ class MySQLJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEngram();
 
-      let sql = sqlEncoder.sqlInsertUpdate(this.engram, construct);
+      let sql;
+      if (this.options.update) {
+        sql = sqlEncoder.sqlUpdate(this.engram, construct) + sqlEncoder.sqlWhereByKey(this.engram, construct);
+      }
+      else {
+        sql = sqlEncoder.sqlInsert(this.engram, construct);
+      }
       logger.debug(sql);
       let results = await this.pool.query(sql);
 

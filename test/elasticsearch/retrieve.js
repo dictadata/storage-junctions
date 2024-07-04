@@ -180,6 +180,22 @@ async function tests() {
     }
   })) return 1;
 
+
+  logger.info("=== elasticsearch retrieve pk");
+  if (await retrieve({
+    origin: {
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
+      pattern: {
+        match: {
+          "Foo": "twenty"
+        }
+      }
+    },
+    terminal: {
+      output: "./test/_data/output/elasticsearch/retrieve_pk.json"
+    }
+  })) return 1;
+
 }
 
 (async () => {

@@ -57,10 +57,10 @@ async function keystore() {
     construct: {
       Foo: 'twenty',
       Bar: 'Jackson',
-      Baz: 20,
-      Fobe: 20.20,
+      Baz: 0,
+      Fobe: 0.0,
       "Dt Test": "2020-10-07T08:00:00",
-      enabled: true
+      enabled: false
     },
     terminal: {
       output: "./test/_data/output/elasticsearch/store_ks3.json"
@@ -109,7 +109,31 @@ async function primarykey() {
 
 }
 
+async function storeUpdate() {
+
+  logger.info("=== elasticsearch store w/ update");
+  if (await store({
+    origin: {
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|!Foo",
+      options: {
+        update: true
+      }
+    },
+    construct: {
+      Foo: 'twenty',
+      Baz: 20,
+      Fobe: 20.20,
+      enabled: true
+    },
+    terminal: {
+      output: "./test/_data/output/elasticsearch/store_update.json"
+    }
+  }, 0)) return 1;
+
+}
+
 (async () => {
   if (await keystore()) return 1;
   if (await primarykey()) return 1;
+  if (await storeUpdate()) return 1;
 })();

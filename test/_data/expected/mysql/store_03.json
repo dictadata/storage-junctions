@@ -1,8 +1,4 @@
 {
-  "status": 0,
-  "message": "OK",
-  "type": "message",
-  "data": {
-    "stored": 2
-  }
+  "status": 409,
+  "message": "duplicate entry"
 }
