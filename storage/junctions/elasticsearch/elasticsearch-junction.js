@@ -303,7 +303,7 @@ class ElasticsearchJunction extends StorageJunction {
         // search by exact match
         let dsl = dslEncoder.matchQuery(this.engram.keys, pattern);
 
-        logger.verbose(JSON.stringify(dsl));
+        logger.debug("dsl: "+ JSON.stringify(dsl));
         let response = await this.elasticQuery.search(dsl);
         let hits = response.hits.hits;
         //let keys = (hits[0] && hits[0]._id);
@@ -337,7 +337,7 @@ class ElasticsearchJunction extends StorageJunction {
         await this.getEngram();
 
       let dsl = dslEncoder.searchQuery(pattern);
-      logger.verbose(JSON.stringify(dsl));
+      logger.debug("dsl: " + JSON.stringify(dsl));
       let storageResults;
 
       if (pattern?.aggregate) {

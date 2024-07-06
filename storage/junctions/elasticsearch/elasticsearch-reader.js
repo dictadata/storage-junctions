@@ -39,7 +39,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
       if (!Object.hasOwn(dsl, "size")) params.size = this.initialSize;
       if (!Object.hasOwn(dsl, "sort")) params.sort = [ "_doc" ];
       params.body = dsl;
-      logger.verbose("params: " + JSON.stringify(params));
+      logger.debug("dsl: " + JSON.stringify(params));
 
       this.response = await this.elasticQuery.client.search(params);
 

@@ -13,6 +13,7 @@
  expression
    literal
    =expression-value
+   /=expression-value/[flags]
 
  literal
    string value, without inner ' delimiter characters
