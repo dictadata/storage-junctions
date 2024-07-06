@@ -100,7 +100,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
           if (!construct)
             return;
 
-          if (statistics.count % 100000 === 0)
+          if ((statistics.count + 1) % 100000 === 0)
             logger.verbose(statistics.count + " " + statistics.interval + "ms");
 
           if (max > 0 && statistics.count > max) {

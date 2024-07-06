@@ -99,9 +99,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       rx = new RegExp(rx);
 
       const count = await this.zip.entriesCount;
-      logger.verbose(`Entries read: ${count}`);
-
       const entries = await this.zip.entries();
+      logger.debug(`Zip entries: ${count}`);
+
       for (const entry of Object.values(entries)) {
         if (entry.isFile && rx.test(entry.name)) {
           logger.debug(`Entry ${entry.name}: ${entry.size}`);

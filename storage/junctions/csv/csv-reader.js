@@ -68,7 +68,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         }
         //logger.debug(JSON.stringify(construct));
 
-        if (stats.count % 10000 === 0) {
+        if ((stats.count + 1) % 10000 === 0) {
           logger.verbose(stats.count + " " + stats.interval + "ms");
         }
 
