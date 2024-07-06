@@ -351,11 +351,11 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   let columns = [];
 
   // OUTPUT COLUMNS
-  if (pattern.fields) {
+  if (pattern?.fields) {
     for (let f of pattern.fields)
       columns.push(sqlString.escapeId(f));
   }
-  else if (pattern.aggregate) {
+  else if (pattern?.aggregate) {
     // find all the {"func": "field"} expressions
     for (let [ name, exp ] of Object.entries(pattern.aggregate)) {
       for (let [ func, value ] of Object.entries(exp)) {
@@ -446,7 +446,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   }
 
   // GROUP BY clause
-  if (pattern.aggregate) {
+  if (pattern?.aggregate) {
     let f = true;
     // find group by fields of aggregate: {"group_by_field": {"func": "field"} }
     for (let [ groupby, exp ] of Object.entries(pattern.aggregate)) {
@@ -465,7 +465,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   }
 
   // ORDER BY clause
-  if (pattern.order) {
+  if (pattern?.order) {
     sql += " ORDER BY ";
     let f = true;
     for (const [ name, direction ] of Object.entries(pattern.order)) {
@@ -475,7 +475,7 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   }
 
   // LIMIT clause
-  if (pattern.count)
+  if (pattern?.count)
     sql += " LIMIT " + pattern.count;
 
   return sql;

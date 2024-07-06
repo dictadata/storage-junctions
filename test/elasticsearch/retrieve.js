@@ -13,6 +13,16 @@ async function tests() {
   logger.info("=== elasticsearch retrieve term");
   if (await retrieve({
     origin: {
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*"
+    },
+    terminal: {
+      output: "./test/_data/output/elasticsearch/retrieve_all.json"
+    }
+  })) return 1;
+
+  logger.info("=== elasticsearch retrieve term");
+  if (await retrieve({
+    origin: {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       pattern: {
         match: {

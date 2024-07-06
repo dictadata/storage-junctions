@@ -327,7 +327,7 @@ class ElasticsearchJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} pattern canc contain match, fields, order, etc. for forming a query
+   * @param {*} pattern can contain match, fields, order, etc. for forming a query
    */
   async retrieve(pattern) {
     logger.debug("ElasticJunction retrieve");
@@ -340,7 +340,7 @@ class ElasticsearchJunction extends StorageJunction {
       logger.verbose(JSON.stringify(dsl));
       let storageResults;
 
-      if (pattern.aggregate) {
+      if (pattern?.aggregate) {
         // aggregation response
         let response = await this.elasticQuery.aggregate(dsl);
         let constructs = dslEncoder.processAggregations(response.aggregations);

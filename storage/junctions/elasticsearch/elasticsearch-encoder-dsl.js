@@ -211,8 +211,8 @@ function match(dsl, pattern) {
 function cues(dsl, pattern) {
 
   // count
-  if (pattern.count) {
-    if (pattern.aggregate)
+  if (pattern?.count) {
+    if (pattern?.aggregate)
       dsl[ "size" ] = 0;  // no _source in results
     else
       dsl[ "size" ] = pattern.count || 100;
@@ -221,14 +221,14 @@ function cues(dsl, pattern) {
   // fields
   // pattern: { "fields": [ "field_name", ... ] }
   // dsl: "_source" : [ "field_name", ...]
-  if (pattern.fields) {
+  if (pattern?.fields) {
     dsl._source = pattern.fields;
   }
 
   // order
   // pattern: { "order": { "field_name": "desc" } }
   // dsl: "sort" : { "field_name" : "desc" }
-  if (pattern.order && !pattern.aggregate) {
+  if (pattern?.order && !pattern?.aggregate) {
     dsl.sort = {};
     for (const [ name, direction ] of Object.entries(pattern.order)) {
       dsl.sort[ name ] = direction;
@@ -239,7 +239,7 @@ function cues(dsl, pattern) {
 
 function aggregate(dsl, pattern) {
 
-  if (!pattern.aggregate) {
+  if (!pattern?.aggregate) {
     return;
   }
 

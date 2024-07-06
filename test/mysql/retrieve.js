@@ -13,6 +13,16 @@ async function tests() {
   logger.info("=== mysql retrieve");
   if (await retrieve({
     origin: {
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|*"
+    },
+    terminal: {
+      output: "./test/_data/output/mysql/retrieve_all.json"
+    }
+  })) return 1;
+
+  logger.info("=== mysql retrieve");
+  if (await retrieve({
+    origin: {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|*",
       pattern: {
         match: {},
