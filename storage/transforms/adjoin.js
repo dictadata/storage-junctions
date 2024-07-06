@@ -76,12 +76,14 @@ module.exports = exports = class AdjoinTransform extends Transform {
     try {
       junction = await Storage.activate(origin.smt, origin.options);
 
-      let results = await junction.retrieve(origin.pattern);
+      let pattern = Object.assign({ count: 1000 }, origin.pattern);
+      let results = await junction.retrieve(pattern);
       if (results.status === 0) {
         if (results.type === "map")
           this.lookupTable = Object.values(results.data);
         else
           this.lookupTable = results.data;
+        logger.verbose("lookupTable: " + this.lookupTable.length);
       }
       else
         logger.warn(results.status + " " + results.message);
@@ -127,6 +129,9 @@ module.exports = exports = class AdjoinTransform extends Transform {
           if (Object.hasOwn(found, fld))
             construct[ fld ] = found[ fld ];
         }
+      }
+      else {
+        console.warn("lookup not found: ", expression);
       }
 
       this.push(construct);
