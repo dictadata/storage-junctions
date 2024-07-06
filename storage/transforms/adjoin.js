@@ -83,6 +83,8 @@ module.exports = exports = class AdjoinTransform extends Transform {
         else
           this.lookupTable = results.data;
       }
+      else
+        logger.warn(results.status + " " + results.message);
     }
     catch (err) {
       logger.warn(err.message);
@@ -110,10 +112,12 @@ module.exports = exports = class AdjoinTransform extends Transform {
 
       // lookup values in lookup table
       let found;
-      for (let row of this.lookupTable) {
-        if (match(expression, row)) {
-          found = row;
-          break;
+      if (this.lookupTable) {
+        for (let row of this.lookupTable) {
+          if (match(expression, row)) {
+            found = row;
+            break;
+          }
         }
       }
 

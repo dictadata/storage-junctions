@@ -137,12 +137,8 @@ module.exports = exports = class AggregateTransform extends Transform {
     this.options = Object.assign({}, options);
 
     this.aggregators = [];
-  }
 
-  _construct(callback) {
-    logger.debug("AggregrateTransform _construct");
     this.accumulatorInit(this.options.fields, this.aggregators);
-    callback();
   }
 
   _transform(construct, encoding, callback) {
