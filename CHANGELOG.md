@@ -1,5 +1,10 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.117
+  - feature: elasticsearch, mysql store() options.update, options.withUpdate, default insert
+  - bug fix: elasticsearch, mysql retrieve() retrieve all with undefined pattern
+  - refactor: adjoin transform set default lookup count: 1000
+  - refactor: reader/writer adjust logger.verbose _stats output
 - version 0.9.116
   - feature: implement text-junction and null-junction
   - refactor: use a Map for groupby data structure
