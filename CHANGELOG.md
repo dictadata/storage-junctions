@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.118
+  - bug fix: refactor options.max_read to options.count for compatibility with database readers
 - version 0.9.117
   - feature: elasticsearch, mysql store() options.update, options.withUpdate, default insert
   - bug fix: elasticsearch, mysql retrieve() retrieve all with undefined pattern
