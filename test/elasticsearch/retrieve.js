@@ -18,7 +18,7 @@ async function tests() {
     terminal: {
       output: "./test/_data/output/elasticsearch/retrieve_all.json"
     }
-  })) return 1;
+  }, 1)) return 1;
 
   logger.info("=== elasticsearch retrieve term");
   if (await retrieve({
