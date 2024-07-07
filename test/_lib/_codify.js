@@ -6,7 +6,7 @@
 const _pev = require('@dictadata/lib/test');
 const _auth = require('./_auth');
 const { Storage } = require('../../storage');
-const { logger } = require('@dictadata/lib');
+const { logger, objCopy } = require('@dictadata/lib');
 const { output } = require('@dictadata/lib/test');
 const stream = require('node:stream').promises;
 
@@ -39,7 +39,15 @@ module.exports = exports = async function (fiber, compareValues = 2) {
     logger.verbose(">>> build codify pipeline");
     let pipes = [];
 
-    let options = Object.assign({ max_read: 100 }, fiber.origin.options);
+    let options = objCopy({}, fiber.origin.options);
+    if (Object.hasOwn(options, 'pattern')) {
+      if (!Object.hasOwn(options.pattern, 'count'))
+        options.pattern.count = 100;
+    }
+    else {
+      if (!Object.hasOwn(options, 'count'))
+        options.count = 100;
+    }
 
     let reader = jo.createReader(options);
     reader.on('error', (error) => {

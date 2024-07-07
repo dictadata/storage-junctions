@@ -32,7 +32,7 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
 
     try {
       // open output stream
-      let pattern = this.options.pattern || {};
+      const pattern = this.options.pattern || this.options || {};
       let dsl = dslEncoder.searchQuery(pattern);
 
       let params = Object.assign({}, this.elasticQuery.elasticParams, this.scrollParams);
@@ -67,8 +67,8 @@ module.exports = exports = class ElasticsearchReader extends StorageReader {
       this.scrollParams.scroll_id = this.response._scroll_id;
       const hits = this.response.hits.hits;
 
-      this._stats.count += hits.length;
       for (const hit of hits) {
+        this._stats.count += 1;
         this.push(hit._source);
       }
 

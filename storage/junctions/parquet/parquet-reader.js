@@ -41,7 +41,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
       parser = this.parser = StreamArray.withParser();
 
     var statistics = this._stats;
-    var max = this.options.max_read || -1;
+    var count = this.options?.pattern?.count || this.options?.count || -1;
 
     // eslint-disable-next-line arrow-parens
     parser.on('data', (data) => {
@@ -54,7 +54,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
         if ((statistics.count + 1) % 10000 === 0)
           logger.verbose(statistics.count + " " + statistics.interval + "ms");
 
-        if (max > 0 && statistics.count > max) {
+        if (count > 0 && statistics.count > count) {
           reader.push(null);
           pipeline.destroy();
         }

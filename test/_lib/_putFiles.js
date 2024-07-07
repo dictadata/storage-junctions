@@ -9,7 +9,7 @@
 const _pev = require('@dictadata/lib/test');
 const _auth = require('./_auth');
 const { Storage } = require('../../storage');
-const { logger } = require('@dictadata/lib');
+const { logger, objCopy } = require('@dictadata/lib');
 const path = require('node:path');
 
 module.exports = exports = async function (tract) {
@@ -38,7 +38,7 @@ module.exports = exports = async function (tract) {
     for (let entry of list) {
       //logger.debug(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({
+      let options = objCopy({
         smt: tract.origin.smt,
         entry: entry
       },

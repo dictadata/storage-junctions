@@ -10,7 +10,7 @@
 const _pev = require('@dictadata/lib/test');
 const _auth = require('./_auth');
 const { Storage } = require('../../storage');
-const { logger } = require('@dictadata/lib');
+const { logger, objCopy } = require('@dictadata/lib');
 
 
 module.exports = exports = async function (tract) {
@@ -46,7 +46,7 @@ module.exports = exports = async function (tract) {
       logger.info(entry.name);
       logger.verbose(JSON.stringify(entry, null, 2));
 
-      let options = Object.assign({ smt: tract.terminal.smt, entry: entry }, tract.terminal.options);
+      let options = objCopy({ smt: tract.terminal.smt, entry: entry }, tract.terminal.options);
       let ok = await stfs.getFile(options);
       if (!ok) {
         logger.error("download failed: " + entry.href);

@@ -9,7 +9,7 @@
 const _pev = require('@dictadata/lib/test');
 const _auth = require('./_auth');
 const { Storage } = require('../../storage');
-const { logger } = require('@dictadata/lib');
+const { logger, objCopy } = require('@dictadata/lib');
 const { compare } = require('@dictadata/lib/test');
 const fs = require('node:fs');
 const stream = require('node:stream').promises;
@@ -62,8 +62,8 @@ module.exports = exports = async function (tract, compareValues = 2) {
       logger.verbose(">>> codify pipeline");
       let pipes = [];
 
-      let options = Object.assign({
-        max_read: origin.options?.max_read || 100,
+      let options = objCopy({
+        count: origin.options?.count || 100,
         pattern: origin.pattern || {}
       });
 

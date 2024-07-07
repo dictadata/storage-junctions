@@ -19,7 +19,7 @@ module.exports = exports = class CSVReader extends StorageReader {
    * @param {boolean}  options.header input includes a header row, default false
    * @param {string[]} options.headers values to use for headers instead of engram field names, default undefined
    * @param {string}   options.separator field separator value, default ','
-   * @param {number}   options.max_read maximum number of rows to read, default all
+   * @param {number}   options.count maximum number of rows to read, default all
    * @param {string}   options.fileEncoding  default "utf8"
    */
   constructor(junction, options) {
@@ -36,7 +36,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     var encoder = this.junction.createEncoder(options);
 
     var stats = this._stats;
-    var max = this.options.max_read || -1;
+    var count = this.options?.pattern?.count || this.options?.count || -1;
 
     if (!options.header && !options.keys && !options.headers)
       options.headers = this.engram.names;
@@ -72,7 +72,7 @@ module.exports = exports = class CSVReader extends StorageReader {
           logger.verbose(stats.count + " " + stats.interval + "ms");
         }
 
-        if (max > 0 && stats.count > max) {
+        if (count > 0 && stats.count > count) {
           reader.push(null);
           csvchain.destroy();
         }

@@ -67,7 +67,7 @@ class ShapefileJunction extends StorageJunction {
    *  Get the encoding for the storage junction.
    */
   async getEngram() {
-    logger.debug("ShapefileJunction getEncoding");
+    logger.debug("ShapefileJunction getEngram");
     if (!this.capabilities.encoding)
       throw new StorageError(405);
 
@@ -75,7 +75,7 @@ class ShapefileJunction extends StorageJunction {
       if (!this.engram.isDefined) {
         // read file to infer data types
         // default to 100 constructs unless overridden in options
-        let options = Object.assign({ max_read: 100 }, this.options);
+        let options = Object.assign({ count: 100 }, this.options);
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {

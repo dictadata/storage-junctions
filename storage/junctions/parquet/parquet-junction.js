@@ -52,7 +52,7 @@ class ParquetJunction extends StorageJunction {
    *  Get the encoding for the storage junction.
    */
   async getEngram() {
-    logger.debug("ParquetJunction getEncoding");
+    logger.debug("ParquetJunction getEngram");
     if (!this.capabilities.encoding)
       throw new StorageError(405);
 
@@ -60,7 +60,7 @@ class ParquetJunction extends StorageJunction {
       if (!this.engram.isDefined) {
         // read file to infer data types
         // default to 1000 constructs unless overridden in options
-        let options = Object.assign({ max_read: 100 }, this.options);
+        let options = Object.assign({ count: 100 }, this.options);
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {

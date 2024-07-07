@@ -20,7 +20,7 @@ module.exports = exports = class JSONReader extends StorageReader {
    * @param {boolean}  options.header input includes a header row, default false
    * @param {string[]} options.headers values to use for field names, default undefined
    * @param {string}   options.pick property name to pick from source object(s)
-   * @param {number}   options.max_read maximum number of rows to read, default all
+   * @param {number}   options.count maximum number of rows to read, default all
    * @param {string}   options.fileEncoding  default "utf8"
    */
   constructor(storageJunction, options) {
@@ -51,8 +51,8 @@ module.exports = exports = class JSONReader extends StorageReader {
     // create variables that will be in the scope of data handler callbacks
     var reader = this;
     //var encoding = this.engram;
-    var stats = this._stats;
-    var max = this.options.max_read || -1;
+    var _stats = this._stats;
+    var count = this.options.pattern?.count || this.options.count || -1;
     var header = this.options.header;
     var headers = this.options.headers || (Array.isArray(this.options.header) ? this.options.header : null);
 
@@ -69,10 +69,10 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
 
-        if ((stats.count + 1) % 10000 === 0)
-          logger.verbose(stats.count + " " + stats.interval + "ms");
+        if ((_stats.count + 1) % 10000 === 0)
+          logger.verbose(_stats.count + " " + _stats.interval + "ms");
 
-        if (max > 0 && stats.count > max) {
+        if (count > 0 && _stats.count > count) {
           reader.push(null);
           pipeline.destroy();
         }

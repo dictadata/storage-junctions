@@ -127,7 +127,7 @@ module.exports = exports = class StorageEncoder {
     if (!this.options?.pattern || typeOf(construct) !== "object")
       return construct;
 
-    let pattern = this.options.pattern || {};
+    const pattern = this.options.pattern || this.options || {};
     let newConstruct = {};
 
     // pattern.fields
@@ -159,7 +159,7 @@ module.exports = exports = class StorageEncoder {
     if (!this.options?.pattern || typeOf(construct) !== "object")
       return construct;
 
-    const pattern = this.options.pattern || {};
+    const pattern = this.options.pattern || this.options || {};
 
     // do some match filterin'
     let matched = true;

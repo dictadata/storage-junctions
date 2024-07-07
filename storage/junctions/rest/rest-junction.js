@@ -51,7 +51,7 @@ class RESTJunction extends StorageJunction {
    *  Possibly make a call to the source to acquire the encoding definitions.
    */
   async getEngram() {
-    logger.debug("RESTJunction getEncoding");
+    logger.debug("RESTJunction getEngram");
     if (!this.capabilities.encoding)
       throw new StorageError(405);
 
@@ -59,7 +59,7 @@ class RESTJunction extends StorageJunction {
       if (!this.engram.isDefined) {
         // read the stream to infer data types
         // default to 1000 constructs unless overridden in options
-        let options = Object.assign({ max_read: 100 }, this.options);
+        let options = Object.assign({ count: 100 }, this.options);
 
         let reader = this.createReader(options);
         reader.on('error', (error) => {

@@ -58,7 +58,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
 
       var reader = this;
       var statistics = this._stats;
-      var max = this.options.max_read || -1;
+      var count = this.options?.pattern?.count || this.options?.count || -1;
       this.started = true;
 
       // create the parser
@@ -103,7 +103,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
           if ((statistics.count + 1) % 100000 === 0)
             logger.verbose(statistics.count + " " + statistics.interval + "ms");
 
-          if (max > 0 && statistics.count > max) {
+          if (count > 0 && statistics.count > count) {
             reader.push(null);
             reader.destroy();
             parser.close();
