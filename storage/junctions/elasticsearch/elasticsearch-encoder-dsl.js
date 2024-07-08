@@ -101,9 +101,11 @@ function match(dsl, pattern) {
   }
 
   dsl.query[ "bool" ] = {
-    filter: []
+    filter: [],
+    must_not: []
   };
   let filter = dsl.query.bool.filter;
+  let must_not = dsl.query.bool.must_not;
 
   for (const [ fldname, value ] of entries) {
     if (typeOf(value) === 'object') {
@@ -169,21 +171,30 @@ function match(dsl, pattern) {
         let q = {};
         let exp = value;
 
-        if ('eq' in exp || 'neq' in exp) {
-          q[ "term" ] = {};
-          if ('eq' in exp) q.term[ fldname ] = exp.eq;
-          if ('neq' in exp) q.term[ fldname ] = exp.neq;
+        if ('eq' in exp || 'in' in exp) {
+          q.term = {};
+          q.term[ fldname ] = exp.eq || exp.in;
           filter.push(q);
+        }
+        else if ('neq' in exp) {
+          q.term = {};
+          q.term[ fldname ] = exp.neq;
+          must_not.push(q);
+        }
+        else if ('exists' in exp) {
+          q.exists = { field: fldname };
+          if (exp.exists)
+            filter.push(q);
+          else
+            must_not.push(q);
         }
         else {
           q[ "range" ] = {};
-
           let rf = q.range[ fldname ] = {};
           if ('gt' in exp) rf[ "gt" ] = exp.gt;
           if ('gte' in exp) rf[ "gte" ] = exp.gte;
           if ('lt' in exp) rf[ "lt" ] = exp.lt;
           if ('lte' in exp) rf[ "lte" ] = exp.lte;
-
           if (Object.keys(rf).length > 0)
             filter.push(q);
         }
