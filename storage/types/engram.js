@@ -244,6 +244,7 @@ module.exports = exports = class Engram extends Object {
       // generate uid from !keys or =primary keys
       // in the form "!dot.fieldname+'literal'+..."
       let uid = '';
+      let found = false; // found at least one value
       for (let kname of this.keys) {
         if (kname && kname[ 0 ] === "'") {
           // strip quotes
@@ -256,12 +257,14 @@ module.exports = exports = class Engram extends Object {
           else
             value = dot.get(kname, construct);
 
-          if (value !== undefined)
+          if (value !== undefined) {
+            found = true;
             uid += value;
+          }
         }
       }
 
-      return uid ? uid : null;
+      return found ? uid : null;
     }
     //return null;
   }
