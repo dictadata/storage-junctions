@@ -33,7 +33,10 @@ async function test(schema, encoding) {
     logger.info("=== dull (truncate) " + schema);
     if (await dull({
       origin: {
-        smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*"
+        smt: "mysql|host=dev.dictadata.net;database=storage_node|" + schema + "|*",
+        pattern: {
+          match: "*"
+        }
       }
     })) return 1;
   }

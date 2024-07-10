@@ -18,9 +18,11 @@
 
 ### store(construct)
 
-### recall(key)
+### recall(pattern)
 
 ### retrieve(pattern)
+
+## dull(pattern)
 
 ### createReader(options)
 

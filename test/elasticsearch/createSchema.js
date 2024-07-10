@@ -30,7 +30,10 @@ async function test(schema, encoding) {
     logger.info("=== dull (truncate) " + schema);
     if (await dull({
       origin: {
-        smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*"
+        smt: "elasticsearch|http://dev.dictadata.net:9200|" + schema + "|*",
+        pattern: {
+          match: "*"
+        }
       }
     })) return 1;
   }
