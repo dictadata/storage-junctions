@@ -97,7 +97,7 @@ class ElasticsearchJunction extends StorageJunction {
    * @param {*} options list options
    */
   async list(options) {
-    logger.debug('ElasticJunction list');
+    logger.debug('ElasticsearchJunction list');
 
     try {
       options = Object.assign({}, this.options, options);
@@ -135,7 +135,7 @@ class ElasticsearchJunction extends StorageJunction {
    *
    */
   async getEngram() {
-    logger.debug("ElasticJunction getEngram");
+    logger.debug("ElasticsearchJunction getEngram");
 
     try {
       // get encoding from elasticsearch
@@ -159,7 +159,7 @@ class ElasticsearchJunction extends StorageJunction {
    * @param {*} encoding
    */
   async createSchema(options = {}) {
-    logger.debug("ElasticJunction createSchema");
+    logger.debug("ElasticsearchJunction createSchema");
 
     // try to create new index
     try {
@@ -203,7 +203,7 @@ class ElasticsearchJunction extends StorageJunction {
    *
    */
   async dullSchema(options) {
-    logger.debug("ElasticJunction dullSchema");
+    logger.debug("ElasticsearchJunction dullSchema");
 
     try {
       options = Object.assign({}, this.options, options);
@@ -228,7 +228,7 @@ class ElasticsearchJunction extends StorageJunction {
    * @param {*} pattern optional
    */
   async store(construct, pattern) {
-    logger.debug("ElasticJunction store");
+    logger.debug("ElasticsearchJunction store");
     //logger.debug(JSON.stringify(construct));
 
     try {
@@ -281,7 +281,7 @@ class ElasticsearchJunction extends StorageJunction {
    * @param {*} key optional
    */
   async recall(pattern) {
-    logger.debug("ElasticJunction recall");
+    logger.debug("ElasticsearchJunction recall");
     const match = pattern?.match || pattern || {};
 
     try {
@@ -330,7 +330,7 @@ class ElasticsearchJunction extends StorageJunction {
    * @param {*} pattern can contain match, fields, order, etc. for forming a query
    */
   async retrieve(pattern) {
-    logger.debug("ElasticJunction retrieve");
+    logger.debug("ElasticsearchJunction retrieve");
 
     try {
       if (!this.engram.isDefined)
@@ -373,7 +373,7 @@ class ElasticsearchJunction extends StorageJunction {
    *
    */
   async dull(pattern) {
-    logger.debug("ElasticJunction dull");
+    logger.debug("ElasticsearchJunction dull");
 
     try {
       if (!this.engram.isDefined)
@@ -384,7 +384,12 @@ class ElasticsearchJunction extends StorageJunction {
 
       let key = this.isKeyStore ? (match.key) || this.engram.get_uid(match) : null;
 
-      if (key) {
+      if (match === "*") {
+        // delete all docs
+        response = await this.elasticQuery.truncate();
+        logger.debug(response);
+      }
+      else if (key) {
         // delete by _id
         response = await this.elasticQuery.delete(key);
       }
@@ -392,11 +397,6 @@ class ElasticsearchJunction extends StorageJunction {
         // delete by query
         let dsl = dslEncoder.matchQuery(this.engram.keys, pattern);
         response = await this.elasticQuery.deleteByQuery(dsl);
-        logger.debug(response);
-      }
-      else {
-        // delete all docs
-        response = await this.elasticQuery.truncate();
         logger.debug(response);
       }
 

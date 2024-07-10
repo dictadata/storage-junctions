@@ -382,20 +382,18 @@ class MySQLJunction extends StorageJunction {
       if (!this.engram.isDefined)
         await this.getEngram();
 
-      let results = null;
-      if (this.engram.keyof === 'primary') {
-        // delete construct by ID
-        let sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
-        logger.verbose(sql);
-        results = await this.pool.query(sql);
-      }
-      else {
+      let sql = "";
+      if (pattern.match === "*") {
         // delete all constructs in the .schema
-        let sql = "TRUNCATE " + this.smt.schema + ";";
-        logger.verbose(sql);
-        results = await this.pool.query(sql);
+        sql = "TRUNCATE " + this.smt.schema + ";";
       }
+      else if (this.engram.keyof === 'primary') {
+        // delete construct by ID
+        sql = "DELETE FROM " + this.smt.schema + sqlEncoder.sqlWhereByKey(this.engram, pattern);
+      }
+      logger.verbose(sql);
 
+      let results = await this.pool.query(sql);
       return new StorageResults("message", null, { deleted: results.affectedRows });
     }
     catch (err) {
