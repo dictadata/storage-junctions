@@ -33,7 +33,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       let text = await readFile(this.options.template);
       this.template = JSON.parse(text);
       replace(this.template, this.options.params);
-      this.storeTo = dot.get(this.options.storeTo, this.template);
+      this.storeTo = dot.get(this.template, this.options.storeTo);
 
       callback();
     }

@@ -115,19 +115,19 @@ module.exports = exports = class MutateTransform extends Transform {
     // default
     if (this.options.default)
       for (let [ name, value ] of Object.entries(this.options.default)) {
-        dot.set(name, newConstruct, evaluate(value, construct));
+        dot.set(newConstruct, name, evaluate(value, construct));
       }
 
     // select
     if (this.options.select) {
       for (let name of this.options.select)
         if (Object.hasOwn(construct, name))
-          dot.set(name, newConstruct, dot.get(name, construct));
+          dot.set(newConstruct, name, dot.get(construct, name));
     }
     // map
     else if (this.options.map) {
       for (let [ name, value ] of Object.entries(this.options.map)) {
-        dot.set(name, newConstruct, evaluate(value, construct));
+        dot.set(newConstruct, name, evaluate(value, construct));
       }
     }
     else {
@@ -146,21 +146,21 @@ module.exports = exports = class MutateTransform extends Transform {
           for (let item of items)
             arr.push(evaluate(item, construct))
         }
-        dot.set(name, newConstruct, arr);
+        dot.set(newConstruct, name, arr);
       }
     }
 
     // func, assign values with function
     if (this.options.func) {
       for (let name of Object.keys(this.options.func)) {
-        dot.set(name, newConstruct, this.mutations[ name ](construct, newConstruct));
+        dot.set(newConstruct, name, this.mutations[ name ](construct, newConstruct));
       }
     }
 
     // assign, override values or inject fields
     if (this.options.assign) {
       for (let [ name, value ] of Object.entries(this.options.assign)) {
-        dot.set(name, newConstruct, evaluate(value, newConstruct));
+        dot.set(newConstruct, name, evaluate(value, newConstruct));
       }
     }
 

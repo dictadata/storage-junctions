@@ -109,7 +109,7 @@ module.exports = exports = class AdjoinTransform extends Transform {
     try {
       let expression = Object.assign({}, this.options.lookup);
       for (let [ name, criteria ] of Object.entries(expression)) {
-        dot.set(name, expression, evaluate(criteria, construct));
+        dot.set(expression, name, evaluate(criteria, construct));
       }
 
       // lookup values in lookup table

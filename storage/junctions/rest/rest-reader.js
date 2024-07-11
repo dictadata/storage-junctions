@@ -4,9 +4,9 @@
 "use strict";
 
 const { StorageReader } = require('../storage-junction');
+const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 const { httpRequest, replace } = require('@dictadata/lib');
-const { StorageError } = require('../../types');
 
 module.exports = exports = class RESTReader extends StorageReader {
 

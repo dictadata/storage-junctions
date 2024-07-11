@@ -110,7 +110,7 @@ var elasticType = exports.elasticType = function (field) {
 };
 
 /**
- * convert a elastic mappings.properties definition to a storage field definition
+ * convert a elastic mappings properties definition to a storage field definition
  */
 var storageField = exports.storageField = function (name, property) {
 
@@ -134,13 +134,13 @@ var storageField = exports.storageField = function (name, property) {
 /**
  *
  */
-exports.mappingsToFields = function mappingsToFields(mappings) {
-  logger.debug('mappingsToFields');
+exports.propertiesToFields = function propertiesToFields(properties) {
+  logger.debug('propertiesToFields');
 
   let fields = [];
 
   // map mappings properties to encoding fields
-  for (let [ name, property ] of Object.entries(mappings.properties)) {
+  for (let [ name, property ] of Object.entries(properties)) {
     if (excludeProperties.includes(name))
       continue;
 
@@ -160,7 +160,7 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
         fields.push({
           "name": name,
           "type": "map",
-          "fields": mappingsToFields(property)
+          "fields": propertiesToFields(property.properties)
         });
       }
     }
@@ -177,46 +177,43 @@ exports.mappingsToFields = function mappingsToFields(mappings) {
  *
  * @param {*} encoding
  */
-exports.fieldsToMappings = function fieldsToMappings(fields) {
-  logger.debug('fieldsToMappings');
+exports.fieldsToProperties = function fieldsToProperties(fields) {
+  logger.debug('fieldsToProperties');
 
   if (typeOf(fields) === "object") {
     fields = Engram._convert(fields);
   }
 
-  let mappings = {
-    properties: {}
-  };
+  let properties = {};
 
-  // map encoding to mappings
-  logger.debug("translate encoding");
+  // map encoding to properties
+
   for (let field of fields) {
     let ftype = field.type;
 
-    if (ftype === "map") {
+    if (field._elasticsearch) {
+      properties[ field.name ] = field._elasticsearch;
+    }
+    else if (ftype === "map") {
       if (!field.fields)
         throw new StorageError(400, "invalid map, fields not defined");
-      mappings.properties[ field.name ] = fieldsToMappings(field.fields);
+      properties[ field.name ] = { properties: fieldsToProperties(field.fields) };
     }
     else if (ftype === "list") {
       if (!field._list)
         throw new StorageError(400, "invalid list, _list not defined");
       // elasticsearch/lucene supports arrays for all basic types
-      let mapping = fieldsToMappings([ field._list ]);
-      mappings.properties[ field.name ] = mapping.properties._list;
+      let properties = fieldsToProperties([ field._list ]);
+      properties[ field.name ] = { properties: properties._list };
     }
     else if (ftype !== "unknown") {
-      mappings.properties[ field.name ] = { "type": elasticType(field) };
+      properties[ field.name ] = { "type": elasticType(field) };
 
       if (field.hasDefault && field.type !== 'text') {
-        mappings.properties[ field.name ].null_value = field.default;
-      }
-
-      if (field._elasticsearch) {
-        Object.assign(mappings.properties[ field.name ], field._elasticsearch);
+        properties[ field.name ].null_value = field.default;
       }
     }
   }
 
-  return mappings;
+  return properties;
 };

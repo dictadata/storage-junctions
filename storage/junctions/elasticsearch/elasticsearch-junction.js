@@ -7,7 +7,7 @@ const StorageJunction = require('../storage-junction');
 const ElasticsearchReader = require('./elasticsearch-reader');
 const ElasticsearchWriter = require('./elasticsearch-writer');
 const { StorageResults, StorageError } = require('../../types');
-const { logger } = require('@dictadata/lib');
+const { logger, objCopy } = require('@dictadata/lib');
 
 const encoder = require('./elasticsearch-encoder');
 const dslEncoder = require('./elasticsearch-encoder-dsl');
@@ -100,7 +100,7 @@ class ElasticsearchJunction extends StorageJunction {
     logger.debug('ElasticsearchJunction list');
 
     try {
-      options = Object.assign({}, this.options, options);
+      options = objCopy({}, this.options, options);
       let schema = options?.schema ||  this.smt.schema;
       let list = [];
 
@@ -141,7 +141,7 @@ class ElasticsearchJunction extends StorageJunction {
       // get encoding from elasticsearch
       let mappings = await this.elasticQuery.getMapping();
       // convert to encoding fields
-      this.engram.encoding = this.encoder.mappingsToFields(mappings);
+      this.engram.encoding = this.encoder.propertiesToFields(mappings?.properties);
 
       return new StorageResults("engram", null, this.engram.encoding);
     }
@@ -173,22 +173,22 @@ class ElasticsearchJunction extends StorageJunction {
 
       // load the default config containing index settings
       let defaultMappings = JSON.parse(await readFile(path.join(__dirname, "default_mappings.json")));
-      let indexConfig = Object.assign({}, defaultMappings);
+      let indexConfig = objCopy({}, defaultMappings);
       // overwrite with any options properties
-      Object.assign(indexConfig, this.options.indexConfig);
+      objCopy(indexConfig.settings, this.options.indexSettings);
 
       // convert encoding fields to elasticsearch mapping properties
-      let mappings = this.encoder.fieldsToMappings(encoding.fields);
+      let properties = this.encoder.fieldsToProperties(encoding.fields);
 
-      // merge the mappings into the config
-      Object.assign(indexConfig.mappings, mappings);
+      // set the mappings.settings into the config
+      objCopy(indexConfig.mappings.properties, properties);
 
       let response = await this.elasticQuery.createIndex(indexConfig);
 
       // if successful update encoding
       this.engram.encoding = encoding;
 
-      return new StorageResults(0);
+      return new StorageResults(response.acknowledged ? 0 : 500);
     }
     catch (err) {
       if (err.statusCode === 400 && err.message === "resource_already_exists_exception")
@@ -206,7 +206,7 @@ class ElasticsearchJunction extends StorageJunction {
     logger.debug("ElasticsearchJunction dullSchema");
 
     try {
-      options = Object.assign({}, this.options, options);
+      options = objCopy({}, this.options, options);
       let schema = options?.schema ||  this.smt.schema;
 
       let response = await this.elasticQuery.deleteIndex(schema);
@@ -249,7 +249,7 @@ class ElasticsearchJunction extends StorageJunction {
             orig = results.data;
         }
         if (orig)
-          construct = Object.assign(orig, construct);
+          construct = objCopy(orig, construct);
       }
 
       let data = dslEncoder.encodeValues(this.engram, construct);

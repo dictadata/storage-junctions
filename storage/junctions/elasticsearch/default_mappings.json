@@ -21,17 +21,6 @@
         }
       }
     ],
-    "properties": {
-      "@timestamp": {
-        "type": "date"
-      },
-      "tags": {
-        "type": "keyword",
-        "ignore_above": 1024
-      },
-      "_meta": {
-        "properties": {}
-      }
-    }
+    "properties": {}
   }
 }
