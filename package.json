@@ -1,6 +1,6 @@
 {
   "name": "@dictadata/storage-junctions",
-  "version": "0.9.118",
+  "version": "0.9.119",
   "description": "Node.js library for normalized data storage access and streaming transfers.",
   "author": "Drew O. Letcher",
   "license": "MIT",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "colors": "^1.4.0",
-    "eslint": "^9.4.0"
+    "eslint": "^9.7.0"
   },
   "dependencies": {
     "@dictadata/lib": "github:dictadata/lib#semver:1.0",
@@ -61,7 +61,7 @@
     "stream-chain": "^2.2.4",
     "stream-csv-as-json": "^1.0.5",
     "stream-json": "^1.8.0",
-    "winston": "^3.13.0",
+    "winston": "^3.13.1",
     "winston-daily-rotate-file": "^5.0.0"
   }
 }

@@ -1,5 +1,10 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.119
+  - feature: ElasticsearchJunction implement neq, in, exists pattern operators
+  - refactor: junction.dull match: "*" to truncate source
+  - bug fix: Engram get_uid() return null when no fields found and key contains literals
+  - updated: @dictadata/lib dot, evaluate, match
 - version 0.9.118
   - bug fix: refactor options.max_read to options.count for compatibility with database readers
 - version 0.9.117
