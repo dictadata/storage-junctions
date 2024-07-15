@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.120
+  - refactor: Storage, activateFilesystem, activateTransform (breaking change)
 - version 0.9.119
   - feature: ElasticsearchJunction implement neq, in, exists pattern operators
   - refactor: junction.dull match: "*" to truncate source
