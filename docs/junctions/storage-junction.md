@@ -27,7 +27,3 @@
 ### createReader(options)
 
 ### createWriter(options)
-
-### createTransform(name, options)
-
-### getFileSystem()
