@@ -1,5 +1,6 @@
 "use strict";
 
+const Storage = require('../../storage');
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -34,7 +35,7 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
 
     try {
       // open output stream
-      let stfs = await this.junction.getFileSystem();
+      let stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
       this.ws = await stfs.createWriteStream(this.options);
       this.ws.on('error',
         (err) => {
@@ -144,6 +145,9 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
         if (this.ws.fs_ws_promise)
           await this.ws.fs_ws_promise;
       }
+
+      if (this.stfs)
+        this.stfs.relax();
 
       callback();
     }

@@ -33,7 +33,7 @@ module.exports = exports = async function (tract) {
     junction = await Storage.activate(tract.terminal.smt, tract.terminal.options);
 
     logger.info(">>> upload files");
-    let stfs = await junction.getFileSystem();
+    let stfs = await Storage.activateFileSystem(junction.smt, junction.options);
 
     for (let entry of list) {
       //logger.debug(JSON.stringify(entry, null, 2));
@@ -51,6 +51,8 @@ module.exports = exports = async function (tract) {
         break;
       }
     }
+
+    stfs.relax();
   }
   catch (err) {
     logger.error('!!! request failed: ' + err.status + " " + err.message);

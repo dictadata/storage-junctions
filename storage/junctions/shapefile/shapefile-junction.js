@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const Storage = require('../../storage');
 const StorageJunction = require('../storage-junction');
 const { StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -49,8 +50,9 @@ class ShapefileJunction extends StorageJunction {
 
     if (this.smt.locus.startsWith("zip:") && this.smt.schema === "$1") {
       // find first .shp file in .zip file
-      let stfs = await this.getFileSystem();
+      let stfs = await Storage.activateFileSystem(this.smt, this.options);
       let list = await stfs.list({ schema: "*.shp", recursive: true });
+
       if (list.data[ "0" ]) {
         let entry = list.data[ "0" ];
         this.smt.schema = this.engram.name = entry.name.substring(0, entry.name.length - 4);
@@ -60,6 +62,8 @@ class ShapefileJunction extends StorageJunction {
           stfs.prefix += entry.rpath.substring(0, pl);
         //this.smt.locus += "/" + stfs.prefix;
       }
+
+      stfs.relax();
     }
   }
 
@@ -82,7 +86,7 @@ class ShapefileJunction extends StorageJunction {
           logger.warn("shapefile codify reader: " + error.message);
         });
 
-        let codify = await this.createTransform("codify", options);
+        let codify = await Storage.activateTransform("codify", options);
         await pipeline(reader, codify);
 
         let encoding = codify.encoding;

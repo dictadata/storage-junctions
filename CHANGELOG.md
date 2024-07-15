@@ -167,7 +167,7 @@
   - feature: URL template string style replacement for RestJunction, ConjoinTransform
   - refactor: StorageEncoder base class for filesystem based streams for cast, filter, select functions
   - refactor: use StorageEncoder for CsvReader, JsonReader
-  - refactor: make junction.createTransform() an async function
+  - refactor: make Storage.activateTransform() an async function
   - bug fix: CsvReader and JsonReader stream issues
   - bug fix: ConjoinTransform bug fix in pattern match
   - bug fix: issue with httpRequest querystring params

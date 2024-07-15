@@ -1,5 +1,6 @@
 "use strict";
 
+const Storage = require('../../storage');
 const { logger } = require('@dictadata/lib');
 const { dot, replace } = require('@dictadata/lib');
 const { StorageWriter } = require('../storage-junction');
@@ -105,7 +106,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
     let stfs;
     try {
       // open file stream
-      stfs = await this.junction.getFileSystem();
+      stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
       let ws = await stfs.createWriteStream(this.options);
 
       ws.on('error', (err) => {

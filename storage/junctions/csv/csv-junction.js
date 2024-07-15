@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const Storage = require('../../storage');
 const StorageJunction = require('../storage-junction');
 const { StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -68,7 +69,7 @@ class CSVJunction extends StorageJunction {
           logger.warn(`csv getEngram reader: ${error.message}`);
         });
 
-        let codify = await this.createTransform("codify", options);
+        let codify = await Storage.activateTransform("codify", options);
         await pipeline(reader, codify);
 
         let encoding = codify.encoding;

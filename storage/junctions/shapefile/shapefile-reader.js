@@ -1,5 +1,6 @@
 "use strict";
 
+const Storage = require('../../storage');
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -29,7 +30,7 @@ module.exports = exports = class ShapefileReader extends StorageReader {
     try {
       // start the reader
       logger.debug('ShapefileReader start');
-      this.stfs = await this.junction.getFileSystem();
+      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
 
       if (! await this.stfs.exists({ schema: this.schemafile + '.shp' }))
         throw new StorageError(404);
@@ -77,6 +78,7 @@ module.exports = exports = class ShapefileReader extends StorageReader {
         if (record.done) {
           this.done = true;
           this.push(null);
+          this.stfs.relax();
         }
       }
     }

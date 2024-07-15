@@ -1,5 +1,6 @@
 "use strict";
 
+const Storage = require('../../storage');
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -75,6 +76,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         if (count > 0 && stats.count > count) {
           reader.push(null);
           csvchain.destroy();
+          reader.stfs.relax();
         }
         else if (construct) {
           reader._stats.count += 1;
@@ -86,6 +88,7 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     csvchain.on('end', () => {
       reader.push(null);
+      reader.stfs.relax();
     });
 
     csvchain.on('error', function (err) {
@@ -104,7 +107,7 @@ module.exports = exports = class CSVReader extends StorageReader {
       // start the reader
       let rs;
       try {
-        this.stfs = await this.junction.getFileSystem();
+        this.stfs = await Storage.activateFileSystem(this.junction.smt, this.options);
         rs = await this.stfs.createReadStream(this.options);
         rs.setEncoding(this.options.fileEncoding || "utf8");
         rs.on('error',

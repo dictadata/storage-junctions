@@ -50,7 +50,7 @@ module.exports = exports = async function (tract) {
 
     logger.info(">>> create transforms");
     for (let transform of origin_transforms)
-      transforms.push(await jo.createTransform(transform.transform, transform));
+      transforms.push(await Storage.activateTransform(transform.transform, transform));
 
     if (!Array.isArray(tract.terminals))
       throw new StorageError("tract.terminal not an Array");

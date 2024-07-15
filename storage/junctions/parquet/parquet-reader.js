@@ -6,6 +6,7 @@
  */
 "use strict";
 
+const Storage = require('../../storage');
 const { StorageReader } = require('../storage-junction');
 const { logger } = require('@dictadata/lib');
 
@@ -101,7 +102,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
     if (!this.started) {
       // start the reader
       try {
-        let stfs = await this.junction.getFileSystem();
+        let stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
         var rs = await stfs.createReadStream(this.options);
         rs.setEncoding(this.options.fileEncoding || "utf8");
         rs.on('error',

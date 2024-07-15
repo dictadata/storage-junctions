@@ -1,5 +1,6 @@
 "use strict";
 
+const Storage = require('../../storage');
 const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -58,7 +59,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
 
       // check if file is open
       if (this.ws === null) {
-        let stfs = await this.junction.getFileSystem();
+        let stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
         this.ws = await stfs.createWriteStream(this.options);
         this.ws.on('error',
           (err) => {

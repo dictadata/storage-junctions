@@ -6,6 +6,7 @@
  */
 "use strict";
 
+const Storage = require('../../storage');
 const { StorageReader } = require('../storage-junction');
 const { logger } = require('@dictadata/lib');
 
@@ -40,8 +41,8 @@ module.exports = exports = class LineReaderReader extends StorageReader {
       let encoder = this.junction.createEncoder(this.options);
 
       // open the input stream
-      let stfs = await this.junction.getFileSystem();
-      var rs = await stfs.createReadStream(this.options);
+      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
+      var rs = await this.stfs.createReadStream(this.options);
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on('close', () => {
         logger.debug("linereader reader close")
@@ -107,6 +108,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
             reader.push(null);
             reader.destroy();
             parser.close();
+            reader.stfs.relax();
           }
           else {
             reader._stats.count += 1;
@@ -120,6 +122,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
 
       parser.on('close', () => {
         reader.push(null);
+        reader.stfs.relax();
         let stats = reader._stats;
         logger.verbose(stats.count + " in " + stats.elapsed / 1000 + "s, " + Math.round(stats.count / (stats.elapsed / 1000)) + "/sec");
       });

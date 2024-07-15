@@ -56,10 +56,10 @@ module.exports = exports = async function (fiber, compareValues = 2) {
     pipes.push(reader);
 
     for (let transform of fiber.transforms)
-      pipes.push(await jo.createTransform(transform.transform, transform));
+      pipes.push(await Storage.activateTransform(transform.transform, transform));
 
     // if fiber.encoding is specified use it as a seed encoding
-    let codify = await jo.createTransform("codify", fiber);
+    let codify = await Storage.activateTransform("codify", fiber);
     pipes.push(codify);
 
     // run the pipeline and get the resulting encoding

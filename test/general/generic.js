@@ -22,11 +22,12 @@ async function test_1() {
     });
 
     logger.info(">>> create filesystem");
-    var stfs = await junction.getFileSystem();
+    var stfs = await Storage.activateFileSystem(junction.smt, junction.options);
 
     logger.info(">>> relax junction");
     if (junction) await junction.relax();
 
+    stfs.relax();
   }
   catch (err) {
     logger.error(err.message);

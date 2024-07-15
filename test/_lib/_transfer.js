@@ -79,10 +79,10 @@ module.exports = exports = async function (tract, compareValues = 2) {
           let filename = transform.options.encoding;
           transform.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
         }
-        pipes.push(await jo.createTransform(transform.transform, transform));
+        pipes.push(await Storage.activateTransform(transform.transform, transform));
       }
 
-      let codify = await jo.createTransform("codify", terminal.options);
+      let codify = await Storage.activateTransform("codify", terminal.options);
       pipes.push(codify);
 
       await stream.pipeline(pipes);
@@ -125,7 +125,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
         let filename = transform.options.encoding;
         transform.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
       }
-      pipes.push(await jo.createTransform(transform.transform, transform));
+      pipes.push(await Storage.activateTransform(transform.transform, transform));
     }
 
     // writer

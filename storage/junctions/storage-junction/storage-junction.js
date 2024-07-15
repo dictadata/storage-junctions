@@ -1,6 +1,6 @@
 "use strict";
 
-const { FileSystems, Transforms } = require('../../storage');
+const Storage = require('../../storage');
 const { Engram, StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 
@@ -67,10 +67,6 @@ module.exports = exports = class StorageJunction {
   async relax() {
     // release an resources
     this.isActive = false;
-
-    if (this._fileSystem)
-      await FileSystems.relax(this._fileSystem);
-    this._fileSystem = null;
   }
 
   ////////// Encoding //////////
@@ -113,10 +109,14 @@ module.exports = exports = class StorageJunction {
       throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
-    let stfs = await this.getFileSystem();
-    let results = await stfs.list(options);
-
-    return results;
+    if (this.capabilities?.filesystem) {
+      let stfs = await Storage.activateFileSystem(this.smt, options);
+      let results = await stfs.list(options);
+      stfs.relax();
+      return results;
+    }
+    else
+      throw new StorageError(405);
   }
 
   /**
@@ -157,10 +157,14 @@ module.exports = exports = class StorageJunction {
       throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
-    let stfs = await this.getFileSystem();
-    let results = await stfs.dull(options);
-
-    return results;
+    if (junction.capabilities.filesystem) {
+      let stfs = await Storage.activateFileSystem(this.smt, options);
+      let results = await stfs.dull(options);
+      stfs.relax();
+      return results;
+    }
+    else
+      throw new StorageError(405);
   }
 
   /////////// storing & accessing //////////
@@ -254,36 +258,6 @@ module.exports = exports = class StorageJunction {
   createEncoder(options) {
     let opts = Object.assign({}, this.options, options);
     return new this._encoderClass(this, opts);
-  }
-
-  ///////// transforms //////////
-
-  // should not need to be overriden, generic transform of JSON objects
-  async createTransform(tfType, options) {
-    let opts = Object.assign({}, this.options, options);
-    // let transform_options = options.transform || options.transforms || options || {};
-    let transform = await Transforms.activate(tfType, opts);
-    return transform;
-  }
-
-  ////////// file storage systems //////////
-
-  /**
-   * Uses the prefix of smt.locus to determine the filesystem type.
-   *
-   * file: or (none) local filesystem
-   * fs: local filesystem
-   * ftp: ftp path, options.ftp contains login information
-   * http: or https:
-   * s3: s3 bucket/prefix, options.s3.aws_profile contains the section in ~/.aws/credentials
-   */
-  async getFileSystem() {
-    if (!this.capabilities.filesystem)
-      throw new StorageError(405);
-
-    if (!this._fileSystem)
-      this._fileSystem = await FileSystems.activate(this.smt, this.options);
-    return this._fileSystem;
   }
 
   /**

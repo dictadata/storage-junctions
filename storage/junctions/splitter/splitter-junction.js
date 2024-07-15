@@ -94,7 +94,7 @@ class SplitterJunction extends StorageJunction {
     if (Object.hasOwn(this.split_tract, "transforms")) {
       let transforms = this.split_tract.transforms || [];
       for (let transform of transforms) {
-        pipes.push(await this.createTransform(transform.transform, transform));
+        pipes.push(await Storage.activateTransform(transform.transform, transform));
       }
     }
 

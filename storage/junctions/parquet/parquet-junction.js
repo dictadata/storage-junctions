@@ -3,6 +3,7 @@
  */
 "use strict";
 
+const Storage = require('../../storage');
 const StorageJunction = require('../storage-junction');
 const { StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
@@ -67,7 +68,7 @@ class ParquetJunction extends StorageJunction {
           logger.warn("parquet codify reader: " + error.message);
         });
 
-        let codify = await this.createTransform("codify", options);
+        let codify = await Storage.activateTransform("codify", options);
         await pipeline(reader, codify);
 
         let encoding = codify.encoding;
@@ -89,21 +90,6 @@ class ParquetJunction extends StorageJunction {
   async createSchema(options = {}) {
     return super.createSchema(options);
   }
-
-  /**
-  * Return list of schema names found in the data source like files or tables.
-  * The smt.schema or options.schema should contain a wildcard character *.
-  * If options.forEach is defined it is called for each schema found.
-  * Returns list of schemas found.
-  * @param {*} options list options
-  */
-  async list(options) {
-    logger.debug('ParquetJunction list');
-    let stfs = await this.getFileSystem();
-    let list = await stfs.list(options);
-    return new StorageResults(0, null, list);
-  }
-
 
   /**
    *

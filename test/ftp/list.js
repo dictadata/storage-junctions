@@ -9,9 +9,10 @@ const { logger } = require('@dictadata/lib');
 logger.info("=== tests: FTP list");
 
 async function test_1() {
+  let retCode = 0;
 
   logger.info("=== list ftp directory (forEach)");
-  if (await list({
+  retCode = await list({
     origin: {
       smt: "json|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile*.json|*",
       options: {
@@ -24,10 +25,11 @@ async function test_1() {
     terminal: {
       output: "./test/_data/output/ftp/list_1.json"
     }
-  })) return 1;
+  })
+  if (retCode) return retCode;
 
   logger.info("=== list ftp directory (recursive)");
-  if (await list({
+  retCode = await list({
     origin: {
       smt: {
         model: "json",
@@ -43,12 +45,13 @@ async function test_1() {
     terminal: {
       output: "./test/_data/output/ftp/list_2.json"
     }
-  })) return 1;
+  })
+  if (retCode) return retCode;
 
   // "ftp://anonymous:anonymous@ftp2.census.gov/geo/tiger/TIGER2023PL/LAYER/VTD/2020/|tl_2023_??_vtd20.zip"
   // "ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2023/COUNTY/|*.zip"
   logger.info("=== list tiger2023");
-  if (await list({
+  retCode = await list({
     origin: {
       smt: "*|ftp://dev.dictadata.net/dictadata/US/census.gov/geo/tiger/TIGER2023/COUNTY/|*.zip|*",
       options: {
@@ -58,10 +61,13 @@ async function test_1() {
     terminal: {
       output: "./test/_data/output/ftp/list_tiger2023.json"
     }
-  })) return 1;
+  })
+  if (retCode) return retCode;
 
+  return retCode;
 }
 
 (async () => {
-  if (await test_1()) return;
+  let retCode = await test_1();
+  return retCode;
 })();
