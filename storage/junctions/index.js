@@ -10,10 +10,10 @@ class Junctions {
    * Register a StorageJunction
    *
    * @param {*} model
-   * @param {*} storageJunctionClass
+   * @param {*} JunctionClass
    */
-  static use(model, storageJunctionClass) {
-    Junctions._junctions.set(model, storageJunctionClass);
+  static use(model, JunctionClass) {
+    Junctions._junctions.set(model, JunctionClass);
   }
 
   /**
@@ -32,8 +32,8 @@ class Junctions {
 
     // create the junction
     if (Junctions._junctions.has(_smt.model)) {
-      let junctionClass = Junctions._junctions.get(_smt.model);
-      let junction = new junctionClass(_smt, options);
+      let JunctionClass = Junctions._junctions.get(_smt.model);
+      let junction = new JunctionClass(_smt, options);
       await junction.activate();
       return junction;
     }
