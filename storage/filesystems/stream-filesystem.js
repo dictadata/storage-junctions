@@ -75,7 +75,7 @@ module.exports = exports = class StreamFileSystem extends StorageFileSystem {
    * @param {*} err a stream error object
    * @returns a new StorageError object
    */
-StoreageError(err) {
+StorageError(err) {
     if (err instanceof StorageError)
       return err;
 

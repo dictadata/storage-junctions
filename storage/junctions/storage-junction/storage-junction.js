@@ -266,13 +266,13 @@ module.exports = exports = class StorageJunction {
    * @param {*} err a data source error object
    * @returns a new StorageError object
    */
-  StorageError(err) {
+  StorageError(err, ...params) {
     if (err instanceof StorageError)
       return err;
 
     // derived classes should override method
     // and implement error conversion logic
 
-    return new StorageError(err);
+    return new StorageError(err, params);
   }
 };

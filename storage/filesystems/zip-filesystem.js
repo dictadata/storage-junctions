@@ -325,7 +325,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
    * @param {*} err a ZIP error object
    * @returns a new StorageError object
    */
-StoreageError(err) {
+StorageError(err) {
     if (err instanceof StorageError)
       return err;
 

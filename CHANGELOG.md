@@ -366,7 +366,7 @@
   - implement tee transform
   - introduce a shortened storage encoding
   - match filter supports regex
-  - consistent StoreageResult responses
+  - consistent StorageResult responses
   - mysql use TINYINT(1) for BOOLEAN
   - Breaking changes:
   - remove pattern.cues property

@@ -45,7 +45,7 @@ class StorageFileSystem {
         // locus is relative to dataPath
 
         // no drive letters or back steps
-        if (locus.indexOf("..") >= 0 || (locus.length > 1 && locus[1] === ":"))
+        if (locus.indexOf("..") >= 0 || (locus.length > 1 && locus[ 1 ] === ":"))
           throw new StorageError(400, "Invalid locus path " + locus);
 
         // prepend dataPath to locus
@@ -77,11 +77,11 @@ class StorageFileSystem {
     // optional, implement filesystem cleanup
     this.isActive = false;
   }
-/*
-  filepath(filename = "") {
-    return path.join(this.url.pathname, filename);
-  }
-*/
+  /*
+    filepath(filename = "") {
+      return path.join(this.url.pathname, filename);
+    }
+  */
   /**
    * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
    * @param {object} options Specify any options use when querying the filesystem.
@@ -116,7 +116,7 @@ class StorageFileSystem {
     logger.debug("StorageFileSystem exists");
 
     try {
-      const name = options?.schema ||  this.smt.schema;
+      const name = options?.schema || this.smt.schema;
 
       const response = await this.list(options);
       const list = response.data;

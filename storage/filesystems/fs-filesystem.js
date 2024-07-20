@@ -293,7 +293,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
    * @param {*} err a filesystem error object
    * @returns a new StorageError object
    */
-  StoreageError(err) {
+  StorageError(err) {
     if (err instanceof StorageError)
       return err;
 
