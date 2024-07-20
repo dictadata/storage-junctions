@@ -56,7 +56,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let pathname = this.url.pathname || "/";
       let list = [];
 
@@ -156,7 +156,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return new StorageResults(0, null, list);
     }
     catch (err) {
-      let sterr = this.StorageError(err);
+      let sterr = new StorageError(err);
       logger.warn(sterr);
       throw sterr;
     }
@@ -174,7 +174,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     logger.debug('http-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema ||  this.smt.schema;
+    let schema = options?.schema || this.smt.schema;
 
     throw new StorageError(501);
 
@@ -193,7 +193,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let filename = schema;
       let rs = null;
 
@@ -226,7 +226,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return rs;
     }
     catch (err) {
-      let sterr = this.StorageError(err);
+      let sterr = new StorageError(err);
       logger.warn(sterr);
       throw sterr;
     }
@@ -298,10 +298,25 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         fs.mkdirSync(dirname, { recursive: true });
         this._dirname = dirname;
       }
-      logger.verbose("  " + src + " >> " + dest);
 
       // get file
-      let rs = await httpRequest(src, request);
+      let rs;
+      let redirects = 0;
+      while (!rs) {
+        try {
+          logger.verbose("  " + src + " >> " + dest);
+          rs = await httpRequest(src, request);
+        }
+        catch (err) {
+          if ((err.statusCode === 301 || err.statusCode === 307) && redirects < 10) {
+            src = err.headers.location;
+            ++redirects;
+          }
+          else {
+            throw this.StorageError(err);
+          }
+        }
+      }
 
       // save to local file
       await rs.pipe(fs.createWriteStream(dest));
@@ -309,8 +324,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      let sterr = this.StorageError(err);
-      logger.warn(sterr);
+      let sterr = new StorageError(err);
       throw sterr;
     }
   }
@@ -372,7 +386,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       return new StorageResults(status);
     }
     catch (err) {
-      let sterr = this.StorageError(err);
+      let sterr = new StorageError(err);
       logger.warn(sterr);
       throw sterr;
     }
@@ -384,15 +398,11 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
    * @param {*} err a HTTP error object
    * @returns a new StorageError object
    */
-StoreageError(err) {
+  StorageError(err) {
     if (err instanceof StorageError)
       return err;
 
-    let status = ('statusCode' in err) ? err.statusCode : 500;
-
-    // StorageError.status is based on HTTP status codes
-
-    return new StorageError(status, { cause: err });
+    return new StorageError(err.statusCode, err.statusMessage);
   }
 
 };
