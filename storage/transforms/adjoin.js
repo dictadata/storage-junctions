@@ -15,7 +15,6 @@ const { dot, evaluate, match } = require('@dictadata/lib');
     smt: "",
     options: {},
     pattern: {},
-    ignoreCase: true|false,
     lookup: {
       "lookup_field": "=construct_field|'literal'+..."
     }
@@ -26,7 +25,7 @@ const { dot, evaluate, match } = require('@dictadata/lib');
   lookup - is a match expression for the lookup_table
   lookup_field - fields(s) to match in the lookup_table
   construct_field - get values from the streaming constructs
-  inject_field - field(s) from the found lookup row to inject into construct
+  inject_field - field(s) from the found lookup row to inject into construct, "*" for all
 */
 
 /* example adjoin transform
@@ -39,7 +38,6 @@ var transform = {
       "STATE": "IA"
     }
   },
-  ignoreCase: true,
   "lookup": {
     "STATENAME": "=County+' County'"
   },
@@ -61,8 +59,6 @@ module.exports = exports = class AdjoinTransform extends Transform {
     super(streamOptions);
 
     this.options = Object.assign({}, options);
-    if (typeof this.options.inject === "string")
-      this.options.inject = this.options.inject.split(",");
 
     this.lookupTable;
   }
@@ -113,21 +109,33 @@ module.exports = exports = class AdjoinTransform extends Transform {
       }
 
       // lookup values in lookup table
-      let found;
+      let foundRow;
       if (this.lookupTable) {
         for (let row of this.lookupTable) {
           if (match(expression, row)) {
-            found = row;
+            foundRow = row;
             break;
           }
         }
       }
 
       // inject fields from lookup table
-      if (found) {
-        for (const fld of this.options.inject) {
-          if (Object.hasOwn(found, fld))
-            construct[ fld ] = found[ fld ];
+      if (foundRow) {
+        if (this.options.inject === "*") {
+          for (const [fld, value] of Object.entries(foundRow)) {
+            construct[ fld ] = value;
+          }
+        }
+        else if (typeof this.options.inject === "string") {
+          let fld = this.options.inject;
+          if (Object.hasOwn(foundRow, fld))
+            construct[ fld ] = foundRow[ fld ];
+        }
+        else if (Array.isArray(this.options.inject)) {
+          for (const fld of this.options.inject) {
+            if (Object.hasOwn(foundRow, fld))
+              construct[ fld ] = foundRow[ fld ];
+          }
         }
       }
       else {
