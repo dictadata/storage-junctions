@@ -28,16 +28,16 @@ class StorageFileSystem {
     let locus = this.smt.locus;
 
     // get fstype
-    let fstype = "file";
+    this.fstype = "file";
     let posPrefix = locus.indexOf(":");
     if (posPrefix > 1) {    // ignore drive letters
-      fstype = locus.substring(0, posPrefix);
+      this.fstype = locus.substring(0, posPrefix);
     }
-    //if (!StorageFileSystem.fileSystemModels.includes(fstype))
-    //  throw new StorageError(400, "Invalid filesystem type " + fstype);
+    //if (!StorageFileSystem.fileSystemModels.includes(this.fstype))
+    //  throw new StorageError(400, "Invalid filesystem type " + this.fstype);
 
     // ensure local paths are properly formatted
-    if (fstype === "file") {
+    if (this.fstype === "file") {
       if (locus.startsWith("file:"))
         locus = locus.substring(5);
 
