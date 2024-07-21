@@ -5,7 +5,7 @@
 
 const Storage = require('../../storage');
 const StorageJunction = require('../storage-junction');
-const { StorageResults, StorageError } = require('../../types');
+const { Fields, StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 const CSVReader = require('./csv-reader');
 const CSVWriter = require('./csv-writer');
@@ -50,7 +50,7 @@ class CSVJunction extends StorageJunction {
     // this.options.header = false;  // default value
 
     if (options.encoding && !options.headers) {
-      let fields = options.encoding.fields || options.encoding;
+      let fields = Fields.Convert(options.encoding.fields || options.encoding);
       this.options.headers = fields.reduce((accumulator, value) => {
         accumulator.push(value.name);
         return accumulator;

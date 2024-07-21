@@ -1,7 +1,7 @@
 "use strict";
 
 const Storage = require('../../storage');
-const { Engram, StorageResults, StorageError } = require('../../types');
+const { SMT, Engram, StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 
 const Encoder = require('./storage-encoder');
@@ -39,8 +39,9 @@ module.exports = exports = class StorageJunction {
    * @param {*} options
    */
   constructor(smt, options) {
-    this.engram = new Engram(smt);
-    this.smt = this.engram.smt;
+    this.smt = new SMT(smt);
+    this.engram = new Engram(this.smt);
+
 
     this.options = Object.assign({}, options);
     if (this.options.encoding) {

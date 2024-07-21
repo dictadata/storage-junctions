@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { Engram, StorageError } = require('../../types');
+const { Fields, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 const { typeOf } = require('@dictadata/lib');
 
@@ -181,7 +181,7 @@ exports.fieldsToProperties = function fieldsToProperties(fields) {
   logger.debug('fieldsToProperties');
 
   if (typeOf(fields) === "object") {
-    fields = Engram._convert(fields);
+    fields = Fields.Convert(fields);
   }
 
   let properties = {};

@@ -44,17 +44,17 @@ module.exports = exports = class StorageEncoder {
       }
       else if (field.type === 'boolean') {
         newValue = isBoolean(value);
-        if (typeof newValue === "undefined")
+        if (newValue === undefined)
           newValue = field.default;
       }
       else if (field.type === 'integer') {
-        if (typeof newValue === "string")
+        if (typeof value === "string")
           newValue = Number(value.replace(/[\,]/g, '')); // optional delimiters
         if (Number.isNaN(newValue))
           newValue = field.default;
       }
       else if (field.type === 'number') {
-        if (typeof newValue === "string")
+        if (typeof value === "string")
           newValue = Number(value.replace(/[\,]/g, '')); // optional delimiters
         if (!Number.isFinite(newValue))
           // check currency with optional delimiters
@@ -68,11 +68,15 @@ module.exports = exports = class StorageEncoder {
           newValue = field.default;
       }
       else if (field.type === 'keyword') {
-        if (typeof value === "undefined" || value === null)
+        if (typeof value === "number" || typeof value === "bigint" || typeof value === "boolean")
+          newValue = value.toString();
+        if (newValue === undefined || newValue === null)
           newValue = field.default;
       }
       else if (field.type === 'text') {
-        if (typeof value === "undefined" || value === null)
+        if (typeof value === "number" || typeof value === "bigint" || typeof value === "boolean")
+          newValue = value.toString();
+        if (newValue === undefined || newValue === null)
           newValue = field.default;
       }
       else /* unknown */ {

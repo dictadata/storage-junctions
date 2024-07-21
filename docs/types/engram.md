@@ -61,7 +61,6 @@ Returns the SMT string representation.
 
 Copy all src properties to dst object. Deep copy of object properties.  Shallow copy of reference types like array, Date, etc. Does not copy functions. Note, recursive function.
 
-### Engram._convert(fieldMap)
 
 ### engram.smt &lt;SMT&gt;
 

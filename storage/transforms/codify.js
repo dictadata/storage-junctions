@@ -8,7 +8,7 @@
 // It is up to the application to provide a representative sample of constructs as input.
 
 const { Transform } = require('node:stream');
-const { Field, Engram, storageType } = require('../types');
+const { Engram, Fields, Field, storageType } = require('../types');
 const { logger } = require('@dictadata/lib');
 const { typeOf } = require('@dictadata/lib');
 
@@ -169,7 +169,7 @@ module.exports = exports = class CodifyTransform extends Transform {
         if (!field.fields)
           field.fields = [];
         else if (typeOf(field.fields) === "object")
-          field.fields = Engram._convert(field.fields);
+          field.fields = Fields.Convert(field.fields);
 
         this.processConstruct(value, field.fields);
       }

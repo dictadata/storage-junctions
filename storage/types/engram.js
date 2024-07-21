@@ -5,7 +5,7 @@
  * Field definitions are needed to encode and decode constructs for storage.
  *
  * SMT and Engram represent the same concept, accessing a specific datastore,
- * and can sometimes be interchangable as parameters.  For example if the field
+ * and can sometimes be interchangeable as parameters.  For example if the field
  * definitions are not needed to access the datastore.
  *
  * Extra information about the datastore may be be stored in Engram properties such
@@ -14,47 +14,41 @@
 "use strict";
 
 const SMT = require('./smt');
+const Fields = require('./fields');
 const Field = require('./field');
-const StorageError = require('./storage-error');
-const { typeOf, objCopy, getCI, dot } = require('@dictadata/lib');
+const { objCopy, getCI, dot } = require('@dictadata/lib');
 
-module.exports = exports = class Engram extends Object {
+module.exports = exports = class Engram extends Fields {
 
   /**
    * Engram class
    * @param {SMT|encoding} encoding type object, SMT object or SMT string
    */
   constructor(encoding) {
-    super(encoding);
+    super(encoding);  // initialize fields later
 
-    let smt = {};
-    if (encoding?.smt) {
+    let smt;
+    if (encoding?.smt)
       smt = new SMT(encoding.smt);
-    }
-    else {
-      // assume the parameter is an SMT object or SMT string
-      smt = new SMT(encoding);
-      // convert to encoding object with no field definitions
-      encoding = { smt: smt };
-    }
+    else if (encoding instanceof SMT)
+      smt = encoding;
+    else
+      smt = new SMT(encoding); // parameter MUST be SMT string
 
     if (!this.name)
       this.name = smt.schema;
     this.type = "engram";
-
     this.smt = smt;
 
     // junction options
-    if (encoding.options)
+    if (encoding?.options)
       this.options = encoding.options;
 
-    // field definitions
-    this.fields = new Array();
-    this.fieldsMap = new Map();
-    this.indices;  // optional, indices will be created if part of the encoding definition
+    if (encoding?.fields) {
+      this.merge(encoding.fields);
+    }
 
-    if (Object.hasOwn(encoding, "fields"))
-      this.encoding = encoding.fields;
+    this.indices;  // optional, indices will be created if part of the encoding definition
   }
 
   /**
@@ -71,7 +65,10 @@ module.exports = exports = class Engram extends Object {
    */
   get encoding() {
     let encoding = objCopy({}, this);
+    delete encoding.fields
     delete encoding.fieldsMap;
+    // want fields to be last property
+    encoding.fields = this.fields
     return encoding;
   }
 
@@ -90,78 +87,50 @@ module.exports = exports = class Engram extends Object {
       }
     }
 
-    this.dullFields();
-    this.mergeFields(encoding);
-    /*
-        if (encoding?.smt) {
-          let smt = new SMT(encoding.smt);
-          this.smt.key = smt.key;
-        }
-    */
+    // update Fields
+    this.dull();
+    this.merge(encoding);
+
     if (encoding?.indices) {
-      this.indices = {};
+      if (!this.indices)
+        this.indices = {};
       objCopy(this.indices, encoding.indices);
     }
   }
 
   /**
-   * Replaces the engram's fields.
-   * DEPRECATED Use the encoding setter method.
-   * @param {Engram|encoding|fields} encoding is an engram, encoding or fields object
+   * Find a field object in the fields.
+   * @param {string} name
    */
-  replace(encoding) {
-    this.encoding = encoding;
+  find(name) {
+    let fname = (this.caseInsensitive) ? name.toUpperCase() : name;
+
+    let field = super.find(fname);
+
+    if (!field) {
+      field = new Field({
+        name: name,
+      });
+
+      let key = this.keys.findIndex((name) => name === fname) + 1;
+      if (key)
+        field.key = key;
+    }
+
+    return field;
   }
 
   /**
-   * Sets fields and indices to empty
-   * smt and other primitive properties added to the engram remain unchanged.
+   * Add or replace a field in fields.
+   * @param {field} field definition
    */
-  dullFields() {
-    this.fields = new Array();
-    this.fieldsMap = new Map();
-    if (this.indices)
-      this.indices = {};
-  }
+  add(field) {
+    // check if field is part of primary index
+    let i = this.keys.findIndex((name) => name === field.name);
+    if (i >= 0)
+      field.key = i + 1;
 
-  /**
-   * Add or replace fields.
-   * @param {Engram|encoding|fields} encoding is an Encoding/Engram object Fields object
-   */
-  mergeFields(encoding) {
-    let newFields = encoding.fields || encoding;
-
-    if (typeOf(newFields) === "object")
-      newFields = Engram._convert(newFields);
-
-    if (typeOf(newFields) !== "array")
-      throw new StorageError(400, "Invalid parameter: encoding");
-
-    for (let field of newFields)
-      this.add(field);
-  }
-
-  // ----- field related properties -----
-
-  /**
-   * True if at least one field encoding is defined.
-   */
-  get isDefined() {
-    return this.fields.length > 0;
-  }
-
-  /**
-   * Number of fields in the fields map.
-   */
-  get fieldsLength() {
-    return this.fields.length;
-  }
-
-  /**
-   * Array of field names.
-   */
-  get names() {
-    return Array.from(this.fieldsMap.keys());
+    return super.add(field)
   }
 
   /**
@@ -252,7 +221,7 @@ module.exports = exports = class Engram extends Object {
         }
         else {
           let value;
-          if (this.caseInsensitive)
+          if (this.options?.caseInsensitive)
             value = getCI(construct, kname);
           else
             value = dot.get(construct, kname);
@@ -269,80 +238,4 @@ module.exports = exports = class Engram extends Object {
     //return null;
   }
 
-  /**
-   * Find a field object in the fields.
-   * @param {string} name
-   */
-  find(name) {
-    let fname = (this.caseInsensitive) ? name.toUpperCase() : name;
-
-    let field = this.fieldsMap.get(fname);
-    if (!field) {
-      field = new Field({
-        name: name,
-      });
-      let key = this.keys.findIndex((name) => name === fname) + 1;
-      if (key)
-        field.key = key;
-    }
-    return field;
-  }
-
-  /**
-   * Add or replace a field in fields.
-   * @param {field} field is the Field definition
-   */
-  add(field) {
-    let newField = new Field(field);
-    if (!(newField && newField.name))
-      throw new StorageError(400, "Invalid field definition");
-
-    let fname = (this.caseInsensitive) ? newField.name.toUpperCase() : field.name;
-
-    // check if field is part of primary index
-    let i = this.keys.findIndex((name) => name === fname);
-    if (i >= 0) newField.key = i + 1;
-
-    // save in array
-    let p = this.fields.findIndex((fld) => fld.name === fname);
-    if (p >= 0)
-      this.fields[ p ] = newField;
-    else
-      this.fields.push(newField);
-
-    // save in map
-    this.fieldsMap.set(fname, newField);
-
-    return newField;
-  }
-
-  /**
-   * Convert fields map to an array of fields.
-   * @param {*} fields are fields as an object or Map wherein each field is a named property
-   * @returns fields as an array of Field objects
-   */
-  static _convert(fields) {
-    let retFields = [];
-
-    let entries = typeOf(fields) === 'map' ? fields.entries() : Object.entries(fields);
-    for (let [ name, field ] of entries) {
-      if (typeof field === "string") {
-        // convert to object
-        field = {
-          "name": name,
-          "type": field
-        };
-      }
-
-      if (!field.name)
-        field.name = name;
-
-      if ((field.type === "list" || field.type === "map") && typeOf(field.fields) === "object")
-        field.fields = Engram._convert(field.fields);
-
-      retFields.push(field);
-    }
-
-    return retFields;
-  }
 };

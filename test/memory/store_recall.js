@@ -22,12 +22,16 @@ const { logger } = require('@dictadata/lib');
       }
     }
   });
-  if (retCode > 0) return 1;
+  if (retCode > 0)
+    return 1;
 
-  if (await store.runTests()) return 1;
-  if (await recall.runTests()) return 1;
+  if (await store.runTests())
+    return 1;
+  if (await recall.runTests())
+    return 1;
   //if (await retrieve.runTests()) return 1;
   //if (await aggregate.runTests()) return 1;
-  if (await dull.runTests()) return 1;
+  if (await dull.runTests())
+    return 1;
 
 })();

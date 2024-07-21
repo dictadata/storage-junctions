@@ -3,6 +3,7 @@
 
 exports.SMT = require('./smt');
 exports.Field = require('./field');
+exports.Fields = require('./fields');
 exports.Engram = require('./engram');
 
 exports.StorageResults = require('./storage-results');
