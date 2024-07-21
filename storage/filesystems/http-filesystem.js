@@ -193,9 +193,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || this.smt.schema;
+      let schema = Object.hasOwn(options, "schema") ? options.schema : this.smt.schema;
       let filename = schema;
-      let rs = null;
 
       let request = Object.assign({
         method: 'GET',
@@ -214,7 +213,23 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
         options.http?.headers);
 
       // create read stream
-      rs = await httpRequest(filename, request);
+      let rs;
+      let redirects = 0;
+      while (!rs) {
+        try {
+          logger.verbose("  " + filename);
+          rs = await httpRequest(filename, request);
+        }
+        catch (err) {
+          if ((err.statusCode === 301 || err.statusCode === 307) && redirects < 10) {
+            filename = err.headers.location;
+            ++redirects;
+          }
+          else {
+            throw this.StorageError(err);
+          }
+        }
+      }
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
