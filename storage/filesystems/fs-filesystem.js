@@ -143,7 +143,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema || this.smt.schema;
+      let schema = Object.hasOwn(options, "schema") ? options.schema : this.smt.schema;
       let rs = null;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
