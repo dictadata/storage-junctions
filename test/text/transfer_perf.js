@@ -13,9 +13,9 @@ async function tests() {
   logger.verbose('=== zip > nullwriter');
   if (await transfer({
     origin: {
-      smt: "text|zip:/var/dictadata/NC/dl.ncsbe.gov/data/ncvoter_Statewide.zip|ncvoter_Statewide.txt|*",
+      smt: "text|zip:/var/dictadata/AR/Statewide Voter Files/VR.zip|VR.csv|*",
       options: {
-        separator: "\t",
+        separator: ",",
         quoted: '"',
         header: true
       }
@@ -28,10 +28,11 @@ async function tests() {
   logger.verbose('=== csv > nullwriter');
   if (await transfer({
     origin: {
-      smt: "csv|zip:/var/dictadata/NC/dl.ncsbe.gov/data/ncvoter_Statewide.zip|ncvoter_Statewide.txt|*",
+      smt: "csv|zip:/var/dictadata/AR/Statewide Voter Files/VR.zip|VR.csv|*",
       options: {
         header: true,
-        separator: '\t',
+        separator: ',',
+        quoted: true,
         raw: true
       }
     },

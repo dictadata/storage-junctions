@@ -35,6 +35,42 @@ module.exports = exports = class LineReaderReader extends StorageReader {
     this.raw = Object.hasOwn(this.options, "raw") ? this.options.raw : true;
   }
 
+  parseLine(line) {
+    let values = [];
+    let value = [];
+
+    const iterator = line[Symbol.iterator]();
+    let ch = iterator.next();
+
+    while (!ch.done) {
+      if (ch.value === this.quoted) {
+        ch = iterator.next();
+
+        while (!ch.done && ch.value !== this.quoted) {
+          value.push(ch.value);
+          ch = iterator.next();
+        }
+        if (!ch.done)
+          ch = iterator.next();
+      }
+
+      while (!ch.done && ch.value !== this.separator) {
+        value.push(ch.value);
+        ch = iterator.next();
+      }
+
+      if (!ch.done && ch.value === this.separator)
+        ch = iterator.next();
+      else if (!ch.done)
+        throw "invalid character found";
+
+      values.push(value.toString());
+      value.length = 0;
+    }
+
+    return values;
+  }
+
   async parse() {
 
     try {
@@ -72,7 +108,9 @@ module.exports = exports = class LineReaderReader extends StorageReader {
       parser.on('line', (line) => {
         if (line) {
           //logger.debug(line);
-          let construct = line.split(reader.separator);
+
+          //let construct = line.split(reader.separator);
+          let construct = reader.parseLine(line);
 
           if (reader.quoted) {
             let a = [];
@@ -87,6 +125,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
               reader.headers = construct;
               return;
             }
+
             let o = {};
             for (let i = 0; i < reader.headers.length; i++)
               o[ reader.headers[ i ] ] = construct[ i ];
@@ -101,7 +140,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
           if (!construct)
             return;
 
-          if ((statistics.count + 1) % 100000 === 0)
+          if (statistics.count && (statistics.count % 100000 === 0))
             logger.verbose(statistics.count + " " + statistics.interval + "ms");
 
           if (count > 0 && statistics.count > count) {
