@@ -70,7 +70,7 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
 
-        if ((_stats.count + 1) % 10000 === 0)
+        if (_stats.count && (_stats.count % 100000 === 0))
           logger.verbose(_stats.count + " " + _stats.interval + "ms");
 
         if (count > 0 && _stats.count > count) {

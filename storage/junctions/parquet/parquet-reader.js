@@ -52,7 +52,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
         construct = encoder.select(construct);
         //logger.debug(JSON.stringify(data.value));
 
-        if ((statistics.count + 1) % 10000 === 0)
+        if (statistics.count && (statistics.count % 100000 === 0))
           logger.verbose(statistics.count + " " + statistics.interval + "ms");
 
         if (count > 0 && statistics.count > count) {
