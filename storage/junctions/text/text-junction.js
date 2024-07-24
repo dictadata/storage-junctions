@@ -4,9 +4,9 @@ const { logger } = require('@dictadata/lib');
 
 const StorageJunction = require('../storage-junction');
 const Reader = require('./text-reader');
-//const Writer = require('./linereader-writer');
+//const Writer = require('./text-writer');
 
-module.exports = exports = class LineReaderJunction extends StorageJunction {
+module.exports = exports = class TextJunction extends StorageJunction {
 
   // storage capabilities, sub-class must override
   capabilities = {
@@ -34,7 +34,7 @@ module.exports = exports = class LineReaderJunction extends StorageJunction {
    */
   constructor(smt, options) {
     super(smt, options);
-    logger.debug("LineReaderJunction");
+    logger.debug("TextJunction");
   }
 
   // override to initialize junction

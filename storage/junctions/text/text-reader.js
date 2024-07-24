@@ -1,5 +1,5 @@
 /**
- * storage/junctions/linereader/linereader-reader.js
+ * storage/junctions/text/text-reader.js
  *
  * This module has NOT been implemented, yet.
  *
@@ -14,7 +14,7 @@ const readline = require('node:readline');
 const path = require('node:path');
 
 
-module.exports = exports = class LineReaderReader extends StorageReader {
+module.exports = exports = class TextReader extends StorageReader {
 
   /**
    *
@@ -173,20 +173,20 @@ module.exports = exports = class LineReaderReader extends StorageReader {
 
     }
     catch (err) {
-      logger.debug("LineReaderReader parse error: " + err.message);
+      logger.debug("TextReader parse error: " + err.message);
       this.destroy(err);
     }
   }
 
   async _construct(callback) {
-    logger.debug("LineReaderReader._construct");
+    logger.debug("TextReader._construct");
 
     try {
       callback();
     }
     catch (err) {
       logger.warn(err.message);
-      callback(this.stfs?.StorageError(err) || new StorageError('LineReaderReader construct error'));
+      callback(this.stfs?.StorageError(err) || new StorageError('TextReader construct error'));
     }
   }
 
@@ -195,7 +195,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
    * @param {*} size <number> Number of constructs to read asynchronously
    */
   async _read(_size) {
-    logger.debug('LineReaderReader _read');
+    logger.debug('TextReader _read');
 
     try {
       if (!this.started) {
