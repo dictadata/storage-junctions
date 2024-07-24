@@ -64,7 +64,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
       else if (!ch.done)
         throw "invalid character found";
 
-      values.push(value.toString());
+      values.push(value.join(""));
       value.length = 0;
     }
 
