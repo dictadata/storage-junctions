@@ -6,11 +6,28 @@
 const transfer = require('../_lib/_transfer');
 const { logger } = require('@dictadata/lib');
 
-logger.info("=== Tests: txt data transfers");
+logger.info("=== Tests: text data transfers");
 
 async function tests() {
 
-  logger.verbose('=== txt > transfer_foo.json');
+
+  logger.verbose('=== foofile.csv');
+  if (await transfer({
+    origin: {
+      smt: "text|./test/_data/input/|foofile.csv|*",
+      options: {
+        header: true,
+        separator: ",",
+        quoted: "\""
+      }
+    },
+    terminal: {
+      smt: "json|./test/_data/output/text/|transfer_csv.json|*",
+      output: "./test/_data/output/text/transfer_csv.json"
+    }
+  })) return 1;
+
+  logger.verbose('=== foofile.txt');
   if (await transfer({
     origin: {
       smt: "txt|./test/_data/input/|foofile.txt|*",
@@ -21,12 +38,12 @@ async function tests() {
       }
     },
     terminal: {
-      smt: "json|./test/_data/output/text/|transfer_foo.json|*",
-      output: "./test/_data/output/text/transfer_foo.json"
+      smt: "json|./test/_data/output/text/|transfer_txt.json|*",
+      output: "./test/_data/output/text/transfer_txt.json"
     }
   })) return 1;
 
-  logger.verbose('=== txt > transfer_data.csv');
+  logger.verbose('=== foo_data.txt');
   if (await transfer({
     origin: {
       smt: "txt|./test/_data/input/|foo_data.txt|*",

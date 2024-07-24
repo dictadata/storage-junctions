@@ -32,7 +32,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
     this.quoted = this.options?.quoted;
     this.header = this.options?.header;
     this.headers = this.options?.headers;
-    this.raw = Object.hasOwn(this.options, "raw") ? this.options.raw : true;
+    this.raw = Object.hasOwn(this.options, "raw") ? this.options.raw : false;
   }
 
   /**
@@ -45,7 +45,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
     let values = [];
     let value = [];
 
-    const iterator = line[Symbol.iterator]();
+    const iterator = line[ Symbol.iterator ]();
     let ch = iterator.next();
 
     while (!ch.done) {
@@ -100,7 +100,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
       );
 
       var reader = this;
-      var statistics = this._stats;
+      var _stats = this._stats;
       var count = this.options?.pattern?.count || this.options?.count || -1;
       this.started = true;
 
@@ -146,21 +146,20 @@ module.exports = exports = class LineReaderReader extends StorageReader {
           if (!construct)
             return;
 
-          if (statistics.count && (statistics.count % 100000 === 0))
-            logger.verbose(statistics.count + " " + statistics.interval + "ms");
+          _stats.count += 1;
+          if (!reader.push(construct)) {
+            reader.paused = true;
+            parser.pause();
+          }
 
-          if (count > 0 && statistics.count > count) {
+          if (_stats.count % 100000 === 0)
+            logger.verbose(_stats.count + " " + _stats.interval + "ms");
+
+          if (count > 0 && _stats.count >= count) {
             reader.push(null);
             reader.destroy();
             parser.close();
             reader.stfs.relax();
-          }
-          else {
-            reader._stats.count += 1;
-            if (!reader.push(construct)) {
-              reader.paused = true;
-              parser.pause();
-            }
           }
         }
       });

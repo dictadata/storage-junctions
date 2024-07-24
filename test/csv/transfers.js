@@ -125,6 +125,24 @@ async function tests() {
     }
   })) return 1;
 
+  logger.verbose('=== foo_data.txt');
+  if (await transfer({
+    origin: {
+      smt: "csv|./test/_data/input/|foo_data.txt|*",
+      options: {
+        header: true,
+        separator: "\t"
+      }
+    },
+    terminal: {
+      smt: "csv|./test/_data/output/csv/|transfer_data.csv|*",
+      options: {
+        header: true
+      },
+      output: "./test/_data/output/csv/transfer_data.csv"
+    }
+  })) return 1;
+
 }
 
 (async () => {
