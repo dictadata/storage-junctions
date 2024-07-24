@@ -102,7 +102,7 @@ module.exports = exports = class Fields extends Object {
       fields = Fields.Convert(fields);
 
     if (typeOf(fields) !== "array")
-      throw new StorageError(400, "Invalid parameter: encoding");
+      throw new StorageError(400, "Invalid parameter: encoding " + typeOf(fields));
 
     for (let field of fields)
       this.add(field);
