@@ -78,6 +78,8 @@ module.exports = exports = class JSONWriter extends StorageWriter {
     logger.debug("JSONWriter._construct");
 
     try {
+      this.encoder = this.junction.createEncoder(this.options);
+
       // open file stream
       this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
       this.ws = await this.stfs.createWriteStream(this.options);
@@ -124,10 +126,10 @@ module.exports = exports = class JSONWriter extends StorageWriter {
         data += '"' + key + '": ';
       }
 
-      // rewrite construct to keep fields in order
       let ordered;
       if (this.options.orderFields) {
-        let ordered = {};
+        // rewrite construct to keep fields in order of schema
+        ordered = {};
         for (let field of this.engram.fields) {
           if (Object.hasOwn(construct, field.name)) {
             if (construct[ field.name ] === null && field.hasDefault)
@@ -141,7 +143,15 @@ module.exports = exports = class JSONWriter extends StorageWriter {
         }
       }
 
-      data += JSON.stringify(ordered ? ordered : construct);
+      if (ordered) {
+        ordered = this.encoder.cast(ordered);
+        data += JSON.stringify(ordered);
+      }
+      else {
+        construct = this.encoder.cast(construct);
+        data += JSON.stringify(construct);
+      }
+
       if (data.length > 0) {
         this._stats.count += 1;
         await this.ws.write(data);
