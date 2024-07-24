@@ -18,7 +18,8 @@ async function tests() {
       options: {
         header: true,
         separator: ",",
-        quoted: "\""
+        quoted: "\"",
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       }
     },
     terminal: {
@@ -34,7 +35,8 @@ async function tests() {
       options: {
         header: true,
         separator: "\t",
-        quoted: "\""
+        quoted: "\"",
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       }
     },
     terminal: {
@@ -50,7 +52,8 @@ async function tests() {
       options: {
         header: true,
         separator: "\t",
-        quoted: "\""
+        quoted: "\"",
+        encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
     terminal: {
