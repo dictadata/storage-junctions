@@ -69,19 +69,21 @@ module.exports = exports = class JSONReader extends StorageReader {
         construct = encoder.cast(construct);
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
+        if (!construct)
+          return;
 
-        if (_stats.count && (_stats.count % 100000 === 0))
+        _stats.count += 1;
+        if (!reader.push(construct)) {
+          myParser.pause();  // If push() returns false stop reading from source.
+        }
+
+        if (_stats.count % 100000 === 0)
           logger.verbose(_stats.count + " " + _stats.interval + "ms");
 
-        if (count > 0 && _stats.count > count) {
+        if (count > 0 && _stats.count >= count) {
           reader.push(null);
           pipeline.destroy();
           reader.stfs.relax();
-        }
-        else if (construct) {
-          reader._stats.count += 1;
-          if (!reader.push(construct))
-            myParser.pause();  // If push() returns false stop reading from source.
         }
       }
     });

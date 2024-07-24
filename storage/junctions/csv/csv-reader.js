@@ -36,7 +36,7 @@ module.exports = exports = class CSVReader extends StorageReader {
     var reader = this;
     var encoder = this.junction.createEncoder(options);
 
-    var stats = this._stats;
+    var _stats = this._stats;
     var count = this.options?.pattern?.count || this.options?.count || -1;
 
     if (!options.header && !options.keys && !options.headers)
@@ -68,20 +68,21 @@ module.exports = exports = class CSVReader extends StorageReader {
           construct = encoder.select(construct);
         }
         //logger.debug(JSON.stringify(construct));
+        if (!construct)
+          return;
 
-        if (stats.count && (stats.count % 100000 === 0)) {
-          logger.verbose(stats.count + " " + stats.interval + "ms");
+        _stats.count += 1;
+        if (!reader.push(construct)) {
+          csvchain.pause();  // If push() returns false stop reading from source.
         }
 
-        if (count > 0 && stats.count > count) {
+        if (_stats.count % 100000 === 0)
+          logger.verbose(_stats.count + " " + _stats.interval + "ms");
+
+        if (count > 0 && _stats.count >= count) {
           reader.push(null);
           csvchain.destroy();
           reader.stfs.relax();
-        }
-        else if (construct) {
-          reader._stats.count += 1;
-          if (!reader.push(construct))
-            csvchain.pause();  // If push() returns false stop reading from source.
         }
       }
     });

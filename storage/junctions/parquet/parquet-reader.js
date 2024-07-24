@@ -41,7 +41,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
     else  // default Parquet array
       parser = this.parser = StreamArray.withParser();
 
-    var statistics = this._stats;
+    var _stats = this._stats;
     var count = this.options?.pattern?.count || this.options?.count || -1;
 
     // eslint-disable-next-line arrow-parens
@@ -51,18 +51,20 @@ module.exports = exports = class ParquetReader extends StorageReader {
         construct = encoder.filter();
         construct = encoder.select(construct);
         //logger.debug(JSON.stringify(data.value));
+        if (!construct)
+          return;
 
-        if (statistics.count && (statistics.count % 100000 === 0))
-          logger.verbose(statistics.count + " " + statistics.interval + "ms");
+        _stats.count += 1;
+        if (!reader.push(construct)) {
+          parser.pause();  // If push() returns false stop reading from source.
+        }
 
-        if (count > 0 && statistics.count > count) {
+        if (_stats.count % 100000 === 0)
+          logger.verbose(_stats.count + " " + _stats.interval + "ms");
+
+        if (count > 0 && _stats.count >= count) {
           reader.push(null);
           pipeline.destroy();
-        }
-        else if (construct) {
-          reader._stats.count += 1;
-          if (!reader.push(construct))
-            parser.pause();  // If push() returns false stop reading from source.
         }
       }
     });
