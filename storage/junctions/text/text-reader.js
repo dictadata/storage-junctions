@@ -35,6 +35,12 @@ module.exports = exports = class LineReaderReader extends StorageReader {
     this.raw = Object.hasOwn(this.options, "raw") ? this.options.raw : true;
   }
 
+  /**
+   * Parse line into fields by looking for separator and quoted characters.
+   *
+   * @param {String} line
+   * @returns
+   */
   parseLine(line) {
     let values = [];
     let value = [];
@@ -62,7 +68,7 @@ module.exports = exports = class LineReaderReader extends StorageReader {
       if (!ch.done && ch.value === this.separator)
         ch = iterator.next();
       else if (!ch.done)
-        throw "invalid character found";
+        throw "TextReader invalid character found: " + ch.value;
 
       values.push(value.join(""));
       value.length = 0;
@@ -81,10 +87,10 @@ module.exports = exports = class LineReaderReader extends StorageReader {
       var rs = await this.stfs.createReadStream(this.options);
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on('close', () => {
-        logger.debug("linereader reader close")
+        logger.debug("readline reader close")
       })
       rs.on('end', () => {
-        logger.debug("linereader reader end")
+        logger.debug("readline reader end")
       })
       rs.on('error',
         (err) => {
