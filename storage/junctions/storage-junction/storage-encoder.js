@@ -23,6 +23,7 @@ module.exports = exports = class StorageEncoder {
     this.engram = storageJunction.engram;
 
     this.options = Object.assign({}, options);
+    this.missingValue = Object.hasOwn(this.options, "missingValue") ? this.options.missingValue : "";
   }
 
   /**
@@ -39,7 +40,7 @@ module.exports = exports = class StorageEncoder {
       let field = encoding.find(name);
       let newValue = value;
 
-      if (typeof value === "undefined" || value === null || value === "") {     // current parser generates "" instead of null
+      if (value === undefined || value === null || value === this.missingValue) {
         newValue = field.default || null;
       }
       else if (field.type === 'boolean') {
