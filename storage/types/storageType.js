@@ -10,7 +10,7 @@ const stringBreakpoints = require('./stringBreakpoints');
  * The storage source should provide the actual type, but not always possible.
  */
 function storageType (value) {
-  if (typeof value === "undefined" || value === null)
+  if (value === undefined || value === null)
     return "unknown";
 
   let jtype = typeOf(value);
