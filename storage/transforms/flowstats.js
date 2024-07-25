@@ -143,7 +143,7 @@ module.exports = exports = class FlowStatsTransform extends Transform {
       }
 
       // nulls
-      if (options.statistics.nulls && (typeof value === "undefined" || value === null)) {
+      if (options.statistics.nulls && (value === undefined || value === null)) {
         field[ "_meta.nulls" ] = (field[ "_meta.nulls" ]) ? field[ "_meta.nulls" ] + 1 : 1;
       }
 

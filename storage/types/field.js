@@ -50,7 +50,7 @@ const StorageError = require('./storage-error');
  *   label = "";   // {string} display name
  *   width = "";   // {number} suggested display|edit box width (characters)
  *
- * Edit properties
+ * Edit properties - currently not used
  *   editWith    // {string}  "input", "checkbox", "radio", "select", "fields" (recursive)
  *   noEdit      // {boolean} do not show in form, default false
  *   missing     // {boolean} show in form if missing value, default false
