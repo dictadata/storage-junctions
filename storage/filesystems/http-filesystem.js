@@ -306,7 +306,8 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       // smt.locus is destination folder
       let smt = new SMT(options.smt);
       let folder = smt.locus.startsWith("file:") ? smt.locus.substring(5) : smt.locus;
-      let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
+      let filename = options.use_rpath ? options.entry.rpath : (smt.schema !== "*" ? smt.schema : options.entry.name)
+      let dest = path.join(folder, filename);
 
       let dirname = path.dirname(dest);
       if (dirname !== this._dirname && !fs.existsSync(dirname)) {
