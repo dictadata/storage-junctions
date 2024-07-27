@@ -1,12 +1,12 @@
 /**
- * storage/transforms/mapConstructs.js
+ * storage/transforms/mapToConstructs.js
  */
 "use strict";
 
 const { Transform } = require('node:stream');
 
 /**
- * Transforms map (object map) data to construct objects.
+ * Transforms an object or Map of entries to constructs.
  */
 module.exports = exports = class MapConstructsTransform extends Transform {
 
@@ -18,12 +18,11 @@ module.exports = exports = class MapConstructsTransform extends Transform {
    */
   constructor(options = {}) {
     let streamOptions = {
-      writableObjectMode: true,
-      readableObjectMode: true
+      objectMode: true
     };
     super(streamOptions);
 
-    this.options = Object.assign({ key_name: "_key" }, options);
+    this.key = Object.hasOwn(options, "key") ? options.key : "_key";
   }
 
   /**
@@ -34,8 +33,16 @@ module.exports = exports = class MapConstructsTransform extends Transform {
    */
   _transform(map, encoding, callback) {
 
-    for (let [ name, construct ] of Object.entries(map)) {
-      construct[ this.options.key_name ] = name;
+    let entries;
+    if (map instanceof Map)
+      entries = map.entries;
+    else
+      entries = Object.entries(map);
+
+    for (let [ name, construct ] of entries) {
+      if (this.key)
+        construct[ this.key ] = name;
+
       this.push(construct);
     }
 

@@ -1,5 +1,5 @@
 /**
- * storage/transforms/rowConstructs.js
+ * storage/transforms/arrayAsConstruct
  */
 "use strict";
 
@@ -15,15 +15,16 @@ module.exports = exports = class RowConstructsTransform extends Transform {
    * If headers are not set in options then the first row seen is assumed to be the headers.
    *
    * @param {object} options
-   * @param {Array} options.headers
+   * @param {boolean}  options.hasHeader input includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
    */
   constructor(options = {}) {
     let streamOptions = {
-      writableObjectMode: true,
-      readableObjectMode: true
+      objectMode: true
     };
     super(streamOptions);
 
+    this.hasHeader = options.hasHeader || false;
     this.headers = options.headers || undefined;
   }
 
@@ -34,14 +35,16 @@ module.exports = exports = class RowConstructsTransform extends Transform {
    * @param {*} callback
    */
   _transform(row, encoding, callback) {
-    if (!this.headers) {
-      this.headers = row;
+    if (this.hasHeader && !this._headers) {
+      this._headers = row;
+      if (!this.headers)
+        this.headers = row;
     }
     else {
       let construct = {};
       for (let i = 0; i < row.length; i++) {
-        let prop = (i < this.headers.length) ? this.headers[ i ] : i;
-        construct[ prop ] = construct[ i ];
+        let name = this.headers[ i ] || i;
+        construct[ name ] = row[ i ];
       }
       this.push(construct);
     }

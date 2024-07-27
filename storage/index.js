@@ -128,8 +128,8 @@ Storage.Transforms.use('counter', exports.CounterTransform);
 exports.FlowStatsTransform = require('./transforms/flowstats');
 Storage.Transforms.use('flowstats', exports.FlowStatsTransform);
 
-exports.RowAsConstructTransform = require('./transforms/arrayAsConstruct');
-Storage.Transforms.use('rowAsConstruct', exports.RowAsConstructsTransform);
+exports.ArrayAsConstructTransform = require('./transforms/arrayAsConstruct');
+Storage.Transforms.use('rowAsConstruct', exports.ArrayAsConstructsTransform);
 
-exports.MapAsConstructsTransform = require('./transforms/mapAsConstructs');
-Storage.Transforms.use('mapAsConstructs', exports.MapAsConstructsTransform);
+exports.MapToConstructsTransform = require('./transforms/mapToConstructs');
+Storage.Transforms.use('mapAsConstructs', exports.MapToConstructsTransform);
