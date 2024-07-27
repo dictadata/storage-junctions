@@ -4,7 +4,7 @@ const Storage = require('../../storage');
 const StorageJunction = require('../storage-junction');
 const { StorageResults, StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
-const { typeOf, httpRequest, replace } = require('@dictadata/lib');
+const { typeOf, replace, httpRequest, contentTypeIsJSON } = require('@dictadata/lib');
 
 const RESTReader = require('./rest-reader');
 const RESTWriter = require('./rest-writer');
@@ -35,8 +35,15 @@ class RESTJunction extends StorageJunction {
 
   /**
    *
-   * @param {*} smt 'rest|host|endpoint|key' or an Engram object
-   * @param {*} options
+   * @param {string|object} smt 'rest|host|endpoint|key' or an Engram object
+   * @param {object}     options
+   * @param {URL|string} options.url default smt.schema
+   * @param {object}     options.params http querystring params
+   * @param {*}          options.data http request body
+   * @param {object}     options.http httpRequest options
+   * @param {number}     options.retries default 0
+   * @param {number}     options.retryTimer default 500 ms
+   * @param {boolean}    options.raw return raw response data
    */
   constructor(smt, options) {
     super(smt, options);
@@ -185,7 +192,7 @@ class RESTJunction extends StorageJunction {
       let response = await this.httpRequest(url, request, data);
 
       let results;
-      if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
+      if (contentTypeIsJSON(response.headers[ "content-type" ]))
         results = JSON.parse(response.data);
       else
         results = response.data;
@@ -250,7 +257,7 @@ class RESTJunction extends StorageJunction {
       let response = await this.httpRequest(url, request, data);
 
       let results;
-      if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
+      if (contentTypeIsJSON(response.headers[ "content-type" ]))
         results = JSON.parse(response.data);
       else
         results = response.data;
