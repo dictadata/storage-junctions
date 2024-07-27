@@ -138,6 +138,8 @@ exports.propertiesToFields = function propertiesToFields(properties) {
   logger.debug('propertiesToFields');
 
   let fields = [];
+  if (!properties)
+    return fields;
 
   // map mappings properties to encoding fields
   for (let [ name, property ] of Object.entries(properties)) {
