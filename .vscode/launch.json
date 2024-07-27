@@ -737,7 +737,7 @@
       "request": "launch",
       "name": "transforms mutate",
       "program": "${workspaceFolder}/test/transforms/mutate.js",
-      "runtimeArgs": ["--trace-warnings", "--preserve-symlinks"],
+      "runtimeArgs": ["--trace-warnings"],
       "outputCapture": "std",
       "env": {
         "NODE_ENV": "development",
