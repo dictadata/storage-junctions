@@ -17,7 +17,7 @@ module.exports = exports = class StorageWriter extends Writable {
 
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128
+      highWaterMark: 32
     };
     super(streamOptions);
 

@@ -35,6 +35,7 @@ module.exports = exports = class TextJunction extends StorageJunction {
   constructor(smt, options) {
     super(smt, options);
     logger.debug("TextJunction");
+
   }
 
   // override to initialize junction

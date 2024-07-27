@@ -17,7 +17,7 @@ module.exports = exports = class StorageReader extends Readable {
 
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128,
+      highWaterMark: 32,
       autoDestroy: false
     };
     super(streamOptions);

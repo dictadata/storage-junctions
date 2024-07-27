@@ -46,6 +46,7 @@ class JSONJunction extends StorageJunction {
     // check schema's extension
     //if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
     //  this.options.schema = this.smt.schema + '.json';
+
   }
 
   /**

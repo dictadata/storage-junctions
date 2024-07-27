@@ -47,15 +47,6 @@ class CSVJunction extends StorageJunction {
     //if (!this.options.schema && this.smt.schema && this.smt.schema != '*' && path.extname(this.smt.schema) === '')
     //  this.options.schema = this.smt.schema + '.csv';
 
-    // this.options.header = false;  // default value
-
-    if (options.encoding && !options.headers) {
-      let fields = Fields.Convert(options.encoding.fields || options.encoding);
-      this.options.headers = fields.reduce((accumulator, value) => {
-        accumulator.push(value.name);
-        return accumulator;
-      }, [])
-    }
   }
 
   /**

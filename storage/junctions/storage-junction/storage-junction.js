@@ -42,7 +42,6 @@ module.exports = exports = class StorageJunction {
     this.smt = new SMT(smt);
     this.engram = new Engram(this.smt);
 
-
     this.options = Object.assign({}, options);
     if (this.options.encoding) {
       this.engram.encoding = this.options.encoding;
