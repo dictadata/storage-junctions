@@ -46,16 +46,26 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     let cred = auth.recall(this.url) || {};
 
     // connect to host
-    await this._client.access({
+    let result = await this._client.access({
       host: this.url.host || "127.0.0.1",
       port: this.url.port || 21,
       user: this.url.username || cred.auth?.username || 'anonymous',
       password: this.url.password || cred.auth?.password || 'anonymous@dictadata',
       secure: Object.hasOwn(ftpOptions, "secure") ? ftpOptions.secure : false
     });
+    logger.debug("ftp " + JSON.stringify(result));
+
+    this._client.trackProgress(info => {
+      logger.verbose(JSON.stringify({
+        "File": info.name,
+        "Type": info.type,
+        "Transferred": info.bytes,
+        "Transferred Overall": info.bytesOverall
+      }));
+    })
 
     this.isActive = true;
-    //console.log("activated");
+    //logger.debug("activated");
   }
 
   /**
@@ -64,7 +74,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
   async relax() {
     if (this.isActive) {
       this.isActive = false;
-      this._client.close();
+      if (!this._client.closed)
+        this._client.close();
     }
   }
 /*
@@ -181,22 +192,38 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options?.schema ||  this.smt.schema;
+      let filename = schema;
 
       // ftp writes to passthrough and app reads from passthrough
-      let rs = new stream.PassThrough();
+      //let spt = new stream.PassThrough();
+      let spt = new stream.Transform({
+        autoDestroy: false,
+        transform(data, encoding, callback) {
+          this.push(data);
+          callback();
+        },
+        flush(callback) {
+          callback();
+        }
+      })
 
-      // create the read stream
-      await this._client.cd(decodeURI(this.url.pathname));
-
-      let filename = schema;
-      await this._client.downloadTo(rs, filename);
-
+      let rs = spt;
       ///// check for zip
       if (filename.endsWith('.gz')) {
         var decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
-        rs.pipe(decoder);
-        return decoder;
+        spt.pipe(decoder);
+        rs = decoder;
       }
+
+      // create the read stream
+      let result = await this._client.cd(decodeURI(this.url.pathname));
+      logger.debug("ftp " + JSON.stringify(result));
+
+      this._client.downloadTo(spt, filename)
+        .then((result) => {
+          logger.debug("ftp " + JSON.stringify(result));
+          this._client.close();
+        });
 
       return rs;
     }
@@ -401,7 +428,7 @@ StorageError(err) {
         status = 500;
     }
 
-    return new StorageError(status, { cause: err });
+    return new StorageError(status, err.message, { cause: err });
   }
 
 };
