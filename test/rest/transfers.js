@@ -71,7 +71,7 @@ async function transfer_census() {
     origin: {
       smt: "rest|https://api.census.gov/data/2020/dec/pl?get=NAME,P1_001N,P3_001N&for=county:*&in=state:19||*",
       options: {
-        header: true,
+        hasHeader: true,
         retries: 1,
         encoding: {
           fields: {
@@ -100,7 +100,7 @@ async function transfer_census() {
           "for": "county:*",
           "in": "state:19"
         },
-        header: true,
+        hasHeader: true,
         retries: 1,
         encoding: {
           fields: {

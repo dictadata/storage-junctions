@@ -17,7 +17,7 @@ async function tests() {
       options: {
         separator: "\t",
         quoted: "\"",
-        header: true,
+        hasHeader: true,
         raw: false
       },
       pattern: {
@@ -39,7 +39,7 @@ async function tests() {
     origin: {
       smt: "txt|./test/_data/input/|foofile.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t",
         quoted: "\"",
         raw: false
@@ -69,7 +69,7 @@ async function tests() {
     origin: {
       smt: "txt|./test/_data/input/|foofile.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t",
         quoted: "\"",
         raw: false

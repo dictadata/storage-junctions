@@ -15,7 +15,7 @@ async function testSummary() {
     origin: {
       smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
@@ -35,7 +35,7 @@ async function testSummary() {
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_summary.json|*',
       options: {
-        header: true,
+        addHeader: true,
         encoding: { totals: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_summary.json"
@@ -49,7 +49,7 @@ async function testGroupBy() {
     origin: {
       smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
@@ -75,7 +75,7 @@ async function testGroupBy() {
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_groupby.json|*',
       options: {
-        header: true,
+        addHeader: true,
         encoding: { category: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_groupby.json"
@@ -89,7 +89,7 @@ async function testNestedGroupBy() {
     origin: {
       smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
@@ -109,7 +109,7 @@ async function testNestedGroupBy() {
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_nested.json|*',
       options: {
-        header: true,
+        addHeader: true,
         encoding: { category: "keyword", item: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_nested.json"
@@ -123,7 +123,7 @@ async function testMultipleGroupBy() {
     origin: {
       smt: "json|./test/_data/input/|foo_data.json|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_data.engram.json"
       }
     },
@@ -155,7 +155,7 @@ async function testMultipleGroupBy() {
     terminal: {
       "smt": 'json|./test/_data/output/transforms/|aggregate_multiple.json|*',
       options: {
-        header: true,
+        addHeader: true,
         encoding: { category: "keyword", item: "keyword", count: "integer", qty: "number", value: "number" }
       },
       output: "./test/_data/output/transforms/aggregate_multiple.json"

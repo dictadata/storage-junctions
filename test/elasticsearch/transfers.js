@@ -21,7 +21,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
@@ -65,7 +65,11 @@ async function tests() {
       smt: "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*"
     },
     terminal: {
-      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_transfer|!Foo"
+      smt: "elasticsearch|http://dev.dictadata.net:9200|foo_transfer|!Foo",
+      options: {
+        encoding: "./test/_data/input/engrams/foo_schema.engram.json",
+        refresh: true
+      }
     }
   })) return 1;
 
@@ -81,7 +85,7 @@ async function tests() {
     terminal: {
       smt: "csv|./test/_data/output/elasticsearch/|transfer_foo.csv|*",
       options: {
-        header: true,
+        addHeader: true,
         append: false
       },
       output: "./test/_data/output/elasticsearch/transfer_foo.csv"

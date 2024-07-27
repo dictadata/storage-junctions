@@ -39,7 +39,7 @@ async function tests() {
     origin: {
       smt: "csv|/var/dictadata/test/data/input/|timeseries.csv|*",
       options: {
-        header: false,
+        hasHeader: false,
         encoding: {
           fields: {
             "time": "date",

@@ -23,6 +23,7 @@ async function retrieve_1() {
             "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
           }
         },
+        hasHeader: false,
         retries: 1,
         pick: "periods"
       }
@@ -45,7 +46,7 @@ async function retrieve_2() {
           get: "NAME,P1_001N,P3_001N",
           for: "state:*"
         },
-        header: true,
+        hasHeader: true,
         retries: 1
       }
     },

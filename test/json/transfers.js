@@ -40,7 +40,7 @@ async function tests() {
     terminal: {
       smt: "csv|./test/_data/output/json/|transfer_2.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/json/transfer_2.csv"
     }

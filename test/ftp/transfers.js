@@ -17,13 +17,13 @@ async function test_read() {
     origin: {
       smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.csv.gz|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/ftp/|output.csv|*",
       options: {
-        header: true
+        addHeader: true
       }
     }
   })) return 1;
@@ -33,13 +33,13 @@ async function test_read() {
     origin: {
       smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/ftp/|output.csv.gz|*",
       options: {
-        header: true
+        addHeader: true
       }
     }
   })) return 1;
@@ -78,13 +78,13 @@ async function test_write() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv.gz|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
       smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv|*",
       options: {
-        header: true
+        addHeader: true
       }
     }
   })) return 1;
@@ -94,13 +94,13 @@ async function test_write() {
       origin: {
         smt: "csv|./test/_data/input/|foofile.csv|*",
         options: {
-          header: true
+          hasHeader: true
         }
       },
       terminal: {
         smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv.gz|*",
         options: {
-          header: true
+          addHeader: true
         }
       }
     })) return 1;

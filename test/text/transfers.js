@@ -16,7 +16,7 @@ async function tests() {
     origin: {
       smt: "text|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: ",",
         quoted: "\"",
         encoding: "./test/_data/input/engrams/foo_schema.engram.json"
@@ -33,7 +33,7 @@ async function tests() {
     origin: {
       smt: "txt|./test/_data/input/|foofile.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t",
         quoted: "\"",
         encoding: "./test/_data/input/engrams/foo_schema.engram.json"
@@ -50,7 +50,7 @@ async function tests() {
     origin: {
       smt: "txt|./test/_data/input/|foo_data.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t",
         quoted: "\"",
         encoding: "./test/_data/input/engrams/foo_data.engram.json"
@@ -59,7 +59,7 @@ async function tests() {
     terminal: {
       smt: "csv|./test/_data/output/text/|transfer_data.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/text/transfer_data.csv"
     }

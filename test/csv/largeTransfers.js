@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|/var/dictadata/test/data/input/|fueltrim.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {

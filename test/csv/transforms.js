@@ -15,7 +15,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       },
       pattern: {
@@ -27,7 +27,7 @@ async function tests() {
     terminal: {
       smt: "csv|./test/_data/output/csv/|transform_none.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/csv/transform_none.csv"
     }
@@ -38,7 +38,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       },
       pattern: {
         match: {
@@ -59,7 +59,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     transforms: [
@@ -86,7 +86,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     transforms: [

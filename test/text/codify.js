@@ -15,13 +15,13 @@ async function tests() {
     origin: {
       smt: "txt|./test/_data/input/|foofile.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t",
         quoted: "\""
       }
     },
     terminal: {
-      output: './test/_data/output/text/codify_foo.json'
+      output: './test/_data/output/text/codify_foo.engram.json'
     }
   })) return 1;
 
@@ -30,13 +30,13 @@ async function tests() {
     origin: {
       smt: "txt|./test/_data/input/|foo_data.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t",
         quoted: "\""
       }
     },
     terminal: {
-      output: './test/_data/output/text/codify_data.json'
+      output: './test/_data/output/text/codify_data.engram.json'
     }
   })) return 1;
 

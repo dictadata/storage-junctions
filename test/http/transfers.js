@@ -20,7 +20,7 @@ async function test_transfers() {
     terminal: {
       smt: "csv|./test/_data/output/http/|foofile.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/http/foofile.csv"
     }
@@ -31,7 +31,7 @@ async function test_transfers() {
     origin: {
       smt: "csv|http://dev.dictadata.net/dictadata/test/data/input/|foofile.csv|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       }
     },
@@ -62,14 +62,14 @@ async function test_uncompress() {
     origin: {
       smt: "csv|http://dev.dictadata.net/dictadata/test/data/input/|foofile.csv.gz|*",
       options: {
-        header: true,
+        hasHeader: true,
         encoding: "./test/_data/input/engrams/foo_schema.engram.json"
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/http/|foofile_gunzip.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/http/foofile_gunzip.csv"
     }
@@ -89,7 +89,7 @@ async function test_census_data() {
           "get": "NAME,P1_001N,P3_001N",
           "for": "state:*"
         },
-        header: true
+        hasHeader: true
       }
     },
     terminal: {

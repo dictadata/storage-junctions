@@ -21,7 +21,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
@@ -86,7 +86,7 @@ async function tests() {
     terminal: {
       smt: "csv|./test/_data/output/mysql/|transfer.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/mysql/transfer.csv"
     }

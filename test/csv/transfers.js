@@ -11,34 +11,36 @@ logger.info("=== Tests: csv data transfers");
 async function tests() {
 
   logger.verbose('=== csv > transfer_1.csv');
-  if (await transfer({
+  let rc = await transfer({
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/csv/|transfer_1.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/csv/transfer_1.csv"
     }
-  })) return 1;
+  });
+  if (rc)
+    return 1;
 
   logger.verbose('=== csv > transfer_badfile.csv');
   if (await transfer({
     origin: {
       smt: "csv|./test/_data/input/|foofile_badfile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/csv/|transfer_badfile.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/csv/transfer_badfile.csv"
     }
@@ -49,7 +51,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
@@ -63,7 +65,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
@@ -77,7 +79,7 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t"
       }
     },
@@ -92,7 +94,7 @@ async function tests() {
     origin: {
       smt: "csv|/var/dictadata/test/data/input/|timeseries.csv|*",
       options: {
-        header: false,
+        hasHeader: false,
         encoding: {
           fields: {
             "time": "date",
@@ -113,13 +115,13 @@ async function tests() {
       smt: "csv|./test/data/input/|foofile.csv|*",
       options: {
         dataPath: "/var/dictadata/",
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/csv/|transfer_dataPath.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/csv/transfer_dataPath.csv"
     }
@@ -130,14 +132,14 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foo_data.txt|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: "\t"
       }
     },
     terminal: {
       smt: "csv|./test/_data/output/csv/|transfer_data.csv|*",
       options: {
-        header: true
+        addHeader: true
       },
       output: "./test/_data/output/csv/transfer_data.csv"
     }

@@ -16,7 +16,7 @@ async function tests() {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         encoding: "./test/_data/input/engrams/foo_schema.engram.json",
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
@@ -30,7 +30,7 @@ async function tests() {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
         encoding: "./test/_data/input/engrams/foo_schema.engram.json",
-        header: true
+        hasHeader: true
       },
       pattern: {
         match: {

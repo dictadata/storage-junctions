@@ -16,7 +16,7 @@ It is up to the application to provide a representative sample of constructs as 
 async function codifyCSV(smt, options) {
 
   try {
-    let jo = await Storage.activate("csv|file:/pathtofile/|somefile.csv|*", {headers: true});
+    let jo = await Storage.activate("csv|file:/pathtofile/|somefile.csv|*", options);
     let reader = jo.createReader();
     let codify = await Storage.activateTransform("codify", options);
 
@@ -36,7 +36,7 @@ async function codifyCSV(smt, options) {
 
 let smt = "csv|./test/_data/input/|foofile.csv|*";
 let options: {
-  header: true
+  hasHeader: true
 }
 
 let encoding = await codifyCSV(smt, options);

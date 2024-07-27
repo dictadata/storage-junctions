@@ -17,7 +17,7 @@ async function tests() {
       options: {
         separator: ",",
         quoted: '"',
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
@@ -30,7 +30,7 @@ async function tests() {
     origin: {
       smt: "csv|zip:/var/dictadata/AR/Statewide Voter Files/VR.zip|VR.csv|*",
       options: {
-        header: true,
+        hasHeader: true,
         separator: ',',
         quoted: true,
         raw: true
