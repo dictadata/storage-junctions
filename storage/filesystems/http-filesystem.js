@@ -217,7 +217,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let redirects = 0;
       while (!rs) {
         try {
-          logger.verbose("  " + filename);
+          logger.verbose("http  " + filename);
           rs = await httpRequest(filename, request);
         }
         catch (err) {
@@ -320,7 +320,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let redirects = 0;
       while (!rs) {
         try {
-          logger.verbose("  " + src + " >> " + dest);
+          logger.verbose("http  " + src + " >> " + dest);
           rs = await httpRequest(src, request);
         }
         catch (err) {
@@ -383,7 +383,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
       let filename = (options.use_rpath ? options.entry.rpath : options.entry.name);
       let dest = this.url.pathname + filename.split(path.sep).join(path.posix.sep);
-      logger.verbose("  " + src + " >> " + dest);
+      logger.verbose("http  " + src + " >> " + dest);
 
       const form = new FormData();
       for (let [ n, v ] of Object.entries(options.formdata))
