@@ -21,11 +21,18 @@ class CsvAsObjects extends Transform {
     return withParser(CsvAsObjects.make, options);
   }
 
+  /**
+   *
+   * @param {*} options
+   * @param {boolean}  options.hasHeader input includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
+   */
   constructor(options) {
-    super(Object.assign({}, options, { writableObjectMode: true, readableObjectMode: true }));
+    super({ objectMode: true });
 
-    this._header = false;
-    this._keys = [];
+    this._hasHeader = false;
+    this._headers = [];
+    this._csvHeaders = [];
     this._fieldPrefix = 'field_';
     this._packKeys = true;
     this._streamKeys = true;
@@ -33,18 +40,18 @@ class CsvAsObjects extends Transform {
     this._index = 0;
 
     if (options) {
-      'header' in options && (this._header = options.header);
-      'keys' in options && (this._keys = options.keys || options.headers);
-      'fieldPrefix' in options && (this._fieldPrefix = options.fieldPrefix);
-      'packValues' in options && (this._packStrings = options.packValues);
-      'packKeys' in options && (this._packKeys = options.packKeys);
-      'streamValues' in options && (this._streamStrings = options.streamValues);
-      'streamKeys' in options && (this._streamKeys = options.streamKeys);
+      if ('hasHeader' in options) this._hasHeader = options.hasHeader;
+      if ('headers' in options) this._headers = options.headers;
+      if ('keys' in options) this._headers = options.keys;
+      if ('fieldPrefix' in options) this._fieldPrefix = options.fieldPrefix;
+      if ('packValues' in options) this._packStrings = options.packValues;
+      if ('packKeys' in options) this._packKeys = options.packKeys;
+      if ('streamValues' in options) this._streamStrings = options.streamValues;
+      if ('streamKeys' in options) this._streamKeys = options.streamKeys;
     }
-    !this._packKeys && (this._streamKeys = true);
+    if (!this._packKeys) this._streamKeys = true;
 
-    if (this._header) {
-      this._keys = [];
+    if (this._hasHeader) {
       this._transform = this._transformHeaderTokens;
     }
     else
@@ -71,9 +78,9 @@ class CsvAsObjects extends Transform {
         break;
       case 'endString':
         if (this._buffer.charCodeAt(0) === 0xFEFF)  // BOM character
-          this._keys.push(this._buffer.substring(1));
+          this._csvHeaders.push(this._buffer.substring(1));
         else
-          this._keys.push(this._buffer);
+          this._csvHeaders.push(this._buffer);
         this._buffer = '';
         break;
     }
@@ -93,13 +100,14 @@ class CsvAsObjects extends Transform {
         this._transform = this._transformToObject;
         break;
       case 'stringValue':
-        this._keys.push(chunk.value);
+        this._csvHeaders.push(chunk.value);
         break;
     }
     callback();
   }
 
   _transformToObject(chunk, encoding, callback) {
+    let headers = this._headers.length ? this._headers : (this._csvHeaders.length ? this._csvHeaders : []);
     let key;
     switch (chunk.name) {
       case 'startArray':
@@ -111,7 +119,7 @@ class CsvAsObjects extends Transform {
         break;
       case 'startString':
       case 'stringValue':
-        key = (this._index < this._keys.length && this._keys[ this._index ]) || this._fieldPrefix + this._index;
+        key = (this._index < headers?.length && headers[ this._index ]) || (this._fieldPrefix + this._index);
         ++this._index;
         if (this._streamKeys) {
           this.push({ name: 'startKey' });

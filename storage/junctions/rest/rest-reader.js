@@ -5,21 +5,27 @@
 
 const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
-const { logger } = require('@dictadata/lib');
-const { httpRequest, replace } = require('@dictadata/lib');
+const { contentTypeIsJSON, replace, logger } = require('@dictadata/lib');
 
 module.exports = exports = class RESTReader extends StorageReader {
 
   /**
    *
-   * @param {*} storageJunction
-   * @param {*} options
+   * @param {Object} storageJunction
+   * @param {Object}   options
+   * @param {boolean}  options.addHeader input includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
+   * @param {boolean}  options.raw output raw data arrays
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
     this.encoder = this.junction.createEncoder(options);
     this.results;
+
+    if (!options.raw && !options.headers && options.encoding)
+      this.options.headers = this.engram.names;
+
   }
 
   async _construct(callback) {
@@ -61,7 +67,7 @@ module.exports = exports = class RESTReader extends StorageReader {
         this.destroy(new StorageError(response.statusCode, msg));
       }
 
-      if (httpRequest.contentTypeIsJSON(response.headers[ "content-type" ]))
+      if (contentTypeIsJSON(response.headers[ "content-type" ]))
         this.results = JSON.parse(response.data);
       else
         this.results = response.data;

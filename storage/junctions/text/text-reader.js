@@ -10,7 +10,7 @@ const Storage = require('../../storage');
 const { StorageReader } = require('../storage-junction');
 const { logger } = require('@dictadata/lib');
 
-const readline = require('node:readline');
+const readline = require('node:readline/promises');
 const path = require('node:path');
 
 
@@ -20,6 +20,12 @@ module.exports = exports = class TextReader extends StorageReader {
    *
    * @param {*} storageJunction
    * @param {*} options
+   * @param {boolean}  options.hasHeader input includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
+   * @param {string}   options.separator field separator value, default ','
+   * @param {string}   options.quoted quote character value, default '""
+   * @param {number}   options.count maximum number of rows to read, default all
+   * @param {boolean}  options.raw output raw data as arrays
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
@@ -29,10 +35,13 @@ module.exports = exports = class TextReader extends StorageReader {
     this.paused = false;
 
     this.separator = this.options?.separator;
-    this.quoted = this.options?.quoted;
-    this.header = this.options?.header;
+    this.quoted = this.options?.quoted || '"';
+    this.hasHeader = this.options?.hasHeader;
     this.headers = this.options?.headers;
     this.raw = Object.hasOwn(this.options, "raw") ? this.options.raw : false;
+
+    if (!options.raw && !this.headers && options.encoding)
+      this.headers = this.engram.names;
   }
 
   /**
@@ -42,7 +51,7 @@ module.exports = exports = class TextReader extends StorageReader {
    * @returns
    */
   parseLine(line) {
-    let values = [];
+    let row = [];
     let value = [];
 
     const iterator = line[ Symbol.iterator ]();
@@ -65,16 +74,19 @@ module.exports = exports = class TextReader extends StorageReader {
         ch = iterator.next();
       }
 
-      if (!ch.done && ch.value === this.separator)
+      row.push(value.join(""));
+      value.length = 0;
+
+      if (!ch.done && ch.value === this.separator) {
         ch = iterator.next();
+        if (ch.done)
+          row.push(value.join(""));
+      }
       else if (!ch.done)
         throw "TextReader invalid character found: " + ch.value;
-
-      values.push(value.join(""));
-      value.length = 0;
     }
 
-    return values;
+    return row;
   }
 
   async parse() {
@@ -87,11 +99,11 @@ module.exports = exports = class TextReader extends StorageReader {
       var rs = await this.stfs.createReadStream(this.options);
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on('close', () => {
-        logger.debug("readline reader close")
-      })
+        logger.debug("stfs reader close")
+      });
       rs.on('end', () => {
-        logger.debug("readline reader end")
-      })
+        logger.debug("stfs reader end")
+      });
       rs.on('error',
         (err) => {
           logger.warn(err);
@@ -113,32 +125,31 @@ module.exports = exports = class TextReader extends StorageReader {
       // eslint-disable-next-line arrow-parens
       parser.on('line', (line) => {
         if (line) {
-          //logger.debug(line);
+          logger.debug(line);
 
           //let construct = line.split(reader.separator);
-          let construct = reader.parseLine(line);
+          let row = reader.parseLine(line);
+          let construct;
 
-          if (reader.quoted) {
-            let a = [];
-            construct.forEach(item => {
-              a.push((item && item[ 0 ] === reader.quoted) ? item.substring(1, item.length - 1) : item);
-            })
-            construct = a;
+          if (reader.hasHeader && !reader._headers) {
+            reader._headers = row;
+            if (!reader.headers)
+              reader.headers = row;
+            return;
           }
 
-          if (reader.header || reader.headers) {
-            if (!reader.headers) {
-              reader.headers = construct;
-              return;
+          if (reader.headers && !reader.raw) {
+            construct = {};
+            for (let i = 0; i < row.length; i++) {
+              let name = reader.headers[ i ] || i;
+              construct[ name ] = row[ i ];
             }
-
-            let o = {};
-            for (let i = 0; i < reader.headers.length; i++)
-              o[ reader.headers[ i ] ] = construct[ i ];
-            construct = o;
           }
 
-          if (!reader.raw && !Array.isArray(construct)) {
+          if (reader.raw) {
+            construct = row;
+          }
+          else if (construct) {
             construct = encoder.cast(construct);
             construct = encoder.filter(construct);
             construct = encoder.select(construct);
@@ -147,8 +158,10 @@ module.exports = exports = class TextReader extends StorageReader {
             return;
 
           _stats.count += 1;
-          if (!reader.push(construct)) {
+          let result = reader.push(construct)
+          if (!result) {
             reader.paused = true;
+            rs.pause();
             parser.pause();
           }
 
@@ -162,6 +175,14 @@ module.exports = exports = class TextReader extends StorageReader {
             reader.stfs.relax();
           }
         }
+      });
+
+      parser.on('pause', () => {
+        logger.debug("text-reader pause");
+      });
+
+      parser.on('resume', () => {
+        logger.debug("text-reader resume");
       });
 
       parser.on('close', () => {
@@ -188,6 +209,12 @@ module.exports = exports = class TextReader extends StorageReader {
       logger.warn(err.message);
       callback(this.stfs?.StorageError(err) || new StorageError('TextReader construct error'));
     }
+  }
+
+  async _destroy(err, callback) {
+    if (this.stfs)
+      this.stfs.relax();
+    callback();
   }
 
   /**

@@ -99,6 +99,11 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       callback(this.stfs?.StorageError(err) || new StorageError('JSONWriter construct error'));
     }
   }
+  async _destroy(err, callback) {
+    if (this.stfs)
+      this.stfs.relax();
+    callback();
+  }
 
   /**
    *

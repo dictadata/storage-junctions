@@ -6,15 +6,14 @@ const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');;
 const { formatDate } = require('@dictadata/lib');
 
-
 module.exports = exports = class CSVWriter extends StorageWriter {
 
   /**
    *
    * @param {object}   junction parent CSVJunction
    * @param {object}   options
-   * @param {boolean}  options.header output includes a header row, default false
-   * @param {string[]} options.headers values to use for engram field names, default undefined
+   * @param {boolean}  options.addHeader output includes a header row, default false
+   * @param {string[]} options.headers values to use for field names, default undefined
    */
   constructor(storageJunction, options) {
     super(storageJunction, options);
@@ -23,7 +22,8 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     //if (this.options.schema && path.extname(this.options.schema) === '')
     //  this.options.schema = this.options.schema + '.csv';
 
-    // this.options.header = false;  // default value
+    if (!options.raw && !options.headers && options.encoding)
+      options.headers = this.engram.names;
 
     this.ws = null;
   }
@@ -41,7 +41,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
           this.destroy(this.stfs?.StorageError(err) ?? new StorageError(err));
         });
 
-      if (this.stfs.isNewFile && this.options.header) {
+      if (this.stfs.isNewFile && this.options.addHeader) {
         // new file, write header line
         let names = this.options.headers || this.engram.names;
         let headers = '"' + names.join('","') + '"\n';
@@ -54,6 +54,11 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       logger.warn(err.message);
       callback(this.stfs?.StorageError(err) || new StorageError('CsvWriter construct error'));
     }
+  }
+  async _destroy(err, callback) {
+    if (this.stfs)
+      this.stfs.relax();
+    callback();
   }
 
   /**

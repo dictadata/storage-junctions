@@ -60,6 +60,12 @@ module.exports = exports = class ShapefileReader extends StorageReader {
     }
   }
 
+  async _destroy(err, callback) {
+    if (this.stfs)
+      this.stfs.relax();
+    callback();
+  }
+
   /**
    * An internal call to fetch data from the underlying resource.
    * @param {*} size <number> Number of constructs to read asynchronously

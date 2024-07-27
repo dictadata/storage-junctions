@@ -18,7 +18,7 @@ module.exports = exports = class JSONReader extends StorageReader {
    *
    * @param {*} storageJunction
    * @param {*} options
-   * @param {boolean}  options.header input includes a header row, default false
+   * @param {boolean}  options.hasHeader input includes a header row, default false
    * @param {string[]} options.headers values to use for field names, default undefined
    * @param {string}   options.pick property name to pick from source object(s)
    * @param {number}   options.count maximum number of rows to read, default all
@@ -31,7 +31,11 @@ module.exports = exports = class JSONReader extends StorageReader {
     //if (this.options.schema && path.extname(this.options.schema) === '')
     //  this.options.schema = this.options.schema + '.json';
 
-    var encoder = this.junction.createEncoder(options);
+    // headers needed for jsona rows
+    if (!options.hasHeader && !options.headers)
+      this.options.headers = this.engram.names;
+
+    var encoder = this.junction.createEncoder(this.options);
 
     /***** create the parser, pipieline and data handlers *****/
     let jstream = (this.engram.smt.model === 'jsons' || this.engram.smt.model === 'jsonl');
@@ -52,10 +56,10 @@ module.exports = exports = class JSONReader extends StorageReader {
     // create variables that will be in the scope of data handler callbacks
     var reader = this;
     //var encoding = this.engram;
-    var _stats = this._stats;
-    var count = this.options.pattern?.count || this.options.count || -1;
-    var header = this.options.header;
-    var headers = this.options.headers || (Array.isArray(this.options.header) ? this.options.header : null);
+    const _stats = this._stats;
+    const count = this.options.pattern?.count || this.options.count || -1;
+    const _options = this.options;
+    var _headers;
 
     var pipeline = this.pipeline = chain(pipes);
 
@@ -65,7 +69,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       if (data.value) {
         //logger.debug(JSON.stringify(data.value));
 
-        let construct = (header) ? convert(data.value) : data.value;
+        let construct = (_options.hasHeader) ? convert(data.value) : data.value;
         construct = encoder.cast(construct);
         construct = encoder.filter(construct);
         construct = encoder.select(construct);
@@ -99,26 +103,27 @@ module.exports = exports = class JSONReader extends StorageReader {
       // throw err;
     });
 
-    // convert array to object
-    function convert(data) {
-      if (!Array.isArray(data))
-        return data;
+    // convert (JSON) array to object
+    function convert(row) {
+      if (!Array.isArray(row))
+        return row;
 
-      let c;
-      if (header && !headers) {
-        headers = data;
+      let construct;
+      if (_options.hasHeader && !_headers) {
+        _headers = row;
+        if (!_options.headers)
+          _options.headers = row;
       }
       else {
         // convert array to object
-        c = {};
-        for (let i = 0; i < headers.length; i++) {
-          if (i >= data.length)
-            break;
-          c[ headers[ i ] ] = data[ i ];
+        construct = {};
+        for (let i = 0; i < row.length; i++) {
+          let name = _options.headers[ i ] || i;
+          construct[ name ] = row[ i ];
         }
       }
 
-      return c;
+      return construct;
     }
 
     this.stfs;
@@ -149,6 +154,11 @@ module.exports = exports = class JSONReader extends StorageReader {
       logger.warn(err.message);
       callback(this.stfs?.StorageError(err) || new StorageError('JSONReader construct error'));
     }
+  }
+  async _destroy(err, callback) {
+    if (this.stfs)
+      this.stfs.relax();
+    callback();
   }
 
   /**

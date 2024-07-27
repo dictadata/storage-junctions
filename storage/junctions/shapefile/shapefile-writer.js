@@ -53,6 +53,12 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
     }
   }
 
+  async _destroy(err, callback) {
+    if (this.stfs)
+      this.stfs.relax();
+    callback();
+  }
+
   /**
    *
    * @param {*} construct
