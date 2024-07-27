@@ -54,7 +54,8 @@
       "name": "tags",
       "type": "keyword",
       "_elasticsearch": {
-        "type": "keyword"
+        "type": "keyword",
+        "ignore_above": 1024
       }
     },
     {
@@ -65,14 +66,15 @@
           "name": "count",
           "type": "integer",
           "_elasticsearch": {
-            "type": "integer"
+            "type": "long"
           }
         },
         {
           "name": "part",
           "type": "keyword",
           "_elasticsearch": {
-            "type": "keyword"
+            "type": "keyword",
+            "ignore_above": 1024
           }
         }
       ]

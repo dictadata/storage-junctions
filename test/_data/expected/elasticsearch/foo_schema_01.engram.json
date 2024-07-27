@@ -93,7 +93,8 @@
       "name": "tags",
       "type": "keyword",
       "_elasticsearch": {
-        "type": "keyword"
+        "type": "keyword",
+        "ignore_above": 1024
       }
     }
   ]
