@@ -130,7 +130,7 @@ module.exports = exports = class AggregateTransform extends Transform {
   constructor(options) {
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128
+      highWaterMark: 32
     };
     super(streamOptions);
 

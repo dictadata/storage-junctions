@@ -24,9 +24,10 @@ module.exports = exports = class CodifyTransform extends Transform {
   constructor(options) {
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128
+      highWaterMark: 32
     };
     super(streamOptions);
+    logger.debug("codify constructor");
 
     this.options = Object.assign({}, options);
 

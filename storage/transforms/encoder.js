@@ -29,7 +29,7 @@ module.exports = exports = class EncoderTransform extends Transform {
   constructor(options) {
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128
+      highWaterMark: 32
     };
     super(streamOptions);
 

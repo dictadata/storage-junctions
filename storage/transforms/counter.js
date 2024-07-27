@@ -18,7 +18,7 @@ module.exports = exports = class CounterTransform extends Transform {
   constructor(options) {
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128
+      highWaterMark: 32
     };
     super(streamOptions);
 

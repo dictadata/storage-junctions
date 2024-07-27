@@ -28,7 +28,7 @@ module.exports = exports = class ComposeTransform extends Transform {
   constructor(options) {
     let streamOptions = {
       objectMode: true,
-      highWaterMark: 128
+      highWaterMark: 32
     };
     super(streamOptions);
 
