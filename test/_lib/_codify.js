@@ -72,7 +72,9 @@ module.exports = exports = async function (fiber, compareValues = 2) {
     encoding2.smt = jo.smt;
 
     //logger.debug(JSON.stringify(encoding2, null, "  "));
-    let filename = fiber.terminal.output.replace(".json", ".engram.json");
+    let filename = fiber.terminal.output;
+    if (!filename.endsWith(".engram.json"))
+      filename = filename.replace(".json", ".engram.json");
     retCode = output(filename, encoding2, compareValues);
 
     logger.info(">>> completed");

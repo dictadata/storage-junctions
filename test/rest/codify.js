@@ -32,7 +32,7 @@ async function tests() {
       }
     },
     terminal: {
-      output: './test/_data/output/rest/weather_points.json'
+      output: './test/_data/output/rest/weather_points.engram.json'
     }
   }, 1)) return 1;
 
@@ -48,12 +48,13 @@ async function tests() {
             "User-Agent": "@dictadata.net/storage contact:info@dictadata.net"
           }
         },
-        retries: 1,
-        pick: "periods"
+        retries: 2,
+        pick: "periods",
+        raw: true
       }
     },
     terminal: {
-      output: './test/_data/output/rest/weather_forecast.json'
+      output: './test/_data/output/rest/weather_forecast.engram.json'
     }
   }, 1)) return 1;
 

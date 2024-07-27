@@ -17,7 +17,7 @@ async function test1() {
       options: {}
     },
     terminal: {
-      output: './test/_data/output/shapefile/polygons.json'
+      output: './test/_data/output/shapefile/polygons.engram.json'
     }
   })) return 1;
 
@@ -32,7 +32,7 @@ async function test2() {
       options: {}
     },
     terminal: {
-      output: './test/_data/output/shapefile/points.json'
+      output: './test/_data/output/shapefile/points.engram.json'
     }
   })) return 1;
 
@@ -47,7 +47,7 @@ async function test3() {
       options: {}
     },
     terminal: {
-      output: './test/_data/output/shapefile/tl_2023_us_state.json'
+      output: './test/_data/output/shapefile/tl_2023_us_state.engram.json'
     }
   })) return 1;
 
@@ -62,7 +62,7 @@ async function test4() {
       options: {}
     },
     terminal: {
-      output: './test/_data/output/shapefile/tl_2023_us_county.json'
+      output: './test/_data/output/shapefile/tl_2023_us_county.engram.json'
     }
   })) return 1;
 
@@ -77,7 +77,7 @@ async function test5() {
       options: {}
     },
     terminal: {
-      output: './test/_data/output/shapefile/ames_precincts.json'
+      output: './test/_data/output/shapefile/ames_precincts.engram.json'
     }
   })) return 1;
 

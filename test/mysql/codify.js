@@ -16,7 +16,7 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema|=Foo"
     },
     terminal: {
-      output: './test/_data/output/mysql/codify_00.json'
+      output: './test/_data/output/mysql/codify_00.engram.json'
     }
   })) return 1;
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_schema_01|=Foo"
     },
     terminal: {
-      output: './test/_data/output/mysql/codify_01.json'
+      output: './test/_data/output/mysql/codify_01.engram.json'
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       smt: "mysql|host=dev.dictadata.net;database=storage_node|foo_widgets|=Foo"
     },
     terminal: {
-      output: './test/_data/output/mysql/codify_02.json'
+      output: './test/_data/output/mysql/codify_02.engram.json'
     }
   })) return 1;
 

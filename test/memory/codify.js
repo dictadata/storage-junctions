@@ -16,7 +16,7 @@ async function tests() {
       smt: "memory|testgroup|foo_schema|!Foo"
     },
     terminal: {
-      output: './test/_data/output/memory/codify_00.json'
+      output: './test/_data/output/memory/codify_00.engram.json'
     }
   })) return 1;
 
@@ -26,7 +26,7 @@ async function tests() {
       smt: "memory|testgroup|foo_schema_01|!Foo"
     },
     terminal: {
-      output: './test/_data/output/memory/codify_01.json'
+      output: './test/_data/output/memory/codify_01.engram.json'
     }
   })) return 1;
 
@@ -36,7 +36,7 @@ async function tests() {
       smt: "memory|testgroup|foo_widgets|!Foo"
     },
     terminal: {
-      output: './test/_data/output/memory/codify_02.json'
+      output: './test/_data/output/memory/codify_02.engram.json'
     }
   })) return 1;
 

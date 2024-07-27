@@ -17,7 +17,7 @@ async function tests() {
       smt: "json|./test/_data/input/|foofile.json|*"
     },
     terminal: {
-      output: './test/_data/output/json/codify_1.json'
+      output: './test/_data/output/json/codify_1.engram.json'
     }
   })) return 1;
 
@@ -27,7 +27,7 @@ async function tests() {
       smt: "json|./test/_data/input/|foofile.json.gz|*"
     },
     terminal: {
-      output: './test/_data/output/json/codify_g1.json'
+      output: './test/_data/output/json/codify_g1.engram.json'
     }
   })) return 1;
 
@@ -37,7 +37,7 @@ async function tests() {
       smt: "json|./test/_data/input/|foofile_01.json|*"
     },
     terminal: {
-      output: './test/_data/output/json/codify_m1.json'
+      output: './test/_data/output/json/codify_m1.engram.json'
     }
   })) return 1;
 
@@ -47,7 +47,7 @@ async function tests() {
       smt: "json|./test/_data/input/|foo_widgets.json|*"
     },
     terminal: {
-      output: './test/_data/output/json/codify_l1.json'
+      output: './test/_data/output/json/codify_l1.engram.json'
     }
   })) return 1;
 

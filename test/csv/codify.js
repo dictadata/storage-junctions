@@ -15,11 +15,11 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
-      output: './test/_data/output/csv/codify_1.json'
+      output: './test/_data/output/csv/codify_1.engram.json'
     }
   })) return 1;
 
@@ -28,11 +28,11 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foofile.csv.gz|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
-      output: './test/_data/output/csv/codify_g1.json'
+      output: './test/_data/output/csv/codify_g1.engram.json'
     }
   })) return 1;
 
@@ -42,11 +42,11 @@ async function tests() {
     origin: {
       smt: "csv|./test/_data/input/|foo_missing.csv|*",
       options: {
-        header: true
+        hasHeader: true
       }
     },
     terminal: {
-      output: './test/_data/output/csv/codify_2.json'
+      output: './test/_data/output/csv/codify_2.engram.json'
     }
   })) return 1;
 
