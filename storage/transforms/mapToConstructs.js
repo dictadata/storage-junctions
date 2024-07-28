@@ -8,7 +8,7 @@ const { Transform } = require('node:stream');
 /**
  * Transforms an object or Map of entries to constructs.
  */
-module.exports = exports = class MapConstructsTransform extends Transform {
+module.exports = exports = class MapToConstructsTransform extends Transform {
 
   /**
    *

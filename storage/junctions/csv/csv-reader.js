@@ -17,7 +17,7 @@ module.exports = exports = class CSVReader extends StorageReader {
    * @param {object}   junction parent CSVJunction
    * @param {object}   options
    * @param {boolean}  options.hasHeader input includes a header row, default false
-   * @param {string[]} options.headers values to use for headers instead of engram field names, default undefined
+   * @param {string[]} options.headers names to override header row, if encoding provided then engram field names, default []
    * @param {string}   options.separator field separator value, default ','
    * @param {number}   options.count maximum number of rows to read, default all
    * @param {string}   options.fileEncoding  default "utf8"
