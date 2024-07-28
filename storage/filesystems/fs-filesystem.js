@@ -26,11 +26,18 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
     this._dirname = ''; // last dirname
   }
+
+  async relax() {
+    if (this.fd)
+      this.fd.close();
+  }
+
   /*
     filepath(filename = "") {
       return path.join(url.fileURLToPath(this.url), filename);
     }
   */
+
   /**
    * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
    * @param {object} options Specify any options use when querying the filesystem.
@@ -147,8 +154,8 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
       //const rs = fs.createReadStream(filename);
-      const fd = await fsp.open(filename);
-      const rs = await fd.createReadStream();
+      this.fd = await fsp.open(filename);
+      const rs = await this.fd.createReadStream();
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -286,7 +293,6 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       throw sterr;
     }
   }
-
 
   /**
    * Convert a filesystem code to a StorageError code.
