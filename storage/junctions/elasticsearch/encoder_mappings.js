@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const { logger } = require('@dictadata/lib');
+const { exists, logger } = require('@dictadata/lib');
 const { StorageError } = require('../../types');
 const fs = require('node:fs');
 
@@ -21,7 +21,7 @@ module.exports = exports = class ElasticMappings {
     this.mappingsPath = junction.options.mappingsPath || './storage/elasticsearch/mappings/';
     this.defaultMappings = junction.options.defaultMappings || './storage/elasticsearch/mappings/_defaultMappings.json';
 
-    if (!fs.existsSync(this.mappingsPath))
+    if (!exists(this.mappingsPath))
       fs.mkdirSync(this.mappingsPath, { recursive: true });
   }
 
@@ -126,7 +126,7 @@ module.exports = exports = class ElasticMappings {
     logger.debug('mappings _read');
 
     let mappingsFile = this.mappingsPath + this.index + ".json";
-    if (useCache && fs.existsSync(mappingsFile)) {
+    if (useCache && exists(mappingsFile)) {
       logger.debug(mappingsFile);
       let doc = JSON.parse(fs.readFileSync(mappingsFile, "utf8"));
       this.settings = doc.settings;

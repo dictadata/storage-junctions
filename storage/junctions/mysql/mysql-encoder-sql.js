@@ -303,26 +303,48 @@ exports.sqlWhereByKey = (engram, pattern) => {
     sql += " WHERE ";
 
     let first = true;
-    for (let key of engram.keys) {
-      let value = match[ key ];
+    for (let fldname of engram.keys) {
+      let value = match[ fldname ];
       let tvalue = typeOf(value);
 
       if (tvalue === "undefined")
-        throw "key value undefined " + key;
-      else if (tvalue === "array") {
+        throw "key value undefined " + fldname;
+      else if (tvalue === 'object') {
+        // expression(s) { op: value, ...}
+        for (let [ op, val ] of Object.entries(value)) {
+          (first) ? first = false : sql += " AND ";
+
+          sql += sqlString.escapeId(fldname);
+          switch (op.toLowerCase()) {
+            case 'gt': sql += " > "; break;
+            case 'gte': sql += " >= "; break;
+            case 'lt': sql += " < "; break;
+            case 'lte': sql += " <= "; break;
+            case 'eq': sql += " = "; break;
+            case 'neq': sql += " != "; break;
+            case 'wc': sql += " LIKE ";
+              val = val.replace(/\*/g, "%").replace(/\?/g, "_");
+              break;
+            default: sql += " ??? ";
+          }
+          sql += encodeValue(engram.find(fldname), val);
+        }
+      }
+      else if (tvalue === 'array') {
         // multiple values { field: [ value1, value2, ... ] }
         (first) ? first = false : sql += " AND ";
         sql += "(";
         let f1rst = true;
         for (let val of value) {
           (f1rst) ? f1rst = false : sql += " OR ";
-          sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), val);
+          sql += sqlString.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), val);
         }
         sql += ")";
       }
       else {
+        // single value { field: value }
         (first) ? first = false : sql += " AND ";
-        sql += sqlString.escapeId(key) + "=" + encodeValue(engram.find(key), value);
+        sql += sqlString.escapeId(fldname) + "=" + encodeValue(engram.find(fldname), value);
       }
     }
   }
@@ -475,8 +497,10 @@ exports.sqlSelectByPattern = function (engram, pattern) {
   }
 
   // LIMIT clause
-  if (pattern?.count)
-    sql += " LIMIT " + pattern.count;
+  if (pattern?.LIMIT || pattern?.count)
+    sql += " LIMIT " + (pattern.LIMIT || pattern.count);
+  if (pattern?.OFFSET)
+    sql += " OFFSET " + pattern.OFFSET;
 
   return sql;
 };

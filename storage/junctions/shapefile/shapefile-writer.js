@@ -43,7 +43,7 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
         });
 
       // write opening, if any
-      await this.ws.write(this.openTag);
+      this.ws.write(this.openTag);
 
       callback();
     }
@@ -96,7 +96,7 @@ module.exports = exports = class ShapefileWriter extends StorageWriter {
       data += JSON.stringify(ordered ? ordered : construct);
       if (data.length > 0) {
         this._stats.count += 1;
-        await this.ws.write(data);
+        this.ws.write(data);
       }
 
       callback();

@@ -6,6 +6,7 @@ const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 
 const path = require('node:path');
+const util = require('node:util');
 
 
 module.exports = exports = class JSONWriter extends StorageWriter {
@@ -83,14 +84,17 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       // open file stream
       this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
       this.ws = await this.stfs.createWriteStream(this.options);
+      this.ws.write = util.promisify(this.ws.write);
 
       this.ws.on('error', (err) => {
         this.destroy(this.junction.StorageError(err));
       });
 
       // write opening, if any
-      if (this.formation.opening)
+      if (this.formation.opening) {
+        console.debug("JSONWriter opening");
         await this.ws.write(this.formation.opening);
+      }
 
       callback();
     }
@@ -159,7 +163,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
 
       if (data.length > 0) {
         this._stats.count += 1;
-        await this.ws.write(data);
+        this.ws.write(data);
       }
 
       callback();
@@ -205,7 +209,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       if (this.ws) {
         // write close tag
         if (this.formation.closing)
-          await this.ws.write(this.formation.closing);
+          this.ws.write(this.formation.closing);
 
         if (this.autoClose) {
           await new Promise((resolve) => {

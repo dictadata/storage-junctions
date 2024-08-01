@@ -92,7 +92,7 @@ module.exports = exports = class CodifyTransform extends Transform {
    * @param {*} fields - The child field encodings.
    */
   processConstruct(construct, fields) {
-    logger.debug("processConstruct");
+    // logger.debug("processConstruct");
 
     // loop through the construct
     for (let [ name, value ] of Object.entries(construct)) {

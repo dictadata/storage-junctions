@@ -73,7 +73,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
           });
 
         // write opening, if any
-        await this.ws.write(this.open);
+        this.ws.write(this.open);
       }
 
       let data = (this._stats.count === 0) ? "" : this.delim;
@@ -81,7 +81,7 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
       data += JSON.stringify(construct);
       if (data.length > 0) {
         this._stats.count += 1;
-        await this.ws.write(data);
+        this.ws.write(data);
       }
 
       callback();

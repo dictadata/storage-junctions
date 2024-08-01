@@ -5,6 +5,7 @@ const { StorageWriter } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');;
 const { formatDate } = require('@dictadata/lib');
+const util = require('node:util');
 
 module.exports = exports = class CSVWriter extends StorageWriter {
 
@@ -35,6 +36,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       // open output stream
       this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
       this.ws = await this.stfs.createWriteStream(this.options);
+      this.ws.write = util.promisify(this.ws.write);
 
       this.ws.on('error',
         (err) => {
@@ -119,7 +121,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       if (data.length > 0) {
         data += "\n";
         this._stats.count += 1;
-        await this.ws.write(data);
+        this.ws.write(data);
       }
 
       callback();

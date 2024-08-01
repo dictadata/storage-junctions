@@ -116,7 +116,7 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
       // write results to file
       let text = JSON.stringify(this.template,null,this.options.space);
       if (text.length > 0) {
-        await ws.write(text);
+        ws.write(text);
       }
 
       if (this.autoClose) {

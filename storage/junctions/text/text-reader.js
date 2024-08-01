@@ -32,7 +32,6 @@ module.exports = exports = class TextReader extends StorageReader {
 
     this.parser;
     this.started = false;
-    this.paused = false;
 
     this.separator = this.options?.separator;
     this.quoted = this.options?.quoted || '"';
@@ -123,7 +122,7 @@ module.exports = exports = class TextReader extends StorageReader {
       });
 
       // eslint-disable-next-line arrow-parens
-      parser.on('line', (line) => {
+      parser.on('line', async (line) => {
         if (line) {
           logger.debug(line);
 
@@ -157,16 +156,7 @@ module.exports = exports = class TextReader extends StorageReader {
           if (!construct)
             return;
 
-          _stats.count += 1;
-          let result = reader.push(construct)
-          if (!result) {
-            reader.paused = true;
-            rs.pause();
-            parser.pause();
-          }
-
-          if (_stats.count % 100000 === 0)
-            logger.verbose(_stats.count + " " + _stats.interval + "ms");
+          await this.output(construct);
 
           if (count > 0 && _stats.count >= count) {
             reader.push(null);
@@ -218,6 +208,21 @@ module.exports = exports = class TextReader extends StorageReader {
   }
 
   /**
+   * waiting on output helps with node micro-tasking
+   * @param {*} construct
+   */
+  async output(construct) {
+
+    this._stats.count += 1;
+    if (!this.push(construct)) {
+      this.parser.pause();  // If push() returns false then pause reading from source.
+    }
+
+    if (this._stats.count && (this._stats.count % 100000 === 0))
+      logger.verbose(this._stats.count + " " + this._stats.interval + "ms");
+  }
+
+  /**
    * An internal call to fetch data from the underlying resource.
    * @param {*} size <number> Number of constructs to read asynchronously
    */
@@ -228,8 +233,7 @@ module.exports = exports = class TextReader extends StorageReader {
       if (!this.started) {
         this.parse();
       }
-      else if (this.paused) {
-        this.paused = false;
+      else {
         this.parser.resume();
       }
     }

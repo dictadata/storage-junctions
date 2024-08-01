@@ -1,6 +1,6 @@
 "use strict";
 
-const { logger } = require('@dictadata/lib');
+const { exists, logger } = require('@dictadata/lib');
 const { StorageError } = require('../../types');
 const Elastic = require('./query_elastic');
 const fs = require('node:fs');
@@ -20,7 +20,7 @@ module.exports = exports = class ElasticTemplate {
     this.templatesPath = junction.options.templatesPath || './storage/elasticsearch/templates/';
     this.defaultTemplate = junction.options.defaultTemplate || './storage/elasticsearch/_defaultTemplate.json';
 
-    if (!fs.existsSync(this.templatesPath))
+    if (!exists(this.templatesPath))
       fs.mkdirSync(this.templatesPath, { recursive: true });
   }
 
@@ -130,7 +130,7 @@ module.exports = exports = class ElasticTemplate {
     logger.debug('elastic template read');
 
     let templateFile = this.templatesPath + this.template_name + ".json";
-    if (useCache && fs.existsSync(templateFile)) {
+    if (useCache && exists(templateFile)) {
       logger.debug(templateFile);
       this.template = JSON.parse(fs.readFileSync(templateFile, "utf8"));
     } else {

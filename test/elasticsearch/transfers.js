@@ -131,6 +131,45 @@ async function tests() {
     output: "./test/_data/output/elasticsearch/transfer_foo_notfound.json"
   })) return 1;
 
+  logger.verbose('=== timeseries.csv > elasticsearch');
+  if (await transfer({
+    origin: {
+      smt: "csv|/var/dictadata/test/data/input/|timeseries.csv|*",
+      options: {
+        hasHeader: false,
+        encoding: {
+          fields: {
+            "time": "date",
+            "temp": "number"
+          }
+        }
+      }
+    },
+    terminal: {
+      smt: "elastic|http://dev.dictadata.net:9200/|timeseries|!",
+      options: {
+        refresh: true
+      }
+    }
+  })) return 1;
+
+  logger.verbose('=== elasticsearch > timeseries.csv');
+  if (await transfer({
+    origin: {
+      smt: "mysql|host=dev.dictadata.net;database=storage_node|timeseries|!",
+      options: {
+        count: 300
+      }
+    },
+    terminal: {
+      smt: "csv|./test/_data/output/elasticsearch/|timeseries.csv|*",
+      options: {
+        addHeader: false
+      },
+      output: "./test/_data/output/elasticsearch/timeseries.csv"
+    }
+  })) return 1;
+
 }
 
 (async () => {

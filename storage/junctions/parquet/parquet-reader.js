@@ -45,7 +45,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
     var count = this.options?.pattern?.count || this.options?.count || -1;
 
     // eslint-disable-next-line arrow-parens
-    parser.on('data', (data) => {
+    parser.on('data', async (data) => {
       if (data.value) {
         let construct = encoder.cast(data.value);
         construct = encoder.filter();
@@ -54,13 +54,7 @@ module.exports = exports = class ParquetReader extends StorageReader {
         if (!construct)
           return;
 
-        _stats.count += 1;
-        if (!reader.push(construct)) {
-          parser.pause();  // If push() returns false stop reading from source.
-        }
-
-        if (_stats.count % 100000 === 0)
-          logger.verbose(_stats.count + " " + _stats.interval + "ms");
+        await this.output(construct);
 
         if (count > 0 && _stats.count >= count) {
           reader.push(null);
@@ -78,6 +72,21 @@ module.exports = exports = class ParquetReader extends StorageReader {
     });
 
     this.started = false;
+  }
+
+  /**
+   * waiting on output helps with node micro-tasking
+   * @param {*} construct
+   */
+  async output(construct) {
+
+    this._stats.count += 1;
+    if (!this.push(construct)) {
+      this.parser.pause();  // If push() returns false then pause reading from source.
+    }
+
+    if (this._stats.count % 100000 === 0)
+      logger.verbose(this._stats.count + " " + this._stats.interval + "ms");
   }
 
   async _construct(callback) {

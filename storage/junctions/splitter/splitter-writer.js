@@ -37,7 +37,7 @@ module.exports = exports = class SplitterWriter extends StorageWriter {
 
       // store
       this._stats.count += 1;
-      await wstream.write(construct);
+      wstream.write(construct);
       callback();
     }
     catch (err) {

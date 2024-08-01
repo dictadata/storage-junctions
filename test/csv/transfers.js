@@ -10,6 +10,27 @@ logger.info("=== Tests: csv data transfers");
 
 async function tests() {
 
+  logger.verbose('=== timeseries.csv > csv_timeseries.json');
+  if (await transfer({
+    origin: {
+      smt: "csv|/var/dictadata/test/data/input/|timeseries.csv|*",
+      options: {
+        separator: ",",
+        hasHeader: false,
+        encoding: {
+          fields: {
+            "time": "date",
+            "temp": "number"
+          }
+        }
+      },
+    },
+    terminal: {
+      smt: "json|/var/dictadata/test/data/output/csv/|transfer_timeseries.json|*",
+      output: "/var/dictadata/test/data/output/csv/transfer_timeseries.json"
+    }
+  })) return 1;
+
   logger.verbose('=== csv > transfer_1.csv');
   let rc = await transfer({
     origin: {
@@ -86,26 +107,6 @@ async function tests() {
     terminal: {
       smt: "json|./test/_data/output/csv/|transfer_3.json|*",
       output: "./test/_data/output/csv/transfer_3.json"
-    }
-  })) return 1;
-
-  logger.verbose('=== timeseries.csv > csv_timeseries.json');
-  if (await transfer({
-    origin: {
-      smt: "csv|/var/dictadata/test/data/input/|timeseries.csv|*",
-      options: {
-        hasHeader: false,
-        encoding: {
-          fields: {
-            "time": "date",
-            "temp": "number"
-          }
-        }
-      },
-    },
-    terminal: {
-      smt: "json|/var/dictadata/test/data/output/csv/|transfer_timeseries.json|*",
-      output: "/var/dictadata/test/data/output/csv/transfer_timeseries.json"
     }
   })) return 1;
 

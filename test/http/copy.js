@@ -59,6 +59,6 @@ async function downloads_SOS() {
 }
 
 (async () => {
-  //if (await downloads_IIS()) return;
+  if (await downloads_IIS()) return;
   if (await downloads_SOS()) return;
 })();

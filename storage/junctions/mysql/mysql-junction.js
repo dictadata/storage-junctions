@@ -343,6 +343,7 @@ class MySQLJunction extends StorageJunction {
    */
   async retrieve(pattern) {
     logger.debug("MySQLJunction retrieve");
+    pattern = pattern?.pattern || pattern || {};
 
     try {
       if (!this.engram.isDefined)
@@ -350,6 +351,7 @@ class MySQLJunction extends StorageJunction {
 
       let sql = sqlEncoder.sqlSelectByPattern(this.engram, pattern);
       logger.verbose(sql);
+
       let rows = await this.pool.query(sql);
 
       for (let i = 0; i < rows.length; i++)
@@ -373,7 +375,7 @@ class MySQLJunction extends StorageJunction {
    */
   async dull(pattern) {
     logger.debug("MySQLJunction dull");
-    if (!pattern) pattern = {};
+    pattern = pattern?.pattern || pattern || {};
 
     if (this.engram.keyof === 'uid' || this.engram.keyof === 'key')
       throw new StorageError(400, "unique keys not supported");

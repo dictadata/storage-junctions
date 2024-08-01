@@ -5,10 +5,10 @@ const { StorageReader } = require('../storage-junction');
 const { StorageError } = require('../../types');
 const { logger } = require('@dictadata/lib');
 
-const chain = require('stream-chain');
 const CsvParser = require('stream-csv-as-json');
 const CsvAsObjects = require('./csv-AsObjects'); //require('stream-csv-as-json/AsObjects');
 const StreamValues = require('stream-json/streamers/StreamValues');
+const chain = require('stream-chain');
 
 module.exports = exports = class CSVReader extends StorageReader {
 
@@ -55,11 +55,11 @@ module.exports = exports = class CSVReader extends StorageReader {
         pipes.push(new CsvAsObjects(this.options));
       pipes.push(new StreamValues());
 
-      const csvchain = this.csvchain = new chain(pipes);
+      const pipeline = this.pipeline = new chain(pipes);
 
       // eslint-disable-next-line arrow-parens
-      csvchain.on('data', (data) => {
-        logger.debug("csvchain on data");
+      pipeline.on('data', async (data) => {
+        logger.debug("pipeline on data");
 
         if (data.value) {
           let construct = data.value;
@@ -72,29 +72,23 @@ module.exports = exports = class CSVReader extends StorageReader {
           if (!construct)
             return;
 
-          _stats.count += 1;
-          if (!reader.push(construct)) {
-            csvchain.pause();  // If push() returns false stop reading from source.
-          }
-
-          if (_stats.count % 100000 === 0)
-            logger.verbose(_stats.count + " " + _stats.interval + "ms");
+          await this.output(construct);
 
           if (count > 0 && _stats.count >= count) {
             reader.push(null);
-            csvchain.destroy();
+            reader.rs.destroy();
             reader.stfs.relax();
           }
         }
       });
 
-      csvchain.on('end', () => {
-        logger.debug("csvchain on end");
+      pipeline.on('end', () => {
+        logger.debug("pipeline on end");
         reader.push(null);
         reader.stfs.relax();
       });
 
-      csvchain.on('error', function (err) {
+      pipeline.on('error', function (err) {
         let sterr = reader.junction.StorageError(err);
         logger.warn(sterr);
         reader.stfs.relax();
@@ -113,6 +107,21 @@ module.exports = exports = class CSVReader extends StorageReader {
     }
   }
 
+  /**
+   * waiting on output helps with node micro-tasking
+   * @param {*} construct
+   */
+  async output(construct) {
+
+    this._stats.count += 1;
+    if (!this.push(construct)) {
+      this.parser.pause();  // If push() returns false then pause reading from source.
+    }
+
+    if (this._stats.count % 100000 === 0)
+      logger.verbose(this._stats.count + " " + this._stats.interval + "ms");
+  }
+
   async _destroy(err, callback) {
     if (this.stfs)
       this.stfs.relax();
@@ -129,14 +138,12 @@ module.exports = exports = class CSVReader extends StorageReader {
     try {
       if (!this.started) {
         this.started = true;
-        this.rs.pipe(this.csvchain);
+        this.rs.pipe(this.pipeline);
       }
-      if (this.rs.isPaused()) {
+      else {
         // resume reading
-        this.rs.resume();
+        this.parser.resume();
       }
-      else if (this.rs.destroyed || !this.rs.readable)
-        this.push(null);
     }
     catch (err) {
       logger.debug("CSVReader read error: " + err.message);
