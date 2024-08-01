@@ -5,7 +5,7 @@
 
 const StorageFileSystem = require('./storage-filesystem');
 const { SMT, StorageResults, StorageError } = require('../types');
-const { logger } = require('@dictadata/lib');
+const { exists, logger } = require('@dictadata/lib');
 const auth = require('../authentication');
 
 const fs = require('node:fs');
@@ -305,7 +305,8 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
+      let stat = exists(dirname)
+      if (dirname !== this._dirname && !stat) {
         await fsp.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }

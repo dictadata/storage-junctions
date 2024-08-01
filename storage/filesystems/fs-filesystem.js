@@ -5,10 +5,9 @@
 
 const StorageFileSystem = require('./storage-filesystem');
 const { SMT, StorageResults, StorageError } = require('../types');
-const { logger } = require('@dictadata/lib');
+const { exists, logger } = require('@dictadata/lib');
 
-const fs = require('node:fs');
-const fsp = require('node:fs/promises');
+const fs = require('node:fs/promises');
 const path = require('node:path');
 const url = require('node:url');
 const zlib = require('node:zlib');
@@ -69,10 +68,10 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         let dirname = path.join(dirpath, relpath);
         logger.debug("opendir ", dirname);
         // process files in current folder
-        let dir = await fsp.opendir(dirname);
+        let dir = await fs.opendir(dirname);
         for await (let dirent of dir) {
           if (dirent.isFile() && rx.test(dirent.name)) {
-            let info = fs.statSync(path.join(dirpath, relpath, dirent.name));
+            let info = await fs.stat(path.join(dirpath, relpath, dirent.name));
             let entry = {
               name: dirent.name,
               rpath: path.join(relpath, dirent.name),
@@ -88,7 +87,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
 
         // process subfolders
         if (options.recursive) {
-          dir = await fsp.opendir(dirname);
+          dir = await fs.opendir(dirname);
           for await (let dirent of dir) {
             logger.debug(dirent.name);
             if (dirent.isDirectory()) {
@@ -128,7 +127,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let schema = options?.schema || this.smt.schema;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
-      await fsp.unlink(filename);
+      await fs.unlink(filename);
 
       return new StorageResults(0);
     }
@@ -153,8 +152,8 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let schema = Object.hasOwn(options, "schema") ? options.schema : this.smt.schema;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
-      //const rs = fs.createReadStream(filename);
-      this.fd = await fsp.open(filename);
+      //const rs = await fs.createReadStream(filename);
+      this.fd = await fs.open(filename, "r");
       const rs = await this.fd.createReadStream();
 
       ///// check for zip
@@ -186,21 +185,23 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options?.schema || this.smt.schema;
-      let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
       let append = this.options.append || false;
 
       let dirname = path.dirname(filename);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        await fsp.mkdir(dirname, { recursive: true });
+      let stat = await exists(dirname);
+      if (dirname !== this._dirname && !stat) {
+        await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }
 
-      this.isNewFile = !(append && fs.existsSync(filename));
+      stat = await exists(filename);
+      this.isNewFile = !(append && stat);
 
       let flags = append ? 'a' : 'w';
-      ws = fs.createWriteStream(filename, { flags: flags });
+      this.fd = await fs.open(filename, flags);
+      const ws = await this.fd.createWriteStream();
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -240,12 +241,13 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        await fsp.mkdir(dirname, { recursive: true });
+      let stat = await exists(dirname);
+      if (dirname !== this._dirname && !stat) {
+        await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }
       logger.verbose("  " + src + " >> " + dest);
-      await fsp.copyFile(src, dest);
+      await fs.copyFile(src, dest);
 
       return new StorageResults(status);
     }
@@ -278,12 +280,13 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       let dest = path.join(url.fileURLToPath(this.url), (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        await fsp.mkdir(dirname, { recursive: true });
+      let stat = await exists(dirname);
+      if (dirname !== this._dirname && !stat) {
+        await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }
       logger.verbose("  " + src + " >> " + dest);
-      await fsp.copyFile(src, dest);
+      await fs.copyFile(src, dest);
 
       return new StorageResults(status);
     }
@@ -305,6 +308,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return err;
 
     let status = 500;
+    let message = err.message;
 
     switch (err.code) {
       case "EACCES": //  Permission denied
@@ -353,7 +357,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         status = 500;
     }
 
-    return new StorageError(status, { cause: err });
+    return new StorageError(status, message, { cause: err });
   };
 
 };

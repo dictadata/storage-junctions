@@ -6,10 +6,9 @@
 const StorageFileSystem = require('./storage-filesystem');
 const FSFileSystem = require('./fs-filesystem');
 const { SMT, StorageResults, StorageError } = require('../types');
-const { logger } = require('@dictadata/lib');
+const { exists, logger } = require('@dictadata/lib');
 
-const fs = require('node:fs');
-const fsp = require('node:fs/promises');
+const fs = require('node:fs/promises');
 const path = require('node:path');
 const url = require('node:url');
 const zlib = require('node:zlib');
@@ -215,12 +214,13 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     try {
       options = Object.assign({}, this.options, options);
       let schema = options?.schema ||  this.smt.schema;
-      let ws = false;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
       let append = this.options.append || false;
 
-      ws = fs.createWriteStream(filename, { flags: flags });
+      let flags = append ? 'a' : 'w';
+      let fd = await fs.open(filename, flags);
+      let ws = await fd.createWriteStream();
 
       ///// check for zip
       if (filename.endsWith('.gz')) {
@@ -263,8 +263,9 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        await fsp.mkdir(dirname, { recursive: true });
+      let stat = exists(dirname);
+      if (dirname !== this._dirname && !stat) {
+        await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }
       logger.verbose("  " + src + " >> " + dest);
@@ -303,12 +304,12 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let dest = path.join(url.fileURLToPath(this.url), (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        await fsp.mkdir(dirname, { recursive: true });
+      if (dirname !== this._dirname && !exists(dirname)) {
+        await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }
       logger.verbose("  " + src + " >> " + dest);
-      await fsp.copyFile(src, dest);
+      await fs.copyFile(src, dest);
 
       return new StorageResults(status);
     }

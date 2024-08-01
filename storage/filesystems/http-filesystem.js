@@ -5,11 +5,10 @@
 
 const StorageFileSystem = require('./storage-filesystem');
 const { SMT, StorageResults, StorageError } = require('../types');
-const { logger } = require('@dictadata/lib');
-const { httpRequest, htmlParseDir } = require('@dictadata/lib');
+const { exists, httpRequest, htmlParseDir, logger } = require('@dictadata/lib');
 const auth = require('../authentication');
 
-const fs = require('node:fs');
+const fs = require('node:fs/promises');
 const path = require('node:path');
 const zlib = require('node:zlib');
 
@@ -310,8 +309,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let dest = path.join(folder, filename);
 
       let dirname = path.dirname(dest);
-      if (dirname !== this._dirname && !fs.existsSync(dirname)) {
-        fs.mkdirSync(dirname, { recursive: true });
+      let stat = exists(dirname);
+      if (dirname !== this._dirname && !stat) {
+        await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
       }
 
@@ -335,7 +335,9 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       }
 
       // save to local file
-      await rs.pipe(fs.createWriteStream(dest));
+      let fd = await fs.open(dest, "w");
+      let ws = await fd.createWriteStream();
+      await rs.pipe(ws);
 
       return new StorageResults(status);
     }
