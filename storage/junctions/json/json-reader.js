@@ -37,7 +37,6 @@ module.exports = exports = class JSONReader extends StorageReader {
 
     this.encoder = this.junction.createEncoder(this.options);
 
-    this.stfs;
     this._headers;
     this.started = false;
   }
@@ -90,7 +89,6 @@ module.exports = exports = class JSONReader extends StorageReader {
           if (count > 0 && _stats.count >= count) {
             reader.push(null);
             pipeline.destroy();
-            reader.stfs.relax();
           }
         }
       });
@@ -98,7 +96,6 @@ module.exports = exports = class JSONReader extends StorageReader {
       pipeline.on('end', () => {
         logger.debug("json parser on end");
         reader.push(null);
-        reader.stfs.relax();
       });
 
       pipeline.on('error', function (err) {
@@ -107,7 +104,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       });
 
       ///// create the readstream
-      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
+      this.stfs = await this.junction.getFileSystem();
       this.rs = await this.stfs.createReadStream(this.options);
 
       this.rs.setEncoding(this.options.fileEncoding || "utf8");
@@ -167,8 +164,6 @@ module.exports = exports = class JSONReader extends StorageReader {
   }
 
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 

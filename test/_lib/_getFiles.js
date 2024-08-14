@@ -40,7 +40,7 @@ module.exports = exports = async function (tract) {
 
     logger.verbose(">>> download files");
     // download is a filesystem level method
-    let stfs = await Storage.activateFileSystem(junction.smt, junction.options);
+    let stfs = await junction.getFileSystem();
 
     for (let entry of list) {
       logger.info(entry.name);
@@ -54,7 +54,6 @@ module.exports = exports = async function (tract) {
       }
     }
 
-    stfs.relax();
     logger.info("=== completed");
   }
   catch (err) {
@@ -62,7 +61,8 @@ module.exports = exports = async function (tract) {
     retCode = 1;
   }
   finally {
-    await junction.relax();
+    if (junction)
+      await junction.relax();
   }
 
   return process.exitCode = retCode;

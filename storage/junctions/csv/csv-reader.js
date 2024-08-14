@@ -35,7 +35,6 @@ module.exports = exports = class CSVReader extends StorageReader {
 
     this.started = false;
     this.rs;
-    this.stfs;
   }
 
   async _construct(callback) {
@@ -77,7 +76,6 @@ module.exports = exports = class CSVReader extends StorageReader {
           if (count > 0 && _stats.count >= count) {
             reader.push(null);
             reader.rs.destroy();
-            reader.stfs.relax();
           }
         }
       });
@@ -85,17 +83,15 @@ module.exports = exports = class CSVReader extends StorageReader {
       pipeline.on('end', () => {
         logger.debug("pipeline on end");
         reader.push(null);
-        reader.stfs.relax();
       });
 
       pipeline.on('error', function (err) {
         let sterr = reader.junction.StorageError(err);
         logger.warn(sterr);
-        reader.stfs.relax();
       });
 
       // create the read stream
-      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.options);
+      this.stfs = await this.junction.getFileSystem();
       this.rs = await this.stfs.createReadStream(this.options);
       this.rs.setEncoding(this.options.fileEncoding || "utf8");
 
@@ -123,8 +119,6 @@ module.exports = exports = class CSVReader extends StorageReader {
   }
 
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 

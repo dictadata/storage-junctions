@@ -30,7 +30,7 @@ module.exports = exports = class ShapefileReader extends StorageReader {
     try {
       // start the reader
       logger.debug('ShapefileReader start');
-      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
+      this.stfs = await this.junction.getFileSystem();
 
       if (! await this.stfs.exists({ schema: this.schemafile + '.shp' }))
         throw new StorageError(404);
@@ -61,8 +61,6 @@ module.exports = exports = class ShapefileReader extends StorageReader {
   }
 
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 
@@ -84,7 +82,6 @@ module.exports = exports = class ShapefileReader extends StorageReader {
         if (record.done) {
           this.done = true;
           this.push(null);
-          this.stfs.relax();
         }
       }
     }

@@ -104,8 +104,6 @@ module.exports = exports = class ParquetReader extends StorageReader {
   }
 
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 
@@ -119,8 +117,8 @@ module.exports = exports = class ParquetReader extends StorageReader {
     if (!this.started) {
       // start the reader
       try {
-        let stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
-        var rs = await stfs.createReadStream(this.options);
+        this.stfs = await this.junction.getFileSystem();
+        var rs = await this.stfs.createReadStream(this.options);
         rs.setEncoding(this.options.fileEncoding || "utf8");
         rs.on('error',
           (err) => {

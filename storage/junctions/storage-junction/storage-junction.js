@@ -67,6 +67,15 @@ module.exports = exports = class StorageJunction {
   async relax() {
     // release an resources
     this.isActive = false;
+    if (this._stfs)
+      await this._stfs.relax();
+  }
+
+  async getFileSystem() {
+    if (!this._stfs)
+      this._stfs = await Storage.activateFileSystem(this.smt, this.options);
+
+    return this._stfs;
   }
 
   ////////// Encoding //////////
@@ -110,9 +119,8 @@ module.exports = exports = class StorageJunction {
 
     // default implementation for StorageJunctions that use FileSystems
     if (this.capabilities?.filesystem) {
-      let stfs = await Storage.activateFileSystem(this.smt, options);
+      let stfs = await this.getFileSystem();
       let results = await stfs.list(options);
-      stfs.relax();
       return results;
     }
     else
@@ -158,9 +166,8 @@ module.exports = exports = class StorageJunction {
 
     // default implementation for StorageJunctions that use FileSystems
     if (this.capabilities.filesystem) {
-      let stfs = await Storage.activateFileSystem(this.smt, options);
+      let stfs = await this.getFileSystem();
       let results = await stfs.dull(options);
-      stfs.relax();
       return results;
     }
     else

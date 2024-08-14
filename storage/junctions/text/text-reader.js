@@ -94,7 +94,7 @@ module.exports = exports = class TextReader extends StorageReader {
       let encoder = this.junction.createEncoder(this.options);
 
       // open the input stream
-      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
+      this.stfs = await this.junction.getFileSystem();
       var rs = await this.stfs.createReadStream(this.options);
       rs.setEncoding(this.options.fileEncoding || "utf8");
       rs.on('close', () => {
@@ -162,7 +162,6 @@ module.exports = exports = class TextReader extends StorageReader {
             reader.push(null);
             reader.destroy();
             parser.close();
-            reader.stfs.relax();
           }
         }
       });
@@ -177,7 +176,6 @@ module.exports = exports = class TextReader extends StorageReader {
 
       parser.on('close', () => {
         reader.push(null);
-        reader.stfs.relax();
         let stats = reader._stats;
         logger.verbose(stats.count + " in " + stats.elapsed / 1000 + "s, " + Math.round(stats.count / (stats.elapsed / 1000)) + "/sec");
       });
@@ -202,8 +200,6 @@ module.exports = exports = class TextReader extends StorageReader {
   }
 
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 
