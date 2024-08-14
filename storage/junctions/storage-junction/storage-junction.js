@@ -157,7 +157,7 @@ module.exports = exports = class StorageJunction {
       throw new StorageError(501);
 
     // default implementation for StorageJunctions that use FileSystems
-    if (junction.capabilities.filesystem) {
+    if (this.capabilities.filesystem) {
       let stfs = await Storage.activateFileSystem(this.smt, options);
       let results = await stfs.dull(options);
       stfs.relax();
