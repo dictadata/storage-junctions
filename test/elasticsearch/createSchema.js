@@ -60,9 +60,11 @@ async function test_lg() {
 }
 
 (async () => {
+  if (await test("foo_schema_01", "foo_schema_01")) return;
+
   if (await test("foo_schema", "foo_schema")) return;
   if (await test("foo_schema_x", "foo_schema")) return;    // for dullSchema.js
-  if (await test("foo_schema_01", "foo_schema_01")) return;
+
   if (await test("foo_widgets", "foo_widgets")) return;
   if (await test("foo_schema_two", "foo_schema_two")) return;
 

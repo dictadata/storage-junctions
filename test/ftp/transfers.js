@@ -72,7 +72,9 @@ async function test_write() {
   logger.verbose("=== fs to ftp");
 
   logger.verbose('=== ftp output.csv');
-  if (await dullSchema({ smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv|*" })) return 1;
+  if (await dullSchema({
+    smt: "csv|ftp://dev.dictadata.net/dictadata/test/data/output/csv/|output.csv|*"
+  })) return 1;
 
   if (await transfer({
     origin: {
