@@ -149,22 +149,74 @@ exports.propertiesToFields = function propertiesToFields(properties) {
     // check for Elasticsearch object  fields
     if (Object.hasOwn(property, "properties")) {
       if (property.type === "nested") {
-        // won't get here, nested not implemented
-        // need to use codify tranform to identify arrays
+        // array of objects
         fields.push({
-          "name": name,
-          "type": "list",
-          "_list": storageField(name, property)
+          name: name,
+          type: "list",
+          _list: {
+            name: "_list",
+            type: "map",
+            fields: propertiesToFields(property.properties)
+          }
         });
       }
       else {
         // property.type "object", the elasticsearch default
         fields.push({
-          "name": name,
-          "type": "map",
-          "fields": propertiesToFields(property.properties)
+          name: name,
+          type: "map",
+          fields: propertiesToFields(property.properties)
         });
       }
+    }
+    else if (property.type === "flattened") {
+      if (property.meta?.stype === "map") {
+        // object of unknown properties
+        fields.push({
+          name: name,
+          type: "map",
+          fields: [],
+          _elasticsearch: {
+            type: "flattened"
+          }
+        });
+      }
+      else if (property.meta?.stype === "list") {
+        // array of unknown items
+        fields.push({
+          name: name,
+          type: "list",
+          _elasticsearch: {
+            type: "flattened"
+          },
+          _list: {
+            name: "_list",
+            type: "variable"  // or unknown
+          }
+        });
+      }
+      else {
+        // unknown
+        fields.push({
+          name: name,
+          type: "unknown",
+          _elasticsearch: {
+            type: "flattened"
+          }
+        });
+      }
+    }
+    else if (property.meta?.stype === "list") {
+      // array of single type
+      let fld = {
+        name: name,
+        type: "list",
+        _list: storageField(name, property)
+      };
+      fld._list.name = "_list";
+      if (fld._list._elasticsearch?.meta)
+        delete fld._list._elasticsearch.meta;
+      fields.push(fld);
     }
     else {
       fields.push(storageField(name, property));
@@ -195,18 +247,26 @@ exports.fieldsToProperties = function fieldsToProperties(fields) {
 
     if (field._elasticsearch) {
       properties[ field.name ] = field._elasticsearch;
+      if (field._elasticsearch.type === "flattened")
+        properties[ field.name ].meta = { stype: field.type }
     }
     else if (ftype === "map") {
       if (!field.fields)
         throw new StorageError(400, "invalid map, fields not defined");
-      properties[ field.name ] = { properties: fieldsToProperties(field.fields) };
+      let props = fieldsToProperties(field.fields);
+      properties[ field.name ] = { properties: props };
     }
     else if (ftype === "list") {
       if (!field._list)
         throw new StorageError(400, "invalid list, _list not defined");
       // elasticsearch/lucene supports arrays for all basic types
-      let properties = fieldsToProperties([ field._list ]);
-      properties[ field.name ] = { properties: properties._list };
+      let props = fieldsToProperties([ field._list ]);
+      if (props._list.type) {
+        properties[ field.name ] = Object.assign({ meta: { stype: "list" } }, props._list);
+      }
+      else if (props._list.properties) {
+        properties[ field.name ] = { type: "nested", properties: props._list.properties };
+      }
     }
     else if (ftype !== "unknown") {
       properties[ field.name ] = { "type": elasticType(field) };
