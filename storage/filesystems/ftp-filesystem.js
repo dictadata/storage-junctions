@@ -15,15 +15,14 @@ const stream = require('node:stream');
 const zlib = require('node:zlib');
 const ftp = require('basic-ftp');
 
-
 module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
   /**
    * construct a StorageFileSystem object
-   * @param {*} SMT  example "model|ftp://username:password@host/directory/|filespec|*"
-   * @param {*} options  filesystem options
-   * @param {*} options.ftp ftp options
-   * @param {boolean} options.ftp.secure use secure connection
+   * @param {String|SMT} SMT  example "model|ftp://username:password@host/directory/|filespec|*"
+   * @param {Object}  options  filesystem options
+   * @param {Object}  options.ftp ftp options
+   * @param {Boolean} options.ftp.secure use secure connection
    */
   constructor(smt, options) {
     super(smt, options);
@@ -34,13 +33,16 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     this._dirname = '';  // last local dir
     this._curdir = '';   // last ftp dir
+
+    // outstanding stream task
+    this._ftpTask;
   }
 
   /**
    * Connect to FTP server.
    */
   async activate() {
-    //console.log("activate");
+    logger.debug("FTPFileSystem ACTIVATE");
     const ftpOptions = this.options.ftp || {};
 
     let cred = auth.recall(this.url) || {};
@@ -65,24 +67,32 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     })
 
     this.isActive = true;
-    //logger.debug("activated");
+    logger.debug("FTPFileSystem ACTIVATED");
   }
 
   /**
    * End FTP session and disconnect from server.
    */
   async relax() {
+    logger.debug("FTPFileSystem RELAX");
+    if (this._ftpTask) {
+      let result = await this._ftpTask;
+      logger.debug("ftp stream result: " + JSON.stringify(result));
+    }
+
     if (this.isActive) {
       this.isActive = false;
       if (!this._client.closed)
         this._client.close();
     }
   }
+
 /*
   filepath(filename = "") {
     return path.join(decodeURI(this.url.pathname), decodeURI(filename));
   }
 */
+
   /**
    * List files located in the folder specified in smt.locus.  smt.schema is a filename that may contain wildcard characters.
    * @param {object} options Specify any options use when querying the filesystem.
@@ -190,12 +200,19 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     logger.debug("FTPFileSystem createReadStream");
 
     try {
+      if (this._ftpTask) {
+        let result = await this._ftpTask;
+        logger.debug("ftp stream result: " + JSON.stringify(result));
+        this._ftpTask = null;
+      }
+
       options = Object.assign({}, this.options, options);
       let schema = options?.schema || this.smt.schema;
       let filename = schema;
 
       // ftp writes to passthrough and app reads from passthrough
-      //let spt = new stream.PassThrough();
+      let spt = new stream.PassThrough();
+      /*
       let spt = new stream.Transform({
         autoDestroy: false,
         transform(data, encoding, callback) {
@@ -206,25 +223,20 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
           callback();
         }
       })
-
-      let rs = spt;
-      ///// check for zip
-      if (filename.endsWith('.gz')) {
-        var decoder = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
-        spt.pipe(decoder);
-        rs = decoder;
-      }
+      */
 
       // create the read stream
       let result = await this._client.cd(decodeURI(this.url.pathname));
       logger.debug("ftp " + JSON.stringify(result));
 
-      this._client.downloadTo(spt, filename)
-        .then((result) => {
-          logger.debug("ftp " + JSON.stringify(result));
-          this._client.close();
-        });
+      this._ftpTask = this._client.downloadTo(spt, filename)
 
+      let rs = spt;
+      ///// check for zip
+      if (filename.endsWith('.gz')) {
+        rs = zlib.createGunzip({ flush: zlib.constants.Z_PARTIAL_FLUSH });
+        spt.pipe(rs);
+      }
       return rs;
     }
     catch (err) {
@@ -245,6 +257,12 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     logger.debug("FTPFileSystem createWriteStream");
 
     try {
+      if (this._ftpTask) {
+        let result = await this._ftpTask;
+        logger.debug("ftp stream result: " + JSON.stringify(result));
+        this._ftpTask = null;
+      }
+
       options = Object.assign({}, this.options, options);
       let schema = options?.schema || this.smt.schema;
 
@@ -257,11 +275,11 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let filename = schema;
       if (options.append) {
         this.isNewFile = false;  // should check for existence
-        ws.fs_ws_promise = this._client.appendFrom(ws, filename);
+        this._ftpTask = this._client.appendFrom(ws, filename);
       }
       else {
         this.isNewFile = true;
-        ws.fs_ws_promise = this._client.uploadFrom(ws, filename);
+        this._ftpTask = this._client.uploadFrom(ws, filename);
       }
       // ws.fs_ws_promise is an added property. Used so that StorageWriters
       // using filesystems know when a transfer is complete.
@@ -406,7 +424,6 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
     }
   }
 */
-
 
   /**
    * Convert a FTP error into a StorageResponse

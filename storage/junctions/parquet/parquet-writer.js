@@ -40,8 +40,6 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
   }
 
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 
@@ -65,8 +63,8 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
 
       // check if file is open
       if (this.ws === null) {
-        let stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
-        this.ws = await stfs.createWriteStream(this.options);
+        this.stfs = await this.junction.getFileSystem();
+        this.ws = await this.stfs.createWriteStream(this.options);
         this.ws.on('error',
           (err) => {
             this.destroy(err);
@@ -132,9 +130,6 @@ module.exports = exports = class ParquetWriter extends StorageWriter {
             this.ws.end(this.close, resolve);
           });
         }
-
-        if (this.ws.fs_ws_promise)
-          await this.ws.fs_ws_promise;
       }
       callback();
     }

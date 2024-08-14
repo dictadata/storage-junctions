@@ -34,7 +34,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
 
     try {
       // open output stream
-      this.stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
+      this.stfs = await this.junction.getFileSystem();
       this.ws = await this.stfs.createWriteStream(this.options);
       this.ws.write = util.promisify(this.ws.write);
 
@@ -58,8 +58,6 @@ module.exports = exports = class CSVWriter extends StorageWriter {
     }
   }
   async _destroy(err, callback) {
-    if (this.stfs)
-      this.stfs.relax();
     callback();
   }
 
@@ -170,12 +168,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
             this.ws.end(resolve);
           });
         }
-
-        if (this.ws.fs_ws_promise)
-          await this.ws.fs_ws_promise;
       }
-      if (this.stfs)
-        this.stfs.relax();
 
       callback();
     }

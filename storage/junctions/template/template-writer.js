@@ -103,11 +103,10 @@ module.exports = exports = class TemplateWriter extends StorageWriter {
   async _final(callback) {
     logger.debug("TemplateWriter._final");
 
-    let stfs;
     try {
       // open file stream
-      stfs = await Storage.activateFileSystem(this.junction.smt, this.junction.options);
-      let ws = await stfs.createWriteStream(this.options);
+      this.stfs = await this.junction.getFileSystem();
+      let ws = await this.stfs.createWriteStream(this.options);
 
       ws.on('error', (err) => {
         this.destroy(this.junction.StorageError(err));
