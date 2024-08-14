@@ -60,17 +60,17 @@
       "_list": {
         "name": "_list",
         "type": "map",
-        "fields": {
-          "part": {
+        "fields": [
+          {
             "name": "part",
             "type": "keyword",
             "size": 512
           },
-          "count": {
+          {
             "name": "count",
             "type": "integer"
           }
-        }
+        ]
       }
     }
   ],

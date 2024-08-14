@@ -52,32 +52,38 @@
     },
     {
       "name": "tags",
-      "type": "keyword",
-      "_elasticsearch": {
+      "type": "list",
+      "_list": {
+        "name": "_list",
         "type": "keyword",
-        "ignore_above": 1024
+        "_elasticsearch": {
+          "type": "keyword"
+        }
       }
     },
     {
       "name": "widgets",
-      "type": "map",
-      "fields": [
-        {
-          "name": "count",
-          "type": "integer",
-          "_elasticsearch": {
-            "type": "long"
-          }
-        },
-        {
-          "name": "part",
-          "type": "keyword",
-          "_elasticsearch": {
+      "type": "list",
+      "_list": {
+        "name": "_list",
+        "type": "map",
+        "fields": [
+          {
+            "name": "count",
+            "type": "integer",
+            "_elasticsearch": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "part",
             "type": "keyword",
-            "ignore_above": 1024
+            "_elasticsearch": {
+              "type": "keyword"
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   ]
 }

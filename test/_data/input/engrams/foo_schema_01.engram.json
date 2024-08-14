@@ -84,6 +84,9 @@
     {
       "name": "subObj2",
       "type": "map",
+      "_elasticsearch": {
+        "type": "flattened"
+      },
       "size": 0,
       "default": null,
       "nullable": true,

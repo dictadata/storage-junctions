@@ -73,28 +73,20 @@
     {
       "name": "subObj2",
       "type": "map",
-      "fields": [
-        {
-          "name": "subsub",
-          "type": "map",
-          "fields": [
-            {
-              "name": "izze",
-              "type": "integer",
-              "_elasticsearch": {
-                "type": "integer"
-              }
-            }
-          ]
-        }
-      ]
+      "fields": [],
+      "_elasticsearch": {
+        "type": "flattened"
+      }
     },
     {
       "name": "tags",
-      "type": "keyword",
-      "_elasticsearch": {
+      "type": "list",
+      "_list": {
+        "name": "_list",
         "type": "keyword",
-        "ignore_above": 1024
+        "_elasticsearch": {
+          "type": "keyword"
+        }
       }
     }
   ]

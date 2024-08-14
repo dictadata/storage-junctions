@@ -7,6 +7,20 @@
     "schema": "foo_widgets",
     "key": "=Foo"
   },
+  "indices": {
+    "foo_widgets_index": {
+      "unique": false,
+      "fields": [
+        {
+          "name": "Bar"
+        },
+        {
+          "name": "Fobe",
+          "order": "DESC"
+        }
+      ]
+    }
+  },
   "fields": [
     {
       "name": "Foo",
@@ -62,32 +76,18 @@
       "_list": {
         "name": "_list",
         "type": "map",
-        "fields": {
-          "part": {
+        "fields": [
+          {
             "name": "part",
             "type": "keyword",
             "size": 512
           },
-          "count": {
+          {
             "name": "count",
             "type": "integer"
           }
-        }
+        ]
       }
     }
-  ],
-  "indices": {
-    "foo_widgets_index": {
-      "unique": false,
-      "fields": [
-        {
-          "name": "Bar"
-        },
-        {
-          "name": "Fobe",
-          "order": "DESC"
-        }
-      ]
-    }
-  }
+  ]
 }
