@@ -20,7 +20,6 @@ async function testDBTransform1(tract) {
       "smt": "elasticsearch|http://dev.dictadata.net:9200|foo_schema|*",
       "options": {}
     },
-    "terminal": tract.terminal,
     "transforms": [
       {
         "transform": "filter",
@@ -47,7 +46,8 @@ async function testDBTransform1(tract) {
           "izze": "=subObj2.subsub.izze"
         }
       }
-    ]
+    ],
+    "terminal": tract.terminal
   })) return 1;
 
 }
