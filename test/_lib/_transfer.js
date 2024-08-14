@@ -52,41 +52,44 @@ module.exports = exports = async function (tract, compareValues = 2) {
       let filename = terminal.options.encoding;
       terminal.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
     }
-    else if (!terminal.options?.encoding) {
-      // use origin encoding
-      terminal.options.encoding = encoding;
-    }
 
-    if (!terminal.options?.encoding || transforms.length > 0) {
-      // otherwise run some objects through transforms to create terminal encoding
-      logger.verbose(">>> codify pipeline");
-      let pipes = [];
-
-      let options = objCopy({
-        count: origin.options?.count || 100,
-        pattern: origin.pattern || {}
-      });
-
-      let reader = jo.createReader(options);
-      // reader.on('error', (error) => {
-      //   logger.error("_transfer reader: " + error.message);
-      // });
-      pipes.push(reader);
-
-      for (let transform of transforms) {
-        if (typeof transform.options?.encoding === "string") {
-          // read encoding from file
-          let filename = transform.options.encoding;
-          transform.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
-        }
-        pipes.push(await Storage.activateTransform(transform.transform, transform));
+    if (!terminal.options?.encoding) {
+      if (transforms.length === 0 && encoding) {
+        // use origin encoding
+        terminal.options.encoding = encoding;
       }
+      else {
+        // otherwise run some objects through transforms to create terminal encoding
+        logger.verbose(">>> codify pipeline");
+        let pipes = [];
 
-      let codify = await Storage.activateTransform("codify", terminal.options);
-      pipes.push(codify);
+        let options = objCopy({
+          count: origin.options?.count || 100,
+          pattern: origin.pattern || {}
+        });
 
-      await stream.pipeline(pipes);
-      terminal.options.encoding = codify.encoding;
+        let reader = jo.createReader(options);
+        // reader.on('error', (error) => {
+        //   logger.error("_transfer reader: " + error.message);
+        // });
+        pipes.push(reader);
+
+        for (let transform of transforms) {
+          if (typeof transform.options?.encoding === "string") {
+            // read encoding from file
+            let filename = transform.options.encoding;
+            transform.options.encoding = JSON.parse(fs.readFileSync(filename, "utf8"));
+          }
+          pipes.push(await Storage.activateTransform(transform.transform, transform));
+        }
+
+        let codify = await Storage.activateTransform("codify", terminal.options);
+        pipes.push(codify);
+
+        logger.verbose(">>> start codify pipeline");
+        await stream.pipeline(pipes);
+        terminal.options.encoding = codify.encoding;
+      }
     }
 
     if (typeof terminal.options.encoding !== "object")
@@ -140,7 +143,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
     pipes.push(writer);
 
     /// transfer data
-    logger.verbose(">>> start transfer");
+    logger.verbose(">>> start transfer pipeline");
     await stream.pipeline(pipes);
 
     /// check results
@@ -156,6 +159,7 @@ module.exports = exports = async function (tract, compareValues = 2) {
   }
   catch (err) {
     logger.error(`!!! transfer failed: ${err.status} ${err.message}`);
+    console.error(err);
     retCode = 1;
   }
   finally {
