@@ -66,7 +66,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
 
   async reader() {
     await waitFor(this, "running", false);
-    console.log("reader entry");
+    // console.log("reader entry");
     this.running = true;
 
     try {
@@ -106,7 +106,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
       this.destroy(err);
     }
 
-    console.log("reader exit");
+    // console.log("reader exit");
     this.running = false;
   }
 
@@ -118,7 +118,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
 
     this._stats.count += 1;
     if (!this.push(construct)) {
-      console.log("output paused");
+      // console.log("output paused");
       this.paused = true;  // If push() returns false then pause reading from source.
     }
 
@@ -143,7 +143,7 @@ module.exports = exports = class MySQLReader extends StorageReader {
       this.reader();
     }
     else if (this.paused) {
-      console.log("output resumed");
+      // console.log("output resumed");
       this.paused = false;
       this.reader();
     }

@@ -17,7 +17,7 @@ module.exports = exports = class ShapefileReader extends StorageReader {
   constructor(storageJunction, options) {
     super(storageJunction, options);
 
-    this.schemafile = this.options?.schema ||  this.smt.schema;
+    this.schemafile = this.options?.schema || this.smt.schema;
 
     this.done = false;
     this.source = null;

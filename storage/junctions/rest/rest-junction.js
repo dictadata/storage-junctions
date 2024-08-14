@@ -105,7 +105,7 @@ class RESTJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('RESTJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema ||  this.smt.schema;
+    let schema = options?.schema || this.smt.schema;
 
     // junctions that don't use filesystems should override the dullSchema() method
     throw new StorageError(501);

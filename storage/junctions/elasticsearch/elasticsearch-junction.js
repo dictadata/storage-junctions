@@ -101,7 +101,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       options = objCopy({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let list = [];
 
       // get Lucene catalog list of indexes
@@ -207,7 +207,7 @@ class ElasticsearchJunction extends StorageJunction {
 
     try {
       options = objCopy({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
 
       let response = await this.elasticQuery.deleteIndex(schema);
 

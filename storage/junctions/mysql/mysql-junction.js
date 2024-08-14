@@ -110,7 +110,7 @@ class MySQLJunction extends StorageJunction {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let list = [];
 
       let rx = '^' + schema + '$';
@@ -214,7 +214,7 @@ class MySQLJunction extends StorageJunction {
   async dullSchema(options) {
     logger.debug('MySQLJunction dullSchema');
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema ||  this.smt.schema;
+    let schema = options?.schema || this.smt.schema;
 
     try {
       let sql = "DROP TABLE " + schema + ";";
