@@ -260,7 +260,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
 
     // implement writestream creation in overrides
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema ||  this.smt.schema;
+    //let schema = options?.schema || this.smt.schema;
     //let ws = false;
 
     //this.isNewFile = true | false
@@ -309,7 +309,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
       let dest = path.join(folder, filename);
 
       let dirname = path.dirname(dest);
-      let stat = exists(dirname);
+      let stat = await exists(dirname);
       if (dirname !== this._dirname && !stat) {
         await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
@@ -420,7 +420,7 @@ module.exports = exports = class HTTPFileSystem extends StorageFileSystem {
     if (err instanceof StorageError)
       return err;
 
-    return new StorageError(err.statusCode, err.statusMessage);
+    return new StorageError(err.statusCode, err.statusMessage, { cause: err });
   }
 
 };

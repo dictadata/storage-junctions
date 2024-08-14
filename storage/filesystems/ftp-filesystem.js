@@ -96,7 +96,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let list = [];
 
       let wdPath = decodeURI(this.url.pathname);
@@ -165,7 +165,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let filename = schema;
 
       await this._client.cd(decodeURI(this.url.pathname));
@@ -191,7 +191,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let filename = schema;
 
       // ftp writes to passthrough and app reads from passthrough
@@ -246,7 +246,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
 
       // create the read stream
       await this._client.ensureDir(decodeURI(this.url.pathname));
@@ -305,7 +305,7 @@ module.exports = exports = class FTPFileSystem extends StorageFileSystem {
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      let stat = exists(dirname)
+      let stat = await exists(dirname)
       if (dirname !== this._dirname && !stat) {
         await fsp.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
@@ -419,6 +419,7 @@ StorageError(err) {
       return err;
 
     let status = 500;
+    let message = ('message' in err) ? err.message : "error";
 
     // FTP response code
     switch (err.code) {
@@ -429,7 +430,7 @@ StorageError(err) {
         status = 500;
     }
 
-    return new StorageError(status, err.message, { cause: err });
+    return new StorageError(status, message, { cause: err });
   }
 
 };

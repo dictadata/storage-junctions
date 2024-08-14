@@ -86,7 +86,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
         throw new StorageError(404);
 
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       var list = [];
 
       let filespec = this.prefix + (schema || '*');
@@ -151,7 +151,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
     logger.debug('zip-filesystem dull');
 
     options = Object.assign({}, this.options, options);
-    let schema = options?.schema ||  this.smt.schema;
+    let schema = options?.schema || this.smt.schema;
 
     throw new StorageError(501);
 
@@ -173,7 +173,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       if (!this.zipexists)
         throw new StorageError(404);
 
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
       let rs = null;
 
       let filename = (this.prefix ?? '') + schema;
@@ -213,7 +213,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
 
     try {
       options = Object.assign({}, this.options, options);
-      let schema = options?.schema ||  this.smt.schema;
+      let schema = options?.schema || this.smt.schema;
 
       let filename = path.join(url.fileURLToPath(this.url), schema);
       let append = this.options.append || false;
@@ -263,7 +263,7 @@ module.exports = exports = class ZipFileSystem extends StorageFileSystem {
       let dest = path.join(folder, (options.use_rpath ? options.entry.rpath : options.entry.name));
 
       let dirname = path.dirname(dest);
-      let stat = exists(dirname);
+      let stat = await exists(dirname);
       if (dirname !== this._dirname && !stat) {
         await fs.mkdir(dirname, { recursive: true });
         this._dirname = dirname;
@@ -331,6 +331,7 @@ StorageError(err) {
       return err;
 
     let status = 500;
+    let message = ('message' in err) ? err.message : "error";
 
     switch (err.code) {
       case "EACCES": //  Permission denied
@@ -358,7 +359,7 @@ StorageError(err) {
         status = 500;
     }
 
-    return new StorageError(status, { cause: err });
+    return new StorageError(status, message, { cause: err });
   }
 
 };

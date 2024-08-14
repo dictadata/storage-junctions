@@ -80,11 +80,12 @@ StorageError(err) {
       return err;
 
     let status = ('status' in err) ? err.status : 500;
+    let message = ('message' in err) ? err.message : "error";
 
     // derived classes should override method
     // and implement error conversion logic
 
-    return new StorageError(status, { cause: err });
+    return new StorageError(status, message, { cause: err });
   }
 
 };

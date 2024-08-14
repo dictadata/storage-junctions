@@ -95,7 +95,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema ||  this.smt.schema;
+    //let schema = options?.schema || this.smt.schema;
     //let list = [];
 
     // implement directory list in overrides
@@ -159,7 +159,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema ||  this.smt.schema;
+    //let schema = options?.schema || this.smt.schema;
     //let rs = null;
 
     // implement readstream creation in overrides
@@ -179,7 +179,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema ||  this.smt.schema;
+    //let schema = options?.schema || this.smt.schema;
     //let ws = false;
 
     // implement writestream creation in overrides
@@ -201,7 +201,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema ||  this.smt.schema;
+    //let schema = options?.schema || this.smt.schema;
     //let result = false;
 
     //return new StorageResults(0);
@@ -220,7 +220,7 @@ class StorageFileSystem {
     throw new StorageError(501);
 
     //options = Object.assign({}, this.options, options);
-    //let schema = options?.schema ||  this.smt.schema;
+    //let schema = options?.schema || this.smt.schema;
     //let result = false;
 
     //return new StorageResults(0);
@@ -237,11 +237,12 @@ class StorageFileSystem {
       return err;
 
     let status = ('status' in err) ? err.status : 500;
+    let message = ('message' in err) ? err.message : "error";
 
     // derived classes should override method
     // and implement error conversion logic
 
-    return new StorageError(status, { cause: err });
+    return new StorageError(status, message, { cause: err });
   }
 
 };

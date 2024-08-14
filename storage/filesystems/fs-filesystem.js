@@ -308,7 +308,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
       return err;
 
     let status = 500;
-    let message = err.message;
+    let message = ('message' in err) ? err.message : "error";
 
     switch (err.code) {
       case "EACCES": //  Permission denied
