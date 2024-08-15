@@ -35,9 +35,10 @@ Storage.FileSystems.use('zip', exports.ZipFileSystem);
 ///// register Storage Junctions
 var StorageJunction = require('./junctions/storage-junction');
 exports.StorageJunction = StorageJunction;
+exports.StorageEncoder = StorageJunction.StorageEncoder;
 exports.StorageReader = StorageJunction.StorageReader;
 exports.StorageWriter = StorageJunction.StorageWriter;
-exports.StorageEncoder = StorageJunction.StorageEncoder;
+exports.StorageTransform = StorageJunction.StorageTransform;
 Storage.Junctions.use('*', StorageJunction);
 
 var CSVJunction = require('./junctions/csv');
