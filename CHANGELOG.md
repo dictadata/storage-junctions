@@ -1,5 +1,10 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.121
+  - enhancement: HttpFilesystem follow redirects
+  - enhancement: CsvReader use encoding field names as headers
+  - enhancement: AdjoinTransform options.inject: "*" for all fields
+  - bug fix: TextReader handle separators embedded in quoted string
 - version 0.9.120
   - refactor: Storage, activateFilesystem, activateTransform (breaking change)
 - version 0.9.119
