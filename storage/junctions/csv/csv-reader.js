@@ -54,7 +54,7 @@ module.exports = exports = class CSVReader extends StorageReader {
         pipes.push(new CsvAsObjects(this.options));
       pipes.push(new StreamValues());
 
-      const pipeline = this.pipeline = new chain(pipes);
+      const pipeline = this.pipeline = chain(pipes);
 
       // eslint-disable-next-line arrow-parens
       pipeline.on('data', async (data) => {

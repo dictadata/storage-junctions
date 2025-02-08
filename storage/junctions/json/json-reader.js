@@ -69,7 +69,7 @@ module.exports = exports = class JSONReader extends StorageReader {
       const count = this.options.pattern?.count || this.options.count || -1;
       const _options = this.options;
 
-      var pipeline = this.pipeline = new chain(pipes);
+      var pipeline = this.pipeline = chain(pipes);
 
       // eslint-disable-next-line arrow-parens
       pipeline.on('data', async (data) => {
