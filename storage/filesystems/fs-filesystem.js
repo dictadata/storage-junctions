@@ -71,6 +71,7 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         let dir = await fs.opendir(dirname);
         for await (let dirent of dir) {
           if (dirent.isFile() && rx.test(dirent.name)) {
+            logger.debug(dirent.name);
             let info = await fs.stat(path.join(dirpath, relpath, dirent.name));
             let entry = {
               name: dirent.name,
@@ -89,7 +90,6 @@ module.exports = exports = class FSFileSystem extends StorageFileSystem {
         if (options.recursive) {
           dir = await fs.opendir(dirname);
           for await (let dirent of dir) {
-            logger.debug(dirent.name);
             if (dirent.isDirectory()) {
               let subpath = relpath + dirent.name + "/";
               await readFolder(dirpath, subpath, options);
