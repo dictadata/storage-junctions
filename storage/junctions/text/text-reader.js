@@ -1,8 +1,6 @@
 /**
  * storage/junctions/text/text-reader.js
  *
- * This module has NOT been implemented, yet.
- *
  */
 "use strict";
 
