@@ -36,7 +36,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
       // open output stream
       this.stfs = await this.junction.getFileSystem();
       this.ws = await this.stfs.createWriteStream(this.options);
-      this.ws.write = util.promisify(this.ws.write);
+      // this.ws.write = util.promisify(this.ws.write);
 
       this.ws.on('error',
         (err) => {
@@ -47,7 +47,7 @@ module.exports = exports = class CSVWriter extends StorageWriter {
         // new file, write header line
         let names = this.options.headers || this.engram.names;
         let headers = '"' + names.join('","') + '"\n';
-        await this.ws.write(headers);
+        this.ws.write(headers);
       }
 
       callback();

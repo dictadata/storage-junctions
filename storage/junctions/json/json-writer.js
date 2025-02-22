@@ -83,7 +83,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       // open file stream
       this.stfs = await this.junction.getFileSystem();
       this.ws = await this.stfs.createWriteStream(this.options);
-      this.ws.write = util.promisify(this.ws.write);
+      // this.ws.write = util.promisify(this.ws.write);
 
       this.ws.on('error', (err) => {
         this.destroy(this.junction.StorageError(err));
@@ -92,7 +92,7 @@ module.exports = exports = class JSONWriter extends StorageWriter {
       // write opening, if any
       if (this.formation.opening) {
         logger.debug("JSONWriter opening");
-        await this.ws.write(this.formation.opening);
+        this.ws.write(this.formation.opening);
       }
 
       callback();
