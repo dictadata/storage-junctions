@@ -1,5 +1,7 @@
 # CHANGELOG @dictadata/storage-junctions
 
+- version 0.9.122
+  - bug fix: don't use promisify on CSVWriter and JSONWriter stream.write()
 - version 0.9.121
   - enhancement: HttpFilesystem follow redirects
   - enhancement: CsvReader use encoding field names as headers
